@@ -1,0 +1,400 @@
+@import "tailwindcss";
+
+:root {
+  /* Google Core Colors */
+  --google-blue: #4285f4;
+  --google-green: #34a853;
+  --google-yellow: #f9ab00;
+  --google-red: #ea4335;
+
+  /* Google Halftones */
+  --halftone-blue: #57caff;
+  --halftone-green: #5cdb6d;
+  --halftone-yellow: #ffd427;
+  --halftone-red: #ff7daf;
+
+  /* Google Pastels */
+  --pastel-blue: #c3ecf6;
+  --pastel-green: #ccf6c5;
+  --pastel-yellow: #ffe7a5;
+  --pastel-red: #f8d8d8;
+
+  /* Grayscale & Theme */
+  --off-white: #f0f0f0;
+  --page-bg: #fafbfc;
+  --card-bg: #ffffff;
+  --black-02: #1e1e1e;
+  --text-primary: #1e1e1e;
+  --text-muted: #5f6368;
+  --border-light: #e5e7eb;
+}
+
+/* Force bright mode, prevent dark mode inversion */
+html {
+  color-scheme: light !important;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #ffe7a5;
+  color: #1e1e1e;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #4285f4;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ea4335;
+}
+
+/* ========================================================================= */
+/* AWWWARDS-STYLE SCROLL REVEAL & STAGGER ANIMATIONS                         */
+/* ========================================================================= */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px) scale(0.98);
+  filter: blur(4px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.reveal-from-left {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-from-left.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.reveal-from-right {
+  opacity: 0;
+  transform: translateX(40px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-from-right.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delay helpers */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* ========================================================================= */
+/* ROLL-UP TEXT ANIMATION (DEVFEST CHENNAI & AWWWARDS STYLE)                 */
+/* ========================================================================= */
+
+.roll-text-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.25em;
+  line-height: 1.25;
+}
+
+.roll-text-top {
+  display: block;
+  transform: translateY(0%);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.roll-text-bottom {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: block;
+  transform: translateY(0%);
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  pointer-events: none;
+}
+
+.group:hover .roll-text-top,
+a:hover .roll-text-top,
+button:hover .roll-text-top {
+  transform: translateY(-100%);
+}
+
+.group:hover .roll-text-bottom,
+a:hover .roll-text-bottom,
+button:hover .roll-text-bottom {
+  transform: translateY(-100%);
+}
+
+/* ========================================================================= */
+/* GLOW BUTTONS WITH DYNAMIC CORNERS (DEVFEST CHENNAI INSPIRED)             */
+/* ========================================================================= */
+
+.glow-btn {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px;
+  padding: 2.5px;
+  background: linear-gradient(135deg, #4285f4, #ea4335, #f9ab00, #34a853);
+  background-size: 250% 250%;
+  animation: rainbow-border 4s ease infinite;
+  box-shadow: 0 4px 14px -2px rgba(66, 133, 244, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px -4px rgba(66, 133, 244, 0.45);
+}
+
+.glow-btn:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.glow-btn__surface {
+  background: #ffffff;
+  border-radius: 9997px;
+  padding: 0.65rem 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #1e1e1e;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.2s ease;
+}
+
+.glow-btn:hover .glow-btn__surface {
+  background: #fafafa;
+}
+
+/* ========================================================================= */
+/* SPOTLIGHT CARDS & 3D TILT WITH MOUSE POSITION TRACKING                   */
+/* ========================================================================= */
+
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(66, 133, 244, 0.12),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Text Reveal Masking */
+.text-mask-reveal {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.text-mask-reveal > span {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-visible .text-mask-reveal > span {
+  transform: translateY(0%);
+}
+
+/* ========================================================================= */
+/* KEYFRAME ANIMATIONS & MARQUEES                                            */
+/* ========================================================================= */
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+
+@keyframes float-alt {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-3deg); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rainbow-border {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse-halo {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0.15; }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 26s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 30s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.animate-float {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-float-alt {
+  animation: float-alt 6.5s ease-in-out infinite;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+.animate-pulse-halo {
+  animation: pulse-halo 4s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* NEO-GOOGLE CARD SHADOWS & HOVER PHYSICS                                   */
+/* ========================================================================= */
+
+.google-card-shadow {
+  box-shadow: 0 6px 0 #1e1e1e;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.google-card-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 0 #1e1e1e;
+}
+
+.google-pill-shadow {
+  box-shadow: 0 3px 0 #1e1e1e;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.google-pill-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #1e1e1e;
+}
+
+.google-pill-shadow:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #1e1e1e;
+}
+
+/* Subtle dot grid background patterns */
+.bg-grid-pattern {
+  background-image: radial-gradient(#d1d5db 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-blue {
+  background-image: radial-gradient(rgba(66, 133, 244, 0.25) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Custom interactive magnetic cursor */
+.custom-cursor-dot {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
