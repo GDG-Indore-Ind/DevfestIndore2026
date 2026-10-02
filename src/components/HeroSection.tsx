@@ -238,7 +238,7 @@ export default function HeroSection() {
               {/* Generated Mascot Artwork with Zoom Hover */}
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-b from-[#fafafa] to-[#f0f0f0] border border-gray-200">
                 <Image
-                  src="/images/hero-mascot.jpg"
+                  src="/images/hero-mascot_2026.jpg"
                   alt="GDG DevFest Mascot & Tech Shapes"
                   fill
                   sizes="(max-width: 768px) 100vw, 450px"
@@ -251,10 +251,10 @@ export default function HeroSection() {
               <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
                 <div>
                   <h2 className="font-extrabold text-sm text-[#1e1e1e]">
-                    Official Tech Festival Mascot
+                    Devfest Indore 2026
                   </h2>
                   <p className="text-xs text-[#5f6368]">
-                    Brilliant Convention Centre • Nov 14
+                    Essentia Luxury Hotel Indore &nbsp; &nbsp;• Nov 20
                   </p>
                 </div>
                 <button
