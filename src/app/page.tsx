@@ -97,7 +97,7 @@ export default function Home() {
         {/* Sponsors, Google for Developers & Community Partners */}
         <SponsorsSection />
 
-        {/* Venue, Brilliant Convention Centre & Transit Guide */}
+        {/* Venue, Essentia Luxury Hotel Indore & Transit Guide */}
         <VenueSection />
 
         {/* Frequently Asked Questions Accordion */}

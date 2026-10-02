@@ -34,7 +34,7 @@ export default function SavedSessionsModal({
             <div>
               <h3 className="text-xl font-black text-[#1e1e1e]">My Saved Schedule</h3>
               <p className="text-xs text-[#5f6368]">
-                {savedList.length} session{savedList.length === 1 ? "" : "s"} bookmarked for Nov 14
+                {savedList.length} session{savedList.length === 1 ? "" : "s"} bookmarked for Nov 28
               </p>
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function SavedSessionsModal({
             </button>
 
             <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=DevFest+Indore+2026&dates=20261114T030000Z/20261114T130000Z&details=GDG+DevFest+Indore+2026+at+Brilliant+Convention+Centre&location=Brilliant+Convention+Centre+Indore"
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=DevFest+Indore+2026&dates=20261128T030000Z/20261128T130000Z&details=GDG+DevFest+Indore+2026+at+Essentia+Luxury+Hotel+Indore&location=Essentia+Luxury+Hotel+Indore+Pipliyahana"
               target="_blank"
               rel="noreferrer"
               className="px-5 py-2.5 rounded-xl bg-[#4285f4] text-white font-extrabold text-xs uppercase tracking-wider border-2 border-[#1e1e1e] google-pill-shadow hover:bg-[#3367d6] flex items-center gap-2"
