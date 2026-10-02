@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -23,9 +23,9 @@ export default function HeroSection() {
     seconds: 15,
   });
 
-  // Real-time countdown to DevFest Indore: Nov 14, 2026
+  // Real-time countdown to DevFest Indore: Nov 28, 2026
   useEffect(() => {
-    const targetDate = new Date("2026-11-14T08:30:00+05:30").getTime();
+    const targetDate = new Date("2026-11-28T08:30:00+05:30").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -86,20 +86,20 @@ export default function HeroSection() {
 
             {/* Tagline / Subtitle */}
             <p className="text-lg sm:text-xl text-[#1e1e1e]/85 font-medium max-w-2xl mb-6 leading-relaxed">
-              Central India&#39;s premier gathering of <strong>1,500+ builders</strong>, engineers, and creators.
-              Discover breakthroughs in <strong>GenAI, Cloud, Web, Android &amp; Open Source</strong> — right in the heart of
-              India&#39;s cleanest and most vibrant city!
+              Central India's premier gathering of <strong>1,500+ builders</strong>, engineers, and creators.
+              Discover breakthroughs in <strong>GenAI, Cloud, Web, Android & Open Source</strong> — right in the heart of
+              India's cleanest and most vibrant city!
             </p>
 
             {/* Event Key Facts Bar */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
               <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-[#1e1e1e] shadow-sm hover:translate-y-[-2px] transition-transform">
                 <Calendar className="w-4 h-4 text-[#4285f4]" />
-                <span>Saturday, Nov 14, 2026</span>
+                <span>Saturday, Nov 28, 2026</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-[#1e1e1e] shadow-sm hover:translate-y-[-2px] transition-transform">
                 <MapPin className="w-4 h-4 text-[#ea4335]" />
-                <span>Brilliant Convention Centre, Indore</span>
+                <span>Essentia Luxury Hotel Indore</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#ccf6c5] border border-[#5cdb6d] text-xs font-extrabold text-[#1e1e1e]">
                 <Flame className="w-4 h-4 text-[#34a853]" />
@@ -207,7 +207,7 @@ export default function HeroSection() {
 
             <div className="absolute top-1/4 -right-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#ccf6c5] border-2 border-[#1e1e1e] google-pill-shadow animate-float-alt hover:-rotate-6 cursor-pointer transition-transform">
               <span className="text-base">⚡</span>
-              <span className="text-xs font-extrabold text-[#1e1e1e]">GenAI &amp; Cloud Labs</span>
+              <span className="text-xs font-extrabold text-[#1e1e1e]">GenAI & Cloud Labs</span>
             </div>
 
             <div className="absolute -bottom-4 -left-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#c3ecf6] border-2 border-[#1e1e1e] google-pill-shadow animate-float hover:rotate-3 cursor-pointer transition-transform">
@@ -217,7 +217,7 @@ export default function HeroSection() {
 
             <div className="absolute -bottom-6 right-8 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#f8d8d8] border-2 border-[#1e1e1e] google-pill-shadow animate-float-alt hover:-rotate-3 cursor-pointer transition-transform">
               <span className="text-base">🍲</span>
-              <span className="text-xs font-extrabold text-[#ea4335]">Poha, Jalebi &amp; Code</span>
+              <span className="text-xs font-extrabold text-[#ea4335]">Poha, Jalebi & Code</span>
             </div>
 
             {/* Central Mascot 3D Tilt Card */}
@@ -254,7 +254,7 @@ export default function HeroSection() {
                     Official Tech Festival Mascot
                   </h2>
                   <p className="text-xs text-[#5f6368]">
-                    Brilliant Convention Centre • Nov 14
+                    Essentia Luxury Hotel Indore • Nov 28
                   </p>
                 </div>
                 <button

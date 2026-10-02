@@ -19,7 +19,7 @@ export default function MarqueeBanner() {
     { label: "1,500+ Builders & Engineers", color: "bg-[#4285f4] text-white border-[#1e1e1e]", icon: Rocket },
     { label: "28+ Global Speakers & GDEs", color: "bg-[#ea4335] text-white border-[#1e1e1e]", icon: Sparkles },
     { label: "Poha, Jalebi & Sarafa Food Culture", color: "bg-[#f9ab00] text-[#1e1e1e] border-[#1e1e1e]", icon: Heart },
-    { label: "Brilliant Convention Centre, Vijay Nagar", color: "bg-[#4285f4] text-white border-[#1e1e1e]", icon: Globe },
+    { label: "Essentia Luxury Hotel Indore, Pipliyahana", color: "bg-[#4285f4] text-white border-[#1e1e1e]", icon: Globe },
     { label: "Hands-on Codelabs & Cloud Credits", color: "bg-[#34a853] text-white border-[#1e1e1e]", icon: Terminal },
     { label: "₹2,50,000+ Hackathon & Bounties", color: "bg-[#ea4335] text-white border-[#1e1e1e]", icon: Trophy },
   ];

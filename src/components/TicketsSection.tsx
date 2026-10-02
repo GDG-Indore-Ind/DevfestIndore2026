@@ -395,7 +395,7 @@ export default function TicketsSection() {
                         PASS: IND-2026-CONF
                       </span>
                       <span className="block text-[10px] font-bold text-[#1e1e1e]">
-                        Brilliant Convention Centre
+                        Essentia Luxury Hotel Indore
                       </span>
                     </div>
                     <QrCode className="w-8 h-8 text-[#1e1e1e]" />
