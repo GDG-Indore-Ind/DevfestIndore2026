@@ -28,7 +28,7 @@ export default function IndoreExperienceSection() {
         </div>
 
         {/* 4 Cards Grid with 3D Tilt and Scroll Reveal */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {INDORE_HIGHLIGHTS.map((item, idx) => {
             const Icon = iconList[idx] || Trophy;
             const bgClass =
@@ -85,12 +85,38 @@ export default function IndoreExperienceSection() {
           })}
         </div>
 
+        {/* Extra Card: Pre-DevFest Hands-on Series Workshops — full width */}
+        <div className="reveal-on-scroll mb-16" style={{ transitionDelay: "480ms" }}>
+          <CardTilt className="p-6 sm:p-8 rounded-3xl border-3 border-[#1e1e1e] google-card-shadow flex flex-col justify-between bg-[#c3ecf6]/50 border-[#57caff]">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-4xl animate-float-subtle">💻</span>
+                <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border border-[#1e1e1e] bg-[#4285f4] text-white">
+                  Pre-DevFest Workshop
+                </span>
+              </div>
+              <h3 className="text-2xl font-black text-[#1e1e1e] mb-2">
+                Pre-DevFest Hands-on Series Workshops
+              </h3>
+              <p className="text-sm font-medium text-[#1e1e1e]/80 leading-relaxed">
+                Pre-DevFest Hands-on Series Workshops were a set of interactive, practical learning sessions conducted before DevFest to help participants gain real-world experience with modern technologies, tools, and development practices. These workshops enabled attendees to build, experiment, and strengthen their technical skills, ensuring they were well-prepared to maximize learning and engagement during the main DevFest event.
+              </p>
+            </div>
+            <div className="pt-4 mt-6 border-t border-[#1e1e1e]/15 flex items-center justify-between text-xs font-bold text-[#1e1e1e]">
+              <span className="flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Indore, Madhya Pradesh
+              </span>
+              <span className="text-[#5f6368]">Indore Community Pride</span>
+            </div>
+          </CardTilt>
+        </div>
+
         {/* Fun Local Culture Badges Strip with Scroll Reveal */}
         <div className="bg-white p-6 rounded-3xl border-2 border-[#1e1e1e] google-pill-shadow flex flex-wrap items-center justify-around gap-4 text-center reveal-on-scroll">
           <div className="flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
             <span className="text-2xl">🥣</span>
             <div className="text-left">
-              <span className="block text-xs font-black text-[#1e1e1e]">Indori Poha &amp; Jalebi</span>
+              <span className="block text-xs font-black text-[#1e1e1e]">Indori Poha & Jalebi</span>
               <span className="block text-[11px] text-[#5f6368]">Served hot at morning check-in</span>
             </div>
           </div>
@@ -105,7 +131,7 @@ export default function IndoreExperienceSection() {
             <span className="text-2xl">🧹</span>
             <div className="text-left">
               <span className="block text-xs font-black text-[#1e1e1e]">Zero Litter Conference</span>
-              <span className="block text-[11px] text-[#5f6368]">Eco-friendly &amp; 100% segregated</span>
+              <span className="block text-[11px] text-[#5f6368]">Eco-friendly & 100% segregated</span>
             </div>
           </div>
           <div className="flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">

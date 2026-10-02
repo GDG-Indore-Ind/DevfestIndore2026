@@ -23,8 +23,9 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
   const navLinks = [
     { name: "About", href: "#about" },
-    { name: "Agenda", href: "#agenda" },
-    { name: "Speakers", href: "#speakers" },
+    { name: "Satellite Events", href: "#satellite-events" },
+    // { name: "Agenda", href: "#agenda" },
+    // { name: "Speakers", href: "#speakers" },
     { name: "Tickets", href: "#tickets" },
     { name: "Badge Maker", href: "#badge-generator" },
     { name: "Indore Spirit", href: "#indore-vibe" },
@@ -70,7 +71,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               <span className="text-[11px] font-semibold text-[#5f6368] -mt-0.5 flex items-center gap-1">
                 <span>DevFest</span>
                 <span className="w-1 h-1 rounded-full bg-[#34a853]" />
-                <span className="text-[#34a853]">Nov 14</span>
+                <span className="text-[#34a853]">Nov 28</span>
               </span>
             </div>
           </Link>
@@ -132,10 +133,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between pb-3 mb-2 border-b border-gray-100">
                 <span className="text-xs font-bold text-[#5f6368] flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Brilliant Convention Centre, Indore
+                  <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel Indore
                 </span>
                 <span className="text-xs font-bold text-[#34a853] bg-[#ccf6c5] px-2 py-0.5 rounded-full">
-                  Nov 14, 2026
+                  Nov 28, 2026
                 </span>
               </div>
 

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://devfest.gdgindore.in"),
   title: "GDG DevFest Indore 2026 | Central India's Biggest Tech Festival",
   description:
-    "GDG Indore presents DevFest Indore 2026. A 1-day mega tech extravaganza featuring GenAI, Cloud, Web, Mobile, Open Source, hands-on codelabs, networking, and celebration at Brilliant Convention Centre, Indore.",
+    "GDG Indore presents DevFest Indore 2026. A 1-day mega tech extravaganza featuring GenAI, Cloud, Web, Mobile, Open Source, hands-on codelabs, networking, and celebration at Essentia Luxury Hotel Indore.",
   keywords: [
     "DevFest Indore",
     "GDG Indore",
