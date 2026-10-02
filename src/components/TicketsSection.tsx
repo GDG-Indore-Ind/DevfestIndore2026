@@ -415,22 +415,34 @@ export default function TicketsSection() {
         </div>
       </div>
 
-      {/* Checkout Modal Simulation */}
+      {/* Existing Registration Checkout Window Reused with KonfHub Widget */}
       {selectedTier && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-white max-w-md w-full rounded-3xl p-6 sm:p-8 border-3 border-[#1e1e1e] google-card-shadow relative">
+        <div
+          onClick={() => setSelectedTier(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150 overflow-y-auto"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border-3 border-[#1e1e1e] google-card-shadow relative my-auto"
+          >
             <button
               onClick={() => setSelectedTier(null)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#f0f0f0] border border-gray-300 font-bold text-sm hover:bg-[#e5e7eb] flex items-center justify-center cursor-pointer"
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-[#f0f0f0] border border-gray-300 font-bold text-sm hover:bg-[#e5e7eb] flex items-center justify-center cursor-pointer"
+              aria-label="Close modal"
             >
               ✕
             </button>
 
             {!bookingSuccess ? (
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ccf6c5] border border-[#5cdb6d] text-xs font-black text-[#1e1e1e] mb-3">
-                  <Ticket className="w-3.5 h-3.5 text-[#34a853]" />
-                  <span>Registration Checkout</span>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pr-8">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ccf6c5] border border-[#5cdb6d] text-xs font-black text-[#1e1e1e]">
+                    <Ticket className="w-3.5 h-3.5 text-[#34a853]" />
+                    <span>Registration Checkout</span>
+                  </div>
+                  <span className="text-xs font-extrabold text-[#34a853] bg-[#ccf6c5] px-2.5 py-1 rounded-full border border-[#5cdb6d]">
+                    {selectedTier.name} • ₹{selectedTier.price}
+                  </span>
                 </div>
 
                 <h3 className="text-2xl font-black text-[#1e1e1e] mb-1">
@@ -438,46 +450,18 @@ export default function TicketsSection() {
                 </h3>
                 <p className="text-xs text-[#5f6368] mb-4">{selectedTier.description}</p>
 
-                <div className="p-4 rounded-2xl bg-[#fafbfc] border border-gray-200 mb-5">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-bold text-[#5f6368]">Pass Price:</span>
-                    <span className="text-lg font-black text-[#1e1e1e]">₹{selectedTier.price}</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-xs font-bold text-[#5f6368]">Breakfast &amp; Lunch:</span>
-                    <span className="text-xs font-bold text-[#34a853]">Included (₹0)</span>
-                  </div>
-                  <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-                    <span className="text-sm font-extrabold text-[#1e1e1e]">Total Payable:</span>
-                    <span className="text-xl font-black text-[#4285f4]">₹{selectedTier.price}</span>
-                  </div>
+                {/* KonfHub Event Widget replacing old registration form */}
+                <div className="w-full rounded-2xl overflow-hidden border-2 border-[#1e1e1e]">
+                  <iframe
+                    src="https://konfhub.com/widget/id/9ed5736d-0044-4e00-a5e3-76f0b58e4fe6"
+                    id="konfhub-widget"
+                    title="Register for GDG DevFest Indore 2026"
+                    width="100%"
+                    height="500"
+                    allow="payment"
+                    className="w-full border-0 rounded-2xl"
+                  />
                 </div>
-
-                <div className="space-y-3 mb-6">
-                  <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Full Name</label>
-                    <input
-                      type="text"
-                      defaultValue={attendeeName}
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-bold text-[#1e1e1e]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="your.email@example.com"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-bold text-[#1e1e1e]"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleConfirmBooking}
-                  className="w-full py-3.5 rounded-xl bg-[#34a853] text-white font-extrabold text-xs uppercase tracking-wider border-2 border-[#1e1e1e] google-pill-shadow hover:bg-[#2d9247] cursor-pointer"
-                >
-                  Confirm &amp; Proceed to Pay ₹{selectedTier.price}
-                </button>
               </div>
             ) : (
               <div className="text-center py-4">
