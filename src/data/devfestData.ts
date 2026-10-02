@@ -585,3 +585,158 @@ export const FAQS = [
     answer: "Yes, ticket transfers are allowed up to 72 hours before the event date by contacting our support team at organizers@gdgindore.in with your booking reference.",
   },
 ];
+
+export interface SatelliteEvent {
+  id: string;
+  day: string;
+  dateShort: string;
+  dayShort: string;
+  time: string;
+  title: string;
+  category:
+    | "Founders Table"
+    | "HR Meetup"
+    | "Influencers Meetup"
+    | "Startup Pitch Day"
+    | "Early Startup Showcase"
+    | "Hands-on Series Workshops";
+  host: string;
+  hostBadge: string;
+  description: string;
+  location: string;
+  venue: string;
+  capacity: string;
+  accessType: "Open RSVP" | "Curated / Invite Only" | "Free Registration" | "Applications Open";
+  color: "blue" | "green" | "yellow" | "red";
+  perks: string[];
+}
+
+export const SATELLITE_EVENTS: SatelliteEvent[] = [
+  {
+    id: "sat-1",
+    day: "Wednesday, November 11, 2026",
+    dateShort: "NOV 11",
+    dayShort: "WED",
+    time: "7:00 PM – 10:00 PM",
+    title: "The Founders Table: Closed-Door Tech Dinner & Scaling Roundtable",
+    category: "Founders Table",
+    host: "Indore Tech Tribe & Super Corridor Founders Network",
+    hostBadge: "Venture & Founders",
+    description: "An intimate, closed-door dinner convening 25+ funded and high-growth bootstrapped founders from Central India. Candid discussions on crossing 0 to 10M ARR, enterprise AI adoption, and navigating international fundraising from Indore.",
+    location: "Vijay Nagar, Indore",
+    venue: "The Grand Malwa Club, Private Dining Suite",
+    capacity: "Curated (25 Seats Only)",
+    accessType: "Curated / Invite Only",
+    color: "yellow",
+    perks: ["Gourmet 4-Course Dinner", "Unfiltered Peer Benchmarks", "Direct Investor Connections"],
+  },
+  {
+    id: "sat-2",
+    day: "Thursday, November 12, 2026",
+    dateShort: "NOV 12",
+    dayShort: "THU",
+    time: "10:00 AM – 1:30 PM",
+    title: "Central India Tech Talent & HR Meetup: Hiring in the AI Era",
+    category: "HR Meetup",
+    host: "Central India People & Culture Guild",
+    hostBadge: "People & Talent",
+    description: "CHROs, Talent Acquisition leaders, and Engineering Hiring Managers assemble to tackle regional compensation benchmarks, remote/hybrid engineering culture, retention strategies, and building world-class AI engineering teams from Tier-2 tech hubs.",
+    location: "Ring Road, Indore",
+    venue: "Crystal IT Park Auditorium, Tower B",
+    capacity: "Open RSVP (100 Leaders)",
+    accessType: "Open RSVP",
+    color: "blue",
+    perks: ["Central India Salary Benchmark Report", "Networking High Tea", "Talent Sourcing Playbook"],
+  },
+  {
+    id: "sat-3",
+    day: "Thursday, November 12, 2026",
+    dateShort: "NOV 12",
+    dayShort: "THU",
+    time: "2:30 PM – 6:30 PM",
+    title: "Hands-on Series: Building Autonomous Multi-Agent AI with Gemini 2.5",
+    category: "Hands-on Series Workshops",
+    host: "GDG Cloud Indore & Google Developer Experts",
+    hostBadge: "GenAI Masterclass",
+    description: "An intensive 4-hour live coding masterclass. Build multi-agent reasoning chains, tool execution pipelines, and guardrailed workflows with Gemini 2.5, LangGraph, and Vertex AI. Bring your laptop; sandbox cloud credits provided.",
+    location: "AB Road, Indore",
+    venue: "Medi-Caps University Advanced AI Innovation Hub",
+    capacity: "Hands-on Lab (70 Developers)",
+    accessType: "Free Registration",
+    color: "green",
+    perks: ["$200 Google Cloud Sandbox Credits", "Verified Masterclass Badge", "Production Code Repos"],
+  },
+  {
+    id: "sat-4",
+    day: "Friday, November 13, 2026",
+    dateShort: "NOV 13",
+    dayShort: "FRI",
+    time: "11:00 AM – 2:30 PM",
+    title: "Tech Creators & Influencers Meetup: Storytelling in Engineering",
+    category: "Influencers Meetup",
+    host: "Creator Collab & Developer Advocates Guild",
+    hostBadge: "Tech Media & Creators",
+    description: "Tech YouTubers, podcasters, developer educators, and open-source influencers gather to exchange insights on building genuine tech audiences, translating complex engineering into viral breakdowns, and ethical sponsor collaborations.",
+    location: "56 Dukan Area, Indore",
+    venue: "Chappan Creative Lounge & Studio",
+    capacity: "Creator RSVP (40 Creators)",
+    accessType: "Curated / Invite Only",
+    color: "red",
+    perks: ["Studio Podcasting Booth", "Indori Brunch Spread", "Speaker & Brand Matchmaking"],
+  },
+  {
+    id: "sat-5",
+    day: "Friday, November 13, 2026",
+    dateShort: "NOV 13",
+    dayShort: "FRI",
+    time: "2:30 PM – 6:30 PM",
+    title: "Early Stage Startup Showcase: Central India Innovation Expo",
+    category: "Early Startup Showcase",
+    host: "TiE Indore & IIT Indore Incubation Cell",
+    hostBadge: "Innovation Pavilion",
+    description: "30 curated early-stage startups from Madhya Pradesh and Central India showcase live interactive software demos, hardware prototypes, SaaS products, and AI solutions to early adopters, enterprise buyers, and media representatives.",
+    location: "Vijay Nagar, Indore",
+    venue: "Brilliant Convention Centre (Pre-DevFest Expo Arena)",
+    capacity: "Open Expo (500+ Attendees)",
+    accessType: "Open RSVP",
+    color: "blue",
+    perks: ["Live Product Demo Pods", "Beta User Signups", "Enterprise Pilot Opportunities"],
+  },
+  {
+    id: "sat-6",
+    day: "Friday, November 13, 2026",
+    dateShort: "NOV 13",
+    dayShort: "FRI",
+    time: "5:00 PM – 8:30 PM",
+    title: "DevFest Startup Pitch Day: ₹25 Lakhs Investor Pitchathon & Grants",
+    category: "Startup Pitch Day",
+    host: "Malwa Angel Network & Google for Startups",
+    hostBadge: "Pitchathon & Bounties",
+    description: "10 selected startup finalists take the stage to pitch live before prominent Angel Investors, VC Partners, and ecosystem leaders. Compete for ₹25,00,000 in equity-free grants, fast-track seed syndicate evaluations, and incubation credits.",
+    location: "Vijay Nagar, Indore",
+    venue: "Brilliant Convention Centre (Main Grand Stage)",
+    capacity: "Audience & Pitch (300 Attendees)",
+    accessType: "Applications Open",
+    color: "yellow",
+    perks: ["₹25 Lakhs Equity-Free Prize Pool", "VC Term Sheet Opportunities", "Google for Startups Cloud Perks"],
+  },
+  {
+    id: "sat-7",
+    day: "Friday, November 13, 2026",
+    dateShort: "NOV 13",
+    dayShort: "FRI",
+    time: "3:00 PM – 6:00 PM",
+    title: "Hands-on Series: High-Performance Flutter 3.24 & Impeller Architecture",
+    category: "Hands-on Series Workshops",
+    host: "Women Techmakers Indore & Mobile Guild",
+    hostBadge: "Mobile Engineering",
+    description: "Step-by-step technical workshop optimizing Flutter rendering on iOS & Android using the new Impeller graphics engine, multi-isolate concurrency, offline data caching, and native platform channels.",
+    location: "Vallabh Nagar, Indore",
+    venue: "SGSITS Tech Auditorium Lab 4",
+    capacity: "Limited Lab (60 Mobile Engineers)",
+    accessType: "Free Registration",
+    color: "green",
+    perks: ["Live Code Reviews", "Performance Profiling Cheat-sheet", "Swag Packs"],
+  },
+];
+

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
+import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 import ScheduleSection from "@/components/ScheduleSection";
 import SpeakersSection from "@/components/SpeakersSection";
 import TicketsSection from "@/components/TicketsSection";
@@ -74,6 +75,9 @@ export default function Home() {
 
         {/* About DevFest Indore & Indore Cultural Tech Spirit */}
         <AboutSection />
+
+        {/* Pre-DevFest Satellite Events & City Activations (Mumbai Tech Week Style) */}
+        <SatelliteEventsSection />
 
         {/* Schedule & Agenda with Track Filtering and Bookmarking */}
         <ScheduleSection
