@@ -25,7 +25,7 @@ export default function HeroSection() {
 
   // Real-time countdown to DevFest Indore: Nov 14, 2026
   useEffect(() => {
-    const targetDate = new Date("2026-11-14T08:30:00+05:30").getTime();
+    const targetDate = new Date("2026-11-28T08:30:00+05:30").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
