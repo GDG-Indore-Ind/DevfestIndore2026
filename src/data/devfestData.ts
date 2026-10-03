@@ -57,7 +57,7 @@ export const EVENT_DETAILS = {
   registrationUrl: "#tickets",
   cfpUrl: "https://sessionize.com/devfest-indore-2026",
   volunteerUrl: "https://forms.gle/gdgindore2026volunteer",
-  contactEmail: "organizers@gdgindore.in",
+  contactEmail: "gdgindore@gmail.com",
 };
 
 export const EVENT_STATS = [
