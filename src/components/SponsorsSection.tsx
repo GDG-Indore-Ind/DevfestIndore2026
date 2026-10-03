@@ -97,18 +97,23 @@ export default function SponsorsSection() {
               Collaborating Community &amp; Campus Chapters
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {SPONSORS.communityPartners.map((partner, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-xl bg-white border border-gray-300 flex items-center justify-between hover:border-[#1e1e1e] hover:scale-[1.02] transition-all"
+                className="p-5 rounded-xl bg-white border border-gray-300 flex flex-col items-center gap-3 hover:border-[#1e1e1e] hover:scale-[1.02] transition-all text-center"
               >
+                <img
+                  src={partner.icon}
+                  alt={partner.name}
+                  className="h-12 w-auto object-contain"
+                />
                 <div>
                   <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
                 </div>
                 <div>
                   <span className="block text-xs font-extrabold text-[#1e1e1e]">{partner.name}</span>
-                  <span className="block text-[10px] text-[#5f6368] font-medium">{partner.type}</span>
+                  <span className="block text-[10px] text-[#5f6368] font-medium mt-0.5">{partner.type}</span>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-[#34a853]" />
               </div>
