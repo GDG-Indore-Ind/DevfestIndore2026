@@ -57,7 +57,7 @@ export const EVENT_DETAILS = {
   registrationUrl: "#tickets",
   cfpUrl: "https://sessionize.com/devfest-indore-2026",
   volunteerUrl: "https://forms.gle/gdgindore2026volunteer",
-  contactEmail: "organizers@gdgindore.in",
+  contactEmail: "gdgindore@gmail.com",
 };
 
 export const EVENT_STATS = [
@@ -516,15 +516,16 @@ export const SPONSORS = {
     { name: "JetBrains", tier: "Gold", badge: "Essential Tools for Developers", color: "yellow" },
   ],
   communityPartners: [
-    { name: "Women Techmakers Indore", type: "Diversity Partner" },
-    { name: "GDG Cloud Indore", type: "Ecosystem Partner" },
-    { name: "GDG Bhopal", type: "Regional Chapter" },
-    { name: "GDG Pune", type: "Sister Chapter" },
-    { name: "GDG Noida", type: "Sister Chapter" },
-    { name: "GDSC SGSITS Indore", type: "Campus Partner" },
-    { name: "GDSC IET DAVV", type: "Campus Partner" },
-    { name: "GDSC Medicaps", type: "Campus Partner" },
-    { name: "Indore Tech Tribe", type: "Startup Community" },
+    { name: "Women Techmakers Indore", type: "Diversity Partner", icon: "" },
+    { name: "GDG Cloud Indore", type: "Ecosystem Partner", icon: "" },
+    { name: "Machine Learning Indore", type: "Ecosystem Partner", icon: "" },
+    // { name: "GDG Bhopal", type: "Regional Chapter" },
+    // { name: "GDG Pune", type: "Sister Chapter" },
+    // { name: "GDG Noida", type: "Sister Chapter" },
+    // { name: "GDSC SGSITS Indore", type: "Campus Partner" },
+    // { name: "GDSC IET DAVV", type: "Campus Partner" },
+    // { name: "GDSC Medicaps", type: "Campus Partner" },
+    // { name: "Indore Tech Tribe", type: "Startup Community" },
   ],
 };
 
@@ -594,12 +595,12 @@ export interface SatelliteEvent {
   time: string;
   title: string;
   category:
-    | "Founders Table"
-    | "HR Meetup"
-    | "Influencers Meetup"
-    | "Startup Pitch Day"
-    | "Early Startup Showcase"
-    | "Hands-on Series Workshops";
+  | "Founders Table"
+  | "HR Meetup"
+  | "Influencers Meetup"
+  | "Startup Pitch Day"
+  | "Early Startup Showcase"
+  | "Hands-on Series Workshops";
   host: string;
   hostBadge: string;
   description: string;

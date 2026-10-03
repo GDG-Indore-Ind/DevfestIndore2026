@@ -71,7 +71,7 @@ export default function SponsorsSection() {
         </div>
 
         {/* Gold Sponsors with Scroll Reveal */}
-        <div className="mb-14 reveal-on-scroll">
+        {/* <div className="mb-14 reveal-on-scroll">
           <div className="text-center mb-6">
             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-gray-100 text-[#1e1e1e] border border-gray-300">
               Gold &amp; Tooling Partners
@@ -88,7 +88,7 @@ export default function SponsorsSection() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Community Partners Grid with Scroll Reveal */}
         <div className="mb-16 reveal-on-scroll">
@@ -103,6 +103,9 @@ export default function SponsorsSection() {
                 key={idx}
                 className="p-4 rounded-xl bg-white border border-gray-300 flex items-center justify-between hover:border-[#1e1e1e] hover:scale-[1.02] transition-all"
               >
+                <div>
+                  <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
+                </div>
                 <div>
                   <span className="block text-xs font-extrabold text-[#1e1e1e]">{partner.name}</span>
                   <span className="block text-[10px] text-[#5f6368] font-medium">{partner.type}</span>
