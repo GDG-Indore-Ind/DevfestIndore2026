@@ -6,7 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
-import ScheduleSection from "@/components/ScheduleSection";
+// import ScheduleSection from "@/components/ScheduleSection";
 import SpeakersSection from "@/components/SpeakersSection";
 import TicketsSection from "@/components/TicketsSection";
 import IndoreExperienceSection from "@/components/IndoreExperienceSection";
@@ -80,10 +80,10 @@ export default function Home() {
         <SatelliteEventsSection />
 
         {/* Schedule & Agenda with Track Filtering and Bookmarking */}
-        <ScheduleSection
+        {/* <ScheduleSection
           savedSessionIds={savedSessionIds}
           onToggleSaveSession={handleToggleSaveSession}
-        />
+        /> */}
 
         {/* Featured Speakers Grid with 3D Tilt & Bio Modals */}
         <SpeakersSection />
