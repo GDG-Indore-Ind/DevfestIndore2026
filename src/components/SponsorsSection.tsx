@@ -109,6 +109,9 @@ export default function SponsorsSection() {
                   className="h-12 w-auto object-contain"
                 />
                 <div>
+                  <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
+                </div>
+                <div>
                   <span className="block text-xs font-extrabold text-[#1e1e1e]">{partner.name}</span>
                   <span className="block text-[10px] text-[#5f6368] font-medium mt-0.5">{partner.type}</span>
                 </div>

@@ -623,11 +623,7 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     category: "Founders Table",
     host: "Indore Tech Tribe & Super Corridor Founders Network",
     hostBadge: "Venture & Founders",
-<<<<<<< Updated upstream
     description: "An intimate, closed-door dinner convening 25+ funded and high-growth bootstrapped founders from Central India. Candid discussions on crossing 0 to 10M ARR, enterprise AI adoption, and navigating international fundraising from Indore.",
-=======
-    description: "Founder RoundTable by GDG Indore is a curated, closed-room meetup bringing together a group of founders, co-founders, entrepreneurs & startup builders for candid conversations around the realities of building and scaling a business. This isn't another event filled with pitches and back-to-back panels.",
->>>>>>> Stashed changes
     location: "Pipliyahana, Ring Road, Indore",
     venue: "The Grand Malwa Club, Private Dining Suite",
     capacity: "Curated (25 Seats Only)",
@@ -690,7 +686,6 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     perks: ["Studio Podcasting Booth", "Indori Brunch Spread", "Speaker & Brand Matchmaking"],
   },
   {
-<<<<<<< Updated upstream
     id: "sat-5",
     day: "Friday, November 13, 2026",
     dateShort: "NOV 13",
@@ -709,8 +704,6 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     perks: ["Live Product Demo Pods", "Beta User Signups", "Enterprise Pilot Opportunities"],
   },
   {
-=======
->>>>>>> Stashed changes
     id: "sat-6",
     day: "Saturday, October 24, 2026",
     dateShort: "OCT 24",
@@ -720,11 +713,7 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     category: "Startup Pitch Day",
     host: "Malwa Angel Network & Google for Startups",
     hostBadge: "Pitchathon & Bounties",
-<<<<<<< Updated upstream
     description: "10 selected startup finalists take the stage to pitch live before prominent Angel Investors, VC Partners, and ecosystem leaders. Compete for ₹25,00,000 in equity-free grants, fast-track seed syndicate evaluations, and incubation credits.",
-=======
-    description: "Startup Pitch Day brings founders, entrepreneurs, investors, mentors, and startup enthusiasts together for focused pitches, meaningful feedback, and valuable connections. Pitch your idea. Discover what\'s being built. Meet the people shaping the startup ecosystem.",
->>>>>>> Stashed changes
     location: "Pipliyahana, Ring Road, Indore",
     venue: "Essentia Luxury Hotel Indore (Main Grand Stage)",
     capacity: "Audience & Pitch (300 Attendees)",

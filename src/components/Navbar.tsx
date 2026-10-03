@@ -21,22 +21,16 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "About", href: "#about" },
-<<<<<<< Updated upstream
-=======
-    { name: "Satellite Events", href: "#satellite-events" },
-    // { name: "Agenda", href: "#agenda" },
-    // { name: "Speakers", href: "#speakers" },
->>>>>>> Stashed changes
-    { name: "Tickets", href: "#tickets" },
-    { name: "Badge Maker", href: "#badge-generator" },
-    { name: "Indore Spirit", href: "#indore-vibe" },
-    { name: "Sponsors", href: "#sponsors" },
-    { name: "Venue", href: "#venue" },
-    { name: "FAQ", href: "#faq" },
-  ];
-
+const navLinks = [
+  { name: "About", href: "#about" },
+  { name: "Tickets", href: "#tickets" },
+  { name: "Badge Maker", href: "#badge-generator" },
+  { name: "Indore Spirit", href: "#indore-vibe" },
+  { name: "Sponsors", href: "#sponsors" },
+  { name: "Venue", href: "#venue" },
+  { name: "FAQ", href: "#faq" },
+];
+  
   return (
     <>
       {/* Top Google 4-Color Accent Band */}
