@@ -63,6 +63,18 @@ body {
   background: #ea4335;
 }
 
+/* Hide scrollbar only in Registration Checkout modal */
+.checkout-modal-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.checkout-modal-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 /* ========================================================================= */
 /* AWWWARDS-STYLE SCROLL REVEAL & STAGGER ANIMATIONS                         */
 /* ========================================================================= */

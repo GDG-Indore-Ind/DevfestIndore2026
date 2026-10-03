@@ -23,6 +23,12 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
   const navLinks = [
     { name: "About", href: "#about" },
+<<<<<<< Updated upstream
+=======
+    { name: "Satellite Events", href: "#satellite-events" },
+    // { name: "Agenda", href: "#agenda" },
+    // { name: "Speakers", href: "#speakers" },
+>>>>>>> Stashed changes
     { name: "Tickets", href: "#tickets" },
     { name: "Badge Maker", href: "#badge-generator" },
     { name: "Indore Spirit", href: "#indore-vibe" },

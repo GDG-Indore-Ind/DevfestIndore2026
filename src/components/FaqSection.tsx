@@ -79,7 +79,7 @@ export default function FaqSection() {
           </div>
           <div className="flex items-center gap-3">
             <a
-              href="mailto:organizers@gdgindore.in"
+              href="mailto:gdgindore@gmail.com"
               className="px-5 py-2.5 rounded-xl bg-[#1e1e1e] text-white text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-black hover:scale-105 transition-all cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
@@ -87,7 +87,7 @@ export default function FaqSection() {
             </a>
           </div>
         </CardTilt>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

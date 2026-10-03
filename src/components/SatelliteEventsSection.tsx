@@ -9,10 +9,6 @@ import {
   Sparkles,
   Users,
   CheckCircle,
-  ExternalLink,
-  Zap,
-  Building,
-  ArrowRight,
   Filter,
   Check,
 } from "lucide-react";
@@ -32,7 +28,6 @@ export default function SatelliteEventsSection() {
     "HR Meetup",
     "Influencers Meetup",
     "Startup Pitch Day",
-    "Early Startup Showcase",
     "Hands-on Series Workshops",
   ];
 
@@ -125,7 +120,7 @@ export default function SatelliteEventsSection() {
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-[#1e1e1e] tracking-tight leading-tight">
-            Satellite Events &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">Community Activations</span>
+            Satellite Events &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">- Pre devfest Events Oct-November</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-[#5f6368] font-medium leading-relaxed">
@@ -166,6 +161,7 @@ export default function SatelliteEventsSection() {
         <div className="space-y-12">
           {Object.entries(groupedEvents).map(([dayTitle, events], groupIdx) => {
             const firstEvent = events[0];
+            const isHandsOnGroup = events.some((e) => e.category === "Hands-on Series Workshops");
             const dateBadgeColor =
               groupIdx === 0
                 ? "bg-[#ffd427] text-black"
@@ -174,23 +170,41 @@ export default function SatelliteEventsSection() {
                 : "bg-[#ff7daf] text-black";
 
             return (
-              <div key={dayTitle} className="reveal-on-scroll">
+              <div key={dayTitle} className="transition-all duration-300">
                 {/* Date Banner Header (Mumbai Tech Week style slab) */}
                 <div
                   className={`flex flex-wrap items-center justify-between gap-3 px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl border-3 border-[#1e1e1e] google-pill-shadow mb-4 ${dateBadgeColor}`}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <span className="font-mono text-xs sm:text-sm font-black uppercase tracking-widest px-2.5 py-0.5 rounded-lg bg-black text-white">
-                      {firstEvent.dayShort}
-                    </span>
-                    <span className="text-xl sm:text-2xl font-black tracking-tight">
-                      {firstEvent.dateShort}
-                    </span>
-                    <span className="hidden sm:inline-block w-px h-6 bg-black/30" />
-                    <span className="text-xs sm:text-sm font-bold text-black/80">
-                      {dayTitle}
-                    </span>
-                  </div>
+                  {/* Left side: date range for Hands-on, otherwise normal day/date */}
+                  {isHandsOnGroup ? (
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="flex items-center gap-1.5 bg-black text-[#ffd427] rounded-xl border-2 border-black px-3 py-1.5 shadow-[2px_2px_0px_rgba(255,212,39,0.5)]">
+                        <Calendar className="w-4 h-4 shrink-0" />
+                        <div className="flex items-center gap-1.5 text-[12px] font-black tracking-tight">
+                          <span className="bg-[#ffd427] text-black px-2 py-0.5 rounded-md font-black">10 SEP</span>
+                          <span className="text-[#ffd427] text-lg leading-none">→</span>
+                          <span className="bg-[#ffd427] text-black px-2 py-0.5 rounded-md font-black">25 OCT</span>
+                          <span className="text-[#ffd427]/80 font-bold ml-0.5">2026</span>
+                        </div>
+                      </div>
+                      <span className="text-xs sm:text-sm font-bold text-black/70 hidden sm:inline">
+                        Hands-on Series Workshops
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <span className="font-mono text-xs sm:text-sm font-black uppercase tracking-widest px-2.5 py-0.5 rounded-lg bg-black text-white">
+                        {firstEvent.dayShort}
+                      </span>
+                      <span className="text-xl sm:text-2xl font-black tracking-tight">
+                        {firstEvent.dateShort}
+                      </span>
+                      <span className="hidden sm:inline-block w-px h-6 bg-black/30" />
+                      <span className="text-xs sm:text-sm font-bold text-black/80">
+                        {dayTitle}
+                      </span>
+                    </div>
+                  )}
 
                   <span className="text-xs font-black uppercase tracking-wider bg-white/80 border border-black/30 px-3 py-1 rounded-full">
                     {events.length} Activation{events.length > 1 ? "s" : ""}
@@ -297,34 +311,7 @@ export default function SatelliteEventsSection() {
           })}
         </div>
 
-        {/* "Host a Satellite Event" Banner (Mumbai Tech Week Pattern) */}
-        <CardTilt className="mt-16 p-8 sm:p-10 rounded-3xl bg-[#ffe7a5]/40 border-3 border-[#1e1e1e] google-card-shadow flex flex-col lg:flex-row items-center justify-between gap-6 reveal-on-scroll">
-          <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-2xl bg-[#ffd427] border-2 border-[#1e1e1e] flex items-center justify-center shrink-0 animate-bounce">
-              <Zap className="w-8 h-8 text-[#1e1e1e]" />
-            </div>
-            <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#ccf6c5] border border-[#5cdb6d] text-[11px] font-black text-[#1e1e1e] mb-1.5">
-                <span>⚡ Community Side Programme</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black text-[#1e1e1e]">
-                Want to Host an Official Satellite Activation?
-              </h3>
-              <p className="text-xs sm:text-sm font-medium text-[#5f6368] mt-1 max-w-xl">
-                Are you a startup, co-working space, venture fund, or developer guild in Indore?
-                Host a curated mixer, breakfast round table, or hack session officially listed on the DevFest Indore schedule.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href="mailto:organizers@gdgindore.in?subject=Proposal%20to%20Host%20DevFest%20Indore%20Satellite%20Event"
-            className="shrink-0 px-8 py-3.5 rounded-2xl bg-[#1e1e1e] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-black hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <span>Propose an Activation</span>
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        </CardTilt>
+        {/* "Host a Satellite Event" Banner — hidden */}
       </div>
 
       {/* RSVP Modal Dialog */}

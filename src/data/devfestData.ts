@@ -57,7 +57,7 @@ export const EVENT_DETAILS = {
   registrationUrl: "#tickets",
   cfpUrl: "https://sessionize.com/devfest-indore-2026",
   volunteerUrl: "https://forms.gle/gdgindore2026volunteer",
-  contactEmail: "organizers@gdgindore.in",
+  contactEmail: "gdgindore@gmail.com",
 };
 
 export const EVENT_STATS = [
@@ -516,15 +516,16 @@ export const SPONSORS = {
     { name: "JetBrains", tier: "Gold", badge: "Essential Tools for Developers", color: "yellow" },
   ],
   communityPartners: [
-    { name: "Women Techmakers Indore", type: "Diversity Partner" },
-    { name: "GDG Cloud Indore", type: "Ecosystem Partner" },
-    { name: "GDG Bhopal", type: "Regional Chapter" },
-    { name: "GDG Pune", type: "Sister Chapter" },
-    { name: "GDG Noida", type: "Sister Chapter" },
-    { name: "GDSC SGSITS Indore", type: "Campus Partner" },
-    { name: "GDSC IET DAVV", type: "Campus Partner" },
-    { name: "GDSC Medicaps", type: "Campus Partner" },
-    { name: "Indore Tech Tribe", type: "Startup Community" },
+    { name: "Women Techmakers Indore", type: "Diversity Partner", icon: "/images/gdg cloud indore logo.jpg" },
+    { name: "GDG Cloud Indore", type: "Ecosystem Partner", icon: "/images/gdg cloud indore logo.jpg" },
+    { name: "Machine Learning Indore", type: "Ecosystem Partner", icon: "/images/gdg cloud indore logo.jpg" },
+    // { name: "GDG Bhopal", type: "Regional Chapter" },
+    // { name: "GDG Pune", type: "Sister Chapter" },
+    // { name: "GDG Noida", type: "Sister Chapter" },
+    // { name: "GDSC SGSITS Indore", type: "Campus Partner" },
+    // { name: "GDSC IET DAVV", type: "Campus Partner" },
+    // { name: "GDSC Medicaps", type: "Campus Partner" },
+    // { name: "Indore Tech Tribe", type: "Startup Community" },
   ],
 };
 
@@ -594,12 +595,12 @@ export interface SatelliteEvent {
   time: string;
   title: string;
   category:
-    | "Founders Table"
-    | "HR Meetup"
-    | "Influencers Meetup"
-    | "Startup Pitch Day"
-    | "Early Startup Showcase"
-    | "Hands-on Series Workshops";
+  | "Founders Table"
+  | "HR Meetup"
+  | "Influencers Meetup"
+  | "Startup Pitch Day"
+  | "Early Startup Showcase"
+  | "Hands-on Series Workshops";
   host: string;
   hostBadge: string;
   description: string;
@@ -614,15 +615,19 @@ export interface SatelliteEvent {
 export const SATELLITE_EVENTS: SatelliteEvent[] = [
   {
     id: "sat-1",
-    day: "Wednesday, November 11, 2026",
-    dateShort: "NOV 11",
-    dayShort: "WED",
-    time: "7:00 PM – 10:00 PM",
-    title: "The Founders Table: Closed-Door Tech Dinner & Scaling Roundtable",
+    day: "Saturday, November 14, 2026",
+    dateShort: "NOV 14",
+    dayShort: "SAT",
+    time: "11:00 AM – 03:00 PM",
+    title: "Founder Roundtable: Building, Scaling & Beyond",
     category: "Founders Table",
     host: "Indore Tech Tribe & Super Corridor Founders Network",
     hostBadge: "Venture & Founders",
+<<<<<<< Updated upstream
     description: "An intimate, closed-door dinner convening 25+ funded and high-growth bootstrapped founders from Central India. Candid discussions on crossing 0 to 10M ARR, enterprise AI adoption, and navigating international fundraising from Indore.",
+=======
+    description: "Founder RoundTable by GDG Indore is a curated, closed-room meetup bringing together a group of founders, co-founders, entrepreneurs & startup builders for candid conversations around the realities of building and scaling a business. This isn't another event filled with pitches and back-to-back panels.",
+>>>>>>> Stashed changes
     location: "Pipliyahana, Ring Road, Indore",
     venue: "The Grand Malwa Club, Private Dining Suite",
     capacity: "Curated (25 Seats Only)",
@@ -632,15 +637,15 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
   },
   {
     id: "sat-2",
-    day: "Thursday, November 12, 2026",
-    dateShort: "NOV 12",
-    dayShort: "THU",
-    time: "10:00 AM – 1:30 PM",
+    day: "Saturday, October 17, 2026",
+    dateShort: "OCT 17",
+    dayShort: "SAT",
+    time: "11:00 AM – 3:00 PM",
     title: "Central India Tech Talent & HR Meetup: Hiring in the AI Era",
     category: "HR Meetup",
     host: "Central India People & Culture Guild",
     hostBadge: "People & Talent",
-    description: "CHROs, Talent Acquisition leaders, and Engineering Hiring Managers assemble to tackle regional compensation benchmarks, remote/hybrid engineering culture, retention strategies, and building world-class AI engineering teams from Tier-2 tech hubs.",
+    description: "A curated meetup bringing together senior HR, talent, and engineering workforce leaders in Indore for meaningful conversations around how AI is transforming hiring, workforce planning, and upskilling. Expect candid peer discussions, real-world perspectives, and opportunities to connect with leaders navigating similar challenges.",
     location: "Ring Road, Indore",
     venue: "Crystal IT Park Auditorium, Tower B",
     capacity: "Open RSVP (100 Leaders)",
@@ -650,15 +655,15 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
   },
   {
     id: "sat-3",
-    day: "Thursday, November 12, 2026",
-    dateShort: "NOV 12",
-    dayShort: "THU",
-    time: "2:30 PM – 6:30 PM",
-    title: "Hands-on Series: Building Autonomous Multi-Agent AI with Gemini 2.5",
+    day: "Friday, November 13, 2026",
+    dateShort: "",
+    dayShort: "",
+    time: "45 - 90 minutes",
+    title: "Pre-DevFest: Build the Future Today",
     category: "Hands-on Series Workshops",
     host: "GDG Cloud Indore & Google Developer Experts",
     hostBadge: "GenAI Masterclass",
-    description: "An intensive 4-hour live coding masterclass. Build multi-agent reasoning chains, tool execution pipelines, and guardrailed workflows with Gemini 2.5, LangGraph, and Vertex AI. Bring your laptop; sandbox cloud credits provided.",
+    description: "The Pre-DevFest Hands-on Workshop Series, organized by GDG Cloud Indore, is a multi-college initiative designed to bring practical, hands-on learning directly to students and developer communities across Indore. The series focuses on AI, Google Cloud, Gemini, and modern development technologies, helping participants move beyond theory through guided Google Codelabs, live demonstrations, interactive coding sessions, and real-world use cases. Across multiple colleges in Indore, participants get the opportunity to explore technologies such as Google Gemini, Generative AI, Google Cloud, AI-powered application development, and other tools from the Google ecosystem while building practical projects and solutions. The workshops are conducted in collaboration with college communities, GDG on Campus chapters, and student tech clubs, creating an interactive environment for students to learn, build, experiment, and connect with the developer community.",
     location: "AB Road, Indore",
     venue: "Medi-Caps University Advanced AI Innovation Hub",
     capacity: "Hands-on Lab (70 Developers)",
@@ -671,7 +676,7 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     day: "Friday, November 13, 2026",
     dateShort: "NOV 13",
     dayShort: "FRI",
-    time: "11:00 AM – 2:30 PM",
+    time: "11:00 AM – 3:00 PM",
     title: "Tech Creators & Influencers Meetup: Storytelling in Engineering",
     category: "Influencers Meetup",
     host: "Creator Collab & Developer Advocates Guild",
@@ -685,6 +690,7 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     perks: ["Studio Podcasting Booth", "Indori Brunch Spread", "Speaker & Brand Matchmaking"],
   },
   {
+<<<<<<< Updated upstream
     id: "sat-5",
     day: "Friday, November 13, 2026",
     dateShort: "NOV 13",
@@ -703,16 +709,22 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
     perks: ["Live Product Demo Pods", "Beta User Signups", "Enterprise Pilot Opportunities"],
   },
   {
+=======
+>>>>>>> Stashed changes
     id: "sat-6",
-    day: "Friday, November 13, 2026",
-    dateShort: "NOV 13",
-    dayShort: "FRI",
-    time: "5:00 PM – 8:30 PM",
+    day: "Saturday, October 24, 2026",
+    dateShort: "OCT 24",
+    dayShort: "SAT",
+    time: "10:00 AM – 5:00 PM",
     title: "DevFest Startup Pitch Day: ₹25 Lakhs Investor Pitchathon & Grants",
     category: "Startup Pitch Day",
     host: "Malwa Angel Network & Google for Startups",
     hostBadge: "Pitchathon & Bounties",
+<<<<<<< Updated upstream
     description: "10 selected startup finalists take the stage to pitch live before prominent Angel Investors, VC Partners, and ecosystem leaders. Compete for ₹25,00,000 in equity-free grants, fast-track seed syndicate evaluations, and incubation credits.",
+=======
+    description: "Startup Pitch Day brings founders, entrepreneurs, investors, mentors, and startup enthusiasts together for focused pitches, meaningful feedback, and valuable connections. Pitch your idea. Discover what\'s being built. Meet the people shaping the startup ecosystem.",
+>>>>>>> Stashed changes
     location: "Pipliyahana, Ring Road, Indore",
     venue: "Essentia Luxury Hotel Indore (Main Grand Stage)",
     capacity: "Audience & Pitch (300 Attendees)",

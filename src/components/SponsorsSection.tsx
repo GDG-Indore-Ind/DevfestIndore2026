@@ -71,7 +71,7 @@ export default function SponsorsSection() {
         </div>
 
         {/* Gold Sponsors with Scroll Reveal */}
-        <div className="mb-14 reveal-on-scroll">
+        {/* <div className="mb-14 reveal-on-scroll">
           <div className="text-center mb-6">
             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-gray-100 text-[#1e1e1e] border border-gray-300">
               Gold &amp; Tooling Partners
@@ -88,7 +88,7 @@ export default function SponsorsSection() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Community Partners Grid with Scroll Reveal */}
         <div className="mb-16 reveal-on-scroll">
@@ -97,15 +97,20 @@ export default function SponsorsSection() {
               Collaborating Community &amp; Campus Chapters
             </span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {SPONSORS.communityPartners.map((partner, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-xl bg-white border border-gray-300 flex items-center justify-between hover:border-[#1e1e1e] hover:scale-[1.02] transition-all"
+                className="p-5 rounded-xl bg-white border border-gray-300 flex flex-col items-center gap-3 hover:border-[#1e1e1e] hover:scale-[1.02] transition-all text-center"
               >
+                <img
+                  src={partner.icon}
+                  alt={partner.name}
+                  className="h-12 w-auto object-contain"
+                />
                 <div>
                   <span className="block text-xs font-extrabold text-[#1e1e1e]">{partner.name}</span>
-                  <span className="block text-[10px] text-[#5f6368] font-medium">{partner.type}</span>
+                  <span className="block text-[10px] text-[#5f6368] font-medium mt-0.5">{partner.type}</span>
                 </div>
                 <span className="w-2 h-2 rounded-full bg-[#34a853]" />
               </div>
