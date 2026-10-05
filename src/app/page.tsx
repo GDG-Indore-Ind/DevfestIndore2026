@@ -7,9 +7,9 @@ import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 // import ScheduleSection from "@/components/ScheduleSection";
-import SpeakersSection from "@/components/SpeakersSection";
+// import SpeakersSection from "@/components/SpeakersSection";
 import TicketsSection from "@/components/TicketsSection";
-import IndoreExperienceSection from "@/components/IndoreExperienceSection";
+// import IndoreExperienceSection from "@/components/IndoreExperienceSection";
 import SponsorsSection from "@/components/SponsorsSection";
 import VenueSection from "@/components/VenueSection";
 import FaqSection from "@/components/FaqSection";
@@ -86,13 +86,13 @@ export default function Home() {
         /> */}
 
         {/* Featured Speakers Grid with 3D Tilt & Bio Modals */}
-        <SpeakersSection />
+        {/* <SpeakersSection /> */}
 
         {/* Tickets, Pricing & Interactive Digital Badge Generator */}
         <TicketsSection />
 
         {/* The Unique Indore City & Food Culture Experience */}
-        <IndoreExperienceSection />
+        {/* <IndoreExperienceSection /> */}
 
         {/* Sponsors, Google for Developers & Community Partners */}
         <SponsorsSection />

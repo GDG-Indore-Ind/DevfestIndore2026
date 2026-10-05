@@ -51,7 +51,7 @@ export default function SponsorsSection() {
         </div>
 
         {/* Platinum Sponsors */}
-        <div className="mb-14 reveal-on-scroll">
+        {/* <div className="mb-14 reveal-on-scroll">
           <div className="text-center mb-6">
             <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/8 text-white border border-white/15">
               Platinum Sponsors
@@ -68,7 +68,7 @@ export default function SponsorsSection() {
               </CardTilt>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Community Partners Grid */}
         <div className="mb-16 reveal-on-scroll">
@@ -83,14 +83,16 @@ export default function SponsorsSection() {
                 key={idx}
                 className="p-5 rounded-xl bg-[#0d0d0d] border border-white/10 flex flex-col items-center gap-3 hover:border-white/30 hover:scale-[1.02] transition-all text-center"
               >
-                <img
-                  src={partner.icon}
-                  alt={partner.name}
-                  className="h-12 w-auto object-contain"
-                />
-                <div>
+                {partner.icon !== "" && (
+                  <img
+                    src={partner.icon}
+                    alt={partner.name}
+                    className="h-12 w-auto object-contain"
+                  />
+                )}
+                {/* <div>
                   <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
-                </div>
+                </div> */}
                 <div>
                   <span className="block text-xs font-extrabold text-white">{partner.name}</span>
                   <span className="block text-[10px] text-white/40 font-medium mt-0.5">{partner.type}</span>

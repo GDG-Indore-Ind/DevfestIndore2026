@@ -516,9 +516,9 @@ export const SPONSORS = {
     { name: "JetBrains", tier: "Gold", badge: "Essential Tools for Developers", color: "yellow" },
   ],
   communityPartners: [
-    { name: "Women Techmakers Indore", type: "Diversity Partner", icon: "/images/gdg cloud indore logo.jpg" },
+    { name: "Women Techmakers Indore", type: "Diversity Partner", icon: "" },
     { name: "GDG Cloud Indore", type: "Ecosystem Partner", icon: "/images/gdg cloud indore logo.jpg" },
-    { name: "Machine Learning Indore", type: "Ecosystem Partner", icon: "/images/gdg cloud indore logo.jpg" },
+    { name: "Machine Learning Indore", type: "Ecosystem Partner", icon: "/images/mlindore.png" },
     // { name: "GDG Bhopal", type: "Regional Chapter" },
     // { name: "GDG Pune", type: "Sister Chapter" },
     // { name: "GDG Noida", type: "Sister Chapter" },
