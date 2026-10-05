@@ -46,7 +46,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white flex flex-col font-sans selection:bg-[#4285f4]/40 selection:text-white relative">
+    <div className="min-h-screen bg-[var(--page-bg,#000000)] text-[var(--text-primary,#ffffff)] flex flex-col font-sans selection:bg-[#4285f4]/40 relative transition-colors duration-300">
       {/* Intro Welcome Loader */}
       <PageLoader />
 
