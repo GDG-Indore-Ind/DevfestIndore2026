@@ -27,7 +27,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     { name: "About", href: "#about" },
     { name: "Tickets", href: "#tickets" },
     { name: "Badge Maker", href: "#badge-generator" },
-    { name: "Indore Spirit", href: "#indore-vibe" },
+    // { name: "Indore Spirit", href: "#indore-vibe" },
     { name: "Sponsors", href: "#sponsors" },
     { name: "Venue", href: "#venue" },
     { name: "FAQ", href: "#faq" },
@@ -44,23 +44,21 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
       </div>
 
       <header
-        className={`fixed top-2 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? isDark
-              ? "bg-black/80 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5"
-              : "bg-white/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-b border-black/10 py-2.5"
-            : "bg-transparent py-4"
-        }`}
+        className={`fixed top-2 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+          ? isDark
+            ? "bg-black/80 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5"
+            : "bg-white/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-b border-black/10 py-2.5"
+          : "bg-transparent py-4"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo with Animated Brackets */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-2xl border shadow-[0_0_12px_rgba(66,133,244,0.3)] group-hover:scale-105 group-hover:rotate-3 transition-transform ${
-                isDark
-                  ? "bg-[#0d0d0d] border-white/20"
-                  : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.2)]"
-              }`}
+              className={`flex items-center justify-center w-10 h-10 rounded-2xl border shadow-[0_0_12px_rgba(66,133,244,0.3)] group-hover:scale-105 group-hover:rotate-3 transition-transform ${isDark
+                ? "bg-[#0d0d0d] border-white/20"
+                : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.2)]"
+                }`}
             >
               <span className="text-[#4285f4] font-bold text-lg font-mono">{"<"}</span>
               <span className="text-[#ea4335] font-bold text-xs">/</span>
@@ -85,19 +83,17 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
           {/* Desktop Navigation Links with Roll-up Typography */}
           <nav
-            className={`hidden lg:flex items-center gap-1 p-1.5 rounded-full border ${
-              isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
-            }`}
+            className={`hidden lg:flex items-center gap-1 p-1.5 rounded-full border ${isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
+              }`}
           >
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`group px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-150 ${
-                  isDark
-                    ? "text-white/80 hover:bg-white/10 hover:text-white"
-                    : "text-black/70 hover:bg-black/10 hover:text-black"
-                }`}
+                className={`group px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-150 ${isDark
+                  ? "text-white/80 hover:bg-white/10 hover:text-white"
+                  : "text-black/70 hover:bg-black/10 hover:text-black"
+                  }`}
               >
                 <span className="roll-text-container">
                   <span className="roll-text-top">{link.name}</span>
@@ -125,11 +121,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               onClick={toggleTheme}
               aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
               title={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-full border transition-all duration-300 active:scale-95 ${
-                isDark
-                  ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                  : "bg-black/10 border-black/20 text-[#1a1a1a] hover:bg-black/20"
-              }`}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-full border transition-all duration-300 active:scale-95 ${isDark
+                ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                : "bg-black/10 border-black/20 text-[#1a1a1a] hover:bg-black/20"
+                }`}
             >
               {isDark ? (
                 <>
@@ -159,11 +154,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-xl border google-pill-shadow ${
-              isDark
-                ? "border-white/20 bg-[#0d0d0d] text-white"
-                : "border-black/15 bg-white text-[#1a1a1a] shadow-sm"
-            }`}
+            className={`lg:hidden p-2 rounded-xl border google-pill-shadow ${isDark
+              ? "border-white/20 bg-[#0d0d0d] text-white"
+              : "border-black/15 bg-white text-[#1a1a1a] shadow-sm"
+              }`}
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -173,11 +167,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div
-            className={`lg:hidden fixed inset-x-0 top-[65px] border-b shadow-xl p-5 z-50 animate-in fade-in slide-in-from-top-4 duration-200 ${
-              isDark
-                ? "bg-[#0d0d0d] border-white/10"
-                : "bg-white border-black/10"
-            }`}
+            className={`lg:hidden fixed inset-x-0 top-[65px] border-b shadow-xl p-5 z-50 animate-in fade-in slide-in-from-top-4 duration-200 ${isDark
+              ? "bg-[#0d0d0d] border-white/10"
+              : "bg-white border-black/10"
+              }`}
           >
             <div className="flex flex-col gap-2">
               <div className={`flex items-center justify-between pb-3 mb-2 border-b ${isDark ? "border-white/8" : "border-black/8"}`}>
@@ -194,11 +187,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${
-                    isDark
-                      ? "text-white/80 hover:bg-[#4285f4]/15 hover:text-[#4285f4]"
-                      : "text-black/70 hover:bg-[#4285f4]/10 hover:text-[#4285f4]"
-                  }`}
+                  className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${isDark
+                    ? "text-white/80 hover:bg-[#4285f4]/15 hover:text-[#4285f4]"
+                    : "text-black/70 hover:bg-[#4285f4]/10 hover:text-[#4285f4]"
+                    }`}
                 >
                   {link.name}
                 </a>
@@ -208,11 +200,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 {/* Mobile Theme Toggle */}
                 <button
                   onClick={() => { toggleTheme(); setMobileMenuOpen(false); }}
-                  className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm border transition-all duration-300 ${
-                    isDark
-                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      : "bg-black/8 border-black/15 text-[#1a1a1a] hover:bg-black/15"
-                  }`}
+                  className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm border transition-all duration-300 ${isDark
+                    ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    : "bg-black/8 border-black/15 text-[#1a1a1a] hover:bg-black/15"
+                    }`}
                 >
                   {isDark ? (
                     <><Sun className="w-4 h-4 text-[#f9ab00]" /><span>Switch to Light Theme</span></>
