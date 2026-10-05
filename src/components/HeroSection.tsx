@@ -148,7 +148,7 @@ export default function HeroSection() {
               </a>
 
               <a
-                href="https://sessionize.com"
+                href="https://sessionize.com/devfest-indore-2026/"
                 target="_blank"
                 rel="noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-white/5 text-white/80 font-bold text-xs uppercase tracking-wider border border-white/20 hover:bg-white/10 transition-colors"

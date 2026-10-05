@@ -40,15 +40,304 @@
   --border-glow: rgba(66, 133, 244, 0.5);
 }
 
-/* Dark mode — prevent any light flash */
+/* ========================================================================= */
+/* LIGHT THEME — data-theme="light" overrides                                */
+/* ========================================================================= */
+
+:root[data-theme="light"] {
+  /* Surfaces */
+  --page-bg: #ffffff;
+  --surface-1: #f8f9fa;
+  --surface-2: #f0f2f4;
+  --surface-3: #e8eaed;
+
+  /* Text */
+  --text-primary: #1a1a1a;
+  --text-muted: #5f6368;
+  --text-subtle: #9aa0a6;
+
+  /* Legacy vars */
+  --off-white: #f0f0f0;
+  --card-bg: #ffffff;
+  --black-02: #1a1a1a;
+  --border-light: rgba(0, 0, 0, 0.08);
+
+  /* Softer gradients for light mode */
+  --gradient-holo: linear-gradient(135deg, #4285f4, #34a853, #f9ab00, #ea4335);
+  --gradient-text: linear-gradient(90deg, #4285f4 0%, #34a853 25%, #f9ab00 60%, #ea4335 100%);
+
+  /* Light-mode glow = soft coloured drop shadows */
+  --glow-blue:   0 4px 16px rgba(66, 133, 244, 0.25);
+  --glow-red:    0 4px 16px rgba(234, 67, 53, 0.25);
+  --glow-yellow: 0 4px 16px rgba(249, 171, 0, 0.25);
+  --glow-green:  0 4px 16px rgba(52, 168, 83, 0.25);
+  --glow-holo:   0 4px 24px rgba(66, 133, 244, 0.2), 0 8px 32px rgba(234, 67, 53, 0.1);
+
+  /* Light borders */
+  --border-dark: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(66, 133, 244, 0.3);
+}
+
+/* Light theme body overrides */
+:root[data-theme="light"] body {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+/* Light theme scrollbar */
+:root[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f0f2f4;
+}
+:root[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(#4285f4, #34a853);
+}
+
+/* Light theme glass surface */
+:root[data-theme="light"] .glass-surface {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Light theme glow btn surface */
+:root[data-theme="light"] .glow-btn__surface {
+  background: #ffffff;
+  color: #1a1a1a;
+}
+:root[data-theme="light"] .glow-btn:hover .glow-btn__surface {
+  background: #f8f9fa;
+}
+
+/* Light theme neon → soft shadows */
+:root[data-theme="light"] .neon-blue  { box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3); }
+:root[data-theme="light"] .neon-red   { box-shadow: 0 4px 16px rgba(234, 67, 53, 0.3); }
+:root[data-theme="light"] .neon-green { box-shadow: 0 4px 16px rgba(52, 168, 83, 0.3); }
+:root[data-theme="light"] .neon-gold  { box-shadow: 0 4px 16px rgba(249, 171, 0, 0.3); }
+
+/* Light theme google card shadow */
+:root[data-theme="light"] .google-card-shadow {
+  box-shadow: 0 2px 0 1px rgba(0, 0, 0, 0.06),
+              0 6px 0 rgba(66, 133, 244, 0.3);
+}
+:root[data-theme="light"] .google-card-shadow:hover {
+  box-shadow: 0 2px 0 1px rgba(0, 0, 0, 0.08),
+              0 12px 0 rgba(66, 133, 244, 0.4),
+              0 0 32px rgba(66, 133, 244, 0.1);
+}
+
+/* Light theme dot grid */
+:root[data-theme="light"] .bg-grid-pattern {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+:root[data-theme="light"] .bg-dot-blue {
+  background-image: radial-gradient(rgba(66, 133, 244, 0.12) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Light theme selection */
+:root[data-theme="light"] ::selection {
+  background: rgba(66, 133, 244, 0.2);
+  color: #1a1a1a;
+}
+
+/* ========================================================================= */
+/* LIGHT THEME — SECTION & COMPONENT BACKGROUND OVERRIDES                    */
+/* These target the hardcoded Tailwind bg/text classes used in components     */
+/* ========================================================================= */
+
+/* Page-level backgrounds */
+:root[data-theme="light"] .bg-\[\#000000\],
+:root[data-theme="light"] .bg-\[\#0a0a0a\],
+:root[data-theme="light"] .bg-\[\#050505\] {
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="light"] .bg-\[\#0d0d0d\] {
+  background-color: #f8f9fa !important;
+}
+
+:root[data-theme="light"] .bg-\[\#141414\],
+:root[data-theme="light"] .bg-\[\#1a1a1a\] {
+  background-color: #f0f2f4 !important;
+}
+
+/* Text overrides */
+:root[data-theme="light"] .text-white {
+  color: #1a1a1a !important;
+}
+
+:root[data-theme="light"] .text-white\/75,
+:root[data-theme="light"] .text-white\/80,
+:root[data-theme="light"] .text-white\/90 {
+  color: rgba(26, 26, 26, 0.75) !important;
+}
+
+:root[data-theme="light"] .text-white\/50,
+:root[data-theme="light"] .text-white\/60 {
+  color: rgba(26, 26, 26, 0.55) !important;
+}
+
+:root[data-theme="light"] .text-white\/40,
+:root[data-theme="light"] .text-white\/30 {
+  color: rgba(26, 26, 26, 0.4) !important;
+}
+
+/* Border overrides */
+:root[data-theme="light"] .border-white\/10,
+:root[data-theme="light"] .border-white\/8 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+:root[data-theme="light"] .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+:root[data-theme="light"] .border-white\/15 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Background opacity variants */
+:root[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+:root[data-theme="light"] .bg-black\/80 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Backdrop blur panels (scrolled navbar) */
+:root[data-theme="light"] .shadow-\[0_4px_24px_rgba\(0\,0\,0\,0\.4\)\] {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* HeroSection bg-grid-pattern bg already handled by .bg-grid-pattern override above */
+
+/* Stat cards / feature banner with dark glass */
+:root[data-theme="light"] .bg-\[\#0d0d0d\]\/80 {
+  background-color: rgba(248, 249, 250, 0.9) !important;
+}
+
+/* Mobile menu drawer */
+:root[data-theme="light"] .border-white\/8 {
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ========================================================================= */
+/* LIGHT THEME — NUCLEAR TEXT FIX                                            */
+/* Force ALL white text to near-black. Google brand colors are exempted.     */
+/* Uses [data-theme] attr selector which beats Tailwind class specificity.   */
+/* ========================================================================= */
+
+/* Single blanket rule: any element that has text-white in light mode → dark */
+html[data-theme="light"] .text-white,
+html[data-theme="light"] .text-white\/90,
+html[data-theme="light"] .text-white\/80,
+html[data-theme="light"] .text-white\/75,
+html[data-theme="light"] .text-white\/70,
+html[data-theme="light"] .text-white\/60,
+html[data-theme="light"] .text-white\/50,
+html[data-theme="light"] .text-white\/40,
+html[data-theme="light"] .text-white\/30,
+html[data-theme="light"] .text-white\/20,
+html[data-theme="light"] .text-white\/10 {
+  color: #1a1a1a !important;
+}
+
+/* Strong elements inside paragraphs */
+html[data-theme="light"] p strong,
+html[data-theme="light"] p b {
+  color: #000000 !important;
+}
+
+/* Exception: keep white text on solid Google-color backgrounds */
+html[data-theme="light"] .bg-\[\#4285f4\] *,
+html[data-theme="light"] .bg-\[\#ea4335\] *,
+html[data-theme="light"] .bg-\[\#34a853\] *,
+html[data-theme="light"] .bg-\[\#f9ab00\] * {
+  color: #ffffff !important;
+}
+
+/* Exception: keep gradient text (holo-text, bg-clip-text) transparent */
+html[data-theme="light"] [style*="WebkitTextFillColor"],
+html[data-theme="light"] [style*="-webkit-text-fill-color"] {
+  color: transparent !important;
+}
+
+/* Exception: keep colored icon/accent text */
+html[data-theme="light"] .text-\[\#4285f4\] { color: #4285f4 !important; }
+html[data-theme="light"] .text-\[\#ea4335\] { color: #ea4335 !important; }
+html[data-theme="light"] .text-\[\#f9ab00\] { color: #f9ab00 !important; }
+html[data-theme="light"] .text-\[\#34a853\] { color: #34a853 !important; }
+html[data-theme="light"] .text-\[\#57caff\] { color: #57caff !important; }
+html[data-theme="light"] .text-\[\#ff7daf\] { color: #ff7daf !important; }
+html[data-theme="light"] .text-\[\#5cdb6d\] { color: #5cdb6d !important; }
+html[data-theme="light"] .text-\[\#ffd427\] { color: #ffd427 !important; }
+
+/* ========================================================================= */
+/* LIGHT THEME — UNIVERSAL CATCH-ALL (must be LAST light-theme rule)         */
+/* Forces ALL elements to dark text. Brand colors above override this.        */
+/* This catches any text not covered by Tailwind class overrides above.       */
+/* ========================================================================= */
+
+html[data-theme="light"] * {
+  color: #1a1a1a;
+}
+
+/* Re-apply all exceptions AFTER the universal rule (cascade order matters) */
+html[data-theme="light"] .text-\[\#4285f4\],
+html[data-theme="light"] [class*="text-[#4285f4]"] { color: #4285f4 !important; }
+html[data-theme="light"] .text-\[\#ea4335\],
+html[data-theme="light"] [class*="text-[#ea4335]"] { color: #ea4335 !important; }
+html[data-theme="light"] .text-\[\#f9ab00\],
+html[data-theme="light"] [class*="text-[#f9ab00]"] { color: #f9ab00 !important; }
+html[data-theme="light"] .text-\[\#34a853\],
+html[data-theme="light"] [class*="text-[#34a853]"] { color: #34a853 !important; }
+html[data-theme="light"] .text-\[\#57caff\] { color: #57caff !important; }
+html[data-theme="light"] .text-\[\#ff7daf\] { color: #ff7daf !important; }
+html[data-theme="light"] .text-\[\#5cdb6d\] { color: #5cdb6d !important; }
+html[data-theme="light"] .text-\[\#ffd427\] { color: #ffd427 !important; }
+
+/* White text on solid Google-color backgrounds */
+html[data-theme="light"] .bg-\[\#4285f4\],
+html[data-theme="light"] .bg-\[\#4285f4\] * { color: #ffffff !important; }
+html[data-theme="light"] .bg-\[\#ea4335\],
+html[data-theme="light"] .bg-\[\#ea4335\] * { color: #ffffff !important; }
+html[data-theme="light"] .bg-\[\#34a853\],
+html[data-theme="light"] .bg-\[\#34a853\] * { color: #ffffff !important; }
+html[data-theme="light"] .bg-\[\#f9ab00\],
+html[data-theme="light"] .bg-\[\#f9ab00\] * { color: #1a1a1a !important; }
+
+/* Gradient text (bg-clip-text) must stay transparent */
+html[data-theme="light"] .holo-text,
+html[data-theme="light"] [style*="-webkit-text-fill-color: transparent"],
+html[data-theme="light"] [style*="WebkitTextFillColor: transparent"] {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* ========================================================================= */
+/* BASE STYLES                                                                */
+/* ========================================================================= */
+
+/* Default dark mode */
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
 }
 
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--page-bg, #000000);
+  color: var(--text-primary, #ffffff);
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
 }

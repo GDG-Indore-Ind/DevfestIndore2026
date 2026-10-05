@@ -209,7 +209,7 @@ export default function SpeakersSection() {
           </div>
 
           <a
-            href="https://sessionize.com"
+            href="https://sessionize.com/devfest-indore-2026/"
             target="_blank"
             rel="noreferrer"
             className="glow-btn shrink-0"

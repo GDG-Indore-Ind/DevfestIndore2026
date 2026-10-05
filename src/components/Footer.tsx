@@ -137,7 +137,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://sessionize.com"
+                  href="https://sessionize.com/devfest-indore-2026/"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-[#34a853] transition-colors"
