@@ -158,7 +158,7 @@ export default function TicketsSection() {
         </div>
 
         {/* Digital Badge Customizer — dark glass */}
-        <div
+        {/* <div
           id="badge-generator"
           className="bg-[#0a0a0a] rounded-3xl border border-white/10 google-card-shadow p-6 sm:p-10 mb-16 reveal-on-scroll"
         >
@@ -179,7 +179,6 @@ export default function TicketsSection() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Controls Form — dark glass card */}
             <div className="lg:col-span-6 bg-[#0d0d0d] border border-white/10 p-6 rounded-2xl space-y-4 spotlight-card">
               <div>
                 <label className="block text-xs font-extrabold uppercase tracking-wider text-white mb-1.5">
@@ -317,19 +316,18 @@ export default function TicketsSection() {
               </div>
             </div>
 
-            {/* Live Badge Preview — dark glass badge */}
             <div className="lg:col-span-6 flex flex-col items-center justify-center">
-              {/* Lanyard */}
+  
               <div
                 className={`w-14 h-10 ${getBadgeAccent().lanyard} rounded-t-xl border-x border-t border-white/20 flex items-center justify-center animate-float-subtle`}
               >
                 <div className="w-4 h-4 rounded-full bg-white/20 border border-white/30" />
               </div>
 
-              {/* Physical Clip */}
+              
               <div className="w-20 h-4 bg-white/25 rounded-md border border-white/20 -mt-1 z-10" />
 
-              {/* Badge Card — dark glass */}
+              
               <CardTilt className="w-full max-w-xs bg-[#0d0d0d] rounded-3xl border border-white/15 google-card-shadow overflow-hidden relative -mt-1">
                 <div
                   className={`p-4 text-center ${getBadgeAccent().header} border-b border-white/10`}
@@ -389,7 +387,7 @@ export default function TicketsSection() {
               </CardTilt>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Single Registration Checkout Modal — dark glass */}

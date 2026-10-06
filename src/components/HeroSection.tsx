@@ -136,7 +136,7 @@ export default function HeroSection() {
                 </span>
               </a>
 
-              <a
+              {/* <a
                 href="#agenda"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-[#f9ab00]/15 text-[#f9ab00] font-extrabold text-sm uppercase tracking-wider border border-[#f9ab00]/40 hover:bg-[#f9ab00]/25 transition-all"
               >
@@ -145,7 +145,7 @@ export default function HeroSection() {
                   <span className="roll-text-top">Explore Agenda</span>
                   <span className="roll-text-bottom text-[#ea4335]">View 20+ Sessions</span>
                 </span>
-              </a>
+              </a> */}
 
               <a
                 href="https://sessionize.com/devfest-indore-2026/"

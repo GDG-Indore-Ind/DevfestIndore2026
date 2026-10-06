@@ -106,7 +106,7 @@ export default function Footer() {
               Navigation
             </span>
             <ul className="space-y-2.5 text-xs font-bold text-white/50">
-              {["About", "Agenda", "Speakers", "Tickets", "Badge Maker", "Venue"].map((item) => (
+              {["About", "Sponsors", "Tickets", "Venue", "Faq"].map((item) => (
                 <li key={item}>
                   <a href={`#${item.toLowerCase().replace(" ", "-")}`} className="group inline-block hover:text-white transition-colors">
                     <span className="roll-text-container">
@@ -145,7 +145,7 @@ export default function Footer() {
                   Call for Speakers (CFP)
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="https://forms.gle"
                   target="_blank"
@@ -154,17 +154,17 @@ export default function Footer() {
                 >
                   Volunteer with Us
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a href="#sponsors" className="hover:text-[#34a853] transition-colors">
                   Partner / Sponsor Deck
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#indore-vibe" className="hover:text-[#34a853] transition-colors">
                   Indore Travel & Food
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -210,12 +210,12 @@ export default function Footer() {
             Activities and opinions expressed here should in no way be linked to Google, the corporation.
             To learn more about the Google Developer Groups program, visit{" "}
             <a
-              href="https://developers.google.com/community/gdg"
+              href="https://gdg.community.dev/gdg-indore"
               target="_blank"
               rel="noreferrer"
               className="text-[#4285f4] underline"
             >
-              developers.google.com/community/gdg
+              gdg.community.dev/gdg-indore
             </a>
             .
           </p>
@@ -226,7 +226,7 @@ export default function Footer() {
           <div className="flex items-center gap-1.5">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-[#ea4335] fill-[#ea4335] animate-pulse" />
-            <span>by GDG Indore Community Volunteers</span>
+            <span>by GDG Indore Community Organisers</span>
           </div>
 
           <button

@@ -26,8 +26,6 @@ export default function SatelliteEventsSection() {
     "All",
     "Founders Table",
     "HR Meetup",
-    "Influencers Meetup",
-    "Startup Pitch Day",
     "Hands-on Series Workshops",
   ];
 
@@ -120,7 +118,7 @@ export default function SatelliteEventsSection() {
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-            Satellite Events & <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">- Pre devfest Events Oct-November</span>
+            Satellite Events <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">- Pre devfest Events Oct-November</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-white/55 font-medium leading-relaxed">
@@ -145,11 +143,10 @@ export default function SatelliteEventsSection() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border-2 cursor-pointer ${
-                  selectedCategory === cat
-                    ? "bg-white text-black border-white google-pill-shadow scale-102"
-                    : "bg-white/5 text-white/70 border-white/15 hover:bg-white/10 hover:text-white"
-                }`}
+                className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border-2 cursor-pointer ${selectedCategory === cat
+                  ? "bg-white text-black border-white google-pill-shadow scale-102"
+                  : "bg-white/5 text-white/70 border-white/15 hover:bg-white/10 hover:text-white"
+                  }`}
               >
                 {cat}
               </button>
@@ -166,8 +163,8 @@ export default function SatelliteEventsSection() {
               groupIdx === 0
                 ? "bg-[#ffd427] text-black"
                 : groupIdx === 1
-                ? "bg-[#57caff] text-black"
-                : "bg-[#ff7daf] text-black";
+                  ? "bg-[#57caff] text-black"
+                  : "bg-[#ff7daf] text-black";
 
             return (
               <div key={dayTitle} className="transition-all duration-300">
@@ -287,17 +284,19 @@ export default function SatelliteEventsSection() {
                               </span>
                             </div>
 
-                            <button
-                              onClick={() => handleOpenRsvp(event)}
-                              className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
-                            >
-                              <span className="roll-text-container">
-                                <span className="roll-text-top">
-                                  {event.accessType.includes("Curated") ? "Request Invite" : "RSVP Spot"}
+                            {event.link?.trim() && (
+                              <button
+                                onClick={() => handleOpenRsvp(event)}
+                                className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
+                              >
+                                <span className="roll-text-container">
+                                  <span className="roll-text-top">
+                                    {event.accessType.includes("Curated") ? "Request Invite" : "RSVP Spot"}
+                                  </span>
+                                  <span className="roll-text-bottom">Register Now →</span>
                                 </span>
-                                <span className="roll-text-bottom">Register Now →</span>
-                              </span>
-                            </button>
+                              </button>
+                            )}
                           </div>
                         </div>
                       </CardTilt>
@@ -320,8 +319,12 @@ export default function SatelliteEventsSection() {
             >
               ✕
             </button>
-
-            {!rsvpSuccess ? (
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#34a853]/20 border border-[#34a853]/40 text-xs font-black text-[#34a853] mb-3">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Satellite Event RSVP</span>
+            </div>
+            <iframe src={activeRsvpEvent.link} id="konfhub-widget" title="Register for HR Meetup" width="100%" height="400" allow="payment"></iframe>
+            {/* {!rsvpSuccess ? (
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#34a853]/20 border border-[#34a853]/40 text-xs font-black text-[#34a853] mb-3">
                   <Calendar className="w-3.5 h-3.5" />
@@ -408,7 +411,7 @@ export default function SatelliteEventsSection() {
                   Done
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       )}

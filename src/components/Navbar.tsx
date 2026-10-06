@@ -14,6 +14,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, isDark } = useTheme();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,10 +25,15 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleOpenCheckout = () => {
+    setIsCheckoutOpen(true);
+  };
+
   const navLinks = [
     { name: "About", href: "#about" },
     { name: "Tickets", href: "#tickets" },
-    { name: "Badge Maker", href: "#badge-generator" },
+    { name: "Satellite Events", href: "#satellite-events" },
+    // { name: "Badge Maker", href: "#badge-generator" },
     // { name: "Indore Spirit", href: "#indore-vibe" },
     { name: "Sponsors", href: "#sponsors" },
     { name: "Venue", href: "#venue" },
@@ -140,7 +147,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             </button>
 
             {/* Glowing Interactive DevFest Button */}
-            <a href="#tickets" className="glow-btn">
+            <a className="glow-btn" onClick={handleOpenCheckout}>
               <span className="glow-btn__surface group">
                 <Ticket className="w-3.5 h-3.5 text-[#4285f4] group-hover:rotate-12 transition-transform" />
                 <span className="roll-text-container">
@@ -221,6 +228,70 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   <span>Get DevFest Tickets</span>
                 </a>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Single Registration Checkout Modal — dark glass */}
+        {isCheckoutOpen && (
+          <div
+            onClick={() => setIsCheckoutOpen(false)}
+            className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/70 backdrop-blur-sm p-3 pt-24 sm:p-5 sm:pt-28 md:pt-32 animate-in fade-in duration-150"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="checkout-title"
+              className="checkout-modal-scrollbar relative my-0 sm:my-auto w-full max-w-3xl max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-[#0d0d0d] p-4 sm:p-6 md:p-8 google-card-shadow"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setIsCheckoutOpen(false)}
+                className="absolute right-3 top-3 sm:right-5 sm:top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm font-bold text-white hover:bg-white/15 cursor-pointer transition-colors"
+                aria-label="Close registration checkout"
+              >
+                ✕
+              </button>
+
+              {/* Checkout Header */}
+              <div className="mb-4 pr-9 sm:mb-5">
+                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#34a853]/40 bg-[#34a853]/20 px-3 py-1 text-[10px] sm:text-xs font-black text-[#34a853]">
+                  <Ticket className="h-3.5 w-3.5" />
+                  <span>Registration Checkout</span>
+                </div>
+
+                <h3
+                  id="checkout-title"
+                  className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight"
+                >
+                  Select Your Tickets
+                </h3>
+
+                <p className="mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed text-white/55">
+                  Be a part of DevFest Indore 2026. Choose your ticket and
+                  complete your registration securely with KonfHub.
+                </p>
+              </div>
+
+              {/* KonfHub Widget */}
+              <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-[#0d0d0d]">
+                <iframe
+                  src="https://konfhub.com/widget/id/9ed5736d-0044-4e00-a5e3-76f0b58e4fe6"
+                  id="konfhub-widget"
+                  title="Select tickets for GDG DevFest Indore 2026"
+                  width="100%"
+                  height="420"
+                  allow="payment"
+                  className="block h-[360px] w-full border-0 sm:h-[400px] md:h-[420px]"
+                  loading="lazy"
+                />
+              </div>
+
+              <p className="mt-3 text-center text-[10px] sm:text-xs font-medium text-white/35">
+                Ticket selection and payment are handled securely by KonfHub.
+              </p>
             </div>
           </div>
         )}
