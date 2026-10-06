@@ -256,6 +256,7 @@ export default function HeroSection() {
                   sizes="(max-width: 768px) 100vw, 450px"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   priority
+                  unoptimized
                 />
               </div>
 

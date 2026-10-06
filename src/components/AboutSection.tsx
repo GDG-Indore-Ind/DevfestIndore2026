@@ -94,6 +94,8 @@ export default function AboutSection() {
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
+                priority
+                unoptimized
               />
               <div className="absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 flex items-center justify-between text-xs font-bold text-white">
                 <span>🏛️ Historic Rajwada & Tech Corridor</span>
