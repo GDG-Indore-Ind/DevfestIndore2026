@@ -52,7 +52,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-2.5 text-white">
                 <a
-                  href="https://x.com"
+                  href="https://x.com/GDG_Indore"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-2xl border border-white/15 bg-[#4285f4]/15 flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm"
@@ -61,7 +61,7 @@ export default function Footer() {
                   <TwitterIcon className="w-4 h-4 text-white/70" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://linkedin.com/company/gdg-indore"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-2xl border border-white/15 bg-[#4285f4]/15 flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm"
@@ -70,7 +70,7 @@ export default function Footer() {
                   <LinkedInIcon className="w-4 h-4 text-[#4285f4]" />
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://instagram.com/gdgindore"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-2xl border border-white/15 bg-[#ea4335]/15 flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm"
@@ -79,7 +79,7 @@ export default function Footer() {
                   <InstagramIcon className="w-4 h-4 text-[#ea4335]" />
                 </a>
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/GDGIndore"
                   target="_blank"
                   rel="noreferrer"
                   className="w-10 h-10 rounded-2xl border border-white/15 bg-[#ea4335]/15 flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm"
@@ -87,7 +87,7 @@ export default function Footer() {
                 >
                   <YoutubeIcon className="w-4 h-4 text-[#ea4335]" />
                 </a>
-                <a
+                {/* <a
                   href="https://github.com"
                   target="_blank"
                   rel="noreferrer"
@@ -95,7 +95,7 @@ export default function Footer() {
                   title="GitHub"
                 >
                   <GithubIcon className="w-4 h-4 text-white/70" />
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
