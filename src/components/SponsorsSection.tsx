@@ -129,7 +129,7 @@ export default function SponsorsSection() {
               <span>Contact Organizers</span>
             </a>
             <a
-              href="#tickets"
+              href="https://drive.google.com/file/d/1bjqfMjXgin7pjslttbJmnryaoioAkHFG/view?usp=sharing"
               className="px-6 py-3 rounded-2xl bg-white/5 text-white text-xs font-black uppercase tracking-wider border border-white/20 google-pill-shadow hover:bg-white/10 hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Download className="w-4 h-4" />
