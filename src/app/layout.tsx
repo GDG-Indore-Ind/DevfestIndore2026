@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero-mascot.jpg",
+        url: "/images/hero-mascot_2026.jpg",
         width: 1200,
         height: 1200,
         alt: "GDG DevFest Indore 2026",

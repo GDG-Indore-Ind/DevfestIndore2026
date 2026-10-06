@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { EVENT_STATS } from "@/data/devfestData";
+import { EVENT_STATS, EVENT_DETAILS } from "@/data/devfestData";
 import {
   Users,
   Sparkles,
@@ -89,7 +89,7 @@ export default function AboutSection() {
             {/* Cultural Illustration */}
             <div className="lg:col-span-6 relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 bg-[#0d0d0d] group">
               <Image
-                src="/images/indore-culture.jpg"
+                src={EVENT_DETAILS.aboutImageUrl}
                 alt="GDG DevFest Indore Tech and Culture Illustration"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -185,18 +185,18 @@ export default function AboutSection() {
                 stat.color === "blue"
                   ? "bg-[#4285f4]/15 border-[#4285f4]/35"
                   : stat.color === "green"
-                  ? "bg-[#34a853]/15 border-[#34a853]/35"
-                  : stat.color === "yellow"
-                  ? "bg-[#f9ab00]/15 border-[#f9ab00]/35"
-                  : "bg-[#ea4335]/15 border-[#ea4335]/35";
+                    ? "bg-[#34a853]/15 border-[#34a853]/35"
+                    : stat.color === "yellow"
+                      ? "bg-[#f9ab00]/15 border-[#f9ab00]/35"
+                      : "bg-[#ea4335]/15 border-[#ea4335]/35";
               const textColor =
                 stat.color === "blue"
                   ? "text-[#4285f4]"
                   : stat.color === "green"
-                  ? "text-[#34a853]"
-                  : stat.color === "yellow"
-                  ? "text-[#f9ab00]"
-                  : "text-[#ea4335]";
+                    ? "text-[#34a853]"
+                    : stat.color === "yellow"
+                      ? "text-[#f9ab00]"
+                      : "text-[#ea4335]";
 
               return (
                 <div

@@ -77,30 +77,33 @@ export default function SponsorsSection() {
               Collaborating Community & Campus Chapters
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {SPONSORS.communityPartners.map((partner, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-xl bg-[#0d0d0d] border border-white/10 flex flex-col items-center gap-3 hover:border-white/30 hover:scale-[1.02] transition-all text-center"
-              >
-                {partner.icon !== "" && (
-                  <img
-                    src={partner.icon}
-                    alt={partner.name}
-                    className="h-12 w-auto object-contain"
-                  />
-                )}
-                {/* <div>
-                  <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
-                </div> */}
-                <div>
-                  <span className="block text-xs font-extrabold text-white">{partner.name}</span>
-                  <span className="block text-[10px] text-white/40 font-medium mt-0.5">{partner.type}</span>
+          {SPONSORS.communityPartners?.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {SPONSORS.communityPartners.map((partner, idx) => (
+                <div
+                  key={idx}
+                  className="p-5 rounded-xl bg-[#0d0d0d] border border-white/10 flex flex-col items-center gap-3 hover:border-white/30 hover:scale-[1.02] transition-all text-center"
+                >
+                  {partner.icon !== "" && (
+                    <img
+                      src={partner.icon}
+                      alt={partner.name}
+                      className="h-12 w-auto object-contain"
+                    />
+                  )}
+                  {/* <div>
+                          <img src={partner.icon} alt={partner.name} className="w-10 h-10" />
+                        </div> */}
+                  {/* <div>
+                          <span className="block text-xs font-extrabold text-white">{partner.name}</span>
+                          <span className="block text-[10px] text-white/40 font-medium mt-0.5">{partner.type}</span>
+                        </div>
+                        <span className="w-2 h-2 rounded-full bg-[#34a853]" /> */}
                 </div>
-                <span className="w-2 h-2 rounded-full bg-[#34a853]" />
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
+
         </div>
 
         {/* Sponsor Callout Box — dark gold tint */}
