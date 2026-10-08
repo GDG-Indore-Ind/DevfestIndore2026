@@ -113,7 +113,7 @@ export default function SatelliteEventsSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <Sparkles className="w-4 h-4 text-[#ea4335] animate-spin-slow" />
             <span className="text-xs font-black uppercase tracking-wider text-white">
-              Pre-DevFest Satellite Week • Nov 11 – 13
+              Pre-DevFest Satellite Events • SEP 11 –  OCT 30
             </span>
           </div>
 
