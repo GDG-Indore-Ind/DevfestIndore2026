@@ -7,13 +7,16 @@ import {
   Check,
   Sparkles,
   QrCode,
+  Rocket,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import CardTilt from "./CardTilt";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type BadgeColor = "blue" | "green" | "yellow" | "red";
 
 export default function TicketsSection() {
+  const { isDark } = useTheme();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   // Badge Generator State
@@ -100,41 +103,56 @@ export default function TicketsSection() {
 
         {/* Single Ticket Booking CTA — space telemetry glass */}
         <div className="max-w-5xl mx-auto mb-20 reveal-on-scroll">
-          <div className="relative overflow-hidden rounded-3xl telemetry-card google-card-shadow p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-1">
+          <div className={`relative overflow-hidden rounded-3xl telemetry-card google-card-shadow p-6 sm:p-8 md:p-10 transition-all duration-300 hover:-translate-y-1 ${
+            isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-xl"
+          }`}>
             {/* Google Color Accent top bar */}
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#4285f4] via-[#34a853] to-[#f9ab00]" />
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#4285f4] via-[#34a853] via-[#f9ab00] to-[#ea4335]" />
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
               {/* CTA Content */}
               <div className="flex-1 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4">
-                  <Ticket className="w-4 h-4 text-[#4285f4]" />
-                  <span className="text-[10px] sm:text-xs font-black uppercase tracking-wider text-white">
-                    Secure Checkout • KonfHub
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4">
+                  <Rocket className="w-4 h-4 text-[#ea4335] animate-bounce" />
+                  <span className={`text-[10px] sm:text-xs font-mono font-black uppercase tracking-wider ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}>
+                    Mission Clearance • KonfHub Portal
                   </span>
+                  <span className="text-[#f9ab00] cosmic-sparkle text-xs font-black">✦</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-                  Book Your Pass Now
+                <h3 className={`text-2xl sm:text-3xl md:text-4xl font-black tracking-tight ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}>
+                  Claim Your Space Boarding Pass
                 </h3>
 
-                <p className="mt-3 text-sm sm:text-base text-white/60 font-medium leading-relaxed max-w-2xl">
-                  Be a part of DevFest Indore 2026. Grab your pass and join
-                  us for an amazing day of learning, networking, and
-                  technology!
+                <p className={`mt-3 text-sm sm:text-base font-medium leading-relaxed max-w-2xl ${
+                  isDark ? "text-white/60" : "text-gray-600"
+                }`}>
+                  Join Central India's premier gathering of 1,500+ astronaut builders, engineers, and creators.
+                  Includes all keynotes, breakout codelabs, official astronaut merchandise kit, and unlimited Indori breakfast & lunch feast!
                 </p>
 
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mt-5 text-[10px] sm:text-xs font-bold text-white">
-                  <span className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 mt-5 text-[11px] sm:text-xs font-bold">
+                  <span className={`flex items-center gap-1.5 ${isDark ? "text-white/80" : "text-gray-800"}`}>
                     <Check className="w-3.5 h-3.5 text-[#34a853]" />
-                    Certificate of Participation
+                    Official Space Swag & Attendee Kit
                   </span>
 
-                  <span className="hidden sm:block text-white/20">|</span>
+                  <span className="hidden sm:block text-gray-300 dark:text-white/20">•</span>
 
-                  <span className="flex items-center gap-1.5">
+                  <span className={`flex items-center gap-1.5 ${isDark ? "text-white/80" : "text-gray-800"}`}>
                     <Check className="w-3.5 h-3.5 text-[#34a853]" />
-                    Official DevFest Swag Kit
+                    Verified Flight Certificate
+                  </span>
+
+                  <span className="hidden sm:block text-gray-300 dark:text-white/20">•</span>
+
+                  <span className={`flex items-center gap-1.5 ${isDark ? "text-white/80" : "text-gray-800"}`}>
+                    <Check className="w-3.5 h-3.5 text-[#34a853]" />
+                    Indori Poha & High-Tea
                   </span>
                 </div>
               </div>
@@ -144,14 +162,16 @@ export default function TicketsSection() {
                 <button
                   type="button"
                   onClick={handleOpenCheckout}
-                  className="w-full md:w-auto min-w-[190px] px-6 py-4 rounded-2xl bg-[#f9ab00] text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider border border-[#f9ab00]/50 shadow-[0_0_20px_rgba(249,171,0,0.4)] hover:bg-[#e09900] hover:-translate-y-1 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full md:w-auto min-w-[200px] px-8 py-4 rounded-2xl bg-[#f9ab00] hover:bg-[#e09900] text-black font-black text-xs sm:text-sm uppercase tracking-wider border border-[#f9ab00]/50 shadow-[0_0_25px_rgba(249,171,0,0.4)] hover:-translate-y-1 active:translate-y-0 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Ticket className="w-4 h-4" />
-                  <span>Grab Your Pass</span>
+                  <span>Claim Boarding Pass</span>
                 </button>
 
-                <p className="text-[10px] text-white/35 text-center mt-3 font-medium">
-                  Secure ticket booking with KonfHub
+                <p className={`text-[10px] text-center mt-3 font-semibold ${
+                  isDark ? "text-white/35" : "text-gray-400"
+                }`}>
+                  Instant checkout powered by KonfHub
                 </p>
               </div>
             </div>
@@ -402,13 +422,19 @@ export default function TicketsSection() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="checkout-title"
-            className="checkout-modal-scrollbar relative my-0 sm:my-auto w-full max-w-3xl max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-[#0d0d0d] p-4 sm:p-6 md:p-8 google-card-shadow"
+            className={`checkout-modal-scrollbar relative my-0 sm:my-auto w-full max-w-3xl max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-2xl sm:rounded-3xl border p-4 sm:p-6 md:p-8 google-card-shadow shadow-2xl ${
+              isDark ? "bg-[#0d0d0d] border-white/15" : "bg-white border-black/10"
+            }`}
           >
             {/* Close Button */}
             <button
               type="button"
               onClick={() => setIsCheckoutOpen(false)}
-              className="absolute right-3 top-3 sm:right-5 sm:top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm font-bold text-white hover:bg-white/15 cursor-pointer transition-colors"
+              className={`absolute right-3 top-3 sm:right-5 sm:top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full border text-sm font-bold cursor-pointer transition-colors ${
+                isDark
+                  ? "border-white/20 bg-white/10 text-white hover:bg-white/15"
+                  : "border-black/15 bg-gray-100 text-gray-800 hover:bg-gray-200"
+              }`}
               aria-label="Close registration checkout"
             >
               ✕
@@ -418,17 +444,21 @@ export default function TicketsSection() {
             <div className="mb-4 pr-9 sm:mb-5">
               <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#34a853]/40 bg-[#34a853]/20 px-3 py-1 text-[10px] sm:text-xs font-black text-[#34a853]">
                 <Ticket className="h-3.5 w-3.5" />
-                <span>Registration Checkout</span>
+                <span>Registration Checkout • KonfHub</span>
               </div>
 
               <h3
                 id="checkout-title"
-                className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight"
+                className={`text-xl sm:text-2xl md:text-3xl font-black leading-tight ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}
               >
                 Select Your Tickets
               </h3>
 
-              <p className="mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed text-white/55">
+              <p className={`mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed ${
+                isDark ? "text-white/55" : "text-gray-600"
+              }`}>
                 Be a part of DevFest Indore 2026. Choose your ticket and
                 complete your registration securely with KonfHub.
               </p>

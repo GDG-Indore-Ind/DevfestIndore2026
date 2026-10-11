@@ -1,16 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Mail,
   ArrowUp,
   Heart,
   CheckCircle,
+  Sparkles,
+  Rocket,
+  Compass,
 } from "lucide-react";
 import { TwitterIcon, LinkedInIcon, InstagramIcon, YoutubeIcon, GithubIcon } from "./SocialIcons";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Footer() {
+  const { isDark } = useTheme();
   const [emailInput, setEmailInput] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -27,8 +33,76 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[var(--surface-1,#0a0a0a)] border-t border-black/10 dark:border-white/10 relative pt-16 pb-8 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className={`border-t relative pt-16 pb-8 overflow-hidden transition-colors ${
+      isDark ? "bg-[#0a0a0a] border-white/10" : "bg-white border-black/10"
+    }`}>
+      {/* Background Celestial Orbital Arc */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <ellipse cx="50%" cy="10%" rx="650" ry="160" fill="none" stroke="#4285f4" strokeWidth="1" strokeDasharray="8 8" />
+      </svg>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Panoramic Lunar Base Mission Control Banner */}
+        <div className="mb-14 reveal-on-scroll">
+          <div className={`relative rounded-3xl overflow-hidden border transition-all ${
+            isDark
+              ? "bg-[#0d0d0d] border-white/15 shadow-[0_0_40px_rgba(66,133,244,0.15)]"
+              : "bg-white border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+          }`}>
+            <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/11] min-h-[220px] max-h-[360px]">
+              <Image
+                src="/images/footer-lunar-base-illustration.jpg"
+                alt="DevFest Indore Lunar Base Mission Control Horizon"
+                fill
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="object-cover object-bottom"
+                unoptimized
+              />
+              {/* Subtle gradient vignette to blend top/bottom cleanly */}
+              <div className={`absolute inset-0 pointer-events-none ${
+                isDark
+                  ? "bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/20 to-transparent"
+                  : "bg-gradient-to-t from-black/50 via-transparent to-transparent"
+              }`} />
+
+              {/* Floating telemetry chips */}
+              <div className="absolute top-3 left-3 sm:top-5 sm:left-5 flex flex-wrap items-center gap-2">
+                <div className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-bold border border-white/20 flex items-center gap-1.5 shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-[#34a853] animate-ping" />
+                  <span>INDORE LUNAR BASE // MISSION CONTROL</span>
+                </div>
+                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-mono font-black border border-white/15">
+                  ✦ NOV 28, 2026
+                </span>
+              </div>
+
+              {/* Bottom callout over image */}
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3">
+                <div className="bg-black/75 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-white/20 max-w-lg text-white shadow-lg">
+                  <h4 className="text-sm sm:text-lg font-black mb-0.5 flex items-center gap-2">
+                    <span>See You at Mission Launch!</span>
+                    <Sparkles className="w-4 h-4 text-[#f9ab00] cosmic-sparkle" />
+                  </h4>
+                  <p className="text-[11px] sm:text-xs text-white/80 font-medium">
+                    Connecting 800+ builders, creators, and innovators from Indore to the cosmos.
+                  </p>
+                </div>
+
+                <a
+                  href="#tickets"
+                  className="px-5 py-2.5 rounded-xl bg-white text-gray-900 font-extrabold text-xs uppercase tracking-wider hover:bg-white/90 transition-transform hover:scale-105 shadow-xl flex items-center gap-2 cursor-pointer"
+                >
+                  <Rocket className="w-3.5 h-3.5 text-[#ea4335]" />
+                  <span>Secure Space Pass</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14 reveal-on-scroll">
           {/* Brand & Community Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">
@@ -40,31 +114,41 @@ export default function Footer() {
                   <span className="text-[#34a853] font-bold text-lg font-mono">{">"}</span>
                 </div>
                 <div>
-                  <span className="block font-black text-lg text-white">GDG Indore</span>
-                  <span className="block text-xs font-bold text-white/50">DevFest Indore 2026</span>
+                  <span className={`block font-black text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
+                    GDG Indore
+                  </span>
+                  <span className={`block text-xs font-bold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                    DevFest Indore 2026 Space Edition
+                  </span>
                 </div>
               </Link>
 
-              <p className="text-xs sm:text-sm text-white/50 font-medium leading-relaxed mb-6">
+              <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-6 ${
+                isDark ? "text-white/50" : "text-gray-600"
+              }`}>
                 Google Developer Group Indore is an open, community-run group of developers, designers,
                 and technology enthusiasts dedicated to learning, sharing, and building impactful digital solutions.
               </p>
 
-              <div className="flex items-center gap-2.5 text-white">
+              <div className="flex items-center gap-2.5">
                 <a
                   href="https://x.com/GDG_Indore"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-2xl border border-white/15 bg-[#4285f4]/15 flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm"
+                  className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm ${
+                    isDark ? "border-white/15 bg-[#4285f4]/15" : "border-gray-200 bg-[#4285f4]/10"
+                  }`}
                   title="Twitter / X"
                 >
-                  <TwitterIcon className="w-4 h-4 text-white/70" />
+                  <TwitterIcon className={`w-4 h-4 ${isDark ? "text-white/80" : "text-gray-800"}`} />
                 </a>
                 <a
                   href="https://linkedin.com/company/gdg-indore"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-2xl border border-white/15 bg-[#4285f4]/15 flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm"
+                  className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm ${
+                    isDark ? "border-white/15 bg-[#4285f4]/15" : "border-gray-200 bg-[#4285f4]/10"
+                  }`}
                   title="LinkedIn"
                 >
                   <LinkedInIcon className="w-4 h-4 text-[#4285f4]" />
@@ -73,7 +157,9 @@ export default function Footer() {
                   href="https://instagram.com/gdgindore"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-2xl border border-white/15 bg-[#ea4335]/15 flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm"
+                  className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm ${
+                    isDark ? "border-white/15 bg-[#ea4335]/15" : "border-gray-200 bg-[#ea4335]/10"
+                  }`}
                   title="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4 text-[#ea4335]" />
@@ -82,33 +168,32 @@ export default function Footer() {
                   href="https://youtube.com/GDGIndore"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-2xl border border-white/15 bg-[#ea4335]/15 flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm"
+                  className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm ${
+                    isDark ? "border-white/15 bg-[#ea4335]/15" : "border-gray-200 bg-[#ea4335]/10"
+                  }`}
                   title="YouTube"
                 >
                   <YoutubeIcon className="w-4 h-4 text-[#ea4335]" />
                 </a>
-                {/* <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-10 h-10 rounded-2xl border border-white/15 bg-[#34a853]/15 flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm"
-                  title="GitHub"
-                >
-                  <GithubIcon className="w-4 h-4 text-white/70" />
-                </a> */}
               </div>
             </div>
           </div>
 
           {/* Quick Nav Links */}
           <div className="lg:col-span-2">
-            <span className="block text-xs font-black uppercase tracking-wider text-white mb-4">
+            <span className={`block text-xs font-black uppercase tracking-wider mb-4 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
               Navigation
             </span>
-            <ul className="space-y-2.5 text-xs font-bold text-white/50">
+            <ul className={`space-y-2.5 text-xs font-bold ${
+              isDark ? "text-white/50" : "text-gray-600"
+            }`}>
               {["About", "Sponsors", "Tickets", "Venue", "Faq"].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase().replace(" ", "-")}`} className="group inline-block hover:text-white transition-colors">
+                  <a href={`#${item.toLowerCase().replace(" ", "-")}`} className={`group inline-block transition-colors ${
+                    isDark ? "hover:text-white" : "hover:text-gray-900"
+                  }`}>
                     <span className="roll-text-container">
                       <span className="roll-text-top">{item}</span>
                       <span className="roll-text-bottom text-[#4285f4]">{item} →</span>
@@ -121,10 +206,14 @@ export default function Footer() {
 
           {/* Community Links */}
           <div className="lg:col-span-2">
-            <span className="block text-xs font-black uppercase tracking-wider text-white mb-4">
+            <span className={`block text-xs font-black uppercase tracking-wider mb-4 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
               Community
             </span>
-            <ul className="space-y-2.5 text-xs font-bold text-white/50">
+            <ul className={`space-y-2.5 text-xs font-bold ${
+              isDark ? "text-white/50" : "text-gray-600"
+            }`}>
               <li>
                 <a
                   href="https://developers.google.com/community-guidelines"
@@ -145,35 +234,26 @@ export default function Footer() {
                   Call for Speakers (CFP)
                 </a>
               </li>
-              {/* <li>
-                <a
-                  href="https://forms.gle"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#34a853] transition-colors"
-                >
-                  Volunteer with Us
-                </a>
-              </li> */}
               <li>
                 <a href="#sponsors" className="hover:text-[#34a853] transition-colors">
                   Partner / Sponsor Deck
                 </a>
               </li>
-              {/* <li>
-                <a href="#indore-vibe" className="hover:text-[#34a853] transition-colors">
-                  Indore Travel & Food
-                </a>
-              </li> */}
             </ul>
           </div>
 
           {/* Newsletter Box — space telemetry card */}
-          <div className="lg:col-span-4 telemetry-card p-6 rounded-3xl spotlight-card">
-            <span className="block text-xs font-black uppercase tracking-wider text-white mb-2">
+          <div className={`telemetry-card p-6 rounded-3xl spotlight-card ${
+            isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-md"
+          } lg:col-span-4`}>
+            <span className={`block text-xs font-black uppercase tracking-wider mb-2 ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
               Stay in the Loop
             </span>
-            <p className="text-xs text-white/50 font-medium leading-relaxed mb-4">
+            <p className={`text-xs font-medium leading-relaxed mb-4 ${
+              isDark ? "text-white/50" : "text-gray-600"
+            }`}>
               Get timely notifications on speaker reveals, workshop prerequisites, and hackathon problem statements.
             </p>
 
@@ -185,7 +265,11 @@ export default function Footer() {
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="Enter your email address"
                   required
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-white/15 bg-[#1a1a1a] text-xs font-bold text-white placeholder:text-white/25 focus:outline-none focus:border-[#4285f4]"
+                  className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-bold focus:outline-none focus:border-[#4285f4] ${
+                    isDark
+                      ? "border border-white/15 bg-[#1a1a1a] text-white placeholder:text-white/25"
+                      : "border border-gray-300 bg-gray-50 text-gray-900 placeholder:text-gray-400"
+                  }`}
                 />
                 <button
                   type="submit"
@@ -204,9 +288,11 @@ export default function Footer() {
         </div>
 
         {/* Disclaimer Note */}
-        <div className="pt-8 border-t border-white/8 text-[11px] text-white/35 leading-relaxed mb-6">
+        <div className={`pt-8 border-t text-[11px] leading-relaxed mb-6 ${
+          isDark ? "border-white/8 text-white/35" : "border-gray-200 text-gray-500"
+        }`}>
           <p>
-            <strong className="text-white/50">Disclaimer:</strong> GDG Indore is an independent developer community.
+            <strong className={isDark ? "text-white/50" : "text-gray-700"}>Disclaimer:</strong> GDG Indore is an independent developer community.
             Activities and opinions expressed here should in no way be linked to Google, the corporation.
             To learn more about the Google Developer Groups program, visit{" "}
             <a
@@ -222,18 +308,28 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar & Back to Top */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-white/60">
-          <div className="flex items-center gap-1.5">
+        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold ${
+          isDark ? "text-white/60" : "text-gray-600"
+        }`}>
+          <div className="flex flex-wrap items-center gap-2">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-[#ea4335] fill-[#ea4335] animate-pulse" />
-            <span>by GDG Indore Community Organisers</span>
+            <span>by GDG Indore Organizers</span>
+            <span className="hidden md:inline text-gray-400">•</span>
+            <span className="hidden md:inline font-mono text-[11px] text-[#4285f4]">
+              ✦ MISSION CONTROL: 22.7196° N, 75.8577° E
+            </span>
           </div>
 
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/8 border border-white/15 hover:bg-white/12 hover:scale-105 transition-all cursor-pointer text-white/60"
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full border transition-all hover:scale-105 cursor-pointer text-xs font-bold ${
+              isDark
+                ? "bg-white/8 border-white/15 hover:bg-white/15 text-white"
+                : "bg-gray-100 border-gray-300 hover:bg-gray-200 text-gray-800 shadow-sm"
+            }`}
           >
-            <span>Back to top</span>
+            <span>Back to orbit</span>
             <ArrowUp className="w-3.5 h-3.5 animate-bounce" />
           </button>
         </div>

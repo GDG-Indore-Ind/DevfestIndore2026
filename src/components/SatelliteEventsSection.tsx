@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { SATELLITE_EVENTS, SatelliteEvent } from "@/data/devfestData";
 import {
   Calendar,
@@ -11,11 +12,15 @@ import {
   CheckCircle,
   Filter,
   Check,
+  Radio,
+  ExternalLink,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import CardTilt from "./CardTilt";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function SatelliteEventsSection() {
+  const { isDark } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activeRsvpEvent, setActiveRsvpEvent] = useState<SatelliteEvent | null>(null);
   const [rsvpSuccess, setRsvpSuccess] = useState(false);
@@ -106,37 +111,138 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden border-t border-black/10 dark:border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
+    <section id="satellite-events" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
+      {/* Background Orbital Trajectory Graphics */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <ellipse cx="80%" cy="20%" rx="380" ry="110" fill="none" stroke="#4285f4" strokeWidth="1.2" strokeDasharray="6 6" />
+        <ellipse cx="20%" cy="65%" rx="440" ry="130" fill="none" stroke="#ea4335" strokeWidth="1" strokeDasharray="8 8" />
+      </svg>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header with Orbital Satellite Badge */}
+        <div className="text-center max-w-3xl mx-auto mb-10 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
-            <Sparkles className="w-4 h-4 text-[#ea4335] animate-spin-slow" />
-            <span className="text-xs font-black uppercase tracking-wider text-white">
-              Pre-DevFest Satellite Events • SEP 11 – OCT 30
+            <Radio className="w-4 h-4 text-[#4285f4] animate-pulse" />
+            <span className={`text-xs font-mono font-black uppercase tracking-wider ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
+              Orbital Satellite Activations • Sep 11 – Nov 28
             </span>
             <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-            Satellite Events <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">- Pre devfest Events Oct-November</span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+            <span className={isDark ? "text-white" : "text-gray-900"}>Satellite Missions</span>{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">
+              & Citywide Meetups
+            </span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
-            Leading up to Saturday's flagship conference, DevFest Indore takes over the city!
-            Join curated partner-hosted meetups, founder dinners, HR roundtables, creator summits, and hands-on workshops across Indore.
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
+            isDark ? "text-white/60" : "text-gray-600"
+          }`}>
+            Leading up to the main flight on Nov 28, DevFest Indore takes over the city!
+            Join partner-hosted satellite meetups, founder dinners, HR roundtables, and hands-on codelabs across Indore.
           </p>
+        </div>
 
-          <div className="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#f9ab00] bg-[#f9ab00]/15 px-4 py-1.5 rounded-full border border-[#f9ab00]/40">
-            <span>One City • One Week • Central India Tech Surge</span>
-          </div>
+        {/* Space Satellite Feature Showcase Card */}
+        <div className="mb-14 reveal-on-scroll">
+          <CardTilt className={`rounded-3xl p-6 sm:p-8 border overflow-hidden transition-all shadow-xl ${
+            isDark
+              ? "bg-[#0a0a0a]/90 border-white/15 shadow-[0_0_40px_rgba(66,133,244,0.15)]"
+              : "!bg-white !border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+          }`}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Left Column: Satellite Illustration */}
+              <div className="lg:col-span-5 relative flex justify-center items-center">
+                <div className="relative w-full max-w-[340px] aspect-square rounded-2xl overflow-hidden bg-white p-2 border border-gray-200/80 shadow-inner group">
+                  <Image
+                    src="/images/satellite-space-illustration.jpg"
+                    alt="DevFest Indore Satellite Space Mission Illustration beaming data to Earth"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 340px"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                    priority
+                    unoptimized
+                  />
+                  {/* Floating Telemetry Chip */}
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-black/80 text-white text-[10px] font-mono font-bold border border-white/20 backdrop-blur-md">
+                    🛰️ COMMSAT-01 // ORBIT
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Mission Details */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-ping" />
+                  <span className="text-xs font-mono font-bold text-[#34a853] uppercase tracking-wider">
+                    Orbital Signal: Active & Beaming
+                  </span>
+                </div>
+
+                <h3 className={`text-2xl sm:text-3xl font-black mb-3 ${
+                  isDark ? "text-white" : "text-gray-900"
+                }`}>
+                  Beaming Tech Across Indore's Ecosystem
+                </h3>
+
+                <p className={`text-sm sm:text-base font-medium leading-relaxed mb-5 ${
+                  isDark ? "text-white/70" : "text-gray-600"
+                }`}>
+                  DevFest Indore isn't just a 1-day event — it's an entire season of satellite activations.
+                  From AI workshops at IT parks to deep-tech roundtables in Super Corridor, explore the schedule below.
+                </p>
+
+                {/* Satellite Metrics Grid */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className={`p-3 rounded-xl border text-center ${
+                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+                  }`}>
+                    <span className="block text-xl sm:text-2xl font-black text-[#4285f4]">6+</span>
+                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
+                      isDark ? "text-white/60" : "text-gray-500"
+                    }`}>
+                      Satellite Nodes
+                    </span>
+                  </div>
+                  <div className={`p-3 rounded-xl border text-center ${
+                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+                  }`}>
+                    <span className="block text-xl sm:text-2xl font-black text-[#ea4335]">800+</span>
+                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
+                      isDark ? "text-white/60" : "text-gray-500"
+                    }`}>
+                      Pre-Event Devs
+                    </span>
+                  </div>
+                  <div className={`p-3 rounded-xl border text-center ${
+                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+                  }`}>
+                    <span className="block text-xl sm:text-2xl font-black text-[#34a853]">100%</span>
+                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
+                      isDark ? "text-white/60" : "text-gray-500"
+                    }`}>
+                      Community Free
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardTilt>
         </div>
 
         {/* Filter Pills Toolbar — space telemetry glass */}
-        <div className="telemetry-card p-4 sm:p-5 rounded-3xl google-pill-shadow mb-12 reveal-on-scroll">
-          <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider text-white/60">
+        <div className={`telemetry-card p-4 sm:p-5 rounded-3xl google-pill-shadow mb-12 reveal-on-scroll ${
+          isDark ? "bg-[#0d0d0d]/90 border-white/10" : "!bg-white !border-gray-200/90 shadow-md"
+        }`}>
+          <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider">
             <Filter className="w-3.5 h-3.5 text-[#4285f4]" />
-            <span>Filter By Activation Category:</span>
+            <span className={isDark ? "text-white/70" : "text-gray-700"}>Filter By Activation Category:</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -144,10 +250,15 @@ export default function SatelliteEventsSection() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border-2 cursor-pointer ${selectedCategory === cat
-                  ? "bg-white text-black border-white google-pill-shadow scale-102"
-                  : "bg-white/5 text-white/70 border-white/15 hover:bg-white/10 hover:text-white"
-                  }`}
+                className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border-2 cursor-pointer ${
+                  selectedCategory === cat
+                    ? isDark
+                      ? "bg-white text-black border-white google-pill-shadow scale-102"
+                      : "bg-gray-900 text-white border-gray-900 google-pill-shadow scale-102 shadow-sm"
+                    : isDark
+                      ? "bg-white/5 text-white/70 border-white/15 hover:bg-white/10 hover:text-white"
+                      : "bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:text-gray-900"
+                }`}
               >
                 {cat}
               </button>
@@ -203,12 +314,12 @@ export default function SatelliteEventsSection() {
                     </div>
                   )}
 
-                  <span className="text-xs font-black uppercase tracking-wider bg-white/80 border border-black/30 px-3 py-1 rounded-full">
+                  <span className="text-xs font-black uppercase tracking-wider bg-white/80 border border-black/30 px-3 py-1 rounded-full text-black">
                     {events.length} Activation{events.length > 1 ? "s" : ""}
                   </span>
                 </div>
 
-                {/* Events — dark glass cards */}
+                {/* Events — glass/white cards */}
                 <div className="space-y-4">
                   {events.map((event) => {
                     const styles = getColorStyles(event.color);
@@ -216,17 +327,25 @@ export default function SatelliteEventsSection() {
                     return (
                       <CardTilt
                         key={event.id}
-                        className={`bg-[#0d0d0d] rounded-3xl p-5 sm:p-7 border border-white/10 google-card-shadow transition-all border-l-8 ${styles.borderAccent} hover:translate-x-1`}
+                        className={`rounded-3xl p-5 sm:p-7 border google-card-shadow transition-all border-l-8 ${styles.borderAccent} hover:translate-x-1 ${
+                          isDark
+                            ? "bg-[#0d0d0d] border-white/10"
+                            : "!bg-white !border-gray-200/90 shadow-md"
+                        }`}
                       >
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                           {/* Time & Capacity Column */}
                           <div className="lg:col-span-3 flex flex-col gap-1.5 shrink-0">
-                            <div className="inline-flex items-center gap-1.5 text-xs font-black text-white">
+                            <div className={`inline-flex items-center gap-1.5 text-xs font-black ${
+                              isDark ? "text-white" : "text-gray-900"
+                            }`}>
                               <Clock className="w-4 h-4 text-[#4285f4]" />
                               <span>{event.time}</span>
                             </div>
 
-                            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white/45">
+                            <div className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${
+                              isDark ? "text-white/45" : "text-gray-500"
+                            }`}>
                               <Users className="w-3.5 h-3.5 text-[#34a853]" />
                               <span>{event.capacity}</span>
                             </div>
@@ -243,19 +362,29 @@ export default function SatelliteEventsSection() {
                           {/* Middle: Host, Title, Description, Perks */}
                           <div className="lg:col-span-6 flex flex-col">
                             <div className="flex items-center gap-2 mb-1.5">
-                              <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/8 text-white/60 border border-white/10">
+                              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                                isDark
+                                  ? "bg-white/8 text-white/60 border-white/10"
+                                  : "bg-gray-100 text-gray-700 border-gray-200"
+                              }`}>
                                 Host: {event.host}
                               </span>
-                              <span className="text-[10px] font-bold text-white/40">
+                              <span className={`text-[10px] font-bold ${
+                                isDark ? "text-white/40" : "text-gray-400"
+                              }`}>
                                 • {event.hostBadge}
                               </span>
                             </div>
 
-                            <h3 className="text-xl sm:text-2xl font-black text-white leading-snug mb-2">
+                            <h3 className={`text-xl sm:text-2xl font-black leading-snug mb-2 ${
+                              isDark ? "text-white" : "text-gray-900"
+                            }`}>
                               {event.title}
                             </h3>
 
-                            <p className="text-xs sm:text-sm text-white/65 font-medium leading-relaxed mb-3">
+                            <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-3 ${
+                              isDark ? "text-white/65" : "text-gray-600"
+                            }`}>
                               {event.description}
                             </p>
 
@@ -264,7 +393,11 @@ export default function SatelliteEventsSection() {
                               {event.perks.map((perk, i) => (
                                 <span
                                   key={i}
-                                  className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/70"
+                                  className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
+                                    isDark
+                                      ? "bg-white/5 border-white/10 text-white/70"
+                                      : "bg-gray-50 border-gray-200 text-gray-700"
+                                  }`}
                                 >
                                   <Check className="w-3 h-3 text-[#34a853]" />
                                   <span>{perk}</span>
@@ -274,13 +407,17 @@ export default function SatelliteEventsSection() {
                           </div>
 
                           {/* Right: Location & RSVP */}
-                          <div className="lg:col-span-3 flex flex-col lg:items-end justify-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 border-white/8">
+                          <div className={`lg:col-span-3 flex flex-col lg:items-end justify-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 ${
+                            isDark ? "border-white/8" : "border-gray-200"
+                          }`}>
                             <div className="lg:text-right">
                               <div className="flex items-center lg:justify-end gap-1.5 text-xs font-black text-[#ea4335]">
                                 <MapPin className="w-3.5 h-3.5 shrink-0" />
                                 <span>{event.location}</span>
                               </div>
-                              <span className="block text-[11px] font-semibold text-white/40 mt-0.5">
+                              <span className={`block text-[11px] font-semibold mt-0.5 ${
+                                isDark ? "text-white/40" : "text-gray-500"
+                              }`}>
                                 {event.venue}
                               </span>
                             </div>
