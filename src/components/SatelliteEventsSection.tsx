@@ -106,22 +106,23 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-20 md:py-28 bg-[#000000] relative overflow-hidden border-t border-white/10">
+    <section id="satellite-events" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden border-t border-black/10 dark:border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <Sparkles className="w-4 h-4 text-[#ea4335] animate-spin-slow" />
             <span className="text-xs font-black uppercase tracking-wider text-white">
-              Pre-DevFest Satellite Events • SEP 11 –  OCT 30
+              Pre-DevFest Satellite Events • SEP 11 – OCT 30
             </span>
+            <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
             Satellite Events <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00]">- Pre devfest Events Oct-November</span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-white/55 font-medium leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
             Leading up to Saturday's flagship conference, DevFest Indore takes over the city!
             Join curated partner-hosted meetups, founder dinners, HR roundtables, creator summits, and hands-on workshops across Indore.
           </p>
@@ -131,9 +132,9 @@ export default function SatelliteEventsSection() {
           </div>
         </div>
 
-        {/* Filter Pills Toolbar — dark glass */}
-        <div className="bg-[#0d0d0d] border border-white/10 p-4 sm:p-5 rounded-3xl google-pill-shadow mb-12 reveal-on-scroll">
-          <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider text-white/45">
+        {/* Filter Pills Toolbar — space telemetry glass */}
+        <div className="telemetry-card p-4 sm:p-5 rounded-3xl google-pill-shadow mb-12 reveal-on-scroll">
+          <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider text-white/60">
             <Filter className="w-3.5 h-3.5 text-[#4285f4]" />
             <span>Filter By Activation Category:</span>
           </div>

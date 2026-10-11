@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
+import CallForSpeakersSection from "@/components/CallForSpeakersSection";
 // import ScheduleSection from "@/components/ScheduleSection";
 // import SpeakersSection from "@/components/SpeakersSection";
 import TicketsSection from "@/components/TicketsSection";
@@ -78,6 +79,9 @@ export default function Home() {
 
         {/* Pre-DevFest Satellite Events & City Activations (Mumbai Tech Week Style) */}
         <SatelliteEventsSection />
+
+        {/* Official Call for Speakers — Space Edition Poster & Proposal Portal */}
+        <CallForSpeakersSection />
 
         {/* Schedule & Agenda with Track Filtering and Bookmarking */}
         {/* <ScheduleSection

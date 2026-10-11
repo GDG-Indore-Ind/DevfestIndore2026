@@ -31,6 +31,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
   const navLinks = [
     { name: "About", href: "#about" },
+    { name: "Call for Speakers", href: "#call-for-speakers" },
     { name: "Tickets", href: "#tickets" },
     { name: "Satellite Events", href: "#satellite-events" },
     // { name: "Badge Maker", href: "#badge-generator" },
@@ -76,12 +77,15 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 <span className={`font-extrabold text-base tracking-tight ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
                   GDG Indore
                 </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50">
-                  2026
+                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 flex items-center gap-1">
+                  <span className="text-[9px] font-normal">इंदौर</span>
+                  <span>2026</span>
                 </span>
               </div>
-              <span className={`text-[11px] font-semibold -mt-0.5 flex items-center gap-1 ${isDark ? "text-white/50" : "text-black/40"}`}>
+              <span className={`text-[11px] font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/50" : "text-black/40"}`}>
+                <span className="font-mono text-[10px] text-[#4285f4]">{"{"}</span>
                 <span>DevFest</span>
+                <span className="font-mono text-[10px] text-[#34a853]">{"}"}</span>
                 <span className="w-1 h-1 rounded-full bg-[#34a853]" />
                 <span className="text-[#34a853]">Nov 28</span>
               </span>

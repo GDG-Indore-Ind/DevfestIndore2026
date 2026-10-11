@@ -636,7 +636,7 @@ export const SATELLITE_EVENTS: SatelliteEvent[] = [
   },
   {
     id: "sat-2",
-    day: "Saturday, Octiber 31, 2026",
+    day: "Saturday, October 31, 2026",
     dateShort: "OCT 31",
     dayShort: "SAT",
     time: "11:00 AM – 03:00 PM",

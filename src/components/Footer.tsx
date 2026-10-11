@@ -27,21 +27,21 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#0a0a0a] border-t border-white/10 relative pt-16 pb-8 overflow-hidden">
+    <footer className="bg-[var(--surface-1,#0a0a0a)] border-t border-black/10 dark:border-white/10 relative pt-16 pb-8 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14 reveal-on-scroll">
           {/* Brand & Community Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
-                <div className="flex items-center justify-center w-10 h-10 rounded-2xl bg-[#0d0d0d] border border-white/15 shadow-[0_0_12px_rgba(66,133,244,0.2)] group-hover:scale-105 group-hover:rotate-6 transition-transform">
+                <div className="flex items-center justify-center w-10 h-10 rounded-2xl telemetry-card shadow-[0_0_12px_rgba(66,133,244,0.2)] group-hover:scale-105 group-hover:rotate-6 transition-transform">
                   <span className="text-[#4285f4] font-bold text-lg font-mono">{"<"}</span>
                   <span className="text-[#ea4335] font-bold text-xs">/</span>
                   <span className="text-[#34a853] font-bold text-lg font-mono">{">"}</span>
                 </div>
                 <div>
                   <span className="block font-black text-lg text-white">GDG Indore</span>
-                  <span className="block text-xs font-bold text-white/45">DevFest Indore 2026</span>
+                  <span className="block text-xs font-bold text-white/50">DevFest Indore 2026</span>
                 </div>
               </Link>
 
@@ -168,8 +168,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter Box — dark glass */}
-          <div className="lg:col-span-4 bg-[#0d0d0d] border border-white/10 p-6 rounded-3xl spotlight-card">
+          {/* Newsletter Box — space telemetry card */}
+          <div className="lg:col-span-4 telemetry-card p-6 rounded-3xl spotlight-card">
             <span className="block text-xs font-black uppercase tracking-wider text-white mb-2">
               Stay in the Loop
             </span>

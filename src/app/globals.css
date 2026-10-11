@@ -140,15 +140,18 @@
     0 0 32px rgba(66, 133, 244, 0.1);
 }
 
-/* Light theme dot grid */
+/* Light theme dot grid & Space Blueprint Constellation */
 :root[data-theme="light"] .bg-grid-pattern {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
+  background-image: 
+    radial-gradient(rgba(66, 133, 244, 0.14) 1.5px, transparent 1.5px),
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px, 64px 64px, 64px 64px;
 }
 
 :root[data-theme="light"] .bg-dot-blue {
-  background-image: radial-gradient(rgba(66, 133, 244, 0.12) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(66, 133, 244, 0.16) 1.8px, transparent 1.8px);
+  background-size: 24px 24px;
 }
 
 /* Light theme selection */
@@ -170,17 +173,20 @@
 }
 
 :root[data-theme="light"] .bg-\[\#0d0d0d\] {
-  background-color: #f8f9fa !important;
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(66, 133, 244, 0.05), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
 }
 
 :root[data-theme="light"] .bg-\[\#141414\],
 :root[data-theme="light"] .bg-\[\#1a1a1a\] {
-  background-color: #f0f2f4 !important;
+  background-color: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.07) !important;
 }
 
 /* Text overrides */
 :root[data-theme="light"] .text-white {
-  color: #1a1a1a !important;
+  color: #111827 !important;
 }
 
 :root[data-theme="light"] .text-white\/75,
@@ -956,3 +962,135 @@ button:hover .roll-text-bottom {
 .animate-glow-multi {
   animation: glow-pulse-multi 4s ease-in-out infinite;
 }
+
+/* ========================================================================= */
+/* DEVFEST SPACE THEME (ASTRONAUT & COSMOS EXPEDITION)                        */
+/* ========================================================================= */
+
+.space-proposal-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 2.5px;
+  background: linear-gradient(90deg, #34a853 0%, #f9ab00 50%, #4285f4 100%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(52, 168, 83, 0.25);
+  cursor: pointer;
+}
+
+.space-proposal-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(52, 168, 83, 0.4), 0 0 40px rgba(66, 133, 244, 0.2);
+}
+
+.space-proposal-btn__inner {
+  background: #0d0d0d;
+  color: #ffffff !important;
+  border-radius: 9997px;
+  padding: 0.75rem 1.6rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+:root[data-theme="light"] .space-proposal-btn__inner {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+.space-proposal-btn:hover .space-proposal-btn__inner {
+  background: #141414;
+}
+
+:root[data-theme="light"] .space-proposal-btn:hover .space-proposal-btn__inner {
+  background: #f8fafc !important;
+}
+
+.cosmic-sparkle {
+  display: inline-block;
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    transform: scale(0.9) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.25) rotate(15deg);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+}
+
+.telemetry-card {
+  position: relative;
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 30px rgba(66, 133, 244, 0.12);
+}
+
+:root[data-theme="light"] .telemetry-card {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 12px 36px rgba(66, 133, 244, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root[data-theme="light"] .telemetry-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4285f4 0%, #34a853 33%, #f9ab00 66%, #ea4335 100%);
+  border-radius: inherit;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  opacity: 0.9;
+}
+
+/* Space Mission HUD and Orbit Accents */
+.space-hud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+:root[data-theme="dark"] .space-hud-badge {
+  background: rgba(13, 13, 13, 0.9);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(66, 133, 244, 0.15);
+}
+
+.cosmic-orbit-circle {
+  border: 1px dashed rgba(66, 133, 244, 0.22);
+  border-radius: 50%;
+  animation: orbit-rotate 45s linear infinite;
+}
+
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

@@ -35,28 +35,29 @@ export default function VenueSection() {
   };
 
   return (
-    <section id="venue" className="py-20 md:py-28 bg-[#000000] relative overflow-hidden">
+    <section id="venue" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <MapPin className="w-4 h-4 text-[#ea4335]" />
             <span className="text-xs font-black uppercase tracking-wider text-white">
               Venue & Location
             </span>
+            <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Meet Us at <span className="text-[#ea4335]">Essentia Luxury Hotel Indore</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-white/55 font-medium leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
             Central India's premier event destination featuring state-of-the-art acoustics,
             spacious auditorium halls, dedicated codelab arenas, and outdoor dining lawns.
           </p>
         </div>
 
-        {/* Venue Information Card — dark glass */}
+        {/* Venue Information Card — space telemetry glass */}
         <div className="max-w-3xl mx-auto mb-12 reveal-on-scroll">
-          <CardTilt className="bg-[#0d0d0d] border border-white/10 p-6 sm:p-8 rounded-3xl google-card-shadow flex flex-col justify-between">
+          <CardTilt className="telemetry-card p-6 sm:p-8 rounded-3xl google-card-shadow flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-xs font-extrabold text-[#4285f4] uppercase tracking-wider mb-2">
                 <Compass className="w-4 h-4 animate-spin-slow" />
