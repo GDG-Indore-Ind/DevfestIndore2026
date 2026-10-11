@@ -6,20 +6,21 @@ import CardTilt from "./CardTilt";
 
 export default function SponsorsSection() {
   return (
-    <section id="sponsors" className="py-20 md:py-28 bg-[#000000] relative">
+    <section id="sponsors" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <Handshake className="w-4 h-4 text-[#34a853]" />
             <span className="text-xs font-black uppercase tracking-wider text-white">
               Sponsors & Community Ecosystem
             </span>
+            <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Backed By Global <span className="text-[#4285f4]">Tech Giants</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-white/55 font-medium leading-relaxed">
+          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
             Proudly supported by organizations championing open developer communities,
             inclusive technology, and student innovation across India.
           </p>
@@ -27,13 +28,13 @@ export default function SponsorsSection() {
 
         {/* Title Sponsor Banner — dark neon blue tint */}
         <div className="reveal-on-scroll mb-12">
-          <CardTilt className="bg-[#4285f4]/8 rounded-3xl border border-[#4285f4]/25 google-card-shadow p-8 sm:p-12 text-center">
+          <CardTilt className="telemetry-card bg-[#4285f4]/8 rounded-3xl border border-[#4285f4]/25 google-card-shadow p-8 sm:p-12 text-center">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#4285f4] text-white text-xs font-black uppercase tracking-wider mb-6 animate-pulse">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Title Sponsor</span>
             </div>
 
-            <div className="max-w-md mx-auto bg-[#0d0d0d] py-6 px-8 rounded-2xl border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
+            <div className="max-w-md mx-auto telemetry-card py-6 px-8 rounded-2xl google-pill-shadow mb-4 hover:scale-105 transition-transform">
               <span className="text-2xl sm:text-3xl font-black tracking-tight flex items-center justify-center gap-2">
                 <span className="text-[#4285f4]">G</span>
                 <span className="text-[#ea4335]">o</span>
