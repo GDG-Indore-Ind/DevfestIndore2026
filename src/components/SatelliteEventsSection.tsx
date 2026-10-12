@@ -141,8 +141,8 @@ export default function SatelliteEventsSection() {
             </span>
           </h2>
 
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
-            isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-normal leading-relaxed ${
+            isDark ? "text-white/80" : "text-gray-700"
           }`}>
             Leading up to the main flight on Nov 28, DevFest Indore takes over the city!
             Join partner-hosted satellite meetups, founder dinners, HR roundtables, and hands-on codelabs across Indore.
@@ -191,8 +191,8 @@ export default function SatelliteEventsSection() {
                   Beaming Tech Across Indore's Ecosystem
                 </h3>
 
-                <p className={`text-sm sm:text-base font-medium leading-relaxed mb-5 ${
-                  isDark ? "text-white/70" : "text-gray-600"
+                <p className={`text-sm sm:text-base font-normal leading-relaxed mb-5 ${
+                  isDark ? "text-white/85" : "text-gray-700"
                 }`}>
                   DevFest Indore isn't just a 1-day event — it's an entire season of satellite activations.
                   From AI workshops at IT parks to deep-tech roundtables in Super Corridor, explore the schedule below.
@@ -204,8 +204,8 @@ export default function SatelliteEventsSection() {
                     isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
                   }`}>
                     <span className="block text-xl sm:text-2xl font-black text-[#4285f4]">6+</span>
-                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
-                      isDark ? "text-white/60" : "text-gray-500"
+                    <span className={`text-xs font-bold uppercase ${
+                      isDark ? "text-white/80" : "text-gray-700"
                     }`}>
                       Satellite Nodes
                     </span>
@@ -214,8 +214,8 @@ export default function SatelliteEventsSection() {
                     isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
                   }`}>
                     <span className="block text-xl sm:text-2xl font-black text-[#ea4335]">800+</span>
-                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
-                      isDark ? "text-white/60" : "text-gray-500"
+                    <span className={`text-xs font-bold uppercase ${
+                      isDark ? "text-white/80" : "text-gray-700"
                     }`}>
                       Pre-Event Devs
                     </span>
@@ -224,8 +224,8 @@ export default function SatelliteEventsSection() {
                     isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
                   }`}>
                     <span className="block text-xl sm:text-2xl font-black text-[#34a853]">100%</span>
-                    <span className={`text-[10px] sm:text-xs font-bold uppercase ${
-                      isDark ? "text-white/60" : "text-gray-500"
+                    <span className={`text-xs font-bold uppercase ${
+                      isDark ? "text-white/80" : "text-gray-700"
                     }`}>
                       Community Free
                     </span>
@@ -242,7 +242,7 @@ export default function SatelliteEventsSection() {
         }`}>
           <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider">
             <Filter className="w-3.5 h-3.5 text-[#4285f4]" />
-            <span className={isDark ? "text-white/70" : "text-gray-700"}>Filter By Activation Category:</span>
+            <span className={isDark ? "text-white/85" : "text-gray-800"}>Filter By Activation Category:</span>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -256,8 +256,8 @@ export default function SatelliteEventsSection() {
                       ? "bg-white text-black border-white google-pill-shadow scale-102"
                       : "bg-gray-900 text-white border-gray-900 google-pill-shadow scale-102 shadow-sm"
                     : isDark
-                      ? "bg-white/5 text-white/70 border-white/15 hover:bg-white/10 hover:text-white"
-                      : "bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:text-gray-900"
+                      ? "bg-white/5 text-white/85 border-white/15 hover:bg-white/10 hover:text-white"
+                      : "bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-200 hover:text-gray-900"
                 }`}
               >
                 {cat}
@@ -343,8 +343,8 @@ export default function SatelliteEventsSection() {
                               <span>{event.time}</span>
                             </div>
 
-                            <div className={`inline-flex items-center gap-1.5 text-[11px] font-bold ${
-                              isDark ? "text-white/45" : "text-gray-500"
+                            <div className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
+                              isDark ? "text-white/75" : "text-gray-600"
                             }`}>
                               <Users className="w-3.5 h-3.5 text-[#34a853]" />
                               <span>{event.capacity}</span>
@@ -352,7 +352,7 @@ export default function SatelliteEventsSection() {
 
                             <div className="mt-1">
                               <span
-                                className={`inline-block text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border ${styles.badge}`}
+                                className={`inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${styles.badge}`}
                               >
                                 {event.accessType}
                               </span>
@@ -362,15 +362,15 @@ export default function SatelliteEventsSection() {
                           {/* Middle: Host, Title, Description, Perks */}
                           <div className="lg:col-span-6 flex flex-col">
                             <div className="flex items-center gap-2 mb-1.5">
-                              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                              <span className={`text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                                 isDark
-                                  ? "bg-white/8 text-white/60 border-white/10"
+                                  ? "bg-white/8 text-white/80 border-white/10"
                                   : "bg-gray-100 text-gray-700 border-gray-200"
                               }`}>
                                 Host: {event.host}
                               </span>
-                              <span className={`text-[10px] font-bold ${
-                                isDark ? "text-white/40" : "text-gray-400"
+                              <span className={`text-xs font-medium ${
+                                isDark ? "text-white/65" : "text-gray-500"
                               }`}>
                                 • {event.hostBadge}
                               </span>
@@ -382,8 +382,8 @@ export default function SatelliteEventsSection() {
                               {event.title}
                             </h3>
 
-                            <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-3 ${
-                              isDark ? "text-white/65" : "text-gray-600"
+                            <p className={`text-sm font-normal leading-relaxed mb-3 ${
+                              isDark ? "text-white/85" : "text-gray-700"
                             }`}>
                               {event.description}
                             </p>
@@ -393,9 +393,9 @@ export default function SatelliteEventsSection() {
                               {event.perks.map((perk, i) => (
                                 <span
                                   key={i}
-                                  className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
+                                  className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-md border ${
                                     isDark
-                                      ? "bg-white/5 border-white/10 text-white/70"
+                                      ? "bg-white/5 border-white/10 text-white/85"
                                       : "bg-gray-50 border-gray-200 text-gray-700"
                                   }`}
                                 >
@@ -415,8 +415,8 @@ export default function SatelliteEventsSection() {
                                 <MapPin className="w-3.5 h-3.5 shrink-0" />
                                 <span>{event.location}</span>
                               </div>
-                              <span className={`block text-[11px] font-semibold mt-0.5 ${
-                                isDark ? "text-white/40" : "text-gray-500"
+                              <span className={`block text-xs sm:text-[13px] font-medium mt-0.5 ${
+                                isDark ? "text-white/75" : "text-gray-600"
                               }`}>
                                 {event.venue}
                               </span>
@@ -425,7 +425,7 @@ export default function SatelliteEventsSection() {
                             {event.link?.trim() && (
                               <button
                                 onClick={() => handleOpenRsvp(event)}
-                                className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
+                                className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs sm:text-[13px] uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
                               >
                                 <span className="roll-text-container">
                                   <span className="roll-text-top">

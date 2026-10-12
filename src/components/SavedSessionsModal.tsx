@@ -33,7 +33,7 @@ export default function SavedSessionsModal({
             </div>
             <div>
               <h3 className="text-xl font-black text-white">My Saved Schedule</h3>
-              <p className="text-xs text-white/45">
+              <p className="text-xs sm:text-[13px] text-white/80">
                 {savedList.length} session{savedList.length === 1 ? "" : "s"} bookmarked for Nov 28
               </p>
             </div>
@@ -49,10 +49,10 @@ export default function SavedSessionsModal({
         {/* Content list */}
         <div className="flex-1 overflow-y-auto py-4 space-y-3">
           {savedList.length === 0 ? (
-            <div className="text-center py-12 text-white/45">
-              <Bookmark className="w-12 h-12 text-white/20 mx-auto mb-3" />
-              <p className="text-sm font-bold text-white/70">No sessions saved yet!</p>
-              <p className="text-xs mt-1">
+            <div className="text-center py-12 text-white/75">
+              <Bookmark className="w-12 h-12 text-white/30 mx-auto mb-3" />
+              <p className="text-base font-bold text-white/90">No sessions saved yet!</p>
+              <p className="text-xs sm:text-sm mt-1 text-white/75">
                 Explore the Agenda section and click &#34;Bookmark&#34; to build your personal DevFest itinerary.
               </p>
             </div>
@@ -63,19 +63,19 @@ export default function SavedSessionsModal({
                 className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-start justify-between gap-3 hover:border-white/25 transition-colors"
               >
                 <div>
-                  <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#4285f4] mb-1">
+                  <div className="flex items-center gap-2 text-xs font-extrabold text-[#4285f4] mb-1">
                     <Clock className="w-3.5 h-3.5" />
                     <span>{session.time}</span>
                     <span>•</span>
-                    <span className="text-white/40">{session.hall}</span>
+                    <span className="text-white/75">{session.hall}</span>
                   </div>
-                  <h4 className="text-sm font-black text-white leading-snug">{session.title}</h4>
-                  <p className="text-xs text-white/45 mt-0.5">By {session.speaker}</p>
+                  <h4 className="text-sm sm:text-base font-black text-white leading-snug">{session.title}</h4>
+                  <p className="text-xs sm:text-[13px] text-white/80 mt-0.5">By {session.speaker}</p>
                 </div>
 
                 <button
                   onClick={() => onRemoveSession(session.id)}
-                  className="p-1.5 rounded-lg text-white/30 hover:text-[#ea4335] hover:bg-[#ea4335]/10 transition-colors"
+                  className="p-1.5 rounded-lg text-white/60 hover:text-[#ea4335] hover:bg-[#ea4335]/10 transition-colors"
                   title="Remove from saved"
                 >
                   <Trash2 className="w-4 h-4" />

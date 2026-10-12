@@ -15,8 +15,8 @@
 
   /* Text */
   --text-primary: #ffffff;
-  --text-muted: #9aa0a6;
-  --text-subtle: #5f6368;
+  --text-muted: #bdc1c6;
+  --text-subtle: #8e918f;
 
   /* Legacy pastel vars kept for reference but unused in dark theme */
   --off-white: #f0f0f0;
@@ -53,8 +53,8 @@
 
   /* Text */
   --text-primary: #1a1a1a;
-  --text-muted: #5f6368;
-  --text-subtle: #9aa0a6;
+  --text-muted: #374151;
+  --text-subtle: #4b5563;
 
   /* Legacy vars */
   --off-white: #f0f0f0;
@@ -191,18 +191,24 @@
 
 :root[data-theme="light"] .text-white\/75,
 :root[data-theme="light"] .text-white\/80,
+:root[data-theme="light"] .text-white\/85,
 :root[data-theme="light"] .text-white\/90 {
-  color: rgba(26, 26, 26, 0.75) !important;
+  color: rgba(26, 26, 26, 0.88) !important;
 }
 
 :root[data-theme="light"] .text-white\/50,
-:root[data-theme="light"] .text-white\/60 {
-  color: rgba(26, 26, 26, 0.55) !important;
+:root[data-theme="light"] .text-white\/55,
+:root[data-theme="light"] .text-white\/60,
+:root[data-theme="light"] .text-white\/65,
+:root[data-theme="light"] .text-white\/70 {
+  color: rgba(26, 26, 26, 0.75) !important;
 }
 
+:root[data-theme="light"] .text-white\/45,
 :root[data-theme="light"] .text-white\/40,
+:root[data-theme="light"] .text-white\/35,
 :root[data-theme="light"] .text-white\/30 {
-  color: rgba(26, 26, 26, 0.4) !important;
+  color: rgba(26, 26, 26, 0.65) !important;
 }
 
 /* Border overrides */
@@ -548,8 +554,8 @@ body {
   position: relative;
   overflow: hidden;
   vertical-align: bottom;
-  height: 1.25em;
-  line-height: 1.25;
+  height: 1.35em;
+  line-height: 1.35;
 }
 
 .roll-text-top {
@@ -617,9 +623,9 @@ button:hover .roll-text-bottom {
   gap: 0.5rem;
   color: #ffffff;
   font-weight: 800;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   position: relative;
   z-index: 1;
   transition: background-color 0.2s ease;
@@ -990,7 +996,7 @@ button:hover .roll-text-bottom {
   color: #ffffff !important;
   border-radius: 9997px;
   padding: 0.75rem 1.6rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 800;
   display: inline-flex;
   align-items: center;
@@ -1065,7 +1071,7 @@ button:hover .roll-text-bottom {
   align-items: center;
   gap: 0.375rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
