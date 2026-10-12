@@ -34,7 +34,7 @@ export default function Footer() {
 
   return (
     <footer className={`border-t relative pt-16 pb-8 overflow-hidden transition-colors ${
-      isDark ? "bg-[#0a0a0a] border-white/10" : "bg-white border-black/10"
+      isDark ? "bg-[#0a0a0a]/90 backdrop-blur-md border-white/10" : "bg-white/90 backdrop-blur-md border-black/10"
     }`}>
       {/* Background Celestial Orbital Arc */}
       <svg

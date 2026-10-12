@@ -56,7 +56,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[var(--page-bg,#000000)] bg-grid-pattern">
+    <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
       {/* Animated ambient cosmic halos */}
       {/* <div className="absolute top-16 left-1/4 w-80 h-80 rounded-full bg-[#4285f4]/25 blur-3xl pointer-events-none -z-10 animate-pulse-halo" /> */}
       {/* <div className="absolute top-28 right-1/4 w-80 h-80 rounded-full bg-[#f9ab00]/20 blur-3xl pointer-events-none -z-10 animate-pulse-halo" style={{ animationDelay: "1s" }} /> */}
@@ -169,9 +169,8 @@ export default function HeroSection() {
             {/* Live Countdown Timer — Space Telemetry Card */}
             <div className="w-full max-w-lg telemetry-card p-4 sm:p-5 rounded-2xl google-pill-shadow spotlight-card">
               <div className="flex items-center justify-between mb-3">
-                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${
-                  isDark ? "text-white/70" : "text-gray-700"
-                }`}>
+                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-white/70" : "text-gray-700"
+                  }`}>
                   <Sparkles className="w-3.5 h-3.5 text-[#f9ab00] animate-spin-slow" />
                   Mission Telemetry • T-Minus Launch
                 </span>
@@ -181,9 +180,8 @@ export default function HeroSection() {
               </div>
 
               <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center font-mono">
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
-                  isDark ? "bg-[#4285f4]/15 border-[#4285f4]/40" : "bg-[#4285f4]/10 border-[#4285f4]/35 shadow-sm"
-                }`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#4285f4]/15 border-[#4285f4]/40" : "bg-[#4285f4]/10 border-[#4285f4]/35 shadow-sm"
+                  }`}>
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#4285f4]"}`}>
                     {String(timeLeft.days).padStart(2, "0")}
                   </span>
@@ -191,9 +189,8 @@ export default function HeroSection() {
                     Days
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
-                  isDark ? "bg-[#f9ab00]/15 border-[#f9ab00]/40" : "bg-[#f9ab00]/10 border-[#f9ab00]/35 shadow-sm"
-                }`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#f9ab00]/15 border-[#f9ab00]/40" : "bg-[#f9ab00]/10 border-[#f9ab00]/35 shadow-sm"
+                  }`}>
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#f9ab00]"}`}>
                     {String(timeLeft.hours).padStart(2, "0")}
                   </span>
@@ -201,9 +198,8 @@ export default function HeroSection() {
                     Hours
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
-                  isDark ? "bg-[#34a853]/15 border-[#34a853]/40" : "bg-[#34a853]/10 border-[#34a853]/35 shadow-sm"
-                }`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#34a853]/15 border-[#34a853]/40" : "bg-[#34a853]/10 border-[#34a853]/35 shadow-sm"
+                  }`}>
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#34a853]"}`}>
                     {String(timeLeft.minutes).padStart(2, "0")}
                   </span>
@@ -211,9 +207,8 @@ export default function HeroSection() {
                     Minutes
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
-                  isDark ? "bg-[#ea4335]/15 border-[#ea4335]/40" : "bg-[#ea4335]/10 border-[#ea4335]/35 shadow-sm"
-                }`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#ea4335]/15 border-[#ea4335]/40" : "bg-[#ea4335]/10 border-[#ea4335]/35 shadow-sm"
+                  }`}>
                   <span className="block text-2xl sm:text-3xl font-black text-[#ea4335]">
                     {String(timeLeft.seconds).padStart(2, "0")}
                   </span>
@@ -258,20 +253,17 @@ export default function HeroSection() {
             </div>
 
             {/* Central Astronaut Mascot 3D Tilt Card — adapts to light / dark poster theme */}
-            <CardTilt className={`w-full max-w-md telemetry-card rounded-3xl p-5 shadow-[0_0_50px_rgba(66,133,244,0.25)] group relative transition-colors duration-300 ${
-              isDark ? "bg-[#0d0d0d]/85 border-white/15" : "!bg-white !border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
-            }`}>
-              {/* Poster 4-point sparkle star overlay */}
-              <div className={`absolute -top-3 -right-3 z-30 w-8 h-8 rounded-full flex items-center justify-center text-lg cosmic-sparkle shadow-lg ${
-                isDark ? "bg-black/80 border border-white/20 text-[#f9ab00]" : "bg-white border border-gray-300 text-gray-900 shadow-md"
+            <CardTilt className={`w-full max-w-md telemetry-card rounded-3xl p-5 shadow-[0_0_50px_rgba(66,133,244,0.25)] group relative transition-colors duration-300 ${isDark ? "bg-[#0d0d0d]/85 border-white/15" : "!bg-white !border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
               }`}>
+              {/* Poster 4-point sparkle star overlay */}
+              <div className={`absolute -top-3 -right-3 z-30 w-8 h-8 rounded-full flex items-center justify-center text-lg cosmic-sparkle shadow-lg ${isDark ? "bg-black/80 border border-white/20 text-[#f9ab00]" : "bg-white border border-gray-300 text-gray-900 shadow-md"
+                }`}>
                 ✦
               </div>
 
               {/* Card Header with Google 4 Dots */}
-              <div className={`flex items-center justify-between pb-3 mb-3 border-b ${
-                isDark ? "border-white/10" : "border-gray-100"
-              }`}>
+              <div className={`flex items-center justify-between pb-3 mb-3 border-b ${isDark ? "border-white/10" : "border-gray-100"
+                }`}>
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-[#4285f4] animate-bounce" style={{ animationDelay: "0ms" }} />
                   <span className="w-3 h-3 rounded-full bg-[#ea4335] animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -284,11 +276,10 @@ export default function HeroSection() {
               </div>
 
               {/* Astronaut Mascot Artwork — dynamically switches to crisp white vector in Light Mode matching the poster */}
-              <div className={`relative w-full aspect-square rounded-2xl overflow-hidden border shadow-inner ${
-                isDark
+              <div className={`relative w-full aspect-square rounded-2xl overflow-hidden border shadow-inner ${isDark
                   ? "bg-gradient-to-b from-[#0d0d0d] to-[#1a1a1a] border-white/10"
                   : "!bg-white !border-gray-100"
-              }`}>
+                }`}>
                 <Image
                   src={isDark ? "/images/astronaut-mascot-dark.jpg" : "/images/astronaut-mascot-light.jpg"}
                   alt="GDG DevFest Indore Astronaut Mascot & Cosmic Visor"
@@ -301,13 +292,11 @@ export default function HeroSection() {
               </div>
 
               {/* Card Footer Callout */}
-              <div className={`mt-4 pt-3 border-t flex items-center justify-between ${
-                isDark ? "border-white/10" : "border-gray-100"
-              }`}>
+              <div className={`mt-4 pt-3 border-t flex items-center justify-between ${isDark ? "border-white/10" : "border-gray-100"
+                }`}>
                 <div>
-                  <h2 className={`font-extrabold text-sm flex items-center gap-1.5 ${
-                    isDark ? "text-white" : "text-gray-900"
-                  }`}>
+                  <h2 className={`font-extrabold text-sm flex items-center gap-1.5 ${isDark ? "text-white" : "text-gray-900"
+                    }`}>
                     <span>DevFest Indore 2026</span>
                     <span className="text-xs text-[#f9ab00]">✦</span>
                   </h2>
@@ -317,11 +306,10 @@ export default function HeroSection() {
                 </div>
                 <button
                   onClick={triggerHeroConfetti}
-                  className={`p-2.5 rounded-xl border text-xs font-bold transition-all active:scale-90 hover:scale-105 shadow-sm ${
-                    isDark
+                  className={`p-2.5 rounded-xl border text-xs font-bold transition-all active:scale-90 hover:scale-105 shadow-sm ${isDark
                       ? "bg-[#f9ab00]/20 hover:bg-[#f9ab00]/35 border-white/20 text-white"
                       : "bg-[#f9ab00]/15 hover:bg-[#f9ab00]/25 border-[#f9ab00]/40 text-gray-900"
-                  }`}
+                    }`}
                   title="Celebrate with Confetti!"
                 >
                   🎉 Pop!

@@ -9,25 +9,23 @@ export default function SponsorsSection() {
   const { isDark } = useTheme();
 
   return (
-    <section id="sponsors" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="sponsors" className="py-20 md:py-28 bg-transparent relative transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <Handshake className="w-4 h-4 text-[#34a853]" />
-            <span className={`text-xs font-mono font-black uppercase tracking-wider ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}>
+            <span className={`text-xs font-mono font-black uppercase tracking-wider ${isDark ? "text-white" : "text-gray-900"
+              }`}>
               Mission Ground Support • Ecosystem
             </span>
             <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
-            Backed By Global <span className="text-[#4285f4]">Tech Giants</span>
+            Our Sponsors <span className="text-[#4285f4]"></span>
           </h2>
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
-            isDark ? "text-white/60" : "text-gray-600"
-          }`}>
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${isDark ? "text-white/60" : "text-gray-600"
+            }`}>
             Proudly supported by organizations championing open developer communities,
             inclusive technology, and student innovation across India.
           </p>
@@ -35,17 +33,15 @@ export default function SponsorsSection() {
 
         {/* Title Sponsor Banner — space telemetry glass */}
         <div className="reveal-on-scroll mb-12">
-          <CardTilt className={`telemetry-card rounded-3xl google-card-shadow p-8 sm:p-12 text-center transition-all ${
-            isDark ? "bg-[#4285f4]/8 border-[#4285f4]/25" : "!bg-white !border-blue-200/80 shadow-xl"
-          }`}>
+          <CardTilt className={`telemetry-card rounded-3xl google-card-shadow p-8 sm:p-12 text-center transition-all ${isDark ? "bg-[#4285f4]/8 border-[#4285f4]/25" : "!bg-white !border-blue-200/80 shadow-xl"
+            }`}>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#4285f4] text-white text-xs font-black uppercase tracking-wider mb-6 animate-pulse">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Title Sponsor</span>
             </div>
 
-            <div className={`max-w-md mx-auto py-6 px-8 rounded-2xl google-pill-shadow mb-4 hover:scale-105 transition-transform border ${
-              isDark ? "bg-[#0d0d0d] border-white/10" : "bg-gray-50 border-gray-200"
-            }`}>
+            <div className={`max-w-md mx-auto py-6 px-8 rounded-2xl google-pill-shadow mb-4 hover:scale-105 transition-transform border ${isDark ? "bg-[#0d0d0d] border-white/10" : "bg-gray-50 border-gray-200"
+              }`}>
               <span className="text-2xl sm:text-3xl font-black tracking-tight flex items-center justify-center gap-2">
                 <span className="text-[#4285f4]">G</span>
                 <span className="text-[#ea4335]">o</span>
@@ -58,9 +54,8 @@ export default function SponsorsSection() {
                 </span>
               </span>
             </div>
-            <p className={`text-xs sm:text-sm max-w-xl mx-auto font-medium ${
-              isDark ? "text-white/55" : "text-gray-600"
-            }`}>
+            <p className={`text-xs sm:text-sm max-w-xl mx-auto font-medium ${isDark ? "text-white/55" : "text-gray-600"
+              }`}>
               Empowering developers with the tools, SDKs, and platform APIs to build the next generation of intelligent software worldwide.
             </p>
           </CardTilt>
@@ -78,9 +73,8 @@ export default function SponsorsSection() {
               {SPONSORS.communityPartners.map((partner, idx) => (
                 <div
                   key={idx}
-                  className={`p-5 rounded-2xl border flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all text-center h-28 ${
-                    isDark ? "bg-[#0d0d0d] border-white/10 hover:border-white/30" : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
-                  }`}
+                  className={`p-5 rounded-2xl border flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all text-center h-28 ${isDark ? "bg-[#0d0d0d] border-white/10 hover:border-white/30" : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
+                    }`}
                 >
                   {partner.icon !== "" && (
                     <img
@@ -96,9 +90,8 @@ export default function SponsorsSection() {
         </div>
 
         {/* Sponsor Callout Box */}
-        <CardTilt className={`p-8 sm:p-10 rounded-3xl google-card-shadow flex flex-col lg:flex-row items-center justify-between gap-6 reveal-on-scroll border ${
-          isDark ? "bg-[#f9ab00]/8 border-[#f9ab00]/25" : "bg-amber-50/70 border-amber-200/80 shadow-md"
-        }`}>
+        <CardTilt className={`p-8 sm:p-10 rounded-3xl google-card-shadow flex flex-col lg:flex-row items-center justify-between gap-6 reveal-on-scroll border ${isDark ? "bg-[#f9ab00]/8 border-[#f9ab00]/25" : "bg-amber-50/70 border-amber-200/80 shadow-md"
+          }`}>
           <div>
             <span className="inline-block px-3 py-1 rounded-full bg-[#f9ab00] text-black text-xs font-black uppercase tracking-wider mb-2">
               Opportunities Open
@@ -106,9 +99,8 @@ export default function SponsorsSection() {
             <h3 className={`text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
               Partner with DevFest Indore 2026
             </h3>
-            <p className={`text-xs sm:text-sm font-medium max-w-xl mt-1 ${
-              isDark ? "text-white/65" : "text-gray-600"
-            }`}>
+            <p className={`text-xs sm:text-sm font-medium max-w-xl mt-1 ${isDark ? "text-white/65" : "text-gray-600"
+              }`}>
               Gain direct visibility among 1,500+ top software developers, tech architects, and hiring-ready engineering talent from Central India.
             </p>
           </div>
@@ -123,9 +115,8 @@ export default function SponsorsSection() {
             </a>
             <a
               href="https://drive.google.com/file/d/1bjqfMjXgin7pjslttbJmnryaoioAkHFG/view?usp=sharing"
-              className={`px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-wider border google-pill-shadow hover:scale-105 transition-all flex items-center gap-2 cursor-pointer ${
-                isDark ? "bg-white/5 text-white border-white/20 hover:bg-white/10" : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
-              }`}
+              className={`px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-wider border google-pill-shadow hover:scale-105 transition-all flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/5 text-white border-white/20 hover:bg-white/10" : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
+                }`}
             >
               <Download className="w-4 h-4" />
               <span>Sponsor Deck</span>
