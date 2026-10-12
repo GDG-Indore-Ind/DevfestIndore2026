@@ -95,8 +95,8 @@ export default function AboutSection() {
             Where Modern Engineering Meets{" "}
             <span className="text-[#34a853]">Indore's Clean Innovation</span>
           </h2>
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
-            isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-normal leading-relaxed ${
+            isDark ? "text-white/80" : "text-gray-700"
           }`}>
             GDG DevFests are community-led developer conferences hosted across the globe by Google Developer Groups.
             In 2026, <strong className={isDark ? "text-white" : "text-gray-900"}>GDG Indore</strong> brings you the grandest celebration of technology, code, and community
@@ -139,8 +139,8 @@ export default function AboutSection() {
                 A Festival Built By Developers, For Developers
               </h3>
 
-              <p className={`text-sm sm:text-base leading-relaxed mb-4 ${
-                isDark ? "text-white/70" : "text-gray-600"
+              <p className={`text-sm sm:text-base font-normal leading-relaxed mb-4 ${
+                isDark ? "text-white/85" : "text-gray-700"
               }`}>
                 Indore has long been celebrated as India's cleanest city, but today it is also emerging as one of
                 the fastest-growing technology and startup capitals in Central India. Home to premier national institutions
@@ -148,8 +148,8 @@ export default function AboutSection() {
                 the city is brimming with engineering ambition.
               </p>
 
-              <p className={`text-sm sm:text-base leading-relaxed mb-6 ${
-                isDark ? "text-white/70" : "text-gray-600"
+              <p className={`text-sm sm:text-base font-normal leading-relaxed mb-6 ${
+                isDark ? "text-white/85" : "text-gray-700"
               }`}>
                 <strong className={isDark ? "text-white" : "text-gray-900"}>DevFest Indore 2026</strong> gathers top minds from Google, pioneering tech unicorns, and groundbreaking
                 startups. From hands-on AI agent architectures to scalable cloud microservices, this is your platform to level up,
@@ -163,13 +163,13 @@ export default function AboutSection() {
                   isDark ? "bg-[#4285f4]/10 border-[#4285f4]/25 hover:bg-[#4285f4]/15" : "bg-[#4285f4]/8 border-[#4285f4]/20"
                 }`}>
                   <span className="block text-xl font-black text-[#4285f4]">100% In-Person</span>
-                  <span className={`text-xs font-semibold ${isDark ? "text-white/45" : "text-gray-500"}`}>Live Keynotes & Demos</span>
+                  <span className={`text-[13px] font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>Live Keynotes & Demos</span>
                 </div>
                 <div className={`p-3.5 rounded-xl border transition-colors ${
                   isDark ? "bg-[#34a853]/10 border-[#34a853]/25 hover:bg-[#34a853]/15" : "bg-[#34a853]/8 border-[#34a853]/20"
                 }`}>
                   <span className="block text-xl font-black text-[#34a853]">Zero Fluff</span>
-                  <span className={`text-xs font-semibold ${isDark ? "text-white/45" : "text-gray-500"}`}>Pure Engineering & Code</span>
+                  <span className={`text-[13px] font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>Pure Engineering & Code</span>
                 </div>
               </div>
             </div>
@@ -197,17 +197,17 @@ export default function AboutSection() {
                       }`}>
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className={`text-[10px] font-mono font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${
+                      <span className={`text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${
                         isDark ? "bg-white/10 border-white/15 text-white" : "bg-gray-100 border-gray-200 text-gray-800"
                       }`}>
                         {pillar.module}
                       </span>
                     </div>
-                    <span className={`text-[10px] font-mono font-bold uppercase tracking-wider block mb-1 ${pillar.textColor}`}>
+                    <span className={`text-xs font-mono font-bold uppercase tracking-wider block mb-1 ${pillar.textColor}`}>
                       {pillar.tag}
                     </span>
                     <h4 className={`text-xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>{pillar.title}</h4>
-                    <p className={`text-xs sm:text-sm font-medium leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                    <p className={`text-sm font-normal leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
                       {pillar.desc}
                     </p>
                   </div>
@@ -223,7 +223,7 @@ export default function AboutSection() {
         }`}>
           <div className="text-center mb-6 flex items-center justify-center gap-2">
             <span className="text-[#f9ab00] cosmic-sparkle text-xs font-bold">✦</span>
-            <span className={`text-xs font-mono font-extrabold uppercase tracking-widest ${isDark ? "text-white/50" : "text-gray-500"}`}>
+            <span className={`text-xs font-mono font-extrabold uppercase tracking-widest ${isDark ? "text-white/75" : "text-gray-700"}`}>
               MISSION TELEMETRY // 1,500+ ASTRONAUT BUILDERS ONBOARD
             </span>
             <span className="text-[#f9ab00] cosmic-sparkle text-xs font-bold">✦</span>
@@ -259,7 +259,7 @@ export default function AboutSection() {
                   <span className={`text-2xl sm:text-3xl font-black tracking-tight ${isDark ? "text-white" : "text-gray-900"}`}>
                     {stat.value}
                   </span>
-                  <span className={`text-[11px] font-bold mt-1 ${isDark ? "text-white/55" : "text-gray-500"}`}>
+                  <span className={`text-xs sm:text-[13px] font-bold mt-1.5 ${isDark ? "text-white/75" : "text-gray-600"}`}>
                     {stat.label}
                   </span>
                 </div>

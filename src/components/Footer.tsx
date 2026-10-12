@@ -70,23 +70,28 @@ export default function Footer() {
 
               {/* Floating telemetry chips */}
               <div className="absolute top-3 left-3 sm:top-5 sm:left-5 flex flex-wrap items-center gap-2">
-                <div className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono font-bold border border-white/20 flex items-center gap-1.5 shadow-sm">
+                <div className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[#ffffff] !text-[#ffffff] text-[11px] font-mono font-bold border border-white/20 flex items-center gap-1.5 shadow-sm">
                   <span className="w-2 h-2 rounded-full bg-[#34a853] animate-ping" />
-                  <span>INDORE LUNAR BASE // MISSION CONTROL</span>
+                  <span className="text-[#ffffff] !text-[#ffffff]" style={{ color: "#ffffff" }}>
+                    INDORE LUNAR BASE // MISSION CONTROL
+                  </span>
                 </div>
-                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-mono font-black border border-white/15">
+                <span
+                  className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[#ffffff] !text-[#ffffff] text-[10px] font-mono font-black border border-white/15"
+                  style={{ color: "#ffffff" }}
+                >
                   ✦ NOV 28, 2026
                 </span>
               </div>
 
               {/* Bottom callout over image */}
               <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3">
-                <div className="bg-black/75 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-white/20 max-w-lg text-white shadow-lg">
-                  <h4 className="text-sm sm:text-lg font-black mb-0.5 flex items-center gap-2">
-                    <span>See You at Mission Launch!</span>
+                <div className="bg-black/75 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-white/20 max-w-lg text-[#ffffff] !text-[#ffffff] shadow-lg">
+                  <h4 className="text-sm sm:text-lg font-black mb-0.5 flex items-center gap-2 text-[#ffffff] !text-[#ffffff]">
+                    <span className="text-[#ffffff] !text-[#ffffff]" style={{ color: "#ffffff" }}>See You at Mission Launch!</span>
                     <Sparkles className="w-4 h-4 text-[#f9ab00] cosmic-sparkle" />
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-white/80 font-medium">
+                  <p className="text-xs sm:text-sm font-medium text-[#ffffff] !text-[#ffffff]" style={{ color: "#ffffff" }}>
                     Connecting 800+ builders, creators, and innovators from Indore to the cosmos.
                   </p>
                 </div>
@@ -117,14 +122,14 @@ export default function Footer() {
                   <span className={`block font-black text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
                     GDG Indore
                   </span>
-                  <span className={`block text-xs font-bold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                  <span className={`block text-[13px] font-semibold ${isDark ? "text-white/75" : "text-gray-600"}`}>
                     DevFest Indore 2026 Space Edition
                   </span>
                 </div>
               </Link>
 
-              <p className={`text-xs sm:text-sm font-medium leading-relaxed mb-6 ${
-                isDark ? "text-white/50" : "text-gray-600"
+              <p className={`text-sm font-normal leading-relaxed mb-6 ${
+                isDark ? "text-white/85" : "text-gray-700"
               }`}>
                 Google Developer Group Indore is an open, community-run group of developers, designers,
                 and technology enthusiasts dedicated to learning, sharing, and building impactful digital solutions.
@@ -186,8 +191,8 @@ export default function Footer() {
             }`}>
               Navigation
             </span>
-            <ul className={`space-y-2.5 text-xs font-bold ${
-              isDark ? "text-white/50" : "text-gray-600"
+            <ul className={`space-y-2.5 text-sm font-semibold ${
+              isDark ? "text-white/75" : "text-gray-700"
             }`}>
               {["About", "Sponsors", "Tickets", "Venue", "Faq"].map((item) => (
                 <li key={item}>
@@ -211,8 +216,8 @@ export default function Footer() {
             }`}>
               Community
             </span>
-            <ul className={`space-y-2.5 text-xs font-bold ${
-              isDark ? "text-white/50" : "text-gray-600"
+            <ul className={`space-y-2.5 text-sm font-semibold ${
+              isDark ? "text-white/75" : "text-gray-700"
             }`}>
               <li>
                 <a
@@ -251,8 +256,8 @@ export default function Footer() {
             }`}>
               Stay in the Loop
             </span>
-            <p className={`text-xs font-medium leading-relaxed mb-4 ${
-              isDark ? "text-white/50" : "text-gray-600"
+            <p className={`text-sm font-normal leading-relaxed mb-4 ${
+              isDark ? "text-white/80" : "text-gray-700"
             }`}>
               Get timely notifications on speaker reveals, workshop prerequisites, and hackathon problem statements.
             </p>
@@ -265,10 +270,10 @@ export default function Footer() {
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="Enter your email address"
                   required
-                  className={`w-full px-3.5 py-2.5 rounded-xl text-xs font-bold focus:outline-none focus:border-[#4285f4] ${
+                  className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:outline-none focus:border-[#4285f4] ${
                     isDark
-                      ? "border border-white/15 bg-[#1a1a1a] text-white placeholder:text-white/25"
-                      : "border border-gray-300 bg-gray-50 text-gray-900 placeholder:text-gray-400"
+                      ? "border border-white/15 bg-[#1a1a1a] text-white placeholder:text-white/45"
+                      : "border border-gray-300 bg-gray-50 text-gray-900 placeholder:text-gray-500"
                   }`}
                 />
                 <button
@@ -288,11 +293,11 @@ export default function Footer() {
         </div>
 
         {/* Disclaimer Note */}
-        <div className={`pt-8 border-t text-[11px] leading-relaxed mb-6 ${
-          isDark ? "border-white/8 text-white/35" : "border-gray-200 text-gray-500"
+        <div className={`pt-8 border-t text-xs leading-relaxed mb-6 ${
+          isDark ? "border-white/10 text-white/70" : "border-gray-200 text-gray-600"
         }`}>
           <p>
-            <strong className={isDark ? "text-white/50" : "text-gray-700"}>Disclaimer:</strong> GDG Indore is an independent developer community.
+            <strong className={isDark ? "text-white/85" : "text-gray-800"}>Disclaimer:</strong> GDG Indore is an independent developer community.
             Activities and opinions expressed here should in no way be linked to Google, the corporation.
             To learn more about the Google Developer Groups program, visit{" "}
             <a
@@ -308,15 +313,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar & Back to Top */}
-        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold ${
-          isDark ? "text-white/60" : "text-gray-600"
+        <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-[13px] font-bold ${
+          isDark ? "text-white/80" : "text-gray-700"
         }`}>
           <div className="flex flex-wrap items-center gap-2">
             <span>Crafted with</span>
             <Heart className="w-3.5 h-3.5 text-[#ea4335] fill-[#ea4335] animate-pulse" />
             <span>by GDG Indore Organizers</span>
             <span className="hidden md:inline text-gray-400">•</span>
-            <span className="hidden md:inline font-mono text-[11px] text-[#4285f4]">
+            <span className="hidden md:inline font-mono text-xs text-[#4285f4]">
               ✦ MISSION CONTROL: 22.7196° N, 75.8577° E
             </span>
           </div>

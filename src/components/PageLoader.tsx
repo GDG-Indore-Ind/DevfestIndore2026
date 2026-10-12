@@ -89,7 +89,7 @@ export default function PageLoader() {
         </h2>
 
         {/* Festival Tagline */}
-        <p className="text-xs sm:text-sm font-bold text-white/45 mb-8">
+        <p className="text-xs sm:text-sm font-medium text-white/80 mb-8">
           DevFest Indore 2026 • Code, Community & Clean Innovation
         </p>
 
@@ -104,7 +104,7 @@ export default function PageLoader() {
         {/* Progress Bar — dark glass card */}
         <div className="w-full bg-[#0d0d0d] border border-white/10 p-4 rounded-2xl google-pill-shadow">
           <div className="flex items-center justify-between text-xs font-black text-white mb-2">
-            <span className="flex items-center gap-1.5 text-white/45">
+            <span className="flex items-center gap-1.5 text-white/75">
               <Sparkles className="w-3.5 h-3.5 text-[#f9ab00]" />
               Preparing the Experience...
             </span>
@@ -123,7 +123,7 @@ export default function PageLoader() {
         {/* Skip Button */}
         <button
           onClick={handleSkip}
-          className="mt-6 text-xs font-extrabold text-white/40 hover:text-white transition-colors uppercase tracking-wider py-1 px-3 rounded-full hover:bg-white/10 cursor-pointer"
+          className="mt-6 text-xs font-extrabold text-white/70 hover:text-white transition-colors uppercase tracking-wider py-1 px-3 rounded-full hover:bg-white/10 cursor-pointer"
         >
           Skip Intro →
         </button>

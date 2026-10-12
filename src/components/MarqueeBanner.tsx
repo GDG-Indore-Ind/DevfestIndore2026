@@ -41,7 +41,7 @@ export default function MarqueeBanner() {
             return (
               <div
                 key={idx}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-black tracking-wide uppercase shadow-sm ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs sm:text-[13px] font-black tracking-wide uppercase shadow-sm ${
                   isDark ? "bg-[#111] " + item.color : "bg-white " + item.color + " shadow-sm"
                 }`}
               >
@@ -61,7 +61,7 @@ export default function MarqueeBanner() {
             return (
               <div
                 key={idx}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-extrabold tracking-wide uppercase shadow-sm ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs sm:text-[13px] font-extrabold tracking-wide uppercase shadow-sm ${
                   isDark ? "bg-[#111] " + item.color : "bg-white " + item.color + " shadow-sm"
                 }`}
               >

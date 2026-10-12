@@ -24,7 +24,7 @@ export default function SponsorsSection() {
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
             Our Sponsors <span className="text-[#4285f4]"></span>
           </h2>
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-normal leading-relaxed ${isDark ? "text-white/80" : "text-gray-700"
             }`}>
             Proudly supported by organizations championing open developer communities,
             inclusive technology, and student innovation across India.
@@ -49,12 +49,12 @@ export default function SponsorsSection() {
                 <span className="text-[#4285f4]">g</span>
                 <span className="text-[#34a853]">l</span>
                 <span className="text-[#ea4335]">e</span>
-                <span className={`text-xl font-normal ml-1 ${isDark ? "text-white/50" : "text-gray-600"}`}>
+                <span className={`text-xl font-normal ml-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
                   for Developers
                 </span>
               </span>
             </div>
-            <p className={`text-xs sm:text-sm max-w-xl mx-auto font-medium ${isDark ? "text-white/55" : "text-gray-600"
+            <p className={`text-sm max-w-xl mx-auto font-normal leading-relaxed ${isDark ? "text-white/80" : "text-gray-700"
               }`}>
               Empowering developers with the tools, SDKs, and platform APIs to build the next generation of intelligent software worldwide.
             </p>
@@ -99,7 +99,7 @@ export default function SponsorsSection() {
             <h3 className={`text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
               Partner with DevFest Indore 2026
             </h3>
-            <p className={`text-xs sm:text-sm font-medium max-w-xl mt-1 ${isDark ? "text-white/65" : "text-gray-600"
+            <p className={`text-sm font-normal leading-relaxed max-w-xl mt-1.5 ${isDark ? "text-white/85" : "text-gray-700"
               }`}>
               Gain direct visibility among 1,500+ top software developers, tech architects, and hiring-ready engineering talent from Central India.
             </p>
@@ -108,14 +108,14 @@ export default function SponsorsSection() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
               href="mailto:organizers@gdgindore.in?subject=DevFest%20Indore%202026%20Sponsorship%20Inquiry"
-              className="px-6 py-3 rounded-2xl bg-[#4285f4] text-white text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#3367d6] hover:scale-105 transition-all cursor-pointer shadow-md"
+              className="px-6 py-3 rounded-2xl bg-[#4285f4] text-white text-xs sm:text-[13px] font-bold uppercase tracking-wider flex items-center gap-2 hover:bg-[#3367d6] hover:scale-105 transition-all cursor-pointer shadow-md"
             >
               <Mail className="w-4 h-4" />
               <span>Contact Organizers</span>
             </a>
             <a
               href="https://drive.google.com/file/d/1bjqfMjXgin7pjslttbJmnryaoioAkHFG/view?usp=sharing"
-              className={`px-6 py-3 rounded-2xl text-xs font-black uppercase tracking-wider border google-pill-shadow hover:scale-105 transition-all flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/5 text-white border-white/20 hover:bg-white/10" : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
+              className={`px-6 py-3 rounded-2xl text-xs sm:text-[13px] font-bold uppercase tracking-wider border google-pill-shadow hover:scale-105 transition-all flex items-center gap-2 cursor-pointer ${isDark ? "bg-white/5 text-white border-white/20 hover:bg-white/10" : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
                 }`}
             >
               <Download className="w-4 h-4" />

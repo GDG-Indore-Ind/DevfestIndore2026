@@ -82,12 +82,12 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   <span>2026</span>
                 </span>
               </div>
-              <span className={`text-[11px] font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/50" : "text-black/40"}`}>
-                <span className="font-mono text-[10px] text-[#4285f4]">{"{"}</span>
+              <span className={`text-xs font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/75" : "text-gray-600"}`}>
+                <span className="font-mono text-[11px] text-[#4285f4]">{"{"}</span>
                 <span>DevFest</span>
-                <span className="font-mono text-[10px] text-[#34a853]">{"}"}</span>
+                <span className="font-mono text-[11px] text-[#34a853]">{"}"}</span>
                 <span className="w-1 h-1 rounded-full bg-[#34a853]" />
-                <span className="text-[#34a853]">Nov 28</span>
+                <span className="text-[#34a853] font-bold">Nov 28</span>
               </span>
             </div>
           </Link>
@@ -101,9 +101,9 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               <a
                 key={link.name}
                 href={link.href}
-                className={`group px-3.5 py-1.5 text-xs font-bold rounded-full transition-all duration-150 ${isDark
-                  ? "text-white/80 hover:bg-white/10 hover:text-white"
-                  : "text-black/70 hover:bg-black/10 hover:text-black"
+                className={`group px-3.5 py-1.5 text-[13px] font-bold rounded-full transition-all duration-150 ${isDark
+                  ? "text-white/90 hover:bg-white/10 hover:text-white"
+                  : "text-gray-800 hover:bg-black/10 hover:text-black"
                   }`}
               >
                 <span className="roll-text-container">
@@ -185,7 +185,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           >
             <div className="flex flex-col gap-2">
               <div className={`flex items-center justify-between pb-3 mb-2 border-b ${isDark ? "border-white/8" : "border-black/8"}`}>
-                <span className={`text-xs font-bold flex items-center gap-1 ${isDark ? "text-white/50" : "text-black/40"}`}>
+                <span className={`text-xs font-bold flex items-center gap-1 ${isDark ? "text-white/75" : "text-gray-700"}`}>
                   <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel Indore
                 </span>
                 <span className="text-xs font-bold text-[#34a853] bg-[#34a853]/20 px-2 py-0.5 rounded-full">
@@ -199,8 +199,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${isDark
-                    ? "text-white/80 hover:bg-[#4285f4]/15 hover:text-[#4285f4]"
-                    : "text-black/70 hover:bg-[#4285f4]/10 hover:text-[#4285f4]"
+                    ? "text-white/90 hover:bg-[#4285f4]/15 hover:text-[#4285f4]"
+                    : "text-gray-800 hover:bg-[#4285f4]/10 hover:text-[#4285f4]"
                     }`}
                 >
                   {link.name}
@@ -273,7 +273,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   Select Your Tickets
                 </h3>
 
-                <p className="mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed text-white/55">
+                <p className="mt-2 text-xs sm:text-sm md:text-base font-normal leading-relaxed text-white/80">
                   Be a part of DevFest Indore 2026. Choose your ticket and
                   complete your registration securely with KonfHub.
                 </p>
@@ -293,7 +293,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 />
               </div>
 
-              <p className="mt-3 text-center text-[10px] sm:text-xs font-medium text-white/35">
+              <p className="mt-3 text-center text-xs font-medium text-white/65">
                 Ticket selection and payment are handled securely by KonfHub.
               </p>
             </div>

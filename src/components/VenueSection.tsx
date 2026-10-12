@@ -68,7 +68,7 @@ export default function VenueSection() {
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
             Meet Us at <span className="text-[#ea4335]">Essentia Luxury Launchpad</span>
           </h2>
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"
             }`}>
             Central India's premier event space featuring state-of-the-art acoustics,
             spacious auditorium halls, dedicated codelab arenas, and outdoor dining lawns.
@@ -86,7 +86,7 @@ export default function VenueSection() {
                     <Compass className="w-4 h-4 animate-spin-slow" />
                     <span>Launchpad Sector-01</span>
                   </div>
-                  <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${isDark ? "bg-white/10 text-white/60" : "bg-gray-100 text-gray-700"
+                  <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${isDark ? "bg-white/10 text-white/75" : "bg-gray-100 text-gray-700"
                     }`}>
                     LAT 22.7196° N • LON 75.8577° E
                   </span>
@@ -96,7 +96,7 @@ export default function VenueSection() {
                   }`}>
                   Essentia Luxury Hotel Indore (ELH)
                 </h3>
-                <p className={`text-sm font-semibold mb-6 ${isDark ? "text-white/45" : "text-gray-500"
+                <p className={`text-sm font-semibold mb-6 ${isDark ? "text-white/75" : "text-gray-600"
                   }`}>
                   Near World Cup Square, Pipliyahana, Ring Road, Indore, Madhya Pradesh 452018
                 </p>
@@ -114,7 +114,7 @@ export default function VenueSection() {
                         ? isDark
                           ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
                           : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/40 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
                         }`}
                     >
                       <Plane className="w-3.5 h-3.5 text-[#4285f4]" />
@@ -126,7 +126,7 @@ export default function VenueSection() {
                         ? isDark
                           ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
                           : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/40 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
                         }`}
                     >
                       <Train className="w-3.5 h-3.5 text-[#ea4335]" />
@@ -138,7 +138,7 @@ export default function VenueSection() {
                         ? isDark
                           ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
                           : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/40 hover:text-white" : "text-gray-500 hover:text-gray-900"
+                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
                         }`}
                     >
                       <Car className="w-3.5 h-3.5 text-[#34a853]" />
@@ -156,7 +156,7 @@ export default function VenueSection() {
                         {transitInfo[activeTab].distance}
                       </span>
                     </div>
-                    <p className={`text-xs font-medium leading-relaxed ${isDark ? "text-white/55" : "text-gray-600"
+                    <p className={`text-sm font-normal leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"
                       }`}>
                       {transitInfo[activeTab].desc}
                     </p>
@@ -164,7 +164,7 @@ export default function VenueSection() {
                 </div>
               </div>
 
-              <div className={`pt-4 border-t flex flex-wrap items-center justify-between gap-3 text-xs font-bold ${isDark ? "border-white/8 text-white/70" : "border-gray-200 text-gray-700"
+              <div className={`pt-4 border-t flex flex-wrap items-center justify-between gap-3 text-[13px] font-bold ${isDark ? "border-white/10 text-white/85" : "border-gray-200 text-gray-800"
                 }`}>
                 <span className="flex items-center gap-1.5">
                   <SunMedium className="w-4 h-4 text-[#f9ab00] animate-spin-slow" />
@@ -217,7 +217,7 @@ export default function VenueSection() {
                 <h4 className={`text-lg font-black mb-1.5 ${isDark ? "text-white" : "text-gray-900"}`}>
                   Essentia Spaceport Arena & Amphitheatre
                 </h4>
-                <p className={`text-xs font-medium leading-relaxed mb-5 ${isDark ? "text-white/60" : "text-gray-600"
+                <p className={`text-sm font-normal leading-relaxed mb-5 ${isDark ? "text-white/85" : "text-gray-700"
                   }`}>
                   Engineered for seamless interplanetary developer collaboration with dedicated keynote auditoriums, interactive workshops, and high-speed telemetry connectivity.
                 </p>
@@ -231,7 +231,7 @@ export default function VenueSection() {
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
                       800+ Devs
                     </span>
-                    <span className={`block text-[10px] font-semibold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                    <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
                       Full Arena Capacity
                     </span>
                   </div>
@@ -244,7 +244,7 @@ export default function VenueSection() {
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
                       Gigabit WiFi
                     </span>
-                    <span className={`block text-[10px] font-semibold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                    <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
                       Quantum Link Speed
                     </span>
                   </div>
@@ -257,7 +257,7 @@ export default function VenueSection() {
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
                       3 Tech Tracks
                     </span>
-                    <span className={`block text-[10px] font-semibold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                    <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
                       Parallel Keynotes
                     </span>
                   </div>
@@ -270,7 +270,7 @@ export default function VenueSection() {
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
                       Cosmic Dining
                     </span>
-                    <span className={`block text-[10px] font-semibold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                    <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
                       Catered Lunch Lawns
                     </span>
                   </div>

@@ -73,7 +73,7 @@ export default function HeroSection() {
               <span className="text-xs font-black tracking-wide uppercase text-white">
                 Google Developer Group Indore
               </span>
-              <span className="text-xs text-white/40 font-bold">|</span>
+              <span className="text-xs text-white/60 font-bold">|</span>
               <span className="text-xs font-bold text-[#4285f4]">DevFest 2026 Space Edition</span>
               <div className="hidden sm:flex items-center gap-1 ml-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4285f4]" />
@@ -105,7 +105,7 @@ export default function HeroSection() {
             </h1>
 
             {/* Tagline / Subtitle */}
-            <p className="text-lg sm:text-xl text-white/75 font-medium max-w-2xl mb-6 leading-relaxed">
+            <p className="text-lg sm:text-xl text-white/85 font-normal max-w-2xl mb-6 leading-relaxed">
               Central India's premier gathering of <strong className="text-white">1,500+ builders</strong>, engineers, and creators.
               Discover breakthroughs in <strong className="text-white">GenAI, Cloud, Web, Android & Open Source</strong> — right in the heart of
               India's cleanest and most vibrant city!
@@ -113,11 +113,11 @@ export default function HeroSection() {
 
             {/* Event Key Facts Bar with Calendar & Google Dots like poster */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs sm:text-[13px] font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
                 <Calendar className="w-4 h-4 text-[#4285f4]" />
                 <span>28th November 2026</span>
               </div>
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs sm:text-[13px] font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
                 <MapPin className="w-4 h-4 text-[#ea4335]" />
                 <span>Essentia Luxury Hotel Indore</span>
               </div>
@@ -169,7 +169,7 @@ export default function HeroSection() {
             {/* Live Countdown Timer — Space Telemetry Card */}
             <div className="w-full max-w-lg telemetry-card p-4 sm:p-5 rounded-2xl google-pill-shadow spotlight-card">
               <div className="flex items-center justify-between mb-3">
-                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-white/70" : "text-gray-700"
+                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-white/85" : "text-gray-800"
                   }`}>
                   <Sparkles className="w-3.5 h-3.5 text-[#f9ab00] animate-spin-slow" />
                   Mission Telemetry • T-Minus Launch
@@ -185,7 +185,7 @@ export default function HeroSection() {
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#4285f4]"}`}>
                     {String(timeLeft.days).padStart(2, "0")}
                   </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/60" : "text-gray-600"}`}>
+                  <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Days
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export default function HeroSection() {
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#f9ab00]"}`}>
                     {String(timeLeft.hours).padStart(2, "0")}
                   </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/60" : "text-gray-600"}`}>
+                  <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Hours
                   </span>
                 </div>
@@ -203,7 +203,7 @@ export default function HeroSection() {
                   <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#34a853]"}`}>
                     {String(timeLeft.minutes).padStart(2, "0")}
                   </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/60" : "text-gray-600"}`}>
+                  <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Minutes
                   </span>
                 </div>
@@ -212,14 +212,14 @@ export default function HeroSection() {
                   <span className="block text-2xl sm:text-3xl font-black text-[#ea4335]">
                     {String(timeLeft.seconds).padStart(2, "0")}
                   </span>
-                  <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isDark ? "text-[#ea4335]/60" : "text-[#ea4335]/80"}`}>
+                  <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-[#ea4335]/80" : "text-[#ea4335]/90"}`}>
                     Seconds
                   </span>
                 </div>
               </div>
 
               {/* Spaceport coordinates footer */}
-              <div className="mt-3 pt-2.5 border-t border-black/8 dark:border-white/10 flex items-center justify-between text-[10px] font-mono font-bold text-gray-500 dark:text-white/40">
+              <div className="mt-3 pt-2.5 border-t border-black/8 dark:border-white/10 flex items-center justify-between text-[11px] sm:text-xs font-mono font-bold text-gray-600 dark:text-white/65">
                 <span>SECTOR: MP-INDORE // ORBIT-01</span>
                 <span>LAT 22.7196° N • LON 75.8577° E</span>
               </div>
@@ -270,7 +270,7 @@ export default function HeroSection() {
                   <span className="w-3 h-3 rounded-full bg-[#f9ab00] animate-bounce" style={{ animationDelay: "300ms" }} />
                   <span className="w-3 h-3 rounded-full bg-[#34a853] animate-bounce" style={{ animationDelay: "450ms" }} />
                 </div>
-                <span className={`text-xs font-mono font-bold ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                <span className={`text-xs font-mono font-bold ${isDark ? "text-white/70" : "text-gray-600"}`}>
                   indore.devfest.2026/space
                 </span>
               </div>
@@ -300,7 +300,7 @@ export default function HeroSection() {
                     <span>DevFest Indore 2026</span>
                     <span className="text-xs text-[#f9ab00]">✦</span>
                   </h2>
-                  <p className={`text-xs ${isDark ? "text-white/55" : "text-gray-500"}`}>
+                  <p className={`text-[13px] font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
                     Essentia Luxury Hotel Indore • Nov 28
                   </p>
                 </div>

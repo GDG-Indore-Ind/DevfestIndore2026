@@ -98,8 +98,8 @@ export default function TicketsSection() {
             <span className="text-[#34a853]">DevFest Indore</span>
           </h2>
 
-          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
-            isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-normal leading-relaxed ${
+            isDark ? "text-white/80" : "text-gray-700"
           }`}>
             All passes grant complete access to keynotes, workshops, official
             attendee kit, and our famous Indori breakfast, hot buffet lunch,
@@ -134,14 +134,14 @@ export default function TicketsSection() {
                   Claim Your Space Boarding Pass
                 </h3>
 
-                <p className={`mt-3 text-sm sm:text-base font-medium leading-relaxed max-w-2xl ${
-                  isDark ? "text-white/60" : "text-gray-600"
+                <p className={`mt-3 text-sm sm:text-base font-normal leading-relaxed max-w-2xl ${
+                  isDark ? "text-white/85" : "text-gray-700"
                 }`}>
                   Join Central India's premier gathering of 1,500+ astronaut builders, engineers, and creators.
                   Includes all keynotes, breakout codelabs, official astronaut merchandise kit, and unlimited Indori breakfast & lunch feast!
                 </p>
 
-                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 mt-5 text-[11px] sm:text-xs font-bold">
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 mt-5 text-xs sm:text-[13px] font-semibold">
                   <span className={`flex items-center gap-1.5 ${isDark ? "text-white/80" : "text-gray-800"}`}>
                     <Check className="w-3.5 h-3.5 text-[#34a853]" />
                     Official Space Swag & Attendee Kit
@@ -174,8 +174,8 @@ export default function TicketsSection() {
                   <span>Claim Boarding Pass</span>
                 </button>
 
-                <p className={`text-[10px] text-center mt-3 font-semibold ${
-                  isDark ? "text-white/35" : "text-gray-400"
+                <p className={`text-xs text-center mt-3 font-medium ${
+                  isDark ? "text-white/65" : "text-gray-600"
                 }`}>
                   Instant checkout powered by KonfHub
                 </p>
@@ -462,8 +462,8 @@ export default function TicketsSection() {
                 Select Your Tickets
               </h3>
 
-              <p className={`mt-2 text-xs sm:text-sm md:text-base font-medium leading-relaxed ${
-                isDark ? "text-white/55" : "text-gray-600"
+              <p className={`mt-2 text-xs sm:text-sm md:text-base font-normal leading-relaxed ${
+                isDark ? "text-white/80" : "text-gray-700"
               }`}>
                 Be a part of DevFest Indore 2026. Choose your ticket and
                 complete your registration securely with KonfHub.
@@ -484,7 +484,7 @@ export default function TicketsSection() {
               />
             </div>
 
-            <p className="mt-3 text-center text-[10px] sm:text-xs font-medium text-white/35">
+            <p className="mt-3 text-center text-xs font-medium text-white/65">
               Ticket selection and payment are handled securely by KonfHub.
             </p>
           </div>

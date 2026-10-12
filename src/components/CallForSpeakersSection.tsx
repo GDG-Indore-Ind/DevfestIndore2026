@@ -78,8 +78,8 @@ export default function CallForSpeakersSection() {
               Call for Speakers
             </span>
           </h2>
-          <p className={`mt-3 text-base sm:text-xl font-medium max-w-2xl mx-auto leading-relaxed ${
-            isDark ? "text-white/70" : "text-gray-600"
+          <p className={`mt-3 text-base sm:text-lg font-normal max-w-2xl mx-auto leading-relaxed ${
+            isDark ? "text-white/85" : "text-gray-700"
           }`}>
             Share your ideas, inspire the next wave of 1,500+ builders, and take the stage in Central India's biggest tech festival.
           </p>
@@ -139,7 +139,7 @@ export default function CallForSpeakersSection() {
                     </span>
                   </div>
 
-                  <p className="mt-4 text-sm sm:text-base font-semibold text-gray-600 dark:text-white/70 max-w-sm">
+                  <p className="mt-4 text-sm sm:text-base font-medium text-gray-700 dark:text-white/85 max-w-sm">
                     Share your ideas, inspire the next wave
                   </p>
 
@@ -149,7 +149,7 @@ export default function CallForSpeakersSection() {
                     <span className="w-3 h-3 rounded-full bg-[#ea4335] animate-pulse" style={{ animationDelay: "200ms" }} />
                     <span className="w-3 h-3 rounded-full bg-[#f9ab00] animate-pulse" style={{ animationDelay: "400ms" }} />
                     <span className="w-3 h-3 rounded-full bg-[#34a853] animate-pulse" style={{ animationDelay: "600ms" }} />
-                    <span className="text-xs font-mono font-bold text-gray-400 dark:text-white/40 ml-2">
+                    <span className="text-xs font-mono font-medium text-gray-500 dark:text-white/60 ml-2">
                       Indore Tech Universe
                     </span>
                   </div>
@@ -183,8 +183,8 @@ export default function CallForSpeakersSection() {
                     />
                   </div>
 
-                  <span className={`text-[10px] font-mono font-bold tracking-wider uppercase mt-2 ${
-                    isDark ? "text-white/40" : "text-gray-400"
+                  <span className={`text-[11px] font-mono font-semibold tracking-wider uppercase mt-2 ${
+                    isDark ? "text-white/60" : "text-gray-500"
                   }`}>
                     Official Poster Mascot
                   </span>
@@ -199,7 +199,7 @@ export default function CallForSpeakersSection() {
                     <Calendar className="w-5 h-5 text-[#4285f4]" />
                   </div>
                   <div>
-                    <span className="block text-xs font-mono font-bold uppercase text-gray-400 dark:text-white/50">
+                    <span className="block text-xs font-mono font-bold uppercase text-gray-500 dark:text-white/70">
                       Conference Date
                     </span>
                     <span className={`text-sm font-black ${isDark ? "text-white" : "text-gray-900"}`}>
@@ -265,7 +265,7 @@ export default function CallForSpeakersSection() {
                   <span className="text-[9px] font-mono font-bold text-gray-600">Scan to Apply</span>
                 </div>
                 <div className="flex-1">
-                  <p className={`text-xs font-semibold leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                  <p className={`text-xs sm:text-[13px] font-medium leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
                     Open your smartphone camera to access our official <strong>Sessionize Proposal Portal</strong> directly.
                   </p>
                   <a
@@ -311,7 +311,7 @@ export default function CallForSpeakersSection() {
                         {t.name}
                       </span>
                     </div>
-                    <span className="text-[11px] font-medium text-gray-500 text-right truncate max-w-[170px]">
+                    <span className="text-xs font-normal text-gray-600 dark:text-white/75 text-right truncate max-w-[200px]">
                       {t.desc}
                     </span>
                   </div>
@@ -320,15 +320,15 @@ export default function CallForSpeakersSection() {
 
               {/* Speaker Perks Callout */}
               <div className="mt-5 pt-4 border-t border-gray-200 dark:border-white/10">
-                <span className="text-xs font-mono font-bold uppercase text-gray-400 dark:text-white/50 block mb-2">
+                <span className="text-xs font-mono font-bold uppercase text-gray-500 dark:text-white/70 block mb-2">
                   Speaker Benefits & VIP Perks
                 </span>
                 <ul className="space-y-1.5">
                   {speakerPerks.slice(0, 3).map((perk, idx) => (
                     <li
                       key={idx}
-                      className={`text-xs font-medium flex items-center gap-2 ${
-                        isDark ? "text-white/75" : "text-gray-600"
+                      className={`text-xs sm:text-[13px] font-medium flex items-center gap-2 ${
+                        isDark ? "text-white/85" : "text-gray-700"
                       }`}
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#34a853] shrink-0" />

@@ -31,8 +31,8 @@ export default function FaqSection() {
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
             Frequently Asked <span className="text-[#f9ab00]">Questions</span>
           </h2>
-          <p className={`mt-4 text-base font-medium leading-relaxed ${
-            isDark ? "text-white/60" : "text-gray-600"
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
+            isDark ? "text-white/85" : "text-gray-700"
           }`}>
             Everything you need to know about passes, registration, codelabs, food, and attending DevFest Indore 2026.
           </p>
@@ -75,8 +75,8 @@ export default function FaqSection() {
                 </button>
 
                 {isOpen && (
-                  <div className={`px-5 pb-6 sm:px-6 text-sm font-medium leading-relaxed border-t pt-4 animate-in fade-in duration-200 ${
-                    isDark ? "border-white/8 text-white/70" : "border-gray-100 text-gray-600"
+                  <div className={`px-5 pb-6 sm:px-6 text-sm sm:text-[15px] font-normal leading-relaxed border-t pt-4 animate-in fade-in duration-200 ${
+                    isDark ? "border-white/8 text-white/85" : "border-gray-100 text-gray-700"
                   }`}>
                     {faq.answer}
                   </div>
@@ -94,14 +94,14 @@ export default function FaqSection() {
             <h4 className={`text-lg font-black ${isDark ? "text-white" : "text-gray-900"}`}>
               Still have queries or need flight assistance?
             </h4>
-            <p className={`text-xs sm:text-sm mt-0.5 ${isDark ? "text-white/55" : "text-gray-600"}`}>
+            <p className={`text-sm font-normal mt-1 leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
               Our organizing crew is happy to help with campus group bookings, speaker inquiries, or accessibility.
             </p>
           </div>
           <div className="flex items-center gap-3">
             <a
               href="mailto:gdgindore@gmail.com"
-              className="px-5 py-2.5 rounded-xl bg-[#34a853] text-white text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#2d9247] hover:scale-105 transition-all cursor-pointer shadow-md"
+              className="px-5 py-2.5 rounded-xl bg-[#34a853] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#2d9247] hover:scale-105 transition-all cursor-pointer shadow-md"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Email Support</span>
