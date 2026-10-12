@@ -77,29 +77,37 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 md:py-28 bg-transparent relative overflow-hidden transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <span className="text-[#ea4335] text-xs">✦</span>
-            <span className="text-xs font-black uppercase tracking-wider text-white">
+            <span className={`text-xs font-black uppercase tracking-wider ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
               About The Festival
             </span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          <h2 className={`text-3xl sm:text-5xl font-black tracking-tight leading-tight ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}>
             Where Modern Engineering Meets{" "}
             <span className="text-[#34a853]">Indore's Clean Innovation</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
+            isDark ? "text-white/60" : "text-gray-600"
+          }`}>
             GDG DevFests are community-led developer conferences hosted across the globe by Google Developer Groups.
-            In 2026, <strong className="text-white">GDG Indore</strong> brings you the grandest celebration of technology, code, and community
+            In 2026, <strong className={isDark ? "text-white" : "text-gray-900"}>GDG Indore</strong> brings you the grandest celebration of technology, code, and community
             in Central India!
           </p>
         </div>
 
         {/* Feature Story Banner with 3D Tilt — cosmic telemetry glass */}
-        <CardTilt className="telemetry-card rounded-3xl google-card-shadow p-6 sm:p-10 mb-16 overflow-hidden reveal-on-scroll">
+        <CardTilt className={`telemetry-card rounded-3xl google-card-shadow p-6 sm:p-10 mb-16 overflow-hidden reveal-on-scroll transition-all ${
+          isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-xl"
+        }`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Cultural Illustration */}
             <div className="lg:col-span-6 relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 bg-[#0d0d0d] group">
@@ -125,31 +133,43 @@ export default function AboutSection() {
                 <span>The Indore Developer Movement</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-4">
+              <h3 className={`text-2xl sm:text-3xl font-black mb-4 ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}>
                 A Festival Built By Developers, For Developers
               </h3>
 
-              <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-4">
+              <p className={`text-sm sm:text-base leading-relaxed mb-4 ${
+                isDark ? "text-white/70" : "text-gray-600"
+              }`}>
                 Indore has long been celebrated as India's cleanest city, but today it is also emerging as one of
                 the fastest-growing technology and startup capitals in Central India. Home to premier national institutions
-                like <strong className="text-white">IIT Indore</strong> and <strong className="text-white">IIM Indore</strong>, and the bustling <strong className="text-white">Super Corridor</strong>,
+                like <strong className={isDark ? "text-white" : "text-gray-900"}>IIT Indore</strong> and <strong className={isDark ? "text-white" : "text-gray-900"}>IIM Indore</strong>, and the bustling <strong className={isDark ? "text-white" : "text-gray-900"}>Super Corridor</strong>,
                 the city is brimming with engineering ambition.
               </p>
 
-              <p className="text-sm sm:text-base text-white/70 leading-relaxed mb-6">
-                <strong className="text-white">DevFest Indore 2026</strong> gathers top minds from Google, pioneering tech unicorns, and groundbreaking
+              <p className={`text-sm sm:text-base leading-relaxed mb-6 ${
+                isDark ? "text-white/70" : "text-gray-600"
+              }`}>
+                <strong className={isDark ? "text-white" : "text-gray-900"}>DevFest Indore 2026</strong> gathers top minds from Google, pioneering tech unicorns, and groundbreaking
                 startups. From hands-on AI agent architectures to scalable cloud microservices, this is your platform to level up,
                 collaborate, and shape tomorrow.
               </p>
 
-              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-white/8">
-                <div className="p-3.5 rounded-xl bg-[#4285f4]/10 border border-[#4285f4]/25 hover:bg-[#4285f4]/15 transition-colors">
+              <div className={`grid grid-cols-2 gap-3 pt-4 border-t ${
+                isDark ? "border-white/8" : "border-gray-200"
+              }`}>
+                <div className={`p-3.5 rounded-xl border transition-colors ${
+                  isDark ? "bg-[#4285f4]/10 border-[#4285f4]/25 hover:bg-[#4285f4]/15" : "bg-[#4285f4]/8 border-[#4285f4]/20"
+                }`}>
                   <span className="block text-xl font-black text-[#4285f4]">100% In-Person</span>
-                  <span className="text-xs font-semibold text-white/45">Live Keynotes & Demos</span>
+                  <span className={`text-xs font-semibold ${isDark ? "text-white/45" : "text-gray-500"}`}>Live Keynotes & Demos</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#34a853]/10 border border-[#34a853]/25 hover:bg-[#34a853]/15 transition-colors">
+                <div className={`p-3.5 rounded-xl border transition-colors ${
+                  isDark ? "bg-[#34a853]/10 border-[#34a853]/25 hover:bg-[#34a853]/15" : "bg-[#34a853]/8 border-[#34a853]/20"
+                }`}>
                   <span className="block text-xl font-black text-[#34a853]">Zero Fluff</span>
-                  <span className="text-xs font-semibold text-white/45">Pure Engineering & Code</span>
+                  <span className={`text-xs font-semibold ${isDark ? "text-white/45" : "text-gray-500"}`}>Pure Engineering & Code</span>
                 </div>
               </div>
             </div>

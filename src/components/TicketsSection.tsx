@@ -77,24 +77,30 @@ export default function TicketsSection() {
   };
 
   return (
-    <section id="tickets" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="tickets" className="py-20 md:py-28 bg-transparent relative transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <Ticket className="w-4 h-4 text-[#4285f4]" />
-            <span className="text-xs font-black uppercase tracking-wider text-white">
+            <span className={`text-xs font-black uppercase tracking-wider ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
               Conference Passes & Registration
             </span>
             <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h2 className={`text-3xl sm:text-5xl font-black tracking-tight ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}>
             Reserve Your Spot at{" "}
             <span className="text-[#34a853]">DevFest Indore</span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-white/60 font-medium leading-relaxed">
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
+            isDark ? "text-white/60" : "text-gray-600"
+          }`}>
             All passes grant complete access to keynotes, workshops, official
             attendee kit, and our famous Indori breakfast, hot buffet lunch,
             and high-tea!

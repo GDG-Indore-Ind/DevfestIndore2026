@@ -56,7 +56,7 @@ export default function CallForSpeakersSection() {
   return (
     <section
       id="call-for-speakers"
-      className="py-20 md:py-28 relative overflow-hidden transition-colors duration-300 bg-[var(--page-bg,#000000)]"
+      className="py-20 md:py-28 relative overflow-hidden transition-colors duration-300 bg-transparent"
     >
       {/* Anchor for legacy #speakers navigation */}
       <span id="speakers" className="absolute -top-24 left-0" aria-hidden="true" />

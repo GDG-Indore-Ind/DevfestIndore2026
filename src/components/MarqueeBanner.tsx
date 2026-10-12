@@ -31,7 +31,7 @@ export default function MarqueeBanner() {
 
   return (
     <div className={`py-6 border-y overflow-hidden space-y-3 transition-colors ${
-      isDark ? "bg-[#0a0a0a] border-white/10" : "bg-white border-black/10 shadow-sm"
+      isDark ? "bg-[#0a0a0a]/80 backdrop-blur-md border-white/10" : "bg-white/80 backdrop-blur-md border-black/10 shadow-sm"
     }`}>
       {/* Track 1: Moving left */}
       <div className="flex overflow-hidden">

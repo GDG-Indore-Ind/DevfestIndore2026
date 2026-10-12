@@ -111,7 +111,7 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-20 md:py-28 bg-[var(--page-bg,#000000)] relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
+    <section id="satellite-events" className="py-20 md:py-28 bg-transparent relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
       {/* Background Orbital Trajectory Graphics */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
