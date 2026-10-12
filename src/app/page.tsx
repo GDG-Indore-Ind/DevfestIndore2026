@@ -5,13 +5,17 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
+import ContentPillarsSection from "@/components/ContentPillarsSection";
+import SpaceCollaborationSection from "@/components/SpaceCollaborationSection";
+import ShowcaseZonesSection from "@/components/ShowcaseZonesSection";
+import ThreeDFlowSection from "@/components/ThreeDFlowSection";
+import EventRecapSection from "@/components/EventRecapSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 import CallForSpeakersSection from "@/components/CallForSpeakersSection";
 // import ScheduleSection from "@/components/ScheduleSection";
-// import SpeakersSection from "@/components/SpeakersSection";
 import TicketsSection from "@/components/TicketsSection";
-// import IndoreExperienceSection from "@/components/IndoreExperienceSection";
 import SponsorsSection from "@/components/SponsorsSection";
+import SolarSystemEcosystem3D from "@/components/SolarSystemEcosystem3D";
 import VenueSection from "@/components/VenueSection";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
@@ -67,36 +71,52 @@ export default function Home() {
       />
 
       {/* Main Content Sections */}
+      {/* Main Content Sections */}
       <main className="flex-1 relative z-10">
-        {/* Hero Section with Live Countdown, 3D Mascot & CTAs */}
+        {/* Full-Screen 3D Hero Section */}
         <HeroSection />
 
         {/* Double-decker Animated Marquee Banner */}
         <MarqueeBanner />
 
-        {/* About DevFest Indore & Indore Cultural Tech Spirit */}
-        <AboutSection />
+        {/* 3D Journey & Collective Flow Component */}
+        <div id="flow">
+          <ThreeDFlowSection />
+        </div>
 
-        {/* Pre-DevFest Satellite Events & City Activations (Mumbai Tech Week Style) */}
-        <SatelliteEventsSection />
+        {/* 5 Strategic Content Pillars (Space Tech, Agentic AI, Physical AI, Data, Enterprise) */}
+        <div id="pillars">
+          <ContentPillarsSection />
+        </div>
+
+        {/* 3D Solar System Ecosystem Experience (GDG Indore Sun + 9 Planetary Tracks & Zones) */}
+        <div id="solar-ecosystem">
+          <SolarSystemEcosystem3D />
+        </div>
+
+        {/* Space Club of India Collaboration & Planned MOU Announcement */}
+        <div id="space-collaboration">
+          <SpaceCollaborationSection />
+        </div>
+
+        {/* Venue Experience & 9 Dedicated Zones (Qualcomm Showcase, Lounges, Workshops) */}
+        <div id="zones">
+          <ShowcaseZonesSection />
+        </div>
 
         {/* Official Call for Speakers — Space Edition Poster & Proposal Portal */}
         <CallForSpeakersSection />
 
-        {/* Schedule & Agenda with Track Filtering and Bookmarking */}
-        {/* <ScheduleSection
-          savedSessionIds={savedSessionIds}
-          onToggleSaveSession={handleToggleSaveSession}
-        /> */}
+        {/* High-Impact Executive Event Recap Section */}
+        <div id="recap">
+          <EventRecapSection />
+        </div>
 
-        {/* Featured Speakers Grid with 3D Tilt & Bio Modals */}
-        {/* <SpeakersSection /> */}
+        {/* Pre-DevFest Satellite Events & City Activations */}
+        <SatelliteEventsSection />
 
         {/* Tickets, Pricing & Interactive Digital Badge Generator */}
         <TicketsSection />
-
-        {/* The Unique Indore City & Food Culture Experience */}
-        {/* <IndoreExperienceSection /> */}
 
         {/* Sponsors, Google for Developers & Community Partners */}
         <SponsorsSection />

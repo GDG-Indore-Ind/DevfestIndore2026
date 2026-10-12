@@ -11,19 +11,19 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
-  isDark: true,
+  isDark: false,
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // On mount: read persisted preference or system preference
+  // On mount: read persisted preference (defaulting to light)
   useEffect(() => {
     const stored = localStorage.getItem("devfest-theme") as Theme | null;
-    const resolved: Theme = stored ?? "dark";
+    const resolved: Theme = stored ?? "light";
     setTheme(resolved);
     document.documentElement.setAttribute("data-theme", resolved);
     setMounted(true);

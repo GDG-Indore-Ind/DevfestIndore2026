@@ -29,16 +29,27 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     setIsCheckoutOpen(true);
   };
 
-  const navLinks = [
+  const primaryLinks = [
     { name: "About", href: "#about" },
-    { name: "Call for Speakers", href: "#call-for-speakers" },
+    { name: "Solar Ecosystem", href: "#solar-ecosystem" },
+    { name: "CFP", href: "#call-for-speakers" },
     { name: "Tickets", href: "#tickets" },
-    { name: "Satellite Events", href: "#satellite-events" },
-    // { name: "Badge Maker", href: "#badge-generator" },
-    // { name: "Indore Spirit", href: "#indore-vibe" },
-    { name: "Sponsors", href: "#sponsors" },
     { name: "Venue", href: "#venue" },
-    { name: "FAQ", href: "#faq" },
+  ];
+
+  const allDrawerLinks = [
+    { name: "Overview & Vision", href: "#about", desc: "DevFest 2026 flagship vision & target" },
+    { name: "3D Solar Ecosystem", href: "#solar-ecosystem", desc: "9 Planetary tracks & GDG Sun core" },
+    { name: "Content Pillars", href: "#pillars", desc: "Space Tech, AI, Robotics, Data & Enterprise" },
+    { name: "Space Club of India MOU", href: "#space-collaboration", desc: "Historic Madhya Pradesh space tech alliance" },
+    { name: "Venue & 9 Zones", href: "#zones", desc: "Qualcomm showcase, lounges & workshop halls" },
+    { name: "Call for Speakers", href: "#call-for-speakers", desc: "Submit your session proposal on Sessionize" },
+    { name: "Satellite Events", href: "#satellite-events", desc: "Indore pre-events & community hackathons" },
+    { name: "Tickets & Passes", href: "#tickets", desc: "Reserve your seat via KonfHub" },
+    { name: "Essentia Hotel Venue", href: "#venue", desc: "World Cup Square, Pipliyahana, Indore" },
+    { name: "Sponsors & Partners", href: "#sponsors", desc: "Ecosystem catalysts & tech showcases" },
+    { name: "Team & Past Speakers", href: "/team", desc: "Core organizers & distinguished speakers" },
+    { name: "FAQ", href: "#faq", desc: "Common questions & guidelines" },
   ];
 
   return (
@@ -54,8 +65,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
       <header
         className={`fixed top-2 left-0 right-0 z-40 transition-all duration-300 ${scrolled
           ? isDark
-            ? "bg-black/80 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5"
-            : "bg-white/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.1)] border-b border-black/10 py-2.5"
+            ? "bg-black/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5"
+            : "bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] border-b border-black/10 py-2.5"
           : "bg-transparent py-4"
           }`}
       >
@@ -92,12 +103,12 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             </div>
           </Link>
 
-          {/* Desktop Navigation Links with Roll-up Typography */}
+          {/* Simplified Desktop Navigation Bar — only 4 key anchors */}
           <nav
-            className={`hidden lg:flex items-center gap-1 p-1.5 rounded-full border ${isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
+            className={`hidden md:flex items-center gap-1 p-1.5 rounded-full border ${isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
               }`}
           >
-            {navLinks.map((link) => (
+            {primaryLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -160,77 +171,121 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 </span>
               </span>
             </a>
+            {/* Hamburger Menu Toggle Button (Visible everywhere for effortless deep navigation) */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-xl border google-pill-shadow flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${isDark
+                ? "border-white/20 bg-[#0d0d0d] text-white hover:bg-white/10"
+                : "border-black/15 bg-white text-[#1a1a1a] shadow-sm hover:bg-black/5"
+                }`}
+              aria-label="Toggle Navigation Menu"
+              title="Open Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <span className="hidden sm:inline text-xs font-bold font-mono">MENU</span>
+            </button>
           </div>
-
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-xl border google-pill-shadow ${isDark
-              ? "border-white/20 bg-[#0d0d0d] text-white"
-              : "border-black/15 bg-white text-[#1a1a1a] shadow-sm"
-              }`}
-            aria-label="Toggle Navigation"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Global Slide-Down Navigation Drawer (Hamburger Menu) */}
         {mobileMenuOpen && (
           <div
-            className={`lg:hidden fixed inset-x-0 top-[65px] border-b shadow-xl p-5 z-50 animate-in fade-in slide-in-from-top-4 duration-200 ${isDark
-              ? "bg-[#0d0d0d] border-white/10"
-              : "bg-white border-black/10"
+            className={`fixed inset-x-0 top-[65px] border-b shadow-2xl p-6 sm:p-8 z-50 animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-80px)] overflow-y-auto ${isDark
+              ? "bg-[#0d0d0d]/95 backdrop-blur-2xl border-white/15"
+              : "bg-white/95 backdrop-blur-2xl border-black/15"
               }`}
           >
-            <div className="flex flex-col gap-2">
-              <div className={`flex items-center justify-between pb-3 mb-2 border-b ${isDark ? "border-white/8" : "border-black/8"}`}>
-                <span className={`text-xs font-bold flex items-center gap-1 ${isDark ? "text-white/75" : "text-gray-700"}`}>
-                  <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel Indore
-                </span>
-                <span className="text-xs font-bold text-[#34a853] bg-[#34a853]/20 px-2 py-0.5 rounded-full">
-                  Nov 28, 2026
-                </span>
+            <div className="max-w-6xl mx-auto">
+              <div className={`flex flex-wrap items-center justify-between pb-4 mb-6 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-pulse" />
+                  <span className={`text-sm font-bold font-mono ${isDark ? "text-white" : "text-gray-900"}`}>
+                    DEVFEST INDORE 2026 // DIRECTORY
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className={`text-xs font-bold flex items-center gap-1 ${isDark ? "text-white/75" : "text-gray-700"}`}>
+                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel Indore
+                  </span>
+                  <span className="text-xs font-extrabold text-[#34a853] bg-[#34a853]/15 px-2.5 py-1 rounded-full border border-[#34a853]/30">
+                    Nov 28, 2026
+                  </span>
+                </div>
               </div>
 
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-colors ${isDark
-                    ? "text-white/90 hover:bg-[#4285f4]/15 hover:text-[#4285f4]"
-                    : "text-gray-800 hover:bg-[#4285f4]/10 hover:text-[#4285f4]"
-                    }`}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {/* 2-Column Grid of Navigation Links */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                {allDrawerLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`group p-3.5 rounded-2xl border transition-all hover:scale-[1.02] flex flex-col justify-between ${isDark
+                      ? "border-white/10 bg-white/5 hover:bg-[#4285f4]/15 hover:border-[#4285f4]/40 text-white"
+                      : "border-black/10 bg-black/5 hover:bg-[#4285f4]/10 hover:border-[#4285f4]/30 text-gray-900 shadow-sm"
+                      }`}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-sm group-hover:text-[#4285f4] transition-colors">{link.name}</span>
+                      <span className="text-[#4285f4] text-xs font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </div>
+                    <span className={`text-xs line-clamp-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>
+                      {link.desc}
+                    </span>
+                  </a>
+                ))}
+              </div>
 
-              <div className={`pt-3 mt-2 border-t flex flex-col gap-2 ${isDark ? "border-white/8" : "border-black/8"}`}>
-                {/* Mobile Theme Toggle */}
-                <button
-                  onClick={() => { toggleTheme(); setMobileMenuOpen(false); }}
-                  className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm border transition-all duration-300 ${isDark
-                    ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                    : "bg-black/8 border-black/15 text-[#1a1a1a] hover:bg-black/15"
-                    }`}
-                >
-                  {isDark ? (
-                    <><Sun className="w-4 h-4 text-[#f9ab00]" /><span>Switch to Light Theme</span></>
-                  ) : (
-                    <><Moon className="w-4 h-4 text-[#4285f4]" /><span>Switch to Dark Theme</span></>
-                  )}
-                </button>
+              {/* Action Buttons in Drawer */}
+              <div className={`pt-4 border-t flex flex-wrap items-center justify-between gap-3 ${isDark ? "border-white/10" : "border-black/10"}`}>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/team"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${isDark
+                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
+                      }`}
+                  >
+                    Core Team & Speakers
+                  </Link>
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${isDark
+                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
+                      }`}
+                  >
+                    Admin Panel
+                  </Link>
+                </div>
 
-                <a
-                  href="#tickets"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-3 rounded-xl font-bold text-sm bg-[#4285f4] text-white border border-[#4285f4]/50 shadow-[0_0_20px_rgba(66,133,244,0.4)] flex items-center justify-center gap-2"
-                >
-                  <Ticket className="w-4 h-4" />
-                  <span>Get DevFest Tickets</span>
-                </a>
+                <div className="flex items-center gap-3">
+                  {/* Theme Switcher */}
+                  <button
+                    onClick={() => { toggleTheme(); }}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-2 ${isDark
+                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
+                      }`}
+                  >
+                    {isDark ? (
+                      <><Sun className="w-3.5 h-3.5 text-[#f9ab00]" /><span>Light Theme</span></>
+                    ) : (
+                      <><Moon className="w-3.5 h-3.5 text-[#4285f4]" /><span>Dark Theme</span></>
+                    )}
+                  </button>
+
+                  <a
+                    href="#tickets"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-6 py-2.5 rounded-xl font-bold text-xs bg-[#4285f4] text-white border border-[#4285f4]/50 shadow-[0_0_20px_rgba(66,133,244,0.4)] flex items-center gap-2 hover:bg-[#3367d6] transition-colors"
+                  >
+                    <Ticket className="w-3.5 h-3.5" />
+                    <span>Get DevFest Tickets</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

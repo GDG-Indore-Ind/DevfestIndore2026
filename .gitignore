@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large local media & raw photoshoot dumps
+drive-download*
+*.JPG
+*.CR2
+

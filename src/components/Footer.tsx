@@ -108,6 +108,88 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Essentia Luxury Hotel Indore Feature Card in Footer */}
+        <div className="mb-14 reveal-on-scroll">
+          <div className={`p-6 sm:p-8 rounded-3xl border transition-all ${
+            isDark
+              ? "bg-[#0d0d0d] border-white/15 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+              : "bg-white border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+          }`}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-5 relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10 group shadow-md">
+                <Image
+                  src="https://res.cloudinary.com/agcnziwc/image/upload/v1760303102/devfest_indore_photos/img_01_8754.jpg"
+                  alt="Essentia Luxury Hotel Indore Venue"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 450px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  unoptimized
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-mono font-bold border border-white/20 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#ea4335]" />
+                  <span>OFFICIAL EVENT VENUE</span>
+                </div>
+                <div className="absolute bottom-3 left-3 right-3 text-white">
+                  <span className="text-xs font-mono font-bold tracking-wider text-[#f9ab00]">ESSENTIA LUXURY HOTEL</span>
+                  <p className="text-[11px] font-normal text-white/80 line-clamp-1">World Cup Square, Pipliyahana, Indore (MP) 452016</p>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full telemetry-card text-[11px] font-mono font-bold text-[#4285f4] mb-3">
+                    <Compass className="w-3.5 h-3.5" />
+                    <span>LAUNCHPAD LOCATION COORDINATES</span>
+                  </div>
+                  <h3 className={`text-2xl sm:text-3xl font-black mb-2 tracking-tight ${isDark ? "text-white" : "text-gray-900"}`}>
+                    Essentia Luxury Hotel, Indore
+                  </h3>
+                  <p className={`text-sm leading-relaxed mb-4 ${isDark ? "text-white/80" : "text-gray-700"}`}>
+                    Flagship venue for DevFest Indore 2026. Conveniently situated near World Cup Square on Ring Road with rapid connectivity to Indore Airport (IDR), Super Corridor, and Indore Junction Railway Station. Featuring world-class audio-visual auditoriums, workshop breakaways, and curated dining lounges.
+                  </p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                    <div className={`p-2.5 rounded-xl border ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
+                      <span className="block text-[10px] font-mono text-gray-500 dark:text-gray-400 uppercase">Capacity</span>
+                      <span className={`text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>600+ Leaders</span>
+                    </div>
+                    <div className={`p-2.5 rounded-xl border ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
+                      <span className="block text-[10px] font-mono text-gray-500 dark:text-gray-400 uppercase">Date</span>
+                      <span className={`text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>Nov 28, 2026</span>
+                    </div>
+                    <div className={`p-2.5 rounded-xl border col-span-2 sm:col-span-1 ${isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"}`}>
+                      <span className="block text-[10px] font-mono text-gray-500 dark:text-gray-400 uppercase">Zones</span>
+                      <span className={`text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>9 Specialized Areas</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="https://maps.google.com/?q=Essentia+Luxury+Hotel+Indore"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-5 py-2.5 rounded-xl bg-[#4285f4] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-[#3367d6] transition-transform hover:scale-105 shadow-md flex items-center gap-2"
+                  >
+                    <span>Get Directions on Google Maps</span>
+                    <Compass className="w-3.5 h-3.5" />
+                  </a>
+                  <a
+                    href="https://www.essentiahotels.in/luxury-hotel-indore/location.html"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`px-4 py-2.5 rounded-xl border text-xs font-bold transition-colors ${
+                      isDark ? "bg-white/10 border-white/20 text-white hover:bg-white/20" : "bg-gray-100 border-gray-300 text-gray-800 hover:bg-gray-200"
+                    }`}
+                  >
+                    Official Property Site ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14 reveal-on-scroll">
           {/* Brand & Community Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">

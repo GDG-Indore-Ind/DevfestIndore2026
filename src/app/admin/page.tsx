@@ -1,0 +1,1382 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import {
+  ShieldCheck,
+  Image as ImageIcon,
+  Plus,
+  Trash2,
+  RefreshCw,
+  Home,
+  Database,
+  Rocket,
+  CheckCircle2,
+  Upload,
+  Sparkles,
+  Settings,
+  Eye,
+  LogOut,
+  BarChart3,
+  Users,
+  MessageSquare,
+  Lock,
+  ArrowRight,
+  UserPlus,
+  Compass,
+  Radio,
+  Cpu,
+} from "lucide-react";
+import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
+import {
+  INITIAL_TEAM,
+  INITIAL_PAST_SPEAKERS,
+  INITIAL_SUPPORT_QUERIES,
+  TeamMember,
+  PastSpeaker,
+  SupportQuery,
+  AgendaItem,
+  INITIAL_AGENDA,
+} from "@/data/teamData";
+import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
+import { uploadToCloudinary } from "@/lib/cloudinary";
+
+import {
+  getTeamMembers,
+  saveTeamMember,
+  removeTeamMember,
+  getPastSpeakers,
+  savePastSpeaker,
+  removePastSpeaker,
+  getGalleryPhotos,
+  saveGalleryPhoto,
+  removeGalleryPhoto,
+  getAgendaItems,
+  saveAgendaItem,
+  removeAgendaItem,
+} from "@/lib/firestoreService";
+
+export default function AdminPage() {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  // Tab Navigation in Admin Sidebar
+  const [activeTab, setActiveTab] = useState<
+    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "support" | "config"
+  >("analytics");
+
+  // Gallery State & Upload
+  const [gallery, setGallery] = useState<GalleryItem[]>(INITIAL_GALLERY_ITEMS);
+  const [newTitle, setNewTitle] = useState("");
+  const [newCategory, setNewCategory] = useState<GalleryItem["category"]>("Space");
+  const [newImageUrl, setNewImageUrl] = useState("");
+  const [newCaption, setNewCaption] = useState("");
+  const [uploadingFile, setUploadingFile] = useState(false);
+
+  // Team State & File Upload
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(INITIAL_TEAM);
+  const [newMemberName, setNewMemberName] = useState("");
+  const [newMemberRole, setNewMemberRole] = useState("");
+  const [newMemberTeam, setNewMemberTeam] = useState<TeamMember["team"]>("Core Organizer");
+  const [newMemberBio, setNewMemberBio] = useState("");
+  const [newMemberAvatar, setNewMemberAvatar] = useState("");
+  const [uploadingTeamAvatar, setUploadingTeamAvatar] = useState(false);
+
+  // Speakers State & File Upload
+  const [pastSpeakers, setPastSpeakers] = useState<PastSpeaker[]>(DEV_FEST_PAST_SPEAKERS_FULL);
+  const [newSpeakerName, setNewSpeakerName] = useState("");
+  const [newSpeakerRole, setNewSpeakerRole] = useState("");
+  const [newSpeakerCompany, setNewSpeakerCompany] = useState("");
+  const [newSpeakerYear, setNewSpeakerYear] = useState<PastSpeaker["year"]>("2024");
+  const [newSpeakerTopic, setNewSpeakerTopic] = useState("");
+  const [newSpeakerAvatar, setNewSpeakerAvatar] = useState("");
+  const [uploadingSpeakerAvatar, setUploadingSpeakerAvatar] = useState(false);
+
+  // Agenda State
+  const [agendaList, setAgendaList] = useState<AgendaItem[]>(INITIAL_AGENDA);
+  const [newAgendaTime, setNewAgendaTime] = useState("");
+  const [newAgendaTitle, setNewAgendaTitle] = useState("");
+  const [newAgendaSpeaker, setNewAgendaSpeaker] = useState("");
+  const [newAgendaRole, setNewAgendaRole] = useState("");
+  const [newAgendaAvatar, setNewAgendaAvatar] = useState("");
+  const [newAgendaTrack, setNewAgendaTrack] = useState<AgendaItem["track"]>("Space Technology");
+  const [newAgendaHall, setNewAgendaHall] = useState<AgendaItem["hall"]>("Main Session Hall");
+  const [newAgendaDesc, setNewAgendaDesc] = useState("");
+  const [uploadingAgendaAvatar, setUploadingAgendaAvatar] = useState(false);
+
+  // Support Queries State
+  const [supportQueries, setSupportQueries] = useState<SupportQuery[]>(INITIAL_SUPPORT_QUERIES);
+
+  // Ecosystem Config State
+  const [eventDate, setEventDate] = useState("Saturday, November 28, 2026");
+  const [venueName, setVenueName] = useState("Essentia Luxury Hotel Indore");
+  const [attendeeTarget, setAttendeeTarget] = useState("600+ Professional Attendees");
+  const [spaceMOUStatus, setSpaceMOUStatus] = useState("Planned MOU Announcement");
+  const [qualcommStatus, setQualcommStatus] = useState("Subject to confirmation & display scope");
+
+  // Notifications
+  const [statusMsg, setStatusMsg] = useState<{ text: string; type: "success" | "info" } | null>(null);
+
+  // Check Session & Sync Data from Database
+  useEffect(() => {
+    const isAuth = sessionStorage.getItem("devfest-admin-authenticated");
+    if (isAuth === "true") {
+      setIsAuthenticated(true);
+    }
+
+    // Load from Firestore DB Service
+    getGalleryPhotos().then((g) => { if (g && g.length > 0) setGallery(g); });
+    getTeamMembers().then((t) => { if (t && t.length > 0) setTeamMembers(t); });
+    getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
+  }, []);
+
+  // Handle Login Authentication
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginEmail === "gdgindore@gmail.com" && loginPassword === "Devfest@2026#") {
+      setIsAuthenticated(true);
+      sessionStorage.setItem("devfest-admin-authenticated", "true");
+      setLoginError("");
+    } else {
+      setLoginError("Invalid Admin credentials. Please verify email and password.");
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem("devfest-admin-authenticated");
+  };
+
+  // Direct File Upload to Cloudinary
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploadingFile(true);
+      const uploadedUrl = await uploadToCloudinary(file);
+      setNewImageUrl(uploadedUrl);
+      setStatusMsg({ text: "Image successfully uploaded to Cloudinary!", type: "success" });
+    } catch (err: any) {
+      console.error(err);
+      setStatusMsg({ text: err.message || "Cloudinary direct upload failed.", type: "info" });
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  // Add Image
+  const handleAddImage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle || !newImageUrl) return;
+
+    const newItem: GalleryItem = {
+      id: "gal-" + Date.now(),
+      title: newTitle,
+      category: newCategory,
+      imageUrl: newImageUrl,
+      caption: newCaption || newTitle,
+    };
+
+    const updated = [newItem, ...gallery];
+    setGallery(updated);
+    localStorage.setItem("devfest-gallery-items", JSON.stringify(updated));
+
+    setNewTitle("");
+    setNewImageUrl("");
+    setNewCaption("");
+    setStatusMsg({ text: "Gallery photo added successfully!", type: "success" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Delete Image
+  const handleDeleteImage = (id: string) => {
+    const updated = gallery.filter((item) => item.id !== id);
+    setGallery(updated);
+    localStorage.setItem("devfest-gallery-items", JSON.stringify(updated));
+    setStatusMsg({ text: "Image removed from gallery.", type: "info" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Add Team Member
+  const handleAddTeamMember = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMemberName || !newMemberRole) return;
+
+    const newMember: TeamMember = {
+      id: "tm-" + Date.now(),
+      name: newMemberName,
+      role: newMemberRole,
+      team: newMemberTeam,
+      bio: newMemberBio || "Key organizer of DevFest Indore 2026.",
+      avatar: newMemberAvatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      socials: { linkedin: "https://linkedin.com" },
+    };
+
+    const updated = [...teamMembers, newMember];
+    setTeamMembers(updated);
+    localStorage.setItem("devfest-team-members", JSON.stringify(updated));
+    setNewMemberName("");
+    setNewMemberRole("");
+    setNewMemberBio("");
+    setNewMemberAvatar("");
+    setStatusMsg({ text: "Team member added to directory!", type: "success" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  const handleDeleteTeamMember = (id: string) => {
+    const updated = teamMembers.filter((item) => item.id !== id);
+    setTeamMembers(updated);
+    localStorage.setItem("devfest-team-members", JSON.stringify(updated));
+    setStatusMsg({ text: "Team member removed.", type: "info" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Add Speaker
+  const handleAddSpeaker = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newSpeakerName || !newSpeakerRole) return;
+
+    const newSpeaker: PastSpeaker = {
+      id: "ps-" + Date.now(),
+      name: newSpeakerName,
+      role: newSpeakerRole,
+      company: newSpeakerCompany || "Tech Innovators",
+      year: newSpeakerYear,
+      topic: newSpeakerTopic || "Keynote Session",
+      avatar: newSpeakerAvatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      spotlightBadge: "Speaker Spotlight",
+      category: "GenAI",
+    };
+
+    const updated = [...pastSpeakers, newSpeaker];
+    setPastSpeakers(updated);
+    localStorage.setItem("devfest-past-speakers", JSON.stringify(updated));
+    setNewSpeakerName("");
+    setNewSpeakerRole("");
+    setNewSpeakerCompany("");
+    setNewSpeakerTopic("");
+    setNewSpeakerAvatar("");
+    setStatusMsg({ text: "Speaker added to spotlights!", type: "success" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Toggle Support Query Status
+  const handleToggleQueryStatus = (id: string) => {
+    const updated = supportQueries.map((q) =>
+      q.id === id ? { ...q, status: q.status === "new" ? "resolved" : "new" } : q
+    ) as SupportQuery[];
+    setSupportQueries(updated);
+    localStorage.setItem("devfest-support-queries", JSON.stringify(updated));
+  };
+
+  // IF NOT AUTHENTICATED -> SHOW OFFICIAL LOGIN FORM
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#fafbfc] flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-3xl border-2 border-[#1e1e1e] google-pill-shadow p-8 relative overflow-hidden">
+          <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-[#34a853] text-white mx-auto mb-5 shadow-md">
+            <Lock className="w-7 h-7" />
+          </div>
+
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-black text-[#1e1e1e]">Admin Console Login</h1>
+            <p className="text-xs text-[#5f6368] mt-1">
+              Google Developer Group Indore • DevFest 2026 Operations
+            </p>
+          </div>
+
+          {loginError && (
+            <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-[#ea4335]">
+              {loginError}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                Admin Email Address
+              </label>
+              <input
+                type="email"
+                required
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                placeholder="gdgindore@gmail.com"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                placeholder="••••••••••••"
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-full font-black text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-2"
+            >
+              <span>Access DevFest Control Panel</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+
+          <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#5f6368]">
+            <Link href="/" className="hover:text-[#4285f4] font-bold">
+              ← Return to Public Website
+            </Link>
+            <span>Authorized Organizers Only</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // AUTHENTICATED ADMIN CONSOLE WITH SIDEBAR
+  return (
+    <div className="min-h-screen bg-[#fafbfc] text-[#1e1e1e] flex font-sans">
+      {/* Left Sidebar Navigation */}
+      <aside className="w-64 bg-white border-r-2 border-gray-200 p-6 flex flex-col justify-between shrink-0 hidden md:flex">
+        <div>
+          {/* Admin Header */}
+          <div className="flex items-center gap-3 pb-6 mb-6 border-b border-gray-100">
+            <div className="w-10 h-10 rounded-2xl bg-[#34a853] text-white flex items-center justify-center font-bold shadow-md">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="text-sm font-black text-[#1e1e1e]">DevFest Console</h2>
+              <span className="text-[10px] text-[#34a853] font-bold bg-green-50 px-2 py-0.5 rounded-full border border-green-200">
+                Connected
+              </span>
+            </div>
+          </div>
+
+          {/* Sidebar Menu Items */}
+          <nav className="space-y-1.5">
+            <button
+              onClick={() => setActiveTab("analytics")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "analytics"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span>Visits & Analytics</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("gallery")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "gallery"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <ImageIcon className="w-4 h-4" />
+              <span>Gallery & Photos</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("team")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "team"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              <span>Team Directory</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("speakers")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "speakers"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Past Speakers</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("agenda")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "agenda"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Compass className="w-4 h-4" />
+              <span>Agenda & Sessions</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("support")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "support"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>Support Reachouts</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("config")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "config"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Settings className="w-4 h-4" />
+              <span>Event Parameters</span>
+            </button>
+          </nav>
+        </div>
+
+        {/* Bottom Profile & Logout */}
+        <div className="pt-6 border-t border-gray-100 space-y-2">
+          <Link
+            href="/"
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold text-[#1e1e1e] bg-gray-100 hover:bg-gray-200 transition-colors"
+          >
+            <Eye className="w-3.5 h-3.5 text-[#4285f4]" />
+            <span>Public Site</span>
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold text-[#ea4335] bg-red-50 hover:bg-red-100 transition-colors"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Admin Content Canvas */}
+      <main className="flex-1 p-6 sm:p-10 overflow-y-auto">
+        {/* Top Bar Banner */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b border-gray-200 gap-4">
+          <div>
+            <h1 className="text-2xl font-black text-[#1e1e1e] capitalize">
+              {activeTab === "analytics" && "Traffic & Google Analytics Intelligence"}
+              {activeTab === "gallery" && "Gallery Photos & Cloudinary Uploader"}
+              {activeTab === "team" && "Core Organizing Team Directory"}
+              {activeTab === "speakers" && "Previous Speakers & Hall of Fame"}
+              {activeTab === "support" && "Attendee Support Inquiries & Tickets"}
+              {activeTab === "config" && "Ecosystem Plan Parameters"}
+            </h1>
+            <p className="text-xs text-[#5f6368]">
+              GDG Indore Admin Session: gdgindore@gmail.com
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-[#34a853] bg-green-50 px-3 py-1.5 rounded-full border border-green-200 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#34a853] animate-ping" />
+              Cloud Firestore & Analytics Active
+            </span>
+          </div>
+        </div>
+
+        {/* Global Status Banner */}
+        {statusMsg && (
+          <div className="mb-6 p-4 rounded-2xl bg-green-50 border border-green-200 text-xs font-bold text-[#1e1e1e] flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-[#34a853]" />
+            <span>{statusMsg.text}</span>
+          </div>
+        )}
+
+        {/* TAB 1: VISITS & ANALYTICS */}
+        {activeTab === "analytics" && (
+          <div className="space-y-8">
+            {/* Metric Overview Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
+                <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
+                  Total Page Visits
+                </span>
+                <span className="text-3xl font-black text-[#4285f4]">14,820</span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">↑ 28% this week</div>
+              </div>
+
+              <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
+                <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
+                  Active Realtime Users
+                </span>
+                <span className="text-3xl font-black text-[#ea4335]">42</span>
+                <div className="text-[11px] text-[#5f6368] font-bold mt-2">Listening on GA4</div>
+              </div>
+
+              <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
+                <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
+                  Passes Reserved
+                </span>
+                <span className="text-3xl font-black text-[#f9ab00]">418 / 600</span>
+                <div className="text-[11px] text-[#5f6368] font-bold mt-2">Target: 600+ Leaders</div>
+              </div>
+
+              <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
+                <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
+                  Google Analytics ID
+                </span>
+                <span className="text-xl font-mono font-black text-[#34a853]">G-PRRCSRF36D</span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">Verified Stream</div>
+              </div>
+            </div>
+
+            {/* Popular Topics and Sessions Viewed */}
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h3 className="text-base font-bold text-[#1e1e1e] mb-4">
+                Trending Topics & Topic Exploration
+              </h3>
+              <div className="space-y-3">
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Rocket className="w-5 h-5 text-[#4285f4]" />
+                    <span className="font-bold text-xs text-[#1e1e1e]">
+                      Space Club of India Planned MOU & Satellite Telemetry
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-bold text-[#4285f4]">4,210 views (28%)</span>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-5 h-5 text-[#ea4335]" />
+                    <span className="font-bold text-xs text-[#1e1e1e]">
+                      Multi-Agent Swarms with Vertex AI & Gemini
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-bold text-[#ea4335]">3,890 views (26%)</span>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Cpu className="w-5 h-5 text-[#f9ab00]" />
+                    <span className="font-bold text-xs text-[#1e1e1e]">
+                      Qualcomm Showcase & Physical AI Robotics
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-bold text-[#f9ab00]">2,940 views (20%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: GALLERY & CLOUDINARY UPLOADER */}
+        {activeTab === "gallery" && (
+          <div className="space-y-8">
+            {/* Upload Box */}
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
+                <Upload className="w-5 h-5 text-[#4285f4]" />
+                <span>Upload Direct via Cloudinary / URL</span>
+              </h2>
+
+              <form onSubmit={handleAddImage} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Direct Image File (Upload to Cloudinary)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#4285f4] hover:file:bg-blue-100"
+                    />
+                    {uploadingFile && (
+                      <span className="text-[11px] text-[#4285f4] font-bold mt-1 block">
+                        Uploading to Cloudinary cloud (agcnziwc)...
+                      </span>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Image URL (Populated automatically or paste link)
+                    </label>
+                    <input
+                      type="url"
+                      required
+                      value={newImageUrl}
+                      onChange={(e) => setNewImageUrl(e.target.value)}
+                      placeholder="https://res.cloudinary.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Photo Title
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
+                      placeholder="e.g. Space-Tech Exhibition Booth"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Category
+                    </label>
+                    <select
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="Space">Space</option>
+                      <option value="AI & Robotics">AI & Robotics</option>
+                      <option value="Keynotes">Keynotes</option>
+                      <option value="Showcase">Showcase</option>
+                      <option value="Community">Community</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Caption
+                  </label>
+                  <input
+                    type="text"
+                    value={newCaption}
+                    onChange={(e) => setNewCaption(e.target.value)}
+                    placeholder="Short description for visitors"
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
+                >
+                  Save Photo to Gallery
+                </button>
+              </form>
+            </div>
+
+            {/* Gallery Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {gallery.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-3 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between"
+                >
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-full aspect-video object-cover rounded-xl mb-3"
+                  />
+                  <div>
+                    <div className="text-xs font-bold text-[#1e1e1e]">{item.title}</div>
+                    <div className="text-[10px] text-[#4285f4] font-semibold">{item.category}</div>
+                    <p className="text-[11px] text-[#5f6368] mt-1">{item.caption}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteImage(item.id)}
+                    className="mt-3 py-1.5 rounded-xl bg-red-50 text-[#ea4335] text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-red-100"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" /> Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: TEAM DIRECTORY */}
+        {activeTab === "team" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
+                <UserPlus className="w-5 h-5 text-[#34a853]" />
+                <span>Add Team Member</span>
+              </h2>
+
+              <form onSubmit={handleAddTeamMember} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newMemberName}
+                      onChange={(e) => setNewMemberName(e.target.value)}
+                      placeholder="e.g. Priyal Sharma"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Role / Title
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newMemberRole}
+                      onChange={(e) => setNewMemberRole(e.target.value)}
+                      placeholder="e.g. Lead Organizer & GDE"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Department / Pillar
+                    </label>
+                    <select
+                      value={newMemberTeam}
+                      onChange={(e) => setNewMemberTeam(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="Core Organizer">Core Organizer</option>
+                      <option value="Design & Experience">Design & Experience</option>
+                      <option value="Tech & Operations">Tech & Operations</option>
+                      <option value="Space & Ecosystem">Space & Ecosystem</option>
+                      <option value="Community">Community</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Upload Avatar Picture (Direct Cloudinary)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingTeamAvatar(true);
+                          const url = await uploadToCloudinary(file);
+                          setNewMemberAvatar(url);
+                          setStatusMsg({ text: "Team member avatar uploaded to Cloudinary!", type: "success" });
+                        } catch (err: any) {
+                          setStatusMsg({ text: err.message || "Upload failed", type: "info" });
+                        } finally {
+                          setUploadingTeamAvatar(false);
+                        }
+                      }}
+                      className="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-green-50 file:text-[#34a853] hover:file:bg-green-100 mb-1"
+                    />
+                    <input
+                      type="url"
+                      value={newMemberAvatar}
+                      onChange={(e) => setNewMemberAvatar(e.target.value)}
+                      placeholder="Or paste image URL (https://...)"
+                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                    />
+                    {uploadingTeamAvatar && (
+                      <span className="text-[10px] text-[#34a853] font-bold block mt-0.5">
+                        Uploading avatar to Cloudinary...
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Bio (Brief description)
+                  </label>
+                  <input
+                    type="text"
+                    value={newMemberBio}
+                    onChange={(e) => setNewMemberBio(e.target.value)}
+                    placeholder="Short 2-liner about their role in DevFest..."
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#34a853] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
+                >
+                  Add to Team Page
+                </button>
+              </form>
+            </div>
+
+            {/* Existing Team Directory */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {teamMembers.map((member) => (
+                <div
+                  key={member.id}
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex items-start justify-between gap-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="w-12 h-12 rounded-xl object-cover shrink-0"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-[#1e1e1e]">{member.name}</div>
+                      <div className="text-[11px] text-[#4285f4] font-semibold">{member.role}</div>
+                      <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                        {member.team}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleDeleteTeamMember(member.id)}
+                    className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 4: PREVIOUS SPEAKERS */}
+        {activeTab === "speakers" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#f9ab00]" />
+                <span>Add Previous Speaker / Spotlight</span>
+              </h2>
+
+              <form onSubmit={handleAddSpeaker} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Speaker Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newSpeakerName}
+                      onChange={(e) => setNewSpeakerName(e.target.value)}
+                      placeholder="e.g. Kartik Arora"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Role & Organization
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newSpeakerRole}
+                      onChange={(e) => setNewSpeakerRole(e.target.value)}
+                      placeholder="e.g. Staff AI Engineer, Google Cloud"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Edition Year
+                    </label>
+                    <select
+                      value={newSpeakerYear}
+                      onChange={(e) => setNewSpeakerYear(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="2024">2024</option>
+                      <option value="2023">2023</option>
+                      <option value="2022">2022</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Keynote Topic
+                    </label>
+                    <input
+                      type="text"
+                      value={newSpeakerTopic}
+                      onChange={(e) => setNewSpeakerTopic(e.target.value)}
+                      placeholder="e.g. Scaling Vector Pipelines"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Upload Speaker Photo (Direct Cloudinary)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingSpeakerAvatar(true);
+                          const url = await uploadToCloudinary(file);
+                          setNewSpeakerAvatar(url);
+                          setStatusMsg({ text: "Speaker photo uploaded to Cloudinary!", type: "success" });
+                        } catch (err: any) {
+                          setStatusMsg({ text: err.message || "Upload failed", type: "info" });
+                        } finally {
+                          setUploadingSpeakerAvatar(false);
+                        }
+                      }}
+                      className="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-amber-50 file:text-amber-800 hover:file:bg-amber-100 mb-1"
+                    />
+                    <input
+                      type="url"
+                      value={newSpeakerAvatar}
+                      onChange={(e) => setNewSpeakerAvatar(e.target.value)}
+                      placeholder="Or paste photo URL (https://...)"
+                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                    />
+                    {uploadingSpeakerAvatar && (
+                      <span className="text-[10px] text-amber-700 font-bold block mt-0.5">
+                        Uploading photo to Cloudinary...
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#f9ab00] text-black border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
+                >
+                  Save Speaker Spotlight
+                </button>
+              </form>
+            </div>
+
+            {/* Existing Speakers List */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {pastSpeakers.map((sp) => (
+                <div
+                  key={sp.id}
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between"
+                >
+                  <div>
+                    <img
+                      src={sp.avatar}
+                      alt={sp.name}
+                      className="w-full aspect-square object-cover rounded-xl mb-3"
+                    />
+                    <div className="text-xs font-bold text-[#1e1e1e]">{sp.name}</div>
+                    <div className="text-[11px] text-[#5f6368]">{sp.role}</div>
+                    <div className="text-[10px] text-[#4285f4] font-bold mt-1">
+                      {sp.topic}
+                    </div>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] font-bold">
+                    <span className="bg-blue-50 text-[#4285f4] px-2 py-0.5 rounded-full">
+                      DevFest {sp.year}
+                    </span>
+                    <span className="text-[#34a853]">{sp.spotlightBadge}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: AGENDA & SESSIONS */}
+        {activeTab === "agenda" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
+                <Compass className="w-5 h-5 text-[#4285f4]" />
+                <span>Add / Declare Agenda Session</span>
+              </h2>
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newAgendaTitle || !newAgendaSpeaker) return;
+                  const newItem: AgendaItem = {
+                    id: "ag-" + Date.now(),
+                    time: newAgendaTime || "10:00 AM – 10:45 AM",
+                    title: newAgendaTitle,
+                    speakerName: newAgendaSpeaker,
+                    speakerRole: newAgendaRole || "Speaker",
+                    speakerAvatar: newAgendaAvatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+                    track: newAgendaTrack,
+                    hall: newAgendaHall,
+                    description: newAgendaDesc || "Interactive session at DevFest Indore 2026.",
+                    tags: [newAgendaTrack, newAgendaHall],
+                  };
+                  await saveAgendaItem(newItem);
+                  setAgendaList([newItem, ...agendaList]);
+                  setNewAgendaTitle("");
+                  setNewAgendaSpeaker("");
+                  setNewAgendaRole("");
+                  setNewAgendaAvatar("");
+                  setNewAgendaDesc("");
+                  setStatusMsg({ text: "Agenda session added and synced!", type: "success" });
+                  setTimeout(() => setStatusMsg(null), 3000);
+                }}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Session Title
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newAgendaTitle}
+                      onChange={(e) => setNewAgendaTitle(e.target.value)}
+                      placeholder="e.g. Scaling LLM Inference on Edge Silicon"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Time Slot
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newAgendaTime}
+                      onChange={(e) => setNewAgendaTime(e.target.value)}
+                      placeholder="e.g. 11:00 AM – 12:00 PM"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Declared Speaker Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newAgendaSpeaker}
+                      onChange={(e) => setNewAgendaSpeaker(e.target.value)}
+                      placeholder="e.g. Dr. Ananya Sharma"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Speaker Title / Company
+                    </label>
+                    <input
+                      type="text"
+                      value={newAgendaRole}
+                      onChange={(e) => setNewAgendaRole(e.target.value)}
+                      placeholder="e.g. Google Developer Expert"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Content Pillar / Track
+                    </label>
+                    <select
+                      value={newAgendaTrack}
+                      onChange={(e) => setNewAgendaTrack(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="Space Technology">Space Technology</option>
+                      <option value="AI & Agentic AI">AI & Agentic AI</option>
+                      <option value="Physical AI & Robotics">Physical AI & Robotics</option>
+                      <option value="Data & Cloud">Data & Cloud</option>
+                      <option value="Enterprise Innovation">Enterprise Innovation</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Hall / Stage Location
+                    </label>
+                    <select
+                      value={newAgendaHall}
+                      onChange={(e) => setNewAgendaHall(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="Main Session Hall">Main Session Hall (Keynotes)</option>
+                      <option value="Workshop Track 1">Workshop Track 1 (Hands-on Lab)</option>
+                      <option value="Workshop Track 2">Workshop Track 2 (Robotics & Space)</option>
+                      <option value="Space Engagement Corner">Space Engagement Corner</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Upload Speaker Photo (Direct Cloudinary)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingAgendaAvatar(true);
+                          const url = await uploadToCloudinary(file);
+                          setNewAgendaAvatar(url);
+                          setStatusMsg({ text: "Speaker photo uploaded to Cloudinary!", type: "success" });
+                        } catch (err: any) {
+                          setStatusMsg({ text: err.message || "Upload failed", type: "info" });
+                        } finally {
+                          setUploadingAgendaAvatar(false);
+                        }
+                      }}
+                      className="w-full text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#4285f4] hover:file:bg-blue-100 mb-1"
+                    />
+                    <input
+                      type="url"
+                      value={newAgendaAvatar}
+                      onChange={(e) => setNewAgendaAvatar(e.target.value)}
+                      placeholder="Or paste photo URL (https://...)"
+                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                    />
+                    {uploadingAgendaAvatar && (
+                      <span className="text-[10px] text-[#4285f4] font-bold block mt-0.5">
+                        Uploading photo to Cloudinary...
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Session Description
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={newAgendaDesc}
+                    onChange={(e) => setNewAgendaDesc(e.target.value)}
+                    placeholder="Key takeaways, live code details, or prerequisites..."
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
+                >
+                  Publish Agenda Session
+                </button>
+              </form>
+            </div>
+
+            {/* Existing Agenda List */}
+            <div className="space-y-3">
+              {agendaList.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                >
+                  <div className="flex items-center gap-3.5">
+                    {item.speakerAvatar && (
+                      <img
+                        src={item.speakerAvatar}
+                        alt={item.speakerName}
+                        className="w-12 h-12 rounded-xl object-cover border border-gray-200 shrink-0"
+                      />
+                    )}
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-[#1e1e1e]">{item.title}</span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#4285f4]">
+                          {item.hall}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-[#5f6368] mt-0.5">
+                        By <strong>{item.speakerName}</strong> ({item.speakerRole}) • <span className="text-[#34a853] font-bold">{item.time}</span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1 max-w-xl">{item.description}</p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={async () => {
+                      await removeAgendaItem(item.id);
+                      setAgendaList(agendaList.filter((a) => a.id !== item.id));
+                    }}
+                    className="p-2 rounded-xl text-[#ea4335] hover:bg-red-50"
+                    title="Remove Session"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB 6: SUPPORT REACHOUTS */}
+        {activeTab === "support" && (
+          <div className="space-y-6">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-2">Attendee & Partner Inquiries</h2>
+              <p className="text-xs text-[#5f6368] mb-6">
+                Direct queries submitted via public help forms for ticketing, corporate registrations, and showcase booths.
+              </p>
+
+              <div className="space-y-4">
+                {supportQueries.map((query) => (
+                  <div
+                    key={query.id}
+                    className="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-bold text-xs text-[#1e1e1e]">{query.name}</span>
+                        <span className="text-[10px] text-[#5f6368]">({query.email})</span>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#4285f4]">
+                          {query.category}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#1e1e1e] font-medium leading-relaxed">
+                        &ldquo;{query.message}&rdquo;
+                      </p>
+                      <span className="text-[10px] text-[#5f6368] mt-1 block">
+                        Received on {query.date}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleToggleQueryStatus(query.id)}
+                        className={`px-3 py-1.5 rounded-full text-xs font-bold ${
+                          query.status === "resolved"
+                            ? "bg-green-100 text-[#34a853]"
+                            : "bg-amber-100 text-amber-800"
+                        }`}
+                      >
+                        {query.status === "resolved" ? "✓ Resolved" : "Pending"}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 6: EVENT PARAMETERS */}
+        {activeTab === "config" && (
+          <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow max-w-2xl">
+            <h2 className="text-base font-bold mb-4">Ecosystem Configuration Parameters</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                  Confirmed Event Date
+                </label>
+                <input
+                  type="text"
+                  value={eventDate}
+                  onChange={(e) => setEventDate(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                  Venue Property
+                </label>
+                <input
+                  type="text"
+                  value={venueName}
+                  onChange={(e) => setVenueName(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                  Target Attendees
+                </label>
+                <input
+                  type="text"
+                  value={attendeeTarget}
+                  onChange={(e) => setAttendeeTarget(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                  Space Club of India MOU Status
+                </label>
+                <input
+                  type="text"
+                  value={spaceMOUStatus}
+                  onChange={(e) => setSpaceMOUStatus(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                  Qualcomm Showcase Status
+                </label>
+                <input
+                  type="text"
+                  value={qualcommStatus}
+                  onChange={(e) => setQualcommStatus(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                />
+              </div>
+
+              <button
+                onClick={() => {
+                  localStorage.setItem(
+                    "devfest-event-config",
+                    JSON.stringify({ eventDate, venueName, attendeeTarget, spaceMOUStatus, qualcommStatus })
+                  );
+                  setStatusMsg({ text: "Parameters saved!", type: "success" });
+                  setTimeout(() => setStatusMsg(null), 3000);
+                }}
+                className="w-full py-2.5 rounded-full font-bold text-xs bg-[#1e1e1e] text-white hover:bg-black"
+              >
+                Save Configuration
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
