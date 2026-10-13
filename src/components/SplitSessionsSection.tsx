@@ -171,10 +171,10 @@ export default function SplitSessionsSection() {
     SESSIONS_DATA.find((s) => s.id === activeSessionId) || SESSIONS_DATA[0];
 
   return (
-    <section id="sessions-split" className="py-12 md:py-16 bg-transparent relative overflow-hidden transition-colors">
+    <section id="sessions-split" className="py-12 md:py-20 bg-transparent relative overflow-visible transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
+        <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow text-xs font-black mb-3 hover:scale-105 transition-transform">
             <Terminal className="w-4 h-4 text-[#4285f4]" />
             <span className={isDark ? "text-white" : "text-gray-900"}>Live Session Architectures • Scroll-Triggered CLI Flow</span>
@@ -191,12 +191,12 @@ export default function SplitSessionsSection() {
         {/* Split Container: Left Stacking Session Cards | Right Sticky Static Terminal Console */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
           {/* Left Column (7 cols): Stacking Cards on Scroll */}
-          <div className="lg:col-span-7 pb-20 relative">
-            <div className="space-y-8">
+          <div className="lg:col-span-7 pb-28 md:pb-36 relative">
+            <div className="space-y-12">
               {SESSIONS_DATA.map((session, index) => {
                 const isSelected = activeSessionId === session.id;
-                // Sticky top calculation: each card sticks with a slight offset creating a stacked deck effect
-                const stickyTopRem = 7 + index * 1.25;
+                // Sticky top calculation: each card sticks in sequence with a clean 20px offset forming a stacked deck
+                const stickyTopRem = 6.5 + index * 1.5;
 
                 return (
                   <div
