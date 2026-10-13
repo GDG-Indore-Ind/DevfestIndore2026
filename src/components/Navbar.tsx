@@ -89,7 +89,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           <div className="flex items-center gap-2 justify-start">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2 group hover:scale-105 active:scale-95 ${isDark
+              className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2 group hover:scale-105 active:scale-95 cursor-pointer ${isDark
                 ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
                 : "border-black/15 bg-white text-gray-900 shadow-sm hover:bg-gray-50"
                 }`}
@@ -100,17 +100,6 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 {mobileMenuOpen ? "CLOSE" : "EXPLORE"}
               </span>
             </button>
-
-            {/* Quick Pill for Solar Ecosystem */}
-            <a
-              href="#solar-ecosystem"
-              className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
-                isDark ? "bg-white/5 border-white/10 text-white/80 hover:text-white" : "bg-black/5 border-black/10 text-gray-700 hover:text-black"
-              }`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f9ab00] animate-pulse" />
-              <span>3D Orbit</span>
-            </a>
           </div>
 
           {/* Center: Prestigious GDG Indore Centered Brand Identity */}
@@ -150,7 +139,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             <button
               onClick={toggleTheme}
               aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              className={`p-2 rounded-xl border transition-all ${isDark
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark
                 ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
                 : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
                 }`}
@@ -158,13 +147,26 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
             </button>
 
-            {/* Clean Premium DevFest Tickets Button */}
+            {/* Clean Premium DevFest Tickets Button (Guaranteed high-contrast styling) */}
             <button
               onClick={handleOpenCheckout}
-              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer bg-[#111827] text-white border-[#111827] hover:bg-black dark:bg-white dark:text-[#111827] dark:border-white dark:hover:bg-gray-100"
+              style={{
+                backgroundColor: isDark ? "#ffffff" : "#111827",
+                color: isDark ? "#111827" : "#ffffff",
+                borderColor: isDark ? "#ffffff" : "#111827",
+              }}
+              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
             >
-              <Ticket className="w-3.5 h-3.5 text-[#4285f4] dark:text-[#111827]" />
-              <span className="text-white dark:text-[#111827]">Tickets</span>
+              <Ticket
+                className="w-3.5 h-3.5"
+                style={{ color: isDark ? "#111827" : "#4285f4" }}
+              />
+              <span
+                style={{ color: isDark ? "#111827" : "#ffffff" }}
+                className="font-black"
+              >
+                Tickets
+              </span>
             </button>
           </div>
         </div>
