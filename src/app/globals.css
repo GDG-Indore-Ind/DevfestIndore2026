@@ -1099,4 +1099,51 @@ button:hover .roll-text-bottom {
 @keyframes orbit-rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+}
+
+/* ========================================================================= */
+/* AIRY LIGHT BREEZE & SLIGHT SNOW EFFECT (LIGHT MODE)                      */
+/* ========================================================================= */
+
+@keyframes gentleSnowDrift {
+  0% {
+    transform: translateY(-20px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(105vh) translateX(40px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes airyBreezeSway {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(25px) translateY(-12px);
+  }
+}
+
+.animate-snow-1 {
+  animation: gentleSnowDrift 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-snow-2 {
+  animation: gentleSnowDrift 15s cubic-bezier(0.4, 0, 0.2, 1) infinite 3s;
+}
+
+.animate-snow-3 {
+  animation: gentleSnowDrift 19s cubic-bezier(0.4, 0, 0.2, 1) infinite 6s;
+}
+
+.animate-breeze-glow {
+  animation: airyBreezeSway 14s ease-in-out infinite;
+}
+

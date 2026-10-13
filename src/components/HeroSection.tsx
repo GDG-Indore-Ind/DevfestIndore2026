@@ -57,23 +57,69 @@ export default function HeroSection() {
 
   return (
     <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      {/* Animated ambient cosmic halos */}
-      {/* <div className="absolute top-16 left-1/4 w-80 h-80 rounded-full bg-[#4285f4]/25 blur-3xl pointer-events-none -z-10 animate-pulse-halo" /> */}
-      {/* <div className="absolute top-28 right-1/4 w-80 h-80 rounded-full bg-[#f9ab00]/20 blur-3xl pointer-events-none -z-10 animate-pulse-halo" style={{ animationDelay: "1s" }} /> */}
-      {/* <div className="absolute bottom-10 left-1/3 w-80 h-80 rounded-full bg-[#34a853]/20 blur-3xl pointer-events-none -z-10 animate-pulse-halo" style={{ animationDelay: "2s" }} /> */}
-      {/* <div className="absolute bottom-20 right-1/3 w-80 h-80 rounded-full bg-[#ea4335]/15 blur-3xl pointer-events-none -z-10" /> */}
+      {/* DYNAMIC ATMOSPHERIC HERO BACKGROUND — Switches seamlessly with Theme Toggle */}
+      {isDark ? (
+        /* Dark Mode: Grand Tech Conference Stage & Auditorium Atmosphere (from user's reference) */
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+          <div className="absolute inset-0 bg-[#000000]/80 z-10" />
+          <Image
+            src="/images/devfest-stage-hero-dark.jpg"
+            alt="DevFest Indore Grand Stage Atmosphere"
+            fill
+            priority
+            className="object-cover object-center opacity-45 mix-blend-screen scale-105 transition-all duration-700"
+          />
+          {/* Volumetric stage light cones */}
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#4285f4]/20 rounded-full blur-[140px] z-10" />
+          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#34a853]/15 rounded-full blur-[130px] z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+        </div>
+      ) : (
+        /* Light Mode: Ethereal Airy Cyan/Ice Breeze with Soft Floating Snowflake motes */
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-gradient-to-b from-[#e8f2fe] via-[#f3f8fe] to-[#ffffff]">
+          <Image
+            src="/images/devfest-stage-hero-light.jpg"
+            alt="DevFest Indore Keynote Daylight Arena"
+            fill
+            priority
+            className="object-cover object-center opacity-30 mix-blend-multiply scale-102 transition-all duration-700"
+          />
+          {/* Subtle Airy Breeze Swirling Gradient Glows */}
+          <div className="absolute -top-32 left-1/3 w-[650px] h-[650px] bg-gradient-to-tr from-[#c8e2fc]/60 via-[#e1f0fe]/50 to-transparent rounded-full blur-[100px] animate-breeze-glow" />
+          <div className="absolute top-20 -right-20 w-[500px] h-[500px] bg-[#dbeafe]/70 rounded-full blur-[110px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Gentle Floating Snowflake Motes */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <span className="absolute top-[-20px] left-[15%] text-[#4285f4]/40 text-base animate-snow-1">❄</span>
+            <span className="absolute top-[-20px] left-[28%] text-[#60a5fa]/30 text-xs animate-snow-2">✦</span>
+            <span className="absolute top-[-20px] left-[45%] text-[#38bdf8]/45 text-sm animate-snow-3">❅</span>
+            <span className="absolute top-[-20px] left-[62%] text-[#4285f4]/35 text-xs animate-snow-1">❄</span>
+            <span className="absolute top-[-20px] left-[78%] text-[#93c5fd]/40 text-sm animate-snow-2">✦</span>
+            <span className="absolute top-[-20px] left-[90%] text-[#38bdf8]/30 text-xs animate-snow-3">❅</span>
+            <span className="absolute top-[-20px] left-[8%] text-[#60a5fa]/35 text-xs animate-snow-2">❄</span>
+            <span className="absolute top-[-20px] left-[38%] text-[#93c5fd]/30 text-sm animate-snow-1">❅</span>
+            <span className="absolute top-[-20px] left-[82%] text-[#4285f4]/35 text-xs animate-snow-3">❄</span>
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Headlines & Animated CTAs */}
           <div className="lg:col-span-7 flex flex-col items-start text-left z-10 reveal-on-scroll">
             {/* Space Edition Eyebrow badge with Google 4-dots */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full telemetry-card google-pill-shadow mb-6 hover:scale-105 transition-transform">
+            <div className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full mb-6 hover:scale-105 transition-transform border ${
+              isDark
+                ? "bg-black/60 border-white/15 text-white shadow-[0_0_15px_rgba(66,133,244,0.2)]"
+                : "bg-white/95 border-[#4285f4]/30 text-gray-900 shadow-sm"
+            }`}>
               <span className="text-[#f9ab00] cosmic-sparkle text-xs font-black">✦</span>
-              <span className="text-xs font-black tracking-wide uppercase text-white">
+              <span className="text-xs font-black tracking-wide uppercase">
                 Google Developer Group Indore
               </span>
-              <span className="text-xs text-white/60 font-bold">|</span>
+              <span className="text-xs text-gray-400 font-bold">|</span>
               <span className="text-xs font-bold text-[#4285f4]">DevFest 2026 Space Edition</span>
               <div className="hidden sm:flex items-center gap-1 ml-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4285f4]" />
@@ -83,14 +129,16 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Main Creative Title — cosmic gradient on dark */}
+            {/* Main Creative Title — cosmic gradient on dark, crisp radiant gradient on light */}
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6">
-              {/* DEVFEST — per-letter rainbow gradient matching theme poster */}
               <span className="block relative">
                 <span className="absolute -top-6 -left-3 text-lg text-[#f9ab00] cosmic-sparkle select-none pointer-events-none">✦</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#34a853] via-30% via-[#f9ab00] to-[#ea4335]"
+                <span
+                  className="text-transparent bg-clip-text"
                   style={{
-                    backgroundImage: "linear-gradient(90deg, #4285f4 0%, #57caff 15%, #34a853 30%, #5cdb6d 45%, #f9ab00 60%, #ffd427 72%, #ea4335 85%, #ff7daf 100%)",
+                    backgroundImage: isDark
+                      ? "linear-gradient(90deg, #4285f4 0%, #57caff 15%, #34a853 30%, #5cdb6d 45%, #f9ab00 60%, #ffd427 72%, #ea4335 85%, #ff7daf 100%)"
+                      : "linear-gradient(90deg, #1a73e8 0%, #34a853 30%, #f9ab00 65%, #ea4335 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -99,37 +147,47 @@ export default function HeroSection() {
                   DEVFEST
                 </span>
               </span>
-              <span className="block mt-1 font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#f9ab00] to-[#34a853] hover:brightness-110 transition-all">
+              <span
+                className="block mt-1 font-black text-transparent bg-clip-text hover:brightness-110 transition-all"
+                style={{
+                  backgroundImage: isDark
+                    ? "linear-gradient(90deg, #4285f4, #f9ab00, #34a853)"
+                    : "linear-gradient(90deg, #1a73e8, #0d652d, #1a73e8)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
                 INDORE 2026
               </span>
             </h1>
 
             {/* Tagline / Subtitle */}
-            <p className="text-lg sm:text-xl text-white/85 font-normal max-w-2xl mb-6 leading-relaxed">
-              Central India's premier gathering of <strong className="text-white">1,500+ builders</strong>, engineers, and creators.
-              Discover breakthroughs in <strong className="text-white">GenAI, Cloud, Web, Android & Open Source</strong> — right in the heart of
-              India's cleanest and most vibrant city!
+            <p className={`text-lg sm:text-xl font-normal max-w-2xl mb-6 leading-relaxed ${
+              isDark ? "text-white/85" : "text-gray-700"
+            }`}>
+              Central India&apos;s premier gathering of <strong className={isDark ? "text-white" : "text-black"}>1,500+ builders</strong>, engineers, and creators.
+              Discover breakthroughs in <strong className={isDark ? "text-white" : "text-black"}>GenAI, Cloud, Web, Android & Open Source</strong> — right in the heart of
+              India&apos;s cleanest and most vibrant city!
             </p>
 
-            {/* Event Key Facts Bar with Calendar & Google Dots like poster */}
+            {/* Event Key Facts Bar with Calendar & Google Dots */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs sm:text-[13px] font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
+              <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-bold border transition-transform hover:-translate-y-0.5 ${
+                isDark ? "bg-white/5 border-white/10 text-white" : "bg-white border-blue-200 text-gray-900 shadow-sm"
+              }`}>
                 <Calendar className="w-4 h-4 text-[#4285f4]" />
                 <span>28th November 2026</span>
               </div>
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl telemetry-card text-xs sm:text-[13px] font-bold text-white shadow-sm hover:translate-y-[-2px] transition-transform">
+              <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-[13px] font-bold border transition-transform hover:-translate-y-0.5 ${
+                isDark ? "bg-white/5 border-white/10 text-white" : "bg-white border-red-200 text-gray-900 shadow-sm"
+              }`}>
                 <MapPin className="w-4 h-4 text-[#ea4335]" />
                 <span>Essentia Luxury Hotel Indore</span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#34a853]/20 border border-[#34a853]/50 text-xs font-extrabold text-[#34a853]">
                 <Flame className="w-4 h-4" />
                 <span>Registrations Open</span>
-              </div>
-              <div className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-xl telemetry-card">
-                <span className="w-2 h-2 rounded-full bg-[#4285f4]" />
-                <span className="w-2 h-2 rounded-full bg-[#ea4335]" />
-                <span className="w-2 h-2 rounded-full bg-[#f9ab00]" />
-                <span className="w-2 h-2 rounded-full bg-[#34a853]" />
               </div>
             </div>
 
@@ -138,39 +196,37 @@ export default function HeroSection() {
               <a
                 href="#tickets"
                 onClick={triggerHeroConfetti}
-                className="glow-btn"
+                className="px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-wider bg-[#4285f4] text-white hover:bg-[#3367d6] flex items-center gap-2.5 shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
-                <span className="glow-btn__surface group !bg-[#4285f4] !text-white !border-none !py-3.5 !px-8 shadow-[0_0_25px_rgba(66,133,244,0.5)]">
-                  <Ticket className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  <span className="roll-text-container">
-                    <span className="roll-text-top">Get Tickets Now</span>
-                    <span className="roll-text-bottom">Claim Your Pass →</span>
-                  </span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
+                <Ticket className="w-4 h-4" />
+                <span>Get Tickets Now →</span>
               </a>
 
               <a
                 href="https://sessionize.com/devfest-indore-2026/"
                 target="_blank"
                 rel="noreferrer"
-                className="space-proposal-btn group"
+                className={`px-7 py-3.5 rounded-full font-black text-xs uppercase tracking-wider border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer ${
+                  isDark
+                    ? "bg-white/5 border-white/20 text-white hover:bg-white/10"
+                    : "bg-white border-[#4285f4]/40 text-[#4285f4] hover:bg-blue-50 shadow-sm"
+                }`}
               >
-                <span className="space-proposal-btn__inner">
-                  <span className="text-[#f9ab00] cosmic-sparkle text-sm">✦</span>
-                  <span className="roll-text-container">
-                    <span className="roll-text-top">Submit your proposal (CFP)</span>
-                    <span className="roll-text-bottom text-[#4285f4]">Apply on Sessionize →</span>
-                  </span>
-                </span>
+                <span className="text-[#f9ab00] cosmic-sparkle text-sm">✦</span>
+                <span>Submit your proposal (CFP)</span>
               </a>
             </div>
 
             {/* Live Countdown Timer — Space Telemetry Card */}
-            <div className="w-full max-w-lg telemetry-card p-4 sm:p-5 rounded-2xl google-pill-shadow spotlight-card">
+            <div className={`w-full max-w-lg p-4 sm:p-5 rounded-2xl border transition-all ${
+              isDark
+                ? "bg-[#0d0d0d]/90 border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+                : "bg-white/95 border-gray-200/90 shadow-md"
+            }`}>
               <div className="flex items-center justify-between mb-3">
-                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${isDark ? "text-white/85" : "text-gray-800"
-                  }`}>
+                <span className={`text-xs font-mono font-extrabold tracking-wider uppercase flex items-center gap-1.5 ${
+                  isDark ? "text-white/85" : "text-gray-800"
+                }`}>
                   <Sparkles className="w-3.5 h-3.5 text-[#f9ab00] animate-spin-slow" />
                   Mission Telemetry • T-Minus Launch
                 </span>
@@ -180,35 +236,39 @@ export default function HeroSection() {
               </div>
 
               <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center font-mono">
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#4285f4]/15 border-[#4285f4]/40" : "bg-[#4285f4]/10 border-[#4285f4]/35 shadow-sm"
-                  }`}>
-                  <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#4285f4]"}`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
+                  isDark ? "bg-[#4285f4]/15 border-[#4285f4]/40 text-white" : "bg-[#4285f4]/10 border-[#4285f4]/35 text-[#4285f4] shadow-sm"
+                }`}>
+                  <span className="block text-2xl sm:text-3xl font-black">
                     {String(timeLeft.days).padStart(2, "0")}
                   </span>
                   <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Days
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#f9ab00]/15 border-[#f9ab00]/40" : "bg-[#f9ab00]/10 border-[#f9ab00]/35 shadow-sm"
-                  }`}>
-                  <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#f9ab00]"}`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
+                  isDark ? "bg-[#f9ab00]/15 border-[#f9ab00]/40 text-white" : "bg-[#f9ab00]/10 border-[#f9ab00]/35 text-[#f9ab00] shadow-sm"
+                }`}>
+                  <span className="block text-2xl sm:text-3xl font-black">
                     {String(timeLeft.hours).padStart(2, "0")}
                   </span>
                   <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Hours
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#34a853]/15 border-[#34a853]/40" : "bg-[#34a853]/10 border-[#34a853]/35 shadow-sm"
-                  }`}>
-                  <span className={`block text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-[#34a853]"}`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
+                  isDark ? "bg-[#34a853]/15 border-[#34a853]/40 text-white" : "bg-[#34a853]/10 border-[#34a853]/35 text-[#34a853] shadow-sm"
+                }`}>
+                  <span className="block text-2xl sm:text-3xl font-black">
                     {String(timeLeft.minutes).padStart(2, "0")}
                   </span>
                   <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? "text-white/75" : "text-gray-700"}`}>
                     Minutes
                   </span>
                 </div>
-                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${isDark ? "bg-[#ea4335]/15 border-[#ea4335]/40" : "bg-[#ea4335]/10 border-[#ea4335]/35 shadow-sm"
-                  }`}>
+                <div className={`p-2.5 rounded-xl border transition-transform hover:scale-105 ${
+                  isDark ? "bg-[#ea4335]/15 border-[#ea4335]/40 text-white" : "bg-[#ea4335]/10 border-[#ea4335]/35 text-[#ea4335] shadow-sm"
+                }`}>
                   <span className="block text-2xl sm:text-3xl font-black text-[#ea4335]">
                     {String(timeLeft.seconds).padStart(2, "0")}
                   </span>
@@ -226,23 +286,35 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: 3D Tilt Card (Astronaut Mascot with Mountain Sunset Visor) */}
+          {/* Right Column: Dynamic Hero Focal Card — adapts between Dark Arena and Light Airy Aesthetic */}
           <div className="lg:col-span-5 relative flex justify-center items-center reveal-on-scroll delay-200">
             {/* Concentric Celestial Orbit Ring backdrop */}
-            <div className="absolute w-[440px] h-[440px] rounded-full border border-dashed border-[#4285f4]/25 dark:border-[#4285f4]/30 pointer-events-none -z-10 animate-spin-slow" />
-            <div className="absolute w-[320px] h-[320px] rounded-full border border-[#f9ab00]/20 pointer-events-none -z-10" />
-            {/* Central Astronaut Mascot 3D Tilt Card — adapts to light / dark poster theme */}
-            <CardTilt className={`w-full max-w-md telemetry-card rounded-3xl p-5 shadow-[0_0_50px_rgba(66,133,244,0.25)] group relative transition-colors duration-300 ${isDark ? "bg-[#0d0d0d]/85 border-white/15" : "!bg-white !border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
+            <div className={`absolute w-[440px] h-[440px] rounded-full border border-dashed pointer-events-none -z-10 animate-spin-slow ${
+              isDark ? "border-[#4285f4]/30" : "border-[#4285f4]/35"
+            }`} />
+            <div className={`absolute w-[320px] h-[320px] rounded-full border pointer-events-none -z-10 ${
+              isDark ? "border-[#f9ab00]/20" : "border-[#38bdf8]/35"
+            }`} />
+
+            {/* Central Mascot / Venue Card — Dynamically transitions between Light and Dark themes */}
+            <CardTilt
+              className={`w-full max-w-md rounded-3xl p-5 group relative transition-all duration-300 border ${
+                isDark
+                  ? "bg-[#0d0d0d]/85 border-white/15 shadow-[0_0_50px_rgba(66,133,244,0.25)]"
+                  : "bg-white/95 border-[#4285f4]/25 shadow-[0_16px_40px_rgba(66,133,244,0.12)]"
+              }`}
+            >
+              {/* Poster sparkle star overlay */}
+              <div className={`absolute -top-3 -right-3 z-30 w-8 h-8 rounded-full flex items-center justify-center text-lg cosmic-sparkle shadow-lg ${
+                isDark ? "bg-black/80 border border-white/20 text-[#f9ab00]" : "bg-white border border-blue-200 text-[#4285f4]"
               }`}>
-              {/* Poster 4-point sparkle star overlay */}
-              <div className={`absolute -top-3 -right-3 z-30 w-8 h-8 rounded-full flex items-center justify-center text-lg cosmic-sparkle shadow-lg ${isDark ? "bg-black/80 border border-white/20 text-[#f9ab00]" : "bg-white border border-gray-300 text-gray-900 shadow-md"
-                }`}>
                 ✦
               </div>
 
               {/* Card Header with Google 4 Dots */}
-              <div className={`flex items-center justify-between pb-3 mb-3 border-b ${isDark ? "border-white/10" : "border-gray-100"
-                }`}>
+              <div className={`flex items-center justify-between pb-3 mb-3 border-b ${
+                isDark ? "border-white/10" : "border-gray-100"
+              }`}>
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-[#4285f4] animate-bounce" style={{ animationDelay: "0ms" }} />
                   <span className="w-3 h-3 rounded-full bg-[#ea4335] animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -254,11 +326,12 @@ export default function HeroSection() {
                 </span>
               </div>
 
-              {/* Astronaut Mascot Artwork — dynamically switches to crisp white vector in Light Mode matching the poster */}
-              <div className={`relative w-full aspect-square rounded-2xl overflow-hidden border shadow-inner ${isDark
+              {/* Dynamic Artwork — switches between deep space mascot (Dark) and crisp airy daylight poster (Light) */}
+              <div className={`relative w-full aspect-square rounded-2xl overflow-hidden border shadow-inner ${
+                isDark
                   ? "bg-gradient-to-b from-[#0d0d0d] to-[#1a1a1a] border-white/10"
-                  : "!bg-white !border-gray-100"
-                }`}>
+                  : "bg-gradient-to-b from-blue-50/60 to-white border-blue-100"
+              }`}>
                 <Image
                   src={isDark ? "/images/astronaut-mascot-dark.jpg" : "/images/astronaut-mascot-light.jpg"}
                   alt="GDG DevFest Indore Astronaut Mascot & Cosmic Visor"
@@ -271,11 +344,11 @@ export default function HeroSection() {
               </div>
 
               {/* Card Footer Callout */}
-              <div className={`mt-4 pt-3 border-t flex items-center justify-between ${isDark ? "border-white/10" : "border-gray-100"
-                }`}>
+              <div className={`mt-4 pt-3 border-t flex items-center justify-between ${
+                isDark ? "border-white/10" : "border-gray-100"
+              }`}>
                 <div>
-                  <h2 className={`font-extrabold text-sm flex items-center gap-1.5 ${isDark ? "text-white" : "text-gray-900"
-                    }`}>
+                  <h2 className={`font-extrabold text-sm flex items-center gap-1.5 ${isDark ? "text-white" : "text-gray-900"}`}>
                     <span>DevFest Indore 2026</span>
                     <span className="text-xs text-[#f9ab00]">✦</span>
                   </h2>
@@ -285,10 +358,11 @@ export default function HeroSection() {
                 </div>
                 <button
                   onClick={triggerHeroConfetti}
-                  className={`p-2.5 rounded-xl border text-xs font-bold transition-all active:scale-90 hover:scale-105 shadow-sm ${isDark
+                  className={`p-2.5 rounded-xl border text-xs font-bold transition-all active:scale-90 hover:scale-105 shadow-sm ${
+                    isDark
                       ? "bg-[#f9ab00]/20 hover:bg-[#f9ab00]/35 border-white/20 text-white"
-                      : "bg-[#f9ab00]/15 hover:bg-[#f9ab00]/25 border-[#f9ab00]/40 text-gray-900"
-                    }`}
+                      : "bg-[#4285f4]/10 hover:bg-[#4285f4]/20 border-[#4285f4]/30 text-[#4285f4]"
+                  }`}
                   title="Celebrate with Confetti!"
                 >
                   🎉 Pop!

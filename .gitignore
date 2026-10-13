@@ -45,3 +45,6 @@ drive-download*
 *.JPG
 *.CR2
 
+local_storage_private/
+*.pdf
+DevFest 2026 Indore _ Sponsorship Deck (1).pdf
