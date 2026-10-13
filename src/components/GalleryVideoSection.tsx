@@ -89,12 +89,12 @@ export default function GalleryVideoSection() {
   const [isHoveredMarquee, setIsHoveredMarquee] = useState(false);
 
   return (
-    <section id="recap-gallery" className="py-12 md:py-16 bg-transparent relative overflow-hidden transition-colors">
+    <section id="recap-gallery" className="pt-8 pb-10 md:pt-10 md:pb-12 bg-transparent relative overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal-on-scroll">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 reveal-on-scroll">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-3 hover:scale-105 transition-transform">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-2 hover:scale-105 transition-transform">
               <Camera className="w-4 h-4 text-[#ea4335]" />
               <span className={`text-xs font-mono font-black uppercase tracking-wider ${isDark ? "text-white" : "text-gray-900"}`}>
                 Previous Editions • Live Archive
@@ -107,7 +107,7 @@ export default function GalleryVideoSection() {
                 Event Recap Cinema
               </span>
             </h2>
-            <p className={`mt-2 text-sm sm:text-base font-normal max-w-2xl ${isDark ? "text-white/80" : "text-gray-700"}`}>
+            <p className={`mt-1.5 text-sm sm:text-base font-normal max-w-2xl ${isDark ? "text-white/80" : "text-gray-700"}`}>
               Glance through the electricity of past DevFest Indore gatherings, high-octane keynotes, codelab swarms, and official event motion.
             </p>
           </div>

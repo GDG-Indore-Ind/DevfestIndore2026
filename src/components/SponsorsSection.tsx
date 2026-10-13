@@ -61,36 +61,87 @@ export default function SponsorsSection() {
           </CardTilt>
         </div>
 
-        {/* Community Partners Grid */}
-        <div className="mb-16 reveal-on-scroll">
-          <div className="text-center mb-6">
-            <span className="text-xs font-mono font-black uppercase tracking-wider px-3.5 py-1 rounded-full bg-[#34a853]/15 text-[#34a853] border border-[#34a853]/40">
-              ✦ Collaborating Community & Campus Chapters ✦
+        {/* Community Partners & Innovation Hubs Grid */}
+        <div className="mb-10 reveal-on-scroll">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#34a853]/40" />
+            <span className="text-xs font-mono font-black uppercase tracking-wider px-4 py-1.5 rounded-full bg-[#34a853]/15 text-[#34a853] border border-[#34a853]/40">
+              ✦ Collaborating Ecosystem Chapters & Tech Communities ✦
             </span>
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#34a853]/40" />
           </div>
-          {SPONSORS.communityPartners?.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {SPONSORS.communityPartners.map((partner, idx) => (
-                <div
-                  key={idx}
-                  className={`p-5 rounded-2xl border flex flex-col items-center justify-center gap-3 hover:scale-[1.02] transition-all text-center h-28 ${isDark ? "bg-[#0d0d0d] border-white/10 hover:border-white/30" : "bg-white border-gray-200 hover:border-gray-300 shadow-sm"
-                    }`}
-                >
-                  {partner.icon !== "" && (
-                    <img
-                      src={partner.icon}
-                      alt={partner.name}
-                      className="h-12 w-auto object-contain max-w-[180px]"
-                    />
-                  )}
-                </div>
-              ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Women Techmakers */}
+            <div className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between ${
+              isDark ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#4285f4]/40" : "bg-white border-gray-200 hover:border-blue-300 shadow-md"
+            }`}>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#4285f4]/15 text-[#4285f4] border border-[#4285f4]/30">
+                  Diversity & Leadership
+                </span>
+                <span className="text-xs text-gray-400 font-mono">Central India</span>
+              </div>
+              <div className="h-20 flex items-center justify-center py-2">
+                <img
+                  src="/images/WTM_ Horizontal.png"
+                  alt="Women Techmakers Indore"
+                  className="max-h-12 w-auto object-contain filter group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <p className={`text-xs mt-3 text-center leading-relaxed font-medium ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                Empowering women in technology through visibility, community mentorship, and leadership stages.
+              </p>
             </div>
-          )}
+
+            {/* GDG Cloud Indore */}
+            <div className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between ${
+              isDark ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#ea4335]/40" : "bg-white border-gray-200 hover:border-red-300 shadow-md"
+            }`}>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#ea4335]/15 text-[#ea4335] border border-[#ea4335]/30">
+                  Cloud & Infrastructure
+                </span>
+                <span className="text-xs text-gray-400 font-mono">Dev Community</span>
+              </div>
+              <div className="h-20 flex items-center justify-center py-2">
+                <img
+                  src="/images/gdg cloud indore logo.jpg"
+                  alt="GDG Cloud Indore"
+                  className="max-h-14 w-auto object-contain rounded-lg group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <p className={`text-xs mt-3 text-center leading-relaxed font-medium ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                Fostering cloud architecture, Kubernetes mastery, and enterprise Google Cloud deployments.
+              </p>
+            </div>
+
+            {/* ML Indore */}
+            <div className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between ${
+              isDark ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#f9ab00]/40" : "bg-white border-gray-200 hover:border-amber-300 shadow-md"
+            }`}>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#f9ab00]/15 text-[#f9ab00] border border-[#f9ab00]/30">
+                  AI & Research Chapter
+                </span>
+                <span className="text-xs text-gray-400 font-mono">Open Source</span>
+              </div>
+              <div className="h-20 flex items-center justify-center py-2">
+                <img
+                  src="/images/mlindore.png"
+                  alt="Machine Learning Indore"
+                  className="max-h-14 w-auto object-contain group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <p className={`text-xs mt-3 text-center leading-relaxed font-medium ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                Driving hands-on neural network research, computer vision, LLM architectures, and data science sprints.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Sponsor Callout Box */}
-        <CardTilt className={`p-8 sm:p-10 rounded-3xl google-card-shadow flex flex-col lg:flex-row items-center justify-between gap-6 reveal-on-scroll border ${isDark ? "bg-[#f9ab00]/8 border-[#f9ab00]/25" : "bg-amber-50/70 border-amber-200/80 shadow-md"
+        <CardTilt className={`p-6 sm:p-8 rounded-3xl google-card-shadow flex flex-col lg:flex-row items-center justify-between gap-6 reveal-on-scroll border ${isDark ? "bg-[#f9ab00]/8 border-[#f9ab00]/25" : "bg-amber-50/70 border-amber-200/80 shadow-md"
           }`}>
           <div>
             <span className="inline-block px-3 py-1 rounded-full bg-[#f9ab00] text-black text-xs font-black uppercase tracking-wider mb-2">

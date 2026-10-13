@@ -25,6 +25,7 @@ import SavedSessionsModal from "@/components/SavedSessionsModal";
 import ScrollProgress from "@/components/ScrollProgress";
 import InteractiveCursor from "@/components/InteractiveCursor";
 import FloatingShapesBackground from "@/components/FloatingShapesBackground";
+import CosmicAudioPlayer from "@/components/CosmicAudioPlayer";
 import PageLoader from "@/components/PageLoader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -140,6 +141,9 @@ export default function Home() {
 
       {/* Footer with GDG Disclaimer & Social Channels */}
       <Footer />
+
+      {/* Ambient Cosmic Soundscape Audio Player */}
+      <CosmicAudioPlayer />
 
       {/* Personalized Bookmarked Schedule Modal */}
       <SavedSessionsModal

@@ -42,20 +42,20 @@ export default function EventRecapSection() {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-transparent transition-colors relative">
+    <section className="pt-2 pb-10 md:pb-12 bg-transparent transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`p-8 sm:p-12 rounded-3xl border-2 transition-all ${
+        <div className={`p-6 sm:p-10 rounded-3xl border-2 transition-all ${
           isDark
             ? "bg-[#0d0d0d]/90 border-white/15 shadow-[0_0_40px_rgba(0,0,0,0.6)]"
             : "bg-white border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
         }`}>
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow text-xs font-black mb-4 hover:scale-105 transition-transform">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow text-xs font-black mb-3 hover:scale-105 transition-transform">
               <Award className="w-3.5 h-3.5 text-[#34a853]" />
               <span className={isDark ? "text-white" : "text-gray-900"}>Executive Summary & Impact</span>
               <span className="text-[#f9ab00] cosmic-sparkle">✦</span>
             </div>
-            <h2 className={`text-3xl sm:text-4xl font-black tracking-tight mb-3 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl sm:text-4xl font-black tracking-tight mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
               DevFest Indore 2026 Comprehensive Recap
             </h2>
             <p className={`text-sm sm:text-base leading-relaxed ${isDark ? "text-white/80" : "text-gray-700"}`}>

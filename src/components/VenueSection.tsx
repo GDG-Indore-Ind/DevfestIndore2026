@@ -19,7 +19,7 @@ export default function VenueSection() {
   const { isDark } = useTheme();
 
   return (
-    <section id="venue" className="py-12 md:py-16 bg-transparent relative overflow-hidden transition-colors">
+    <section id="venue" className="pt-6 pb-12 md:pt-8 md:pb-16 bg-transparent relative overflow-hidden transition-colors">
       {/* Background Orbital Trajectory Graphics */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
@@ -32,8 +32,8 @@ export default function VenueSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-10 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-3 hover:scale-105 transition-transform">
+        <div className="text-center max-w-3xl mx-auto mb-8 reveal-on-scroll">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-2 hover:scale-105 transition-transform">
             <Rocket className="w-4 h-4 text-[#ea4335] animate-bounce" />
             <span className={`text-xs font-mono font-black uppercase tracking-wider ${isDark ? "text-white" : "text-gray-900"}`}>
               Mission Launchpad • Coordinates
