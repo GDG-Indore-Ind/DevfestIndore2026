@@ -137,7 +137,7 @@ export default function CosmicAudioPlayer() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2 group">
+    <div className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-50 flex items-center gap-2 group">
       {/* Floating Audio Controller Capsule */}
       <div
         className={`flex items-center gap-2.5 px-3.5 py-2 rounded-full border shadow-2xl backdrop-blur-xl transition-all duration-300 hover:scale-105 ${

@@ -82,30 +82,30 @@ export default function HeroSection() {
     <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden min-h-[92vh] flex flex-col justify-between">
       {/* DYNAMIC ATMOSPHERIC HERO BACKGROUND */}
       {isDark ? (
-        /* Dark Mode: Full-Width HD Keynote Arena on the right fading cleanly to deep black on the left */
+        /* Dark Mode: Full-Width 4K Vibrant Keynote Arena across the background with electric stage beams */
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#000000]">
-          {/* Main Full-width HD Stage Image */}
+          {/* Main Full-width 4K Stage Image */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/images/devfest-stage-fullwidth-dark.jpg"
+              src="/images/devfest-hero-live-stage-4k.jpg"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
-              quality={100}
-              className="object-cover object-right md:object-center w-full h-full opacity-90 scale-100 transition-all duration-700"
+              quality={98}
+              className="object-cover object-right lg:object-center w-full h-full opacity-95 transition-all duration-700"
             />
           </div>
 
-          {/* Smooth horizontal gradient: deep black on left (for text readability) seamlessly fading into the stage on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10 w-full sm:w-2/3" />
+          {/* Gentle smooth gradient on far left to guarantee white text contrast without dimming the stage */}
+          <div className="absolute inset-y-0 left-0 w-full lg:w-1/2 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
           
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black via-black/80 to-transparent z-10" />
-          <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black via-black/90 to-transparent z-10" />
+          <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
           {/* Glowing electric cyan and violet ambient light cones */}
-          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0070f3]/25 rounded-full blur-[140px] z-10 pointer-events-none" />
-          <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-[#d946ef]/15 rounded-full blur-[130px] z-10 pointer-events-none" />
+          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0070f3]/20 rounded-full blur-[140px] z-10 pointer-events-none" />
+          <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-[#d946ef]/15 rounded-full blur-[130px] z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: Airy Blue Breeze with DevFest Community Group backdrop & Subtle Space Research India Accents */
@@ -141,10 +141,10 @@ export default function HeroSection() {
         </div>
       )}
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full flex-1 flex flex-col justify-center">
+      {/* Main Content Area - Full Width with Generous Responsive Edge Padding */}
+      <div className="w-full max-w-[1750px] mx-auto px-5 sm:px-8 md:px-12 lg:px-14 xl:px-20 relative z-20 flex-1 flex flex-col justify-center">
         <div className={`grid grid-cols-1 ${!isDark ? "lg:grid-cols-12" : "lg:grid-cols-12"} gap-8 lg:gap-12 items-center`}>
-          {/* Main Hero Column (Occupies 7 cols on Light mode when card is present, or 8-9 cols on Dark mode with right callout) */}
+          {/* Main Hero Column */}
           <div className={`${!isDark ? "lg:col-span-7" : "lg:col-span-8"} flex flex-col items-start text-left z-10`}>
             {/* Pill: A Google Developer Groups Initiative */}
             <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border ${
@@ -276,49 +276,24 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column: */}
-          {/* IN DARK MODE: We hide the astronaut card and show the sleek "More Than Just an Event" floating video card + "Build Learn Network Create Impact" script */}
+          {/* IN DARK MODE: We keep the right area open and clean so the full 4K keynote stage visual shines through unobstructed without the floating box */}
           {/* IN LIGHT MODE: We show the requested light mode Astronaut card with blue breeze! */}
           {isDark ? (
-            <div className="lg:col-span-4 flex flex-col items-end justify-center relative mt-6 lg:mt-0">
-              {/* Handwritten style slogan */}
-              <div className="hidden xl:block text-right mb-6 transform -rotate-3 select-none pointer-events-none">
-                <span className="font-serif italic text-3xl xl:text-4xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
+            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative pointer-events-none select-none">
+              {/* Subtle ambient stage perspective callout matching theme */}
+              <div className="text-right pr-4 transform -rotate-2 opacity-80 hover:opacity-100 transition-opacity">
+                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
                   Build
                 </span>
-                <span className="font-serif italic text-3xl xl:text-4xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
+                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
                   Learn
                 </span>
-                <span className="font-serif italic text-3xl xl:text-4xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
+                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
                   Network
                 </span>
-                <span className="font-serif italic text-3xl xl:text-4xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
+                <span className="font-serif italic text-2xl xl:text-3xl text-[#57caff] font-bold tracking-wide block drop-shadow-[0_2px_20px_rgba(0,112,243,0.6)]">
                   Create Impact
                 </span>
-              </div>
-
-              {/* Floating Dark Glass Event Highlight Card matching Reference Screenshot */}
-              <div className="w-full max-w-sm rounded-3xl p-4 sm:p-5 bg-[#0a0d14]/85 backdrop-blur-xl border border-white/15 shadow-[0_0_40px_rgba(0,112,243,0.35)] relative group hover:scale-[1.02] transition-all">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={triggerHeroConfetti}
-                      className="w-11 h-11 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-lg cursor-pointer"
-                      title="Play Preview"
-                    >
-                      <Play className="w-5 h-5 fill-black ml-0.5 text-black" />
-                    </button>
-                    <div>
-                      <h4 className="text-sm font-bold text-white">More Than</h4>
-                      <h3 className="text-base font-extrabold text-white">Just an Event</h3>
-                    </div>
-                  </div>
-                  <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-white/60">
-                    <Maximize2 className="w-4 h-4" />
-                  </div>
-                </div>
-                <p className="text-xs text-white/70 leading-relaxed pl-1">
-                  A movement of builders, for a better tomorrow.
-                </p>
               </div>
             </div>
           ) : (
