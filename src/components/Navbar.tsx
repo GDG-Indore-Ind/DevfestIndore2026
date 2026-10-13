@@ -85,95 +85,129 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           : "bg-transparent py-4"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
-          {/* Left: Hamburger & Menu Trigger Button */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Left: Brand Identity (Matching Reference Screenshot) */}
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Mobile / Compact Explore Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl border transition-all flex items-center gap-1.5 sm:gap-2 group hover:scale-105 active:scale-95 cursor-pointer ${isDark
+              className={`lg:hidden px-2.5 py-1.5 rounded-2xl border transition-all flex items-center gap-1.5 cursor-pointer ${isDark
                 ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
                 : "border-black/15 bg-white text-gray-900 shadow-sm hover:bg-gray-50"
                 }`}
               aria-label="Toggle Global Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-4 h-4 text-[#ea4335]" /> : <Menu className="w-4 h-4 text-[#4285f4] group-hover:rotate-90 transition-transform" />}
-              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider">
-                {mobileMenuOpen ? "CLOSE" : "EXPLORE"}
+              {mobileMenuOpen ? <X className="w-4 h-4 text-[#ea4335]" /> : <Menu className="w-4 h-4 text-[#4285f4]" />}
+              <span className="text-[11px] font-mono font-bold tracking-wider">
+                {mobileMenuOpen ? "CLOSE" : "MENU"}
               </span>
             </button>
-          </div>
 
-          {/* Center: Prestigious GDG Indore Centered Brand Identity */}
-          <div className="flex justify-center items-center shrink-0 min-w-0">
-            <Link href="/" className="flex items-center gap-2 group text-center">
+            <Link href="/" className="flex items-center gap-2.5 group">
               <div
-                className={`relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 overflow-hidden ${isDark
-                  ? "bg-[#0d0d0d] border-white/20"
+                className={`relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 overflow-hidden ${isDark
+                  ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_15px_rgba(66,133,244,0.3)]"
                   : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
                   }`}
               >
                 <Image
                   src="/favicon.ico"
                   alt="GDG DevFest Indore Logo"
-                  width={32}
-                  height={32}
-                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  width={34}
+                  height={34}
+                  className="w-7 h-7 object-contain"
                   priority
                   unoptimized
                 />
               </div>
               <div className="flex flex-col text-left">
-                <div className="flex items-center gap-1">
-                  <span className={`font-black text-xs sm:text-base tracking-tight truncate ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
-                    GDG Indore
-                  </span>
-                  <span className="text-[8px] sm:text-[9px] uppercase font-bold tracking-wider px-1 sm:px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 hidden sm:inline">
-                    2026
-                  </span>
-                </div>
-                <span className={`text-[10px] sm:text-[11px] font-semibold -mt-0.5 flex items-center gap-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
-                  <span className="text-[#4285f4] font-bold">DevFest</span>
-                  <span className="w-1 h-1 rounded-full bg-[#34a853]" />
-                  <span className="text-[#34a853] font-bold">Nov 28</span>
+                <span className={`font-semibold text-xs sm:text-sm tracking-tight leading-none ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
+                  Google Developer Groups
+                </span>
+                <span className={`text-[11px] font-normal leading-none mt-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                  Indore
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* Right: Theme Toggle & Primary Action CTA */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 justify-end shrink-0">
+          {/* Center: Desktop Navigation Links (Home, About, Previous Editions, Schedule, Speakers, Events, Sponsors, FAQ) */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
+            <Link
+              href="/"
+              className={`transition-colors font-semibold ${isDark ? "text-white hover:text-white" : "text-gray-900 hover:text-blue-600"}`}
+            >
+              Home
+            </Link>
+            <Link
+              href="#about"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              About
+            </Link>
+            <Link
+              href="/gallery"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Previous Editions
+            </Link>
+            <Link
+              href="#sessions-split"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Schedule
+            </Link>
+            <Link
+              href="/past-speakers"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Speakers
+            </Link>
+            <Link
+              href="#satellite-events"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Events
+            </Link>
+            <Link
+              href="#sponsors"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Sponsors
+            </Link>
+            <Link
+              href="#faq"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              FAQ
+            </Link>
+          </nav>
+
+          {/* Right: Theme Toggle & Glowing "Get Tickets →" CTA */}
+          <div className="flex items-center gap-2.5 sm:gap-3 justify-end shrink-0">
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              className={`p-1.5 sm:p-2 rounded-xl border transition-all cursor-pointer ${isDark
+              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark
                 ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
                 : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
                 }`}
             >
-              {isDark ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f9ab00]" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#4285f4]" />}
+              {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
             </button>
 
-            {/* Clean Premium DevFest Tickets Button (Guaranteed high-contrast styling) */}
+            {/* Glowing Get Tickets Pill (Reference Screenshot button with bright cyan/blue glow) */}
             <button
               onClick={handleOpenCheckout}
-              style={{
-                backgroundColor: isDark ? "#ffffff" : "#4285f4",
-                color: isDark ? "#111827" : "#ffffff",
-                borderColor: isDark ? "#ffffff" : "#4285f4",
-              }}
-              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-black text-[11px] sm:text-xs tracking-wider uppercase flex items-center gap-1.5 sm:gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+              className={`px-5 py-2 rounded-full font-bold text-xs sm:text-sm tracking-wide flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer ${
+                isDark
+                  ? "bg-gradient-to-r from-[#0070f3] to-[#7928ca] text-white shadow-[0_0_25px_rgba(0,112,243,0.7)] border border-blue-400/40 hover:shadow-[0_0_35px_rgba(0,112,243,0.9)]"
+                  : "bg-[#4285f4] text-white shadow-[0_4px_14px_rgba(66,133,244,0.35)] hover:bg-[#3367d6]"
+              }`}
             >
-              <Ticket
-                className="w-3.5 h-3.5"
-                style={{ color: isDark ? "#111827" : "#ffffff" }}
-              />
-              <span
-                style={{ color: isDark ? "#111827" : "#ffffff" }}
-                className="font-black"
-              >
-                Tickets
-              </span>
+              <span>Get Tickets</span>
+              <span className="text-base leading-none">→</span>
             </button>
           </div>
         </div>
