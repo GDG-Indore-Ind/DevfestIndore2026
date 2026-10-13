@@ -361,16 +361,16 @@ export default function SatelliteEventsSection() {
 
                           {/* Middle: Host, Title, Description, Perks */}
                           <div className="lg:col-span-6 flex flex-col">
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <span className={`text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
+                            <div className="flex flex-wrap items-center gap-2 mb-2">
+                              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border shadow-sm ${
                                 isDark
-                                  ? "bg-white/8 text-white/80 border-white/10"
-                                  : "bg-gray-100 text-gray-700 border-gray-200"
+                                  ? "bg-white/10 text-white border-white/20"
+                                  : "bg-gray-100 text-gray-900 border-gray-300 font-bold"
                               }`}>
                                 Host: {event.host}
                               </span>
-                              <span className={`text-xs font-medium ${
-                                isDark ? "text-white/65" : "text-gray-500"
+                              <span className={`text-xs font-bold ${
+                                isDark ? "text-white/80" : "text-gray-800"
                               }`}>
                                 • {event.hostBadge}
                               </span>

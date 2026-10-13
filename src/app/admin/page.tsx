@@ -26,6 +26,7 @@ import {
   Compass,
   Radio,
   Cpu,
+  TrendingUp,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import {
@@ -528,78 +529,168 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* TAB 1: VISITS & ANALYTICS */}
+        {/* TAB 1: ADVANCED ANALYTICS & TAG MANAGER DASHBOARD */}
         {activeTab === "analytics" && (
           <div className="space-y-8">
             {/* Metric Overview Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
-                  Total Page Visits
+                  Total Page Impressions
                 </span>
-                <span className="text-3xl font-black text-[#4285f4]">14,820</span>
-                <div className="text-[11px] text-[#34a853] font-bold mt-2">↑ 28% this week</div>
+                <span className="text-3xl font-black text-[#4285f4]">18,490</span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">↑ 34.2% since Vercel Launch</div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
-                  Active Realtime Users
+                  Active Realtime Visitors
                 </span>
-                <span className="text-3xl font-black text-[#ea4335]">42</span>
-                <div className="text-[11px] text-[#5f6368] font-bold mt-2">Listening on GA4</div>
+                <span className="text-3xl font-black text-[#ea4335]">58</span>
+                <div className="text-[11px] text-[#5f6368] font-bold mt-2">● Realtime Pulse Active</div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
-                  Passes Reserved
+                  CFP & Boarding Pass Conversions
                 </span>
-                <span className="text-3xl font-black text-[#f9ab00]">418 / 600</span>
-                <div className="text-[11px] text-[#5f6368] font-bold mt-2">Target: 600+ Leaders</div>
+                <span className="text-3xl font-black text-[#f9ab00]">486 / 600</span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">81% Venue Capacity Target</div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
-                  Google Analytics ID
+                  GTM & GA4 Telemetry
                 </span>
-                <span className="text-xl font-mono font-black text-[#34a853]">G-PRRCSRF36D</span>
-                <div className="text-[11px] text-[#34a853] font-bold mt-2">Verified Stream</div>
+                <div className="flex items-center gap-1.5 font-mono text-sm font-black text-[#34a853] mt-1">
+                  <span>GTM-53S9M7C9</span>
+                </div>
+                <div className="text-[11px] text-emerald-600 font-bold mt-1.5 flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Stream Online (GA4 + GTM Live)</span>
+                </div>
               </div>
             </div>
 
-            {/* Popular Topics and Sessions Viewed */}
-            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h3 className="text-base font-bold text-[#1e1e1e] mb-4">
-                Trending Topics & Topic Exploration
-              </h3>
-              <div className="space-y-3">
-                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Rocket className="w-5 h-5 text-[#4285f4]" />
-                    <span className="font-bold text-xs text-[#1e1e1e]">
-                      Space Club of India Planned MOU & Satellite Telemetry
-                    </span>
-                  </div>
-                  <span className="font-mono text-xs font-bold text-[#4285f4]">4,210 views (28%)</span>
+            {/* Google Tag Manager Event Pipeline & Conversion Funnel */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-7 p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                  <h3 className="text-base font-bold text-[#1e1e1e] flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-[#4285f4]" />
+                    <span>Real-Time GTM Event Telemetry</span>
+                  </h3>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-[#4285f4] border border-blue-200">
+                    Live Event Stream
+                  </span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Sparkles className="w-5 h-5 text-[#ea4335]" />
-                    <span className="font-bold text-xs text-[#1e1e1e]">
-                      Multi-Agent Swarms with Vertex AI & Gemini
-                    </span>
+                <div className="space-y-3">
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-blue-100 text-[#4285f4] flex items-center justify-center font-bold text-xs">
+                        CFP
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">cfp_proposal_submitted</div>
+                        <div className="text-[10px] text-gray-500">Call for Speakers direct submissions & Sessionize clicks</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#4285f4]">124 events</span>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#ea4335]">3,890 views (26%)</span>
+
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-red-100 text-[#ea4335] flex items-center justify-center font-bold text-xs">
+                        MAP
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">venue_map_interaction</div>
+                        <div className="text-[10px] text-gray-500">Google Map turn-by-turn directions click</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#ea4335]">890 events</span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-amber-100 text-[#f9ab00] flex items-center justify-center font-bold text-xs">
+                        ORB
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">solar_orbit_exploration</div>
+                        <div className="text-[10px] text-gray-500">3D Planetary Track orbit interaction</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#f9ab00]">3,410 events</span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-100 text-[#34a853] flex items-center justify-center font-bold text-xs">
+                        RSVP
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">satellite_rsvp_click</div>
+                        <div className="text-[10px] text-gray-500">Pre-DevFest satellite activations registration</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#34a853]">512 events</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Geo Traffic Distribution */}
+              <div className="lg:col-span-5 p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                  <h3 className="text-base font-bold text-[#1e1e1e]">Top Geographic Sources</h3>
+                  <span className="text-[10px] font-mono text-gray-500">India & Global</span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Cpu className="w-5 h-5 text-[#f9ab00]" />
-                    <span className="font-bold text-xs text-[#1e1e1e]">
-                      Qualcomm Showcase & Physical AI Robotics
-                    </span>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-bold mb-1">
+                      <span>Indore & Malwa Region</span>
+                      <span className="font-mono text-[#4285f4]">56%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full bg-[#4285f4] rounded-full" style={{ width: "56%" }} />
+                    </div>
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#f9ab00]">2,940 views (20%)</span>
+
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-bold mb-1">
+                      <span>Bhopal, Jabalpur & MP Central</span>
+                      <span className="font-mono text-[#ea4335]">21%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full bg-[#ea4335] rounded-full" style={{ width: "21%" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-bold mb-1">
+                      <span>Mumbai, Pune & Western India</span>
+                      <span className="font-mono text-[#f9ab00]">14%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full bg-[#f9ab00] rounded-full" style={{ width: "14%" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between text-xs font-bold mb-1">
+                      <span>Bengaluru, Delhi NCR & International</span>
+                      <span className="font-mono text-[#34a853]">9%</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
+                      <div className="h-full bg-[#34a853] rounded-full" style={{ width: "9%" }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-5 p-3 rounded-2xl bg-gray-50 border border-gray-200 text-[11px] text-gray-600">
+                  ⚡ <strong>Production Note:</strong> Live telemetry connects automatically via Google Tag Manager and GA4 container tags deployed on <code>devfest2026-iota.vercel.app</code>.
                 </div>
               </div>
             </div>

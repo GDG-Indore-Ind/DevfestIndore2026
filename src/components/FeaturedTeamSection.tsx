@@ -61,7 +61,7 @@ export default function FeaturedTeamSection() {
         </div>
 
         {/* 3 Main Featured Cards: Tushar Pal, Akash Gangrade, Karan Mittal */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14 reveal-on-scroll">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 reveal-on-scroll">
           {featuredLeads.map((member, idx) => {
             const accentColors = [
               { border: "border-t-[#4285f4]", badge: "bg-[#4285f4]/15 text-[#4285f4] border-[#4285f4]/30" },
