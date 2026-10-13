@@ -412,22 +412,31 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column: */}
-          {/* IN DARK MODE: We keep the right area open and clean so the full 4K keynote stage visual shines through unobstructed without the floating box */}
+          {/* IN DARK MODE: Stylized '2026' and 'Build Learn Network Create Impact' callouts over the keynote stage background */}
           {/* IN LIGHT MODE: We show the exact Astronaut card with Browser Frame, sparkles, and Prapti badge! */}
           {isDark ? (
-            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative pointer-events-none select-none">
-              {/* Subtle ambient stage perspective callout matching theme */}
-              <div className="text-right pr-4 transform -rotate-2 opacity-80 hover:opacity-100 transition-opacity">
-                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
+            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative pointer-events-none select-none pr-2 xl:pr-6">
+              {/* Year '2026' with subtle cosmic glow matching the user's reference */}
+              <div className="relative mb-6 transform -rotate-1">
+                <span className="text-7xl xl:text-8xl 2xl:text-9xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#7c3aed] to-[#d946ef] drop-shadow-[0_4px_30px_rgba(66,133,244,0.5)]">
+                  2026
+                </span>
+                {/* Micro cosmic orb sparkle above 2026 */}
+                <div className="absolute -top-3 left-6 w-3 h-3 rounded-full bg-[#57caff] blur-[1px] animate-pulse" />
+              </div>
+
+              {/* Elegant stage motto: Build / Learn / Network / Create Impact */}
+              <div className="text-right space-y-1 transform -rotate-1">
+                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
                   Build
                 </span>
-                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
+                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
                   Learn
                 </span>
-                <span className="font-serif italic text-2xl xl:text-3xl text-white/80 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.3)]">
+                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
                   Network
                 </span>
-                <span className="font-serif italic text-2xl xl:text-3xl text-[#57caff] font-bold tracking-wide block drop-shadow-[0_2px_20px_rgba(0,112,243,0.6)]">
+                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-[#57caff] via-[#60a5fa] to-[#a855f7] font-bold tracking-wide block drop-shadow-[0_2px_25px_rgba(0,112,243,0.7)] pt-1">
                   Create Impact
                 </span>
               </div>
