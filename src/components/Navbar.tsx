@@ -134,17 +134,6 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
           {/* Right: Theme Toggle & Primary Action CTA */}
           <div className="flex items-center gap-2.5 justify-end">
-            {savedCount > 0 && (
-              <button
-                onClick={onOpenSavedModal}
-                className="hidden lg:flex items-center gap-1 px-3 py-1.5 text-xs font-bold rounded-full bg-[#4285f4]/20 text-white border border-[#4285f4]/50 hover:bg-[#4285f4]/30"
-                title="View Bookmarked Sessions"
-              >
-                <Bookmark className="w-3.5 h-3.5 fill-[#4285f4] text-[#4285f4]" />
-                <span>{savedCount}</span>
-              </button>
-            )}
-
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -157,23 +146,24 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
             </button>
 
-            {/* Glowing Interactive DevFest Button */}
-            <a className="glow-btn cursor-pointer" onClick={handleOpenCheckout}>
-              <span className="glow-btn__surface group px-3.5 sm:px-4 py-2">
-                <Ticket className="w-3.5 h-3.5 text-[#4285f4] group-hover:rotate-12 transition-transform" />
-                <span className="text-xs sm:text-sm font-bold">Tickets</span>
-              </span>
-            </a>
+            {/* Clean Premium DevFest Tickets Button */}
+            <button
+              onClick={handleOpenCheckout}
+              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer bg-[#111827] text-white border-[#111827] dark:bg-white dark:text-black dark:border-white"
+            >
+              <Ticket className="w-3.5 h-3.5 text-[#4285f4]" />
+              <span>Tickets</span>
+            </button>
           </div>
         </div>
 
-        {/* Global Slide-Over Navigation Cart Drawer (Side Sheet) */}
+        {/* Global Slide-Over Navigation Cart Drawer (Inspired by Optrar.com Minimalist Clean Aesthetic) */}
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 overflow-hidden">
             {/* Backdrop */}
             <div
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+              className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
             />
 
             {/* Right Side Panel / Cart Drawer */}
@@ -181,102 +171,98 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               <div
                 className={`w-screen max-w-md shadow-2xl flex flex-col border-l animate-in slide-in-from-right duration-300 ${
                   isDark
-                    ? "bg-[#0c1017] border-white/15 text-white"
-                    : "bg-white border-gray-200 text-gray-900"
+                    ? "bg-[#0a0d14] border-white/15 text-white"
+                    : "bg-[#faf9f6] border-gray-300 text-gray-900"
                 }`}
               >
                 {/* Drawer Header */}
-                <div className={`px-6 py-5 border-b flex items-center justify-between ${
-                  isDark ? "border-white/10" : "border-gray-200"
+                <div className={`px-7 py-6 border-b flex items-center justify-between ${
+                  isDark ? "border-white/10" : "border-black/10"
                 }`}>
-                  <div className="flex items-center gap-2.5">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#4285f4]/15 text-[#4285f4] font-mono font-black text-sm">
-                      &lt;/&gt;
-                    </div>
-                    <div>
-                      <div className="text-sm font-black tracking-tight">GDG DevFest Indore</div>
-                      <div className="text-[11px] text-gray-500 font-mono">Central India 2026</div>
-                    </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#4285f4] font-black block mb-0.5">
+                      NAVIGATION // MENU
+                    </span>
+                    <h3 className="text-xl font-black tracking-tight font-serif italic">
+                      DevFest Indore
+                    </h3>
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2 rounded-xl border transition-colors ${
+                    className={`p-2.5 rounded-full border transition-transform hover:scale-110 active:scale-95 ${
                       isDark
-                        ? "border-white/15 bg-white/5 hover:bg-white/15 text-white"
-                        : "border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-900"
+                        ? "border-white/20 bg-white/5 hover:bg-white/15 text-white"
+                        : "border-black/15 bg-white hover:bg-gray-100 text-gray-900 shadow-sm"
                     }`}
                     aria-label="Close menu drawer"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
 
                 {/* Drawer Quick Details Strip */}
-                <div className={`px-6 py-3 border-b flex items-center justify-between text-xs ${
-                  isDark ? "border-white/5 bg-white/[0.02]" : "border-gray-100 bg-gray-50/70"
+                <div className={`px-7 py-3 border-b flex items-center justify-between text-xs font-mono ${
+                  isDark ? "border-white/5 bg-white/[0.02] text-white/60" : "border-black/5 bg-black/[0.02] text-gray-600"
                 }`}>
-                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
-                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel
+                  <span className="flex items-center gap-1.5 font-medium">
+                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Arena
                   </span>
-                  <span className="font-mono font-bold text-[#34a853] bg-[#34a853]/15 px-2 py-0.5 rounded-full border border-[#34a853]/30">
-                    Nov 28, 2026
+                  <span className="font-bold text-[#34a853] bg-[#34a853]/15 px-2.5 py-0.5 rounded-full border border-[#34a853]/30">
+                    28 NOV 2026
                   </span>
                 </div>
 
-                {/* Drawer Scrollable Navigation Links */}
-                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
-                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-400 mb-2">
-                    Navigation Directory
-                  </div>
+                {/* Drawer Scrollable Navigation Links (Optrar-inspired Large Editorial Serif / Clean Sans) */}
+                <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
                   {allDrawerLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`group p-3 rounded-2xl border transition-all flex items-center justify-between ${
+                      className={`group py-3.5 px-3 rounded-2xl transition-all flex items-center justify-between ${
                         isDark
-                          ? "border-white/10 bg-white/5 hover:bg-[#4285f4]/15 hover:border-[#4285f4]/40 text-white"
-                          : "border-gray-200/90 bg-gray-50/50 hover:bg-[#4285f4]/10 hover:border-[#4285f4]/40 text-gray-900 shadow-sm"
+                          ? "hover:bg-white/5 text-white/90 hover:text-white"
+                          : "hover:bg-black/5 text-gray-900 hover:text-black"
                       }`}
                     >
                       <div>
-                        <div className="font-bold text-sm group-hover:text-[#4285f4] transition-colors">
-                          {link.name}
+                        <div className="text-xl sm:text-2xl font-serif font-medium tracking-tight group-hover:translate-x-1.5 transition-transform flex items-center gap-2">
+                          <span>{link.name}</span>
                         </div>
-                        <div className={`text-[11px] line-clamp-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>
+                        <div className={`text-[11px] font-sans mt-0.5 line-clamp-1 ${isDark ? "text-white/50" : "text-gray-500"}`}>
                           {link.desc}
                         </div>
                       </div>
-                      <span className="text-[#4285f4] text-sm font-mono font-bold ml-2 shrink-0 group-hover:translate-x-1 transition-transform">
-                        →
+                      <span className="text-gray-400 group-hover:text-[#4285f4] text-lg font-mono opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                        ›
                       </span>
                     </a>
                   ))}
                 </div>
 
                 {/* Drawer Footer Actions */}
-                <div className={`p-6 border-t space-y-3 ${
-                  isDark ? "border-white/10 bg-black/40" : "border-gray-200 bg-gray-50"
+                <div className={`p-7 border-t space-y-3.5 ${
+                  isDark ? "border-white/10 bg-black/60" : "border-black/10 bg-white"
                 }`}>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     <Link
                       href="/team"
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex-1 text-center py-2.5 rounded-xl text-xs font-bold border transition-colors ${
+                      className={`flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-colors ${
                         isDark
                           ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                          : "bg-white border-gray-300 text-gray-800 hover:bg-gray-100 shadow-sm"
+                          : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"
                       }`}
                     >
-                      Team & Speakers
+                      Organizers & Alumni
                     </Link>
 
                     <button
                       onClick={() => toggleTheme()}
-                      className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-colors ${
+                      className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border flex items-center justify-center gap-1.5 transition-colors ${
                         isDark
                           ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                          : "bg-white border-gray-300 text-gray-800 hover:bg-gray-100 shadow-sm"
+                          : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"
                       }`}
                     >
                       {isDark ? (
@@ -293,10 +279,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                       setMobileMenuOpen(false);
                       handleOpenCheckout();
                     }}
-                    className="w-full py-3 rounded-xl font-bold text-xs bg-[#4285f4] text-white border border-[#4285f4]/50 shadow-[0_0_20px_rgba(66,133,244,0.4)] flex items-center justify-center gap-2 hover:bg-[#3367d6] transition-colors cursor-pointer"
+                    className="w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider bg-[#111827] text-white dark:bg-white dark:text-black shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
                   >
-                    <Ticket className="w-4 h-4" />
-                    <span>Get DevFest Tickets</span>
+                    <Ticket className="w-4 h-4 text-[#4285f4]" />
+                    <span>Reserve DevFest Pass</span>
                   </a>
                 </div>
               </div>
