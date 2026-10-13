@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Ticket, Menu, X, Bookmark, MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -106,14 +107,20 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           <div className="flex justify-center items-center shrink-0 min-w-0">
             <Link href="/" className="flex items-center gap-2 group text-center">
               <div
-                className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 ${isDark
+                className={`relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 overflow-hidden ${isDark
                   ? "bg-[#0d0d0d] border-white/20"
                   : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
                   }`}
               >
-                <span className="text-[#4285f4] font-bold text-sm sm:text-lg font-mono">{"<"}</span>
-                <span className="text-[#ea4335] font-bold text-xs">/</span>
-                <span className="text-[#34a853] font-bold text-sm sm:text-lg font-mono">{">"}</span>
+                <Image
+                  src="/favicon.ico"
+                  alt="GDG DevFest Indore Logo"
+                  width={32}
+                  height={32}
+                  className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  priority
+                  unoptimized
+                />
               </div>
               <div className="flex flex-col text-left">
                 <div className="flex items-center gap-1">

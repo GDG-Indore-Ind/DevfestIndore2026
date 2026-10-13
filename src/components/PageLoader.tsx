@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Sparkles } from "lucide-react";
 
 export default function PageLoader() {
@@ -57,12 +58,18 @@ export default function PageLoader() {
       <div className="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full bg-[#f9ab00]/15 blur-3xl pointer-events-none -z-10 animate-pulse-halo" style={{ animationDelay: "1s" }} />
 
       <div className="relative z-10 max-w-lg w-full text-center flex flex-col items-center">
-        {/* Animated Google Brackets Icon — dark glass */}
+        {/* Animated Google Brackets Icon / Logo */}
         <div className="relative mb-6">
-          <div className="w-16 h-16 rounded-3xl bg-[#0d0d0d] border border-white/20 shadow-[0_0_30px_rgba(66,133,244,0.4)] flex items-center justify-center animate-float-subtle">
-            <span className="text-[#4285f4] font-bold text-2xl font-mono">{"<"}</span>
-            <span className="text-[#ea4335] font-bold text-base">/</span>
-            <span className="text-[#34a853] font-bold text-2xl font-mono">{">"}</span>
+          <div className="relative w-16 h-16 rounded-3xl bg-[#0d0d0d] border border-white/20 shadow-[0_0_30px_rgba(66,133,244,0.4)] flex items-center justify-center animate-float-subtle overflow-hidden p-2.5">
+            <Image
+              src="/favicon.ico"
+              alt="GDG DevFest Indore"
+              width={48}
+              height={48}
+              className="w-10 h-10 object-contain"
+              priority
+              unoptimized
+            />
           </div>
 
           {/* Orbiting Google 4 dots */}

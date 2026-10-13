@@ -59,46 +59,54 @@ export default function HeroSection() {
     <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
       {/* DYNAMIC ATMOSPHERIC HERO BACKGROUND — Switches seamlessly with Theme Toggle */}
       {isDark ? (
-        /* Dark Mode: Grand Tech Conference Stage & Auditorium Atmosphere (from user's reference) */
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <div className="absolute inset-0 bg-[#000000]/80 z-10" />
+        /* Dark Mode: Real DevFest Indore Stage with Keynote Screen & Packed Audience */
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-black">
+          <div className="absolute inset-0 bg-[#000000]/70 z-10" />
           <Image
-            src="/images/devfest-stage-hero-dark.jpg"
-            alt="DevFest Indore Grand Stage Atmosphere"
+            src="/devfestindore.png"
+            alt="DevFest Indore Grand Stage Keynote & Community Arena"
             fill
             priority
-            className="object-cover object-center opacity-45 mix-blend-screen scale-105 transition-all duration-700"
+            className="object-cover object-center opacity-65 scale-105 transition-all duration-700"
           />
-          {/* Volumetric stage light cones */}
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#4285f4]/20 rounded-full blur-[140px] z-10" />
-          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#34a853]/15 rounded-full blur-[130px] z-10" />
-          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+          {/* Volumetric stage light cones matching Google colors */}
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#4285f4]/25 rounded-full blur-[140px] z-10" />
+          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#34a853]/20 rounded-full blur-[130px] z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black via-black/85 to-transparent z-10" />
         </div>
       ) : (
-        /* Light Mode: Ethereal Airy Cyan/Ice Breeze with Soft Floating Snowflake motes */
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-gradient-to-b from-[#e8f2fe] via-[#f3f8fe] to-[#ffffff]">
+        /* Light Mode: Airy Blue Breeze with DevFest Community Group backdrop & Subtle Space Research India Accents */
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-gradient-to-b from-[#e8f2fe] via-[#f0f6fc] to-[#ffffff]">
           <Image
-            src="/images/devfest-stage-hero-light.jpg"
-            alt="DevFest Indore Keynote Daylight Arena"
+            src="/images/devfest-group-hero-light.jpg"
+            alt="DevFest Indore Community & Builders"
             fill
             priority
-            className="object-cover object-center opacity-30 mix-blend-multiply scale-102 transition-all duration-700"
+            className="object-cover object-center opacity-22 mix-blend-multiply scale-102 transition-all duration-700"
           />
           {/* Subtle Airy Breeze Swirling Gradient Glows */}
           <div className="absolute -top-32 left-1/3 w-[650px] h-[650px] bg-gradient-to-tr from-[#c8e2fc]/60 via-[#e1f0fe]/50 to-transparent rounded-full blur-[100px] animate-breeze-glow" />
           <div className="absolute top-20 -right-20 w-[500px] h-[500px] bg-[#dbeafe]/70 rounded-full blur-[110px]" />
 
-          {/* Gentle Floating Snowflake Motes */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <span className="absolute top-[-20px] left-[15%] text-[#4285f4]/40 text-base animate-snow-1">❄</span>
-            <span className="absolute top-[-20px] left-[28%] text-[#60a5fa]/30 text-xs animate-snow-2">✦</span>
-            <span className="absolute top-[-20px] left-[45%] text-[#38bdf8]/45 text-sm animate-snow-3">❅</span>
-            <span className="absolute top-[-20px] left-[62%] text-[#4285f4]/35 text-xs animate-snow-1">❄</span>
-            <span className="absolute top-[-20px] left-[78%] text-[#93c5fd]/40 text-sm animate-snow-2">✦</span>
-            <span className="absolute top-[-20px] left-[90%] text-[#38bdf8]/30 text-xs animate-snow-3">❅</span>
-            <span className="absolute top-[-20px] left-[8%] text-[#60a5fa]/35 text-xs animate-snow-2">❄</span>
-            <span className="absolute top-[-20px] left-[38%] text-[#93c5fd]/30 text-sm animate-snow-1">❅</span>
-            <span className="absolute top-[-20px] left-[82%] text-[#4285f4]/35 text-xs animate-snow-3">❄</span>
+          {/* Ultra-subtle Indian Space Research Achievements Blueprint telemetry (Chandrayaan-3, Aditya-L1, Gaganyaan) */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-45">
+            {/* Top-Right: Aditya-L1 Solar Halo Orbit Pill */}
+            <div className="absolute top-28 right-8 lg:right-16 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 border border-[#4285f4]/25 backdrop-blur-sm text-[11px] font-mono text-[#1a73e8] shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f9ab00] animate-pulse" />
+              <span>ISRO ADITYA-L1 // HALO ORBIT 1.5M KM</span>
+            </div>
+
+            {/* Center-Left: Chandrayaan-3 Lunar South Pole Coordinate */}
+            <div className="absolute top-1/2 left-4 hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 border border-[#34a853]/25 backdrop-blur-sm text-[10px] font-mono text-[#137333]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#34a853]" />
+              <span>CHANDRAYAAN-3 // LUNAR SOUTH POLE 69.37° S</span>
+            </div>
+
+            {/* Bottom-Right: Gaganyaan Orbital Flight Vector */}
+            <div className="absolute bottom-28 right-12 hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-white/60 border border-[#ea4335]/25 backdrop-blur-sm text-[10px] font-mono text-[#c5221f]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ea4335]" />
+              <span>GAGANYAAN CREW // 400 KM LEO TRAJECTORY</span>
+            </div>
           </div>
 
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent" />

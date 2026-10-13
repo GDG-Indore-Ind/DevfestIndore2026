@@ -121,10 +121,17 @@ export default function Footer() {
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
-                <div className="flex items-center justify-center w-10 h-10 rounded-2xl telemetry-card shadow-[0_0_12px_rgba(66,133,244,0.2)] group-hover:scale-105 group-hover:rotate-6 transition-transform">
-                  <span className="text-[#4285f4] font-bold text-lg font-mono">{"<"}</span>
-                  <span className="text-[#ea4335] font-bold text-xs">/</span>
-                  <span className="text-[#34a853] font-bold text-lg font-mono">{">"}</span>
+                <div className={`relative flex items-center justify-center w-10 h-10 rounded-2xl border shadow-sm group-hover:scale-105 group-hover:rotate-6 transition-transform overflow-hidden ${
+                  isDark ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_15px_rgba(66,133,244,0.3)]" : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
+                }`}>
+                  <Image
+                    src="/favicon.ico"
+                    alt="GDG DevFest Indore Logo"
+                    width={36}
+                    height={36}
+                    className="w-7 h-7 object-contain"
+                    unoptimized
+                  />
                 </div>
                 <div>
                   <span className={`block font-black text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
