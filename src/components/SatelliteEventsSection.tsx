@@ -33,34 +33,35 @@ export default function SatelliteEventsSection() {
     const handleScroll = () => {
       if (!timelineContainerRef.current) return;
       const cards = timelineContainerRef.current.querySelectorAll<HTMLElement>("[data-timeline-card='true']");
-      const viewportHeight = window.innerHeight;
 
       cards.forEach((card) => {
         const rect = card.getBoundingClientRect();
         const direction = card.dataset.direction === "right" ? 1 : -1;
         
-        // Progress of card through the top sticky area
-        // When rect.top is around 120px to 80px, it reaches its sticky point
-        const stickyPoint = 130;
+        // Sticky position for cards is roughly 110px from top
+        const stickyPoint = 115;
         
-        if (rect.top <= stickyPoint + 10) {
-          // Calculate how far past the sticky threshold the card has been scrolled against its parent
+        // As the card hits the sticky point and the user scrolls further down:
+        if (rect.top <= stickyPoint + 5) {
           const parent = card.parentElement;
           if (parent) {
             const parentRect = parent.getBoundingClientRect();
-            // distance scrolled inside group
+            // Distance scrolled past the card's active point
             const scrolledPast = Math.max(0, stickyPoint - parentRect.top);
-            const ratio = Math.min(1, scrolledPast / (parentRect.height * 0.7));
+            // Normalized throw progress (0 to 1)
+            const progress = Math.min(1, scrolledPast / 350);
             
-            const throwDistance = ratio * 48 * direction; // up to 48px throw
-            const rotateDeg = ratio * 3.5 * direction; // up to 3.5deg tilt throw
-            const scaleDown = 1 - ratio * 0.04; // slight stack depth scale
-            
-            card.style.transform = `translate3d(${throwDistance}px, 0, 0) rotate(${rotateDeg}deg) scale(${scaleDown})`;
-            card.style.opacity = `${Math.max(0.7, 1 - ratio * 0.25)}`;
+            // Physical throw-away transform: throws 120px to right or left, rotates 6 degrees, fades out
+            const throwX = progress * 130 * direction;
+            const throwRotate = progress * 7 * direction;
+            const throwScale = 1 - progress * 0.08;
+            const cardOpacity = Math.max(0.2, 1 - progress * 0.85);
+
+            card.style.transform = `translate3d(${throwX}px, 0, 0) rotate(${throwRotate}deg) scale(${throwScale})`;
+            card.style.opacity = `${cardOpacity}`;
           }
         } else {
-          // Normal position
+          // Resting cleanly in deck stack
           card.style.transform = "translate3d(0, 0, 0) rotate(0deg) scale(1)";
           card.style.opacity = "1";
         }
@@ -156,20 +157,11 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-12 md:py-20 bg-transparent relative overflow-visible border-t border-black/10 dark:border-white/10 transition-colors">
-      {/* Background Orbital Trajectory Graphics */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <ellipse cx="80%" cy="20%" rx="380" ry="110" fill="none" stroke="#4285f4" strokeWidth="1.2" strokeDasharray="6 6" />
-        <ellipse cx="20%" cy="65%" rx="440" ry="130" fill="none" stroke="#ea4335" strokeWidth="1" strokeDasharray="8 8" />
-      </svg>
-
+    <section id="satellite-events" className="pt-4 pb-16 md:pb-24 bg-transparent relative overflow-visible border-t border-black/10 dark:border-white/10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with Orbital Satellite Badge */}
-        <div className="text-center max-w-3xl mx-auto mb-10 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
+        <div className="text-center max-w-3xl mx-auto mb-8 reveal-on-scroll">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-3 hover:scale-105 transition-transform">
             <Radio className="w-4 h-4 text-[#4285f4] animate-pulse" />
             <span className={`text-xs font-mono font-black uppercase tracking-wider ${
               isDark ? "text-white" : "text-gray-900"
@@ -186,7 +178,7 @@ export default function SatelliteEventsSection() {
             </span>
           </h2>
 
-          <p className={`mt-4 text-base sm:text-lg font-normal leading-relaxed ${
+          <p className={`mt-3 text-sm sm:text-base font-normal leading-relaxed ${
             isDark ? "text-white/80" : "text-gray-700"
           }`}>
             Leading up to the main flight on Nov 28, DevFest Indore takes over the city!
@@ -195,21 +187,21 @@ export default function SatelliteEventsSection() {
         </div>
 
         {/* Space Satellite Feature Showcase Card */}
-        <div className="mb-14 reveal-on-scroll">
-          <CardTilt className={`rounded-3xl p-6 sm:p-8 border overflow-hidden transition-all shadow-xl ${
+        <div className="mb-8 reveal-on-scroll">
+          <CardTilt className={`rounded-3xl p-5 sm:p-7 border overflow-hidden transition-all shadow-xl ${
             isDark
               ? "bg-[#0a0a0a]/90 border-white/15 shadow-[0_0_40px_rgba(66,133,244,0.15)]"
               : "!bg-white !border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
           }`}>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               {/* Left Column: Satellite Illustration */}
               <div className="lg:col-span-5 relative flex justify-center items-center">
-                <div className="relative w-full max-w-[340px] aspect-square rounded-2xl overflow-hidden bg-white p-2 border border-gray-200/80 shadow-inner group">
+                <div className="relative w-full max-w-[300px] aspect-square rounded-2xl overflow-hidden bg-white p-2 border border-gray-200/80 shadow-inner group">
                   <Image
                     src="/images/satellite-space-illustration.jpg"
                     alt="DevFest Indore Satellite Space Mission Illustration beaming data to Earth"
                     fill
-                    sizes="(max-width: 768px) 100vw, 340px"
+                    sizes="(max-width: 768px) 100vw, 300px"
                     className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
                     priority
                     unoptimized
@@ -230,13 +222,13 @@ export default function SatelliteEventsSection() {
                   </span>
                 </div>
 
-                <h3 className={`text-2xl sm:text-3xl font-black mb-3 ${
+                <h3 className={`text-2xl sm:text-3xl font-black mb-2 ${
                   isDark ? "text-white" : "text-gray-900"
                 }`}>
                   Beaming Tech Across Indore's Ecosystem
                 </h3>
 
-                <p className={`text-sm sm:text-base font-normal leading-relaxed mb-5 ${
+                <p className={`text-sm sm:text-base font-normal leading-relaxed mb-4 ${
                   isDark ? "text-white/85" : "text-gray-700"
                 }`}>
                   DevFest Indore isn't just a 1-day event — it's an entire season of satellite activations.
@@ -282,7 +274,7 @@ export default function SatelliteEventsSection() {
         </div>
 
         {/* Filter Pills Toolbar — space telemetry glass */}
-        <div className={`telemetry-card p-4 sm:p-5 rounded-3xl google-pill-shadow mb-12 reveal-on-scroll ${
+        <div className={`telemetry-card p-4 sm:p-5 rounded-3xl google-pill-shadow mb-8 reveal-on-scroll ${
           isDark ? "bg-[#0d0d0d]/90 border-white/10" : "!bg-white !border-gray-200/90 shadow-md"
         }`}>
           <div className="flex items-center gap-2 mb-3 text-xs font-black uppercase tracking-wider">
@@ -315,7 +307,7 @@ export default function SatelliteEventsSection() {
         </div>
 
         {/* Date-Grouped Timeline with Interactive Deck Stacking & Throw Animations */}
-        <div ref={timelineContainerRef} className="space-y-16 pb-20">
+        <div ref={timelineContainerRef} className="space-y-12 pb-16">
           {Object.entries(groupedEvents).map(([dayTitle, events], groupIdx) => {
             const firstEvent = events[0];
             const isHandsOnGroup = events.some((e) => e.category === "Hands-on Series Workshops");
@@ -326,21 +318,21 @@ export default function SatelliteEventsSection() {
                   ? "bg-[#57caff] text-black"
                   : "bg-[#ff7daf] text-black";
 
-            // Offset sticky top for the date banner so it stays fixed nicely below navbar
-            const bannerStickyTop = 4.5 + groupIdx * 0.5;
+            // Banner scrolls naturally or stays anchored neatly at top
+            const bannerStickyTop = 4.2;
 
             return (
               <div
                 key={dayTitle}
                 className="relative transition-all duration-300"
               >
-                {/* Date Banner Header — Sticky Deck Anchor with Google Pill Styling */}
+                {/* Date Banner Header — Clean Google Pill Styling */}
                 <div
                   style={{
                     top: `${bannerStickyTop}rem`,
-                    zIndex: 30 + groupIdx,
+                    zIndex: 25,
                   }}
-                  className={`sticky flex flex-wrap items-center justify-between gap-3 px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl border-2 border-black google-pill-shadow mb-6 backdrop-blur-md shadow-xl transition-all duration-300 ${dateBadgeColor}`}
+                  className={`sticky flex flex-wrap items-center justify-between gap-3 px-5 sm:px-7 py-3 sm:py-3.5 rounded-2xl border-2 border-black google-pill-shadow mb-4 backdrop-blur-md shadow-lg transition-all duration-300 ${dateBadgeColor}`}
                 >
                   {isHandsOnGroup ? (
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -373,9 +365,6 @@ export default function SatelliteEventsSection() {
                   )}
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-0.5 rounded-md bg-black/10 text-black/80 font-bold hidden sm:inline">
-                      Deck Node {groupIdx + 1}
-                    </span>
                     <span className="text-xs font-black uppercase tracking-wider bg-white/90 border border-black/30 px-3 py-1 rounded-full text-black shadow-sm">
                       {events.length} Activation{events.length > 1 ? "s" : ""}
                     </span>
@@ -383,12 +372,13 @@ export default function SatelliteEventsSection() {
                 </div>
 
                 {/* Stacking Events — Alternating Toss & Deck Stacking Effect */}
-                <div className="space-y-8 relative">
+                <div className="space-y-6 relative">
                   {events.map((event, cardIdx) => {
                     const styles = getColorStyles(event.color);
                     // Alternating direction: even index throws right, odd index throws left
                     const isEven = (groupIdx + cardIdx) % 2 === 0;
-                    const cardStickyTop = bannerStickyTop + 4.2 + cardIdx * 1.5;
+                    // Cards stack right underneath the banner
+                    const cardStickyTop = bannerStickyTop + 3.8 + cardIdx * 0.8;
 
                     return (
                       <div
@@ -399,14 +389,10 @@ export default function SatelliteEventsSection() {
                           top: `${cardStickyTop}rem`,
                           zIndex: 10 + cardIdx,
                         }}
-                        className={`sticky transition-all duration-500 ease-out will-change-transform group/card`}
+                        className={`sticky transition-all duration-300 ease-out will-change-transform group/card`}
                       >
                         <CardTilt
-                          className={`rounded-3xl p-5 sm:p-7 border-2 google-card-shadow transition-all duration-500 border-l-8 ${styles.borderAccent} ${
-                            isEven
-                              ? "hover:rotate-1.5 hover:translate-x-3 sm:hover:translate-x-5"
-                              : "hover:-rotate-1.5 hover:-translate-x-3 sm:hover:-translate-x-5"
-                          } ${
+                          className={`rounded-3xl p-5 sm:p-7 border-2 google-card-shadow transition-all duration-300 border-l-8 ${styles.borderAccent} ${
                             isDark
                               ? "bg-[#0d0d0d]/95 border-white/12 backdrop-blur-2xl shadow-[0_16px_40px_rgba(0,0,0,0.7)]"
                               : "!bg-white/95 !border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl"
@@ -429,16 +415,11 @@ export default function SatelliteEventsSection() {
                                 <span>{event.capacity}</span>
                               </div>
 
-                              <div className="mt-1 flex items-center gap-2">
+                              <div className="mt-1">
                                 <span
                                   className={`inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${styles.badge}`}
                                 >
                                   {event.accessType}
-                                </span>
-                                <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border opacity-60 ${
-                                  isDark ? "border-white/20 text-white/70" : "border-black/20 text-black/70"
-                                }`}>
-                                  {isEven ? "Toss ➔ Right" : "⮜ Toss Left"}
                                 </span>
                               </div>
                             </div>
