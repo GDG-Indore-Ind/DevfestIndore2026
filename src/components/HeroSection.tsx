@@ -82,23 +82,30 @@ export default function HeroSection() {
     <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden min-h-[92vh] flex flex-col justify-between">
       {/* DYNAMIC ATMOSPHERIC HERO BACKGROUND */}
       {isDark ? (
-        /* Dark Mode: Pristine High-Tech Keynote Auditorium Stage with Volumetric Light and Audience */
+        /* Dark Mode: Full-Width HD Keynote Arena on the right fading cleanly to deep black on the left */
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#000000]">
-          <Image
-            src="/images/devfest-stage-hero-dark-clean.jpg"
-            alt="DevFest Indore Keynote Arena Stage"
-            fill
-            priority
-            className="object-cover object-center opacity-75 scale-102 transition-all duration-700"
-          />
-          {/* Subtle Deep Space Gradient overlays for optimal readability & glowing stage aura */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/35 z-10" />
-          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black via-black/80 to-transparent z-10" />
-          <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/90 to-transparent z-10" />
+          {/* Main Full-width HD Stage Image */}
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="/images/devfest-stage-fullwidth-dark.jpg"
+              alt="DevFest Indore Keynote Arena Stage"
+              fill
+              priority
+              quality={100}
+              className="object-cover object-right md:object-center w-full h-full opacity-90 scale-100 transition-all duration-700"
+            />
+          </div>
 
-          {/* Volumetric ambient cyan and magenta stage glow flares */}
-          <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-[#0070f3]/20 rounded-full blur-[140px] z-10 pointer-events-none" />
-          <div className="absolute top-1/3 right-1/4 w-[450px] h-[450px] bg-[#d946ef]/15 rounded-full blur-[130px] z-10 pointer-events-none" />
+          {/* Smooth horizontal gradient: deep black on left (for text readability) seamlessly fading into the stage on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10 w-full sm:w-2/3" />
+          
+          {/* Top and Bottom soft vignette fades */}
+          <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black via-black/80 to-transparent z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black via-black/90 to-transparent z-10" />
+
+          {/* Glowing electric cyan and violet ambient light cones */}
+          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0070f3]/25 rounded-full blur-[140px] z-10 pointer-events-none" />
+          <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] bg-[#d946ef]/15 rounded-full blur-[130px] z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: Airy Blue Breeze with DevFest Community Group backdrop & Subtle Space Research India Accents */
