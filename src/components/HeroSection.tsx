@@ -231,27 +231,6 @@ export default function HeroSection() {
             {/* Concentric Celestial Orbit Ring backdrop */}
             <div className="absolute w-[440px] h-[440px] rounded-full border border-dashed border-[#4285f4]/25 dark:border-[#4285f4]/30 pointer-events-none -z-10 animate-spin-slow" />
             <div className="absolute w-[320px] h-[320px] rounded-full border border-[#f9ab00]/20 pointer-events-none -z-10" />
-            {/* Floating Celestial Stickers */}
-            <div className="absolute -top-4 -left-6 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#f9ab00]/15 border border-[#f9ab00]/50 animate-float hover:rotate-6 cursor-pointer transition-transform backdrop-blur-md">
-              <span className="text-base">🏆</span>
-              <span className="text-xs font-extrabold text-[#f9ab00]">#1 Cleanest City Vibe</span>
-            </div>
-
-            <div className="absolute top-1/4 -right-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#34a853]/15 border border-[#34a853]/50 animate-float-alt hover:-rotate-6 cursor-pointer transition-transform backdrop-blur-md">
-              <span className="text-base">⚡</span>
-              <span className="text-xs font-extrabold text-[#34a853]">GenAI & Cloud Cosmos</span>
-            </div>
-
-            <div className="absolute -bottom-4 -left-4 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#4285f4]/15 border border-[#4285f4]/50 animate-float hover:rotate-3 cursor-pointer transition-transform backdrop-blur-md">
-              <Users className="w-4 h-4 text-[#4285f4]" />
-              <span className="text-xs font-extrabold text-[#4285f4]">1,500+ Tech Pioneers</span>
-            </div>
-
-            <div className="absolute -bottom-6 right-8 z-20 hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-[#ea4335]/15 border border-[#ea4335]/50 animate-float-alt hover:-rotate-3 cursor-pointer transition-transform backdrop-blur-md">
-              <span className="text-base">🍲</span>
-              <span className="text-xs font-extrabold text-[#ea4335]">Poha, Jalebi & Code</span>
-            </div>
-
             {/* Central Astronaut Mascot 3D Tilt Card — adapts to light / dark poster theme */}
             <CardTilt className={`w-full max-w-md telemetry-card rounded-3xl p-5 shadow-[0_0_50px_rgba(66,133,244,0.25)] group relative transition-colors duration-300 ${isDark ? "bg-[#0d0d0d]/85 border-white/15" : "!bg-white !border-gray-200/90 shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
               }`}>

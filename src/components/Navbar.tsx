@@ -65,125 +65,103 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
       <header
         className={`fixed top-2 left-0 right-0 z-40 transition-all duration-300 ${scrolled
           ? isDark
-            ? "bg-black/85 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/10 py-2.5"
-            : "bg-white/95 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] border-b border-black/10 py-2.5"
+            ? "bg-black/90 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/10 py-2.5"
+            : "bg-white/95 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.06)] border-b border-black/10 py-2.5"
           : "bg-transparent py-4"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo with Animated Brackets */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div
-              className={`flex items-center justify-center w-10 h-10 rounded-2xl border shadow-[0_0_12px_rgba(66,133,244,0.3)] group-hover:scale-105 group-hover:rotate-3 transition-transform ${isDark
-                ? "bg-[#0d0d0d] border-white/20"
-                : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.2)]"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
+          {/* Left: Hamburger & Menu Trigger Button */}
+          <div className="flex items-center gap-2 justify-start">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2 group hover:scale-105 active:scale-95 ${isDark
+                ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
+                : "border-black/15 bg-white text-gray-900 shadow-sm hover:bg-gray-50"
                 }`}
+              aria-label="Toggle Global Navigation Menu"
             >
-              <span className="text-[#4285f4] font-bold text-lg font-mono">{"<"}</span>
-              <span className="text-[#ea4335] font-bold text-xs">/</span>
-              <span className="text-[#34a853] font-bold text-lg font-mono">{">"}</span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className={`font-extrabold text-base tracking-tight ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
-                  GDG Indore
-                </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 flex items-center gap-1">
-                  <span className="text-[9px] font-normal">इंदौर</span>
-                  <span>2026</span>
-                </span>
-              </div>
-              <span className={`text-xs font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/75" : "text-gray-600"}`}>
-                <span className="font-mono text-[11px] text-[#4285f4]">{"{"}</span>
-                <span>DevFest</span>
-                <span className="font-mono text-[11px] text-[#34a853]">{"}"}</span>
-                <span className="w-1 h-1 rounded-full bg-[#34a853]" />
-                <span className="text-[#34a853] font-bold">Nov 28</span>
+              {mobileMenuOpen ? <X className="w-4 h-4 text-[#ea4335]" /> : <Menu className="w-4 h-4 text-[#4285f4] group-hover:rotate-90 transition-transform" />}
+              <span className="text-xs font-mono font-bold tracking-wider">
+                {mobileMenuOpen ? "CLOSE" : "EXPLORE"}
               </span>
-            </div>
-          </Link>
+            </button>
 
-          {/* Simplified Desktop Navigation Bar — only 4 key anchors */}
-          <nav
-            className={`hidden md:flex items-center gap-1 p-1.5 rounded-full border ${isDark ? "bg-white/5 border-white/10" : "bg-black/5 border-black/10"
+            {/* Quick Pill for Solar Ecosystem */}
+            <a
+              href="#solar-ecosystem"
+              className={`hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                isDark ? "bg-white/5 border-white/10 text-white/80 hover:text-white" : "bg-black/5 border-black/10 text-gray-700 hover:text-black"
               }`}
-          >
-            {primaryLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`group px-3.5 py-1.5 text-[13px] font-bold rounded-full transition-all duration-150 ${isDark
-                  ? "text-white/90 hover:bg-white/10 hover:text-white"
-                  : "text-gray-800 hover:bg-black/10 hover:text-black"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#f9ab00] animate-pulse" />
+              <span>3D Orbit</span>
+            </a>
+          </div>
+
+          {/* Center: Prestigious GDG Indore Centered Brand Identity */}
+          <div className="flex justify-center items-center">
+            <Link href="/" className="flex items-center gap-2.5 group text-center">
+              <div
+                className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform ${isDark
+                  ? "bg-[#0d0d0d] border-white/20"
+                  : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
                   }`}
               >
-                <span className="roll-text-container">
-                  <span className="roll-text-top">{link.name}</span>
-                  <span className="roll-text-bottom text-[#4285f4] font-extrabold">{link.name}</span>
+                <span className="text-[#4285f4] font-bold text-base sm:text-lg font-mono">{"<"}</span>
+                <span className="text-[#ea4335] font-bold text-xs">/</span>
+                <span className="text-[#34a853] font-bold text-base sm:text-lg font-mono">{">"}</span>
+              </div>
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-1.5">
+                  <span className={`font-black text-sm sm:text-base tracking-tight ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
+                    GDG Indore
+                  </span>
+                  <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 hidden sm:inline">
+                    2026
+                  </span>
+                </div>
+                <span className={`text-[11px] font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                  <span className="text-[#4285f4] font-bold">DevFest</span>
+                  <span className="w-1 h-1 rounded-full bg-[#34a853]" />
+                  <span className="text-[#34a853] font-bold">Nov 28</span>
                 </span>
-              </a>
-            ))}
-          </nav>
+              </div>
+            </Link>
+          </div>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right: Theme Toggle & Primary Action CTA */}
+          <div className="flex items-center gap-2.5 justify-end">
             {savedCount > 0 && (
               <button
                 onClick={onOpenSavedModal}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-full bg-[#4285f4]/20 text-white border border-[#4285f4]/50 hover:bg-[#4285f4]/30 transition-transform active:scale-95"
+                className="hidden lg:flex items-center gap-1 px-3 py-1.5 text-xs font-bold rounded-full bg-[#4285f4]/20 text-white border border-[#4285f4]/50 hover:bg-[#4285f4]/30"
                 title="View Bookmarked Sessions"
               >
                 <Bookmark className="w-3.5 h-3.5 fill-[#4285f4] text-[#4285f4]" />
-                <span>{savedCount} Saved</span>
+                <span>{savedCount}</span>
               </button>
             )}
 
-            {/* ☀️/🌙 Theme Toggle Button */}
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              title={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-full border transition-all duration-300 active:scale-95 ${isDark
+              className={`p-2 rounded-xl border transition-all ${isDark
                 ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                : "bg-black/10 border-black/20 text-[#1a1a1a] hover:bg-black/20"
+                : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
                 }`}
             >
-              {isDark ? (
-                <>
-                  <Sun className="w-3.5 h-3.5 text-[#f9ab00]" />
-                  <span className="hidden xl:inline">Light</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-3.5 h-3.5 text-[#4285f4]" />
-                  <span className="hidden xl:inline">Dark</span>
-                </>
-              )}
+              {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
             </button>
 
             {/* Glowing Interactive DevFest Button */}
-            <a className="glow-btn" onClick={handleOpenCheckout}>
-              <span className="glow-btn__surface group">
+            <a className="glow-btn cursor-pointer" onClick={handleOpenCheckout}>
+              <span className="glow-btn__surface group px-3.5 sm:px-4 py-2">
                 <Ticket className="w-3.5 h-3.5 text-[#4285f4] group-hover:rotate-12 transition-transform" />
-                <span className="roll-text-container">
-                  <span className="roll-text-top">Get Tickets</span>
-                  <span className="roll-text-bottom text-[#4285f4]">Get Tickets →</span>
-                </span>
+                <span className="text-xs sm:text-sm font-bold">Tickets</span>
               </span>
             </a>
-            {/* Hamburger Menu Toggle Button (Visible everywhere for effortless deep navigation) */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-xl border google-pill-shadow flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 ${isDark
-                ? "border-white/20 bg-[#0d0d0d] text-white hover:bg-white/10"
-                : "border-black/15 bg-white text-[#1a1a1a] shadow-sm hover:bg-black/5"
-                }`}
-              aria-label="Toggle Navigation Menu"
-              title="Open Navigation Menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              <span className="hidden sm:inline text-xs font-bold font-mono">MENU</span>
-            </button>
           </div>
         </div>
 
