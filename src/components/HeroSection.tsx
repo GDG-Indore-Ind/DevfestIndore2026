@@ -94,16 +94,16 @@ export default function HeroSection() {
               fill
               priority
               quality={100}
-              className="object-cover object-right md:object-center w-full h-full opacity-95 transition-all duration-700"
+              className="object-cover object-right md:object-center w-full h-full opacity-100 transition-all duration-700"
             />
           </div>
 
-          {/* Gentle smooth gradient on far left to guarantee white text contrast without dimming the stage */}
-          <div className="absolute inset-y-0 left-0 w-full lg:w-1/2 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none" />
+          {/* Gentle smooth gradient on far left to guarantee white text contrast without hiding the background image */}
+          <div className="absolute inset-y-0 left-0 w-full lg:w-1/2 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-10 pointer-events-none" />
           
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/70 via-black/20 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
 
           {/* Glowing electric cyan and violet ambient light cones */}
           <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0070f3]/20 rounded-full blur-[140px] z-10 pointer-events-none" />
