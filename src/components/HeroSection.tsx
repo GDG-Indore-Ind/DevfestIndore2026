@@ -94,16 +94,16 @@ export default function HeroSection() {
               fill
               priority
               quality={100}
-              className="object-cover object-[70%_top] sm:object-[65%_center] xl:object-right w-full h-full opacity-100 transition-all duration-700"
+              className="object-cover object-right sm:object-[100%_center] w-full h-full opacity-100 transition-all duration-700"
             />
           </div>
 
-          {/* Gentle smooth gradient on far left to guarantee white text contrast while keeping right stage bright and crystal clear */}
-          <div className="absolute inset-y-0 left-0 w-full lg:w-[48%] bg-gradient-to-r from-black/85 via-black/45 to-transparent z-10 pointer-events-none" />
+          {/* Gentle smooth gradient on left side for text contrast while keeping the right side completely transparent */}
+          <div className="absolute inset-y-0 left-0 w-full lg:w-[45%] bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
           
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/75 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/70 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/75 to-transparent z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: 4K Vivid Airy Space Earth Background matching user design reference */
@@ -408,49 +408,10 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column: */}
-          {/* IN DARK MODE: Vibrant DevFest Indore Screen Callout on the right side over the keynote stage image */}
+          {/* IN DARK MODE: Completely clear right side so the DevFest Indore keynote stage screen on the background image is 100% visible and unobstructed */}
           {/* IN LIGHT MODE: We show the exact Astronaut card with Browser Frame, sparkles, and Prapti badge! */}
           {isDark ? (
-            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative select-none">
-              <div className="relative group p-6 sm:p-7 rounded-3xl bg-black/60 border border-white/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,112,243,0.35)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4285f4]/60">
-                {/* Glowing cyan backlight */}
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#4285f4]/30 via-[#d946ef]/20 to-[#4285f4]/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity pointer-events-none" />
-
-                <div className="relative z-10 flex flex-col items-start gap-3">
-                  <div className="flex items-center gap-3">
-                    {/* Google 4-Color DevFest Diamond Icon */}
-                    <div className="w-12 h-12 relative shrink-0">
-                      <Image
-                        src="/gdglogo-removebg-preview.png"
-                        alt="DevFest Icon"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-black text-white tracking-tight flex items-center gap-2">
-                        <span>DevFest</span>
-                      </h3>
-                      <p className="text-2xl font-black text-[#57caff] -mt-1 tracking-tight">
-                        Indore
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="w-full h-px bg-gradient-to-r from-white/25 via-white/10 to-transparent my-1" />
-
-                  <div className="flex items-center justify-between w-full gap-4 text-xs font-mono font-bold text-white/80">
-                    <span className="flex items-center gap-1.5 text-[#34a853]">
-                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-ping" />
-                      LIVE KEYNOTE STAGE
-                    </span>
-                    <span className="text-[#ffd427] bg-[#ffd427]/10 px-2.5 py-0.5 rounded-md border border-[#ffd427]/30">
-                      NOV 28
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="lg:col-span-4 hidden lg:block" />
           ) : (
             /* LIGHT MODE: Exact Astronaut Card in Browser Window matching Reference Screenshot */
             <div className="lg:col-span-5 relative flex justify-center lg:justify-start items-center lg:pl-2 xl:pl-6 lg:-ml-6 xl:-ml-14">
