@@ -188,95 +188,103 @@ export default function SplitSessionsSection() {
           </p>
         </div>
 
-        {/* Split Container: Left Scrollable Sessions | Right Sticky Terminal Console */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column (7 cols): Scrollable Session Cards */}
-          <div className="lg:col-span-7 space-y-6">
-            {SESSIONS_DATA.map((session) => {
-              const isSelected = activeSessionId === session.id;
+        {/* Split Container: Left Stacking Session Cards | Right Sticky Static Terminal Console */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative">
+          {/* Left Column (7 cols): Stacking Cards on Scroll */}
+          <div className="lg:col-span-7 pb-20 relative">
+            <div className="space-y-8">
+              {SESSIONS_DATA.map((session, index) => {
+                const isSelected = activeSessionId === session.id;
+                // Sticky top calculation: each card sticks with a slight offset creating a stacked deck effect
+                const stickyTopRem = 7 + index * 1.25;
 
-              return (
-                <div
-                  key={session.id}
-                  data-session-id={session.id}
-                  ref={(el) => {
-                    cardRefs.current[session.id] = el;
-                  }}
-                  onClick={() => setActiveSessionId(session.id)}
-                  className={`p-6 sm:p-8 rounded-3xl border-2 transition-all duration-300 cursor-pointer ${
-                    isSelected
-                      ? isDark
-                        ? "bg-[#0d0d0d] border-[#4285f4] shadow-[0_0_35px_rgba(66,133,244,0.3)] scale-[1.01]"
-                        : "bg-white border-[#4285f4] shadow-[0_12px_32px_rgba(66,133,244,0.18)] scale-[1.01]"
-                      : isDark
-                        ? "bg-[#0d0d0d]/80 border-white/10 hover:border-white/20 hover:bg-[#121212]"
-                        : "bg-white/90 border-gray-200/90 hover:border-gray-300 hover:bg-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-8 h-8 rounded-xl font-mono font-black text-xs flex items-center justify-center transition-colors ${
+                return (
+                  <div
+                    key={session.id}
+                    data-session-id={session.id}
+                    ref={(el) => {
+                      cardRefs.current[session.id] = el;
+                    }}
+                    onClick={() => setActiveSessionId(session.id)}
+                    style={{
+                      top: `${stickyTopRem}rem`,
+                      zIndex: 10 + index,
+                    }}
+                    className={`sticky p-6 sm:p-8 rounded-3xl border-2 transition-all duration-300 cursor-pointer backdrop-blur-xl ${
+                      isSelected
+                        ? isDark
+                          ? "bg-[#0d0d0d]/95 border-[#4285f4] shadow-[0_16px_50px_rgba(66,133,244,0.35)] scale-[1.01]"
+                          : "bg-white/95 border-[#4285f4] shadow-[0_20px_45px_rgba(66,133,244,0.22)] scale-[1.01]"
+                        : isDark
+                          ? "bg-[#0d0d0d]/90 border-white/10 hover:border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+                          : "bg-white/90 border-gray-200/90 hover:border-gray-300 shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-8 h-8 rounded-xl font-mono font-black text-xs flex items-center justify-center transition-colors ${
+                          isSelected
+                            ? "bg-[#4285f4] text-white shadow-sm"
+                            : "bg-[#4285f4]/15 text-[#4285f4]"
+                        }`}>
+                          {session.step}
+                        </span>
+                        <span className="text-xs font-mono font-bold text-[#4285f4] uppercase tracking-wider">
+                          {session.category}
+                        </span>
+                      </div>
+
+                      <span className={`text-[10px] font-mono px-3 py-1 rounded-full border transition-colors ${
                         isSelected
-                          ? "bg-[#4285f4] text-white shadow-sm"
-                          : "bg-[#4285f4]/15 text-[#4285f4]"
+                          ? "bg-[#4285f4] text-white border-[#4285f4] shadow-sm font-black"
+                          : isDark
+                            ? "bg-white/5 border-white/10 text-white/70"
+                            : "bg-gray-100 border-gray-200 text-gray-700 font-bold"
                       }`}>
-                        {session.step}
-                      </span>
-                      <span className="text-xs font-mono font-bold text-[#4285f4] uppercase tracking-wider">
-                        {session.category}
+                        {isSelected ? "● SYNCED STREAM" : "CLICK / SCROLL"}
                       </span>
                     </div>
 
-                    <span className={`text-[10px] font-mono px-3 py-1 rounded-full border transition-colors ${
+                    <h3 className={`text-xl sm:text-2xl font-black mb-2 transition-colors ${
                       isSelected
-                        ? "bg-[#4285f4] text-white border-[#4285f4] shadow-sm font-black"
-                        : isDark
-                          ? "bg-white/5 border-white/10 text-white/70"
-                          : "bg-gray-100 border-gray-200 text-gray-700 font-bold"
+                        ? isDark ? "text-white" : "text-[#1a73e8]"
+                        : isDark ? "text-white" : "text-gray-900"
                     }`}>
-                      {isSelected ? "● SYNCED STREAM" : "CLICK / SCROLL"}
-                    </span>
+                      {session.title}
+                    </h3>
+
+                    <div className="text-xs font-bold text-[#ea4335] mb-3">
+                      {session.speaker} • <span className="text-gray-500 font-medium">{session.speakerRole}</span>
+                    </div>
+
+                    <p className={`text-xs sm:text-sm leading-relaxed mb-4 ${isDark ? "text-white/80" : "text-gray-700"}`}>
+                      {session.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 pt-3 border-t border-black/5 dark:border-white/10">
+                      {session.tags.map((t, idx) => (
+                        <span
+                          key={idx}
+                          className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
+                            isSelected
+                              ? "bg-[#4285f4]/10 border-[#4285f4]/30 text-[#4285f4]"
+                              : isDark
+                                ? "bg-white/5 border-white/10 text-white/80"
+                                : "bg-gray-100 border-gray-200 text-gray-700"
+                          }`}
+                        >
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-
-                  <h3 className={`text-xl sm:text-2xl font-black mb-2 transition-colors ${
-                    isSelected
-                      ? isDark ? "text-white" : "text-[#1a73e8]"
-                      : isDark ? "text-white" : "text-gray-900"
-                  }`}>
-                    {session.title}
-                  </h3>
-
-                  <div className="text-xs font-bold text-[#ea4335] mb-3">
-                    {session.speaker} • <span className="text-gray-500 font-medium">{session.speakerRole}</span>
-                  </div>
-
-                  <p className={`text-xs sm:text-sm leading-relaxed mb-4 ${isDark ? "text-white/80" : "text-gray-700"}`}>
-                    {session.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-3 border-t border-black/5 dark:border-white/10">
-                    {session.tags.map((t, idx) => (
-                      <span
-                        key={idx}
-                        className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
-                          isSelected
-                            ? "bg-[#4285f4]/10 border-[#4285f4]/30 text-[#4285f4]"
-                            : isDark
-                              ? "bg-white/5 border-white/10 text-white/80"
-                              : "bg-gray-100 border-gray-200 text-gray-700"
-                        }`}
-                      >
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
-          {/* Right Column (5 cols): Sticky GDG Terminal Console */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
+          {/* Right Column (5 cols): Static Sticky GDG Terminal Console */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 z-30">
             <div className="rounded-3xl border-2 border-black/20 dark:border-white/20 bg-[#0c1017] text-white shadow-2xl overflow-hidden font-mono">
               {/* Terminal Window Header Bar */}
               <div className="px-4 py-3 bg-[#161b22] border-b border-white/10 flex items-center justify-between text-xs">
