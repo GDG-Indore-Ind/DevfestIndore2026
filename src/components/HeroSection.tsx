@@ -422,10 +422,10 @@ export default function HeroSection() {
             </div>
           ) : (
             /* LIGHT MODE: Exact Astronaut Card in Browser Window matching Reference Screenshot */
-            <div className="lg:col-span-5 relative flex justify-center items-center">
-              <CardTilt className="w-full max-w-md rounded-3xl p-5 group relative transition-all duration-300 border bg-white/95 border-gray-200/90 shadow-[0_20px_60px_rgba(66,133,244,0.18)]">
+            <div className="lg:col-span-5 relative flex justify-center lg:justify-start items-center lg:pl-2 xl:pl-6 lg:-ml-6 xl:-ml-14">
+              <CardTilt className="w-full max-w-[370px] sm:max-w-[390px] rounded-3xl p-4 sm:p-5 group relative transition-all duration-300 border bg-white/95 border-gray-200/90 shadow-[0_20px_50px_rgba(66,133,244,0.16)] hover:shadow-[0_25px_60px_rgba(66,133,244,0.22)]">
                 {/* Browser / OS Window Bar */}
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
+                <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-gray-100">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#ea4335]" />
                     <span className="w-2.5 h-2.5 rounded-full bg-[#f9ab00]" />
