@@ -118,7 +118,7 @@ export default function Footer() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10 group shadow-md">
                 <Image
-                  src="https://res.cloudinary.com/agcnziwc/image/upload/v1760303102/devfest_indore_photos/img_01_8754.jpg"
+                  src="/images/essentia-hotel-actual.jpg"
                   alt="Essentia Luxury Hotel Indore Venue"
                   fill
                   sizes="(max-width: 1024px) 100vw, 450px"

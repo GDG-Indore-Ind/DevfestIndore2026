@@ -11,56 +11,108 @@ import {
   QrCode,
   ArrowRight,
   Send,
-  Star,
-  Users,
+  Upload,
+  User,
+  Mail,
+  Building,
+  FileText,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import CardTilt from "./CardTilt";
 import { useTheme } from "@/contexts/ThemeContext";
+import { uploadToCloudinary } from "@/lib/cloudinary";
+
+export interface SpeakerProposal {
+  id: string;
+  name: string;
+  email: string;
+  organization: string;
+  topic: string;
+  track: string;
+  format: "Keynote (30m)" | "Deep-Dive Talk (45m)" | "Hands-on Workshop (90m)";
+  abstract: string;
+  bio: string;
+  avatarUrl?: string;
+  submittedAt: string;
+}
 
 export default function CallForSpeakersSection() {
   const { isDark } = useTheme();
-  const [copiedLink, setCopiedLink] = useState(false);
 
-  const triggerCfpConfetti = () => {
+  // Form State
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [topic, setTopic] = useState("");
+  const [track, setTrack] = useState("AI & Agentic AI");
+  const [format, setFormat] = useState<"Keynote (30m)" | "Deep-Dive Talk (45m)" | "Hands-on Workshop (90m)">("Deep-Dive Talk (45m)");
+  const [abstract, setAbstract] = useState("");
+  const [bio, setBio] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      setUploadingAvatar(true);
+      const url = await uploadToCloudinary(file);
+      setAvatarUrl(url);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleSubmitProposal = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !email || !topic || !abstract) return;
+
+    setSubmitting(true);
+    const proposal: SpeakerProposal = {
+      id: "cfp-" + Date.now(),
+      name,
+      email,
+      organization,
+      topic,
+      track,
+      format,
+      abstract,
+      bio,
+      avatarUrl,
+      submittedAt: new Date().toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
+    };
+
+    // Save to LocalStorage for Admin Panel access
+    if (typeof window !== "undefined") {
+      const existing = localStorage.getItem("devfest-speaker-proposals");
+      const list = existing ? JSON.parse(existing) : [];
+      localStorage.setItem("devfest-speaker-proposals", JSON.stringify([proposal, ...list]));
+    }
+
     confetti({
-      particleCount: 110,
-      spread: 80,
+      particleCount: 90,
+      spread: 70,
       origin: { y: 0.6 },
       colors: ["#4285f4", "#ea4335", "#f9ab00", "#34a853"],
     });
+
+    setSubmitting(false);
+    setSubmitted(true);
   };
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText("https://sessionize.com/devfest-indore-2026/");
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2500);
-  };
-
-  const tracks = [
-    { name: "GenAI & LLMs", color: "#4285f4", desc: "Agentic AI, Gemini 1.5, RAG & PyTorch" },
-    { name: "Cloud & DevOps", color: "#34a853", desc: "Google Cloud Platform, K8s & Infra" },
-    { name: "Mobile & Android", color: "#34a853", desc: "Jetpack Compose, Flutter & Kotlin" },
-    { name: "Web & Frameworks", color: "#ea4335", desc: "Next.js 16, Turbopack & Performance" },
-    { name: "Open Source", color: "#f9ab00", desc: "Community tools & Developer Experience" },
-  ];
-
-  const speakerPerks = [
-    "Full All-Access VIP Pass to DevFest Indore 2026",
-    "Exclusive Speaker & Google Experts Dinner",
-    "Limited-Edition Astronaut Space Merchandise & Swag Kit",
-    "Accommodation Support at Essentia Luxury Hotel Indore",
-    "Dedicated 1:1 Mentorship for First-Time Speakers",
-  ];
 
   return (
     <section
       id="call-for-speakers"
       className="py-20 md:py-28 relative overflow-hidden transition-colors duration-300 bg-transparent"
     >
-      {/* Anchor for legacy #speakers navigation */}
-      <span id="speakers" className="absolute -top-24 left-0" aria-hidden="true" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-on-scroll">
@@ -81,261 +133,287 @@ export default function CallForSpeakersSection() {
           <p className={`mt-3 text-base sm:text-lg font-normal max-w-2xl mx-auto leading-relaxed ${
             isDark ? "text-white/85" : "text-gray-700"
           }`}>
-            Share your ideas, inspire the next wave of 1,500+ builders, and take the stage in Central India's biggest tech festival.
+            Submit your session proposal directly below. Our organizing team reviews every submission with direct notifications.
           </p>
         </div>
 
-        {/* Master Showcase: The Poster Card Representation */}
+        {/* 2-Column Showcase: Left Official Poster & Details | Right Interactive Proposal Form */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch reveal-on-scroll">
-          {/* Left/Main Column: The DevFest Indore Space Poster Canvas */}
-          <div className="lg:col-span-7 flex flex-col">
+          {/* Left Column: Official DevFest Poster Card */}
+          <div className="lg:col-span-5 flex flex-col">
             <CardTilt
-              className={`rounded-3xl p-6 sm:p-10 border transition-all relative overflow-hidden flex flex-col justify-between h-full shadow-xl ${
+              className={`rounded-3xl p-6 sm:p-8 border transition-all relative overflow-hidden flex flex-col justify-between h-full shadow-xl ${
                 isDark
                   ? "bg-[#0a0a0a]/90 border-white/15 shadow-[0_0_50px_rgba(66,133,244,0.15)]"
                   : "!bg-white !border-gray-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
               }`}
             >
-              {/* Poster Top Bar */}
-              <div className="flex items-center justify-between pb-6 mb-6 border-b border-gray-200 dark:border-white/10">
-                {/* Google Developer Group Indore Brand */}
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1">
+              <div>
+                <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-200 dark:border-white/10">
+                  <div className="flex items-center gap-2">
                     <span className="w-2.5 h-6 rounded-full bg-[#4285f4] -rotate-12" />
                     <span className="w-2.5 h-6 rounded-full bg-[#ea4335] rotate-12" />
                     <span className="w-2.5 h-6 rounded-full bg-[#34a853] -rotate-12" />
-                  </div>
-                  <div>
-                    <span className={`block text-xs sm:text-sm font-black tracking-tight leading-none ${
-                      isDark ? "text-white" : "text-gray-900"
-                    }`}>
-                      Google Developer Group
+                    <span className={`text-xs font-black tracking-tight ${isDark ? "text-white" : "text-gray-900"}`}>
+                      GDG Indore • 2026
                     </span>
-                    <span className="text-[11px] font-bold text-gray-500">Indore</span>
                   </div>
-                </div>
-
-                {/* { DevFest } Indore 2026 Pill */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/15 bg-gray-50 dark:bg-white/5">
-                  <span className="font-mono font-black text-xs text-[#4285f4]">{"{"}</span>
-                  <span className={`font-black text-xs ${isDark ? "text-white" : "text-gray-900"}`}>DevFest</span>
-                  <span className="font-mono font-black text-xs text-[#34a853]">{"}"}</span>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-black text-white dark:bg-white dark:text-black">
-                    इंदौर 2026
+                  <span className="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-[#4285f4]">
+                    28 Nov 2026
                   </span>
                 </div>
+
+                <div className="relative aspect-square max-w-[260px] mx-auto rounded-2xl overflow-hidden bg-white dark:bg-black/40 p-2 border border-gray-100 dark:border-white/10 mb-6 shadow-inner">
+                  <Image
+                    src={isDark ? "/images/astronaut-mascot-dark.jpg" : "/images/astronaut-mascot-light.jpg"}
+                    alt="DevFest Indore Mascot - Call for Speakers"
+                    fill
+                    sizes="260px"
+                    className="object-contain p-1"
+                    priority
+                    unoptimized
+                  />
+                </div>
+
+                <h3 className={`text-xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  Why Speak at DevFest Indore?
+                </h3>
+                <ul className="space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#34a853] shrink-0" />
+                    <span>600+ Professional attendees & engineering leaders</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#34a853] shrink-0" />
+                    <span>Exclusive VIP Speakers Dinner at Essentia Luxury Hotel</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#34a853] shrink-0" />
+                    <span>Direct networking with GDEs, Qualcomm & Space Club delegates</span>
+                  </li>
+                </ul>
               </div>
 
-              {/* Poster Core Content: Bold Poster Headline & Space Astronaut Mascot */}
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center my-4">
-                {/* Headline Text */}
-                <div className="sm:col-span-7 flex flex-col justify-center">
-                  <div className="relative">
-                    <span className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] block text-gray-900 dark:text-white">
-                      Call for
-                    </span>
-                    <span className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[0.95] block text-gray-900 dark:text-white mt-1">
-                      Speakers
-                    </span>
-                  </div>
-
-                  <p className="mt-4 text-sm sm:text-base font-medium text-gray-700 dark:text-white/85 max-w-sm">
-                    Share your ideas, inspire the next wave
-                  </p>
-
-                  {/* Poster 4-Color Dots Accent */}
-                  <div className="flex items-center gap-2 mt-6">
-                    <span className="w-3 h-3 rounded-full bg-[#4285f4] animate-pulse" />
-                    <span className="w-3 h-3 rounded-full bg-[#ea4335] animate-pulse" style={{ animationDelay: "200ms" }} />
-                    <span className="w-3 h-3 rounded-full bg-[#f9ab00] animate-pulse" style={{ animationDelay: "400ms" }} />
-                    <span className="w-3 h-3 rounded-full bg-[#34a853] animate-pulse" style={{ animationDelay: "600ms" }} />
-                    <span className="text-xs font-mono font-medium text-gray-500 dark:text-white/60 ml-2">
-                      Indore Tech Universe
-                    </span>
-                  </div>
-                </div>
-
-                {/* Astronaut Mascot Illustration with 4-Point Star Sparkle */}
-                <div className="sm:col-span-5 relative flex flex-col items-center justify-center">
-                  {/* Floating 4-Point Sparkle Star from Poster */}
-                  <div className="absolute -top-3 right-6 z-20 animate-bounce">
-                    <svg
-                      viewBox="0 0 24 24"
-                      className={`w-7 h-7 fill-current ${isDark ? "text-[#f9ab00]" : "text-gray-900"}`}
-                      aria-hidden="true"
-                    >
-                      <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" />
-                    </svg>
-                  </div>
-
-                  {/* Astronaut Mascot Artwork */}
-                  <div className={`relative w-44 h-44 sm:w-52 sm:h-52 rounded-2xl overflow-hidden transition-all duration-300 ${
-                    isDark ? "bg-black/50" : "bg-white"
-                  }`}>
-                    <Image
-                      src={isDark ? "/images/astronaut-mascot-dark.jpg" : "/images/astronaut-mascot-light.jpg"}
-                      alt="DevFest Indore Space Astronaut Illustration - Call for Speakers"
-                      fill
-                      sizes="(max-width: 640px) 176px, 208px"
-                      className="object-contain p-1 hover:scale-105 transition-transform duration-500"
-                      priority
-                      unoptimized
-                    />
-                  </div>
-
-                  <span className={`text-[11px] font-mono font-semibold tracking-wider uppercase mt-2 ${
-                    isDark ? "text-white/60" : "text-gray-500"
-                  }`}>
-                    Official Poster Mascot
-                  </span>
-                </div>
-              </div>
-
-              {/* Poster Bottom Bar: Date & Submit Proposal Button */}
-              <div className="pt-6 mt-6 border-t border-gray-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
-                {/* 28th November 2026 Badge with Clock Icon */}
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-900 dark:text-white">
-                    <Calendar className="w-5 h-5 text-[#4285f4]" />
-                  </div>
-                  <div>
-                    <span className="block text-xs font-mono font-bold uppercase text-gray-500 dark:text-white/70">
-                      Conference Date
-                    </span>
-                    <span className={`text-sm font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                      28th November 2026
-                    </span>
-                  </div>
-                </div>
-
-                {/* Poster Pill Button: "Submit your proposal" with Gradient Border */}
+              <div className="pt-6 mt-6 border-t border-gray-200 dark:border-white/10 flex items-center justify-between text-xs">
+                <span className="text-gray-500 font-medium">Prefer Sessionize?</span>
                 <a
                   href="https://sessionize.com/devfest-indore-2026/"
                   target="_blank"
                   rel="noreferrer"
-                  onClick={triggerCfpConfetti}
-                  className="space-proposal-btn group shrink-0"
+                  className="font-bold text-[#4285f4] hover:underline flex items-center gap-1"
                 >
-                  <span className="space-proposal-btn__inner !py-3 !px-7">
-                    <span className="text-[#f9ab00] cosmic-sparkle text-sm">✦</span>
-                    <span className="roll-text-container">
-                      <span className="roll-text-top">Submit your proposal</span>
-                      <span className="roll-text-bottom text-[#4285f4]">Apply on Sessionize →</span>
-                    </span>
-                  </span>
+                  <span>Apply on Sessionize Portal</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
             </CardTilt>
           </div>
 
-          {/* Right Column: Interactive Details, Tracks & QR Quick-Apply */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Quick QR & Mobile Apply Card */}
+          {/* Right Column: Direct Embedded Proposal Submission Form */}
+          <div className="lg:col-span-7 flex flex-col">
             <div
-              className={`rounded-3xl p-6 border transition-all ${
-                isDark
-                  ? "bg-[#0d0d0d]/90 border-white/15 shadow-md"
-                  : "!bg-white !border-gray-200/90 shadow-md"
+              className={`rounded-3xl p-6 sm:p-8 border shadow-xl flex flex-col justify-between h-full ${
+                isDark ? "bg-[#0d0d0d] border-white/15" : "bg-white border-gray-200"
               }`}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#4285f4]/15 text-[#4285f4] text-xs font-bold mb-1">
-                    <Mic className="w-3.5 h-3.5" />
-                    <span>Sessionize CFP Platform</span>
+              <div>
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100 dark:border-white/10">
+                  <div className="flex items-center gap-2">
+                    <Mic className="w-4 h-4 text-[#ea4335]" />
+                    <h3 className={`text-lg font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      Direct Speaker Application Form
+                    </h3>
                   </div>
-                  <h3 className={`text-lg font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    Scan & Apply in 2 Minutes
-                  </h3>
+                  <span className="text-[11px] font-mono font-bold text-[#34a853] bg-[#34a853]/15 px-2.5 py-0.5 rounded-full">
+                    Instant Review
+                  </span>
                 </div>
 
-                <button
-                  onClick={handleCopyLink}
-                  className="text-xs font-bold px-3 py-1.5 rounded-xl border border-gray-200 dark:border-white/15 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-gray-600 dark:text-gray-300"
-                  title="Copy CFP Link"
-                >
-                  {copiedLink ? "✓ Link Copied" : "Copy Link"}
-                </button>
-              </div>
+                {!submitted ? (
+                  <form onSubmit={handleSubmitProposal} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Full Name *
+                        </label>
+                        <div className="relative">
+                          <User className="w-3.5 h-3.5 absolute left-3 top-3 text-gray-400" />
+                          <input
+                            type="text"
+                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="e.g. Dr. Priyal Sharma"
+                            className="w-full pl-9 pr-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                          />
+                        </div>
+                      </div>
 
-              {/* QR Code Graphic Box with Poster Styling */}
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                <div className="relative w-24 h-24 rounded-xl bg-white p-2 border border-gray-300 dark:border-white/20 shrink-0 shadow-sm flex flex-col items-center justify-center text-center">
-                  <QrCode className="w-16 h-16 text-gray-900" />
-                  <span className="text-[9px] font-mono font-bold text-gray-600">Scan to Apply</span>
-                </div>
-                <div className="flex-1">
-                  <p className={`text-xs sm:text-[13px] font-medium leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
-                    Open your smartphone camera to access our official <strong>Sessionize Proposal Portal</strong> directly.
-                  </p>
-                  <a
-                    href="https://sessionize.com/devfest-indore-2026/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#4285f4] hover:underline mt-2"
-                  >
-                    <span>Open sessionize.com link</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Talk Tracks & Themes */}
-            <div
-              className={`rounded-3xl p-6 border transition-all flex-1 ${
-                isDark
-                  ? "bg-[#0d0d0d]/90 border-white/15 shadow-md"
-                  : "!bg-white !border-gray-200/90 shadow-md"
-              }`}
-            >
-              <h3 className={`text-base font-black mb-3 flex items-center justify-between ${
-                isDark ? "text-white" : "text-gray-900"
-              }`}>
-                <span>Focus Tracks & Themes</span>
-                <span className="text-xs font-normal text-gray-500">5 Tracks</span>
-              </h3>
-
-              <div className="space-y-2.5">
-                {tracks.map((t, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/8 hover:scale-[1.01] transition-transform"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{ backgroundColor: t.color }}
-                      />
-                      <span className={`text-xs font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
-                        {t.name}
-                      </span>
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Email Address *
+                        </label>
+                        <div className="relative">
+                          <Mail className="w-3.5 h-3.5 absolute left-3 top-3 text-gray-400" />
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="name@company.com"
+                            className="w-full pl-9 pr-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-xs font-normal text-gray-600 dark:text-white/75 text-right truncate max-w-[200px]">
-                      {t.desc}
-                    </span>
-                  </div>
-                ))}
-              </div>
 
-              {/* Speaker Perks Callout */}
-              <div className="mt-5 pt-4 border-t border-gray-200 dark:border-white/10">
-                <span className="text-xs font-mono font-bold uppercase text-gray-500 dark:text-white/70 block mb-2">
-                  Speaker Benefits & VIP Perks
-                </span>
-                <ul className="space-y-1.5">
-                  {speakerPerks.slice(0, 3).map((perk, idx) => (
-                    <li
-                      key={idx}
-                      className={`text-xs sm:text-[13px] font-medium flex items-center gap-2 ${
-                        isDark ? "text-white/85" : "text-gray-700"
-                      }`}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Organization / Designation
+                        </label>
+                        <div className="relative">
+                          <Building className="w-3.5 h-3.5 absolute left-3 top-3 text-gray-400" />
+                          <input
+                            type="text"
+                            value={organization}
+                            onChange={(e) => setOrganization(e.target.value)}
+                            placeholder="e.g. Lead AI Architect @ TechCorp"
+                            className="w-full pl-9 pr-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Target Track *
+                        </label>
+                        <select
+                          value={track}
+                          onChange={(e) => setTrack(e.target.value)}
+                          className="w-full px-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                        >
+                          <option value="Space Technology">Space Technology</option>
+                          <option value="AI & Agentic AI">AI & Agentic AI</option>
+                          <option value="Physical AI & Robotics">Physical AI & Robotics</option>
+                          <option value="Data & Cloud">Data & Cloud Architecture</option>
+                          <option value="Enterprise Innovation">Enterprise Innovation</option>
+                          <option value="Modern Web">High-Scale Modern Web</option>
+                          <option value="Mobile & Flutter">Android & Flutter Ecosystem</option>
+                          <option value="Open Source">Open Source & Community</option>
+                          <option value="Workshop Hands-on">Hands-on Workshop Lab</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Proposed Session Title *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={topic}
+                          onChange={(e) => setTopic(e.target.value)}
+                          placeholder="e.g. Building Resilient Autonomous Agent Swarms with Gemini"
+                          className="w-full px-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Format *
+                        </label>
+                        <select
+                          value={format}
+                          onChange={(e) => setFormat(e.target.value as any)}
+                          className="w-full px-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                        >
+                          <option value="Deep-Dive Talk (45m)">Talk (45m)</option>
+                          <option value="Keynote (30m)">Keynote (30m)</option>
+                          <option value="Hands-on Workshop (90m)">Workshop (90m)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                        Session Abstract & Takeaways *
+                      </label>
+                      <textarea
+                        required
+                        rows={3}
+                        value={abstract}
+                        onChange={(e) => setAbstract(e.target.value)}
+                        placeholder="What will attendees learn? Provide 2-3 lines about code demos, architecture, or prerequisites..."
+                        className="w-full px-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Speaker Bio (2 lines)
+                        </label>
+                        <input
+                          type="text"
+                          value={bio}
+                          onChange={(e) => setBio(e.target.value)}
+                          placeholder="Brief introduction or LinkedIn URL"
+                          className="w-full px-3.5 py-2 rounded-xl text-xs border border-gray-300 dark:border-white/15 bg-gray-50 dark:bg-white/5 focus:outline-none focus:border-[#4285f4]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                          Upload Headshot Photo
+                        </label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleAvatarUpload}
+                          className="w-full text-xs file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-100 file:text-[#4285f4]"
+                        />
+                        {uploadingAvatar && (
+                          <span className="text-[10px] text-[#4285f4] font-bold block mt-1">
+                            Uploading photo to Cloudinary...
+                          </span>
+                        )}
+                        {avatarUrl && (
+                          <span className="text-[10px] text-[#34a853] font-bold block mt-1">
+                            ✓ Photo uploaded successfully
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full py-3 rounded-2xl bg-[#4285f4] text-white font-extrabold text-xs uppercase tracking-wider hover:bg-[#3367d6] transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#34a853] shrink-0" />
-                      <span>{perk}</span>
-                    </li>
-                  ))}
-                </ul>
+                      <Send className="w-4 h-4" />
+                      <span>{submitting ? "Transmitting Proposal..." : "Submit Speaker Proposal"}</span>
+                    </button>
+                  </form>
+                ) : (
+                  <div className="p-8 text-center rounded-2xl bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 space-y-3">
+                    <CheckCircle2 className="w-10 h-10 text-[#34a853] mx-auto animate-bounce" />
+                    <h4 className="text-base font-black text-green-900 dark:text-green-200">
+                      Proposal Received Successfully!
+                    </h4>
+                    <p className="text-xs text-green-800 dark:text-green-300 max-w-md mx-auto leading-relaxed">
+                      Thank you, <strong>{name}</strong>. Your proposal for <em>&ldquo;{topic}&rdquo;</em> has been transmitted to the DevFest Indore 2026 organizing team. We will review it in our admin portal and contact you via {email}.
+                    </p>
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="text-xs font-bold px-4 py-2 rounded-xl bg-white dark:bg-black/50 border border-green-300 dark:border-green-700 text-green-900 dark:text-green-200 hover:scale-105 transition-transform"
+                    >
+                      Submit Another Topic
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

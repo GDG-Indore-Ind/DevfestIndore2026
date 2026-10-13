@@ -200,26 +200,26 @@ export default function VenueSection() {
                   </span>
                 </div>
 
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white p-2 border border-gray-200/80 shadow-inner group mb-5">
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-md group mb-5">
                   <Image
-                    src="/images/venue-spaceport-illustration.jpg"
-                    alt="DevFest Indore Essentia Luxury Hotel Spaceport Launchpad Illustration"
+                    src="/images/essentia-hotel-actual.jpg"
+                    alt="Essentia Luxury Hotel Indore - Official Venue"
                     fill
                     sizes="(max-width: 768px) 100vw, 420px"
-                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                   />
                   <div className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-black/80 text-white text-[10px] font-mono font-bold border border-white/20 backdrop-blur-md">
-                    🚀 SPACEPORT OBSERVATORY & ARENA
+                    OFFICIAL CONVENTION VENUE
                   </div>
                 </div>
 
                 <h4 className={`text-lg font-black mb-1.5 ${isDark ? "text-white" : "text-gray-900"}`}>
-                  Essentia Spaceport Arena & Amphitheatre
+                  Essentia Luxury Convention Arena
                 </h4>
                 <p className={`text-sm font-normal leading-relaxed mb-5 ${isDark ? "text-white/85" : "text-gray-700"
                   }`}>
-                  Engineered for seamless interplanetary developer collaboration with dedicated keynote auditoriums, interactive workshops, and high-speed telemetry connectivity.
+                  Central India's premier hospitality and conference destination. Equipped with acoustic auditoriums, executive breakout suites, state-of-the-art audiovisual infrastructure, and sprawling banqueting lawns.
                 </p>
               </div>
 
@@ -229,10 +229,10 @@ export default function VenueSection() {
                   <Users className="w-4 h-4 text-[#4285f4] shrink-0" />
                   <div>
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                      800+ Devs
+                      600+ Leaders
                     </span>
                     <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
-                      Full Arena Capacity
+                      Auditorium Capacity
                     </span>
                   </div>
                 </div>
@@ -242,10 +242,10 @@ export default function VenueSection() {
                   <Wifi className="w-4 h-4 text-[#34a853] shrink-0" />
                   <div>
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                      Gigabit WiFi
+                      High-Density Wi-Fi
                     </span>
                     <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
-                      Quantum Link Speed
+                      Dedicated Enterprise Pipe
                     </span>
                   </div>
                 </div>
@@ -255,10 +255,10 @@ export default function VenueSection() {
                   <Mic className="w-4 h-4 text-[#ea4335] shrink-0" />
                   <div>
                     <span className={`block text-xs font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                      3 Tech Tracks
+                      Parallel Halls
                     </span>
                     <span className={`block text-[11px] sm:text-xs font-medium ${isDark ? "text-white/75" : "text-gray-600"}`}>
-                      Parallel Keynotes
+                      Main Keynotes & Codelabs
                     </span>
                   </div>
                 </div>

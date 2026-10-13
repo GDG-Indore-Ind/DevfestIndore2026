@@ -65,7 +65,7 @@ export default function AdminPage() {
 
   // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "support" | "config"
+    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "proposals" | "support" | "config"
   >("analytics");
 
   // Gallery State & Upload
@@ -120,6 +120,9 @@ export default function AdminPage() {
   // Notifications
   const [statusMsg, setStatusMsg] = useState<{ text: string; type: "success" | "info" } | null>(null);
 
+  // Proposals State (Direct Speaker Form Submissions)
+  const [proposals, setProposals] = useState<any[]>([]);
+
   // Check Session & Sync Data from Database
   useEffect(() => {
     const isAuth = sessionStorage.getItem("devfest-admin-authenticated");
@@ -127,10 +130,18 @@ export default function AdminPage() {
       setIsAuthenticated(true);
     }
 
-    // Load from Firestore DB Service
+    // Load from Firestore DB Service & Local Proposals Store
     getGalleryPhotos().then((g) => { if (g && g.length > 0) setGallery(g); });
     getTeamMembers().then((t) => { if (t && t.length > 0) setTeamMembers(t); });
     getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
+    getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
+
+    if (typeof window !== "undefined") {
+      const savedProposals = localStorage.getItem("devfest-speaker-proposals");
+      if (savedProposals) {
+        setProposals(JSON.parse(savedProposals));
+      }
+    }
   }, []);
 
   // Handle Login Authentication
@@ -423,6 +434,18 @@ export default function AdminPage() {
             >
               <Compass className="w-4 h-4" />
               <span>Agenda & Sessions</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("proposals")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "proposals"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Radio className="w-4 h-4" />
+              <span>Speaker Proposals ({proposals.length})</span>
             </button>
 
             <button
@@ -1241,6 +1264,106 @@ export default function AdminPage() {
                   </button>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: SPEAKER PROPOSALS */}
+        {activeTab === "proposals" && (
+          <div className="space-y-6">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-base font-bold flex items-center gap-2">
+                  <Radio className="w-5 h-5 text-[#ea4335]" />
+                  <span>Call for Speakers — Submitted Proposals</span>
+                </h2>
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-[#4285f4]">
+                  {proposals.length} Total Submissions
+                </span>
+              </div>
+              <p className="text-xs text-[#5f6368] mb-6">
+                Direct submissions received via the Call for Speakers portal form. Review talk abstracts, formats, and speaker headshots.
+              </p>
+
+              {proposals.length === 0 ? (
+                <div className="p-8 text-center rounded-2xl bg-gray-50 border border-gray-200 text-xs text-gray-500">
+                  No direct speaker proposals submitted yet. Submissions from the CFP form will appear here instantly.
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {proposals.map((prop: any) => (
+                    <div
+                      key={prop.id}
+                      className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4"
+                    >
+                      <div className="flex items-start gap-4">
+                        {prop.avatarUrl ? (
+                          <img
+                            src={prop.avatarUrl}
+                            alt={prop.name}
+                            className="w-14 h-14 rounded-2xl object-cover border border-gray-200 shrink-0 shadow-sm"
+                          />
+                        ) : (
+                          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#4285f4] font-black shrink-0">
+                            {prop.name.charAt(0)}
+                          </div>
+                        )}
+
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2 mb-1">
+                            <span className="font-extrabold text-sm text-[#1e1e1e]">{prop.name}</span>
+                            <span className="text-xs text-gray-500">({prop.email})</span>
+                            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-[#4285f4]">
+                              {prop.track}
+                            </span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                              {prop.format}
+                            </span>
+                          </div>
+
+                          <div className="text-xs font-bold text-gray-700 mb-1">
+                            Topic: <span className="text-[#1e1e1e]">{prop.topic}</span>
+                          </div>
+
+                          {prop.organization && (
+                            <div className="text-[11px] text-gray-500 mb-2">
+                              Organization: {prop.organization}
+                            </div>
+                          )}
+
+                          <p className="text-xs text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-100 leading-relaxed mb-2 max-w-2xl">
+                            {prop.abstract}
+                          </p>
+
+                          {prop.bio && (
+                            <div className="text-[11px] text-gray-500 italic">
+                              Bio: {prop.bio}
+                            </div>
+                          )}
+
+                          <span className="text-[10px] text-gray-400 block mt-2">
+                            Submitted on {prop.submittedAt}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => {
+                            const updated = proposals.filter((p: any) => p.id !== prop.id);
+                            setProposals(updated);
+                            localStorage.setItem("devfest-speaker-proposals", JSON.stringify(updated));
+                          }}
+                          className="p-2 rounded-xl text-red-600 hover:bg-red-50 transition-colors"
+                          title="Delete Proposal"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
