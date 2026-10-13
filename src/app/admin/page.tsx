@@ -29,6 +29,7 @@ import {
   TrendingUp,
   HelpCircle,
   Edit3,
+  Share2,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import {
@@ -61,6 +62,10 @@ import {
   getFaqItems,
   saveFaqItem,
   removeFaqItem,
+  SocialLinks,
+  INITIAL_SOCIAL_LINKS,
+  getSocialLinks,
+  saveSocialLinks,
 } from "@/lib/firestoreService";
 
 export default function AdminPage() {
@@ -72,7 +77,7 @@ export default function AdminPage() {
 
   // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "faqs" | "proposals" | "support" | "config"
+    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
   >("analytics");
 
   // Gallery State & Upload
@@ -136,6 +141,10 @@ export default function AdminPage() {
   // Proposals State (Direct Speaker Form Submissions)
   const [proposals, setProposals] = useState<any[]>([]);
 
+  // Social Links State
+  const [socialLinks, setSocialLinks] = useState<SocialLinks>(INITIAL_SOCIAL_LINKS);
+  const [savingSocials, setSavingSocials] = useState(false);
+
   // Check Session & Sync Data from Database
   useEffect(() => {
     const isAuth = sessionStorage.getItem("devfest-admin-authenticated");
@@ -149,6 +158,7 @@ export default function AdminPage() {
     getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
     getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
     getFaqItems().then((f) => { if (f && f.length > 0) setFaqs(f); });
+    getSocialLinks().then((s) => { if (s) setSocialLinks(s); });
 
     if (typeof window !== "undefined") {
       const savedProposals = localStorage.getItem("devfest-speaker-proposals");
@@ -460,6 +470,18 @@ export default function AdminPage() {
             >
               <HelpCircle className="w-4 h-4" />
               <span>FAQs Management ({faqs.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("socials")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "socials"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Social Media Links</span>
             </button>
 
             <button
@@ -1540,6 +1562,149 @@ export default function AdminPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: SOCIAL MEDIA LINKS MANAGEMENT */}
+        {activeTab === "socials" && (
+          <div className="space-y-6">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-base font-bold flex items-center gap-2">
+                  <Share2 className="w-5 h-5 text-[#4285f4]" />
+                  <span>Official Social Media & Sessionize URLs</span>
+                </h2>
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-[#4285f4]">
+                  Live Website Sync
+                </span>
+              </div>
+              <p className="text-xs text-[#5f6368] mb-6">
+                Update community handles, broadcast channels, and submission endpoints. Changes instantly reflect in the global footer, header, and CFP portal.
+              </p>
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setSavingSocials(true);
+                  try {
+                    await saveSocialLinks(socialLinks);
+                    setStatusMsg({ text: "Social media links updated successfully!", type: "success" });
+                    setTimeout(() => setStatusMsg(null), 3500);
+                  } catch (err) {
+                    setStatusMsg({ text: "Error saving links. Saved to local storage.", type: "info" });
+                  } finally {
+                    setSavingSocials(false);
+                  }
+                }}
+                className="space-y-4 max-w-2xl"
+              >
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Instagram Profile URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.instagram}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, instagram: e.target.value })}
+                    placeholder="https://instagram.com/gdgindore"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                  <span className="text-[10px] text-gray-400 mt-1 block">Used by Instagram feed and footer channels</span>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Twitter / X Profile URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.twitter}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, twitter: e.target.value })}
+                    placeholder="https://x.com/GDG_Indore"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    LinkedIn Company URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.linkedin}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, linkedin: e.target.value })}
+                    placeholder="https://linkedin.com/company/gdg-indore"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    GitHub Organization URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.github}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, github: e.target.value })}
+                    placeholder="https://github.com/GDG-Indore"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    YouTube Channel URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.youtube}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, youtube: e.target.value })}
+                    placeholder="https://youtube.com/@GDGIndore"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Call for Speakers (Sessionize) URL
+                  </label>
+                  <input
+                    type="url"
+                    required
+                    value={socialLinks.sessionize}
+                    onChange={(e) => setSocialLinks({ ...socialLinks, sessionize: e.target.value })}
+                    placeholder="https://sessionize.com/devfest-indore-2026/"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div className="pt-2 flex items-center gap-3">
+                  <button
+                    type="submit"
+                    disabled={savingSocials}
+                    className="px-6 py-2.5 rounded-2xl bg-[#4285f4] text-white text-xs font-bold flex items-center gap-2 hover:bg-[#3367d6] transition-all cursor-pointer shadow-sm disabled:opacity-50"
+                  >
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>{savingSocials ? "Saving..." : "Save Social Media Links"}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSocialLinks(INITIAL_SOCIAL_LINKS);
+                    }}
+                    className="px-4 py-2.5 rounded-2xl border border-gray-300 text-gray-700 text-xs font-bold hover:bg-gray-50 transition-colors"
+                  >
+                    Reset Defaults
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

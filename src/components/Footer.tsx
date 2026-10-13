@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,11 +14,19 @@ import {
 } from "lucide-react";
 import { TwitterIcon, LinkedInIcon, InstagramIcon, YoutubeIcon, GithubIcon } from "./SocialIcons";
 import { useTheme } from "@/contexts/ThemeContext";
+import { SocialLinks, INITIAL_SOCIAL_LINKS, getSocialLinks } from "@/lib/firestoreService";
 
 export default function Footer() {
   const { isDark } = useTheme();
   const [emailInput, setEmailInput] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [socials, setSocials] = useState<SocialLinks>(INITIAL_SOCIAL_LINKS);
+
+  useEffect(() => {
+    getSocialLinks().then((res) => {
+      if (res) setSocials(res);
+    });
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -219,7 +227,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-2.5">
                 <a
-                  href="https://x.com/GDG_Indore"
+                  href={socials.twitter || "https://x.com/GDG_Indore"}
                   target="_blank"
                   rel="noreferrer"
                   className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm ${
@@ -230,7 +238,7 @@ export default function Footer() {
                   <TwitterIcon className={`w-4 h-4 ${isDark ? "text-white/80" : "text-gray-800"}`} />
                 </a>
                 <a
-                  href="https://linkedin.com/company/gdg-indore"
+                  href={socials.linkedin || "https://linkedin.com/company/gdg-indore"}
                   target="_blank"
                   rel="noreferrer"
                   className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm ${
@@ -241,7 +249,7 @@ export default function Footer() {
                   <LinkedInIcon className="w-4 h-4 text-[#4285f4]" />
                 </a>
                 <a
-                  href="https://instagram.com/gdgindore"
+                  href={socials.instagram || "https://instagram.com/gdgindore"}
                   target="_blank"
                   rel="noreferrer"
                   className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm ${
@@ -252,7 +260,7 @@ export default function Footer() {
                   <InstagramIcon className="w-4 h-4 text-[#ea4335]" />
                 </a>
                 <a
-                  href="https://youtube.com/GDGIndore"
+                  href={socials.youtube || "https://youtube.com/@GDGIndore"}
                   target="_blank"
                   rel="noreferrer"
                   className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:rotate-6 transition-transform shadow-sm ${
@@ -261,6 +269,17 @@ export default function Footer() {
                   title="YouTube"
                 >
                   <YoutubeIcon className="w-4 h-4 text-[#ea4335]" />
+                </a>
+                <a
+                  href={socials.github || "https://github.com/GDG-Indore"}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`w-10 h-10 rounded-2xl border flex items-center justify-center hover:scale-115 hover:-rotate-6 transition-transform shadow-sm ${
+                    isDark ? "border-white/15 bg-[#34a853]/15" : "border-gray-200 bg-[#34a853]/10"
+                  }`}
+                  title="GitHub"
+                >
+                  <GithubIcon className="w-4 h-4 text-[#34a853]" />
                 </a>
               </div>
             </div>

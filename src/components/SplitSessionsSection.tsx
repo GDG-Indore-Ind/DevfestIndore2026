@@ -207,15 +207,19 @@ export default function SplitSessionsSection() {
                     isSelected
                       ? isDark
                         ? "bg-[#0d0d0d] border-[#4285f4] shadow-[0_0_35px_rgba(66,133,244,0.3)] scale-[1.01]"
-                        : "bg-white border-[#111827] shadow-xl scale-[1.01]"
+                        : "bg-white border-[#4285f4] shadow-[0_12px_32px_rgba(66,133,244,0.18)] scale-[1.01]"
                       : isDark
                         ? "bg-[#0d0d0d]/80 border-white/10 hover:border-white/20 hover:bg-[#121212]"
-                        : "bg-white/90 border-gray-200/90 hover:border-gray-400 hover:bg-white"
+                        : "bg-white/90 border-gray-200/90 hover:border-gray-300 hover:bg-white"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="w-8 h-8 rounded-xl bg-[#4285f4]/15 text-[#4285f4] font-mono font-black text-xs flex items-center justify-center">
+                      <span className={`w-8 h-8 rounded-xl font-mono font-black text-xs flex items-center justify-center transition-colors ${
+                        isSelected
+                          ? "bg-[#4285f4] text-white shadow-sm"
+                          : "bg-[#4285f4]/15 text-[#4285f4]"
+                      }`}>
                         {session.step}
                       </span>
                       <span className="text-xs font-mono font-bold text-[#4285f4] uppercase tracking-wider">
@@ -223,23 +227,27 @@ export default function SplitSessionsSection() {
                       </span>
                     </div>
 
-                    <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full border transition-colors ${
+                    <span className={`text-[10px] font-mono px-3 py-1 rounded-full border transition-colors ${
                       isSelected
-                        ? "bg-[#4285f4] text-white border-[#4285f4]"
+                        ? "bg-[#4285f4] text-white border-[#4285f4] shadow-sm font-black"
                         : isDark
                           ? "bg-white/5 border-white/10 text-white/70"
-                          : "bg-gray-100 border-gray-200 text-gray-700"
+                          : "bg-gray-100 border-gray-200 text-gray-700 font-bold"
                     }`}>
-                      {isSelected ? "● SYNCED STREAM" : "SCROLL TO SYNC"}
+                      {isSelected ? "● SYNCED STREAM" : "CLICK / SCROLL"}
                     </span>
                   </div>
 
-                  <h3 className={`text-xl sm:text-2xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`text-xl sm:text-2xl font-black mb-2 transition-colors ${
+                    isSelected
+                      ? isDark ? "text-white" : "text-[#1a73e8]"
+                      : isDark ? "text-white" : "text-gray-900"
+                  }`}>
                     {session.title}
                   </h3>
 
                   <div className="text-xs font-bold text-[#ea4335] mb-3">
-                    {session.speaker} • <span className="text-gray-500">{session.speakerRole}</span>
+                    {session.speaker} • <span className="text-gray-500 font-medium">{session.speakerRole}</span>
                   </div>
 
                   <p className={`text-xs sm:text-sm leading-relaxed mb-4 ${isDark ? "text-white/80" : "text-gray-700"}`}>
@@ -251,9 +259,11 @@ export default function SplitSessionsSection() {
                       <span
                         key={idx}
                         className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
-                          isDark
-                            ? "bg-white/5 border-white/10 text-white/80"
-                            : "bg-gray-100 border-gray-200 text-gray-700"
+                          isSelected
+                            ? "bg-[#4285f4]/10 border-[#4285f4]/30 text-[#4285f4]"
+                            : isDark
+                              ? "bg-white/5 border-white/10 text-white/80"
+                              : "bg-gray-100 border-gray-200 text-gray-700"
                         }`}
                       >
                         #{t}

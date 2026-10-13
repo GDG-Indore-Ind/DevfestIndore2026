@@ -170,204 +170,204 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Global Slide-Over Navigation Cart Drawer (Opens from Left side) */}
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 overflow-hidden">
-            {/* Backdrop */}
+      {/* Global Slide-Over Navigation Cart Drawer (Root level z-[100] to prevent any background bleed/overlap) */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-[100] overflow-hidden">
+          {/* Solid Opaque Backdrop */}
+          <div
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+          />
+
+          {/* Left Side Panel / Navigation Drawer */}
+          <div className="fixed inset-y-0 left-0 max-w-full flex pr-10 z-[101]">
             <div
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
-            />
+              className={`w-screen max-w-md shadow-2xl flex flex-col border-r animate-in slide-in-from-left duration-300 ${
+                isDark
+                  ? "bg-[#0a0d14] border-white/15 text-white"
+                  : "bg-[#ffffff] border-gray-300 text-gray-900"
+              }`}
+            >
+              {/* Drawer Header */}
+              <div className={`px-7 py-6 border-b flex items-center justify-between shrink-0 ${
+                isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
+              }`}>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#4285f4] font-black block mb-0.5">
+                    NAVIGATION // MENU
+                  </span>
+                  <h3 className="text-xl font-black tracking-tight font-serif italic">
+                    DevFest Indore
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`p-2.5 rounded-full border transition-transform hover:scale-110 active:scale-95 cursor-pointer ${
+                    isDark
+                      ? "border-white/20 bg-white/5 hover:bg-white/15 text-white"
+                      : "border-black/15 bg-white hover:bg-gray-100 text-gray-900 shadow-sm"
+                  }`}
+                  aria-label="Close menu drawer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
 
-            {/* Left Side Panel / Navigation Drawer */}
-            <div className="fixed inset-y-0 left-0 max-w-full flex pr-10 z-50">
-              <div
-                className={`w-screen max-w-md shadow-2xl flex flex-col border-r animate-in slide-in-from-left duration-300 ${
-                  isDark
-                    ? "bg-[#0a0d14] border-white/15 text-white"
-                    : "bg-[#ffffff] border-gray-300 text-gray-900"
-                }`}
-              >
-                {/* Drawer Header */}
-                <div className={`px-7 py-6 border-b flex items-center justify-between shrink-0 ${
-                  isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
-                }`}>
-                  <div>
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#4285f4] font-black block mb-0.5">
-                      NAVIGATION // MENU
-                    </span>
-                    <h3 className="text-xl font-black tracking-tight font-serif italic">
-                      DevFest Indore
-                    </h3>
-                  </div>
-                  <button
+              {/* Drawer Quick Details Strip */}
+              <div className={`px-7 py-3 border-b flex items-center justify-between text-xs font-mono shrink-0 ${
+                isDark ? "border-white/5 bg-white/[0.02] text-white/60" : "border-black/5 bg-gray-50 text-gray-600"
+              }`}>
+                <span className="flex items-center gap-1.5 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Arena
+                </span>
+                <span className="font-bold text-[#34a853] bg-[#34a853]/15 px-2.5 py-0.5 rounded-full border border-[#34a853]/30">
+                  28 NOV 2026
+                </span>
+              </div>
+
+              {/* Drawer Scrollable Navigation Links (Isolated internal scroll, no page bleed) */}
+              <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
+                {allDrawerLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2.5 rounded-full border transition-transform hover:scale-110 active:scale-95 cursor-pointer ${
+                    className={`group py-3.5 px-3 rounded-2xl transition-all flex items-center justify-between ${
                       isDark
-                        ? "border-white/20 bg-white/5 hover:bg-white/15 text-white"
-                        : "border-black/15 bg-white hover:bg-gray-100 text-gray-900 shadow-sm"
+                        ? "hover:bg-white/5 text-white/90 hover:text-white"
+                        : "hover:bg-gray-100 text-gray-900 hover:text-black"
                     }`}
-                    aria-label="Close menu drawer"
                   >
-                    <X className="w-4 h-4" />
+                    <div>
+                      <div className="text-xl sm:text-2xl font-serif font-medium tracking-tight group-hover:translate-x-1.5 transition-transform flex items-center gap-2">
+                        <span>{link.name}</span>
+                      </div>
+                      <div className={`text-[11px] font-sans mt-0.5 line-clamp-1 ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                        {link.desc}
+                      </div>
+                    </div>
+                    <span className="text-gray-400 group-hover:text-[#4285f4] text-lg font-mono opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                      ›
+                    </span>
+                  </a>
+                ))}
+              </div>
+
+              {/* Drawer Footer Actions */}
+              <div className={`p-7 border-t space-y-3.5 shrink-0 ${
+                isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
+              }`}>
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/team"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-colors ${
+                      isDark
+                        ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                        : "bg-[#4285f4]/10 border-[#4285f4]/30 text-[#4285f4] hover:bg-[#4285f4]/20"
+                    }`}
+                  >
+                    Organizers & Alumni
+                  </Link>
+
+                  <button
+                    onClick={() => toggleTheme()}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                      isDark
+                        ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                        : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"
+                    }`}
+                  >
+                    {isDark ? (
+                      <><Sun className="w-3.5 h-3.5 text-[#f9ab00]" /><span>Light</span></>
+                    ) : (
+                      <><Moon className="w-3.5 h-3.5 text-[#4285f4]" /><span>Dark</span></>
+                    )}
                   </button>
                 </div>
 
-                {/* Drawer Quick Details Strip */}
-                <div className={`px-7 py-3 border-b flex items-center justify-between text-xs font-mono shrink-0 ${
-                  isDark ? "border-white/5 bg-white/[0.02] text-white/60" : "border-black/5 bg-gray-50 text-gray-600"
-                }`}>
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Arena
-                  </span>
-                  <span className="font-bold text-[#34a853] bg-[#34a853]/15 px-2.5 py-0.5 rounded-full border border-[#34a853]/30">
-                    28 NOV 2026
-                  </span>
-                </div>
-
-                {/* Drawer Scrollable Navigation Links (Isolated internal scroll, no page bleed) */}
-                <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
-                  {allDrawerLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`group py-3.5 px-3 rounded-2xl transition-all flex items-center justify-between ${
-                        isDark
-                          ? "hover:bg-white/5 text-white/90 hover:text-white"
-                          : "hover:bg-gray-100 text-gray-900 hover:text-black"
-                      }`}
-                    >
-                      <div>
-                        <div className="text-xl sm:text-2xl font-serif font-medium tracking-tight group-hover:translate-x-1.5 transition-transform flex items-center gap-2">
-                          <span>{link.name}</span>
-                        </div>
-                        <div className={`text-[11px] font-sans mt-0.5 line-clamp-1 ${isDark ? "text-white/50" : "text-gray-500"}`}>
-                          {link.desc}
-                        </div>
-                      </div>
-                      <span className="text-gray-400 group-hover:text-[#4285f4] text-lg font-mono opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
-                        ›
-                      </span>
-                    </a>
-                  ))}
-                </div>
-
-                {/* Drawer Footer Actions */}
-                <div className={`p-7 border-t space-y-3.5 shrink-0 ${
-                  isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
-                }`}>
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href="/team"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex-1 text-center py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-colors ${
-                        isDark
-                          ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                          : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"
-                      }`}
-                    >
-                      Organizers & Alumni
-                    </Link>
-
-                    <button
-                      onClick={() => toggleTheme()}
-                      className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
-                        isDark
-                          ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                          : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"
-                      }`}
-                    >
-                      {isDark ? (
-                        <><Sun className="w-3.5 h-3.5 text-[#f9ab00]" /><span>Light</span></>
-                      ) : (
-                        <><Moon className="w-3.5 h-3.5 text-[#4285f4]" /><span>Dark</span></>
-                      )}
-                    </button>
-                  </div>
-
-                  <a
-                    href="#tickets"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      handleOpenCheckout();
-                    }}
-                    className="w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider bg-[#111827] text-white dark:bg-white dark:text-black shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-                  >
-                    <Ticket className="w-4 h-4 text-[#4285f4]" />
-                    <span>Reserve DevFest Pass</span>
-                  </a>
-                </div>
+                <a
+                  href="#tickets"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleOpenCheckout();
+                  }}
+                  className="w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider bg-[#4285f4] text-white hover:bg-[#3367d6] dark:bg-white dark:text-black dark:hover:bg-gray-200 shadow-lg flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                >
+                  <Ticket className="w-4 h-4 text-white dark:text-[#4285f4]" />
+                  <span>Reserve DevFest Pass</span>
+                </a>
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Single Registration Checkout Modal — dark glass */}
-        {isCheckoutOpen && (
+      {/* Single Registration Checkout Modal — dark glass */}
+      {isCheckoutOpen && (
+        <div
+          onClick={() => setIsCheckoutOpen(false)}
+          className="fixed inset-0 z-[110] flex items-start justify-center overflow-y-auto bg-black/75 backdrop-blur-md p-3 pt-24 sm:p-5 sm:pt-28 md:pt-32 animate-in fade-in duration-150"
+        >
           <div
-            onClick={() => setIsCheckoutOpen(false)}
-            className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/70 backdrop-blur-sm p-3 pt-24 sm:p-5 sm:pt-28 md:pt-32 animate-in fade-in duration-150"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="checkout-title"
+            className="checkout-modal-scrollbar relative my-0 sm:my-auto w-full max-w-3xl max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-[#0d0d0d] p-4 sm:p-6 md:p-8 google-card-shadow"
           >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="checkout-title"
-              className="checkout-modal-scrollbar relative my-0 sm:my-auto w-full max-w-3xl max-h-[calc(100dvh-7rem)] sm:max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-2xl sm:rounded-3xl border border-white/15 bg-[#0d0d0d] p-4 sm:p-6 md:p-8 google-card-shadow"
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsCheckoutOpen(false)}
+              className="absolute right-3 top-3 sm:right-5 sm:top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm font-bold text-white hover:bg-white/15 cursor-pointer transition-colors"
+              aria-label="Close registration checkout"
             >
-              {/* Close Button */}
-              <button
-                type="button"
-                onClick={() => setIsCheckoutOpen(false)}
-                className="absolute right-3 top-3 sm:right-5 sm:top-5 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 text-sm font-bold text-white hover:bg-white/15 cursor-pointer transition-colors"
-                aria-label="Close registration checkout"
+              ✕
+            </button>
+
+            {/* Checkout Header */}
+            <div className="mb-4 pr-9 sm:mb-5">
+              <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#34a853]/40 bg-[#34a853]/20 px-3 py-1 text-[10px] sm:text-xs font-black text-[#34a853]">
+                <Ticket className="h-3.5 w-3.5" />
+                <span>Registration Checkout</span>
+              </div>
+
+              <h3
+                id="checkout-title"
+                className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight"
               >
-                ✕
-              </button>
+                Select Your Tickets
+              </h3>
 
-              {/* Checkout Header */}
-              <div className="mb-4 pr-9 sm:mb-5">
-                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#34a853]/40 bg-[#34a853]/20 px-3 py-1 text-[10px] sm:text-xs font-black text-[#34a853]">
-                  <Ticket className="h-3.5 w-3.5" />
-                  <span>Registration Checkout</span>
-                </div>
-
-                <h3
-                  id="checkout-title"
-                  className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-tight"
-                >
-                  Select Your Tickets
-                </h3>
-
-                <p className="mt-2 text-xs sm:text-sm md:text-base font-normal leading-relaxed text-white/80">
-                  Be a part of DevFest Indore 2026. Choose your ticket and
-                  complete your registration securely with KonfHub.
-                </p>
-              </div>
-
-              {/* KonfHub Widget */}
-              <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-[#0d0d0d]">
-                <iframe
-                  src="https://konfhub.com/widget/id/9ed5736d-0044-4e00-a5e3-76f0b58e4fe6"
-                  id="konfhub-widget"
-                  title="Select tickets for GDG DevFest Indore 2026"
-                  width="100%"
-                  height="420"
-                  allow="payment"
-                  className="block h-[360px] w-full border-0 sm:h-[400px] md:h-[420px]"
-                  loading="lazy"
-                />
-              </div>
-
-              <p className="mt-3 text-center text-xs font-medium text-white/65">
-                Ticket selection and payment are handled securely by KonfHub.
+              <p className="mt-2 text-xs sm:text-sm md:text-base font-normal leading-relaxed text-white/80">
+                Be a part of DevFest Indore 2026. Choose your ticket and
+                complete your registration securely with KonfHub.
               </p>
             </div>
+
+            {/* KonfHub Widget */}
+            <div className="w-full overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-[#0d0d0d]">
+              <iframe
+                src="https://konfhub.com/widget/id/9ed5736d-0044-4e00-a5e3-76f0b58e4fe6"
+                id="konfhub-widget"
+                title="Select tickets for GDG DevFest Indore 2026"
+                width="100%"
+                height="420"
+                allow="payment"
+                className="block h-[360px] w-full border-0 sm:h-[400px] md:h-[420px]"
+                loading="lazy"
+              />
+            </div>
+
+            <p className="mt-3 text-center text-xs font-medium text-white/65">
+              Ticket selection and payment are handled securely by KonfHub.
+            </p>
           </div>
-        )}
-      </header>
+        </div>
+      )}
     </>
   );
 }

@@ -31,6 +31,25 @@ const COLLECTIONS = {
   CONFIG: "event_config",
   AGENDA: "agenda_sessions",
   FAQS: "faq_items",
+  SOCIALS: "social_links",
+};
+
+export interface SocialLinks {
+  twitter: string;
+  linkedin: string;
+  instagram: string;
+  github: string;
+  youtube: string;
+  sessionize: string;
+}
+
+export const INITIAL_SOCIAL_LINKS: SocialLinks = {
+  twitter: "https://x.com/GDG_Indore",
+  linkedin: "https://linkedin.com/company/gdg-indore",
+  instagram: "https://instagram.com/gdgindore",
+  github: "https://github.com/GDG-Indore",
+  youtube: "https://youtube.com/@GDGIndore",
+  sessionize: "https://sessionize.com/devfest-indore-2026/",
 };
 
 /**
@@ -306,6 +325,44 @@ export async function removeFaqItem(id: string): Promise<void> {
     const current = await getFaqItems();
     const updated = current.filter((f) => f.id !== id);
     localStorage.setItem("devfest-faq-items", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Fetch Social Media links
+ */
+export async function getSocialLinks(): Promise<SocialLinks> {
+  try {
+    const docRef = doc(db, COLLECTIONS.CONFIG, "social_media_links");
+    const snap = await getDocs(collection(db, COLLECTIONS.CONFIG));
+    const socialDoc = snap.docs.find((d) => d.id === "social_media_links");
+    if (socialDoc && socialDoc.exists()) {
+      return { ...INITIAL_SOCIAL_LINKS, ...socialDoc.data() } as SocialLinks;
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-social-links");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_SOCIAL_LINKS;
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-social-links");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_SOCIAL_LINKS;
+  }
+}
+
+/**
+ * Save or Update Social Media links
+ */
+export async function saveSocialLinks(links: SocialLinks): Promise<void> {
+  try {
+    const docRef = doc(db, COLLECTIONS.CONFIG, "social_media_links");
+    await setDoc(docRef, links, { merge: true });
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    localStorage.setItem("devfest-social-links", JSON.stringify(links));
   }
 }
 

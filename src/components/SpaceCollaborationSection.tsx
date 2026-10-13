@@ -104,7 +104,7 @@ export default function SpaceCollaborationSection() {
                   <span className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-full border ${
                     isDark
                       ? "bg-[#4285f4]/20 text-[#38bdf8] border-[#4285f4]/40"
-                      : "bg-[#111827] text-white border-[#111827]"
+                      : "bg-[#4285f4] text-white border-[#4285f4] shadow-sm"
                   }`}>
                     Nov 28, 2026
                   </span>

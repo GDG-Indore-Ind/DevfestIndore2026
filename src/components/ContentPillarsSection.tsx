@@ -118,7 +118,7 @@ export default function ContentPillarsSection() {
                   <div className="flex items-center gap-4">
                     <span className={`w-8 h-8 rounded-xl font-mono text-xs font-black flex items-center justify-center transition-colors ${
                       isSelected
-                        ? "bg-black text-white dark:bg-white dark:text-black"
+                        ? "bg-[#4285f4] text-white dark:bg-white dark:text-black shadow-md"
                         : isDark
                           ? "bg-white/5 text-white/60"
                           : "bg-gray-100 text-gray-700"
@@ -253,10 +253,10 @@ export default function ContentPillarsSection() {
 
                 <a
                   href="#sessions-split"
-                  className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-transform hover:scale-105 ${
+                  className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-all hover:scale-105 shadow-sm ${
                     isDark
                       ? "bg-white text-black border-white"
-                      : "bg-[#111827] text-white border-[#111827]"
+                      : "bg-[#4285f4] text-white border-[#4285f4] hover:bg-[#3367d6]"
                   }`}
                 >
                   <span>Explore Track</span>
