@@ -94,20 +94,16 @@ export default function HeroSection() {
               fill
               priority
               quality={100}
-              className="object-cover object-right md:object-center w-full h-full opacity-100 transition-all duration-700"
+              className="object-cover object-[70%_top] sm:object-[65%_center] xl:object-right w-full h-full opacity-100 transition-all duration-700"
             />
           </div>
 
-          {/* Gentle smooth gradient on far left to guarantee white text contrast without hiding the background image */}
-          <div className="absolute inset-y-0 left-0 w-full lg:w-1/2 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-10 pointer-events-none" />
+          {/* Gentle smooth gradient on far left to guarantee white text contrast while keeping right stage bright and crystal clear */}
+          <div className="absolute inset-y-0 left-0 w-full lg:w-[48%] bg-gradient-to-r from-black/85 via-black/45 to-transparent z-10 pointer-events-none" />
           
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/70 via-black/20 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
-
-          {/* Glowing electric cyan and violet ambient light cones */}
-          <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0070f3]/20 rounded-full blur-[140px] z-10 pointer-events-none" />
-          <div className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-[#d946ef]/15 rounded-full blur-[130px] z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/75 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: 4K Vivid Airy Space Earth Background matching user design reference */
@@ -412,33 +408,47 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column: */}
-          {/* IN DARK MODE: Stylized '2026' and 'Build Learn Network Create Impact' callouts over the keynote stage background */}
+          {/* IN DARK MODE: Vibrant DevFest Indore Screen Callout on the right side over the keynote stage image */}
           {/* IN LIGHT MODE: We show the exact Astronaut card with Browser Frame, sparkles, and Prapti badge! */}
           {isDark ? (
-            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative pointer-events-none select-none pr-2 xl:pr-6">
-              {/* Year '2026' with subtle cosmic glow matching the user's reference */}
-              <div className="relative mb-6 transform -rotate-1">
-                <span className="text-7xl xl:text-8xl 2xl:text-9xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#7c3aed] to-[#d946ef] drop-shadow-[0_4px_30px_rgba(66,133,244,0.5)]">
-                  2026
-                </span>
-                {/* Micro cosmic orb sparkle above 2026 */}
-                <div className="absolute -top-3 left-6 w-3 h-3 rounded-full bg-[#57caff] blur-[1px] animate-pulse" />
-              </div>
+            <div className="lg:col-span-4 hidden lg:flex flex-col items-end justify-center relative select-none">
+              <div className="relative group p-6 sm:p-7 rounded-3xl bg-black/60 border border-white/20 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,112,243,0.35)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4285f4]/60">
+                {/* Glowing cyan backlight */}
+                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#4285f4]/30 via-[#d946ef]/20 to-[#4285f4]/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
-              {/* Elegant stage motto: Build / Learn / Network / Create Impact */}
-              <div className="text-right space-y-1 transform -rotate-1">
-                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
-                  Build
-                </span>
-                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
-                  Learn
-                </span>
-                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-white/90 tracking-wide block drop-shadow-[0_2px_15px_rgba(255,255,255,0.4)]">
-                  Network
-                </span>
-                <span className="font-serif italic text-3xl xl:text-4xl 2xl:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-[#57caff] via-[#60a5fa] to-[#a855f7] font-bold tracking-wide block drop-shadow-[0_2px_25px_rgba(0,112,243,0.7)] pt-1">
-                  Create Impact
-                </span>
+                <div className="relative z-10 flex flex-col items-start gap-3">
+                  <div className="flex items-center gap-3">
+                    {/* Google 4-Color DevFest Diamond Icon */}
+                    <div className="w-12 h-12 relative shrink-0">
+                      <Image
+                        src="/gdglogo-removebg-preview.png"
+                        alt="DevFest Icon"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-3xl font-black text-white tracking-tight flex items-center gap-2">
+                        <span>DevFest</span>
+                      </h3>
+                      <p className="text-2xl font-black text-[#57caff] -mt-1 tracking-tight">
+                        Indore
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="w-full h-px bg-gradient-to-r from-white/25 via-white/10 to-transparent my-1" />
+
+                  <div className="flex items-center justify-between w-full gap-4 text-xs font-mono font-bold text-white/80">
+                    <span className="flex items-center gap-1.5 text-[#34a853]">
+                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-ping" />
+                      LIVE KEYNOTE STAGE
+                    </span>
+                    <span className="text-[#ffd427] bg-[#ffd427]/10 px-2.5 py-0.5 rounded-md border border-[#ffd427]/30">
+                      NOV 28
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
