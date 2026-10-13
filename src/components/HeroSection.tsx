@@ -86,15 +86,15 @@ export default function HeroSection() {
       {isDark ? (
         /* Dark Mode: Full-Width 4K Vibrant Keynote Arena across the background with electric stage beams */
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#000000]">
-          {/* Main Full-width 4K Stage Image */}
+          {/* Main Full-width Stage Image */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/images/devfest-hero-live-stage-4k.jpg"
+              src="/images/devfest-stage-fullwidth-dark.jpg"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
-              quality={98}
-              className="object-cover object-right lg:object-center w-full h-full opacity-95 transition-all duration-700"
+              quality={100}
+              className="object-cover object-right md:object-center w-full h-full opacity-95 transition-all duration-700"
             />
           </div>
 
