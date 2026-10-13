@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { SATELLITE_EVENTS, SatelliteEvent } from "@/data/devfestData";
 import {
@@ -26,6 +26,51 @@ export default function SatelliteEventsSection() {
   const [rsvpSuccess, setRsvpSuccess] = useState(false);
   const [attendeeName, setAttendeeName] = useState("");
   const [attendeeEmail, setAttendeeEmail] = useState("");
+  const timelineContainerRef = useRef<HTMLDivElement>(null);
+
+  // Active scroll effect for toss/throw as user scrolls past cards
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!timelineContainerRef.current) return;
+      const cards = timelineContainerRef.current.querySelectorAll<HTMLElement>("[data-timeline-card='true']");
+      const viewportHeight = window.innerHeight;
+
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const direction = card.dataset.direction === "right" ? 1 : -1;
+        
+        // Progress of card through the top sticky area
+        // When rect.top is around 120px to 80px, it reaches its sticky point
+        const stickyPoint = 130;
+        
+        if (rect.top <= stickyPoint + 10) {
+          // Calculate how far past the sticky threshold the card has been scrolled against its parent
+          const parent = card.parentElement;
+          if (parent) {
+            const parentRect = parent.getBoundingClientRect();
+            // distance scrolled inside group
+            const scrolledPast = Math.max(0, stickyPoint - parentRect.top);
+            const ratio = Math.min(1, scrolledPast / (parentRect.height * 0.7));
+            
+            const throwDistance = ratio * 48 * direction; // up to 48px throw
+            const rotateDeg = ratio * 3.5 * direction; // up to 3.5deg tilt throw
+            const scaleDown = 1 - ratio * 0.04; // slight stack depth scale
+            
+            card.style.transform = `translate3d(${throwDistance}px, 0, 0) rotate(${rotateDeg}deg) scale(${scaleDown})`;
+            card.style.opacity = `${Math.max(0.7, 1 - ratio * 0.25)}`;
+          }
+        } else {
+          // Normal position
+          card.style.transform = "translate3d(0, 0, 0) rotate(0deg) scale(1)";
+          card.style.opacity = "1";
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [selectedCategory]);
 
   const categories = [
     "All",
@@ -111,7 +156,7 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-12 md:py-16 bg-transparent relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
+    <section id="satellite-events" className="py-12 md:py-20 bg-transparent relative overflow-visible border-t border-black/10 dark:border-white/10 transition-colors">
       {/* Background Orbital Trajectory Graphics */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
@@ -269,8 +314,8 @@ export default function SatelliteEventsSection() {
           </div>
         </div>
 
-        {/* Date-Grouped Timeline */}
-        <div className="space-y-12">
+        {/* Date-Grouped Timeline with Interactive Deck Stacking & Throw Animations */}
+        <div ref={timelineContainerRef} className="space-y-16 pb-20">
           {Object.entries(groupedEvents).map(([dayTitle, events], groupIdx) => {
             const firstEvent = events[0];
             const isHandsOnGroup = events.some((e) => e.category === "Hands-on Series Workshops");
@@ -281,11 +326,21 @@ export default function SatelliteEventsSection() {
                   ? "bg-[#57caff] text-black"
                   : "bg-[#ff7daf] text-black";
 
+            // Offset sticky top for the date banner so it stays fixed nicely below navbar
+            const bannerStickyTop = 4.5 + groupIdx * 0.5;
+
             return (
-              <div key={dayTitle} className="transition-all duration-300">
-                {/* Date Banner Header — keep solid Google colors (pop on dark) */}
+              <div
+                key={dayTitle}
+                className="relative transition-all duration-300"
+              >
+                {/* Date Banner Header — Sticky Deck Anchor with Google Pill Styling */}
                 <div
-                  className={`flex flex-wrap items-center justify-between gap-3 px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl border-2 border-black google-pill-shadow mb-4 ${dateBadgeColor}`}
+                  style={{
+                    top: `${bannerStickyTop}rem`,
+                    zIndex: 30 + groupIdx,
+                  }}
+                  className={`sticky flex flex-wrap items-center justify-between gap-3 px-5 sm:px-7 py-3.5 sm:py-4 rounded-2xl border-2 border-black google-pill-shadow mb-6 backdrop-blur-md shadow-xl transition-all duration-300 ${dateBadgeColor}`}
                 >
                   {isHandsOnGroup ? (
                     <div className="flex items-center gap-2 sm:gap-3">
@@ -317,130 +372,157 @@ export default function SatelliteEventsSection() {
                     </div>
                   )}
 
-                  <span className="text-xs font-black uppercase tracking-wider bg-white/80 border border-black/30 px-3 py-1 rounded-full text-black">
-                    {events.length} Activation{events.length > 1 ? "s" : ""}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-0.5 rounded-md bg-black/10 text-black/80 font-bold hidden sm:inline">
+                      Deck Node {groupIdx + 1}
+                    </span>
+                    <span className="text-xs font-black uppercase tracking-wider bg-white/90 border border-black/30 px-3 py-1 rounded-full text-black shadow-sm">
+                      {events.length} Activation{events.length > 1 ? "s" : ""}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Events — glass/white cards */}
-                <div className="space-y-4">
-                  {events.map((event) => {
+                {/* Stacking Events — Alternating Toss & Deck Stacking Effect */}
+                <div className="space-y-8 relative">
+                  {events.map((event, cardIdx) => {
                     const styles = getColorStyles(event.color);
+                    // Alternating direction: even index throws right, odd index throws left
+                    const isEven = (groupIdx + cardIdx) % 2 === 0;
+                    const cardStickyTop = bannerStickyTop + 4.2 + cardIdx * 1.5;
 
                     return (
-                      <CardTilt
+                      <div
                         key={event.id}
-                        className={`rounded-3xl p-5 sm:p-7 border google-card-shadow transition-all border-l-8 ${styles.borderAccent} hover:translate-x-1 ${
-                          isDark
-                            ? "bg-[#0d0d0d] border-white/10"
-                            : "!bg-white !border-gray-200/90 shadow-md"
-                        }`}
+                        data-timeline-card="true"
+                        data-direction={isEven ? "right" : "left"}
+                        style={{
+                          top: `${cardStickyTop}rem`,
+                          zIndex: 10 + cardIdx,
+                        }}
+                        className={`sticky transition-all duration-500 ease-out will-change-transform group/card`}
                       >
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                          {/* Time & Capacity Column */}
-                          <div className="lg:col-span-3 flex flex-col gap-1.5 shrink-0">
-                            <div className={`inline-flex items-center gap-1.5 text-xs font-black ${
-                              isDark ? "text-white" : "text-gray-900"
-                            }`}>
-                              <Clock className="w-4 h-4 text-[#4285f4]" />
-                              <span>{event.time}</span>
-                            </div>
-
-                            <div className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
-                              isDark ? "text-white/75" : "text-gray-600"
-                            }`}>
-                              <Users className="w-3.5 h-3.5 text-[#34a853]" />
-                              <span>{event.capacity}</span>
-                            </div>
-
-                            <div className="mt-1">
-                              <span
-                                className={`inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${styles.badge}`}
-                              >
-                                {event.accessType}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Middle: Host, Title, Description, Perks */}
-                          <div className="lg:col-span-6 flex flex-col">
-                            <div className="flex flex-wrap items-center gap-2 mb-2">
-                              <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border shadow-sm ${
-                                isDark
-                                  ? "bg-white/10 text-white border-white/20"
-                                  : "bg-gray-100 text-gray-900 border-gray-300 font-bold"
+                        <CardTilt
+                          className={`rounded-3xl p-5 sm:p-7 border-2 google-card-shadow transition-all duration-500 border-l-8 ${styles.borderAccent} ${
+                            isEven
+                              ? "hover:rotate-1.5 hover:translate-x-3 sm:hover:translate-x-5"
+                              : "hover:-rotate-1.5 hover:-translate-x-3 sm:hover:-translate-x-5"
+                          } ${
+                            isDark
+                              ? "bg-[#0d0d0d]/95 border-white/12 backdrop-blur-2xl shadow-[0_16px_40px_rgba(0,0,0,0.7)]"
+                              : "!bg-white/95 !border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl"
+                          }`}
+                        >
+                          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                            {/* Time & Capacity Column */}
+                            <div className="lg:col-span-3 flex flex-col gap-1.5 shrink-0">
+                              <div className={`inline-flex items-center gap-1.5 text-xs font-black ${
+                                isDark ? "text-white" : "text-gray-900"
                               }`}>
-                                Host: {event.host}
-                              </span>
-                              <span className={`text-xs font-bold ${
-                                isDark ? "text-white/80" : "text-gray-800"
-                              }`}>
-                                • {event.hostBadge}
-                              </span>
-                            </div>
-
-                            <h3 className={`text-xl sm:text-2xl font-black leading-snug mb-2 ${
-                              isDark ? "text-white" : "text-gray-900"
-                            }`}>
-                              {event.title}
-                            </h3>
-
-                            <p className={`text-sm font-normal leading-relaxed mb-3 ${
-                              isDark ? "text-white/85" : "text-gray-700"
-                            }`}>
-                              {event.description}
-                            </p>
-
-                            {/* Perks */}
-                            <div className="flex flex-wrap gap-2">
-                              {event.perks.map((perk, i) => (
-                                <span
-                                  key={i}
-                                  className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-md border ${
-                                    isDark
-                                      ? "bg-white/5 border-white/10 text-white/85"
-                                      : "bg-gray-50 border-gray-200 text-gray-700"
-                                  }`}
-                                >
-                                  <Check className="w-3 h-3 text-[#34a853]" />
-                                  <span>{perk}</span>
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Right: Location & RSVP */}
-                          <div className={`lg:col-span-3 flex flex-col lg:items-end justify-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 ${
-                            isDark ? "border-white/8" : "border-gray-200"
-                          }`}>
-                            <div className="lg:text-right">
-                              <div className="flex items-center lg:justify-end gap-1.5 text-xs font-black text-[#ea4335]">
-                                <MapPin className="w-3.5 h-3.5 shrink-0" />
-                                <span>{event.location}</span>
+                                <Clock className="w-4 h-4 text-[#4285f4]" />
+                                <span>{event.time}</span>
                               </div>
-                              <span className={`block text-xs sm:text-[13px] font-medium mt-0.5 ${
+
+                              <div className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
                                 isDark ? "text-white/75" : "text-gray-600"
                               }`}>
-                                {event.venue}
-                              </span>
+                                <Users className="w-3.5 h-3.5 text-[#34a853]" />
+                                <span>{event.capacity}</span>
+                              </div>
+
+                              <div className="mt-1 flex items-center gap-2">
+                                <span
+                                  className={`inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${styles.badge}`}
+                                >
+                                  {event.accessType}
+                                </span>
+                                <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border opacity-60 ${
+                                  isDark ? "border-white/20 text-white/70" : "border-black/20 text-black/70"
+                                }`}>
+                                  {isEven ? "Toss ➔ Right" : "⮜ Toss Left"}
+                                </span>
+                              </div>
                             </div>
 
-                            {event.link?.trim() && (
-                              <button
-                                onClick={() => handleOpenRsvp(event)}
-                                className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs sm:text-[13px] uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
-                              >
-                                <span className="roll-text-container">
-                                  <span className="roll-text-top">
-                                    {event.accessType.includes("Curated") ? "Request Invite" : "RSVP Spot"}
-                                  </span>
-                                  <span className="roll-text-bottom">Register Now →</span>
+                            {/* Middle: Host, Title, Description, Perks */}
+                            <div className="lg:col-span-6 flex flex-col">
+                              <div className="flex flex-wrap items-center gap-2 mb-2">
+                                <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border shadow-sm ${
+                                  isDark
+                                    ? "bg-white/10 text-white border-white/20"
+                                    : "bg-gray-100 text-gray-900 border-gray-300 font-bold"
+                                }`}>
+                                  Host: {event.host}
                                 </span>
-                              </button>
-                            )}
+                                <span className={`text-xs font-bold ${
+                                  isDark ? "text-white/80" : "text-gray-800"
+                                }`}>
+                                  • {event.hostBadge}
+                                </span>
+                              </div>
+
+                              <h3 className={`text-xl sm:text-2xl font-black leading-snug mb-2 ${
+                                isDark ? "text-white" : "text-gray-900"
+                              }`}>
+                                {event.title}
+                              </h3>
+
+                              <p className={`text-sm font-normal leading-relaxed mb-3 ${
+                                isDark ? "text-white/85" : "text-gray-700"
+                              }`}>
+                                {event.description}
+                              </p>
+
+                              {/* Perks */}
+                              <div className="flex flex-wrap gap-2">
+                                {event.perks.map((perk, i) => (
+                                  <span
+                                    key={i}
+                                    className={`inline-flex items-center gap-1 text-xs font-medium px-2.5 py-0.5 rounded-md border ${
+                                      isDark
+                                        ? "bg-white/5 border-white/10 text-white/85"
+                                        : "bg-gray-50 border-gray-200 text-gray-700"
+                                    }`}
+                                  >
+                                    <Check className="w-3 h-3 text-[#34a853]" />
+                                    <span>{perk}</span>
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Right: Location & RSVP */}
+                            <div className={`lg:col-span-3 flex flex-col lg:items-end justify-center gap-3 pt-3 lg:pt-0 border-t lg:border-t-0 ${
+                              isDark ? "border-white/8" : "border-gray-200"
+                            }`}>
+                              <div className="lg:text-right">
+                                <div className="flex items-center lg:justify-end gap-1.5 text-xs font-black text-[#ea4335]">
+                                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                                  <span>{event.location}</span>
+                                </div>
+                                <span className={`block text-xs sm:text-[13px] font-medium mt-0.5 ${
+                                  isDark ? "text-white/75" : "text-gray-600"
+                                }`}>
+                                  {event.venue || "Central Indore Venue"}
+                                </span>
+                              </div>
+
+                              {event.link?.trim() && (
+                                <button
+                                  onClick={() => handleOpenRsvp(event)}
+                                  className={`w-full lg:w-auto px-6 py-2.5 rounded-xl font-extrabold text-xs sm:text-[13px] uppercase tracking-wider border border-white/20 google-pill-shadow transition-all flex items-center justify-center gap-2 cursor-pointer ${styles.btn}`}
+                                >
+                                  <span className="roll-text-container">
+                                    <span className="roll-text-top">
+                                      {event.accessType.includes("Curated") ? "Request Invite" : "RSVP Spot"}
+                                    </span>
+                                    <span className="roll-text-bottom">Register Now →</span>
+                                  </span>
+                                </button>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </CardTilt>
+                        </CardTilt>
+                      </div>
                     );
                   })}
                 </div>
