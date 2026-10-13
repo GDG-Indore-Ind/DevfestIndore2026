@@ -111,14 +111,14 @@ export default function HeroSection() {
         </div>
       ) : (
         /* Light Mode: 4K Vivid Airy Space Earth Background matching user design reference */
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#f0f6ff]">
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#eef6ff]">
           <Image
             src="/images/devfest-light-space-earth-bg-4k.jpg"
             alt="DevFest Indore Light Space Earth Atmosphere"
             fill
             priority
-            quality={98}
-            className="object-cover object-right md:object-center w-full h-full opacity-95 transition-all duration-700"
+            quality={100}
+            className="object-cover object-right md:object-right-top w-full h-full opacity-95 transition-all duration-700"
           />
           {/* Subtle soft gradient fade on left for crisp text legibility */}
           <div className="absolute inset-y-0 left-0 w-full lg:w-2/5 bg-gradient-to-r from-white/80 via-white/40 to-transparent z-10 pointer-events-none" />
