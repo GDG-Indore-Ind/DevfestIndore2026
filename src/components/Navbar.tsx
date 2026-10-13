@@ -25,6 +25,18 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile navigation drawer is open to prevent background scrolling and overlapping
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const handleOpenCheckout = () => {
     setIsCheckoutOpen(true);
   };
@@ -149,15 +161,15 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             {/* Clean Premium DevFest Tickets Button */}
             <button
               onClick={handleOpenCheckout}
-              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer bg-[#111827] text-white border-[#111827] dark:bg-white dark:text-black dark:border-white"
+              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer bg-[#111827] text-white border-[#111827] hover:bg-black dark:bg-white dark:text-[#111827] dark:border-white dark:hover:bg-gray-100"
             >
-              <Ticket className="w-3.5 h-3.5 text-[#4285f4]" />
-              <span>Tickets</span>
+              <Ticket className="w-3.5 h-3.5 text-[#4285f4] dark:text-[#111827]" />
+              <span className="text-white dark:text-[#111827]">Tickets</span>
             </button>
           </div>
         </div>
 
-        {/* Global Slide-Over Navigation Cart Drawer (Inspired by Optrar.com Minimalist Clean Aesthetic) */}
+        {/* Global Slide-Over Navigation Cart Drawer (Opens from Left side) */}
         {mobileMenuOpen && (
           <div className="fixed inset-0 z-50 overflow-hidden">
             {/* Backdrop */}
@@ -166,18 +178,18 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
             />
 
-            {/* Right Side Panel / Cart Drawer */}
-            <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            {/* Left Side Panel / Navigation Drawer */}
+            <div className="fixed inset-y-0 left-0 max-w-full flex pr-10 z-50">
               <div
-                className={`w-screen max-w-md shadow-2xl flex flex-col border-l animate-in slide-in-from-right duration-300 ${
+                className={`w-screen max-w-md shadow-2xl flex flex-col border-r animate-in slide-in-from-left duration-300 ${
                   isDark
                     ? "bg-[#0a0d14] border-white/15 text-white"
-                    : "bg-[#faf9f6] border-gray-300 text-gray-900"
+                    : "bg-[#ffffff] border-gray-300 text-gray-900"
                 }`}
               >
                 {/* Drawer Header */}
-                <div className={`px-7 py-6 border-b flex items-center justify-between ${
-                  isDark ? "border-white/10" : "border-black/10"
+                <div className={`px-7 py-6 border-b flex items-center justify-between shrink-0 ${
+                  isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
                 }`}>
                   <div>
                     <span className="text-[10px] font-mono uppercase tracking-widest text-[#4285f4] font-black block mb-0.5">
@@ -189,7 +201,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2.5 rounded-full border transition-transform hover:scale-110 active:scale-95 ${
+                    className={`p-2.5 rounded-full border transition-transform hover:scale-110 active:scale-95 cursor-pointer ${
                       isDark
                         ? "border-white/20 bg-white/5 hover:bg-white/15 text-white"
                         : "border-black/15 bg-white hover:bg-gray-100 text-gray-900 shadow-sm"
@@ -201,8 +213,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 </div>
 
                 {/* Drawer Quick Details Strip */}
-                <div className={`px-7 py-3 border-b flex items-center justify-between text-xs font-mono ${
-                  isDark ? "border-white/5 bg-white/[0.02] text-white/60" : "border-black/5 bg-black/[0.02] text-gray-600"
+                <div className={`px-7 py-3 border-b flex items-center justify-between text-xs font-mono shrink-0 ${
+                  isDark ? "border-white/5 bg-white/[0.02] text-white/60" : "border-black/5 bg-gray-50 text-gray-600"
                 }`}>
                   <span className="flex items-center gap-1.5 font-medium">
                     <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Arena
@@ -212,7 +224,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   </span>
                 </div>
 
-                {/* Drawer Scrollable Navigation Links (Optrar-inspired Large Editorial Serif / Clean Sans) */}
+                {/* Drawer Scrollable Navigation Links (Isolated internal scroll, no page bleed) */}
                 <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
                   {allDrawerLinks.map((link) => (
                     <a
@@ -222,7 +234,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                       className={`group py-3.5 px-3 rounded-2xl transition-all flex items-center justify-between ${
                         isDark
                           ? "hover:bg-white/5 text-white/90 hover:text-white"
-                          : "hover:bg-black/5 text-gray-900 hover:text-black"
+                          : "hover:bg-gray-100 text-gray-900 hover:text-black"
                       }`}
                     >
                       <div>
@@ -241,8 +253,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 </div>
 
                 {/* Drawer Footer Actions */}
-                <div className={`p-7 border-t space-y-3.5 ${
-                  isDark ? "border-white/10 bg-black/60" : "border-black/10 bg-white"
+                <div className={`p-7 border-t space-y-3.5 shrink-0 ${
+                  isDark ? "border-white/10 bg-[#0a0d14]" : "border-black/10 bg-white"
                 }`}>
                   <div className="flex items-center gap-3">
                     <Link
@@ -259,7 +271,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
                     <button
                       onClick={() => toggleTheme()}
-                      className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border flex items-center justify-center gap-1.5 transition-colors ${
+                      className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider border flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                         isDark
                           ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
                           : "bg-gray-100 border-gray-300 text-gray-900 hover:bg-gray-200"

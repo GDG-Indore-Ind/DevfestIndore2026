@@ -27,6 +27,8 @@ import {
   Radio,
   Cpu,
   TrendingUp,
+  HelpCircle,
+  Edit3,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import {
@@ -55,6 +57,10 @@ import {
   getAgendaItems,
   saveAgendaItem,
   removeAgendaItem,
+  FaqItem,
+  getFaqItems,
+  saveFaqItem,
+  removeFaqItem,
 } from "@/lib/firestoreService";
 
 export default function AdminPage() {
@@ -66,7 +72,7 @@ export default function AdminPage() {
 
   // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "proposals" | "support" | "config"
+    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "faqs" | "proposals" | "support" | "config"
   >("analytics");
 
   // Gallery State & Upload
@@ -76,6 +82,12 @@ export default function AdminPage() {
   const [newImageUrl, setNewImageUrl] = useState("");
   const [newCaption, setNewCaption] = useState("");
   const [uploadingFile, setUploadingFile] = useState(false);
+
+  // FAQ State
+  const [faqs, setFaqs] = useState<FaqItem[]>([]);
+  const [newFaqQuestion, setNewFaqQuestion] = useState("");
+  const [newFaqAnswer, setNewFaqAnswer] = useState("");
+  const [editingFaqId, setEditingFaqId] = useState<string | null>(null);
 
   // Team State & File Upload
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>(INITIAL_TEAM);
@@ -136,6 +148,7 @@ export default function AdminPage() {
     getTeamMembers().then((t) => { if (t && t.length > 0) setTeamMembers(t); });
     getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
     getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
+    getFaqItems().then((f) => { if (f && f.length > 0) setFaqs(f); });
 
     if (typeof window !== "undefined") {
       const savedProposals = localStorage.getItem("devfest-speaker-proposals");
@@ -438,6 +451,18 @@ export default function AdminPage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("faqs")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "faqs"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>FAQs Management ({faqs.length})</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("proposals")}
               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
                 activeTab === "proposals"
@@ -505,6 +530,9 @@ export default function AdminPage() {
               {activeTab === "gallery" && "Gallery Photos & Cloudinary Uploader"}
               {activeTab === "team" && "Core Organizing Team Directory"}
               {activeTab === "speakers" && "Previous Speakers & Hall of Fame"}
+              {activeTab === "agenda" && "Agenda & Schedule Architect"}
+              {activeTab === "faqs" && "Frequently Asked Questions (FAQs) Live Manager"}
+              {activeTab === "proposals" && "Call For Speakers Proposals"}
               {activeTab === "support" && "Attendee Support Inquiries & Tickets"}
               {activeTab === "config" && "Ecosystem Plan Parameters"}
             </h1>
@@ -1353,6 +1381,163 @@ export default function AdminPage() {
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: FAQS MANAGEMENT */}
+        {activeTab === "faqs" && (
+          <div className="space-y-8">
+            {/* Create or Edit FAQ Form */}
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-2 flex items-center gap-2">
+                <HelpCircle className="w-5 h-5 text-[#f9ab00]" />
+                <span>{editingFaqId ? "Edit FAQ Item" : "Create New FAQ Protocol"}</span>
+              </h2>
+              <p className="text-xs text-[#5f6368] mb-6">
+                Add or modify questions and answers displayed in the public FAQ Accordion on the landing page.
+              </p>
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newFaqQuestion.trim() || !newFaqAnswer.trim()) return;
+
+                  const targetId = editingFaqId || `faq-${Date.now()}`;
+                  const item: FaqItem = {
+                    id: targetId,
+                    question: newFaqQuestion.trim(),
+                    answer: newFaqAnswer.trim(),
+                  };
+
+                  await saveFaqItem(item);
+
+                  if (editingFaqId) {
+                    setFaqs(faqs.map((f) => (f.id === targetId ? item : f)));
+                    setStatusMsg({ text: `Updated FAQ: "${item.question.slice(0, 30)}..."`, type: "success" });
+                  } else {
+                    setFaqs([...faqs, item]);
+                    setStatusMsg({ text: `Added new FAQ successfully!`, type: "success" });
+                  }
+
+                  setNewFaqQuestion("");
+                  setNewFaqAnswer("");
+                  setEditingFaqId(null);
+                  setTimeout(() => setStatusMsg(null), 4000);
+                }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Question Title
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newFaqQuestion}
+                    onChange={(e) => setNewFaqQuestion(e.target.value)}
+                    placeholder="e.g. Can I transfer my ticket to a friend or colleague?"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Detailed Answer & Instructions
+                  </label>
+                  <textarea
+                    rows={3}
+                    required
+                    value={newFaqAnswer}
+                    onChange={(e) => setNewFaqAnswer(e.target.value)}
+                    placeholder="Provide clear, concise guidance for attendees..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                  />
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-2xl bg-[#111827] text-white text-xs font-bold flex items-center gap-2 hover:bg-black transition-all cursor-pointer shadow-sm"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>{editingFaqId ? "Save Changes" : "Publish FAQ"}</span>
+                  </button>
+
+                  {editingFaqId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingFaqId(null);
+                        setNewFaqQuestion("");
+                        setNewFaqAnswer("");
+                      }}
+                      className="px-4 py-2.5 rounded-2xl border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Existing FAQs List */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-[#1e1e1e]">
+                  Active FAQs ({faqs.length})
+                </h3>
+                <span className="text-xs text-gray-500 font-mono">
+                  Synced with landing page
+                </span>
+              </div>
+
+              {faqs.map((faq, idx) => (
+                <div
+                  key={faq.id || idx}
+                  className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[11px] font-mono font-bold text-[#4285f4] bg-blue-50 px-2 py-0.5 rounded-md">
+                        #{idx + 1}
+                      </span>
+                      <h4 className="text-sm font-black text-gray-900">{faq.question}</h4>
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed pl-7">{faq.answer}</p>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={() => {
+                        setEditingFaqId(faq.id);
+                        setNewFaqQuestion(faq.question);
+                        setNewFaqAnswer(faq.answer);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="p-2 rounded-xl text-blue-600 hover:bg-blue-50 transition-colors"
+                      title="Edit FAQ"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={async () => {
+                        if (confirm(`Are you sure you want to delete this FAQ: "${faq.question.slice(0, 30)}..."?`)) {
+                          await removeFaqItem(faq.id);
+                          setFaqs(faqs.filter((f) => f.id !== faq.id));
+                          setStatusMsg({ text: "FAQ deleted successfully.", type: "info" });
+                          setTimeout(() => setStatusMsg(null), 3000);
+                        }
+                      }}
+                      className="p-2 rounded-xl text-red-600 hover:bg-red-50 transition-colors"
+                      title="Delete FAQ"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

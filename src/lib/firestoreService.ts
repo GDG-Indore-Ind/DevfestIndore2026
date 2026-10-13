@@ -13,6 +13,14 @@ import { db } from "./firebase";
 import { TeamMember, PastSpeaker, SupportQuery, AgendaItem, INITIAL_TEAM, INITIAL_AGENDA } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { GalleryItem, INITIAL_GALLERY_ITEMS } from "@/data/ecosystemData";
+import { FAQS } from "@/data/devfestData";
+
+export interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+}
 
 // Collection Names
 const COLLECTIONS = {
@@ -22,6 +30,7 @@ const COLLECTIONS = {
   SUPPORT: "support_queries",
   CONFIG: "event_config",
   AGENDA: "agenda_sessions",
+  FAQS: "faq_items",
 };
 
 /**
@@ -239,3 +248,64 @@ export async function removeGalleryPhoto(id: string): Promise<void> {
     localStorage.setItem("devfest-gallery-items", JSON.stringify(updated));
   }
 }
+
+/**
+ * Fetch FAQs from Firestore or local fallback
+ */
+export async function getFaqItems(): Promise<FaqItem[]> {
+  try {
+    const colRef = collection(db, COLLECTIONS.FAQS);
+    const snap = await getDocs(colRef);
+    if (!snap.empty) {
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FaqItem));
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-faq-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }));
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-faq-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }));
+  }
+}
+
+/**
+ * Save or Update FAQ item
+ */
+export async function saveFaqItem(item: FaqItem): Promise<void> {
+  try {
+    const docRef = doc(db, COLLECTIONS.FAQS, item.id);
+    await setDoc(docRef, item, { merge: true });
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getFaqItems();
+    const existingIndex = current.findIndex((f) => f.id === item.id);
+    let updated: FaqItem[];
+    if (existingIndex >= 0) {
+      updated = [...current];
+      updated[existingIndex] = item;
+    } else {
+      updated = [...current, item];
+    }
+    localStorage.setItem("devfest-faq-items", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Delete FAQ item
+ */
+export async function removeFaqItem(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, COLLECTIONS.FAQS, id));
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getFaqItems();
+    const updated = current.filter((f) => f.id !== id);
+    localStorage.setItem("devfest-faq-items", JSON.stringify(updated));
+  }
+}
+

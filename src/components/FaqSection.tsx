@@ -1,14 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FAQS } from "@/data/devfestData";
 import { HelpCircle, ChevronDown, ChevronUp, Mail, Sparkles } from "lucide-react";
 import CardTilt from "./CardTilt";
 import { useTheme } from "@/contexts/ThemeContext";
+import { getFaqItems, FaqItem } from "@/lib/firestoreService";
 
 export default function FaqSection() {
   const { isDark } = useTheme();
+  const [faqs, setFaqs] = useState<FaqItem[]>(() =>
+    FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }))
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  useEffect(() => {
+    getFaqItems().then((items) => {
+      if (items && items.length > 0) {
+        setFaqs(items);
+      }
+    });
+  }, []);
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -40,7 +52,7 @@ export default function FaqSection() {
 
         {/* FAQ Accordion — space telemetry glass */}
         <div className="space-y-4 mb-14">
-          {FAQS.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
             return (
