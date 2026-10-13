@@ -18,6 +18,7 @@ import TicketsSection from "@/components/TicketsSection";
 import SponsorsSection from "@/components/SponsorsSection";
 import SplitSessionsSection from "@/components/SplitSessionsSection";
 import GalleryVideoSection from "@/components/GalleryVideoSection";
+import InstagramFeedSection from "@/components/InstagramFeedSection";
 import VenueSection from "@/components/VenueSection";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
@@ -102,18 +103,13 @@ export default function Home() {
           <SpaceCollaborationSection />
         </div>
 
-        {/* Venue Experience & 9 Dedicated Zones */}
-        <div id="zones">
-          <ShowcaseZonesSection />
-        </div>
-
-        {/* Official Call for Speakers — Space Edition Poster & Proposal Portal */}
+        {/* Official Call for Speakers — Space Edition Poster & Sessionize Portal */}
         <CallForSpeakersSection />
 
         {/* Featured Core Organizers & Continuous Scrolling Past Speakers Ticker */}
         <FeaturedTeamSection />
 
-        {/* High-Impact Previous Editions Photo Stream & 4K Event Cinema Video */}
+        {/* High-Impact Previous Editions Photo Stream & Full-Width 4K Cinema Video */}
         <div id="recap-gallery">
           <GalleryVideoSection />
         </div>
@@ -121,6 +117,11 @@ export default function Home() {
         {/* High-Impact Executive Event Recap Section */}
         <div id="recap">
           <EventRecapSection />
+        </div>
+
+        {/* Live Instagram Feed & Social Reels Stream */}
+        <div id="social-stream">
+          <InstagramFeedSection />
         </div>
 
         {/* Pre-DevFest Satellite Events & City Activations */}
@@ -132,11 +133,13 @@ export default function Home() {
         {/* Sponsors, Google for Developers & Community Partners */}
         <SponsorsSection />
 
-        {/* Venue, Essentia Luxury Hotel Indore & Transit Guide */}
-        <VenueSection />
-
         {/* Frequently Asked Questions Accordion */}
         <FaqSection />
+
+        {/* Mission Launchpad • Coordinates & Essentia Luxury Hotel (Positioned Right Above Footer) */}
+        <div id="venue">
+          <VenueSection />
+        </div>
       </main>
 
       {/* Footer with GDG Disclaimer & Social Channels */}

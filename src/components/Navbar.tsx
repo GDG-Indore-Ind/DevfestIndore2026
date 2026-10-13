@@ -84,47 +84,47 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           : "bg-transparent py-4"
           }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-3 items-center">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
           {/* Left: Hamburger & Menu Trigger Button */}
-          <div className="flex items-center gap-2 justify-start">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2 group hover:scale-105 active:scale-95 cursor-pointer ${isDark
+              className={`px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-2xl border transition-all flex items-center gap-1.5 sm:gap-2 group hover:scale-105 active:scale-95 cursor-pointer ${isDark
                 ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
                 : "border-black/15 bg-white text-gray-900 shadow-sm hover:bg-gray-50"
                 }`}
               aria-label="Toggle Global Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4 text-[#ea4335]" /> : <Menu className="w-4 h-4 text-[#4285f4] group-hover:rotate-90 transition-transform" />}
-              <span className="text-xs font-mono font-bold tracking-wider">
+              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider">
                 {mobileMenuOpen ? "CLOSE" : "EXPLORE"}
               </span>
             </button>
           </div>
 
           {/* Center: Prestigious GDG Indore Centered Brand Identity */}
-          <div className="flex justify-center items-center">
-            <Link href="/" className="flex items-center gap-2.5 group text-center">
+          <div className="flex justify-center items-center shrink-0 min-w-0">
+            <Link href="/" className="flex items-center gap-2 group text-center">
               <div
-                className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform ${isDark
+                className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 ${isDark
                   ? "bg-[#0d0d0d] border-white/20"
                   : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
                   }`}
               >
-                <span className="text-[#4285f4] font-bold text-base sm:text-lg font-mono">{"<"}</span>
+                <span className="text-[#4285f4] font-bold text-sm sm:text-lg font-mono">{"<"}</span>
                 <span className="text-[#ea4335] font-bold text-xs">/</span>
-                <span className="text-[#34a853] font-bold text-base sm:text-lg font-mono">{">"}</span>
+                <span className="text-[#34a853] font-bold text-sm sm:text-lg font-mono">{">"}</span>
               </div>
               <div className="flex flex-col text-left">
-                <div className="flex items-center gap-1.5">
-                  <span className={`font-black text-sm sm:text-base tracking-tight ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
+                <div className="flex items-center gap-1">
+                  <span className={`font-black text-xs sm:text-base tracking-tight truncate ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
                     GDG Indore
                   </span>
-                  <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 hidden sm:inline">
+                  <span className="text-[8px] sm:text-[9px] uppercase font-bold tracking-wider px-1 sm:px-1.5 py-0.5 rounded-full bg-[#f9ab00]/20 text-[#f9ab00] border border-[#f9ab00]/50 hidden sm:inline">
                     2026
                   </span>
                 </div>
-                <span className={`text-[11px] font-semibold -mt-0.5 flex items-center gap-1.5 ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                <span className={`text-[10px] sm:text-[11px] font-semibold -mt-0.5 flex items-center gap-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
                   <span className="text-[#4285f4] font-bold">DevFest</span>
                   <span className="w-1 h-1 rounded-full bg-[#34a853]" />
                   <span className="text-[#34a853] font-bold">Nov 28</span>
@@ -134,32 +134,32 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           </div>
 
           {/* Right: Theme Toggle & Primary Action CTA */}
-          <div className="flex items-center gap-2.5 justify-end">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 justify-end shrink-0">
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               aria-label={isDark ? "Switch to Light Theme" : "Switch to Dark Theme"}
-              className={`p-2 rounded-xl border transition-all cursor-pointer ${isDark
+              className={`p-1.5 sm:p-2 rounded-xl border transition-all cursor-pointer ${isDark
                 ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
                 : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
                 }`}
             >
-              {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
+              {isDark ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#f9ab00]" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#4285f4]" />}
             </button>
 
             {/* Clean Premium DevFest Tickets Button (Guaranteed high-contrast styling) */}
             <button
               onClick={handleOpenCheckout}
               style={{
-                backgroundColor: isDark ? "#ffffff" : "#111827",
+                backgroundColor: isDark ? "#ffffff" : "#4285f4",
                 color: isDark ? "#111827" : "#ffffff",
-                borderColor: isDark ? "#ffffff" : "#111827",
+                borderColor: isDark ? "#ffffff" : "#4285f4",
               }}
-              className="px-4 py-2 rounded-full font-black text-xs tracking-wider uppercase flex items-center gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-black text-[11px] sm:text-xs tracking-wider uppercase flex items-center gap-1.5 sm:gap-2 border-2 transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
             >
               <Ticket
                 className="w-3.5 h-3.5"
-                style={{ color: isDark ? "#111827" : "#4285f4" }}
+                style={{ color: isDark ? "#111827" : "#ffffff" }}
               />
               <span
                 style={{ color: isDark ? "#111827" : "#ffffff" }}

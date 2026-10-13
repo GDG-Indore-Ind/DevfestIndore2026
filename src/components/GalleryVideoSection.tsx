@@ -195,8 +195,8 @@ export default function GalleryVideoSection() {
               </div>
             </div>
 
-            {/* Grand Video Cinema Player (Full Width, Large Aspect Ratio) */}
-            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-2xl bg-black group mb-6">
+            {/* Grand Video Cinema Player (Full Width, Cinematic Panoramic Experience) */}
+            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] min-h-[340px] sm:min-h-[460px] md:min-h-[540px] rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-2xl bg-black group mb-6">
               {!isPlayingVideo ? (
                 <>
                   {/* Video Thumbnail Backdrop */}
@@ -204,19 +204,19 @@ export default function GalleryVideoSection() {
                     src="/gallery/opt_DSCF7182.JPG"
                     alt="DevFest Indore Official Event Motion Recap"
                     fill
-                    className="object-cover group-hover:scale-102 transition-transform duration-700 opacity-85"
+                    className="object-cover group-hover:scale-102 transition-transform duration-700 opacity-90"
                     priority
                     unoptimized
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30 group-hover:opacity-80 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/25 group-hover:opacity-80 transition-opacity" />
 
                   {/* Play Button Trigger */}
                   <button
                     onClick={() => setIsPlayingVideo(true)}
-                    className="absolute inset-0 m-auto w-24 h-24 rounded-full bg-[#ea4335] text-white flex items-center justify-center shadow-[0_0_50px_rgba(234,67,53,0.9)] hover:scale-110 active:scale-95 transition-all cursor-pointer group/btn"
+                    className="absolute inset-0 m-auto w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#ea4335] text-white flex items-center justify-center shadow-[0_0_60px_rgba(234,67,53,0.9)] hover:scale-110 active:scale-95 transition-all cursor-pointer group/btn"
                     aria-label="Play DevFest Indore Official Aftermovie"
                   >
-                    <Play className="w-10 h-10 ml-1.5 fill-white" />
+                    <Play className="w-12 h-12 ml-2 fill-white" />
                   </button>
 
                   {/* Video Title Overlay */}
@@ -226,7 +226,7 @@ export default function GalleryVideoSection() {
                         <Film className="w-4 h-4" />
                         <span>OFFICIAL 4K AFTERMOVIE • CENTRAL INDIA</span>
                       </div>
-                      <h4 className="text-lg sm:text-2xl font-black drop-shadow-lg">
+                      <h4 className="text-xl sm:text-3xl font-black drop-shadow-lg">
                         DevFest Indore Experience, Keynotes & Plenary Energy
                       </h4>
                     </div>

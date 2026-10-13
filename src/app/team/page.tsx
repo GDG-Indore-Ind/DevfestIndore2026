@@ -7,6 +7,7 @@ import { INITIAL_TEAM, TeamMember } from "@/data/teamData";
 import { getTeamMembers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function TeamPage() {
   const [team, setTeam] = useState<TeamMember[]>(INITIAL_TEAM);
@@ -33,22 +34,28 @@ export default function TeamPage() {
       ? team
       : team.filter((m) => m.team === selectedTeam);
 
+  const { isDark } = useTheme();
+
   return (
-    <div className="min-h-screen bg-[#fafbfc] text-[#1e1e1e] flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors ${
+      isDark ? "bg-[#000000] text-white" : "bg-[#fafbfc] text-[#1e1e1e]"
+    }`}>
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Banner */}
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-bold text-[#1e1e1e] shadow-sm mb-4">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm mb-4 border ${
+              isDark ? "bg-white/10 border-white/20 text-white" : "bg-white border-gray-200 text-[#1e1e1e]"
+            }`}>
               <Users className="w-3.5 h-3.5 text-[#34a853]" />
               <span>Google Developer Group Indore</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-black text-[#1e1e1e] tracking-tight mb-4">
+            <h1 className={`text-4xl sm:text-6xl font-black tracking-tight mb-4 ${isDark ? "text-white" : "text-[#1e1e1e]"}`}>
               Meet the Organizers & Visionaries
             </h1>
-            <p className="text-base sm:text-lg text-[#5f6368] leading-relaxed">
+            <p className={`text-base sm:text-lg leading-relaxed ${isDark ? "text-white/80" : "text-[#5f6368]"}`}>
               The passionate community leads, engineers, and aerospace advocates orchestrating Central India's premier developer and space technology gathering.
             </p>
           </div>

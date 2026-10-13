@@ -210,38 +210,38 @@ export default function FeaturedTeamSection() {
               {[...speakers, ...speakers].map((sp, index) => (
                 <div
                   key={`${sp.id}-${index}`}
-                  className={`w-72 sm:w-80 shrink-0 p-4 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+                  className={`w-80 sm:w-96 shrink-0 p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1.5 ${
                     isDark
                       ? "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10"
                       : "bg-gray-50 border-gray-200 hover:border-gray-300 hover:bg-white shadow-sm"
                   }`}
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-black/10 dark:border-white/10">
+                  <div className="flex items-center gap-3.5 mb-3.5">
+                    <div className="relative w-14 h-14 rounded-2xl overflow-hidden shrink-0 border-2 border-black/10 dark:border-white/15 shadow-sm">
                       <Image
                         src={sp.avatar}
                         alt={sp.name}
                         fill
-                        sizes="48px"
+                        sizes="56px"
                         className="object-cover"
                         unoptimized
                       />
                     </div>
                     <div className="min-w-0">
-                      <h4 className={`text-sm font-black truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <h4 className={`text-base font-black truncate ${isDark ? "text-white" : "text-gray-900"}`}>
                         {sp.name}
                       </h4>
-                      <p className="text-[11px] text-[#4285f4] font-bold truncate">
+                      <p className="text-xs text-[#4285f4] font-bold truncate">
                         {sp.company}
                       </p>
-                      <span className="text-[10px] font-mono text-gray-500 dark:text-gray-400">
-                        Edition {sp.year}
+                      <span className="text-[11px] font-mono font-semibold text-gray-500 dark:text-gray-400">
+                        DevFest Edition {sp.year}
                       </span>
                     </div>
                   </div>
 
-                  <div className={`p-2.5 rounded-xl text-[11px] font-medium leading-snug line-clamp-2 ${
-                    isDark ? "bg-black/40 text-white/80" : "bg-white text-gray-700 border border-gray-200/60"
+                  <div className={`p-3 rounded-xl text-xs font-medium leading-relaxed line-clamp-2 ${
+                    isDark ? "bg-black/50 text-white/90" : "bg-white text-gray-700 border border-gray-200/80 shadow-xs"
                   }`}>
                     "{sp.topic}"
                   </div>

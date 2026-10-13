@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import {
   MapPin,
@@ -17,6 +18,8 @@ import { useTheme } from "@/contexts/ThemeContext";
 
 export default function VenueSection() {
   const { isDark } = useTheme();
+
+  const [mapMode, setMapMode] = useState<"standard" | "3d">("3d");
 
   return (
     <section id="venue" className="pt-6 pb-12 md:pt-8 md:pb-16 bg-transparent relative overflow-hidden transition-colors">
@@ -161,7 +164,7 @@ export default function VenueSection() {
             </CardTilt>
           </div>
 
-          {/* Right Column: Google Map Embedded (COMPACT 5 Cols) */}
+          {/* Right Column: 3D Venue Map & Coordinates (COMPACT 5 Cols) */}
           <div className="lg:col-span-5 reveal-on-scroll flex flex-col">
             <CardTilt className={`telemetry-card p-6 sm:p-7 rounded-3xl google-card-shadow flex flex-col justify-between h-full transition-all ${
               isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-xl"
@@ -172,33 +175,62 @@ export default function VenueSection() {
                     <Compass className="w-4 h-4 animate-spin-slow" />
                     <span>Launchpad Sector-01</span>
                   </div>
-                  <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                    isDark ? "bg-white/10 text-white/75" : "bg-gray-100 text-gray-700"
-                  }`}>
-                    22.7101° N • 75.9039° E
-                  </span>
+
+                  {/* 3D vs Map Toggle Pill */}
+                  <div className="flex items-center bg-black/10 dark:bg-white/10 p-0.5 rounded-lg border border-black/10 dark:border-white/10 text-[10px] font-mono font-bold">
+                    <button
+                      onClick={() => setMapMode("3d")}
+                      className={`px-2 py-0.5 rounded-md transition-colors ${
+                        mapMode === "3d" ? "bg-[#4285f4] text-white shadow-xs" : "text-gray-500 hover:text-white"
+                      }`}
+                    >
+                      3D Earth
+                    </button>
+                    <button
+                      onClick={() => setMapMode("standard")}
+                      className={`px-2 py-0.5 rounded-md transition-colors ${
+                        mapMode === "standard" ? "bg-[#4285f4] text-white shadow-xs" : "text-gray-500 hover:text-white"
+                      }`}
+                    >
+                      Road Map
+                    </button>
+                  </div>
                 </div>
 
                 <h4 className={`text-lg sm:text-xl font-black mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
-                  Interactive Google Map
+                  {mapMode === "3d" ? "3D Orbital Terrain & Venue Map" : "Interactive Google Road Map"}
                 </h4>
                 <p className={`text-xs font-medium mb-3 ${isDark ? "text-white/70" : "text-gray-600"}`}>
-                  Click and zoom directly below or open for turn-by-turn navigation:
+                  {mapMode === "3d" ? "3D satellite view centered on Essentia Luxury Hotel Indore arena:" : "Click and zoom directly below or open for turn-by-turn navigation:"}
                 </p>
 
-                {/* Google Map Embedded Iframe (Compact Size) */}
-                <div className="w-full aspect-square sm:aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-inner mb-4">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123142.96350579694!2d75.75139283517477!3d22.710130499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e3402b359321%3A0xffdc3966fe3eebc9!2sEssentia%20Luxury%20Hotel%20Indore!5e1!3m2!1sen!2sin!4v1791855892034!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen={false}
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    title="Essentia Luxury Hotel Indore Google Map Location"
-                    className="w-full h-full block"
-                  />
+                {/* 3D Satellite Map or Standard Map Embed */}
+                <div className="w-full aspect-square sm:aspect-[4/3] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-inner mb-4 relative">
+                  {mapMode === "3d" ? (
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14725.10940562478!2d75.9000!3d22.7101!2m3!1f0!2f45!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e3402b359321%3A0xffdc3966fe3eebc9!2sEssentia%20Luxury%20Hotel%20Indore!5e1!3m2!1sen!2sin!4v1791855892034!5m2!1sen!2sin"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0, filter: isDark ? "contrast(1.1) brightness(0.95)" : "none" }}
+                      allowFullScreen={false}
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      title="3D Terrain Map of Essentia Luxury Hotel Indore"
+                      className="w-full h-full block"
+                    />
+                  ) : (
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123142.96350579694!2d75.75139283517477!3d22.710130499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e3402b359321%3A0xffdc3966fe3eebc9!2sEssentia%20Luxury%20Hotel%20Indore!5e0!3m2!1sen!2sin!4v1791855892034!5m2!1sen!2sin"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen={false}
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      title="Essentia Luxury Hotel Indore Google Map Location"
+                      className="w-full h-full block"
+                    />
+                  )}
                 </div>
               </div>
 

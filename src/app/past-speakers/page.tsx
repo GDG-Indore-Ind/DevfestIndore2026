@@ -8,8 +8,10 @@ import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { getPastSpeakers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function PastSpeakersPage() {
+  const { isDark } = useTheme();
   const [speakers, setSpeakers] = useState<PastSpeaker[]>(DEV_FEST_PAST_SPEAKERS_FULL);
   const [selectedYear, setSelectedYear] = useState<string>("All");
 
@@ -29,18 +31,22 @@ export default function PastSpeakersPage() {
       : speakers.filter((s) => s.year === selectedYear);
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] text-[#1e1e1e] flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors ${
+      isDark ? "bg-[#000000] text-white" : "bg-[#fafbfc] text-[#1e1e1e]"
+    }`}>
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-bold text-[#1e1e1e] shadow-sm mb-4">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm mb-4 border ${
+              isDark ? "bg-white/10 border-white/20 text-white" : "bg-white border-gray-200 text-[#1e1e1e]"
+            }`}>
               <Award className="w-3.5 h-3.5 text-[#f9ab00]" />
               <span>Hall of Fame & Alumni</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-black text-[#1e1e1e] tracking-tight mb-4">
+            <h1 className={`text-4xl sm:text-6xl font-black tracking-tight mb-4 ${isDark ? "text-white" : "text-[#1e1e1e]"}`}>
               Previous Speakers & Spotlights
             </h1>
             <p className="text-base sm:text-lg text-[#5f6368] leading-relaxed">
