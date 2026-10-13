@@ -62,13 +62,12 @@ export default function PageLoader() {
         <div className="relative mb-6">
           <div className="relative w-16 h-16 rounded-3xl bg-[#0d0d0d] border border-white/20 shadow-[0_0_30px_rgba(66,133,244,0.4)] flex items-center justify-center animate-float-subtle overflow-hidden p-2.5">
             <Image
-              src="/favicon.ico"
+              src="/gdglogo-removebg-preview.png"
               alt="GDG DevFest Indore"
-              width={48}
-              height={48}
-              className="w-10 h-10 object-contain"
+              width={52}
+              height={52}
+              className="w-12 h-12 object-contain scale-110"
               priority
-              unoptimized
             />
           </div>
 

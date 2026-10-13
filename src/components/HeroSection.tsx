@@ -135,14 +135,26 @@ export default function HeroSection() {
             {/* Top Badge Pill */}
             {isDark ? (
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-[#0d1526]/80 border-[#0070f3]/40 text-[#57caff] shadow-[0_0_20px_rgba(0,112,243,0.3)]">
-                <span className="text-[#f9ab00] text-xs font-black">✦</span>
+                <Image
+                  src="/gdglogo-removebg-preview.png"
+                  alt="GDG Logo"
+                  width={20}
+                  height={20}
+                  className="w-4 h-4 object-contain"
+                />
                 <span className="text-xs font-semibold tracking-wide">
                   A Google Developer Groups Initiative
                 </span>
               </div>
             ) : (
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-white/95 border-gray-200 shadow-sm text-gray-800">
-                <span className="text-[#f9ab00] text-xs font-black">✦</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-white/95 border-gray-200 shadow-sm text-gray-800">
+                <Image
+                  src="/gdglogo-removebg-preview.png"
+                  alt="GDG Logo"
+                  width={22}
+                  height={22}
+                  className="w-4.5 h-4.5 object-contain"
+                />
                 <span className="text-xs font-bold tracking-wider font-mono uppercase">
                   GOOGLE DEVELOPER GROUP INDORE
                 </span>

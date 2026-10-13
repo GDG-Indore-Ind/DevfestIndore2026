@@ -111,13 +111,12 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                   }`}
               >
                 <Image
-                  src="/favicon.ico"
+                  src="/gdglogo-removebg-preview.png"
                   alt="GDG DevFest Indore Logo"
-                  width={34}
-                  height={34}
-                  className="w-7 h-7 object-contain"
+                  width={38}
+                  height={38}
+                  className="w-8 h-8 object-contain scale-110"
                   priority
-                  unoptimized
                 />
               </div>
               <div className="flex flex-col text-left">

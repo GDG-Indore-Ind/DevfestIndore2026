@@ -125,12 +125,11 @@ export default function Footer() {
                   isDark ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_15px_rgba(66,133,244,0.3)]" : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
                 }`}>
                   <Image
-                    src="/favicon.ico"
+                    src="/gdglogo-removebg-preview.png"
                     alt="GDG DevFest Indore Logo"
-                    width={36}
-                    height={36}
-                    className="w-7 h-7 object-contain"
-                    unoptimized
+                    width={38}
+                    height={38}
+                    className="w-8 h-8 object-contain scale-110"
                   />
                 </div>
                 <div>
