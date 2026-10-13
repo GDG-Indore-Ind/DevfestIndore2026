@@ -89,18 +89,18 @@ export default function HeroSection() {
           {/* Main Full-width Stage Image */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/images/devfest-stage-fullwidth-dark.jpg"
+              src="/images/ll.jpg"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
               quality={100}
-              className="object-cover object-right sm:object-[100%_center] w-full h-full opacity-100 transition-all duration-700"
+              className="object-cover object-right md:object-[95%_center] w-full h-full opacity-100 transition-all duration-700"
             />
           </div>
 
           {/* Gentle smooth gradient on left side for text contrast while keeping the right side completely transparent */}
-          <div className="absolute inset-y-0 left-0 w-full lg:w-[45%] bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
-          
+          <div className="absolute inset-y-0 left-0 w-full lg:w-[42%] bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+
           {/* Top and Bottom soft vignette fades */}
           <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/70 to-transparent z-10 pointer-events-none" />
           <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/75 to-transparent z-10 pointer-events-none" />
@@ -169,27 +169,29 @@ export default function HeroSection() {
 
             {/* Title: DevFest Indore 2026 */}
             {isDark ? (
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1] mb-4">
-                <span className="text-white drop-shadow-md">DevFest</span>{" "}
-                <span
-                  className="text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage: "linear-gradient(90deg, #ea4335 0%, #f9ab00 35%, #34a853 65%, #4285f4 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Indore
-                </span>{" "}
-                <span
-                  className="text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage: "linear-gradient(90deg, #4285f4 0%, #a855f7 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  2026
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] mb-4">
+                <span className="block text-white drop-shadow-md">DevFest</span>
+                <span className="block mt-1 sm:mt-2">
+                  <span
+                    className="text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage: "linear-gradient(90deg, #ea4335 0%, #f9ab00 35%, #34a853 65%, #4285f4 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    Indore
+                  </span>{" "}
+                  <span
+                    className="text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage: "linear-gradient(90deg, #4285f4 0%, #a855f7 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    2026
+                  </span>
                 </span>
               </h1>
             ) : (
@@ -218,9 +220,8 @@ export default function HeroSection() {
             )}
 
             {/* Description Paragraph */}
-            <p className={`text-sm sm:text-base max-w-xl mb-6 leading-relaxed ${
-              isDark ? "text-white/80 font-normal" : "text-[#374151] font-medium"
-            }`}>
+            <p className={`text-sm sm:text-base max-w-xl mb-6 leading-relaxed ${isDark ? "text-white/80 font-normal" : "text-[#374151] font-medium"
+              }`}>
               {isDark ? (
                 "A flagship community event bringing together developers, creators, researchers and industry leaders to learn, build and grow with the latest in AI, Cloud, Web, Android and more."
               ) : (
@@ -328,27 +329,7 @@ export default function HeroSection() {
             )}
 
             {/* Social Proof (Dark Mode) OR Telemetry Card (Light Mode) */}
-            {isDark ? (
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2 overflow-hidden">
-                  <div className="inline-block h-8 w-8 rounded-full ring-2 ring-black bg-[#4285f4] flex items-center justify-center text-white text-xs font-bold">
-                    S
-                  </div>
-                  <div className="inline-block h-8 w-8 rounded-full ring-2 ring-black bg-[#ea4335] flex items-center justify-center text-white text-xs font-bold">
-                    A
-                  </div>
-                  <div className="inline-block h-8 w-8 rounded-full ring-2 ring-black bg-[#f9ab00] flex items-center justify-center text-white text-xs font-bold">
-                    T
-                  </div>
-                  <div className="inline-block h-8 w-8 rounded-full ring-2 ring-black bg-[#34a853] flex items-center justify-center text-white text-xs font-bold">
-                    K
-                  </div>
-                </div>
-                <span className="text-xs sm:text-sm font-semibold text-white/85">
-                  <strong className="text-white">1,500+</strong> developers are already registered
-                </span>
-              </div>
-            ) : (
+            {!isDark && (
               /* Light Mode: Mission Telemetry Countdown Card matching exact Screenshot */
               <div className="w-full max-w-md rounded-2xl p-4 bg-white/95 border border-gray-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-md">
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
@@ -465,116 +446,110 @@ export default function HeroSection() {
 
         {/* BOTTOM METRICS STRIP (Shown in Dark Mode as requested; Light Mode has the Telemetry Clock Card inside hero) */}
         {isDark && (
-        <div className="mt-12 pt-6">
-          <div className="rounded-2xl p-4 sm:p-5 border transition-all bg-[#080d19]/80 backdrop-blur-xl border-[#0070f3]/25 shadow-[0_0_35px_rgba(0,112,243,0.2)]">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-              {/* Metric 1: 1,500+ Expected Attendees */}
-              <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-2">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
-                  isDark ? "bg-[#0070f3]/20 border-[#0070f3]/40 text-[#0070f3]" : "bg-blue-50 border-blue-200 text-[#4285f4]"
-                }`}>
-                  <Users className="w-5 h-5" />
+          <div className="mt-12 pt-6">
+            <div className="rounded-2xl p-4 sm:p-5 border transition-all bg-[#080d19]/80 backdrop-blur-xl border-[#0070f3]/25 shadow-[0_0_35px_rgba(0,112,243,0.2)]">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+                {/* Metric 1: 1,500+ Expected Attendees */}
+                <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-2">
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${isDark ? "bg-[#0070f3]/20 border-[#0070f3]/40 text-[#0070f3]" : "bg-blue-50 border-blue-200 text-[#4285f4]"
+                    }`}>
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      1,500+
+                    </span>
+                    <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
+                      Expected Attendees
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    1,500+
-                  </span>
-                  <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
-                    Expected Attendees
-                  </span>
-                </div>
-              </div>
 
-              {/* Metric 2: 20+ Expert Speakers */}
-              <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
-                  isDark ? "bg-[#ea4335]/20 border-[#ea4335]/40 text-[#ea4335]" : "bg-red-50 border-red-200 text-[#ea4335]"
-                }`}>
-                  <Mic className="w-5 h-5" />
+                {/* Metric 2: 20+ Expert Speakers */}
+                <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${isDark ? "bg-[#ea4335]/20 border-[#ea4335]/40 text-[#ea4335]" : "bg-red-50 border-red-200 text-[#ea4335]"
+                    }`}>
+                    <Mic className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      20+
+                    </span>
+                    <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
+                      Expert Speakers
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    20+
-                  </span>
-                  <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
-                    Expert Speakers
-                  </span>
-                </div>
-              </div>
 
-              {/* Metric 3: 05 Tracks */}
-              <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
-                  isDark ? "bg-[#34a853]/20 border-[#34a853]/40 text-[#34a853]" : "bg-green-50 border-green-200 text-[#34a853]"
-                }`}>
-                  <LayoutGrid className="w-5 h-5" />
+                {/* Metric 3: 05 Tracks */}
+                <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${isDark ? "bg-[#34a853]/20 border-[#34a853]/40 text-[#34a853]" : "bg-green-50 border-green-200 text-[#34a853]"
+                    }`}>
+                    <LayoutGrid className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      05
+                    </span>
+                    <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
+                      Tracks
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    05
-                  </span>
-                  <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
-                    Tracks
-                  </span>
-                </div>
-              </div>
 
-              {/* Metric 4: 30+ Hands-on Sessions */}
-              <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
-                  isDark ? "bg-[#f9ab00]/20 border-[#f9ab00]/40 text-[#f9ab00]" : "bg-amber-50 border-amber-200 text-[#f9ab00]"
-                }`}>
-                  <Laptop className="w-5 h-5" />
+                {/* Metric 4: 30+ Hands-on Sessions */}
+                <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6">
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${isDark ? "bg-[#f9ab00]/20 border-[#f9ab00]/40 text-[#f9ab00]" : "bg-amber-50 border-amber-200 text-[#f9ab00]"
+                    }`}>
+                    <Laptop className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      30+
+                    </span>
+                    <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
+                      Hands-on Sessions
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    30+
-                  </span>
-                  <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
-                    Hands-on Sessions
-                  </span>
-                </div>
-              </div>
 
-              {/* Metric 5: #1 Developer Community Event in Indore */}
-              <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6 col-span-2 sm:col-span-1">
-                <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${
-                  isDark ? "bg-[#a855f7]/20 border-[#a855f7]/40 text-[#a855f7]" : "bg-purple-50 border-purple-200 text-[#a855f7]"
-                }`}>
-                  <Trophy className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    #1
-                  </span>
-                  <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
-                    Developer Community Event in Indore
-                  </span>
+                {/* Metric 5: #1 Developer Community Event in Indore */}
+                <div className="flex items-center gap-3.5 pt-2 sm:pt-0 sm:pl-6 col-span-2 sm:col-span-1">
+                  <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 border ${isDark ? "bg-[#a855f7]/20 border-[#a855f7]/40 text-[#a855f7]" : "bg-purple-50 border-purple-200 text-[#a855f7]"
+                    }`}>
+                    <Trophy className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`block text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                      #1
+                    </span>
+                    <span className={`block text-xs font-medium ${isDark ? "text-white/65" : "text-gray-600"}`}>
+                      Developer Community Event in Indore
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* TOPICS PILL FILTER BAR (AI, Web, Cloud, Android, Open Source, Community, Career, Startups) */}
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            {topicPills.map((pill, idx) => {
-              const Icon = pill.icon;
-              return (
-                <div
-                  key={idx}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold cursor-pointer transition-transform hover:scale-105 ${
-                    isDark
-                      ? `${pill.color} backdrop-blur-md`
-                      : "bg-white border-gray-200 text-gray-800 shadow-sm hover:border-blue-300"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{pill.label}</span>
-                </div>
-              );
-            })}
+            {/* TOPICS PILL FILTER BAR (AI, Web, Cloud, Android, Open Source, Community, Career, Startups) */}
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              {topicPills.map((pill, idx) => {
+                const Icon = pill.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold cursor-pointer transition-transform hover:scale-105 ${isDark
+                        ? `${pill.color} backdrop-blur-md`
+                        : "bg-white border-gray-200 text-gray-800 shadow-sm hover:border-blue-300"
+                      }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{pill.label}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
         )}
       </div>
     </section>
