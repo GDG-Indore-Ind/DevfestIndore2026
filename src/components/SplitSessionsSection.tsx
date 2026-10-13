@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Terminal,
   Code2,
@@ -14,6 +14,7 @@ import {
   Check,
   CheckCircle2,
   Play,
+  Activity,
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -44,11 +45,11 @@ const SESSIONS_DATA: SessionCard[] = [
     color: "blue",
     command: "gdg telemetry --orbit MP-INDORE --sat-feed live",
     terminalOutput: [
-      "[telemetry] Initializing Ground Station link at Essentia Luxury Hotel...",
-      "[telemetry] LAT 22.7101° N • LON 75.9039° E • Altitude: 553m",
-      "[telemetry] Space Club of India telemetry stream calibrated.",
-      "[telemetry] Satellite Doppler Shift adjusted: +1.4 kHz",
-      "✓ Status: Telemetry Pipeline Operational. Plenary Stage Ready.",
+      "[telemetry] Ground station link connected at Essentia Convention Arena",
+      "[telemetry] Coordinates locked: 22.7101° N, 75.9039° E • Altitude 553m",
+      "[telemetry] Space Club of India real-time telemetry stream synchronized",
+      "[telemetry] Live sensor arrays streaming orbital pass telemetry",
+      "✓ Status: Telemetry Pipeline Operational • Plenary Stage Active",
     ],
     tags: ["Satellite Data", "Space Tech", "Geospatial APIs"],
   },
@@ -64,11 +65,11 @@ const SESSIONS_DATA: SessionCard[] = [
     color: "red",
     command: "agentic-swarm run --model gemini-2.5-pro --agents 4",
     terminalOutput: [
-      "[swarm] Initializing agent orchestrator [Planner, Worker, Reviewer]...",
-      "[swarm] Multi-agent execution graph established in 42ms.",
-      "[swarm] Tool invocation: code_executor(), db_vector_search()",
-      "[swarm] Evaluating deterministic safety guardrails...",
-      "✓ Swarm Consensus: 100% verified. Executing autonomous workflow.",
+      "[swarm] Initializing agent orchestrator [Planner, Worker, Verifier]",
+      "[swarm] Multi-agent execution graph established in 24ms",
+      "[swarm] Autonomous tool dispatch: function_calling_loop() active",
+      "[swarm] Deterministic safety boundaries calibrated & healthy",
+      "✓ Swarm Consensus: 100% verified • Agentic execution loop running",
     ],
     tags: ["Multi-Agent Swarms", "Gemini Models", "Enterprise AI"],
   },
@@ -84,11 +85,11 @@ const SESSIONS_DATA: SessionCard[] = [
     color: "yellow",
     command: "silicon-edge benchmark --npu qualcomm-snapdragon-x",
     terminalOutput: [
-      "[npu] Probing Qualcomm Hexagon Neural Processing Unit...",
-      "[npu] 45 TOPS peak hardware acceleration online.",
-      "[npu] Running on-device quantization (INT4/INT8 weights)...",
-      "[npu] Robotics sensor fusion loop latency: 1.8ms",
-      "✓ Hardware Execution: Edge model compiled for live exhibition.",
+      "[npu] Qualcomm Hexagon NPU hardware accelerator detected",
+      "[npu] 45 TOPS peak performance verified on physical silicon",
+      "[npu] INT4/INT8 low-latency model inference compiled in memory",
+      "[npu] Robotics sensor fusion loop latency: 1.2ms (Zero Jitter)",
+      "✓ Hardware Pipeline: Edge silicon demo online for exhibition",
     ],
     tags: ["Qualcomm Showcase", "Edge Silicon", "Robotics"],
   },
@@ -104,11 +105,11 @@ const SESSIONS_DATA: SessionCard[] = [
     color: "green",
     command: "kubectl get pods -n devfest-cloud --field-selector=status.phase=Running",
     terminalOutput: [
-      "[k8s] devfest-vector-engine-v2-7df84   1/1   Running   0   44h",
-      "[k8s] devfest-realtime-telemetry-9a8   1/1   Running   0   44h",
-      "[k8s] devfest-edge-gateway-4f7        1/1   Running   0   44h",
-      "[k8s] Ingress: https://devfest2026-iota.vercel.app [Healthy]",
-      "✓ Infrastructure: High-availability multi-region cluster active.",
+      "[k8s] devfest-vector-engine-v2-7df84   1/1   Running   0   48h",
+      "[k8s] devfest-realtime-telemetry-9a8   1/1   Running   0   48h",
+      "[k8s] devfest-edge-gateway-4f7        1/1   Running   0   48h",
+      "[k8s] Multi-zone cluster load balancer health: 100% OK",
+      "✓ High-Availability: Distributed mesh verified across regions",
     ],
     tags: ["Distributed Cloud", "Zero Downtime", "Data Pipelines"],
   },
@@ -124,11 +125,11 @@ const SESSIONS_DATA: SessionCard[] = [
     color: "blue",
     command: "community-network query --region central-india --leads 600",
     terminalOutput: [
-      "[network] Convening 600+ vetted engineers, founders & organizers...",
-      "[network] Malwa Tech corridor partnerships synchronized.",
-      "[network] Banquet Dining Lawns & VIP Lounge open at Essentia Hotel.",
-      "[network] Follow-up hackathons & mentoring circles registered.",
-      "✓ Mission Complete: Central India Developer Ecosystem Activated.",
+      "[network] Convening 600+ vetted engineers, founders & organizers",
+      "[network] Malwa Tech corridor partnerships synchronized",
+      "[network] Banquet Dining Lawns & VIP Lounge open at Essentia Hotel",
+      "[network] Follow-up hackathons & mentoring circles registered",
+      "✓ Mission Complete: Central India Developer Ecosystem Activated",
     ],
     tags: ["VIP Lounge", "Founder Roundtable", "600+ Leaders"],
   },
@@ -137,6 +138,34 @@ const SESSIONS_DATA: SessionCard[] = [
 export default function SplitSessionsSection() {
   const { isDark } = useTheme();
   const [activeSessionId, setActiveSessionId] = useState<string>("sess-01");
+  const cardRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  // Scroll Trigger Observer: Synchronizes sticky right terminal with scrolling cards on the left
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-session-id");
+            if (id) {
+              setActiveSessionId(id);
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-25% 0px -40% 0px", // triggers when card passes through middle reading area
+        threshold: 0.1,
+      }
+    );
+
+    Object.values(cardRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const activeSession =
     SESSIONS_DATA.find((s) => s.id === activeSessionId) || SESSIONS_DATA[0];
@@ -148,7 +177,7 @@ export default function SplitSessionsSection() {
         <div className="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow text-xs font-black mb-3 hover:scale-105 transition-transform">
             <Terminal className="w-4 h-4 text-[#4285f4]" />
-            <span className={isDark ? "text-white" : "text-gray-900"}>Live Session Architectures • Terminal Flow</span>
+            <span className={isDark ? "text-white" : "text-gray-900"}>Live Session Architectures • Scroll-Triggered CLI Flow</span>
             <span className="text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
           <h2 className={`text-3xl sm:text-5xl font-black tracking-tight mb-3 ${isDark ? "text-white" : "text-gray-900"}`}>
@@ -162,22 +191,26 @@ export default function SplitSessionsSection() {
         {/* Split Container: Left Scrollable Sessions | Right Sticky Terminal Console */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column (7 cols): Scrollable Session Cards */}
-          <div className="lg:col-span-7 space-y-5">
+          <div className="lg:col-span-7 space-y-6">
             {SESSIONS_DATA.map((session) => {
               const isSelected = activeSessionId === session.id;
 
               return (
                 <div
                   key={session.id}
+                  data-session-id={session.id}
+                  ref={(el) => {
+                    cardRefs.current[session.id] = el;
+                  }}
                   onClick={() => setActiveSessionId(session.id)}
-                  className={`p-6 sm:p-7 rounded-3xl border-2 transition-all duration-300 cursor-pointer ${
+                  className={`p-6 sm:p-8 rounded-3xl border-2 transition-all duration-300 cursor-pointer ${
                     isSelected
                       ? isDark
-                        ? "bg-[#0d0d0d] border-[#4285f4] shadow-[0_0_35px_rgba(66,133,244,0.25)] scale-[1.01]"
+                        ? "bg-[#0d0d0d] border-[#4285f4] shadow-[0_0_35px_rgba(66,133,244,0.3)] scale-[1.01]"
                         : "bg-white border-[#111827] shadow-xl scale-[1.01]"
                       : isDark
                         ? "bg-[#0d0d0d]/80 border-white/10 hover:border-white/20 hover:bg-[#121212]"
-                        : "bg-white/80 border-gray-200/90 hover:border-gray-400 hover:bg-white"
+                        : "bg-white/90 border-gray-200/90 hover:border-gray-400 hover:bg-white"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
@@ -190,18 +223,18 @@ export default function SplitSessionsSection() {
                       </span>
                     </div>
 
-                    <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full border ${
+                    <span className={`text-[10px] font-mono px-2.5 py-1 rounded-full border transition-colors ${
                       isSelected
                         ? "bg-[#4285f4] text-white border-[#4285f4]"
                         : isDark
                           ? "bg-white/5 border-white/10 text-white/70"
                           : "bg-gray-100 border-gray-200 text-gray-700"
                     }`}>
-                      {isSelected ? "● ACTIVE STREAM" : "CLICK TO INSPECT"}
+                      {isSelected ? "● SYNCED STREAM" : "SCROLL TO SYNC"}
                     </span>
                   </div>
 
-                  <h3 className={`text-xl sm:text-2xl font-black mb-1.5 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`text-xl sm:text-2xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
                     {session.title}
                   </h3>
 
@@ -241,23 +274,26 @@ export default function SplitSessionsSection() {
                   <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
                   <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                   <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                  <span className="text-gray-400 font-bold ml-2">gdg-agentic-cli</span>
+                  <span className="text-gray-300 font-bold ml-2">gdg-telemetry-engine</span>
                 </div>
-                <span className="text-[11px] text-gray-400 font-semibold">
-                  session_id: {activeSession.id}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#34a853] animate-pulse" />
+                  <span className="text-[11px] text-gray-400 font-semibold">
+                    track_{activeSession.step}
+                  </span>
+                </div>
               </div>
 
               {/* Terminal Interactive Content */}
               <div className="p-5 text-xs sm:text-[13px] space-y-4">
                 {/* Simulated Command prompt */}
-                <div className="flex items-center gap-2 text-[#38bdf8]">
+                <div className="flex items-center gap-2 text-[#38bdf8] bg-black/40 px-3 py-2 rounded-lg border border-white/5">
                   <span className="text-[#34a853] font-bold">gdg@indore:~$</span>
                   <span className="text-white font-bold">{activeSession.command}</span>
                 </div>
 
                 {/* Output Lines with typing cursor */}
-                <div className="space-y-2 text-gray-300 bg-black/40 p-4 rounded-xl border border-white/10 shadow-inner">
+                <div className="space-y-2 text-gray-300 bg-black/50 p-4 rounded-xl border border-white/10 shadow-inner">
                   {activeSession.terminalOutput.map((line, idx) => (
                     <div
                       key={idx}
@@ -265,32 +301,34 @@ export default function SplitSessionsSection() {
                         line.startsWith("✓")
                           ? "text-[#34a853] font-bold"
                           : line.startsWith("[swarm]")
-                            ? "text-[#ea4335]"
+                            ? "text-[#93c5fd]"
                             : line.startsWith("[npu]")
-                              ? "text-[#f9ab00]"
+                              ? "text-[#fde047]"
                               : line.startsWith("[telemetry]")
                                 ? "text-[#38bdf8]"
-                                : "text-gray-300"
+                                : line.startsWith("[k8s]")
+                                  ? "text-[#86efac]"
+                                  : "text-gray-300"
                       }
                     >
                       {line}
                     </div>
                   ))}
-                  <div className="flex items-center gap-1.5 text-gray-400 pt-1">
-                    <span className="inline-block w-2 h-4 bg-[#38bdf8] animate-pulse" />
-                    <span className="text-[11px] text-gray-500">Listening on WebSocket stream...</span>
+                  <div className="flex items-center gap-2 text-gray-400 pt-2 border-t border-white/5">
+                    <span className="inline-block w-2 h-4 bg-[#34a853] animate-pulse" />
+                    <span className="text-[11px] text-[#34a853] font-bold">Live Telemetry Stream Active (Zero Dropped Packets)</span>
                   </div>
                 </div>
 
                 {/* Terminal Quick Specs Footer */}
                 <div className="pt-2 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px]">
-                  <div className="p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-gray-400 block">Active Hall:</span>
-                    <span className="font-bold text-white">Main Auditorium</span>
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-white/5">
+                    <span className="text-gray-400 block mb-0.5">Active Venue Hall:</span>
+                    <span className="font-bold text-white">Main Plenary Auditorium</span>
                   </div>
-                  <div className="p-2 rounded-lg bg-white/5 border border-white/5">
-                    <span className="text-gray-400 block">Agent Status:</span>
-                    <span className="font-bold text-[#34a853]">Online • Verified</span>
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-white/5">
+                    <span className="text-gray-400 block mb-0.5">Stream Protocol:</span>
+                    <span className="font-bold text-[#34a853]">WSS Telemetry • Encrypted</span>
                   </div>
                 </div>
               </div>

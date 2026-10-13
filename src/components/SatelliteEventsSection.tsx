@@ -246,23 +246,26 @@ export default function SatelliteEventsSection() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-black transition-all border-2 cursor-pointer shadow-sm ${
-                  selectedCategory === cat
-                    ? isDark
-                      ? "bg-white text-black border-white shadow-md scale-102"
-                      : "bg-[#111827] text-white border-[#111827] shadow-md scale-102"
-                    : isDark
-                      ? "bg-white/5 text-white/90 border-white/15 hover:bg-white/10 hover:text-white"
-                      : "bg-white text-gray-900 border-gray-300 hover:bg-gray-100 hover:text-black"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all border-2 cursor-pointer shadow-sm ${
+                    isActive
+                      ? isDark
+                        ? "bg-white text-black border-white shadow-md scale-102"
+                        : "!bg-gray-950 !text-white !border-gray-950 shadow-md scale-102"
+                      : isDark
+                        ? "bg-white/5 text-white/90 border-white/15 hover:bg-white/10 hover:text-white"
+                        : "!bg-white !text-gray-900 !border-gray-300 hover:!bg-gray-100 hover:!text-black"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </div>
 

@@ -82,42 +82,69 @@ export default function SpaceCollaborationSection() {
               </div>
             </div>
 
-            {/* Right Column: Visual Space Hub Card */}
+            {/* Right Column: Visual Space Hub Card (High Contrast GDG Theme) */}
             <div className="lg:col-span-5 flex flex-col items-center">
-              <div className="w-full p-6 rounded-3xl bg-gradient-to-br from-[#0b132b] to-[#1c2541] text-white border-2 border-white/20 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
+              <div className={`w-full p-6 sm:p-7 rounded-3xl border-2 transition-all relative overflow-hidden shadow-xl ${
+                isDark
+                  ? "bg-[#0d1117] border-white/20 text-white shadow-[0_0_40px_rgba(56,189,248,0.15)]"
+                  : "bg-white border-[#111827] text-gray-950 shadow-[0_12px_36px_rgba(0,0,0,0.08)]"
+              }`}>
+                {/* Decorative Google / Aerospace gradient blur */}
+                <div className="absolute top-0 right-0 w-36 h-36 bg-[#4285f4]/15 rounded-full blur-2xl pointer-events-none" />
 
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-700">
+                <div className={`flex items-center justify-between pb-4 mb-4 border-b ${
+                  isDark ? "border-white/10" : "border-gray-200"
+                }`}>
                   <div className="flex items-center gap-2">
-                    <Rocket className="w-5 h-5 text-[#38bdf8] animate-bounce" />
-                    <span className="text-xs font-mono font-black uppercase tracking-wider text-[#38bdf8]">
+                    <Rocket className="w-5 h-5 text-[#4285f4] animate-bounce" />
+                    <span className="text-xs font-mono font-black uppercase tracking-wider text-[#4285f4]">
                       Space Engagement Hub
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono bg-blue-900/80 text-blue-200 px-2.5 py-1 rounded-full font-bold border border-blue-700">
+                  <span className={`text-[11px] font-mono font-black px-2.5 py-1 rounded-full border ${
+                    isDark
+                      ? "bg-[#4285f4]/20 text-[#38bdf8] border-[#4285f4]/40"
+                      : "bg-[#111827] text-white border-[#111827]"
+                  }`}>
                     Nov 28, 2026
                   </span>
                 </div>
 
-                <h3 className="text-xl font-black mb-2">
+                <h3 className={`text-xl sm:text-2xl font-black mb-2.5 ${
+                  isDark ? "text-white" : "text-gray-950"
+                }`}>
                   Building MP's Space-Tech Frontier
                 </h3>
-                <p className="text-xs text-gray-300 leading-relaxed mb-5">
+                <p className={`text-xs sm:text-[13px] leading-relaxed mb-5 ${
+                  isDark ? "text-white/80" : "text-gray-700"
+                }`}>
                   Opening gates for computer scientists, robotics innovators, and AI engineers to deploy algorithms for Earth observation, telemetry, and private satellite constellations.
                 </p>
 
                 <div className="space-y-2.5 text-xs font-medium">
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <span className="text-gray-300">Audience Impact:</span>
-                    <span className="font-bold text-white">600+ Professionals & Students</span>
+                  <div className={`flex items-center justify-between p-3 rounded-xl border ${
+                    isDark
+                      ? "bg-white/5 border-white/10 text-white"
+                      : "bg-gray-50 border-gray-200 text-gray-900"
+                  }`}>
+                    <span className={isDark ? "text-white/70" : "text-gray-600"}>Audience Impact:</span>
+                    <span className="font-black text-[#4285f4]">600+ Professionals & Students</span>
                   </div>
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <span className="text-gray-300">Hands-on Track:</span>
-                    <span className="font-bold text-white">Satellite Data Processing</span>
+                  <div className={`flex items-center justify-between p-3 rounded-xl border ${
+                    isDark
+                      ? "bg-white/5 border-white/10 text-white"
+                      : "bg-gray-50 border-gray-200 text-gray-900"
+                  }`}>
+                    <span className={isDark ? "text-white/70" : "text-gray-600"}>Hands-on Track:</span>
+                    <span className="font-black text-[#34a853]">Satellite Data Processing</span>
                   </div>
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 backdrop-blur-sm">
-                    <span className="text-gray-300">Host City:</span>
-                    <span className="font-bold text-white">Indore, Madhya Pradesh</span>
+                  <div className={`flex items-center justify-between p-3 rounded-xl border ${
+                    isDark
+                      ? "bg-white/5 border-white/10 text-white"
+                      : "bg-gray-50 border-gray-200 text-gray-900"
+                  }`}>
+                    <span className={isDark ? "text-white/70" : "text-gray-600"}>Host City:</span>
+                    <span className="font-black text-[#ea4335]">Indore, Madhya Pradesh</span>
                   </div>
                 </div>
               </div>

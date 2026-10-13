@@ -167,102 +167,135 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           </div>
         </div>
 
-        {/* Global Slide-Down Navigation Drawer (Hamburger Menu) */}
+        {/* Global Slide-Over Navigation Cart Drawer (Side Sheet) */}
         {mobileMenuOpen && (
-          <div
-            className={`fixed inset-x-0 top-[65px] border-b shadow-2xl p-6 sm:p-8 z-50 animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-80px)] overflow-y-auto ${isDark
-              ? "bg-[#0d0d0d]/95 backdrop-blur-2xl border-white/15"
-              : "bg-white/95 backdrop-blur-2xl border-black/15"
-              }`}
-          >
-            <div className="max-w-6xl mx-auto">
-              <div className={`flex flex-wrap items-center justify-between pb-4 mb-6 border-b ${isDark ? "border-white/10" : "border-black/10"}`}>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-pulse" />
-                  <span className={`text-sm font-bold font-mono ${isDark ? "text-white" : "text-gray-900"}`}>
-                    DEVFEST INDORE 2026 // DIRECTORY
-                  </span>
+          <div className="fixed inset-0 z-50 overflow-hidden">
+            {/* Backdrop */}
+            <div
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+            />
+
+            {/* Right Side Panel / Cart Drawer */}
+            <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+              <div
+                className={`w-screen max-w-md shadow-2xl flex flex-col border-l animate-in slide-in-from-right duration-300 ${
+                  isDark
+                    ? "bg-[#0c1017] border-white/15 text-white"
+                    : "bg-white border-gray-200 text-gray-900"
+                }`}
+              >
+                {/* Drawer Header */}
+                <div className={`px-6 py-5 border-b flex items-center justify-between ${
+                  isDark ? "border-white/10" : "border-gray-200"
+                }`}>
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#4285f4]/15 text-[#4285f4] font-mono font-black text-sm">
+                      &lt;/&gt;
+                    </div>
+                    <div>
+                      <div className="text-sm font-black tracking-tight">GDG DevFest Indore</div>
+                      <div className="text-[11px] text-gray-500 font-mono">Central India 2026</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`p-2 rounded-xl border transition-colors ${
+                      isDark
+                        ? "border-white/15 bg-white/5 hover:bg-white/15 text-white"
+                        : "border-gray-200 bg-gray-100 hover:bg-gray-200 text-gray-900"
+                    }`}
+                    aria-label="Close menu drawer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className={`text-xs font-bold flex items-center gap-1 ${isDark ? "text-white/75" : "text-gray-700"}`}>
-                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel Indore
+
+                {/* Drawer Quick Details Strip */}
+                <div className={`px-6 py-3 border-b flex items-center justify-between text-xs ${
+                  isDark ? "border-white/5 bg-white/[0.02]" : "border-gray-100 bg-gray-50/70"
+                }`}>
+                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
+                    <MapPin className="w-3.5 h-3.5 text-[#ea4335]" /> Essentia Luxury Hotel
                   </span>
-                  <span className="text-xs font-extrabold text-[#34a853] bg-[#34a853]/15 px-2.5 py-1 rounded-full border border-[#34a853]/30">
+                  <span className="font-mono font-bold text-[#34a853] bg-[#34a853]/15 px-2 py-0.5 rounded-full border border-[#34a853]/30">
                     Nov 28, 2026
                   </span>
                 </div>
-              </div>
 
-              {/* 2-Column Grid of Navigation Links */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
-                {allDrawerLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`group p-3.5 rounded-2xl border transition-all hover:scale-[1.02] flex flex-col justify-between ${isDark
-                      ? "border-white/10 bg-white/5 hover:bg-[#4285f4]/15 hover:border-[#4285f4]/40 text-white"
-                      : "border-black/10 bg-black/5 hover:bg-[#4285f4]/10 hover:border-[#4285f4]/30 text-gray-900 shadow-sm"
+                {/* Drawer Scrollable Navigation Links */}
+                <div className="flex-1 overflow-y-auto px-6 py-4 space-y-2">
+                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Navigation Directory
+                  </div>
+                  {allDrawerLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`group p-3 rounded-2xl border transition-all flex items-center justify-between ${
+                        isDark
+                          ? "border-white/10 bg-white/5 hover:bg-[#4285f4]/15 hover:border-[#4285f4]/40 text-white"
+                          : "border-gray-200/90 bg-gray-50/50 hover:bg-[#4285f4]/10 hover:border-[#4285f4]/40 text-gray-900 shadow-sm"
                       }`}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-sm group-hover:text-[#4285f4] transition-colors">{link.name}</span>
-                      <span className="text-[#4285f4] text-xs font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                    </div>
-                    <span className={`text-xs line-clamp-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>
-                      {link.desc}
-                    </span>
-                  </a>
-                ))}
-              </div>
-
-              {/* Action Buttons in Drawer */}
-              <div className={`pt-4 border-t flex flex-wrap items-center justify-between gap-3 ${isDark ? "border-white/10" : "border-black/10"}`}>
-                <div className="flex items-center gap-3">
-                  <Link
-                    href="/team"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${isDark
-                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
-                      }`}
-                  >
-                    Core Team & Speakers
-                  </Link>
-                  <Link
-                    href="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${isDark
-                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
-                      }`}
-                  >
-                    Admin Panel
-                  </Link>
+                    >
+                      <div>
+                        <div className="font-bold text-sm group-hover:text-[#4285f4] transition-colors">
+                          {link.name}
+                        </div>
+                        <div className={`text-[11px] line-clamp-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>
+                          {link.desc}
+                        </div>
+                      </div>
+                      <span className="text-[#4285f4] text-sm font-mono font-bold ml-2 shrink-0 group-hover:translate-x-1 transition-transform">
+                        →
+                      </span>
+                    </a>
+                  ))}
                 </div>
 
-                <div className="flex items-center gap-3">
-                  {/* Theme Switcher */}
-                  <button
-                    onClick={() => { toggleTheme(); }}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold border flex items-center gap-2 ${isDark
-                      ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                      : "bg-black/5 border-black/15 text-gray-800 hover:bg-black/10"
+                {/* Drawer Footer Actions */}
+                <div className={`p-6 border-t space-y-3 ${
+                  isDark ? "border-white/10 bg-black/40" : "border-gray-200 bg-gray-50"
+                }`}>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href="/team"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex-1 text-center py-2.5 rounded-xl text-xs font-bold border transition-colors ${
+                        isDark
+                          ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                          : "bg-white border-gray-300 text-gray-800 hover:bg-gray-100 shadow-sm"
                       }`}
-                  >
-                    {isDark ? (
-                      <><Sun className="w-3.5 h-3.5 text-[#f9ab00]" /><span>Light Theme</span></>
-                    ) : (
-                      <><Moon className="w-3.5 h-3.5 text-[#4285f4]" /><span>Dark Theme</span></>
-                    )}
-                  </button>
+                    >
+                      Team & Speakers
+                    </Link>
+
+                    <button
+                      onClick={() => toggleTheme()}
+                      className={`px-3.5 py-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-colors ${
+                        isDark
+                          ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                          : "bg-white border-gray-300 text-gray-800 hover:bg-gray-100 shadow-sm"
+                      }`}
+                    >
+                      {isDark ? (
+                        <><Sun className="w-3.5 h-3.5 text-[#f9ab00]" /><span>Light</span></>
+                      ) : (
+                        <><Moon className="w-3.5 h-3.5 text-[#4285f4]" /><span>Dark</span></>
+                      )}
+                    </button>
+                  </div>
 
                   <a
                     href="#tickets"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="px-6 py-2.5 rounded-xl font-bold text-xs bg-[#4285f4] text-white border border-[#4285f4]/50 shadow-[0_0_20px_rgba(66,133,244,0.4)] flex items-center gap-2 hover:bg-[#3367d6] transition-colors"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleOpenCheckout();
+                    }}
+                    className="w-full py-3 rounded-xl font-bold text-xs bg-[#4285f4] text-white border border-[#4285f4]/50 shadow-[0_0_20px_rgba(66,133,244,0.4)] flex items-center justify-center gap-2 hover:bg-[#3367d6] transition-colors cursor-pointer"
                   >
-                    <Ticket className="w-3.5 h-3.5" />
+                    <Ticket className="w-4 h-4" />
                     <span>Get DevFest Tickets</span>
                   </a>
                 </div>

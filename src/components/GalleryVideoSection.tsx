@@ -165,109 +165,112 @@ export default function GalleryVideoSection() {
           </div>
         </div>
 
-        {/* Dedicated 1 Video Cinema Area (Staggered Cinema Screen + Interactive Terminal Player) */}
+        {/* Dedicated 1 Video Cinema Area (Large Panoramic Cinema Screen + Highlights) */}
         <div className="reveal-on-scroll">
-          <div className={`p-6 sm:p-8 rounded-3xl border-2 transition-all ${
+          <div className={`p-6 sm:p-10 rounded-3xl border-2 transition-all ${
             isDark
-              ? "bg-[#0d0d0d]/90 border-white/15 shadow-[0_0_50px_rgba(0,0,0,0.6)]"
-              : "bg-white border-gray-200/90 shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+              ? "bg-[#0d0d0d]/90 border-white/15 shadow-[0_0_60px_rgba(0,0,0,0.8)]"
+              : "bg-white border-gray-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
           }`}>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Official Cinema Player */}
-              <div className="lg:col-span-8">
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-2xl bg-black group">
-                  {!isPlayingVideo ? (
-                    <>
-                      {/* Video Thumbnail Backdrop */}
-                      <Image
-                        src="/gallery/opt_DSCF7182.JPG"
-                        alt="DevFest Indore Official Event Motion Recap"
-                        fill
-                        className="object-cover group-hover:scale-103 transition-transform duration-700 opacity-80"
-                        unoptimized
-                      />
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-colors" />
-
-                      {/* Play Button Trigger */}
-                      <button
-                        onClick={() => setIsPlayingVideo(true)}
-                        className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-[#ea4335] text-white flex items-center justify-center shadow-[0_0_40px_rgba(234,67,53,0.8)] hover:scale-110 active:scale-95 transition-all cursor-pointer group/btn"
-                        aria-label="Play DevFest Indore Official Aftermovie"
-                      >
-                        <Play className="w-8 h-8 ml-1 fill-white" />
-                      </button>
-
-                      {/* Video Title Overlay */}
-                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white pointer-events-none">
-                        <div>
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[11px] font-mono font-bold text-[#f9ab00] border border-white/10 mb-1">
-                            <Film className="w-3.5 h-3.5" />
-                            <span>OFFICIAL 4K AFTERMOVIE</span>
-                          </div>
-                          <h3 className="text-base sm:text-lg font-black drop-shadow-md">
-                            DevFest Central India Experience & Highlights
-                          </h3>
-                        </div>
-                        <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md">
-                          02:45 MIN
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <iframe
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                      title="DevFest Indore Official Aftermovie"
-                      className="w-full h-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  )}
+            {/* Header info above the grand video */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-black/10 dark:border-white/10">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-xs font-black mb-2">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Cinematic Official Broadcast</span>
                 </div>
+                <h3 className={`text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                  Relive the DevFest Velocity & Momentum
+                </h3>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className={`text-xs font-mono font-bold px-3 py-1.5 rounded-full border ${
+                  isDark ? "bg-white/5 border-white/10 text-white/80" : "bg-gray-100 border-gray-200 text-gray-800"
+                }`}>
+                  Resolution: 4K 2160p 60fps
+                </span>
+                <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#ea4335]/15 text-[#ea4335] border border-[#ea4335]/30">
+                  Duration: 02:45 min
+                </span>
+              </div>
+            </div>
+
+            {/* Grand Video Cinema Player (Full Width, Large Aspect Ratio) */}
+            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-2xl bg-black group mb-6">
+              {!isPlayingVideo ? (
+                <>
+                  {/* Video Thumbnail Backdrop */}
+                  <Image
+                    src="/gallery/opt_DSCF7182.JPG"
+                    alt="DevFest Indore Official Event Motion Recap"
+                    fill
+                    className="object-cover group-hover:scale-102 transition-transform duration-700 opacity-85"
+                    priority
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30 group-hover:opacity-80 transition-opacity" />
+
+                  {/* Play Button Trigger */}
+                  <button
+                    onClick={() => setIsPlayingVideo(true)}
+                    className="absolute inset-0 m-auto w-24 h-24 rounded-full bg-[#ea4335] text-white flex items-center justify-center shadow-[0_0_50px_rgba(234,67,53,0.9)] hover:scale-110 active:scale-95 transition-all cursor-pointer group/btn"
+                    aria-label="Play DevFest Indore Official Aftermovie"
+                  >
+                    <Play className="w-10 h-10 ml-1.5 fill-white" />
+                  </button>
+
+                  {/* Video Title Overlay */}
+                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white pointer-events-none">
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-xs font-mono font-bold text-[#f9ab00] border border-white/20 mb-2">
+                        <Film className="w-4 h-4" />
+                        <span>OFFICIAL 4K AFTERMOVIE • CENTRAL INDIA</span>
+                      </div>
+                      <h4 className="text-lg sm:text-2xl font-black drop-shadow-lg">
+                        DevFest Indore Experience, Keynotes & Plenary Energy
+                      </h4>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                  title="DevFest Indore Official Aftermovie"
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
+
+            {/* Video Footer Telemetry & Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+              }`}>
+                <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Audience Energy</div>
+                <div className={`text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>1,500+ Engineers & Creators</div>
               </div>
 
-              {/* Right Column: Interactive Staggered Video Highlights & Stats */}
-              <div className="lg:col-span-4 flex flex-col justify-between h-full space-y-4">
+              <div className={`p-4 rounded-2xl border ${
+                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+              }`}>
+                <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Audio Mastering</div>
+                <div className="text-base font-black text-[#34a853]">Dolby Mastered Stereo</div>
+              </div>
+
+              <div className={`p-4 rounded-2xl border flex items-center justify-between ${
+                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
+              }`}>
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-xs font-black mb-3">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Cinematic Broadcast</span>
-                  </div>
-                  <h4 className={`text-xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                    Relive the DevFest Velocity
-                  </h4>
-                  <p className={`text-xs leading-relaxed mb-4 ${isDark ? "text-white/75" : "text-gray-600"}`}>
-                    Capture the shared spirit of 1,500+ developers, keynote addresses by Google Developer Experts, AI code demonstrations, and Central India's developer revolution.
-                  </p>
+                  <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Full Gallery</div>
+                  <div className={`text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>Explore 40+ Photos</div>
                 </div>
-
-                <div className="space-y-2.5 text-xs">
-                  <div className={`p-3 rounded-xl border flex items-center justify-between ${
-                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-                  }`}>
-                    <span className={isDark ? "text-white/70" : "text-gray-600"}>4K Video Resolution</span>
-                    <span className="font-mono font-black text-[#4285f4]">2160p 60fps</span>
-                  </div>
-
-                  <div className={`p-3 rounded-xl border flex items-center justify-between ${
-                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-                  }`}>
-                    <span className={isDark ? "text-white/70" : "text-gray-600"}>Audio Mixing</span>
-                    <span className="font-mono font-black text-[#34a853]">Dolby Mastered</span>
-                  </div>
-
-                  <div className={`p-3 rounded-xl border flex items-center justify-between ${
-                    isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-                  }`}>
-                    <span className={isDark ? "text-white/70" : "text-gray-600"}>Archive Access</span>
-                    <span className="font-mono font-black text-[#ea4335]">YouTube Channel</span>
-                  </div>
-                </div>
-
                 <Link
                   href="/gallery"
-                  className="w-full py-3 rounded-xl text-center text-xs font-black uppercase tracking-wider border transition-all hover:scale-102 active:scale-98 bg-[#4285f4] text-white border-[#4285f4] shadow-md hover:bg-[#3367d6]"
+                  className="px-4 py-2 rounded-xl text-xs font-black bg-[#4285f4] text-white hover:bg-[#3367d6] transition-colors"
                 >
-                  Explore Complete Photography Archive →
+                  View All →
                 </Link>
               </div>
             </div>
