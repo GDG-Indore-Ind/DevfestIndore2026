@@ -30,20 +30,22 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
   };
 
   const primaryLinks = [
-    { name: "About", href: "#about" },
-    { name: "Solar Ecosystem", href: "#solar-ecosystem" },
+    { name: "Sessions", href: "#sessions-split" },
+    { name: "Pillars", href: "#pillars" },
     { name: "CFP", href: "#call-for-speakers" },
+    { name: "Gallery", href: "#recap-gallery" },
     { name: "Tickets", href: "#tickets" },
     { name: "Venue", href: "#venue" },
   ];
 
   const allDrawerLinks = [
-    { name: "Overview & Vision", href: "#about", desc: "DevFest 2026 flagship vision & target" },
-    { name: "3D Solar Ecosystem", href: "#solar-ecosystem", desc: "9 Planetary tracks & GDG Sun core" },
+    { name: "Overview & Vision", href: "#flow", desc: "DevFest 2026 flagship vision & collective flow" },
+    { name: "Sessions & Live CLI", href: "#sessions-split", desc: "Curated session architectures & live terminal feed" },
     { name: "Content Pillars", href: "#pillars", desc: "Space Tech, AI, Robotics, Data & Enterprise" },
-    { name: "Space Club of India MOU", href: "#space-collaboration", desc: "Historic Madhya Pradesh space tech alliance" },
+    { name: "Space Club of India", href: "#space-collaboration", desc: "Emerging Madhya Pradesh space tech alliance" },
     { name: "Venue & 9 Zones", href: "#zones", desc: "Qualcomm showcase, lounges & workshop halls" },
     { name: "Call for Speakers", href: "#call-for-speakers", desc: "Submit your session proposal on Sessionize" },
+    { name: "Photo Archive & Cinema", href: "#recap-gallery", desc: "Previous editions photography & 4K video player" },
     { name: "Satellite Events", href: "#satellite-events", desc: "Indore pre-events & community hackathons" },
     { name: "Tickets & Passes", href: "#tickets", desc: "Reserve your seat via KonfHub" },
     { name: "Essentia Hotel Venue", href: "#venue", desc: "World Cup Square, Pipliyahana, Indore" },

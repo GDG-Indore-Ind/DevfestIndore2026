@@ -16,7 +16,8 @@ import FeaturedTeamSection from "@/components/FeaturedTeamSection";
 // import ScheduleSection from "@/components/ScheduleSection";
 import TicketsSection from "@/components/TicketsSection";
 import SponsorsSection from "@/components/SponsorsSection";
-import SolarSystemEcosystem3D from "@/components/SolarSystemEcosystem3D";
+import SplitSessionsSection from "@/components/SplitSessionsSection";
+import GalleryVideoSection from "@/components/GalleryVideoSection";
 import VenueSection from "@/components/VenueSection";
 import FaqSection from "@/components/FaqSection";
 import Footer from "@/components/Footer";
@@ -90,17 +91,17 @@ export default function Home() {
           <ContentPillarsSection />
         </div>
 
-        {/* 3D Solar System Ecosystem Experience (GDG Indore Sun + 9 Planetary Tracks & Zones) */}
-        <div id="solar-ecosystem">
-          <SolarSystemEcosystem3D />
+        {/* Split Sessions Section: Left Scrollable Sessions & Right Sticky Live Agentic Terminal Console */}
+        <div id="sessions-split">
+          <SplitSessionsSection />
         </div>
 
-        {/* Space Club of India Collaboration & Planned MOU Announcement */}
+        {/* Space Club of India Collaboration */}
         <div id="space-collaboration">
           <SpaceCollaborationSection />
         </div>
 
-        {/* Venue Experience & 9 Dedicated Zones (Qualcomm Showcase, Lounges, Workshops) */}
+        {/* Venue Experience & 9 Dedicated Zones */}
         <div id="zones">
           <ShowcaseZonesSection />
         </div>
@@ -108,8 +109,13 @@ export default function Home() {
         {/* Official Call for Speakers — Space Edition Poster & Proposal Portal */}
         <CallForSpeakersSection />
 
-        {/* Featured Core Organizers (Tushar Pal, Akash Gangrade, Karan Mittal) & Past Speakers */}
+        {/* Featured Core Organizers & Continuous Scrolling Past Speakers Ticker */}
         <FeaturedTeamSection />
+
+        {/* High-Impact Previous Editions Photo Stream & 4K Event Cinema Video */}
+        <div id="recap-gallery">
+          <GalleryVideoSection />
+        </div>
 
         {/* High-Impact Executive Event Recap Section */}
         <div id="recap">
