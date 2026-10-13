@@ -12,6 +12,7 @@ import ThreeDFlowSection from "@/components/ThreeDFlowSection";
 import EventRecapSection from "@/components/EventRecapSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 import CallForSpeakersSection from "@/components/CallForSpeakersSection";
+import FeaturedTeamSection from "@/components/FeaturedTeamSection";
 // import ScheduleSection from "@/components/ScheduleSection";
 import TicketsSection from "@/components/TicketsSection";
 import SponsorsSection from "@/components/SponsorsSection";
@@ -106,6 +107,9 @@ export default function Home() {
 
         {/* Official Call for Speakers — Space Edition Poster & Proposal Portal */}
         <CallForSpeakersSection />
+
+        {/* Featured Core Organizers (Tushar Pal, Akash Gangrade, Karan Mittal) & Past Speakers */}
+        <FeaturedTeamSection />
 
         {/* High-Impact Executive Event Recap Section */}
         <div id="recap">

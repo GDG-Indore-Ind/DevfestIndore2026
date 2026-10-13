@@ -111,7 +111,7 @@ export default function SatelliteEventsSection() {
   };
 
   return (
-    <section id="satellite-events" className="py-20 md:py-28 bg-transparent relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
+    <section id="satellite-events" className="py-12 md:py-16 bg-transparent relative overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors">
       {/* Background Orbital Trajectory Graphics */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
@@ -250,14 +250,14 @@ export default function SatelliteEventsSection() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-xs font-black transition-all border-2 cursor-pointer shadow-sm ${
                   selectedCategory === cat
                     ? isDark
-                      ? "bg-white text-black border-white google-pill-shadow scale-102"
-                      : "bg-gray-900 text-white border-gray-900 google-pill-shadow scale-102 shadow-sm"
+                      ? "bg-white text-black border-white shadow-md scale-102"
+                      : "bg-[#111827] text-white border-[#111827] shadow-md scale-102"
                     : isDark
-                      ? "bg-white/5 text-white/85 border-white/15 hover:bg-white/10 hover:text-white"
-                      : "bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-200 hover:text-gray-900"
+                      ? "bg-white/5 text-white/90 border-white/15 hover:bg-white/10 hover:text-white"
+                      : "bg-white text-gray-900 border-gray-300 hover:bg-gray-100 hover:text-black"
                 }`}
               >
                 {cat}

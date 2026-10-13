@@ -4,7 +4,7 @@ import { Rocket, FileCheck2, Users, Compass, Globe, Sparkles } from "lucide-reac
 
 export default function SpaceCollaborationSection() {
   return (
-    <section id="space-collaboration" className="py-20 bg-gradient-to-b from-blue-50/40 via-white to-[#fafbfc] transition-colors relative overflow-hidden">
+    <section id="space-collaboration" className="py-12 md:py-16 bg-gradient-to-b from-blue-50/40 via-white to-[#fafbfc] transition-colors relative overflow-hidden">
       {/* Decorative cosmic glow */}
       <div className="absolute top-1/2 -right-48 w-96 h-96 rounded-full bg-blue-300/20 blur-3xl pointer-events-none" />
 
@@ -23,17 +23,17 @@ export default function SpaceCollaborationSection() {
               </h2>
 
               <p className="text-base text-[#5f6368] leading-relaxed mb-6">
-                DevFest Indore 2026 is partnering with the <strong>Space Club of India</strong> for a planned MOU announcement. This collaboration is designed as a catalyst for aerospace awareness, satellite communications, and space-data developer tooling in Madhya Pradesh.
+                DevFest Indore 2026 is collaborating with the <strong>Space Club of India</strong>. This initiative is designed as a catalyst for aerospace awareness, satellite communications, and space-data developer tooling in Madhya Pradesh.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200">
                   <div className="flex items-center gap-2 text-xs font-bold text-[#1e1e1e] mb-1">
                     <FileCheck2 className="w-4 h-4 text-[#34a853]" />
-                    <span>Formal Planned MOU</span>
+                    <span>Space Tech Collaboration</span>
                   </div>
                   <p className="text-xs text-[#5f6368]">
-                    Announcement during DevFest, subject to signing and mutual approval between parties.
+                    Joint academic and community initiatives connecting Central India developers to the private space economy.
                   </p>
                 </div>
 

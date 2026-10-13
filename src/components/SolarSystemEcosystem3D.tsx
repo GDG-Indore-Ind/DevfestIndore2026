@@ -30,7 +30,7 @@ export const NINE_TRACK_PLANETS: TrackPlanetConfig[] = [
     name: "Space Technology",
     codename: "TRACK 01 // ORBIT 1",
     category: "Space Systems & Satellite Pipelines",
-    badge: "Planned MOU Announcement",
+    badge: "Space Ecosystem & Satellites",
     color: "#38bdf8",
     glowColor: "#0284c7",
     radius: 5.2,

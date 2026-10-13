@@ -111,7 +111,7 @@ export default function CallForSpeakersSection() {
   return (
     <section
       id="call-for-speakers"
-      className="py-20 md:py-28 relative overflow-hidden transition-colors duration-300 bg-transparent"
+      className="py-12 md:py-16 relative overflow-hidden transition-colors duration-300 bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}

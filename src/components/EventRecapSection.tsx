@@ -26,8 +26,8 @@ export default function EventRecapSection() {
       bgColor: "bg-amber-50 border-amber-200",
     },
     {
-      metric: "1 Historic MOU",
-      label: "Space Club of India Planned MOU",
+      metric: "1 Key Initiative",
+      label: "Space Club of India Alliance",
       sub: "Unlocking space-data & aerospace awareness in MP",
       color: "text-[#34a853]",
       bgColor: "bg-green-50 border-green-200",
@@ -35,7 +35,7 @@ export default function EventRecapSection() {
   ];
 
   return (
-    <section className="py-20 bg-white transition-colors relative">
+    <section className="py-12 md:py-16 bg-white transition-colors relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-gray-50 via-white to-blue-50/30 border-2 border-[#1e1e1e] google-pill-shadow">
           <div className="text-center max-w-2xl mx-auto mb-12">

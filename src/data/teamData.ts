@@ -101,10 +101,10 @@ export const INITIAL_AGENDA: AgendaItem[] = [
 export const INITIAL_TEAM: TeamMember[] = [
   {
     id: "tm-1",
-    name: "Soham Sharma",
-    role: "Lead Organizer & GDG Indore Founder",
+    name: "Tushar Pal",
+    role: "Community Lead & GDG Indore Organizer",
     team: "Core Organizer",
-    bio: "Driving Central India's developer ecosystem, cloud architectures, and flagship technical festivals for over 6 years.",
+    bio: "Pioneering the Central India developer ecosystem, community-driven cloud architectures, and developer chapters across Madhya Pradesh.",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     socials: {
       linkedin: "https://linkedin.com",
@@ -113,37 +113,38 @@ export const INITIAL_TEAM: TeamMember[] = [
   },
   {
     id: "tm-2",
-    name: "Priyal Gupta",
-    role: "Community Lead & Partner Ecosystem",
+    name: "Akash Gangrade",
+    role: "Organizer & Tech Architecture Lead",
     team: "Core Organizer",
-    bio: "Head of ecosystem alliances, managing corporate sponsorships, university chapters, and volunteer mobilization.",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+    bio: "Head of technical operations, infrastructure, speaker curation, and developer experience for DevFest Indore 2026.",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    socials: {
+      linkedin: "https://linkedin.com",
+      github: "https://github.com",
+    },
+  },
+  {
+    id: "tm-3",
+    name: "Karan Mittal",
+    role: "Organizer & Operations Lead",
+    team: "Core Organizer",
+    bio: "Orchestrating event partnerships, venue logistics, attendee experience, and corporate sponsorship ecosystems.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
     socials: {
       linkedin: "https://linkedin.com",
       twitter: "https://x.com",
     },
   },
   {
-    id: "tm-3",
-    name: "Prathak Verma",
-    role: "Head of Tech & Physical AI Track",
-    team: "Tech & Operations",
-    bio: "Specializing in embedded systems, edge compute, and hardware demonstration tracks for DevFest Indore 2026.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    socials: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
-    },
-  },
-  {
     id: "tm-4",
-    name: "Shubham Joshi",
-    role: "Space Technology Lead & Aerospace Liaison",
-    team: "Space & Ecosystem",
-    bio: "Coordinating the Space Club of India planned MOU, satellite telemetry workshops, and space enthusiast activations.",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    name: "Priyal Gupta",
+    role: "Partner Ecosystem & Community Evangelist",
+    team: "Core Organizer",
+    bio: "Head of ecosystem alliances, managing corporate sponsorships, university chapters, and volunteer mobilization.",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
     socials: {
       linkedin: "https://linkedin.com",
+      twitter: "https://x.com",
     },
   },
   {

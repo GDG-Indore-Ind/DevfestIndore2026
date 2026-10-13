@@ -43,7 +43,7 @@ export default function VenueSection() {
   };
 
   return (
-    <section id="venue" className="py-20 md:py-28 bg-transparent relative overflow-hidden transition-colors">
+    <section id="venue" className="py-12 md:py-16 bg-transparent relative overflow-hidden transition-colors">
       {/* Background Orbital Trajectory Graphics */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none opacity-20 dark:opacity-25"
@@ -88,90 +88,43 @@ export default function VenueSection() {
                   </div>
                   <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${isDark ? "bg-white/10 text-white/75" : "bg-gray-100 text-gray-700"
                     }`}>
-                    LAT 22.7196° N • LON 75.8577° E
+                    22.7101° N • 75.9039° E
                   </span>
                 </div>
 
-                <h3 className={`text-2xl sm:text-3xl font-black mb-2 ${isDark ? "text-white" : "text-gray-900"
+                <h3 className={`text-2xl sm:text-3xl font-black mb-1 ${isDark ? "text-white" : "text-gray-900"
                   }`}>
                   Essentia Luxury Hotel Indore (ELH)
                 </h3>
-                <p className={`text-sm font-semibold mb-6 ${isDark ? "text-white/75" : "text-gray-600"
+                <p className={`text-xs sm:text-sm font-semibold mb-4 ${isDark ? "text-white/75" : "text-gray-600"
                   }`}>
                   Near World Cup Square, Pipliyahana, Ring Road, Indore, Madhya Pradesh 452018
                 </p>
 
-                <div className="mb-6">
-                  <span className={`block text-xs font-mono font-black uppercase tracking-wider mb-3 ${isDark ? "text-white" : "text-gray-900"
-                    }`}>
-                    Navigation Transit Routes:
-                  </span>
-                  <div className={`flex gap-2 p-1.5 rounded-2xl mb-4 ${isDark ? "bg-white/5" : "bg-gray-100"
-                    }`}>
-                    <button
-                      onClick={() => setActiveTab("air")}
-                      className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${activeTab === "air"
-                        ? isDark
-                          ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
-                          : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
-                        }`}
-                    >
-                      <Plane className="w-3.5 h-3.5 text-[#4285f4]" />
-                      <span>Flight Transit</span>
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("train")}
-                      className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${activeTab === "train"
-                        ? isDark
-                          ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
-                          : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
-                        }`}
-                    >
-                      <Train className="w-3.5 h-3.5 text-[#ea4335]" />
-                      <span>Rail Transit</span>
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("cab")}
-                      className={`flex-1 py-2 text-xs font-black rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${activeTab === "cab"
-                        ? isDark
-                          ? "bg-[#111] text-white border border-white/20 scale-102 shadow-sm"
-                          : "bg-white text-gray-900 border border-gray-300 scale-102 shadow-sm"
-                        : isDark ? "text-white/70 hover:text-white" : "text-gray-600 hover:text-gray-900"
-                        }`}
-                    >
-                      <Car className="w-3.5 h-3.5 text-[#34a853]" />
-                      <span>Metro / Cab</span>
-                    </button>
-                  </div>
-
-                  <div className={`p-4 rounded-2xl border ${isDark ? "bg-white/5 border-white/8" : "bg-gray-50 border-gray-200"
-                    }`}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <h4 className={`text-sm font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                        {transitInfo[activeTab].title}
-                      </h4>
-                      <span className="text-xs font-bold text-[#4285f4] bg-[#4285f4]/15 px-2.5 py-0.5 rounded-full">
-                        {transitInfo[activeTab].distance}
-                      </span>
-                    </div>
-                    <p className={`text-sm font-normal leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"
-                      }`}>
-                      {transitInfo[activeTab].desc}
-                    </p>
-                  </div>
+                {/* Google Map Embedded Iframe */}
+                <div className="w-full aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-inner mb-4">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123142.96350579694!2d75.75139283517477!3d22.710130499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962e3402b359321%3A0xffdc3966fe3eebc9!2sEssentia%20Luxury%20Hotel%20Indore!5e1!3m2!1sen!2sin!4v1791855892034!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="Essentia Luxury Hotel Indore Google Map Location"
+                    className="w-full h-full block"
+                  />
                 </div>
               </div>
 
-              <div className={`pt-4 border-t flex flex-wrap items-center justify-between gap-3 text-[13px] font-bold ${isDark ? "border-white/10 text-white/85" : "border-gray-200 text-gray-800"
+              <div className={`pt-3 border-t flex flex-wrap items-center justify-between gap-3 text-xs sm:text-[13px] font-bold ${isDark ? "border-white/10 text-white/85" : "border-gray-200 text-gray-800"
                 }`}>
                 <span className="flex items-center gap-1.5">
                   <SunMedium className="w-4 h-4 text-[#f9ab00] animate-spin-slow" />
                   <span>November Weather: Pleasant 24°C</span>
                 </span>
                 <a
-                  href={EVENT_DETAILS.googleMapsUrl}
+                  href="https://maps.google.com/?q=Essentia+Luxury+Hotel+Indore"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 text-[#4285f4] hover:underline"
@@ -181,7 +134,7 @@ export default function VenueSection() {
                 </a>
               </div>
             </CardTilt>
-          </div >
+          </div>
 
           < div className="lg:col-span-5 reveal-on-scroll flex flex-col" >
             <CardTilt className={`telemetry-card p-6 sm:p-7 rounded-3xl google-card-shadow flex flex-col justify-between h-full transition-all ${isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-xl"

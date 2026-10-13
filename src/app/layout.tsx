@@ -84,6 +84,57 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('devfest-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
           }}
         />
+        {/* Structured Data (JSON-LD) for SEO / AEO / GEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              name: "GDG DevFest Indore 2026",
+              description:
+                "Central India's biggest developer and space technology festival featuring Generative AI, Multi-Agent Swarms, Satellite Tech, and physical computing.",
+              startDate: "2026-11-28T08:30:00+05:30",
+              endDate: "2026-11-28T18:30:00+05:30",
+              eventStatus: "https://schema.org/EventScheduled",
+              eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+              location: {
+                "@type": "Place",
+                name: "Essentia Luxury Hotel Indore",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Near World Cup Square, Pipliyahana, Ring Road",
+                  addressLocality: "Indore",
+                  addressRegion: "Madhya Pradesh",
+                  postalCode: "452018",
+                  addressCountry: "IN",
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: 22.71013,
+                  longitude: 75.9039,
+                },
+              },
+              image: [
+                "https://devfest.gdgindore.in/images/essentia-hotel-actual.jpg",
+                "https://devfest.gdgindore.in/images/hero-mascot_2026.jpg",
+              ],
+              organizer: {
+                "@type": "Organization",
+                name: "Google Developer Group Indore",
+                url: "https://gdg.community.dev/gdg-indore/",
+              },
+              offers: {
+                "@type": "Offer",
+                url: "https://konfhub.com/devfest-indore-2026",
+                price: "0",
+                priceCurrency: "INR",
+                availability: "https://schema.org/InStock",
+                validFrom: "2026-09-01T00:00:00+05:30",
+              },
+            }),
+          }}
+        />
       </head>
       <body className="min-h-screen antialiased transition-colors duration-300">
         <ThemeProvider>

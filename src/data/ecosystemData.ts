@@ -38,7 +38,7 @@ export const CONTENT_PILLARS: ContentPillar[] = [
     potentialContributors: "Space-sector delegates, Space Club of India representatives, researchers & space founders",
     focusPoints: [
       "Satellite applications & space-data pipelines",
-      "Space Club of India planned MOU announcement",
+      "Space Club of India emerging partnership & telemetry showcase",
       "Developer & startup opportunities in the private space economy",
       "Interactive Space Engagement Corner",
     ],

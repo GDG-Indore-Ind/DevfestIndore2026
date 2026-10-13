@@ -32,8 +32,8 @@ const FLOW_STEPS: FlowStep[] = [
     title: "Keynote & Space Horizon",
     subtitle: "Main Auditorium Launch",
     description:
-      "Plenary opening spotlighting Madhya Pradesh's emerging space-technology frontier, planned MOU announcement with Space Club of India, and planetary developer opportunities.",
-    tags: ["MOU Announcement", "Space Club of India", "Satellite Data"],
+      "Plenary opening spotlighting Madhya Pradesh's emerging space-technology frontier, satellite data platforms, and planetary developer opportunities.",
+    tags: ["Space Frontier", "Space Club of India", "Satellite Data"],
     color: "blue",
     icon: Rocket,
   },
@@ -99,7 +99,7 @@ export default function ThreeDFlowSection() {
   const ActiveIcon = activeStep.icon;
 
   return (
-    <section className="py-24 bg-[#fafbfc] transition-colors relative overflow-hidden">
+    <section className="py-12 md:py-16 bg-[#fafbfc] transition-colors relative overflow-hidden">
       {/* 3D Flow Grid Pattern */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
