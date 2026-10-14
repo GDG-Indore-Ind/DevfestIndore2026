@@ -12,15 +12,16 @@ import {
   Calendar,
 } from "lucide-react";
 import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "./SocialIcons";
-import { INITIAL_TEAM, TeamMember } from "@/data/teamData";
+import { INITIAL_TEAM, TeamMember, PastSpeaker } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
-import { getTeamMembers } from "@/lib/firestoreService";
+import { getTeamMembers, getPastSpeakers } from "@/lib/firestoreService";
 import { useTheme } from "@/contexts/ThemeContext";
 import CardTilt from "./CardTilt";
 
 export default function FeaturedTeamSection() {
   const { isDark } = useTheme();
   const [team, setTeam] = useState<TeamMember[]>(INITIAL_TEAM);
+  const [speakers, setSpeakers] = useState<PastSpeaker[]>(DEV_FEST_PAST_SPEAKERS_FULL);
   const [isHoveredTicker, setIsHoveredTicker] = useState(false);
   const [selectedMarqueeYear, setSelectedMarqueeYear] = useState<"All" | "2025" | "2024">("All");
 
@@ -28,92 +29,22 @@ export default function FeaturedTeamSection() {
     getTeamMembers().then((res) => {
       if (res && res.length > 0) setTeam(res);
     });
+    getPastSpeakers().then((res) => {
+      if (res && res.length > 0) setSpeakers(res);
+    });
   }, []);
 
   const featuredLeads = team.slice(0, 3);
-  const allSpeakers = DEV_FEST_PAST_SPEAKERS_FULL;
+  // Strictly filter only 2025 and 2024 speakers
+  const validSpeakers = speakers.filter((s) => s.year === "2025" || s.year === "2024");
   const filteredMarqueeSpeakers =
     selectedMarqueeYear === "All"
-      ? allSpeakers
-      : allSpeakers.filter((s) => s.year === selectedMarqueeYear);
+      ? validSpeakers
+      : validSpeakers.filter((s) => s.year === selectedMarqueeYear);
 
   return (
     <section id="community-leaders" className="py-8 md:py-10 bg-transparent relative overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* CURRENT SPEAKERS: "COMING SOON" CURATION SPOTLIGHT CARD */}
-        <div className="mb-10 reveal-on-scroll">
-          <CardTilt
-            className={`p-6 sm:p-10 rounded-3xl border-2 transition-all relative overflow-hidden ${
-              isDark
-                ? "bg-[#0d0d0d]/90 border-white/15 shadow-[0_0_50px_rgba(66,133,244,0.15)]"
-                : "bg-white border-blue-200/90 shadow-[0_15px_40px_rgba(66,133,244,0.08)]"
-            }`}
-          >
-            {/* Top Badge */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-black/10 dark:border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#ea4335]/15 text-[#ea4335] flex items-center justify-center font-bold">
-                  <Mic2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#ea4335]">
-                    <span className="w-2 h-2 rounded-full bg-[#ea4335] animate-ping" />
-                    <span>CURATION IN PROGRESS</span>
-                  </div>
-                  <h3 className={`text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                    DevFest Indore 2026 Speakers — Coming Soon!
-                  </h3>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className={`text-xs font-mono font-bold px-3.5 py-1.5 rounded-full border ${
-                  isDark ? "bg-white/5 border-white/15 text-white/80" : "bg-gray-100 border-gray-300 text-gray-800"
-                }`}>
-                  ✦ Announcement: Wave 1 Dropping Soon
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-8">
-                <p className={`text-sm sm:text-base leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
-                  We are curating an electrifying lineup of Google Developer Experts, aerospace pioneers from Space Club of India, AI researchers, and engineering leads from Silicon Valley and Central India.
-                </p>
-                <p className={`text-xs sm:text-sm mt-2 font-medium ${isDark ? "text-white/60" : "text-gray-500"}`}>
-                  Have an innovative architecture, AI workflow, or aerospace case study to present? Our Call for Speakers is officially open on Sessionize!
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 flex flex-wrap lg:justify-end gap-3">
-                <a
-                  href="https://sessionize.com/devfest-indore-2026/"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => {
-                    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
-                      trackDevFestEvent("cfp_proposal_submitted", { source: "curation_spotlight_card" });
-                    });
-                  }}
-                  className="px-6 py-3 rounded-full bg-[#ea4335] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#d93025] hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Submit Talk (CFP)</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-                <Link
-                  href="/past-speakers"
-                  className={`px-5 py-3 rounded-full text-xs sm:text-[13px] font-black uppercase tracking-wider border flex items-center gap-2 hover:scale-105 transition-all cursor-pointer ${
-                    isDark ? "bg-white/10 border-white/20 text-white hover:bg-white/15" : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50 shadow-xs"
-                  }`}
-                >
-                  <span>View Past Speakers</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-          </CardTilt>
-        </div>
 
         {/* Section Header: Steering Committee */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal-on-scroll">
@@ -293,7 +224,7 @@ export default function FeaturedTeamSection() {
                         : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
-                    {year === "All" ? "All (29)" : `Edition ${year}`}
+                    {year === "All" ? `All (${validSpeakers.length})` : `Edition ${year}`}
                   </button>
                 ))}
               </div>
@@ -302,7 +233,7 @@ export default function FeaturedTeamSection() {
                 href="/past-speakers"
                 className="text-xs font-bold text-[#4285f4] hover:underline flex items-center gap-1 shrink-0 cursor-pointer ml-1"
               >
-                <span>View All 29 Speakers</span>
+                <span>View All {validSpeakers.length} Speakers</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

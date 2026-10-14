@@ -20,7 +20,8 @@ import {
 } from "lucide-react";
 import { PastSpeaker } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
-import { getPastSpeakers } from "@/lib/firestoreService";
+import { getPastSpeakers, savePastSpeaker, removePastSpeaker } from "@/lib/firestoreService";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingShapesBackground from "@/components/FloatingShapesBackground";
@@ -35,6 +36,7 @@ import {
   GlobeIcon,
   BookOpenIcon,
 } from "@/components/SocialIcons";
+import { Plus, Edit3, Trash2, Upload, ShieldCheck } from "lucide-react";
 
 export default function PastSpeakersPage() {
   const { isDark } = useTheme();
@@ -44,6 +46,28 @@ export default function PastSpeakersPage() {
   const [selectedYear, setSelectedYear] = useState<string>("All");
   const [activeModalSpeaker, setActiveModalSpeaker] = useState<PastSpeaker | null>(null);
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
+
+  // Speaker Edit / Add Modal State
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingSpeaker, setEditingSpeaker] = useState<PastSpeaker | null>(null);
+  const [formName, setFormName] = useState("");
+  const [formRole, setFormRole] = useState("");
+  const [formCompany, setFormCompany] = useState("");
+  const [formYear, setFormYear] = useState<"2025" | "2024">("2025");
+  const [formTopic, setFormTopic] = useState("");
+  const [formDesc, setFormDesc] = useState("");
+  const [formBio, setFormBio] = useState("");
+  const [formAvatar, setFormAvatar] = useState("");
+  const [formBadge, setFormBadge] = useState("Google Developer Expert");
+  const [formCategory, setFormCategory] = useState<PastSpeaker["category"]>("GenAI");
+  const [formTrack, setFormTrack] = useState("AI");
+  const [formLinkedin, setFormLinkedin] = useState("");
+  const [formTwitter, setFormTwitter] = useState("");
+  const [formWebsite, setFormWebsite] = useState("");
+  const [formBlog, setFormBlog] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [statusMsg, setStatusMsg] = useState<string | null>(null);
 
   useEffect(() => {
     getPastSpeakers().then((res) => {
@@ -57,19 +81,25 @@ export default function PastSpeakersPage() {
     setExpandedCards((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  // Restrict strictly to 2025 and 2024 speakers
+  const validSpeakers = useMemo(() => {
+    return speakers.filter((s) => s.year === "2025" || s.year === "2024");
+  }, [speakers]);
+
   const tracks = useMemo(() => {
     const set = new Set<string>();
-    speakers.forEach((s) => {
+    validSpeakers.forEach((s) => {
       if (s.track) set.add(s.track);
       else if (s.category) set.add(s.category);
     });
     return ["All", ...Array.from(set)];
-  }, [speakers]);
+  }, [validSpeakers]);
 
-  const years = ["All", "2025", "2024", "2023", "2022"];
+  // Strictly only 2025 and 2024 years
+  const years = ["All", "2025", "2024"];
 
   const filteredSpeakers = useMemo(() => {
-    return speakers.filter((sp) => {
+    return validSpeakers.filter((sp) => {
       // Year filter
       if (selectedYear !== "All" && sp.year !== selectedYear) return false;
 
@@ -96,7 +126,98 @@ export default function PastSpeakersPage() {
 
       return true;
     });
-  }, [speakers, selectedYear, selectedTrack, searchQuery]);
+  }, [validSpeakers, selectedYear, selectedTrack, searchQuery]);
+
+  const openAddModal = () => {
+    setEditingSpeaker(null);
+    setFormName("");
+    setFormRole("");
+    setFormCompany("");
+    setFormYear("2025");
+    setFormTopic("");
+    setFormDesc("");
+    setFormBio("");
+    setFormAvatar("");
+    setFormBadge("Google Developer Expert");
+    setFormCategory("GenAI");
+    setFormTrack("AI");
+    setFormLinkedin("");
+    setFormTwitter("");
+    setFormWebsite("");
+    setFormBlog("");
+    setFormEmail("");
+    setIsEditModalOpen(true);
+  };
+
+  const openEditModal = (sp: PastSpeaker) => {
+    setEditingSpeaker(sp);
+    setFormName(sp.name);
+    setFormRole(sp.role);
+    setFormCompany(sp.company);
+    setFormYear(sp.year === "2024" ? "2024" : "2025");
+    setFormTopic(sp.topic);
+    setFormDesc(sp.description || "");
+    setFormBio(sp.bio || "");
+    setFormAvatar(sp.avatar);
+    setFormBadge(sp.spotlightBadge || "Google Developer Expert");
+    setFormCategory(sp.category || "GenAI");
+    setFormTrack(sp.track || "AI");
+    setFormLinkedin(sp.socials?.linkedin || "");
+    setFormTwitter(sp.socials?.twitter || "");
+    setFormWebsite(sp.socials?.website || "");
+    setFormBlog(sp.socials?.blog || "");
+    setFormEmail(sp.socials?.email || "");
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveSpeaker = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formName.trim() || !formTopic.trim()) return;
+
+    const targetId = editingSpeaker ? editingSpeaker.id : `sp-${Date.now()}`;
+    const item: PastSpeaker = {
+      id: targetId,
+      name: formName.trim(),
+      role: formRole.trim(),
+      company: formCompany.trim(),
+      year: formYear,
+      topic: formTopic.trim(),
+      description: formDesc.trim() || undefined,
+      bio: formBio.trim() || undefined,
+      avatar: formAvatar.trim() || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      spotlightBadge: formBadge.trim() || "Speaker",
+      category: formCategory,
+      track: formTrack.trim() || undefined,
+      socials: {
+        linkedin: formLinkedin.trim() || undefined,
+        twitter: formTwitter.trim() || undefined,
+        website: formWebsite.trim() || undefined,
+        blog: formBlog.trim() || undefined,
+        email: formEmail.trim() || undefined,
+      },
+    };
+
+    await savePastSpeaker(item);
+    setSpeakers((prev) => {
+      const exists = prev.some((s) => s.id === targetId);
+      if (exists) {
+        return prev.map((s) => (s.id === targetId ? item : s));
+      }
+      return [item, ...prev];
+    });
+
+    setStatusMsg("Speaker profile saved and updated live!");
+    setTimeout(() => {
+      setStatusMsg(null);
+      setIsEditModalOpen(false);
+    }, 1200);
+  };
+
+  const handleDeleteSpeaker = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to remove speaker ${name}?`)) return;
+    await removePastSpeaker(id);
+    setSpeakers((prev) => prev.filter((s) => s.id !== id));
+  };
 
   // Badge Color Helper
   const getBadgeStyle = (badge: string) => {
@@ -150,13 +271,38 @@ export default function PastSpeakersPage() {
             </h1>
 
             <p
-              className={`text-base sm:text-lg leading-relaxed max-w-2xl mx-auto ${
+              className={`text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-6 ${
                 isDark ? "text-white/80" : "text-[#5f6368]"
               }`}
             >
-              Explore the visionary leaders, Google Developer Experts, aerospace architects, and tech innovators who have headlined the DevFest Indore mainstage.
+              Explore the visionary leaders, Google Developer Experts, aerospace architects, and tech innovators who headlined DevFest Indore (Editions 2025 & 2024).
             </p>
+
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={openAddModal}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] hover:bg-[#3367d6] text-white shadow-md hover:scale-105 transition-all cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add / Edit Speaker Profile</span>
+              </button>
+              <Link
+                href="/admin"
+                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-xs border-2 google-pill-shadow hover:scale-105 transition-all ${
+                  isDark ? "bg-white/10 text-white border-white/20 hover:bg-white/15" : "bg-white text-[#1e1e1e] border-[#1e1e1e]"
+                }`}
+              >
+                <ShieldCheck className="w-4 h-4 text-[#34a853]" />
+                <span>Admin Console</span>
+              </Link>
+            </div>
           </div>
+
+          {statusMsg && (
+            <div className="max-w-md mx-auto mb-8 p-3 rounded-2xl bg-green-500/15 border border-green-500/40 text-green-400 text-xs font-bold text-center">
+              {statusMsg}
+            </div>
+          )}
 
           {/* Interactive Search & Filter Toolbar */}
           <div
@@ -206,7 +352,7 @@ export default function PastSpeakersPage() {
                         : "bg-gray-100 text-[#5f6368] hover:bg-gray-200"
                     }`}
                   >
-                    {year === "All" ? "All Years" : year}
+                    {year === "All" ? `All (${validSpeakers.length})` : year}
                   </button>
                 ))}
               </div>
@@ -223,7 +369,7 @@ export default function PastSpeakersPage() {
                       : "bg-gray-50 border-gray-200 text-[#1e1e1e]"
                   }`}
                 >
-                  <option value="All">All Tracks & Domains ({speakers.length})</option>
+                  <option value="All">All Tracks & Domains ({validSpeakers.length})</option>
                   {tracks
                     .filter((t) => t !== "All")
                     .map((track) => (
@@ -239,7 +385,7 @@ export default function PastSpeakersPage() {
             <div className="mt-4 pt-4 border-t border-dashed flex items-center justify-between text-xs text-gray-400 border-gray-200 dark:border-white/10">
               <div>
                 Showing <strong className="text-[#4285f4]">{filteredSpeakers.length}</strong> of{" "}
-                <strong>{speakers.length}</strong> accepted & past speakers
+                <strong>{validSpeakers.length}</strong> accepted & past speakers (2025 & 2024)
               </div>
               {(searchQuery || selectedTrack !== "All" || selectedYear !== "All") && (
                 <button
@@ -256,7 +402,7 @@ export default function PastSpeakersPage() {
             </div>
           </div>
 
-          {/* Speakers Detailed Grid (Larger, High-Profile Cards) */}
+          {/* Speakers Detailed Grid (Much Larger Image Cards + Live Photo Presentation) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredSpeakers.map((sp) => {
               const isExpanded = !!expandedCards[sp.id];
@@ -265,34 +411,66 @@ export default function PastSpeakersPage() {
               return (
                 <div
                   key={sp.id}
-                  className={`rounded-3xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:shadow-2xl ${
+                  className={`rounded-3xl border-2 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:shadow-2xl relative ${
                     isDark
                       ? "bg-[#0d0d0d] border-white/10 hover:border-[#4285f4]/50 hover:-translate-y-1"
                       : "bg-white border-gray-200 hover:border-[#4285f4] hover:-translate-y-1 shadow-sm"
                   }`}
                 >
-                  {/* Card Top: Large Avatar + Badges + Identity */}
-                  <div className="p-6 pb-4">
-                    <div className="flex items-start gap-4 mb-4">
-                      {/* Avatar Image with Large High-Res Frame */}
-                      <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 border-2 border-white/10 shadow-md bg-gray-100 dark:bg-zinc-900">
-                        <img
-                          src={sp.avatar}
-                          alt={sp.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                        <span className="absolute bottom-1 right-1 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md text-[10px] font-black text-white tracking-wide">
-                          {sp.year}
+                  {/* Card Top: Large Showcase Hero Image with Badges */}
+                  <div>
+                    <div
+                      className="relative w-full aspect-[4/3] overflow-hidden bg-slate-900 cursor-pointer"
+                      onClick={() => setActiveModalSpeaker(sp)}
+                    >
+                      <img
+                        src={sp.avatar}
+                        alt={sp.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                      {/* Top Action Floating Controls */}
+                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                        <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-black text-white border border-white/20 pointer-events-auto shadow-md">
+                          Edition {sp.year}
                         </span>
+
+                        <div className="flex items-center gap-1.5 pointer-events-auto">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openEditModal(sp);
+                            }}
+                            className="p-1.5 rounded-full bg-black/75 hover:bg-[#4285f4] text-white border border-white/20 transition-colors shadow-md cursor-pointer"
+                            title="Edit Speaker & Bio"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteSpeaker(sp.id, sp.name);
+                            }}
+                            className="p-1.5 rounded-full bg-black/75 hover:bg-[#ea4335] text-white border border-white/20 transition-colors shadow-md cursor-pointer"
+                            title="Delete Speaker"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
 
-                      {/* Header details */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 flex-wrap mb-1.5">
+                      {/* Bottom Image Overlay Details */}
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
                           {sp.spotlightBadge && (
                             <span
-                              className={`px-2 py-0.5 rounded-full text-[9px] font-bold border tracking-wider truncate max-w-[130px] ${getBadgeStyle(
+                              className={`px-2 py-0.5 rounded-full text-[9px] font-bold border tracking-wider bg-black/70 backdrop-blur-sm ${getBadgeStyle(
                                 sp.spotlightBadge
                               )}`}
                             >
@@ -300,39 +478,35 @@ export default function PastSpeakersPage() {
                             </span>
                           )}
                           {sp.track && (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-white/20 backdrop-blur-sm text-white">
                               {sp.track}
                             </span>
                           )}
                         </div>
 
-                        <h3
-                          className={`text-lg sm:text-xl font-black leading-tight tracking-tight mb-1 truncate ${
-                            isDark ? "text-white" : "text-[#1e1e1e]"
-                          }`}
-                          title={sp.name}
-                        >
+                        <h3 className="text-xl sm:text-2xl font-black text-white leading-tight drop-shadow-md truncate">
                           {sp.name}
                         </h3>
-
-                        {sp.role && (
-                          <div className="text-[11px] font-bold text-[#4285f4] line-clamp-1 mb-1" title={sp.role}>
-                            {sp.role}
-                          </div>
-                        )}
-
-                        {sp.company && (
-                          <div
-                            className={`text-[11px] font-semibold flex items-center gap-1.5 ${
-                              isDark ? "text-white/60" : "text-[#5f6368]"
-                            }`}
-                          >
-                            <Briefcase className="w-3 h-3 text-[#34a853] shrink-0" />
-                            <span className="truncate">{sp.company}</span>
-                          </div>
-                        )}
                       </div>
                     </div>
+
+                    <div className="p-5 pb-3">
+                      {sp.role && (
+                        <div className="text-xs font-bold text-[#4285f4] line-clamp-1 mb-1" title={sp.role}>
+                          {sp.role}
+                        </div>
+                      )}
+
+                      {sp.company && (
+                        <div
+                          className={`text-xs font-semibold flex items-center gap-1.5 mb-3 ${
+                            isDark ? "text-white/60" : "text-[#5f6368]"
+                          }`}
+                        >
+                          <Briefcase className="w-3.5 h-3.5 text-[#34a853] shrink-0" />
+                          <span className="truncate">{sp.company}</span>
+                        </div>
+                      )}
 
                     {/* Talk Section Box */}
                     <div
@@ -391,6 +565,7 @@ export default function PastSpeakersPage() {
                       </div>
                     )}
                   </div>
+                </div>
 
                   {/* Card Footer: Social Media Links + Modal Launcher */}
                   <div
@@ -674,6 +849,284 @@ export default function PastSpeakersPage() {
                 Close
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Speaker Add / Edit Live Management Modal */}
+      {isEditModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setIsEditModalOpen(false)}
+        >
+          <div
+            className={`max-w-2xl w-full rounded-3xl border shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto ${
+              isDark ? "bg-[#111111] border-white/20 text-white" : "bg-white border-gray-200 text-[#1e1e1e]"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-gray-200 dark:border-white/10">
+              <div className="flex items-center gap-2">
+                <Edit3 className="w-5 h-5 text-[#4285f4]" />
+                <h3 className="text-xl font-bold">
+                  {editingSpeaker ? `Edit Speaker: ${editingSpeaker.name}` : "Add New Speaker Profile"}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {statusMsg && (
+              <div className="mb-4 p-3 rounded-xl bg-[#34a853]/20 border border-[#34a853]/40 text-[#34a853] text-xs font-bold text-center">
+                {statusMsg}
+              </div>
+            )}
+
+            <form onSubmit={handleSaveSpeaker} className="space-y-4">
+              {/* Photo & Live Preview Section */}
+              <div className="p-4 rounded-2xl border border-dashed border-gray-300 dark:border-white/20 bg-gray-50/50 dark:bg-white/[0.02]">
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-gray-400">
+                  Speaker Photo (Live Preview)
+                </label>
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden bg-slate-800 border-2 border-[#4285f4] shrink-0">
+                    <img
+                      src={formAvatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <input
+                      type="url"
+                      placeholder="Image URL (Cloudinary / Web URL)"
+                      value={formAvatar}
+                      onChange={(e) => setFormAvatar(e.target.value)}
+                      className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                        isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                      }`}
+                    />
+                    <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#4285f4] text-white hover:bg-[#3367d6] cursor-pointer transition-all">
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>{uploadingAvatar ? "Uploading to Cloudinary..." : "Upload New Photo"}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        disabled={uploadingAvatar}
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          setUploadingAvatar(true);
+                          try {
+                            const url = await uploadToCloudinary(file);
+                            setFormAvatar(url);
+                          } catch (err) {
+                            alert("Failed to upload image. Please enter an image URL directly.");
+                          } finally {
+                            setUploadingAvatar(false);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Basic Speaker Info */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold mb-1">Speaker Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    placeholder="e.g. Abhishek Doshi"
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold mb-1">DevFest Edition *</label>
+                  <select
+                    value={formYear}
+                    onChange={(e) => setFormYear(e.target.value as "2025" | "2024")}
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  >
+                    <option value="2025">2025 Edition</option>
+                    <option value="2024">2024 Edition</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold mb-1">Role / Designation</label>
+                  <input
+                    type="text"
+                    value={formRole}
+                    onChange={(e) => setFormRole(e.target.value)}
+                    placeholder="e.g. Google Developer Expert - Flutter"
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold mb-1">Company / Organization</label>
+                  <input
+                    type="text"
+                    value={formCompany}
+                    onChange={(e) => setFormCompany(e.target.value)}
+                    placeholder="e.g. Google / Microsoft / Startup"
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold mb-1">Spotlight Badge</label>
+                  <input
+                    type="text"
+                    value={formBadge}
+                    onChange={(e) => setFormBadge(e.target.value)}
+                    placeholder="Google Developer Expert, Keynote Speaker"
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold mb-1">Track / Technology</label>
+                  <input
+                    type="text"
+                    value={formTrack}
+                    onChange={(e) => setFormTrack(e.target.value)}
+                    placeholder="AI, Cloud, Mobile, Web, Aerospace"
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+              </div>
+
+              {/* Talk Details */}
+              <div>
+                <label className="block text-xs font-bold mb-1">Session / Keynote Topic *</label>
+                <input
+                  type="text"
+                  required
+                  value={formTopic}
+                  onChange={(e) => setFormTopic(e.target.value)}
+                  placeholder="e.g. Building AI Agents with self-managing memory"
+                  className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                    isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                  }`}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold mb-1">Session Abstract / Description</label>
+                <textarea
+                  rows={3}
+                  value={formDesc}
+                  onChange={(e) => setFormDesc(e.target.value)}
+                  placeholder="Deep dive abstract about this accepted talk..."
+                  className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                    isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                  }`}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold mb-1">Speaker Bio</label>
+                <textarea
+                  rows={2}
+                  value={formBio}
+                  onChange={(e) => setFormBio(e.target.value)}
+                  placeholder="Brief speaker background and achievements..."
+                  className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                    isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                  }`}
+                />
+              </div>
+
+              {/* Social Channels */}
+              <div className="pt-2 border-t border-gray-200 dark:border-white/10">
+                <label className="block text-xs font-bold mb-2 uppercase tracking-wider text-gray-400">
+                  Social & Connect Channels
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    type="url"
+                    placeholder="LinkedIn Profile URL"
+                    value={formLinkedin}
+                    onChange={(e) => setFormLinkedin(e.target.value)}
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Twitter / X Profile URL"
+                    value={formTwitter}
+                    onChange={(e) => setFormTwitter(e.target.value)}
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                  <input
+                    type="url"
+                    placeholder="Website / Portfolio URL"
+                    value={formWebsite}
+                    onChange={(e) => setFormWebsite(e.target.value)}
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Email or Contact URL"
+                    value={formEmail}
+                    onChange={(e) => setFormEmail(e.target.value)}
+                    className={`w-full px-3 py-2 rounded-xl text-xs border outline-none ${
+                      isDark ? "bg-[#181818] border-white/15 text-white" : "bg-white border-gray-300 text-black"
+                    }`}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200 dark:border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2 rounded-xl text-xs font-bold bg-[#4285f4] text-white hover:bg-[#3367d6] shadow-md transition-all cursor-pointer"
+                >
+                  Save & Update Live
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

@@ -20,7 +20,7 @@ export interface PastSpeaker {
   name: string;
   role: string;
   company: string;
-  year: "2025" | "2024" | "2023" | "2022";
+  year: "2025" | "2024";
   topic: string;
   description?: string;
   bio?: string;
