@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Users, Sparkles, ShieldCheck } from "lucide-react";
-import { TwitterIcon, LinkedInIcon, GithubIcon } from "@/components/SocialIcons";
+import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/SocialIcons";
 import { INITIAL_TEAM, TeamMember } from "@/data/teamData";
 import { getTeamMembers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
@@ -121,7 +121,7 @@ export default function TeamPage() {
                   <span className="text-[11px] font-bold text-[#34a853]">
                     GDG Indore 2026
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     {member.socials.linkedin && (
                       <a
                         href={member.socials.linkedin}
@@ -159,6 +159,30 @@ export default function TeamPage() {
                         aria-label={`${member.name} GitHub`}
                       >
                         <GithubIcon className="w-4 h-4 fill-current" />
+                      </a>
+                    )}
+                    {member.socials.instagram && (
+                      <a
+                        href={member.socials.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`p-2 rounded-xl transition-colors ${
+                          isDark ? "bg-white/10 text-[#e1306c] hover:bg-white/20" : "bg-gray-50 text-[#e1306c] hover:bg-pink-50"
+                        }`}
+                        aria-label={`${member.name} Instagram`}
+                      >
+                        <InstagramIcon className="w-4 h-4 fill-current" />
+                      </a>
+                    )}
+                    {member.socials.email && (
+                      <a
+                        href={member.socials.email}
+                        className={`p-2 rounded-xl transition-colors ${
+                          isDark ? "bg-white/10 text-[#34a853] hover:bg-white/20" : "bg-gray-50 text-[#34a853] hover:bg-emerald-50"
+                        }`}
+                        aria-label={`${member.name} Email`}
+                      >
+                        <MailIcon className="w-4 h-4" />
                       </a>
                     )}
                   </div>

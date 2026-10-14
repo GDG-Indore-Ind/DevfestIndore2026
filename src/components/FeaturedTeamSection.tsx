@@ -11,7 +11,7 @@ import {
   Mic2,
   Calendar,
 } from "lucide-react";
-import { TwitterIcon, LinkedInIcon, GithubIcon } from "./SocialIcons";
+import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "./SocialIcons";
 import { INITIAL_TEAM, TeamMember } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { getTeamMembers } from "@/lib/firestoreService";
@@ -186,7 +186,7 @@ export default function FeaturedTeamSection() {
                   <span className={`text-[11px] font-mono font-bold ${isDark ? "text-white/60" : "text-gray-500"}`}>
                     Core Organizer • 2026
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end">
                     {member.socials?.linkedin && (
                       <a
                         href={member.socials.linkedin}
@@ -218,6 +218,26 @@ export default function FeaturedTeamSection() {
                         aria-label={`${member.name} GitHub`}
                       >
                         <GithubIcon className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {member.socials?.instagram && (
+                      <a
+                        href={member.socials.instagram}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#e1306c] hover:text-white transition-colors"
+                        aria-label={`${member.name} Instagram`}
+                      >
+                        <InstagramIcon className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {member.socials?.email && (
+                      <a
+                        href={member.socials.email}
+                        className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#34a853] hover:text-white transition-colors"
+                        aria-label={`${member.name} Email`}
+                      >
+                        <MailIcon className="w-3.5 h-3.5" />
                       </a>
                     )}
                   </div>

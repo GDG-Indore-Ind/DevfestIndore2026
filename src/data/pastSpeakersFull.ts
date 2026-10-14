@@ -11,6 +11,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "AI & Flutter Specialist",
     category: "GenAI",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/harshtande/",
+      twitter: "https://x.com/harshtande",
+      github: "https://github.com/harshtande",
+      email: "mailto:harsh@flutterflow.io",
+    },
   },
   {
     id: "sp-shashikant-jain",
@@ -22,6 +28,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Google Developer Expert",
     category: "Web",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/shashikantjain/",
+      twitter: "https://x.com/shashikantjain",
+      github: "https://github.com/shashikantjain",
+      email: "mailto:shashikant@gdgindore.in",
+    },
   },
   {
     id: "sp-shashikant-sharma",
@@ -33,6 +45,11 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Cloud Architecture Leader",
     category: "Cloud",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/shashikantsharma/",
+      twitter: "https://x.com/sharma_shashi",
+      email: "mailto:shashikant.sharma@cloudsolutions.com",
+    },
   },
   {
     id: "sp-shuchita-jain",
@@ -44,6 +61,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Product & Strategy Spotlight",
     category: "GenAI",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/shuchitajain/",
+      twitter: "https://x.com/shuchitajain",
+      instagram: "https://www.instagram.com/shuchita.product/",
+      email: "mailto:shuchita@productadvisory.com",
+    },
   },
   {
     id: "sp-prakhar-jain",
@@ -55,6 +78,11 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Engineering Leadership",
     category: "Cloud",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/prakharjain/",
+      github: "https://github.com/prakharjain",
+      email: "mailto:prakhar@scaletech.io",
+    },
   },
   {
     id: "sp-sunny-kabrawala",
@@ -66,6 +94,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Space Tech Keynote",
     category: "Cloud",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/sunnykabrawala/",
+      twitter: "https://x.com/sunnykabrawala",
+      instagram: "https://www.instagram.com/spaceclubindia/",
+      email: "mailto:sunny@spaceventure.org",
+    },
   },
   {
     id: "sp-gautam-billore",
@@ -77,6 +111,11 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Community Keynote",
     category: "Web",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/gautambillore/",
+      twitter: "https://x.com/gautambillore",
+      email: "mailto:gautam@strategyadvisory.com",
+    },
   },
   {
     id: "sp-kartik-arora",
@@ -88,6 +127,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "DevFest 2024 Keynote",
     category: "GenAI",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/kartikarora/",
+      github: "https://github.com/kartikarora",
+      twitter: "https://x.com/kartik_ai",
+      email: "mailto:kartik@googlecloud.com",
+    },
   },
   {
     id: "sp-megha-singhal",
@@ -99,6 +144,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Top Rated Session",
     category: "Mobile & Flutter",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/meghasinghal/",
+      github: "https://github.com/meghasinghal",
+      twitter: "https://x.com/meghasinghal",
+      email: "mailto:megha@zomato.com",
+    },
   },
   {
     id: "sp-rohan-kulkarni",
@@ -110,6 +161,12 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "DevFest 2023 Spotlight",
     category: "Cloud",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/rohankulkarni/",
+      github: "https://github.com/rohankulkarni",
+      twitter: "https://x.com/rohan_k8s",
+      email: "mailto:rohan@redhat.com",
+    },
   },
   {
     id: "sp-dr-arvind",
@@ -121,6 +178,11 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "Space Pioneer",
     category: "Cloud",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/arvindpathak/",
+      twitter: "https://x.com/arvindpathak",
+      email: "mailto:arvind@aerospacelabs.org",
+    },
   },
   {
     id: "sp-priya-patel",
@@ -132,5 +194,11 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
     spotlightBadge: "AI Systems",
     category: "GenAI",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/priyapatel-ai/",
+      github: "https://github.com/priyapatel",
+      twitter: "https://x.com/priya_ml",
+      email: "mailto:priya@microsoft.com",
+    },
   },
 ];

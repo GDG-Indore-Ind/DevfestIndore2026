@@ -9,6 +9,9 @@ export interface TeamMember {
     linkedin?: string;
     twitter?: string;
     github?: string;
+    instagram?: string;
+    email?: string;
+    website?: string;
   };
 }
 
@@ -22,6 +25,14 @@ export interface PastSpeaker {
   avatar: string;
   spotlightBadge: string;
   category: "GenAI" | "Cloud" | "Mobile & Flutter" | "Web";
+  socials?: {
+    linkedin?: string;
+    twitter?: string;
+    github?: string;
+    instagram?: string;
+    email?: string;
+    website?: string;
+  };
 }
 
 export interface SupportQuery {
@@ -107,8 +118,11 @@ export const INITIAL_TEAM: TeamMember[] = [
     bio: "Pioneering the Central India developer ecosystem, community-driven cloud architectures, and developer chapters across Madhya Pradesh.",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
     socials: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://x.com",
+      linkedin: "https://www.linkedin.com/in/tusharpal/",
+      twitter: "https://x.com/tusharpal",
+      github: "https://github.com/tusharpal",
+      instagram: "https://www.instagram.com/gdgindore/",
+      email: "mailto:organizers@gdgindore.in",
     },
   },
   {
@@ -119,8 +133,11 @@ export const INITIAL_TEAM: TeamMember[] = [
     bio: "Head of technical operations, infrastructure, speaker curation, and developer experience for DevFest Indore 2026.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
     socials: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      linkedin: "https://www.linkedin.com/in/akashgangrade/",
+      twitter: "https://x.com/akashgangrade",
+      github: "https://github.com/akashgangrade",
+      instagram: "https://www.instagram.com/gdgindore/",
+      email: "mailto:organizers@gdgindore.in",
     },
   },
   {
@@ -131,8 +148,11 @@ export const INITIAL_TEAM: TeamMember[] = [
     bio: "Orchestrating event partnerships, venue logistics, attendee experience, and corporate sponsorship ecosystems.",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
     socials: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://x.com",
+      linkedin: "https://www.linkedin.com/in/karanmittal/",
+      twitter: "https://x.com/karanmittal",
+      github: "https://github.com/karanmittal",
+      instagram: "https://www.instagram.com/gdgindore/",
+      email: "mailto:organizers@gdgindore.in",
     },
   },
   {
@@ -143,8 +163,10 @@ export const INITIAL_TEAM: TeamMember[] = [
     bio: "Head of ecosystem alliances, managing corporate sponsorships, university chapters, and volunteer mobilization.",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
     socials: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://x.com",
+      linkedin: "https://www.linkedin.com/company/gdg-indore",
+      twitter: "https://x.com/GDG_Indore",
+      instagram: "https://www.instagram.com/gdgindore/",
+      email: "mailto:organizers@gdgindore.in",
     },
   },
   {
@@ -155,8 +177,10 @@ export const INITIAL_TEAM: TeamMember[] = [
     bio: "Crafting Awwwards-caliber brand aesthetics, spatial layouts, badges, and the Indore cultural narrative.",
     avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
     socials: {
-      twitter: "https://x.com",
-      linkedin: "https://linkedin.com",
+      linkedin: "https://www.linkedin.com/company/gdg-indore",
+      twitter: "https://x.com/GDG_Indore",
+      instagram: "https://www.instagram.com/gdgindore/",
+      email: "mailto:organizers@gdgindore.in",
     },
   },
 ];

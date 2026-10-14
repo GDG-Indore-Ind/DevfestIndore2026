@@ -9,6 +9,7 @@ import { getPastSpeakers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useTheme } from "@/contexts/ThemeContext";
+import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/SocialIcons";
 
 export default function PastSpeakersPage() {
   const { isDark } = useTheme();
@@ -104,13 +105,70 @@ export default function PastSpeakersPage() {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-gray-100 mt-4 flex items-center justify-between text-[11px]">
+                <div className={`pt-4 border-t mt-4 flex items-center justify-between text-[11px] ${
+                  isDark ? "border-white/10" : "border-gray-100"
+                }`}>
                   <span className="text-[#34a853] font-bold">
                     {sp.spotlightBadge}
                   </span>
-                  <span className="text-[#5f6368] font-bold">
-                    {sp.category}
-                  </span>
+
+                  {sp.socials && (
+                    <div className="flex items-center gap-1.5">
+                      {sp.socials.linkedin && (
+                        <a
+                          href={sp.socials.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#4285f4] hover:text-white transition-colors"
+                          aria-label={`${sp.name} LinkedIn`}
+                        >
+                          <LinkedInIcon className="w-3 h-3" />
+                        </a>
+                      )}
+                      {sp.socials.twitter && (
+                        <a
+                          href={sp.socials.twitter}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#ea4335] hover:text-white transition-colors"
+                          aria-label={`${sp.name} Twitter / X`}
+                        >
+                          <TwitterIcon className="w-3 h-3" />
+                        </a>
+                      )}
+                      {sp.socials.github && (
+                        <a
+                          href={sp.socials.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-black hover:text-white transition-colors"
+                          aria-label={`${sp.name} GitHub`}
+                        >
+                          <GithubIcon className="w-3 h-3" />
+                        </a>
+                      )}
+                      {sp.socials.instagram && (
+                        <a
+                          href={sp.socials.instagram}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#e1306c] hover:text-white transition-colors"
+                          aria-label={`${sp.name} Instagram`}
+                        >
+                          <InstagramIcon className="w-3 h-3" />
+                        </a>
+                      )}
+                      {sp.socials.email && (
+                        <a
+                          href={sp.socials.email}
+                          className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#34a853] hover:text-white transition-colors"
+                          aria-label={`${sp.name} Email`}
+                        >
+                          <MailIcon className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
