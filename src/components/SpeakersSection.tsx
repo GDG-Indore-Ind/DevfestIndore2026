@@ -49,18 +49,25 @@ export default function SpeakersSection() {
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-14 reveal-on-scroll">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/15 google-pill-shadow mb-4 hover:scale-105 transition-transform">
-            <span className="w-2 h-2 rounded-full bg-[#f9ab00]" />
-            <span className="text-xs font-black uppercase tracking-wider text-white">
-              Featured Lineup
+            <span className="w-2 h-2 rounded-full bg-[#f9ab00] animate-ping" />
+            <span className="text-xs font-black uppercase tracking-wider text-[#f9ab00]">
+              2026 Lineup Coming Soon
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Learn From Industry <span className="text-[#ea4335]">Pioneers & GDEs</span>
           </h2>
           <p className="mt-4 text-base sm:text-lg text-white/55 font-medium leading-relaxed">
-            Tech leads, Google Developer Experts, AI researchers, and engineering directors traveling
-            from Silicon Valley, Bengaluru, and across India to DevFest Indore 2026.
+            The DevFest Indore 2026 speaker lineup is currently being curated through our global Call for Proposals. In the meantime, explore our hall of fame alumni from past editions!
           </p>
+          <div className="mt-4">
+            <a
+              href="/past-speakers"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all shadow-md"
+            >
+              <span>Explore All 14+ Past Keynotes & GDEs →</span>
+            </a>
+          </div>
         </div>
 
         {/* Track Filters */}

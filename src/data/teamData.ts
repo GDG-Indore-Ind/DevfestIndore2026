@@ -20,11 +20,15 @@ export interface PastSpeaker {
   name: string;
   role: string;
   company: string;
-  year: "2024" | "2023" | "2022";
+  year: "2025" | "2024" | "2023" | "2022";
   topic: string;
+  description?: string;
+  bio?: string;
   avatar: string;
   spotlightBadge: string;
-  category: "GenAI" | "Cloud" | "Mobile & Flutter" | "Web";
+  category: "GenAI" | "Cloud" | "Mobile & Flutter" | "Web" | "Leadership & Ecosystem";
+  track?: string;
+  level?: string;
   socials?: {
     linkedin?: string;
     twitter?: string;
@@ -32,6 +36,7 @@ export interface PastSpeaker {
     instagram?: string;
     email?: string;
     website?: string;
+    blog?: string;
   };
 }
 
@@ -187,49 +192,135 @@ export const INITIAL_TEAM: TeamMember[] = [
 
 export const INITIAL_PAST_SPEAKERS: PastSpeaker[] = [
   {
-    id: "ps-1",
-    name: "Kartik Arora",
-    role: "Staff AI Engineer",
-    company: "Google Cloud",
-    year: "2024",
-    topic: "Building Resilient Vector Pipelines with Gemini Models",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-    spotlightBadge: "DevFest 2024 Keynote",
-    category: "GenAI",
-  },
-  {
-    id: "ps-2",
-    name: "Megha Singhal",
-    role: "GDE Android & Flutter",
-    company: "Zomato",
-    year: "2024",
-    topic: "Declarative UI Performance & Micro-Animations at Scale",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-    spotlightBadge: "Top Rated Session",
+    id: "sp-abhishek-doshi",
+    name: "Abhishek Doshi",
+    role: "Google Developer Expert - Dart, Flutter & Firebase",
+    company: "Tech Lead - Qvin",
+    year: "2025",
+    topic: "Power of BuildContext in Flutter",
+    description: "BuildContext is at the heart of Flutter’s widget tree, yet its true potential often goes untapped. In this talk, we’ll find out what BuildContext really represents, how it connects widgets to their position in the tree, and the powerful capabilities it unlocks.",
+    bio: "Google Developer Expert - Dart, Flutter & Firebase. Passionate tech lead and community educator.",
+    avatar: "https://cdn.sessionize.com/image/c251-400o400o1-B8TgJLdhLWoiMHhaBsSbRU.png",
+    spotlightBadge: "Google Developer Expert",
     category: "Mobile & Flutter",
+    track: "Mobile",
+    level: "Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/abhishekdoshi26/",
+      twitter: "https://twitter.com/AbhishekDoshi26",
+      blog: "https://abhishekdoshi26.medium.com/",
+      website: "https://abhishekdoshi.dev",
+      email: "mailto:adoshi26.ad@gmail.com"
+    }
   },
   {
-    id: "ps-3",
-    name: "Rohan Kulkarni",
-    role: "Principal Architect",
-    company: "Red Hat",
-    year: "2023",
-    topic: "Zero-Trust Cloud Native Networking on Kubernetes",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-    spotlightBadge: "DevFest 2023 Spotlight",
-    category: "Cloud",
+    id: "sp-divyanshu-bhargava",
+    name: "Divyanshu Bhargava",
+    role: "Co-Founder Stac | Google Developer Expert (Flutter & Dart)",
+    company: "Stac",
+    year: "2025",
+    topic: "Scaling Server-Driven UI with Stac",
+    description: "Divyanshu explores how Server-Driven UI changes mobile development workflows, allowing real-time layout updates without app-store deployment cycles using Stac.",
+    bio: "Divyanshu Bhargava is a Co-Founder of Stac and a Google Developer Expert in Flutter & Dart.",
+    avatar: "https://cdn.sessionize.com/image/0956-400o400o1-7zRPyQYiWPBXp2513gkMyo.png",
+    spotlightBadge: "Google Developer Expert",
+    category: "Mobile & Flutter",
+    track: "Mobile",
+    level: "Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/divyanshub024/",
+      twitter: "https://twitter.com/divyanshub024",
+      blog: "https://divyanshu.dev/",
+      website: "https://stac.dev/",
+      email: "mailto:divyanshub024@gmail.com"
+    }
   },
   {
-    id: "ps-4",
-    name: "Dr. Arvind Pathak",
-    role: "Space Systems Lead",
-    company: "Aerospace Labs",
-    year: "2024",
-    topic: "Earth Observation Data APIs for Civil Engineers",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-    spotlightBadge: "Space Pioneer",
-    category: "Cloud",
+    id: "sp-ankit-sharma",
+    name: "Ankit Sharma",
+    role: "Staff Frontend Engineer | GDE for Angular | Microsoft MVP",
+    company: "Celonis",
+    year: "2025",
+    topic: "Smart Angular Apps with Gemini: Building an AI-Powered Writing Assistant",
+    description: "As a Staff Frontend Engineer at Celonis, Ankit demonstrates how to integrate Google Gemini directly into modern Angular applications to build context-aware AI copilots.",
+    bio: "Staff Frontend Engineer at Celonis, Google Developer Expert for Angular, and Microsoft MVP.",
+    avatar: "https://cdn.sessionize.com/image/142e-400o400o1-E9cZ5wzVHTHaCvoh7CeVA7.jpg",
+    spotlightBadge: "Google Developer Expert",
+    category: "Web",
+    track: "Web",
+    level: "Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/ankitsharma-007/",
+      twitter: "https://twitter.com/ankitsharma_007",
+      blog: "https://www.syncfusion.com/blogs/author/ankit-sharma",
+      website: "https://www.celonis.com/",
+      email: "mailto:ankit007.sharma@hotmail.com"
+    }
   },
+  {
+    id: "sp-srashti-jain",
+    name: "Srashti Jain",
+    role: "CEO TechVraksh | Google Developer Expert (Angular)",
+    company: "TechVraksh",
+    year: "2025",
+    topic: "Why Angular is the Secret Weapon for High-Performance AI Dashboards",
+    description: "Deep dive into reactive signal graph architectures, SSR hydration, and why enterprise AI dashboards perform best with modern Angular foundations.",
+    bio: "Google Developer Expert for Angular and Founder & CEO of TechVraksh with 10+ years of high-scale enterprise engineering experience.",
+    avatar: "https://cdn.sessionize.com/image/7dc5-400o400o1-JhLkPifaqEf8TWcouQ3Gbj.jpg",
+    spotlightBadge: "Google Developer Expert",
+    category: "Web",
+    track: "Web",
+    level: "Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/srashtisj/",
+      twitter: "https://twitter.com/srashtisj",
+      website: "https://techvraksh.com/",
+      email: "mailto:srashti0204@gmail.com"
+    }
+  },
+  {
+    id: "sp-harsh-tonde",
+    name: "Harsh Tonde",
+    role: "Enterprise Customer Success Engineer",
+    company: "FlutterFlow",
+    year: "2025",
+    topic: "Build Your Way",
+    description: "A fast-paced breakdown of leveraging FlutterFlow and GenAI to turn architectural blueprints into full-stack multi-platform apps in record time.",
+    bio: "Enterprise Customer Success Engineer at FlutterFlow helping global companies scale low-code and native Flutter apps.",
+    avatar: "https://cdn.sessionize.com/image/33f0-400o400o1-VheX3NBqokT3T66jCQtYuh.jpg",
+    spotlightBadge: "Engineering Leader",
+    category: "GenAI",
+    track: "AI",
+    level: "Beginner to Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/harshtonde/",
+      twitter: "https://x.com/TondeHarsh",
+      website: "https://flutterflow.io/",
+      email: "mailto:harshtonde@gmail.com"
+    }
+  },
+  {
+    id: "sp-mrinal-jain",
+    name: "Mrinal Jain",
+    role: "Engineering Manager @STAGE | Flutter Consultant",
+    company: "American Express / STAGE",
+    year: "2025",
+    topic: "Shaping the Impossible: Production-Ready CustomPainter Techniques",
+    description: "Discover low-level Canvas APIs, hardware shader acceleration, and real-time custom painting in Flutter applications without dropping a single frame.",
+    bio: "Engineering Manager at STAGE OTT (Shark Tank India alumni) and Lead Organizer for Flutter Indore with 7+ years of building hyper-scale apps.",
+    avatar: "https://cdn.sessionize.com/image/6925-400o400o1-ZYu4d6wZJsGWUCWQ2CPoi.jpg",
+    spotlightBadge: "Engineering Leader",
+    category: "Mobile & Flutter",
+    track: "Mobile",
+    level: "Intermediate",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/mrinaljain",
+      twitter: "https://twitter.com/_mrinaljain",
+      blog: "https://mrinaljain.com/",
+      website: "https://mrinaljain.com",
+      email: "mailto:jain.mrinal140@gmail.com"
+    }
+  }
 ];
 
 export const INITIAL_SUPPORT_QUERIES: SupportQuery[] = [
