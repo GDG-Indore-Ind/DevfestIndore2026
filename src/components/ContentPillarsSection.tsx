@@ -250,18 +250,6 @@ export default function ContentPillarsSection() {
                     {activePillar.potentialContributors}
                   </span>
                 </div>
-
-                <a
-                  href="#sessions-split"
-                  className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border transition-all hover:scale-105 shadow-sm ${
-                    isDark
-                      ? "bg-white text-black border-white"
-                      : "bg-[#4285f4] text-white border-[#4285f4] hover:bg-[#3367d6]"
-                  }`}
-                >
-                  <span>Explore Track</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
               </div>
             </div>
           </div>

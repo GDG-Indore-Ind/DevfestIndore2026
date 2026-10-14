@@ -120,23 +120,23 @@ export default function Footer() {
           {/* Brand & Community Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
-              <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
-                <div className={`relative flex items-center justify-center w-10 h-10 rounded-2xl border shadow-sm group-hover:scale-105 group-hover:rotate-6 transition-transform overflow-hidden ${
-                  isDark ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_15px_rgba(66,133,244,0.3)]" : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
+              <Link href="/" className="inline-flex items-center gap-3.5 mb-4 group">
+                <div className={`relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl border shadow-md group-hover:scale-105 group-hover:rotate-6 transition-transform overflow-hidden ${
+                  isDark ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_25px_rgba(66,133,244,0.35)]" : "bg-white border-black/15 shadow-[0_4px_16px_rgba(66,133,244,0.2)]"
                 }`}>
                   <Image
                     src="/gdglogo-removebg-preview.png"
                     alt="GDG DevFest Indore Logo"
-                    width={38}
-                    height={38}
-                    className="w-8 h-8 object-contain scale-110"
+                    width={60}
+                    height={60}
+                    className="w-12 h-12 sm:w-14 sm:h-14 object-contain scale-110"
                   />
                 </div>
                 <div>
-                  <span className={`block font-black text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <span className={`block font-black text-xl sm:text-2xl ${isDark ? "text-white" : "text-gray-900"}`}>
                     GDG Indore
                   </span>
-                  <span className={`block text-[13px] font-semibold ${isDark ? "text-white/75" : "text-gray-600"}`}>
+                  <span className={`block text-xs sm:text-sm font-semibold ${isDark ? "text-white/75" : "text-gray-600"}`}>
                     DevFest Indore 2026 Space Edition
                   </span>
                 </div>
@@ -209,41 +209,55 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Nav Links */}
-          <div className="lg:col-span-2">
+          {/* Quick Nav Links (All Core Sections) */}
+          <div className="lg:col-span-3">
             <span className={`block text-xs font-black uppercase tracking-wider mb-4 ${
               isDark ? "text-white" : "text-gray-900"
             }`}>
-              Navigation
+              Conference Sections
             </span>
-            <ul className={`space-y-2.5 text-sm font-semibold ${
+            <ul className={`space-y-2 text-sm font-semibold ${
               isDark ? "text-white/75" : "text-gray-700"
             }`}>
-              {["About", "Sponsors", "Tickets", "Venue", "Faq"].map((item) => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase().replace(" ", "-")}`} className={`group inline-block transition-colors ${
+              {[
+                { name: "About DevFest", href: "/#about" },
+                { name: "Content Pillars", href: "/#pillars" },
+                { name: "Space Alliance", href: "/#space-collaboration" },
+                { name: "Featured Speakers", href: "/past-speakers" },
+                { name: "Previous Editions", href: "/gallery" },
+                { name: "Satellite Events", href: "/#satellite-events" },
+                { name: "Essentia Hotel Venue", href: "/#venue" },
+                { name: "Sponsors & Partners", href: "/#sponsors" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className={`group inline-block transition-colors ${
                     isDark ? "hover:text-white" : "hover:text-gray-900"
                   }`}>
                     <span className="roll-text-container">
-                      <span className="roll-text-top">{item}</span>
-                      <span className="roll-text-bottom text-[#4285f4]">{item} →</span>
+                      <span className="roll-text-top">{item.name}</span>
+                      <span className="roll-text-bottom text-[#4285f4]">{item.name} →</span>
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Community Links */}
-          <div className="lg:col-span-2">
+          {/* Community & Dedicated FAQ in CAPS Column */}
+          <div className="lg:col-span-3">
             <span className={`block text-xs font-black uppercase tracking-wider mb-4 ${
               isDark ? "text-white" : "text-gray-900"
             }`}>
-              Community
+              Community & Guidelines
             </span>
-            <ul className={`space-y-2.5 text-sm font-semibold ${
+            <ul className={`space-y-2 text-sm font-semibold ${
               isDark ? "text-white/75" : "text-gray-700"
             }`}>
+              <li>
+                <Link href="/team" className="hover:text-[#4285f4] transition-colors">
+                  Organizing Team & Leads
+                </Link>
+              </li>
               <li>
                 <a
                   href="https://developers.google.com/community-guidelines"
@@ -265,55 +279,49 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#sponsors" className="hover:text-[#34a853] transition-colors">
+                <a href="/#sponsors" className="hover:text-[#34a853] transition-colors">
                   Partner / Sponsor Deck
                 </a>
+              </li>
+              <li>
+                <Link href="/#social-stream" className="hover:text-[#e1306c] transition-colors">
+                  Instagram Live Feed
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" className="hover:text-[#4285f4] transition-colors font-mono text-xs">
+                  Organizer Admin Console
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Newsletter Box — space telemetry card */}
-          <div className={`telemetry-card p-6 rounded-3xl spotlight-card ${
-            isDark ? "bg-[#0d0d0d]/90 border-white/15" : "!bg-white !border-gray-200/90 shadow-md"
-          } lg:col-span-4`}>
-            <span className={`block text-xs font-black uppercase tracking-wider mb-2 ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}>
-              Stay in the Loop
-            </span>
-            <p className={`text-sm font-normal leading-relaxed mb-4 ${
-              isDark ? "text-white/80" : "text-gray-700"
-            }`}>
-              Get timely notifications on speaker reveals, workshop prerequisites, and hackathon problem statements.
-            </p>
-
-            {!subscribed ? (
-              <form onSubmit={handleSubscribe} className="space-y-2.5">
-                <input
-                  type="email"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  placeholder="Enter your email address"
-                  required
-                  className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-medium focus:outline-none focus:border-[#4285f4] ${
-                    isDark
-                      ? "border border-white/15 bg-[#1a1a1a] text-white placeholder:text-white/45"
-                      : "border border-gray-300 bg-gray-50 text-gray-900 placeholder:text-gray-500"
-                  }`}
-                />
-                <button
-                  type="submit"
-                  className="w-full py-2.5 rounded-xl bg-[#4285f4] text-white font-extrabold text-xs uppercase tracking-wider border border-[#4285f4]/50 shadow-[0_0_15px_rgba(66,133,244,0.4)] hover:bg-[#3367d6] transition-all cursor-pointer"
-                >
-                  Subscribe to Updates
-                </button>
-              </form>
-            ) : (
-              <div className="p-3 rounded-xl bg-[#34a853]/20 border border-[#34a853]/40 flex items-center gap-2 text-xs font-bold text-[#34a853] animate-bounce">
-                <CheckCircle className="w-4 h-4" />
-                <span>Subscribed! Check your inbox soon.</span>
+          {/* Dedicated FAQ in CAPS Section Card (Replacing Newsletter) */}
+          <div className={`p-6 rounded-3xl border ${
+            isDark ? "bg-[#0d0d0d] border-white/15" : "bg-gray-50 border-gray-200 shadow-sm"
+          } lg:col-span-2 flex flex-col justify-between`}>
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <span className="w-2 h-2 rounded-full bg-[#f9ab00] animate-ping" />
+                <span className={`text-xs font-black tracking-widest text-[#f9ab00] uppercase`}>
+                  HELP & SUPPORT
+                </span>
               </div>
-            )}
+              <h4 className={`text-base font-black tracking-tight mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                FREQUENTLY ASKED QUESTIONS
+              </h4>
+              <p className={`text-xs leading-relaxed mb-4 ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                Everything you need to know about passes, badges, schedule, venue accessibility, and speaker requirements.
+              </p>
+            </div>
+
+            <a
+              href="/#faq"
+              className="w-full py-3 px-4 rounded-xl font-black text-xs uppercase tracking-widest text-center transition-all hover:scale-105 active:scale-95 shadow-md flex items-center justify-center gap-2 bg-[#4285f4] text-white hover:bg-[#3367d6] cursor-pointer"
+            >
+              <span>EXPLORE ALL FAQ</span>
+              <span className="text-sm">→</span>
+            </a>
           </div>
         </div>
 

@@ -450,4 +450,78 @@ export async function removePartner(id: string): Promise<void> {
   }
 }
 
+export interface NavItem {
+  id: string;
+  name: string;
+  href: string;
+  desc?: string;
+  visible: boolean;
+  order: number;
+}
+
+export const INITIAL_NAV_ITEMS: NavItem[] = [
+  { id: "nav-home", name: "Home", href: "/", desc: "DevFest 2026 flagship vision & home", visible: true, order: 1 },
+  { id: "nav-about", name: "About", href: "/#about", desc: "Where modern engineering meets Indore's innovation", visible: true, order: 2 },
+  { id: "nav-gallery", name: "Previous Editions", href: "/gallery", desc: "Curated 4K photo archive from previous editions", visible: true, order: 3 },
+  { id: "nav-speakers", name: "Speakers", href: "/past-speakers", desc: "Full directory of GDEs & past keynote speakers", visible: true, order: 4 },
+  { id: "nav-team", name: "Team", href: "/team", desc: "Core organizers & community leads", visible: true, order: 5 },
+  { id: "nav-events", name: "Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons", visible: true, order: 6 },
+  { id: "nav-sponsors", name: "Sponsors", href: "/#sponsors", desc: "Ecosystem catalysts & tech showcases", visible: true, order: 7 },
+  { id: "nav-instagram", name: "Instagram Feed", href: "/#social-stream", desc: "Real-time #GDGIndore Instagram reels & updates", visible: true, order: 8 },
+];
+
+/**
+ * Fetch Navbar items from Firestore or fallback
+ */
+export async function getNavItems(): Promise<NavItem[]> {
+  try {
+    const colRef = collection(db, "nav_items");
+    const snap = await getDocs(colRef);
+    if (!snap.empty) {
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as NavItem));
+      return items.sort((a, b) => a.order - b.order);
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-nav-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_NAV_ITEMS;
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-nav-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_NAV_ITEMS;
+  }
+}
+
+/**
+ * Save or Update Nav item
+ */
+export async function saveNavItem(item: NavItem): Promise<void> {
+  try {
+    const docRef = doc(db, "nav_items", item.id);
+    await setDoc(docRef, item, { merge: true });
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getNavItems();
+    const updated = [...current.filter((n) => n.id !== item.id), item].sort((a, b) => a.order - b.order);
+    localStorage.setItem("devfest-nav-items", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Remove Nav item
+ */
+export async function removeNavItem(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, "nav_items", id));
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getNavItems();
+    const updated = current.filter((n) => n.id !== id);
+    localStorage.setItem("devfest-nav-items", JSON.stringify(updated));
+  }
+}
+
 

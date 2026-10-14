@@ -71,12 +71,18 @@ import {
   getPartners,
   savePartner,
   removePartner,
+  NavItem,
+  INITIAL_NAV_ITEMS,
+  getNavItems,
+  saveNavItem,
+  removeNavItem,
 } from "@/lib/firestoreService";
 import {
   subscribeToRealtimeAnalytics,
   TelemetryMetrics,
   trackDevFestEvent,
 } from "@/lib/telemetryService";
+import { Menu as MenuIcon } from "lucide-react";
 
 export default function AdminPage() {
   // Authentication State
@@ -87,8 +93,15 @@ export default function AdminPage() {
 
   // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
+    "analytics" | "navbar" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
   >("analytics");
+
+  // Navigation Items Management State
+  const [navItemsList, setNavItemsList] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
+  const [newNavName, setNewNavName] = useState("");
+  const [newNavHref, setNewNavHref] = useState("");
+  const [newNavDesc, setNewNavDesc] = useState("");
+  const [editingNavId, setEditingNavId] = useState<string | null>(null);
 
   // Gallery State & Upload
   const [gallery, setGallery] = useState<GalleryItem[]>(INITIAL_GALLERY_ITEMS);
@@ -207,6 +220,7 @@ export default function AdminPage() {
     getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
     getFaqItems().then((f) => { if (f && f.length > 0) setFaqs(f); });
     getSocialLinks().then((s) => { if (s) setSocialLinks(s); });
+    getNavItems().then((n) => { if (n && n.length > 0) setNavItemsList(n); });
 
     if (typeof window !== "undefined") {
       const savedProposals = localStorage.getItem("devfest-speaker-proposals");
@@ -489,6 +503,57 @@ export default function AdminPage() {
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
+  // Navigation Items Management Handlers
+  const handleSaveNav = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newNavName.trim() || !newNavHref.trim()) return;
+
+    const targetId = editingNavId || `nav-${Date.now()}`;
+    const existing = navItemsList.find((n) => n.id === targetId);
+    const item: NavItem = {
+      id: targetId,
+      name: newNavName.trim(),
+      href: newNavHref.trim(),
+      desc: newNavDesc.trim() || undefined,
+      visible: existing ? existing.visible : true,
+      order: existing ? existing.order : navItemsList.length + 1,
+    };
+
+    await saveNavItem(item);
+    setNavItemsList((prev) => {
+      const exists = prev.some((n) => n.id === targetId);
+      if (exists) {
+        return prev.map((n) => (n.id === targetId ? item : n));
+      }
+      return [...prev, item];
+    });
+
+    setEditingNavId(null);
+    setNewNavName("");
+    setNewNavHref("");
+    setNewNavDesc("");
+    setStatusMsg({ text: "Navbar link saved and updated live!", type: "success" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  const handleToggleNavVisibility = async (id: string) => {
+    const target = navItemsList.find((n) => n.id === id);
+    if (!target) return;
+    const updated = { ...target, visible: !target.visible };
+    await saveNavItem(updated);
+    setNavItemsList((prev) => prev.map((n) => (n.id === id ? updated : n)));
+    setStatusMsg({ text: `Navbar item "${target.name}" is now ${updated.visible ? "visible" : "hidden"} in menu!`, type: "info" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  const handleDeleteNav = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to remove "${name}" from Navbar?`)) return;
+    await removeNavItem(id);
+    setNavItemsList((prev) => prev.filter((n) => n.id !== id));
+    setStatusMsg({ text: `Removed "${name}" from Navbar.`, type: "info" });
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
   // Toggle Support Query Status
   const handleToggleQueryStatus = (id: string) => {
     const updated = supportQueries.map((q) =>
@@ -600,6 +665,18 @@ export default function AdminPage() {
             >
               <BarChart3 className="w-4 h-4" />
               <span>Visits & Analytics</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("navbar")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "navbar"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <MenuIcon className="w-4 h-4" />
+              <span>Navbar & Sections ({navItemsList.length})</span>
             </button>
 
             <button
@@ -1004,6 +1081,150 @@ export default function AdminPage() {
                 <div className="mt-5 p-3 rounded-2xl bg-gray-50 border border-gray-200 text-[11px] text-gray-600">
                   ⚡ <strong>Production Note:</strong> Live telemetry connects automatically via Google Tag Manager and GA4 container tags deployed on <code>devfest2026-iota.vercel.app</code>.
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB: NAVBAR & SECTIONS MANAGEMENT */}
+        {activeTab === "navbar" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
+                <MenuIcon className="w-5 h-5 text-[#4285f4]" />
+                <span>{editingNavId ? "Edit Navigation Link" : "Add New Navbar Item or Section"}</span>
+              </h2>
+
+              <form onSubmit={handleSaveNav} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Link Title / Section Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newNavName}
+                      onChange={(e) => setNewNavName(e.target.value)}
+                      placeholder="e.g. Instagram Feed, Agenda, Workshops"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Target URL / Section Anchor *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newNavHref}
+                      onChange={(e) => setNewNavHref(e.target.value)}
+                      placeholder="e.g. /#social-stream, /gallery, /team"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Short Description / Subtitle
+                    </label>
+                    <input
+                      type="text"
+                      value={newNavDesc}
+                      onChange={(e) => setNewNavDesc(e.target.value)}
+                      placeholder="e.g. Live reels and updates from GDG Indore"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs focus:outline-none focus:border-[#4285f4]"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-black text-xs bg-[#4285f4] text-white hover:bg-[#3367d6] shadow-sm flex items-center gap-2 cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>{editingNavId ? "Update Link" : "Add to Navigation"}</span>
+                  </button>
+                  {editingNavId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingNavId(null);
+                        setNewNavName("");
+                        setNewNavHref("");
+                        setNewNavDesc("");
+                      }}
+                      className="px-4 py-2.5 rounded-full text-xs font-bold text-gray-500 hover:text-gray-700"
+                    >
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Existing Nav Links List */}
+            <div className="bg-white rounded-3xl border-2 border-[#1e1e1e] google-pill-shadow p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-black text-[#1e1e1e]">
+                  Active Navigation Links ({navItemsList.length})
+                </h3>
+                <span className="text-xs text-gray-500">
+                  Visible links appear instantly in the top navbar and mobile drawer
+                </span>
+              </div>
+
+              <div className="divide-y divide-gray-100">
+                {navItemsList.map((item) => (
+                  <div key={item.id} className="py-3 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => handleToggleNavVisibility(item.id)}
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider cursor-pointer transition-colors ${
+                          item.visible
+                            ? "bg-green-100 text-[#34a853] hover:bg-green-200"
+                            : "bg-gray-100 text-gray-400 hover:bg-gray-200"
+                        }`}
+                        title="Click to toggle visibility in Navbar"
+                      >
+                        {item.visible ? "Visible in Nav" : "Hidden"}
+                      </button>
+                      <div>
+                        <div className="text-xs font-black text-[#1e1e1e] flex items-center gap-2">
+                          <span>{item.name}</span>
+                          <code className="text-[10px] font-mono px-2 py-0.5 rounded bg-gray-100 text-[#4285f4]">
+                            {item.href}
+                          </code>
+                        </div>
+                        {item.desc && (
+                          <div className="text-[11px] text-gray-500">{item.desc}</div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          setEditingNavId(item.id);
+                          setNewNavName(item.name);
+                          setNewNavHref(item.href);
+                          setNewNavDesc(item.desc || "");
+                        }}
+                        className="p-1.5 rounded-lg border border-gray-200 hover:bg-blue-50 text-[#4285f4] transition-colors"
+                        title="Edit link"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteNav(item.id, item.name)}
+                        className="p-1.5 rounded-lg border border-gray-200 hover:bg-red-50 text-[#ea4335] transition-colors"
+                        title="Delete link"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

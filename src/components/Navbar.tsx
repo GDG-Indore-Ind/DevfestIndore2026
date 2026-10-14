@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Ticket, Menu, X, MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
+import { NavItem, INITIAL_NAV_ITEMS, getNavItems } from "@/lib/firestoreService";
 
 interface NavbarProps {
   savedCount?: number;
@@ -16,6 +17,15 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, isDark } = useTheme();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [navItems, setNavItems] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
+
+  useEffect(() => {
+    getNavItems().then((items) => {
+      if (items && items.length > 0) {
+        setNavItems(items);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,22 +51,8 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     setIsCheckoutOpen(true);
   };
 
-  const allDrawerLinks = [
-    { name: "Overview & Vision", href: "/#flow", desc: "DevFest 2026 flagship vision & collective flow" },
-    { name: "About DevFest", href: "/#about", desc: "Where modern engineering meets Indore's innovation" },
-    { name: "Content Pillars", href: "/#pillars", desc: "Space Tech, AI, Robotics, Data & Enterprise" },
-    { name: "Space Club of India", href: "/#space-collaboration", desc: "Emerging Madhya Pradesh space tech alliance" },
-    { name: "Call for Speakers", href: "/#call-for-speakers", desc: "Submit your session proposal on Sessionize" },
-    { name: "Speakers (Coming Soon)", href: "/#speakers", desc: "2026 Curation & Past Keynote Alumni" },
-    { name: "Past Speakers Directory", href: "/past-speakers", desc: "Full alumni directory of GDEs & pioneers" },
-    { name: "Previous Editions Gallery", href: "/gallery", desc: "Curated 4K photo archive from previous editions" },
-    { name: "Satellite Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons" },
-    { name: "Tickets & Passes", href: "/#tickets", desc: "Reserve your seat via KonfHub" },
-    { name: "Essentia Hotel Venue", href: "/#venue", desc: "World Cup Square, Pipliyahana, Indore" },
-    { name: "Sponsors & Partners", href: "/#sponsors", desc: "Ecosystem catalysts & tech showcases" },
-    { name: "Team & Organizers", href: "/team", desc: "Core organizers & distinguished community leads" },
-    { name: "FAQ", href: "/#faq", desc: "Common questions & guidelines" },
-  ];
+  // Visible items for desktop navbar (FAQ removed, Instagram Feed added)
+  const visibleNavItems = navItems.filter((i) => i.visible);
 
   return (
     <>
@@ -77,7 +73,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Left: Brand Identity */}
+          {/* Left: Brand Identity (Larger Logo) */}
           <div className="flex items-center gap-3 shrink-0">
             {/* Mobile / Compact Explore Trigger */}
             <button
@@ -94,83 +90,46 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               </span>
             </button>
 
-            <Link href="/" className="flex items-center gap-2.5 group">
+            <Link href="/" className="flex items-center gap-3 group">
               <div
-                className={`relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border shadow-sm group-hover:scale-105 transition-transform shrink-0 overflow-hidden ${isDark
-                  ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_15px_rgba(66,133,244,0.3)]"
-                  : "bg-white border-black/15 shadow-[0_2px_8px_rgba(66,133,244,0.15)]"
+                className={`relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl border shadow-md group-hover:scale-105 transition-transform shrink-0 overflow-hidden ${isDark
+                  ? "bg-[#0d0d0d] border-white/20 shadow-[0_0_20px_rgba(66,133,244,0.35)]"
+                  : "bg-white border-black/15 shadow-[0_4px_12px_rgba(66,133,244,0.2)]"
                   }`}
               >
                 <Image
                   src="/gdglogo-removebg-preview.png"
                   alt="GDG DevFest Indore Logo"
-                  width={38}
-                  height={38}
-                  className="w-8 h-8 object-contain scale-110"
+                  width={56}
+                  height={56}
+                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain scale-110"
                   priority
                 />
               </div>
               <div className="flex flex-col text-left">
-                <span className={`font-semibold text-xs sm:text-sm tracking-tight leading-none ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
+                <span className={`font-black text-sm sm:text-base tracking-tight leading-none ${isDark ? "text-white" : "text-[#1a1a1a]"}`}>
                   Google Developer Groups
                 </span>
-                <span className={`text-[11px] font-normal leading-none mt-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
-                  Indore
+                <span className={`text-xs font-semibold leading-none mt-1 ${isDark ? "text-white/80" : "text-gray-600"}`}>
+                  Indore • DevFest 2026
                 </span>
               </div>
             </Link>
           </div>
 
-          {/* Center: Desktop Navigation Links (Cross-page resilient with /#anchors) */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
-            <Link
-              href="/"
-              className={`transition-colors font-semibold ${isDark ? "text-white hover:text-white" : "text-gray-900 hover:text-blue-600"}`}
-            >
-              Home
-            </Link>
-            <Link
-              href="/#about"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              About
-            </Link>
-            <Link
-              href="/gallery"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Previous Editions
-            </Link>
-            <Link
-              href="/past-speakers"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Speakers
-            </Link>
-            <Link
-              href="/team"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Team
-            </Link>
-            <Link
-              href="/#satellite-events"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Events
-            </Link>
-            <Link
-              href="/#sponsors"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Sponsors
-            </Link>
-            <Link
-              href="/#faq"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              FAQ
-            </Link>
+          {/* Center: Desktop Navigation Links (Dynamically configured from Admin, FAQ removed, Instagram Feed added) */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-semibold">
+            {visibleNavItems.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className={`transition-colors whitespace-nowrap ${
+                  isDark ? "text-white/80 hover:text-white" : "text-gray-700 hover:text-[#4285f4]"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
 
           {/* Right: Theme Toggle & Glowing "Get Tickets →" CTA */}
@@ -260,9 +219,9 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
               {/* Drawer Scrollable Navigation Links */}
               <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
-                {allDrawerLinks.map((link) => (
+                {visibleNavItems.map((link) => (
                   <Link
-                    key={link.name}
+                    key={link.id}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`group py-3.5 px-3 rounded-2xl transition-all flex items-center justify-between ${
@@ -275,9 +234,11 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                       <div className="text-xl sm:text-2xl font-serif font-medium tracking-tight group-hover:translate-x-1.5 transition-transform flex items-center gap-2">
                         <span>{link.name}</span>
                       </div>
-                      <div className={`text-[11px] font-sans mt-0.5 line-clamp-1 ${isDark ? "text-white/50" : "text-gray-500"}`}>
-                        {link.desc}
-                      </div>
+                      {link.desc && (
+                        <div className={`text-[11px] font-sans mt-0.5 line-clamp-1 ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                          {link.desc}
+                        </div>
+                      )}
                     </div>
                     <span className="text-gray-400 group-hover:text-[#4285f4] text-lg font-mono opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
                       ›
