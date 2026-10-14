@@ -296,40 +296,133 @@ export default function FeaturedTeamSection() {
               {[...speakers, ...speakers].map((sp, index) => (
                 <div
                   key={`${sp.id}-${index}`}
-                  className={`w-80 sm:w-96 shrink-0 p-5 rounded-2xl border transition-all duration-300 hover:-translate-y-1.5 ${
+                  className={`w-[360px] sm:w-[420px] shrink-0 p-6 rounded-3xl border-2 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${
                     isDark
-                      ? "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10"
-                      : "bg-gray-50 border-gray-200 hover:border-gray-300 hover:bg-white shadow-sm"
+                      ? "bg-[#0d0d0d] border-white/10 hover:border-[#4285f4]/50 shadow-xl"
+                      : "bg-white border-gray-200 hover:border-[#4285f4] shadow-md hover:shadow-xl"
                   }`}
                 >
-                  <div className="flex items-center gap-3.5 mb-3.5">
-                    <div className="relative w-14 h-14 rounded-2xl overflow-hidden shrink-0 border-2 border-black/10 dark:border-white/15 shadow-sm">
-                      <Image
-                        src={sp.avatar}
-                        alt={sp.name}
-                        fill
-                        sizes="56px"
-                        className="object-cover"
-                        unoptimized
-                      />
+                  <div>
+                    {/* Top Row: Avatar + Info */}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden shrink-0 border-2 border-black/10 dark:border-white/15 shadow-md bg-gray-100 dark:bg-zinc-800">
+                        <Image
+                          src={sp.avatar}
+                          alt={sp.name}
+                          fill
+                          sizes="72px"
+                          className="object-cover"
+                          unoptimized
+                        />
+                        <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-black text-white">
+                          {sp.year}
+                        </span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#4285f4]/10 text-[#4285f4] border border-[#4285f4]/30">
+                            {sp.spotlightBadge || "Keynote Speaker"}
+                          </span>
+                          {sp.track && (
+                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
+                              {sp.track}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className={`text-lg font-black truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                          {sp.name}
+                        </h4>
+                        <p className="text-xs text-[#4285f4] font-bold truncate">
+                          {sp.role}
+                        </p>
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold truncate">
+                          {sp.company}
+                        </p>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <h4 className={`text-base font-black truncate ${isDark ? "text-white" : "text-gray-900"}`}>
-                        {sp.name}
-                      </h4>
-                      <p className="text-xs text-[#4285f4] font-bold truncate">
-                        {sp.company}
-                      </p>
-                      <span className="text-[11px] font-mono font-semibold text-gray-500 dark:text-gray-400">
-                        DevFest Edition {sp.year}
+
+                    {/* Talk Box */}
+                    <div className={`p-3.5 rounded-2xl text-xs font-medium leading-relaxed mb-4 border ${
+                      isDark
+                        ? "bg-white/[0.04] text-white/90 border-white/10"
+                        : "bg-gray-50 text-gray-800 border-gray-200"
+                    }`}>
+                      <span className="block text-[10px] font-black uppercase text-[#ea4335] mb-1">
+                        Session Topic:
                       </span>
+                      <p className="font-bold line-clamp-2">
+                        "{sp.topic}"
+                      </p>
                     </div>
                   </div>
 
-                  <div className={`p-3 rounded-xl text-xs font-medium leading-relaxed line-clamp-2 ${
-                    isDark ? "bg-black/50 text-white/90" : "bg-white text-gray-700 border border-gray-200/80 shadow-xs"
+                  {/* Card Bottom: Social Media Links */}
+                  <div className={`pt-3 border-t flex items-center justify-between text-xs ${
+                    isDark ? "border-white/10 text-white/60" : "border-gray-100 text-gray-500"
                   }`}>
-                    "{sp.topic}"
+                    <span className="text-[11px] font-bold text-[#34a853]">
+                      DevFest Alumni
+                    </span>
+                    <div className="flex items-center gap-1.5">
+                      {sp.socials?.linkedin && (
+                        <a
+                          href={sp.socials.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-blue-500/10 text-[#4285f4] hover:bg-[#4285f4] hover:text-white transition-colors"
+                          title="LinkedIn Profile"
+                          aria-label={`${sp.name} LinkedIn`}
+                        >
+                          <LinkedInIcon className="w-3.5 h-3.5 fill-current" />
+                        </a>
+                      )}
+                      {sp.socials?.twitter && (
+                        <a
+                          href={sp.socials.twitter}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-gray-500/10 text-gray-700 dark:text-gray-200 hover:bg-black hover:text-white transition-colors"
+                          title="Twitter / X"
+                          aria-label={`${sp.name} Twitter`}
+                        >
+                          <TwitterIcon className="w-3.5 h-3.5 fill-current" />
+                        </a>
+                      )}
+                      {sp.socials?.blog && (
+                        <a
+                          href={sp.socials.blog}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-amber-500/10 text-[#f9ab00] hover:bg-[#f9ab00] hover:text-white transition-colors"
+                          title="Blog / Medium"
+                          aria-label={`${sp.name} Blog`}
+                        >
+                          <span className="text-[10px] font-bold">Blog</span>
+                        </a>
+                      )}
+                      {sp.socials?.website && (
+                        <a
+                          href={sp.socials.website}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-emerald-500/10 text-[#34a853] hover:bg-[#34a853] hover:text-white transition-colors"
+                          title="Website"
+                          aria-label={`${sp.name} Website`}
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      {sp.socials?.email && (
+                        <a
+                          href={sp.socials.email}
+                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-rose-500/10 text-[#ea4335] hover:bg-[#ea4335] hover:text-white transition-colors"
+                          title="Email Speaker"
+                          aria-label={`${sp.name} Email`}
+                        >
+                          <MailIcon className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}

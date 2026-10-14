@@ -96,21 +96,36 @@ export default function AdminPage() {
 
   // Team State & File Upload
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>(INITIAL_TEAM);
+  const [editingTeamId, setEditingTeamId] = useState<string | null>(null);
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("");
   const [newMemberTeam, setNewMemberTeam] = useState<TeamMember["team"]>("Core Organizer");
   const [newMemberBio, setNewMemberBio] = useState("");
   const [newMemberAvatar, setNewMemberAvatar] = useState("");
+  const [newMemberLinkedin, setNewMemberLinkedin] = useState("");
+  const [newMemberTwitter, setNewMemberTwitter] = useState("");
+  const [newMemberGithub, setNewMemberGithub] = useState("");
+  const [newMemberInstagram, setNewMemberInstagram] = useState("");
+  const [newMemberEmail, setNewMemberEmail] = useState("");
   const [uploadingTeamAvatar, setUploadingTeamAvatar] = useState(false);
 
   // Speakers State & File Upload
   const [pastSpeakers, setPastSpeakers] = useState<PastSpeaker[]>(DEV_FEST_PAST_SPEAKERS_FULL);
+  const [editingSpeakerId, setEditingSpeakerId] = useState<string | null>(null);
   const [newSpeakerName, setNewSpeakerName] = useState("");
   const [newSpeakerRole, setNewSpeakerRole] = useState("");
   const [newSpeakerCompany, setNewSpeakerCompany] = useState("");
-  const [newSpeakerYear, setNewSpeakerYear] = useState<PastSpeaker["year"]>("2024");
+  const [newSpeakerYear, setNewSpeakerYear] = useState<PastSpeaker["year"]>("2025");
   const [newSpeakerTopic, setNewSpeakerTopic] = useState("");
+  const [newSpeakerDesc, setNewSpeakerDesc] = useState("");
+  const [newSpeakerTrack, setNewSpeakerTrack] = useState("AI");
+  const [newSpeakerBadge, setNewSpeakerBadge] = useState("Google Developer Expert");
   const [newSpeakerAvatar, setNewSpeakerAvatar] = useState("");
+  const [newSpeakerLinkedin, setNewSpeakerLinkedin] = useState("");
+  const [newSpeakerTwitter, setNewSpeakerTwitter] = useState("");
+  const [newSpeakerBlog, setNewSpeakerBlog] = useState("");
+  const [newSpeakerWebsite, setNewSpeakerWebsite] = useState("");
+  const [newSpeakerEmail, setNewSpeakerEmail] = useState("");
   const [uploadingSpeakerAvatar, setUploadingSpeakerAvatar] = useState(false);
 
   // Agenda State
@@ -236,66 +251,204 @@ export default function AdminPage() {
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
-  // Add Team Member
-  const handleAddTeamMember = (e: React.FormEvent) => {
+  // Add / Edit Team Member
+  const handleAddTeamMember = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMemberName || !newMemberRole) return;
 
-    const newMember: TeamMember = {
-      id: "tm-" + Date.now(),
+    const memberData: TeamMember = {
+      id: editingTeamId || ("tm-" + Date.now()),
       name: newMemberName,
       role: newMemberRole,
       team: newMemberTeam,
       bio: newMemberBio || "Key organizer of DevFest Indore 2026.",
       avatar: newMemberAvatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      socials: { linkedin: "https://linkedin.com" },
+      socials: {
+        linkedin: newMemberLinkedin.trim() || undefined,
+        twitter: newMemberTwitter.trim() || undefined,
+        github: newMemberGithub.trim() || undefined,
+        instagram: newMemberInstagram.trim() || undefined,
+        email: newMemberEmail.trim() ? (newMemberEmail.startsWith("mailto:") ? newMemberEmail.trim() : `mailto:${newMemberEmail.trim()}`) : undefined,
+      },
     };
 
-    const updated = [...teamMembers, newMember];
+    let updated: TeamMember[];
+    if (editingTeamId) {
+      updated = teamMembers.map((m) => (m.id === editingTeamId ? memberData : m));
+      setStatusMsg({ text: "Team member updated successfully!", type: "success" });
+    } else {
+      updated = [...teamMembers, memberData];
+      setStatusMsg({ text: "Team member added to directory!", type: "success" });
+    }
+
     setTeamMembers(updated);
-    localStorage.setItem("devfest-team-members", JSON.stringify(updated));
+    try {
+      await saveTeamMember(memberData);
+    } catch (e) {}
+
+    // Reset form
+    setEditingTeamId(null);
     setNewMemberName("");
     setNewMemberRole("");
     setNewMemberBio("");
     setNewMemberAvatar("");
-    setStatusMsg({ text: "Team member added to directory!", type: "success" });
+    setNewMemberLinkedin("");
+    setNewMemberTwitter("");
+    setNewMemberGithub("");
+    setNewMemberInstagram("");
+    setNewMemberEmail("");
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
-  const handleDeleteTeamMember = (id: string) => {
+  const handleStartEditTeamMember = (member: TeamMember) => {
+    setEditingTeamId(member.id);
+    setNewMemberName(member.name);
+    setNewMemberRole(member.role);
+    setNewMemberTeam(member.team);
+    setNewMemberBio(member.bio || "");
+    setNewMemberAvatar(member.avatar || "");
+    setNewMemberLinkedin(member.socials?.linkedin || "");
+    setNewMemberTwitter(member.socials?.twitter || "");
+    setNewMemberGithub(member.socials?.github || "");
+    setNewMemberInstagram(member.socials?.instagram || "");
+    setNewMemberEmail(member.socials?.email?.replace("mailto:", "") || "");
+    // Scroll smoothly to form
+    window.scrollTo({ top: 350, behavior: "smooth" });
+  };
+
+  const handleCancelEditTeamMember = () => {
+    setEditingTeamId(null);
+    setNewMemberName("");
+    setNewMemberRole("");
+    setNewMemberBio("");
+    setNewMemberAvatar("");
+    setNewMemberLinkedin("");
+    setNewMemberTwitter("");
+    setNewMemberGithub("");
+    setNewMemberInstagram("");
+    setNewMemberEmail("");
+  };
+
+  const handleDeleteTeamMember = async (id: string) => {
     const updated = teamMembers.filter((item) => item.id !== id);
     setTeamMembers(updated);
-    localStorage.setItem("devfest-team-members", JSON.stringify(updated));
+    try {
+      await removeTeamMember(id);
+    } catch (e) {}
     setStatusMsg({ text: "Team member removed.", type: "info" });
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
-  // Add Speaker
-  const handleAddSpeaker = (e: React.FormEvent) => {
+  // Add / Edit Speaker
+  const handleAddSpeaker = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newSpeakerName || !newSpeakerRole) return;
 
-    const newSpeaker: PastSpeaker = {
-      id: "ps-" + Date.now(),
+    let category: PastSpeaker["category"] = "GenAI";
+    const trackLower = (newSpeakerTrack || "").toLowerCase();
+    if (trackLower.includes("mobile") || trackLower.includes("flutter")) {
+      category = "Mobile & Flutter";
+    } else if (trackLower.includes("web") || trackLower.includes("angular")) {
+      category = "Web";
+    } else if (trackLower.includes("cloud")) {
+      category = "Cloud";
+    } else if (trackLower.includes("lead") || trackLower.includes("product")) {
+      category = "Leadership & Ecosystem";
+    }
+
+    const speakerData: PastSpeaker = {
+      id: editingSpeakerId || ("ps-" + Date.now()),
       name: newSpeakerName,
       role: newSpeakerRole,
       company: newSpeakerCompany || "Tech Innovators",
       year: newSpeakerYear,
       topic: newSpeakerTopic || "Keynote Session",
+      description: newSpeakerDesc.trim() || undefined,
+      track: newSpeakerTrack,
       avatar: newSpeakerAvatar || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-      spotlightBadge: "Speaker Spotlight",
-      category: "GenAI",
+      spotlightBadge: newSpeakerBadge || "Speaker Spotlight",
+      category: category,
+      socials: {
+        linkedin: newSpeakerLinkedin.trim() || undefined,
+        twitter: newSpeakerTwitter.trim() || undefined,
+        blog: newSpeakerBlog.trim() || undefined,
+        website: newSpeakerWebsite.trim() || undefined,
+        email: newSpeakerEmail.trim() ? (newSpeakerEmail.startsWith("mailto:") ? newSpeakerEmail.trim() : `mailto:${newSpeakerEmail.trim()}`) : undefined,
+      },
     };
 
-    const updated = [...pastSpeakers, newSpeaker];
+    let updated: PastSpeaker[];
+    if (editingSpeakerId) {
+      updated = pastSpeakers.map((s) => (s.id === editingSpeakerId ? speakerData : s));
+      setStatusMsg({ text: "Speaker updated successfully!", type: "success" });
+    } else {
+      updated = [...pastSpeakers, speakerData];
+      setStatusMsg({ text: "Speaker added to spotlights!", type: "success" });
+    }
+
     setPastSpeakers(updated);
-    localStorage.setItem("devfest-past-speakers", JSON.stringify(updated));
+    try {
+      await savePastSpeaker(speakerData);
+    } catch (e) {}
+
+    // Reset form
+    setEditingSpeakerId(null);
     setNewSpeakerName("");
     setNewSpeakerRole("");
     setNewSpeakerCompany("");
     setNewSpeakerTopic("");
+    setNewSpeakerDesc("");
     setNewSpeakerAvatar("");
-    setStatusMsg({ text: "Speaker added to spotlights!", type: "success" });
+    setNewSpeakerLinkedin("");
+    setNewSpeakerTwitter("");
+    setNewSpeakerBlog("");
+    setNewSpeakerWebsite("");
+    setNewSpeakerEmail("");
+    setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  const handleStartEditSpeaker = (speaker: PastSpeaker) => {
+    setEditingSpeakerId(speaker.id);
+    setNewSpeakerName(speaker.name);
+    setNewSpeakerRole(speaker.role);
+    setNewSpeakerCompany(speaker.company);
+    setNewSpeakerYear(speaker.year);
+    setNewSpeakerTopic(speaker.topic);
+    setNewSpeakerDesc(speaker.description || "");
+    setNewSpeakerTrack(speaker.track || "AI");
+    setNewSpeakerBadge(speaker.spotlightBadge || "Speaker Spotlight");
+    setNewSpeakerAvatar(speaker.avatar || "");
+    setNewSpeakerLinkedin(speaker.socials?.linkedin || "");
+    setNewSpeakerTwitter(speaker.socials?.twitter || "");
+    setNewSpeakerBlog(speaker.socials?.blog || "");
+    setNewSpeakerWebsite(speaker.socials?.website || "");
+    setNewSpeakerEmail(speaker.socials?.email?.replace("mailto:", "") || "");
+    // Scroll smoothly to form
+    window.scrollTo({ top: 350, behavior: "smooth" });
+  };
+
+  const handleCancelEditSpeaker = () => {
+    setEditingSpeakerId(null);
+    setNewSpeakerName("");
+    setNewSpeakerRole("");
+    setNewSpeakerCompany("");
+    setNewSpeakerTopic("");
+    setNewSpeakerDesc("");
+    setNewSpeakerAvatar("");
+    setNewSpeakerLinkedin("");
+    setNewSpeakerTwitter("");
+    setNewSpeakerBlog("");
+    setNewSpeakerWebsite("");
+    setNewSpeakerEmail("");
+  };
+
+  const handleDeleteSpeaker = async (id: string) => {
+    const updated = pastSpeakers.filter((item) => item.id !== id);
+    setPastSpeakers(updated);
+    try {
+      await removePastSpeaker(id);
+    } catch (e) {}
+    setStatusMsg({ text: "Speaker removed.", type: "info" });
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
@@ -879,9 +1032,20 @@ export default function AdminPage() {
         {activeTab === "team" && (
           <div className="space-y-8">
             <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-[#34a853]" />
-                <span>Add Team Member</span>
+              <h2 className="text-base font-bold mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <UserPlus className="w-5 h-5 text-[#34a853]" />
+                  <span>{editingTeamId ? "Edit Team Member" : "Add Team Member"}</span>
+                </div>
+                {editingTeamId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditTeamMember}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
               </h2>
 
               <form onSubmit={handleAddTeamMember} className="space-y-4">
@@ -984,12 +1148,83 @@ export default function AdminPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#34a853] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
-                >
-                  Add to Team Page
-                </button>
+                {/* Social Media Links for Team Member */}
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                  <div className="text-xs font-bold text-[#1e1e1e] mb-2.5 flex items-center gap-1.5">
+                    <Share2 className="w-3.5 h-3.5 text-[#34a853]" />
+                    <span>Social Media Channels (Displays on Team & Home Page)</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">LinkedIn URL</label>
+                      <input
+                        type="url"
+                        value={newMemberLinkedin}
+                        onChange={(e) => setNewMemberLinkedin(e.target.value)}
+                        placeholder="https://linkedin.com/in/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Twitter / X URL</label>
+                      <input
+                        type="url"
+                        value={newMemberTwitter}
+                        onChange={(e) => setNewMemberTwitter(e.target.value)}
+                        placeholder="https://x.com/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">GitHub URL</label>
+                      <input
+                        type="url"
+                        value={newMemberGithub}
+                        onChange={(e) => setNewMemberGithub(e.target.value)}
+                        placeholder="https://github.com/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Instagram URL</label>
+                      <input
+                        type="url"
+                        value={newMemberInstagram}
+                        onChange={(e) => setNewMemberInstagram(e.target.value)}
+                        placeholder="https://instagram.com/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Contact Email</label>
+                      <input
+                        type="email"
+                        value={newMemberEmail}
+                        onChange={(e) => setNewMemberEmail(e.target.value)}
+                        placeholder="organizer@gdgindore.in"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#34a853] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingTeamId ? "Update Team Member" : "Add to Team Page"}
+                  </button>
+                  {editingTeamId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEditTeamMember}
+                      className="px-5 py-2.5 rounded-full font-bold text-xs bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
 
@@ -998,29 +1233,47 @@ export default function AdminPage() {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="p-4 rounded-2xl bg-white border border-gray-200 flex items-start justify-between gap-3"
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex items-start justify-between gap-3 shadow-xs"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
                     <img
                       src={member.avatar}
                       alt={member.name}
-                      className="w-12 h-12 rounded-xl object-cover shrink-0"
+                      className="w-12 h-12 rounded-xl object-cover shrink-0 border"
                     />
-                    <div>
-                      <div className="text-xs font-bold text-[#1e1e1e]">{member.name}</div>
-                      <div className="text-[11px] text-[#4285f4] font-semibold">{member.role}</div>
-                      <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-                        {member.team}
-                      </span>
+                    <div className="min-w-0">
+                      <div className="text-xs font-bold text-[#1e1e1e] truncate">{member.name}</div>
+                      <div className="text-[11px] text-[#4285f4] font-semibold truncate">{member.role}</div>
+                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                          {member.team}
+                        </span>
+                        {member.socials?.linkedin && (
+                          <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">LinkedIn</span>
+                        )}
+                        {member.socials?.twitter && (
+                          <span className="text-[9px] font-bold text-red-600 bg-red-50 px-1.5 py-0.2 rounded">X</span>
+                        )}
+                      </div>
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => handleDeleteTeamMember(member.id)}
-                    className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => handleStartEditTeamMember(member)}
+                      className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                      title="Edit Member Details & Socials"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteTeamMember(member.id)}
+                      className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                      title="Delete Member"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1031,9 +1284,20 @@ export default function AdminPage() {
         {activeTab === "speakers" && (
           <div className="space-y-8">
             <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#f9ab00]" />
-                <span>Add Previous Speaker / Spotlight</span>
+              <h2 className="text-base font-bold mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-[#f9ab00]" />
+                  <span>{editingSpeakerId ? "Edit Speaker Spotlight" : "Add Previous Speaker / Spotlight"}</span>
+                </div>
+                {editingSpeakerId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditSpeaker}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
               </h2>
 
               <form onSubmit={handleAddSpeaker} className="space-y-4">
@@ -1047,25 +1311,40 @@ export default function AdminPage() {
                       required
                       value={newSpeakerName}
                       onChange={(e) => setNewSpeakerName(e.target.value)}
-                      placeholder="e.g. Kartik Arora"
+                      placeholder="e.g. Abhishek Doshi"
                       className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Role & Organization
+                      Role & Title
                     </label>
                     <input
                       type="text"
                       required
                       value={newSpeakerRole}
                       onChange={(e) => setNewSpeakerRole(e.target.value)}
-                      placeholder="e.g. Staff AI Engineer, Google Cloud"
+                      placeholder="e.g. Google Developer Expert (Flutter)"
                       className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Company / Organization
+                    </label>
+                    <input
+                      type="text"
+                      value={newSpeakerCompany}
+                      onChange={(e) => setNewSpeakerCompany(e.target.value)}
+                      placeholder="e.g. Tech Lead - Qvin"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
                       Edition Year
@@ -1075,23 +1354,50 @@ export default function AdminPage() {
                       onChange={(e) => setNewSpeakerYear(e.target.value as any)}
                       className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
                     >
+                      <option value="2025">2025</option>
                       <option value="2024">2024</option>
                       <option value="2023">2023</option>
                       <option value="2022">2022</option>
                     </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Track / Category
+                    </label>
+                    <input
+                      type="text"
+                      value={newSpeakerTrack}
+                      onChange={(e) => setNewSpeakerTrack(e.target.value)}
+                      placeholder="e.g. Mobile, AI, Web, Cloud"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      Spotlight Badge
+                    </label>
+                    <input
+                      type="text"
+                      value={newSpeakerBadge}
+                      onChange={(e) => setNewSpeakerBadge(e.target.value)}
+                      placeholder="e.g. Google Developer Expert"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Keynote Topic
+                      Keynote / Session Topic
                     </label>
                     <input
                       type="text"
                       value={newSpeakerTopic}
                       onChange={(e) => setNewSpeakerTopic(e.target.value)}
-                      placeholder="e.g. Scaling Vector Pipelines"
+                      placeholder="e.g. Power of BuildContext in Flutter"
                       className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
                     />
                   </div>
@@ -1134,39 +1440,163 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#f9ab00] text-black border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
-                >
-                  Save Speaker Spotlight
-                </button>
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Talk Abstract / Description
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={newSpeakerDesc}
+                    onChange={(e) => setNewSpeakerDesc(e.target.value)}
+                    placeholder="Full session abstract or key takeaways..."
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                  />
+                </div>
+
+                {/* Social Media Links for Speaker */}
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                  <div className="text-xs font-bold text-[#1e1e1e] mb-2.5 flex items-center gap-1.5">
+                    <Share2 className="w-3.5 h-3.5 text-[#f9ab00]" />
+                    <span>Speaker Social Media Links</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">LinkedIn Profile</label>
+                      <input
+                        type="url"
+                        value={newSpeakerLinkedin}
+                        onChange={(e) => setNewSpeakerLinkedin(e.target.value)}
+                        placeholder="https://linkedin.com/in/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Twitter / X URL</label>
+                      <input
+                        type="url"
+                        value={newSpeakerTwitter}
+                        onChange={(e) => setNewSpeakerTwitter(e.target.value)}
+                        placeholder="https://x.com/username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Blog / Medium</label>
+                      <input
+                        type="url"
+                        value={newSpeakerBlog}
+                        onChange={(e) => setNewSpeakerBlog(e.target.value)}
+                        placeholder="https://medium.com/@username"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Website / Portfolio</label>
+                      <input
+                        type="url"
+                        value={newSpeakerWebsite}
+                        onChange={(e) => setNewSpeakerWebsite(e.target.value)}
+                        placeholder="https://mysite.dev"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[11px] font-semibold text-gray-600 mb-1">Email Address</label>
+                      <input
+                        type="email"
+                        value={newSpeakerEmail}
+                        onChange={(e) => setNewSpeakerEmail(e.target.value)}
+                        placeholder="speaker@company.com"
+                        className="w-full px-3 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#f9ab00] text-black border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingSpeakerId ? "Update Speaker Spotlight" : "Save Speaker Spotlight"}
+                  </button>
+                  {editingSpeakerId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEditSpeaker}
+                      className="px-5 py-2.5 rounded-full font-bold text-xs bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
 
             {/* Existing Speakers List */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {pastSpeakers.map((sp) => (
                 <div
                   key={sp.id}
-                  className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between"
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
                 >
                   <div>
-                    <img
-                      src={sp.avatar}
-                      alt={sp.name}
-                      className="w-full aspect-square object-cover rounded-xl mb-3"
-                    />
-                    <div className="text-xs font-bold text-[#1e1e1e]">{sp.name}</div>
-                    <div className="text-[11px] text-[#5f6368]">{sp.role}</div>
-                    <div className="text-[10px] text-[#4285f4] font-bold mt-1">
-                      {sp.topic}
+                    <div className="relative aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 border">
+                      <img
+                        src={sp.avatar}
+                        alt={sp.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-black/80 text-[10px] font-black text-white">
+                        {sp.year}
+                      </span>
+                    </div>
+
+                    <div className="text-sm font-black text-[#1e1e1e] truncate">{sp.name}</div>
+                    <div className="text-xs text-[#4285f4] font-bold truncate">{sp.role}</div>
+                    <div className="text-[11px] text-[#5f6368] font-semibold truncate">{sp.company}</div>
+
+                    <div className="p-2.5 rounded-xl bg-gray-50 border border-gray-100 text-[11px] font-medium text-gray-800 mt-2 line-clamp-2">
+                      "{sp.topic}"
+                    </div>
+
+                    <div className="flex items-center gap-1 mt-2.5 flex-wrap">
+                      {sp.socials?.linkedin && (
+                        <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">LinkedIn</span>
+                      )}
+                      {sp.socials?.twitter && (
+                        <span className="text-[9px] font-bold text-red-600 bg-red-50 px-1.5 py-0.2 rounded">X</span>
+                      )}
+                      {sp.socials?.blog && (
+                        <span className="text-[9px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.2 rounded">Blog</span>
+                      )}
+                      {sp.socials?.website && (
+                        <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded">Web</span>
+                      )}
                     </div>
                   </div>
-                  <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] font-bold">
-                    <span className="bg-blue-50 text-[#4285f4] px-2 py-0.5 rounded-full">
-                      DevFest {sp.year}
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#34a853] truncate max-w-[120px]">
+                      {sp.spotlightBadge}
                     </span>
-                    <span className="text-[#34a853]">{sp.spotlightBadge}</span>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => handleStartEditSpeaker(sp)}
+                        className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                        title="Edit Speaker & Socials"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSpeaker(sp.id)}
+                        className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                        title="Delete Speaker"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
