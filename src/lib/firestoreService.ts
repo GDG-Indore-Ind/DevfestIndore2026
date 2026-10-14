@@ -113,19 +113,48 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     const colRef = collection(db, COLLECTIONS.TEAM);
     const snap = await getDocs(colRef);
     if (!snap.empty) {
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+      const remote = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+      // Merge remote with initial so newly added predefined members are always present
+      const remoteIds = new Set(remote.map((r) => r.id));
+      const combined = [...remote];
+      INITIAL_TEAM.forEach((initial) => {
+        if (!remoteIds.has(initial.id)) {
+          combined.push(initial);
+        }
+      });
+      return combined;
     }
     // Check localStorage fallback or initial seed
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-team-members");
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: TeamMember[] = JSON.parse(saved);
+        const parsedIds = new Set(parsed.map((p) => p.id));
+        const merged = [...parsed];
+        INITIAL_TEAM.forEach((init) => {
+          if (!parsedIds.has(init.id)) {
+            merged.push(init);
+          }
+        });
+        return merged;
+      }
     }
     return INITIAL_TEAM;
   } catch (error) {
     console.warn("Firestore offline or permission notice, fallback to local:", error);
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-team-members");
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed: TeamMember[] = JSON.parse(saved);
+        const parsedIds = new Set(parsed.map((p) => p.id));
+        const merged = [...parsed];
+        INITIAL_TEAM.forEach((init) => {
+          if (!parsedIds.has(init.id)) {
+            merged.push(init);
+          }
+        });
+        return merged;
+      }
     }
     return INITIAL_TEAM;
   }

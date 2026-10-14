@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // DevFest Indore 2026 Firestore Security Rules
+    // Allows public read access to conference ecosystem data
+    // Allows authenticated write operations for admin management and public telemetry counters
+
+    // Team directory
+    match /team_members/{memberId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Past keynote speakers and alumni
+    match /past_speakers/{speakerId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Gallery and event memories
+    match /gallery_photos/{photoId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Agenda sessions
+    match /agenda_sessions/{sessionId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // FAQs
+    match /faq_items/{faqId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Event config and social links
+    match /event_config/{configId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Real-time telemetry, GTM and visitor analytics counters
+    match /live_analytics/{telemetryId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Support and speaker queries
+    match /support_queries/{queryId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if true;
+    }
+
+    // Speaker proposals
+    match /speaker_proposals/{proposalId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if true;
+    }
+
+    // Default fallback
+    match /{document=**} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

@@ -26,8 +26,9 @@ export default function TeamPage() {
   const categories = [
     "All",
     "Core Organizer",
-    "Design & Experience",
     "Tech & Operations",
+    "Community",
+    "Design & Experience",
     "Space & Ecosystem",
   ];
 
