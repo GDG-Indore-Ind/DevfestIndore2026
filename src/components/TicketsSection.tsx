@@ -29,6 +29,7 @@ export default function TicketsSection() {
   const handleOpenCheckout = () => {
     setIsCheckoutOpen(true);
     import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+      trackDevFestEvent("get_tickets_click", { location: "tickets_section", method: "claim_boarding_pass" });
       trackDevFestEvent("ticket_checkout_click", { method: "konfhub_modal_launch" });
     });
   };

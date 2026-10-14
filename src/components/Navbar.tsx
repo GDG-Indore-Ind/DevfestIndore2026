@@ -49,6 +49,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
 
   const handleOpenCheckout = () => {
     setIsCheckoutOpen(true);
+    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+      trackDevFestEvent("get_tickets_click", { location: "navbar_pill", method: "konfhub_modal_launch" });
+      trackDevFestEvent("ticket_checkout_click", { location: "navbar", method: "konfhub_widget_opened" });
+    });
   };
 
   // Visible items for desktop navbar (FAQ removed, Instagram Feed added)

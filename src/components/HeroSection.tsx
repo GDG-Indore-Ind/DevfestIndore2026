@@ -245,7 +245,12 @@ export default function HeroSection() {
             <div className="flex flex-wrap items-center gap-4 mb-7">
               <a
                 href="#tickets"
-                onClick={triggerHeroConfetti}
+                onClick={() => {
+                  triggerHeroConfetti();
+                  import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+                    trackDevFestEvent("get_tickets_click", { location: "hero_section", method: "button_click" });
+                  });
+                }}
                 className={`px-7 py-3.5 rounded-full font-bold text-sm flex items-center gap-2.5 shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer ${
                   isDark
                     ? "bg-gradient-to-r from-[#0070f3] to-[#00a3ff] text-white hover:brightness-110 shadow-[0_0_30px_rgba(0,112,243,0.55)]"

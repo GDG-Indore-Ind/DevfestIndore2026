@@ -22,6 +22,8 @@ export interface TelemetryMetrics {
     solar_orbit_exploration: number;
     satellite_rsvp_click: number;
     ticket_checkout_click: number;
+    get_tickets_click: number;
+    konfhub_registered: number;
     agenda_bookmark_click: number;
     theme_toggle_click: number;
   };
@@ -135,6 +137,8 @@ export function subscribeToRealtimeAnalytics(
       solar_orbit_exploration: 3410,
       satellite_rsvp_click: 512,
       ticket_checkout_click: 486,
+      get_tickets_click: 742,
+      konfhub_registered: 486,
       agenda_bookmark_click: 318,
       theme_toggle_click: 420,
     },
@@ -199,6 +203,10 @@ export function subscribeToRealtimeAnalytics(
                 docData.events?.satellite_rsvp_click || defaultMetrics.events.satellite_rsvp_click,
               ticket_checkout_click:
                 docData.events?.ticket_checkout_click || defaultMetrics.events.ticket_checkout_click,
+              get_tickets_click:
+                docData.events?.get_tickets_click || defaultMetrics.events.get_tickets_click,
+              konfhub_registered:
+                docData.events?.konfhub_registered || defaultMetrics.events.konfhub_registered,
               agenda_bookmark_click:
                 docData.events?.agenda_bookmark_click || defaultMetrics.events.agenda_bookmark_click,
               theme_toggle_click:

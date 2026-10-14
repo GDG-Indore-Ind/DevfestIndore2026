@@ -1052,12 +1052,42 @@ export default function AdminPage() {
                         TKT
                       </div>
                       <div>
-                        <div className="font-bold text-xs text-[#1e1e1e]">ticket_checkout_click</div>
-                        <div className="text-[10px] text-gray-500">KonfHub boarding pass modal launches</div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">get_tickets_click</div>
+                        <div className="text-[10px] text-gray-500">"Get Tickets Now" button clicks across hero, navbar, and footer</div>
                       </div>
                     </div>
                     <span className="font-mono text-xs font-black text-purple-600">
-                      {(telemetry?.events.ticket_checkout_click || 486).toLocaleString()} events
+                      {(telemetry?.events.get_tickets_click || 742).toLocaleString()} clicks
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-amber-100 text-[#f9ab00] flex items-center justify-center font-bold text-xs">
+                        KNF
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">ticket_checkout_click (KonfHub Launches)</div>
+                        <div className="text-[10px] text-gray-500">KonfHub checkout widget modals launched by buyers</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#f9ab00]">
+                      {(telemetry?.events.ticket_checkout_click || 486).toLocaleString()} launches
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-emerald-100 text-[#34a853] flex items-center justify-center font-bold text-xs">
+                        REG
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">konfhub_registered (Conversions)</div>
+                        <div className="text-[10px] text-emerald-700">Actual attendee registrations confirmed via KonfHub portal</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-[#34a853]">
+                      {(telemetry?.events.konfhub_registered || 486).toLocaleString()} confirmed
                     </span>
                   </div>
                 </div>
