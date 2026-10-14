@@ -263,11 +263,11 @@ export default function PastSpeakersPage() {
                       : "bg-white border-gray-200 hover:border-[#4285f4] hover:-translate-y-1 shadow-sm"
                   }`}
                 >
-                  {/* Card Top: Avatar + Badges + Identity */}
+                  {/* Card Top: Large Avatar + Badges + Identity */}
                   <div className="p-6 pb-4">
                     <div className="flex items-start gap-4 mb-4">
-                      {/* Avatar Image with High-Res Frame */}
-                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shrink-0 border-2 border-white/10 shadow-md bg-gray-100 dark:bg-zinc-900">
+                      {/* Avatar Image with Large High-Res Frame */}
+                      <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shrink-0 border-2 border-white/10 shadow-md bg-gray-100 dark:bg-zinc-900">
                         <img
                           src={sp.avatar}
                           alt={sp.name}
@@ -282,22 +282,24 @@ export default function PastSpeakersPage() {
                       {/* Header details */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap mb-1.5">
-                          <span
-                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border tracking-wider ${getBadgeStyle(
-                              sp.spotlightBadge
-                            )}`}
-                          >
-                            {sp.spotlightBadge}
-                          </span>
+                          {sp.spotlightBadge && (
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[9px] font-bold border tracking-wider truncate max-w-[130px] ${getBadgeStyle(
+                                sp.spotlightBadge
+                              )}`}
+                            >
+                              {sp.spotlightBadge}
+                            </span>
+                          )}
                           {sp.track && (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-semibold bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
                               {sp.track}
                             </span>
                           )}
                         </div>
 
                         <h3
-                          className={`text-xl font-black leading-tight tracking-tight mb-1 truncate ${
+                          className={`text-lg sm:text-xl font-black leading-tight tracking-tight mb-1 truncate ${
                             isDark ? "text-white" : "text-[#1e1e1e]"
                           }`}
                           title={sp.name}
@@ -305,36 +307,40 @@ export default function PastSpeakersPage() {
                           {sp.name}
                         </h3>
 
-                        <div className="text-xs font-bold text-[#4285f4] line-clamp-1 mb-1" title={sp.role}>
-                          {sp.role}
-                        </div>
+                        {sp.role && (
+                          <div className="text-[11px] font-bold text-[#4285f4] line-clamp-1 mb-1" title={sp.role}>
+                            {sp.role}
+                          </div>
+                        )}
 
-                        <div
-                          className={`text-[12px] font-semibold flex items-center gap-1.5 ${
-                            isDark ? "text-white/60" : "text-[#5f6368]"
-                          }`}
-                        >
-                          <Briefcase className="w-3.5 h-3.5 text-[#34a853] shrink-0" />
-                          <span className="truncate">{sp.company}</span>
-                        </div>
+                        {sp.company && (
+                          <div
+                            className={`text-[11px] font-semibold flex items-center gap-1.5 ${
+                              isDark ? "text-white/60" : "text-[#5f6368]"
+                            }`}
+                          >
+                            <Briefcase className="w-3 h-3 text-[#34a853] shrink-0" />
+                            <span className="truncate">{sp.company}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     {/* Talk Section Box */}
                     <div
-                      className={`p-4 rounded-2xl border transition-colors mb-4 ${
+                      className={`p-3.5 rounded-2xl border transition-colors mb-3 ${
                         isDark
                           ? "bg-white/[0.03] border-white/10 group-hover:border-white/20"
                           : "bg-gray-50/80 border-gray-200 group-hover:border-gray-300"
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-[#ea4335] mb-1.5">
+                      <div className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-[#ea4335] mb-1">
                         <Sparkles className="w-3 h-3 text-[#ea4335]" />
                         <span>Accepted Keynote / Session</span>
                       </div>
 
                       <h4
-                        className={`text-sm font-bold leading-snug mb-2 ${
+                        className={`text-xs sm:text-sm font-bold leading-snug mb-1.5 ${
                           isDark ? "text-white" : "text-[#1e1e1e]"
                         }`}
                       >
@@ -342,14 +348,14 @@ export default function PastSpeakersPage() {
                       </h4>
 
                       {sp.description && (
-                        <div className="text-xs leading-relaxed text-gray-400 dark:text-white/70">
-                          <p className={isExpanded ? "" : "line-clamp-3"}>
+                        <div className="text-[11px] leading-relaxed text-gray-400 dark:text-white/70">
+                          <p className={isExpanded ? "" : "line-clamp-2"}>
                             {sp.description}
                           </p>
                           {hasLongDesc && (
                             <button
                               onClick={() => toggleExpand(sp.id)}
-                              className="inline-flex items-center gap-1 mt-2 text-[11px] font-bold text-[#4285f4] hover:underline cursor-pointer"
+                              className="inline-flex items-center gap-1 mt-1 text-[10px] font-bold text-[#4285f4] hover:underline cursor-pointer"
                             >
                               {isExpanded ? (
                                 <>
@@ -366,10 +372,10 @@ export default function PastSpeakersPage() {
                       )}
                     </div>
 
-                    {/* Speaker Bio Teaser if Available */}
-                    {sp.bio && sp.bio !== sp.role && (
+                    {/* Speaker Bio Teaser if Available & non-empty */}
+                    {sp.bio && sp.bio !== sp.role && sp.bio.trim() !== "" && (
                       <div
-                        className={`text-[11px] italic leading-relaxed px-1 mb-3 line-clamp-2 ${
+                        className={`text-[10px] italic leading-relaxed px-1 mb-2 line-clamp-2 ${
                           isDark ? "text-white/50" : "text-gray-500"
                         }`}
                       >
@@ -380,72 +386,72 @@ export default function PastSpeakersPage() {
 
                   {/* Card Footer: Social Media Links + Modal Launcher */}
                   <div
-                    className={`p-4 sm:px-6 border-t flex items-center justify-between gap-2 ${
+                    className={`p-3.5 sm:px-5 border-t flex items-center justify-between gap-2 ${
                       isDark ? "border-white/10 bg-white/[0.01]" : "border-gray-100 bg-gray-50/50"
                     }`}
                   >
-                    {/* Social Media Channels */}
+                    {/* Social Media Channels (Strictly check non-empty) */}
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      {sp.socials?.linkedin && (
+                      {sp.socials?.linkedin && sp.socials.linkedin.trim() !== "" && (
                         <a
                           href={sp.socials.linkedin}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-500/10 text-[#4285f4] hover:bg-[#4285f4] hover:text-white transition-all shadow-sm"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center bg-blue-500/10 text-[#4285f4] hover:bg-[#4285f4] hover:text-white transition-all shadow-xs"
                           title="LinkedIn Profile"
                           aria-label={`${sp.name} LinkedIn`}
                         >
-                          <LinkedInIcon className="w-4 h-4 fill-current" />
+                          <LinkedInIcon className="w-3.5 h-3.5 fill-current" />
                         </a>
                       )}
 
-                      {sp.socials?.twitter && (
+                      {sp.socials?.twitter && sp.socials.twitter.trim() !== "" && (
                         <a
                           href={sp.socials.twitter}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-8 h-8 rounded-xl flex items-center justify-center bg-gray-500/10 text-gray-700 dark:text-gray-200 hover:bg-black hover:text-white transition-all shadow-sm"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center bg-gray-500/10 text-gray-700 dark:text-gray-200 hover:bg-black hover:text-white transition-all shadow-xs"
                           title="Twitter / X"
                           aria-label={`${sp.name} Twitter`}
                         >
-                          <TwitterIcon className="w-4 h-4 fill-current" />
+                          <TwitterIcon className="w-3.5 h-3.5 fill-current" />
                         </a>
                       )}
 
-                      {sp.socials?.website && (
+                      {sp.socials?.website && sp.socials.website.trim() !== "" && (
                         <a
                           href={sp.socials.website}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-500/10 text-[#34a853] hover:bg-[#34a853] hover:text-white transition-all shadow-sm"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center bg-emerald-500/10 text-[#34a853] hover:bg-[#34a853] hover:text-white transition-all shadow-xs"
                           title="Official Website / Company"
                           aria-label={`${sp.name} Website`}
                         >
-                          <GlobeIcon className="w-4 h-4" />
+                          <GlobeIcon className="w-3.5 h-3.5" />
                         </a>
                       )}
 
-                      {sp.socials?.blog && (
+                      {sp.socials?.blog && sp.socials.blog.trim() !== "" && (
                         <a
                           href={sp.socials.blog}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-8 h-8 rounded-xl flex items-center justify-center bg-amber-500/10 text-[#f9ab00] hover:bg-[#f9ab00] hover:text-white transition-all shadow-sm"
+                          className="w-7 h-7 rounded-lg flex items-center justify-center bg-amber-500/10 text-[#f9ab00] hover:bg-[#f9ab00] hover:text-white transition-all shadow-xs"
                           title="Technical Blog / Articles"
                           aria-label={`${sp.name} Blog`}
                         >
-                          <BookOpenIcon className="w-4 h-4" />
+                          <BookOpenIcon className="w-3.5 h-3.5" />
                         </a>
                       )}
 
-                      {sp.socials?.email && (
+                      {sp.socials?.email && sp.socials.email.trim() !== "" && (
                         <a
-                          href={sp.socials.email}
-                          className="w-8 h-8 rounded-xl flex items-center justify-center bg-rose-500/10 text-[#ea4335] hover:bg-[#ea4335] hover:text-white transition-all shadow-sm"
+                          href={sp.socials.email.startsWith("mailto:") ? sp.socials.email : `mailto:${sp.socials.email}`}
+                          className="w-7 h-7 rounded-lg flex items-center justify-center bg-rose-500/10 text-[#ea4335] hover:bg-[#ea4335] hover:text-white transition-all shadow-xs"
                           title="Contact Speaker"
                           aria-label={`${sp.name} Email`}
                         >
-                          <MailIcon className="w-4 h-4" />
+                          <MailIcon className="w-3.5 h-3.5" />
                         </a>
                       )}
                     </div>
@@ -453,7 +459,7 @@ export default function PastSpeakersPage() {
                     {/* View Full Profile Modal Button */}
                     <button
                       onClick={() => setActiveModalSpeaker(sp)}
-                      className={`inline-flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-xl border transition-all cursor-pointer ${
+                      className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-xl border transition-all cursor-pointer ${
                         isDark
                           ? "bg-white/5 border-white/15 text-white hover:bg-white/10"
                           : "bg-white border-gray-200 text-[#1e1e1e] hover:border-gray-400"
@@ -547,23 +553,27 @@ export default function PastSpeakersPage() {
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between gap-4 mb-6">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-5">
                 <img
                   src={activeModalSpeaker.avatar}
                   alt={activeModalSpeaker.name}
-                  className="w-20 h-20 rounded-2xl object-cover border-2 border-[#4285f4]"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-[#4285f4] shadow-lg"
                 />
                 <div>
-                  <span
-                    className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border mb-1.5 ${getBadgeStyle(
-                      activeModalSpeaker.spotlightBadge
-                    )}`}
-                  >
-                    {activeModalSpeaker.spotlightBadge}
-                  </span>
-                  <h3 className="text-2xl font-black">{activeModalSpeaker.name}</h3>
-                  <div className="text-xs font-bold text-[#4285f4]">{activeModalSpeaker.role}</div>
-                  <div className="text-xs text-gray-400 font-semibold">{activeModalSpeaker.company}</div>
+                  {activeModalSpeaker.spotlightBadge && (
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border mb-1.5 ${getBadgeStyle(
+                        activeModalSpeaker.spotlightBadge
+                      )}`}
+                    >
+                      {activeModalSpeaker.spotlightBadge}
+                    </span>
+                  )}
+                  <h3 className="text-2xl sm:text-3xl font-black">{activeModalSpeaker.name}</h3>
+                  <div className="text-xs sm:text-sm font-bold text-[#4285f4]">{activeModalSpeaker.role}</div>
+                  {activeModalSpeaker.company && (
+                    <div className="text-xs text-gray-400 font-semibold mt-0.5">{activeModalSpeaker.company}</div>
+                  )}
                 </div>
               </div>
 

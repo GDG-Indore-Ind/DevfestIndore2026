@@ -924,7 +924,7 @@ button:hover .roll-text-bottom {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 26s linear infinite;
+  animation: marquee 85s linear infinite;
 }
 
 .animate-marquee:hover {
@@ -934,7 +934,7 @@ button:hover .roll-text-bottom {
 .animate-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: marquee-reverse 30s linear infinite;
+  animation: marquee-reverse 95s linear infinite;
 }
 
 .animate-marquee-reverse:hover {
@@ -1102,7 +1102,7 @@ button:hover .roll-text-bottom {
 }
 
 /* ========================================================================= */
-/* AIRY LIGHT BREEZE & SLIGHT SNOW EFFECT (LIGHT MODE)                      */
+/* AIRY LIGHT BREEZE & VISIBLE CRYSTALLINE SNOW EFFECT (LIGHT MODE)          */
 /* ========================================================================= */
 
 @keyframes gentleSnowDrift {
@@ -1110,14 +1110,14 @@ button:hover .roll-text-bottom {
     transform: translateY(-20px) translateX(0px) rotate(0deg);
     opacity: 0;
   }
-  20% {
-    opacity: 0.85;
+  15% {
+    opacity: 0.95;
   }
-  80% {
-    opacity: 0.75;
+  85% {
+    opacity: 0.9;
   }
   100% {
-    transform: translateY(105vh) translateX(40px) rotate(360deg);
+    transform: translateY(105vh) translateX(50px) rotate(360deg);
     opacity: 0;
   }
 }
@@ -1132,15 +1132,15 @@ button:hover .roll-text-bottom {
 }
 
 .animate-snow-1 {
-  animation: gentleSnowDrift 11s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: gentleSnowDrift 9s linear infinite;
 }
 
 .animate-snow-2 {
-  animation: gentleSnowDrift 15s cubic-bezier(0.4, 0, 0.2, 1) infinite 3s;
+  animation: gentleSnowDrift 13s linear infinite 2.5s;
 }
 
 .animate-snow-3 {
-  animation: gentleSnowDrift 19s cubic-bezier(0.4, 0, 0.2, 1) infinite 6s;
+  animation: gentleSnowDrift 17s linear infinite 5s;
 }
 
 .animate-breeze-glow {

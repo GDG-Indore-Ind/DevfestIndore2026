@@ -56,77 +56,42 @@ export default function InteractiveCursor() {
 
   return (
     <>
-      {/* Trailing Orbital Atmosphere Glow & Orbit Ring */}
+      {/* Outer Sleek Trailing Ring Follower */}
       <div
-        className="pointer-events-none fixed z-[9998] rounded-full transition-transform duration-200 -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none fixed z-[9998] rounded-full transition-transform duration-150 ease-out -translate-x-1/2 -translate-y-1/2"
         style={{
           left: `${trailingPos.x}px`,
           top: `${trailingPos.y}px`,
-          width: hovered ? "68px" : "46px",
-          height: hovered ? "68px" : "46px",
-          border: hovered ? "1.5px dashed #38bdf8" : "1px solid rgba(56, 189, 248, 0.4)",
+          width: hovered ? "52px" : "36px",
+          height: hovered ? "52px" : "36px",
+          border: hovered
+            ? "1.5px solid rgba(66, 133, 244, 0.85)"
+            : "1px solid rgba(66, 133, 244, 0.4)",
+          background: hovered
+            ? "radial-gradient(circle, rgba(66, 133, 244, 0.12) 0%, transparent 70%)"
+            : "transparent",
           boxShadow: hovered
-            ? "0 0 25px rgba(56, 189, 248, 0.6), inset 0 0 15px rgba(56, 189, 248, 0.3)"
-            : "0 0 15px rgba(56, 189, 248, 0.25)",
-          transform: `translate(-50%, -50%) rotate(${trailingPos.x * 0.5}deg) scale(${hovered ? 1.2 : 1})`,
+            ? "0 0 20px rgba(66, 133, 244, 0.45), inset 0 0 10px rgba(66, 133, 244, 0.2)"
+            : "0 0 10px rgba(66, 133, 244, 0.15)",
+          transform: `translate(-50%, -50%) scale(${hovered ? 1.15 : 1})`,
         }}
-      >
-        {/* Tiny Orbiting Satellite / Moon */}
-        <div
-          className="absolute -top-1 left-1/2 w-2 h-2 rounded-full bg-[#f9ab00] shadow-[0_0_8px_#f9ab00] -translate-x-1/2"
-        />
-      </div>
+      />
 
-      {/* Main 3D Spherical Earth Cursor with Atmospheric Shading */}
+      {/* Center Precision Target Dot */}
       <div
-        className="pointer-events-none fixed z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 overflow-hidden flex items-center justify-center"
+        className="pointer-events-none fixed z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-75 ease-out"
         style={{
           left: `${pos.x}px`,
           top: `${pos.y}px`,
-          width: hovered ? "36px" : "26px",
-          height: hovered ? "36px" : "26px",
-          background: "radial-gradient(circle at 35% 35%, #93c5fd 0%, #2563eb 45%, #1e3a8a 80%, #0f172a 100%)",
+          width: hovered ? "10px" : "7px",
+          height: hovered ? "10px" : "7px",
+          background: hovered ? "#4285f4" : "#38bdf8",
           boxShadow: hovered
-            ? "0 0 20px rgba(56, 189, 248, 0.9), inset -4px -4px 8px rgba(0,0,0,0.8), inset 3px 3px 6px rgba(255,255,255,0.8)"
-            : "0 0 12px rgba(56, 189, 248, 0.6), inset -3px -3px 6px rgba(0,0,0,0.7), inset 2px 2px 4px rgba(255,255,255,0.7)",
-          transform: `translate(-50%, -50%) scale(${hovered ? 1.15 : 1})`,
+            ? "0 0 14px #4285f4, 0 0 4px #ffffff"
+            : "0 0 8px #38bdf8",
+          transform: `translate(-50%, -50%) scale(${hovered ? 1.3 : 1})`,
         }}
-      >
-        {/* Continents & Cloud Texture Overlay */}
-        <svg
-          viewBox="0 0 100 100"
-          className="w-full h-full opacity-85 mix-blend-screen animate-spin-slow"
-          style={{ animationDuration: "14s" }}
-        >
-          {/* Continents outlines */}
-          <path
-            d="M20,40 Q25,25 40,30 T60,25 T80,45 Q75,65 55,60 T30,70 Z"
-            fill="#34a853"
-            opacity="0.9"
-          />
-          <path
-            d="M35,60 Q50,75 65,70 T80,80 Q60,95 40,85 Z"
-            fill="#22c55e"
-            opacity="0.85"
-          />
-          {/* Swirling white cloud streaks */}
-          <path
-            d="M10,30 Q30,15 60,35 T90,30 Q70,50 40,40 Z"
-            fill="#ffffff"
-            opacity="0.6"
-          />
-          <path
-            d="M15,65 Q45,50 75,65 T85,55"
-            stroke="#ffffff"
-            strokeWidth="4"
-            fill="none"
-            opacity="0.5"
-          />
-        </svg>
-
-        {/* Specular atmospheric highlight */}
-        <div className="absolute top-1 left-1.5 w-2 h-1.5 rounded-full bg-white/70 blur-[0.5px]" />
-      </div>
+      />
     </>
   );
 }

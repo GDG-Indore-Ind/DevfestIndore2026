@@ -122,7 +122,7 @@ export default function TeamPage() {
                     GDG Indore 2026
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                    {member.socials.linkedin && (
+                    {member.socials?.linkedin && member.socials.linkedin.trim() !== "" && (
                       <a
                         href={member.socials.linkedin}
                         target="_blank"
@@ -135,7 +135,7 @@ export default function TeamPage() {
                         <LinkedInIcon className="w-4 h-4 fill-current" />
                       </a>
                     )}
-                    {member.socials.twitter && (
+                    {member.socials?.twitter && member.socials.twitter.trim() !== "" && (
                       <a
                         href={member.socials.twitter}
                         target="_blank"
@@ -148,7 +148,7 @@ export default function TeamPage() {
                         <TwitterIcon className="w-4 h-4 fill-current" />
                       </a>
                     )}
-                    {member.socials.github && (
+                    {member.socials?.github && member.socials.github.trim() !== "" && (
                       <a
                         href={member.socials.github}
                         target="_blank"
@@ -161,7 +161,7 @@ export default function TeamPage() {
                         <GithubIcon className="w-4 h-4 fill-current" />
                       </a>
                     )}
-                    {member.socials.instagram && (
+                    {member.socials?.instagram && member.socials.instagram.trim() !== "" && (
                       <a
                         href={member.socials.instagram}
                         target="_blank"
@@ -174,9 +174,9 @@ export default function TeamPage() {
                         <InstagramIcon className="w-4 h-4 fill-current" />
                       </a>
                     )}
-                    {member.socials.email && (
+                    {member.socials?.email && member.socials.email.trim() !== "" && (
                       <a
-                        href={member.socials.email}
+                        href={member.socials.email.startsWith("mailto:") ? member.socials.email : `mailto:${member.socials.email}`}
                         className={`p-2 rounded-xl transition-colors ${
                           isDark ? "bg-white/10 text-[#34a853] hover:bg-white/20" : "bg-gray-50 text-[#34a853] hover:bg-emerald-50"
                         }`}

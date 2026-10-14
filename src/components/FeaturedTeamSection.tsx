@@ -192,7 +192,7 @@ export default function FeaturedTeamSection() {
                     Core Organizer • 2026
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                    {member.socials?.linkedin && (
+                    {member.socials?.linkedin && member.socials.linkedin.trim() !== "" && (
                       <a
                         href={member.socials.linkedin}
                         target="_blank"
@@ -203,7 +203,7 @@ export default function FeaturedTeamSection() {
                         <LinkedInIcon className="w-3.5 h-3.5" />
                       </a>
                     )}
-                    {member.socials?.twitter && (
+                    {member.socials?.twitter && member.socials.twitter.trim() !== "" && (
                       <a
                         href={member.socials.twitter}
                         target="_blank"
@@ -214,7 +214,7 @@ export default function FeaturedTeamSection() {
                         <TwitterIcon className="w-3.5 h-3.5" />
                       </a>
                     )}
-                    {member.socials?.github && (
+                    {member.socials?.github && member.socials.github.trim() !== "" && (
                       <a
                         href={member.socials.github}
                         target="_blank"
@@ -225,7 +225,7 @@ export default function FeaturedTeamSection() {
                         <GithubIcon className="w-3.5 h-3.5" />
                       </a>
                     )}
-                    {member.socials?.instagram && (
+                    {member.socials?.instagram && member.socials.instagram.trim() !== "" && (
                       <a
                         href={member.socials.instagram}
                         target="_blank"
@@ -236,9 +236,9 @@ export default function FeaturedTeamSection() {
                         <InstagramIcon className="w-3.5 h-3.5" />
                       </a>
                     )}
-                    {member.socials?.email && (
+                    {member.socials?.email && member.socials.email.trim() !== "" && (
                       <a
-                        href={member.socials.email}
+                        href={member.socials.email.startsWith("mailto:") ? member.socials.email : `mailto:${member.socials.email}`}
                         className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-[#34a853] hover:text-white transition-colors"
                         aria-label={`${member.name} Email`}
                       >
@@ -317,130 +317,135 @@ export default function FeaturedTeamSection() {
               {[...filteredMarqueeSpeakers, ...filteredMarqueeSpeakers].map((sp, index) => (
                 <div
                   key={`${sp.id}-${index}`}
-                  className={`w-[360px] sm:w-[420px] shrink-0 p-6 rounded-3xl border-2 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${
+                  className={`w-[360px] sm:w-[410px] shrink-0 p-5 rounded-3xl border-2 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${
                     isDark
                       ? "bg-[#0d0d0d] border-white/10 hover:border-[#4285f4]/50 shadow-xl"
                       : "bg-white border-gray-200 hover:border-[#4285f4] shadow-md hover:shadow-xl"
                   }`}
                 >
                   <div>
-                    {/* Top Row: Avatar + Info */}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-2xl overflow-hidden shrink-0 border-2 border-black/10 dark:border-white/15 shadow-md bg-gray-100 dark:bg-zinc-800">
+                    {/* Top Row: Large Speaker Avatar + Compact Typography */}
+                    <div className="flex items-start gap-4 mb-3.5">
+                      {/* Significantly Larger Speaker Avatar (w-24 h-24 sm:w-26 sm:h-26) */}
+                      <div className="relative w-24 h-24 sm:w-26 sm:h-26 rounded-2xl overflow-hidden shrink-0 border-2 border-black/10 dark:border-white/15 shadow-md bg-gray-100 dark:bg-zinc-800">
                         <Image
                           src={sp.avatar}
                           alt={sp.name}
                           fill
-                          sizes="72px"
+                          sizes="110px"
                           className="object-cover"
                           unoptimized
                         />
-                        <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-black text-white">
+                        <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-xs text-[9px] font-black text-white">
                           {sp.year}
                         </span>
                       </div>
+
+                      {/* Compact Typography Hierarchy */}
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#4285f4]/10 text-[#4285f4] border border-[#4285f4]/30">
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#4285f4]/10 text-[#4285f4] border border-[#4285f4]/30 truncate max-w-[140px]">
                             {sp.spotlightBadge || "Keynote Speaker"}
                           </span>
                           {sp.track && (
-                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
+                            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
                               {sp.track}
                             </span>
                           )}
                         </div>
-                        <h4 className={`text-lg font-black truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <h4 className={`text-base sm:text-lg font-black truncate leading-tight mb-0.5 ${isDark ? "text-white" : "text-gray-900"}`}>
                           {sp.name}
                         </h4>
-                        <p className="text-xs text-[#4285f4] font-bold truncate">
+                        <p className="text-[11px] text-[#4285f4] font-bold truncate">
                           {sp.role}
                         </p>
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 font-semibold truncate">
-                          {sp.company}
-                        </p>
+                        {sp.company && (
+                          <p className="text-[10px] text-gray-500 dark:text-gray-400 font-medium truncate mt-0.5">
+                            {sp.company}
+                          </p>
+                        )}
                       </div>
                     </div>
 
-                    {/* Talk Box */}
-                    <div className={`p-3.5 rounded-2xl text-xs font-medium leading-relaxed mb-4 border ${
+                    {/* Talk Box - Compacted with smaller font */}
+                    <div className={`p-2.5 rounded-2xl text-[11px] font-medium leading-snug mb-3 border ${
                       isDark
                         ? "bg-white/[0.04] text-white/90 border-white/10"
                         : "bg-gray-50 text-gray-800 border-gray-200"
                     }`}>
-                      <span className="block text-[10px] font-black uppercase text-[#ea4335] mb-1">
+                      <span className="block text-[9px] font-black uppercase text-[#ea4335] mb-0.5">
                         Session Topic:
                       </span>
-                      <p className="font-bold line-clamp-2">
+                      <p className="font-semibold line-clamp-2 text-xs">
                         "{sp.topic}"
                       </p>
                     </div>
                   </div>
 
-                  {/* Card Bottom: Social Media Links */}
-                  <div className={`pt-3 border-t flex items-center justify-between text-xs ${
+                  {/* Card Bottom: Social Media Links (Only show filled links) */}
+                  <div className={`pt-2.5 border-t flex items-center justify-between text-xs ${
                     isDark ? "border-white/10 text-white/60" : "border-gray-100 text-gray-500"
                   }`}>
-                    <span className="text-[11px] font-bold text-[#34a853]">
+                    <span className="text-[10px] font-bold text-[#34a853]">
                       DevFest Alumni
                     </span>
                     <div className="flex items-center gap-1.5">
-                      {sp.socials?.linkedin && (
+                      {sp.socials?.linkedin && sp.socials.linkedin.trim() !== "" && (
                         <a
                           href={sp.socials.linkedin}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-blue-500/10 text-[#4285f4] hover:bg-[#4285f4] hover:text-white transition-colors"
+                          className="w-6 h-6 rounded-lg flex items-center justify-center bg-blue-500/10 text-[#4285f4] hover:bg-[#4285f4] hover:text-white transition-colors"
                           title="LinkedIn Profile"
                           aria-label={`${sp.name} LinkedIn`}
                         >
-                          <LinkedInIcon className="w-3.5 h-3.5 fill-current" />
+                          <LinkedInIcon className="w-3 h-3 fill-current" />
                         </a>
                       )}
-                      {sp.socials?.twitter && (
+                      {sp.socials?.twitter && sp.socials.twitter.trim() !== "" && (
                         <a
                           href={sp.socials.twitter}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-gray-500/10 text-gray-700 dark:text-gray-200 hover:bg-black hover:text-white transition-colors"
+                          className="w-6 h-6 rounded-lg flex items-center justify-center bg-gray-500/10 text-gray-700 dark:text-gray-200 hover:bg-black hover:text-white transition-colors"
                           title="Twitter / X"
                           aria-label={`${sp.name} Twitter`}
                         >
-                          <TwitterIcon className="w-3.5 h-3.5 fill-current" />
+                          <TwitterIcon className="w-3 h-3 fill-current" />
                         </a>
                       )}
-                      {sp.socials?.blog && (
+                      {sp.socials?.blog && sp.socials.blog.trim() !== "" && (
                         <a
                           href={sp.socials.blog}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-amber-500/10 text-[#f9ab00] hover:bg-[#f9ab00] hover:text-white transition-colors"
+                          className="px-1.5 h-6 rounded-lg flex items-center justify-center bg-amber-500/10 text-[#f9ab00] hover:bg-[#f9ab00] hover:text-white transition-colors text-[9px] font-bold"
                           title="Blog / Medium"
                           aria-label={`${sp.name} Blog`}
                         >
-                          <span className="text-[10px] font-bold">Blog</span>
+                          Blog
                         </a>
                       )}
-                      {sp.socials?.website && (
+                      {sp.socials?.website && sp.socials.website.trim() !== "" && (
                         <a
                           href={sp.socials.website}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-emerald-500/10 text-[#34a853] hover:bg-[#34a853] hover:text-white transition-colors"
+                          className="w-6 h-6 rounded-lg flex items-center justify-center bg-emerald-500/10 text-[#34a853] hover:bg-[#34a853] hover:text-white transition-colors"
                           title="Website"
                           aria-label={`${sp.name} Website`}
                         >
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
-                      {sp.socials?.email && (
+                      {sp.socials?.email && sp.socials.email.trim() !== "" && (
                         <a
-                          href={sp.socials.email}
-                          className="w-7 h-7 rounded-xl flex items-center justify-center bg-rose-500/10 text-[#ea4335] hover:bg-[#ea4335] hover:text-white transition-colors"
+                          href={sp.socials.email.startsWith("mailto:") ? sp.socials.email : `mailto:${sp.socials.email}`}
+                          className="w-6 h-6 rounded-lg flex items-center justify-center bg-rose-500/10 text-[#ea4335] hover:bg-[#ea4335] hover:text-white transition-colors"
                           title="Email Speaker"
                           aria-label={`${sp.name} Email`}
                         >
-                          <MailIcon className="w-3.5 h-3.5" />
+                          <MailIcon className="w-3 h-3" />
                         </a>
                       )}
                     </div>
