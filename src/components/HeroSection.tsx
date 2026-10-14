@@ -86,26 +86,26 @@ export default function HeroSection() {
       {isDark ? (
         /* Dark Mode: Full-Width 4K Vibrant Keynote Arena across the right side with deep pitch-black left hero canvas */
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#000000]">
-          {/* Main Stage Image aligned to the right */}
-          <div className="absolute inset-y-0 right-0 w-full md:w-[75%] lg:w-[68%] xl:w-[62%] h-full">
+          {/* Main Stage Image positioned cleanly on the right so the speaker is visible */}
+          <div className="absolute inset-y-0 right-0 w-full md:w-[70%] lg:w-[62%] xl:w-[58%] h-full flex items-center justify-end">
             <Image
               src="/devfestindore.png"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
               quality={100}
-              className="object-cover object-right md:object-[85%_center] w-full h-full opacity-100 transition-all duration-700"
+              className="object-contain lg:object-cover object-right md:object-[28%_center] w-full h-full opacity-100 transition-all duration-700"
             />
             {/* Seamless Left Fade Gradient blending image into pure pitch black canvas */}
-            <div className="absolute inset-y-0 left-0 w-48 sm:w-64 md:w-80 lg:w-96 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
+            <div className="absolute inset-y-0 left-0 w-24 sm:w-36 md:w-48 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
           </div>
 
           {/* Solid deep black background for left text column */}
-          <div className="absolute inset-y-0 left-0 w-full md:w-[45%] lg:w-[48%] bg-gradient-to-r from-black via-black/95 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-full md:w-[38%] lg:w-[42%] bg-gradient-to-r from-black via-black/95 to-transparent z-10 pointer-events-none" />
 
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black via-black/85 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black via-black/85 to-transparent z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: 4K Vivid Airy Space Earth Background matching user design reference */
@@ -129,7 +129,7 @@ export default function HeroSection() {
       <div className="w-full max-w-[1750px] mx-auto px-5 sm:px-8 md:px-12 lg:px-14 xl:px-20 relative z-20 flex-1 flex flex-col justify-center">
         <div className={`grid grid-cols-1 ${!isDark ? "lg:grid-cols-12" : "lg:grid-cols-12"} gap-8 lg:gap-12 items-center`}>
           {/* Main Hero Column */}
-          <div className={`${!isDark ? "lg:col-span-7" : "lg:col-span-8"} flex flex-col items-start text-left z-10`}>
+          <div className={`${!isDark ? "lg:col-span-7" : "lg:col-span-6 xl:col-span-5"} flex flex-col items-start text-left z-10`}>
             {/* Top Badge Pill */}
             {isDark ? (
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-[#0d1526]/80 border-[#0070f3]/40 text-[#57caff] shadow-[0_0_20px_rgba(0,112,243,0.3)]">
