@@ -22,6 +22,7 @@ export default function FeaturedTeamSection() {
   const { isDark } = useTheme();
   const [team, setTeam] = useState<TeamMember[]>(INITIAL_TEAM);
   const [isHoveredTicker, setIsHoveredTicker] = useState(false);
+  const [selectedMarqueeYear, setSelectedMarqueeYear] = useState<"All" | "2025" | "2024">("All");
 
   useEffect(() => {
     getTeamMembers().then((res) => {
@@ -30,7 +31,11 @@ export default function FeaturedTeamSection() {
   }, []);
 
   const featuredLeads = team.slice(0, 3);
-  const speakers = DEV_FEST_PAST_SPEAKERS_FULL;
+  const allSpeakers = DEV_FEST_PAST_SPEAKERS_FULL;
+  const filteredMarqueeSpeakers =
+    selectedMarqueeYear === "All"
+      ? allSpeakers
+      : allSpeakers.filter((s) => s.year === selectedMarqueeYear);
 
   return (
     <section id="community-leaders" className="py-8 md:py-10 bg-transparent relative overflow-hidden transition-colors">
@@ -268,15 +273,31 @@ export default function FeaturedTeamSection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                ● 40+ Industry Pioneers
-              </span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              {/* Year Toggle Pills */}
+              <div className="flex items-center gap-1 p-1 rounded-full bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/10">
+                {(["All", "2025", "2024"] as const).map((year) => (
+                  <button
+                    key={year}
+                    onClick={() => setSelectedMarqueeYear(year)}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      selectedMarqueeYear === year
+                        ? "bg-[#4285f4] text-white shadow-sm scale-105"
+                        : isDark
+                        ? "text-white/70 hover:text-white"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    {year === "All" ? "All (29)" : `Edition ${year}`}
+                  </button>
+                ))}
+              </div>
+
               <Link
                 href="/past-speakers"
-                className="text-xs font-bold text-[#4285f4] hover:underline flex items-center gap-1 shrink-0 cursor-pointer"
+                className="text-xs font-bold text-[#4285f4] hover:underline flex items-center gap-1 shrink-0 cursor-pointer ml-1"
               >
-                <span>View All Speakers</span>
+                <span>View All 29 Speakers</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -293,7 +314,7 @@ export default function FeaturedTeamSection() {
                 isHoveredTicker ? "" : "animate-marquee"
               }`}
             >
-              {[...speakers, ...speakers].map((sp, index) => (
+              {[...filteredMarqueeSpeakers, ...filteredMarqueeSpeakers].map((sp, index) => (
                 <div
                   key={`${sp.id}-${index}`}
                   className={`w-[360px] sm:w-[420px] shrink-0 p-6 rounded-3xl border-2 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${

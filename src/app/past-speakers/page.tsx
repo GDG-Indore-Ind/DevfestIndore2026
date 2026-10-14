@@ -190,7 +190,7 @@ export default function PastSpeakersPage() {
                   <button
                     key={year}
                     onClick={() => setSelectedYear(year)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                       selectedYear === year
                         ? "bg-[#4285f4] text-white shadow-md scale-105"
                         : isDark
@@ -198,7 +198,7 @@ export default function PastSpeakersPage() {
                         : "bg-gray-100 text-[#5f6368] hover:bg-gray-200"
                     }`}
                   >
-                    {year === "All" ? "All" : `'${year.slice(2)}`}
+                    {year === "All" ? "All Years" : year}
                   </button>
                 ))}
               </div>

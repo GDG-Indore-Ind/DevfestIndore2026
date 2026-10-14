@@ -2,7 +2,7 @@ import { PastSpeaker } from "./teamData";
 
 export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
   {
-    "id": "sp-abhishek-doshi",
+    "id": "sp-2025-abhishek-doshi",
     "name": "Abhishek Doshi",
     "role": "Google Developer Expert - Dart, Flutter & Firebase",
     "company": "Tech Lead - Qvin",
@@ -24,7 +24,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-nikhilesh-tayal",
+    "id": "sp-2025-nikhilesh-tayal",
     "name": "Nikhilesh Tayal",
     "role": "Founder and CEO",
     "company": "AI ML etc.",
@@ -45,7 +45,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-ganesh-divekar",
+    "id": "sp-2025-ganesh-divekar",
     "name": "Ganesh Divekar",
     "role": "Lead AI Engineer",
     "company": "Bajaj Finserv",
@@ -67,7 +67,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-himanshu-jain",
+    "id": "sp-2025-himanshu-jain",
     "name": "Himanshu Jain",
     "role": "Director Engineering",
     "company": "Academian Inc",
@@ -86,7 +86,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-divyanshu-bhargava",
+    "id": "sp-2025-divyanshu-bhargava",
     "name": "Divyanshu Bhargava",
     "role": "Co-Founder",
     "company": "Stac",
@@ -108,7 +108,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-ankit-sharma",
+    "id": "sp-2025-ankit-sharma",
     "name": "Ankit Sharma",
     "role": "Staff Frontend Engineer",
     "company": "Celonis",
@@ -130,7 +130,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-mrinal-jain",
+    "id": "sp-2025-mrinal-jain",
     "name": "Mrinal Jain",
     "role": "Flutter Consultant",
     "company": "American Express",
@@ -152,7 +152,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-shachita-jain",
+    "id": "sp-2025-shachita-jain",
     "name": "Shachita Jain",
     "role": "Technical Product Manager",
     "company": "Kintsugi AI",
@@ -161,7 +161,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     "description": "Session will cover everything a developer needs to know to transition into a Technical Product Manager. It will also contain the Nitty-Gritties of Technical Product Management, stakeholder communication, integrations, etc. I will walk you through some real examples of how PRDs are made and how TPM functions in any company.",
     "bio": "Former developer turned TPM, passionate about turning ambiguity into clarity, aligning diverse teams, and shipping products that matter. (Contact me to get more details)",
     "avatar": "https://cdn.sessionize.com/image/a167-400o400o1-wJGXxptFzBnjTyDNPBLUud.jpg",
-    "spotlightBadge": "Featured Speaker",
+    "spotlightBadge": "Engineering Leader",
     "category": "Leadership & Ecosystem",
     "track": "Entrepreneurship, Leadership & Product Management",
     "level": "Beginner to Intermediate",
@@ -173,7 +173,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-shashank-saxena",
+    "id": "sp-2025-shashank-saxena",
     "name": "Shashank Saxena",
     "role": "Solution Architect",
     "company": "Ccube Pvt. Ltd.",
@@ -194,7 +194,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-rahul-chautel",
+    "id": "sp-2025-rahul-chautel",
     "name": "Rahul Chautel",
     "role": "Chief Technology Officer",
     "company": "Luxare by Diaspark",
@@ -216,7 +216,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-sunny-ralli",
+    "id": "sp-2025-sunny-ralli",
     "name": "Sunny Ralli",
     "role": "GROUP MANAGING DIRECTOR",
     "company": "PRAEDICO GLOBAL RESEARCH",
@@ -236,7 +236,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-gautam-billore",
+    "id": "sp-2025-gautam-billore",
     "name": "Gautam Billore",
     "role": "Chief Consultant",
     "company": "Nordic Digital Hub Sweden",
@@ -254,7 +254,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-srashti-jain",
+    "id": "sp-2025-srashti-jain",
     "name": "Srashti Jain",
     "role": "CEO TechVraksh",
     "company": "TechVraksh",
@@ -275,7 +275,7 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
     }
   },
   {
-    "id": "sp-harsh-tonde",
+    "id": "sp-2025-harsh-tonde",
     "name": "Harsh Tonde",
     "role": "Enterprise Customer Success Engineer",
     "company": "FlutterFlow",
@@ -293,6 +293,312 @@ export const DEV_FEST_PAST_SPEAKERS_FULL: PastSpeaker[] = [
       "twitter": "https://x.com/TondeHarsh",
       "website": "https://flutterflow.io/",
       "email": "mailto:harshtonde@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-divyanshu-bhargava",
+    "name": "Divyanshu Bhargava",
+    "role": "Founder",
+    "company": "BettrDo",
+    "year": "2024",
+    "topic": "Flutter for Startups: Launch Fast, Scale Faster",
+    "description": "In today’s fast-paced startup ecosystem, the ability to quickly launch a product and scale rapidly is critical for success. Flutter, Google’s UI toolkit, empowers startups to build beautiful, high-performance apps for iOS, Android, web, and desktop from a single codebase—saving both time and resources.\r\n\r\nIn this talk, we’ll explore why Flutter is the ideal framework for startups, focusing on how it accelerates product development while maintaining flexibility and scalability. You’ll learn how to leverage Flutter to build Minimum Viable Products (MVPs) quickly, adapt to market changes, and scale seamlessly as your user base grows.\r\n\r\nThrough real-world examples, I’ll demonstrate how startups can go from idea to market faster, reduce development costs, and future-proof their apps for success. Whether you’re a founder or a developer working at a startup, this session will equip you with the insights and tools needed to launch and grow your product with Flutter.",
+    "bio": "Divyanshu Bhargava is a founder of BettrDo. He is a Google Developer Expert in Flutter & Dart and an Organizer of Flutter Abu Dhabi & Dubai. His passion for building apps took him to mobile development, these days you’ll find him talking about Flutter and the future of tech.  He is an open-source enthusiast and an avid tech blogger. When he is not coding you can find him kayaking, reading, traveling, or thinking about coding.",
+    "avatar": "https://cdn.sessionize.com/image/0956-400o400o1-7zRPyQYiWPBXp2513gkMyo.png",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Mobile & Flutter",
+    "track": "Mobile",
+    "level": "Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/divyanshub024/",
+      "twitter": "https://twitter.com/divyanshub024",
+      "blog": "https://divyanshu.dev/",
+      "website": "https://stac.dev/",
+      "email": "mailto:divyanshub024@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-dhananjay-kumar",
+    "name": "Dhananjay Kumar",
+    "role": "Founder",
+    "company": "Nomadcoder",
+    "year": "2024",
+    "topic": "Unraveling JavaScript Prototypes",
+    "description": "Prototypes are the backbone of inheritance and objects in JavaScript, yet many developers remain unsure of them. \r\n\r\nThis talk aims to demystify prototypes and explain their essential role in JavaScript's object model. We will explore how the prototype chain works with a diagram, the nuances of inheritance in a prototype-based language, and how prototypes empower JavaScript objects to share properties and methods.\r\nThrough engaging examples and real-world scenarios, we'll explore key concepts like __proto__, the prototype property, constructor functions, and the modern alternative to ES6 classes. \r\n\r\nBy the end, you’ll leave with a clear understanding of how to harness the power of prototypes in your projects, making you a more efficient and confident JavaScript developer.",
+    "bio": "Dhananjay Kumar is the founder of NomadCoder, where he helps people become job-ready developers. \r\n\r\nHe also consults for big companies, has written a book on Angular, and speaks at international developer conferences. He runs one of India’s largest developer communities and organizes ng-India, a premier Angular conference.\r\n\r\nDhananjay is working on his second Angular book and training for a 10K run. You can reach out to him for training, evangelism, and consulting.",
+    "avatar": "https://cdn.sessionize.com/image/52c6-400o400o1-Lf8XBUx7csFvNgbjC3aKWK.jpg",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Web",
+    "track": "Web",
+    "level": "Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/dhananjaykumar07/",
+      "twitter": "https://twitter.com/debug_mode",
+      "blog": "https://debugmode.net/",
+      "website": "https://nomadcoder.ai/home",
+      "email": "mailto:debugmode@outlook.com"
+    }
+  },
+  {
+    "id": "sp-2024-usha-ramani",
+    "name": "Usha Ramani",
+    "role": "Co-Founder",
+    "company": "GURUJADA",
+    "year": "2024",
+    "topic": "Reimagining Education with AI: Leveraging prompts for engaging learning experiences",
+    "description": "Reimagining education with AI : leveraging prompts for engaging learning experiences \r\n\r\nIn this session I'll showcase how some AI tools can be leveraged to make content creation, course creation, enhancing learner engagement easy and fun for educators and learners.",
+    "bio": "Usha is a ed-tech entrepreneur passionate about bringing efficiency to teaching learning experiences using AI. Being an ex prof herself, she loves experimenting with AI tools and sharing her learnings with the teaching community. She's also a community leader leading the GDG and WTM communities of Google in Visakhapatnam since the last 6 years. Usha loves to mentor early stage students and professionals and loves podcasting.",
+    "avatar": "https://cdn.sessionize.com/image/fc9b-400o400o1-MUdQHirjTZ8LxC9dTayCdX.jpg",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Leadership & Ecosystem",
+    "track": "Others",
+    "level": "Beginner to Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/usha-ramani-vemuru-66286723/",
+      "blog": "https://medium.com/@usharamani/about",
+      "website": "https://gurujada.com",
+      "email": "mailto:vusharamani@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-varun-srinivas",
+    "name": "Varun Srinivas",
+    "role": "CoFounder and Director of Tech",
+    "company": "Coditas",
+    "year": "2024",
+    "topic": "LLMs and SLMs Everywhere",
+    "description": "\"LLMs and SLMs Everywhere\"\r\nThis talk covers deploying Large and Small Language Models (LLMs and SLMs) on edge devices using WebAssembly. Attendees will learn how WebAssembly enables AI models to run efficiently, with minimal latency and enhanced privacy, directly on end-user devices. We'll explore practical strategies for adapting LLMs and SLMs to run at the edge, use cases across industries, and the technical steps needed to achieve lightweight, secure AI deployments across diverse environments.",
+    "bio": "A software craftsman by both passion and profession, I have 10 years of development and entrepreneurial experience. Currently, I function as a Director of Technology at Coditas where I manage and learn from an amazing team of developers and advocate my belief in good quality code.\r\n\r\nI started my career as a PHP developer and co-founded SudoSaints Infotech Pvt. Ltd. in 2012, which was an offshore software development startup, based in Pune. As the CTO, I helped 200+ startups and companies worldwide, in developing various mobile and web applications.\r\n\r\nSudoSaints was acquired by Coditas in 2015, and we joined their team. We now provide end-to-end quality services to organizations of all scales around the globe. Within 7 years, Coditas has become a team of 700+ proficient engineers and designers and still growing.",
+    "avatar": "https://cdn.sessionize.com/image/80d7-400o400o1-9BS9CAkgaDRHmnEFUERrRs.png",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Web",
+    "track": "Web",
+    "level": "Beginner",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/varun1505/",
+      "twitter": "https://twitter.com/varun1505",
+      "website": "https://coditas.com",
+      "email": "mailto:varun@coditas.com"
+    }
+  },
+  {
+    "id": "sp-2024-abhishek-sharma",
+    "name": "Abhishek Sharma",
+    "role": "Senior Cloud Engineer",
+    "company": "Searce Inc",
+    "year": "2024",
+    "topic": "Going Serverless with Google Cloud",
+    "description": "I'll talk about below points - \r\n1. What is serverless? \r\n2. Advantages of serverless architecture \r\n3. Different serverless offering in Google Cloud in different domains like Compute, storage, AI/ML, Bigdata Analytics, observability etc. with their use cases \r\n4. Building Modern AI applications in Google Cloud with serverless offerings \r\n5. Best practices of seamless adoption of Serverless based Architecture",
+    "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\r\n\r\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.\r\n\r\nLinkedIn - https://www.linkedin.com/in/acloudpotato/\r\nMedium Profile - https://acloudpotato.medium.com/\r\nYoutube Channel - https://www.youtube.com/@guysinthecloud\r\nGithub - https://github.com/acloudpotato",
+    "avatar": "https://cdn.sessionize.com/image/7506-400o400o1-newd1Q56w6p5PLdiEpkvcE.png",
+    "spotlightBadge": "Google Developer Expert",
+    "category": "Cloud",
+    "track": "Cloud",
+    "level": "Beginner to Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/acloudpotato/",
+      "twitter": "https://x.com/acloudpotato",
+      "blog": "https://acloudpotato.medium.com/",
+      "website": "https://www.searce.com/",
+      "email": "mailto:abhishek9315465896@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-drijesh-ppatel",
+    "name": "Drijesh Ppatel",
+    "role": "Engineering Manager",
+    "company": "IBM",
+    "year": "2024",
+    "topic": "AI for Cloud Security: Automating Threat Detection and Response with Google Cloud AI",
+    "description": "In today’s cloud-driven world, security is a top priority, yet the complexity of modern cloud environments makes it challenging to safeguard against emerging threats. This session explores how AI and machine learning are revolutionizing cloud security by automating threat detection and response, enhancing protection across diverse infrastructures.\r\n\r\nUsing tools like TensorFlow and Google Cloud's Vertex AI, attendees will discover how to build intelligent security systems that identify anomalies in real-time, mitigate risks proactively, and respond to threats at scale. \r\n\r\nThrough real-world examples, this talk will demonstrate how organizations can implement AI for cloud security to improve scalability, minimize manual intervention, and accelerate incident response. Attendees will leave with actionable insights on deploying AI models to enhance their cloud security posture, detect evolving threats, and automate responses within their cloud architecture.",
+    "bio": "Meet Drijesh PPatel, a dynamic figure in the world of technology, renowned for his adept leadership and unwavering commitment to innovation. \r\n\r\nFrom his early days as a Technical Lead to his current role as an Engineering Manager at IBM, Drijesh has consistently demonstrated his prowess across various domains, with a particular focus on AI, Agile Project Management, Cloud Technologies, and Cyber Security. His career boasts a plethora of achievements, including spearheading groundbreaking initiatives within the BFSI, Healthcare, and Insurance sectors, earning him accolades such as being named among the \"40 under 40\", \"20 Influential Personalities of India\", \"100 Future Leaders\", and \"Rising Tech-Expert 2024\" to name a few.\r\n\r\nDrijesh's leadership extends beyond the confines of the corporate world; he is also an avid photographer and a dedicated mentor, embodying a holistic approach to life. He has been a speaker at more than 300 events and mentored 700+ individuals to attain their desirable goals. With a relentless drive for excellence and a passion for fostering growth, Drijesh PPatel stands as a beacon of inspiration for aspiring leaders and technology enthusiasts alike.",
+    "avatar": "https://cdn.sessionize.com/image/092f-400o400o1-B939H5VaBEwfy7P9UgDm2n.jpg",
+    "spotlightBadge": "Engineering Leader",
+    "category": "Cloud",
+    "track": "Cloud",
+    "level": "Beginner to Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/drijesh/",
+      "twitter": "https://x.com/Drijesh",
+      "blog": "https://drijesh-ppatel.carrd.co/",
+      "website": "https://drijessh.carrd.co/",
+      "email": "mailto:patel.drijesh@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-ramesh-rajini",
+    "name": "Ramesh Rajini",
+    "role": "Cloud & AI Coach, NASSCOM Mentor, Senior Principal Consultant, Infosys",
+    "company": "Infosys",
+    "year": "2024",
+    "topic": "Leverage LinkedIn to Craft a successful Career",
+    "description": "This workshop helps audience to craft a successful career via professional leadership branding and finding that right jobs that suits your requirement.",
+    "bio": "International Award Winning Author,  NASSCOM Mentor Women Techmaker Ambassador, Women Changemaker enabling Millions to Create their Success Stories.",
+    "avatar": "https://cdn.sessionize.com/image/4411-400o400o1-WzAFQ3MBWgDw58vAw7GqtE.jpg",
+    "spotlightBadge": "Featured Speaker",
+    "category": "Leadership & Ecosystem",
+    "track": "Entrepreneurship, Leadership & Product Management",
+    "level": "Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/rameshrajini",
+      "blog": "Https://Rameshrajini.medium.com",
+      "email": "mailto:email2rajini@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-jitendra-gupta",
+    "name": "Jitendra Gupta",
+    "role": "Manager - Cloud Engineering @KPMG Global Services",
+    "company": "KPMG Global Services",
+    "year": "2024",
+    "topic": "Grounding generative AI in enterprise truth for real-world impact",
+    "description": "In general, the most common challenges that come up relate to data quality and management. Like any data or AI system, the success of RAG relies heavily on how well your data is organized and maintained, and how well you understand what it is and how it relates to your overarching objectives and goals.\r\n\r\nIn particular, many companies overlook the importance of data hygiene when they start implementing RAG components. The old computer science adage of “garbage in, garbage out” still holds true in the gen AI era; if your data is incomplete, inconsistent, or inaccurate, the information RAG retrieves will be too. For instance, if you have two pieces of data in your dataset that contain varied information for the same query, you might end up getting a different answer every time that question is asked.",
+    "bio": "Jitendra Gupta is 12 years experienced IT professional with expertise in information security, Kubernetes, and cloud computing. As a sought-after speaker, with a proven track record of implementing security best practices in cloud environments, Jitendra is dedicated to empowering fellow IT professionals with actionable takeaways to safeguard their applications, data and infrastructure on Google Cloud.",
+    "avatar": "https://cdn.sessionize.com/image/e826-400o400o1-GB5zcDPuGBvoUkEyWq6oeh.jpg",
+    "spotlightBadge": "Engineering Leader",
+    "category": "Cloud",
+    "track": "Cloud",
+    "level": "Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/jitu028/",
+      "twitter": "https://twitter.com/jitu028",
+      "blog": "https://medium.com/@jitu028",
+      "website": "https://www.epam.com",
+      "email": "mailto:jitu028@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-soumya-upadhyay",
+    "name": "Soumya Upadhyay",
+    "role": "CEO",
+    "company": "Eternal Infraheight Pvt Ltd",
+    "year": "2024",
+    "topic": "Entrepreneur - Mindset and challenges",
+    "description": "Will update",
+    "bio": "For the past 15 years, I've worn many hats in the dynamic world of civil engineering. From the intricacies of the RMC industry to the broader landscape of building materials, I've gained invaluable experience that has shaped me into the entrepreneur I am today.\r\n\r\nThis journey hasn't just been about bricks and mortar. It's been about mastering business operating systems, ensuring quality control and assurance, fostering strategic business development, and building high-performing teams through training and motivation.\r\n\r\nAs a motivational speaker, I'm passionate about addressing the current challenges faced by young civil engineers and budding professionals. Sharing my experiences and insights with the next generation is incredibly rewarding. For this I have been awarded National Level DB Women Pride Award 2017.  🥇 \r\n\r\nHaving collaborated with renowned corporates, I've had the privilege of working on diverse projects and learning from industry leaders. These experiences have instilled in me a deep understanding of the industry and the drive to make a positive impact.\r\n\r\n Looking ahead, I'm excited to continue:\r\n\r\nInnovating within the civil engineering space.\r\nMentoring future generations of engineers.\r\nCollaborating with inspiring individuals and organizations.\r\nIf you're a civil engineer, entrepreneur, or simply interested in the construction industry, I'd love to connect!",
+    "avatar": "https://cdn.sessionize.com/image/1889-400o400o1-EtFyN4KBMJiX1HdDqx1UPo.jpg",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Leadership & Ecosystem",
+    "track": "Entrepreneurship, Leadership & Product Management",
+    "level": "Beginner",
+    "socials": {
+      "email": "mailto:soumyaupadhyay2012@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-sudip-mazumder",
+    "name": "Sudip Mazumder",
+    "role": "Global Chief Digital & Information Officer",
+    "company": "PGP Glass Pvt Ltd (A Blackstone Portfolio Co)",
+    "year": "2024",
+    "topic": "Technology career: Not a choice, anexciting necessity",
+    "description": "The speaker will be touch upon how technology unfolded some great progress in human civilization and still have enough to foment excitement amongst the youth to opt for it as a career choice with an ambition to transform the world as a better place.",
+    "bio": "Sudip Mazumder, Global Chief Digital & Information Officer of PGP Glass Pvt Lt, erstwhile Piramal Glass, now a Blackstone portfolio company, manufacturer of high-quality premium Glass containers for Fashion, Food & Beverages and Pharma products. 17 of the top global 20 fashion brands are PGP’s customers.\r\nSudip has 30+ years of global experience in IT, Digital and AI. He has been in the forefront of IT and Digital led transformations which helped companies to change their value delivery model in multiple industries and companies. Sudip believes in innovation, capability building for the future and promotes generating future leadership.\r\nIn the past, Sudip worked in various organizations L&T, TCS, Cognizant and Lloyds Banking Group. He was educated in Bengal Engineering College under Calcutta University, IIT Bombay, University of Michigan, Ross Business School. Sudip is an adjunct Professor of Manipal Institute of Technology.\r\nSudip is A TEDx speaker, also spoke at the Oracle Open World and International seminars. Sudip visits top Institutes in India regularly to share experiences to fill the gap between academics and Industry.",
+    "avatar": "https://cdn.sessionize.com/image/790b-400o400o1-WBrhnGHpeCEVeDNz1ydqR4.jpg",
+    "spotlightBadge": "Featured Speaker",
+    "category": "Leadership & Ecosystem",
+    "track": "Entrepreneurship, Leadership & Product Management",
+    "level": "Beginner",
+    "socials": {
+      "website": "https://www.pgpfirst.com/",
+      "email": "mailto:sumazu@googlemail.com"
+    }
+  },
+  {
+    "id": "sp-2024-adeen-shukla",
+    "name": "Adeen Shukla",
+    "role": "-",
+    "company": "Metafic",
+    "year": "2024",
+    "topic": "Meet new people with GenAI - Harnessing Firebase Genkit, PostgreSQL, and Vector Search",
+    "description": "Unlock the potential of the latest Firebase innovations: Genkit and Firebase Data Connect! Supercharge your app development process with the seamless integration of relational databases and cutting-edge generative AI capabilities.\r\n\r\nDive into the exciting world of embeddings, vector search, and structured output, making interactions with LLMs as straightforward as working with familiar APIs.\r\n\r\nIn this hands-on session, we’ll create a dynamic networking app using Next.js, complete with personalized user recommendations and AI-generated conversation starters—powered by Genkit and Firebase Data Connect. Learn how to harness your app's data securely and efficiently to craft exceptional AI-driven user experiences!",
+    "bio": "-",
+    "avatar": "https://cdn.sessionize.com/image/2dcb-400o400o1-K5vYNmAUtutV7VhsXqZTLX.jpg",
+    "spotlightBadge": "Engineering Leader",
+    "category": "Cloud",
+    "track": "Firebase",
+    "level": "Intermediate to Advance",
+    "socials": {
+      "linkedin": "https://linkedin.com/in/adeen-s",
+      "blog": "https://adeen.me/blog",
+      "website": "https://metafic.co",
+      "email": "mailto:adeens357@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-prasad-seth",
+    "name": "Prasad Seth",
+    "role": "Developer Community Manager",
+    "company": "Google",
+    "year": "2024",
+    "topic": "Leveraging Gemini to build innovative JavaScript applications",
+    "description": "In this session we will delve into the world of Gemini, Google's cutting edge large language model. Discover how to harness its capabilities to enhance your JavaScript applications.",
+    "bio": "Prasad is a Developer Community Manager at Google for Developers. \r\n\r\nHe leads multiple programs at Google for Developers: \r\n\r\n1. ML Community in more than 30 cities of India\r\n2. Indie Games Group India\r\n3. Community Partnerships\r\n\r\nPrasad has experience of 9 years in building community and software for multiple IT companies. \r\n\r\nIn his previous experiences he has worked with the DevRel team of Slack/Salesforce, EdTech Startups and has been a software developer at FreshWorks. In the past, Prasad has also been a founder himself. \r\n\r\nIn his free time he likes to contribute to open source projects.",
+    "avatar": "https://cdn.sessionize.com/image/8d13-400o400o1-cks7Mby5H2YUwAYJhbgFU.jpg",
+    "spotlightBadge": "Engineering Leader",
+    "category": "Leadership & Ecosystem",
+    "track": "Others",
+    "level": "Intermediate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/prasad-seth-672404b4",
+      "email": "mailto:pseth@google.com"
+    }
+  },
+  {
+    "id": "sp-2024-harsh-tonde",
+    "name": "Harsh Tonde",
+    "role": "Enterprise Customer Success Engineer",
+    "company": "FlutterFlow",
+    "year": "2024",
+    "topic": "Build Smarter",
+    "description": "From Code to Clicks",
+    "bio": "I’m Harsh Tonde, an Enterprise Customer Success Engineer at FlutterFlow, where I’ve been working for the past 4 years. I help clients quickly build scalable applications using FlutterFlow. My work focuses on reducing the time to market for app development, delivering high-value, modern digital experiences, and helping teams maximize innovation while minimizing development effort.",
+    "avatar": "https://cdn.sessionize.com/image/33f0-400o400o1-VheX3NBqokT3T66jCQtYuh.jpg",
+    "spotlightBadge": "Featured Speaker",
+    "category": "Leadership & Ecosystem",
+    "track": "Low Code",
+    "level": "Beginner",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/harshtonde/",
+      "twitter": "https://x.com/TondeHarsh",
+      "website": "https://flutterflow.io/",
+      "email": "mailto:harshtonde@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-manish-gehlot",
+    "name": "Manish Gehlot",
+    "role": "North America Consulting head - CRL practice",
+    "company": "Infosys Ltd - USA",
+    "year": "2024",
+    "topic": "Trend & practice in AI/ML",
+    "description": "Recent trends, challenges & issues with GenAI & Machine Learning",
+    "bio": "Manish Gehlot , IIT Bombay Alumni and MBA from university of St. Thomas Minnesota, US, currently working as chief strategist for a socio-climate mass forestation startup Medius Earth, working as Oracle supply chain management consulting head for Infosys consulting North America, have worked with Oracle USA. IBM, Accenture and CP wholesales and hold upper management positions. \r\n\r\nFor last 14 years he is working passionately on water conservation, rainwater harvesting and storage. He loves working with youth across the globe to motivate their inner potential. \r\nHe also supports two family social impact startup - Asmakam Life University on lifeskills vertical and Cotfoo- connecting thru food",
+    "avatar": "https://cdn.sessionize.com/image/d483-400o400o1-N5aHKpcShncrkrs78oA641.jpg",
+    "spotlightBadge": "Engineering Leader",
+    "category": "GenAI",
+    "track": "Machine Learning",
+    "level": "Expert",
+    "socials": {
+      "email": "mailto:mgehlot@gmail.com"
+    }
+  },
+  {
+    "id": "sp-2024-dr-gautam-billore",
+    "name": "Dr Gautam Billore",
+    "role": "CEO",
+    "company": "Nordic Digital Hub",
+    "year": "2024",
+    "topic": "Intersection of culture and technology- Lessons from my Journey",
+    "description": "Sharing the experiences from my entrepreneurial journey",
+    "bio": "Dr Gautam Billore is an university teacher, an Entrepreneur and a Management Consultant. Having done his PhD in International business has worked as a Senior Manager in Punjab National Bank, CBI, Nozomi Infotech Tokyo Japan, PowerGreen AB Sweden, Scaleban USA, and now Chief Consultant and CEO of Nordic Digital Hub Sweden.",
+    "avatar": "https://cdn.sessionize.com/image/0129-400o400o1-wv1midAnRTyV87yfZPB8nU.jpg",
+    "spotlightBadge": "Founder & Executive",
+    "category": "Leadership & Ecosystem",
+    "track": "Entrepreneurship, Leadership & Product Management",
+    "level": "Intermediate",
+    "socials": {
+      "email": "mailto:gbillore@gmail.com"
     }
   }
 ];
