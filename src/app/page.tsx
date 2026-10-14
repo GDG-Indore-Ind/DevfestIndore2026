@@ -26,10 +26,16 @@ import FloatingShapesBackground from "@/components/FloatingShapesBackground";
 import CosmicAudioPlayer from "@/components/CosmicAudioPlayer";
 import PageLoader from "@/components/PageLoader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect } from "react";
+import { trackPageImpression } from "@/lib/telemetryService";
 
 export default function Home() {
   // Initialize Awwwards-style IntersectionObserver scroll animations
   useScrollReveal();
+
+  useEffect(() => {
+    trackPageImpression();
+  }, []);
 
   const [savedSessionIds, setSavedSessionIds] = useState<string[]>([
     "sess-2",

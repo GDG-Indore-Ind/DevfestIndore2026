@@ -245,6 +245,11 @@ export default function VenueSection() {
                   href="https://maps.google.com/?q=Essentia+Luxury+Hotel+Indore"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => {
+                    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+                      trackDevFestEvent("venue_map_interaction", { action: "open_google_maps_directions" });
+                    });
+                  }}
                   className="inline-flex items-center gap-1 text-[#4285f4] hover:underline"
                 >
                   <span>Open in Google Maps</span>

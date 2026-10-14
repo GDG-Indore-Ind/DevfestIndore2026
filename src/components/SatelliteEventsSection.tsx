@@ -102,6 +102,12 @@ export default function SatelliteEventsSection() {
     e.preventDefault();
     if (attendeeName && attendeeEmail) {
       setRsvpSuccess(true);
+      import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+        trackDevFestEvent("satellite_rsvp_click", {
+          eventTitle: activeRsvpEvent?.title,
+          category: activeRsvpEvent?.category,
+        });
+      });
       confetti({
         particleCount: 90,
         spread: 75,

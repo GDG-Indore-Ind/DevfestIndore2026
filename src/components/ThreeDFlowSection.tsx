@@ -116,7 +116,12 @@ export default function ThreeDFlowSection() {
               return (
                 <button
                   key={step.step}
-                  onClick={() => setActiveStepIndex(idx)}
+                  onClick={() => {
+                    setActiveStepIndex(idx);
+                    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+                      trackDevFestEvent("solar_orbit_exploration", { step: step.step, title: step.title });
+                    });
+                  }}
                   className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 flex items-center justify-between group cursor-pointer ${
                     isActive
                       ? isDark

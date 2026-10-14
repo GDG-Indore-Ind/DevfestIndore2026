@@ -90,6 +90,11 @@ export default function FeaturedTeamSection() {
                   href="https://sessionize.com/devfest-indore-2026/"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => {
+                    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+                      trackDevFestEvent("cfp_proposal_submitted", { source: "curation_spotlight_card" });
+                    });
+                  }}
                   className="px-6 py-3 rounded-full bg-[#ea4335] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#d93025] hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4" />

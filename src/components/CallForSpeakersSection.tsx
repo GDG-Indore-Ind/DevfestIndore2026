@@ -140,6 +140,11 @@ export default function CallForSpeakersSection() {
                     href="https://sessionize.com/devfest-indore-2026/"
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+                        trackDevFestEvent("cfp_proposal_submitted", { source: "cfp_section_banner" });
+                      });
+                    }}
                     className="w-full sm:w-auto px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer bg-[#4285f4] text-white hover:bg-[#3367d6]"
                   >
                     <span>Submit Proposal on Sessionize</span>

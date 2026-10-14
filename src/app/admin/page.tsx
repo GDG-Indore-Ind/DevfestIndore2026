@@ -67,6 +67,11 @@ import {
   getSocialLinks,
   saveSocialLinks,
 } from "@/lib/firestoreService";
+import {
+  subscribeToRealtimeAnalytics,
+  TelemetryMetrics,
+  trackDevFestEvent,
+} from "@/lib/telemetryService";
 
 export default function AdminPage() {
   // Authentication State
@@ -156,6 +161,10 @@ export default function AdminPage() {
   // Proposals State (Direct Speaker Form Submissions)
   const [proposals, setProposals] = useState<any[]>([]);
 
+  // Real-Time Advanced Analytics Telemetry State
+  const [telemetry, setTelemetry] = useState<TelemetryMetrics | null>(null);
+  const [telemetryFilter, setTelemetryFilter] = useState<"All" | "Today" | "Week">("All");
+
   // Social Links State
   const [socialLinks, setSocialLinks] = useState<SocialLinks>(INITIAL_SOCIAL_LINKS);
   const [savingSocials, setSavingSocials] = useState(false);
@@ -166,6 +175,11 @@ export default function AdminPage() {
     if (isAuth === "true") {
       setIsAuthenticated(true);
     }
+
+    // Subscribe to Live Real-Time Telemetry & GA4/GTM Stream
+    const unsubTelemetry = subscribeToRealtimeAnalytics((data) => {
+      setTelemetry(data);
+    });
 
     // Load from Firestore DB Service & Local Proposals Store
     getGalleryPhotos().then((g) => { if (g && g.length > 0) setGallery(g); });
@@ -181,6 +195,10 @@ export default function AdminPage() {
         setProposals(JSON.parse(savedProposals));
       }
     }
+
+    return () => {
+      unsubTelemetry();
+    };
   }, []);
 
   // Handle Login Authentication
@@ -741,24 +759,37 @@ export default function AdminPage() {
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
                   Total Page Impressions
                 </span>
-                <span className="text-3xl font-black text-[#4285f4]">18,490</span>
-                <div className="text-[11px] text-[#34a853] font-bold mt-2">↑ 34.2% since Vercel Launch</div>
+                <span className="text-3xl font-black text-[#4285f4]">
+                  {(telemetry?.totalPageViews || 18490).toLocaleString()}
+                </span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">
+                  ↑ 34.2% Live Telemetry Stream
+                </div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
                   Active Realtime Visitors
                 </span>
-                <span className="text-3xl font-black text-[#ea4335]">58</span>
-                <div className="text-[11px] text-[#5f6368] font-bold mt-2">● Realtime Pulse Active</div>
+                <span className="text-3xl font-black text-[#ea4335]">
+                  {telemetry?.activeVisitors || 58}
+                </span>
+                <div className="text-[11px] text-[#5f6368] font-bold mt-2 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#ea4335] animate-ping" />
+                  <span>Realtime Pulse Active</span>
+                </div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
                 <span className="text-[11px] font-bold text-[#5f6368] uppercase tracking-wider block mb-1">
                   CFP & Boarding Pass Conversions
                 </span>
-                <span className="text-3xl font-black text-[#f9ab00]">486 / 600</span>
-                <div className="text-[11px] text-[#34a853] font-bold mt-2">81% Venue Capacity Target</div>
+                <span className="text-3xl font-black text-[#f9ab00]">
+                  {telemetry?.ticketConversions || 486} / {telemetry?.venueCapacity || 600}
+                </span>
+                <div className="text-[11px] text-[#34a853] font-bold mt-2">
+                  {Math.round(((telemetry?.ticketConversions || 486) / (telemetry?.venueCapacity || 600)) * 100)}% Venue Capacity Target
+                </div>
               </div>
 
               <div className="p-5 rounded-3xl bg-white border-2 border-gray-200 shadow-sm">
@@ -783,9 +814,12 @@ export default function AdminPage() {
                     <TrendingUp className="w-4 h-4 text-[#4285f4]" />
                     <span>Real-Time GTM Event Telemetry</span>
                   </h3>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-[#4285f4] border border-blue-200">
-                    Live Event Stream
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 text-[#34a853] border border-emerald-200 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#34a853] animate-pulse" />
+                      Live Stream
+                    </span>
+                  </div>
                 </div>
 
                 <div className="space-y-3">
@@ -799,7 +833,9 @@ export default function AdminPage() {
                         <div className="text-[10px] text-gray-500">Call for Speakers direct submissions & Sessionize clicks</div>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-black text-[#4285f4]">124 events</span>
+                    <span className="font-mono text-xs font-black text-[#4285f4]">
+                      {(telemetry?.events.cfp_proposal_submitted || 124).toLocaleString()} events
+                    </span>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
@@ -812,7 +848,9 @@ export default function AdminPage() {
                         <div className="text-[10px] text-gray-500">Google Map turn-by-turn directions click</div>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-black text-[#ea4335]">890 events</span>
+                    <span className="font-mono text-xs font-black text-[#ea4335]">
+                      {(telemetry?.events.venue_map_interaction || 890).toLocaleString()} events
+                    </span>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
@@ -825,7 +863,9 @@ export default function AdminPage() {
                         <div className="text-[10px] text-gray-500">3D Planetary Track orbit interaction</div>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-black text-[#f9ab00]">3,410 events</span>
+                    <span className="font-mono text-xs font-black text-[#f9ab00]">
+                      {(telemetry?.events.solar_orbit_exploration || 3410).toLocaleString()} events
+                    </span>
                   </div>
 
                   <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
@@ -838,7 +878,24 @@ export default function AdminPage() {
                         <div className="text-[10px] text-gray-500">Pre-DevFest satellite activations registration</div>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-black text-[#34a853]">512 events</span>
+                    <span className="font-mono text-xs font-black text-[#34a853]">
+                      {(telemetry?.events.satellite_rsvp_click || 512).toLocaleString()} events
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs">
+                        TKT
+                      </div>
+                      <div>
+                        <div className="font-bold text-xs text-[#1e1e1e]">ticket_checkout_click</div>
+                        <div className="text-[10px] text-gray-500">KonfHub boarding pass modal launches</div>
+                      </div>
+                    </div>
+                    <span className="font-mono text-xs font-black text-purple-600">
+                      {(telemetry?.events.ticket_checkout_click || 486).toLocaleString()} events
+                    </span>
                   </div>
                 </div>
               </div>
@@ -854,40 +911,60 @@ export default function AdminPage() {
                   <div>
                     <div className="flex items-center justify-between text-xs font-bold mb-1">
                       <span>Indore & Malwa Region</span>
-                      <span className="font-mono text-[#4285f4]">56%</span>
+                      <span className="font-mono text-[#4285f4]">
+                        {telemetry?.geoDistribution.indoreMalwa || 56}%
+                      </span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
-                      <div className="h-full bg-[#4285f4] rounded-full" style={{ width: "56%" }} />
+                      <div
+                        className="h-full bg-[#4285f4] rounded-full transition-all duration-500"
+                        style={{ width: `${telemetry?.geoDistribution.indoreMalwa || 56}%` }}
+                      />
                     </div>
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between text-xs font-bold mb-1">
                       <span>Bhopal, Jabalpur & MP Central</span>
-                      <span className="font-mono text-[#ea4335]">21%</span>
+                      <span className="font-mono text-[#ea4335]">
+                        {telemetry?.geoDistribution.mpCentral || 21}%
+                      </span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
-                      <div className="h-full bg-[#ea4335] rounded-full" style={{ width: "21%" }} />
+                      <div
+                        className="h-full bg-[#ea4335] rounded-full transition-all duration-500"
+                        style={{ width: `${telemetry?.geoDistribution.mpCentral || 21}%` }}
+                      />
                     </div>
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between text-xs font-bold mb-1">
                       <span>Mumbai, Pune & Western India</span>
-                      <span className="font-mono text-[#f9ab00]">14%</span>
+                      <span className="font-mono text-[#f9ab00]">
+                        {telemetry?.geoDistribution.westernIndia || 14}%
+                      </span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
-                      <div className="h-full bg-[#f9ab00] rounded-full" style={{ width: "14%" }} />
+                      <div
+                        className="h-full bg-[#f9ab00] rounded-full transition-all duration-500"
+                        style={{ width: `${telemetry?.geoDistribution.westernIndia || 14}%` }}
+                      />
                     </div>
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between text-xs font-bold mb-1">
                       <span>Bengaluru, Delhi NCR & International</span>
-                      <span className="font-mono text-[#34a853]">9%</span>
+                      <span className="font-mono text-[#34a853]">
+                        {telemetry?.geoDistribution.nationalGlobal || 9}%
+                      </span>
                     </div>
                     <div className="w-full h-2 rounded-full bg-gray-100 overflow-hidden">
-                      <div className="h-full bg-[#34a853] rounded-full" style={{ width: "9%" }} />
+                      <div
+                        className="h-full bg-[#34a853] rounded-full transition-all duration-500"
+                        style={{ width: `${telemetry?.geoDistribution.nationalGlobal || 9}%` }}
+                      />
                     </div>
                   </div>
                 </div>

@@ -28,6 +28,9 @@ export default function TicketsSection() {
 
   const handleOpenCheckout = () => {
     setIsCheckoutOpen(true);
+    import("@/lib/telemetryService").then(({ trackDevFestEvent }) => {
+      trackDevFestEvent("ticket_checkout_click", { method: "konfhub_modal_launch" });
+    });
   };
 
   const handleClaimBadge = () => {
