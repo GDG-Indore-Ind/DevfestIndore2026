@@ -54,7 +54,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Panoramic Lunar Base Mission Control Banner */}
-        <div className="mb-14 reveal-on-scroll">
+        <div className="mb-14">
           <div className={`relative rounded-3xl overflow-hidden border transition-all ${
             isDark
               ? "bg-[#0d0d0d] border-white/15 shadow-[0_0_40px_rgba(66,133,244,0.15)]"
@@ -116,7 +116,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14 reveal-on-scroll">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-14">
           {/* Brand & Community Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>

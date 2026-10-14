@@ -23,6 +23,8 @@ import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { getPastSpeakers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingShapesBackground from "@/components/FloatingShapesBackground";
+import InteractiveCursor from "@/components/InteractiveCursor";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
   TwitterIcon,
@@ -112,13 +114,19 @@ export default function PastSpeakersPage() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${
+      className={`min-h-screen flex flex-col font-sans transition-colors duration-300 relative selection:bg-[#4285f4]/40 ${
         isDark ? "bg-[#000000] text-white" : "bg-[#fafbfc] text-[#1e1e1e]"
       }`}
     >
+      {/* Precision Interactive Cursor */}
+      <InteractiveCursor />
+
+      {/* Floating 3D Cosmic Mars / Light Blueprint Geometric Snow Background */}
+      <FloatingShapesBackground />
+
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24">
+      <main className="flex-1 pt-32 pb-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header Banner */}
           <div className="text-center max-w-4xl mx-auto mb-14">
