@@ -14,7 +14,7 @@ export default function FloatingShapesBackground() {
       className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none"
       aria-hidden="true"
     >
-      {/* Dark Mode Exclusive: Single Photorealistic Mars in Deep Space Void */}
+      {/* Mode-Responsive Celestial Space & AI Neural Background Artworks */}
       {isDark ? (
         <div className="absolute inset-0 pointer-events-none">
           {/* Pitch-black void backdrop */}
@@ -32,20 +32,42 @@ export default function FloatingShapesBackground() {
             />
           </div>
 
+          {/* Deep Space AI Neural Constellation Overlay */}
+          <div className="absolute inset-0 opacity-30 mix-blend-screen overflow-hidden">
+            <Image
+              src="/images/space-ai-neural-dark.jpg"
+              alt="Deep Space AI Neural Network"
+              fill
+              sizes="100vw"
+              className="object-cover object-center opacity-70"
+            />
+          </div>
+
           {/* Vignette edge fade for cinematic deep dark focus */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.85)_100%)] pointer-events-none" />
         </div>
       ) : (
-        /* Light Mode: Crisp Snowy Winter Atmosphere with Drifting Snowflakes */
+        /* Light Mode: Atmospheric Celestial Sky-Blue Space AI Constellation Artwork */
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Subtle soft snowy sky atmospheric tint */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#e8f1fc]/80 via-[#f0f6ff]/60 to-[#ffffff]/90" />
 
-          {/* Soft glowing ambient orbs */}
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#4285f4]/12 blur-[140px] pointer-events-none" />
-          <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#38bdf8]/15 blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] rounded-full bg-[#93c5fd]/12 blur-[140px] pointer-events-none" />
+          {/* Sky-Blue Space & AI Neural Constellation Backdrop Image */}
+          <div className="absolute inset-0 opacity-40 mix-blend-multiply overflow-hidden">
+            <Image
+              src="/images/space-ai-neural-light.jpg"
+              alt="Atmospheric Space & AI Neural Constellations"
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+
+          {/* Soft glowing sky-bluish ambient orbs */}
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-[#38bdf8]/15 blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-[#0284c7]/12 blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] rounded-full bg-[#7dd3fc]/15 blur-[140px] pointer-events-none" />
         </div>
       )}
 

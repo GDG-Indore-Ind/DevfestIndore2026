@@ -181,16 +181,6 @@ export default function GalleryPage() {
                 <Plus className="w-4 h-4" />
                 <span>Add / Edit Photos</span>
               </button>
-
-              <Link
-                href="/admin"
-                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full font-bold text-xs border-2 google-pill-shadow hover:scale-105 transition-transform ${
-                  isDark ? "bg-white/10 text-white border-white/20 hover:bg-white/15" : "bg-white text-[#1e1e1e] border-[#1e1e1e]"
-                }`}
-              >
-                <ShieldCheck className="w-4 h-4 text-[#34a853]" />
-                <span>Admin Dashboard</span>
-              </Link>
             </div>
           </div>
 

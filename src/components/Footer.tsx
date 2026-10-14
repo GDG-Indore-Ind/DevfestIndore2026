@@ -62,11 +62,11 @@ export default function Footer() {
           }`}>
             <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/11] min-h-[220px] max-h-[360px]">
               <Image
-                src="/images/footer-lunar-base-illustration.jpg"
-                alt="DevFest Indore Lunar Base Mission Control Horizon"
+                src={isDark ? "/images/space-ai-neural-dark.jpg" : "/images/space-ai-neural-light.jpg"}
+                alt="DevFest Indore Space & AI Neural Architecture Horizon"
                 fill
                 sizes="(max-width: 1200px) 100vw, 1200px"
-                className="object-cover object-bottom"
+                className="object-cover object-center"
                 unoptimized
               />
               {/* Subtle gradient vignette to blend top/bottom cleanly */}
@@ -286,11 +286,6 @@ export default function Footer() {
               <li>
                 <Link href="/#social-stream" className="hover:text-[#e1306c] transition-colors">
                   Instagram Live Feed
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="hover:text-[#4285f4] transition-colors font-mono text-xs">
-                  Organizer Admin Console
                 </Link>
               </li>
             </ul>
