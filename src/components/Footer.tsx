@@ -304,7 +304,7 @@ export default function Footer() {
               <div className="flex items-center gap-1.5 mb-2">
                 <span className="w-2 h-2 rounded-full bg-[#f9ab00] animate-ping" />
                 <span className={`text-xs font-black tracking-widest text-[#f9ab00] uppercase`}>
-                  HELP & SUPPORT
+                  KNOWLEDGE BASE
                 </span>
               </div>
               <h4 className={`text-base font-black tracking-tight mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>

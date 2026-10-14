@@ -97,29 +97,6 @@ export default function FaqSection() {
             );
           })}
         </div>
-
-        {/* Support Strip */}
-        <CardTilt className={`border p-6 sm:p-8 rounded-3xl google-pill-shadow flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left reveal-on-scroll ${
-          isDark ? "bg-[#34a853]/8 border-[#34a853]/25" : "bg-emerald-50/70 border-emerald-200/80 shadow-md"
-        }`}>
-          <div>
-            <h4 className={`text-lg font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-              Still have queries or need flight assistance?
-            </h4>
-            <p className={`text-sm font-normal mt-1 leading-relaxed ${isDark ? "text-white/85" : "text-gray-700"}`}>
-              Our organizing crew is happy to help with campus group bookings, speaker inquiries, or accessibility.
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="mailto:gdgindore@gmail.com"
-              className="px-5 py-2.5 rounded-xl bg-[#34a853] text-white text-xs sm:text-[13px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#2d9247] hover:scale-105 transition-all cursor-pointer shadow-md"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Email Support</span>
-            </a>
-          </div>
-        </CardTilt>
       </div>
     </section>
   );

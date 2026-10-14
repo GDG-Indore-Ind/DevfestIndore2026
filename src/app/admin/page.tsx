@@ -776,18 +776,6 @@ export default function AdminPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("support")}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
-                activeTab === "support"
-                  ? "bg-[#4285f4] text-white shadow-sm"
-                  : "text-[#5f6368] hover:bg-gray-100"
-              }`}
-            >
-              <MessageSquare className="w-4 h-4" />
-              <span>Support Reachouts</span>
-            </button>
-
-            <button
               onClick={() => setActiveTab("config")}
               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
                 activeTab === "config"
@@ -2910,56 +2898,6 @@ export default function AdminPage() {
                   ))}
                 </div>
               )}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 6: SUPPORT REACHOUTS */}
-        {activeTab === "support" && (
-          <div className="space-y-6">
-            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h2 className="text-base font-bold mb-2">Attendee & Partner Inquiries</h2>
-              <p className="text-xs text-[#5f6368] mb-6">
-                Direct queries submitted via public help forms for ticketing, corporate registrations, and showcase booths.
-              </p>
-
-              <div className="space-y-4">
-                {supportQueries.map((query) => (
-                  <div
-                    key={query.id}
-                    className="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-bold text-xs text-[#1e1e1e]">{query.name}</span>
-                        <span className="text-[10px] text-[#5f6368]">({query.email})</span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#4285f4]">
-                          {query.category}
-                        </span>
-                      </div>
-                      <p className="text-xs text-[#1e1e1e] font-medium leading-relaxed">
-                        &ldquo;{query.message}&rdquo;
-                      </p>
-                      <span className="text-[10px] text-[#5f6368] mt-1 block">
-                        Received on {query.date}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => handleToggleQueryStatus(query.id)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-bold ${
-                          query.status === "resolved"
-                            ? "bg-green-100 text-[#34a853]"
-                            : "bg-amber-100 text-amber-800"
-                        }`}
-                      >
-                        {query.status === "resolved" ? "✓ Resolved" : "Pending"}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         )}
