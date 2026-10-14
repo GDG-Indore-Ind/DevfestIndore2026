@@ -131,263 +131,271 @@ export default function HeroSection() {
           {/* Main Hero Column */}
           <div className={`${!isDark ? "lg:col-span-7" : "lg:col-span-6 xl:col-span-5"} flex flex-col items-start text-left z-10`}>
             {/* Top Badge Pill */}
-            {isDark ? (
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-[#0d1526]/80 border-[#0070f3]/40 text-[#57caff] shadow-[0_0_20px_rgba(0,112,243,0.3)]">
-                <Image
-                  src="/gdglogo-removebg-preview.png"
-                  alt="GDG Logo"
-                  width={20}
-                  height={20}
-                  className="w-4 h-4 object-contain"
-                />
-                <span className="text-xs font-semibold tracking-wide">
-                  A Google Developer Groups Initiative
-                </span>
+            <div
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border ${
+                isDark
+                  ? "bg-[#0d1526]/85 border-[#0070f3]/40 text-[#57caff] shadow-[0_0_20px_rgba(0,112,243,0.3)]"
+                  : "bg-white/95 border-gray-200 shadow-sm text-gray-800"
+              }`}
+            >
+              <Image
+                src="/gdglogo-removebg-preview.png"
+                alt="GDG Logo"
+                width={22}
+                height={22}
+                className="w-4.5 h-4.5 object-contain"
+              />
+              <span className={`text-xs font-bold tracking-wider font-mono uppercase ${isDark ? "text-white/90" : "text-gray-900"}`}>
+                GOOGLE DEVELOPER GROUP INDORE
+              </span>
+              <span className={isDark ? "text-white/30" : "text-gray-300"}>|</span>
+              <span className={`text-xs font-semibold ${isDark ? "text-[#57caff]" : "text-[#1a73e8]"}`}>
+                DevFest 2026 Space Edition
+              </span>
+              <div className="flex items-center gap-1 ml-1">
+                <span className="w-2 h-2 rounded-full bg-[#4285f4]" />
+                <span className="w-2 h-2 rounded-full bg-[#ea4335]" />
+                <span className="w-2 h-2 rounded-full bg-[#f9ab00]" />
+                <span className="w-2 h-2 rounded-full bg-[#34a853]" />
               </div>
-            ) : (
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4 sm:mb-5 transition-transform hover:scale-105 border bg-white/95 border-gray-200 shadow-sm text-gray-800">
-                <Image
-                  src="/gdglogo-removebg-preview.png"
-                  alt="GDG Logo"
-                  width={22}
-                  height={22}
-                  className="w-4.5 h-4.5 object-contain"
-                />
-                <span className="text-xs font-bold tracking-wider font-mono uppercase">
-                  GOOGLE DEVELOPER GROUP INDORE
-                </span>
-                <span className="text-gray-300">|</span>
-                <span className="text-xs font-semibold text-[#1a73e8]">
-                  DevFest 2026 Space Edition
-                </span>
-                <div className="flex items-center gap-1 ml-1">
-                  <span className="w-2 h-2 rounded-full bg-[#4285f4]" />
-                  <span className="w-2 h-2 rounded-full bg-[#ea4335]" />
-                  <span className="w-2 h-2 rounded-full bg-[#f9ab00]" />
-                  <span className="w-2 h-2 rounded-full bg-[#34a853]" />
-                </div>
-              </div>
-            )}
+            </div>
 
             {/* Title: DevFest Indore 2026 */}
-            {isDark ? (
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.08] mb-4">
-                <span className="block text-white drop-shadow-md">DevFest</span>
-                <span className="block mt-1 sm:mt-2">
-                  <span
-                    className="text-transparent bg-clip-text"
-                    style={{
-                      backgroundImage: "linear-gradient(90deg, #ea4335 0%, #f9ab00 35%, #34a853 65%, #4285f4 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    Indore
-                  </span>{" "}
-                  <span
-                    className="text-transparent bg-clip-text"
-                    style={{
-                      backgroundImage: "linear-gradient(90deg, #4285f4 0%, #a855f7 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    2026
-                  </span>
-                </span>
-              </h1>
-            ) : (
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-tight leading-[1.02] mb-4">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[84px] font-black tracking-tight leading-[1.04] mb-3">
+              <span className={`block font-black ${isDark ? "text-white drop-shadow-md" : "text-[#111827]"}`}>
+                DevFest
+              </span>
+              <span className="block mt-1 sm:mt-1.5">
                 <span
-                  className="block text-transparent bg-clip-text font-black"
+                  className="text-transparent bg-clip-text font-black"
                   style={{
-                    backgroundImage: "linear-gradient(90deg, #0070f3 0%, #00c6ff 25%, #f9ab00 55%, #ea4335 80%, #d946ef 100%)",
+                    backgroundImage: "linear-gradient(90deg, #ea4335 0%, #f9ab00 35%, #34a853 65%, #4285f4 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  DEVFEST
+                  Indore
+                </span>{" "}
+                <span
+                  className="text-transparent bg-clip-text font-black"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, #4285f4 0%, #a855f7 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  2026
                 </span>
-                <span className="block text-[#111827] font-black tracking-tight">
-                  INDORE 2026
-                </span>
-              </h1>
-            )}
+              </span>
+            </h1>
 
-            {/* Sub-headline: Build Together for a Smarter Tomorrow (Only in Dark Mode as per user screenshot) */}
-            {isDark && (
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-3">
-                Build Together for a Smarter Tomorrow.
-              </h2>
-            )}
+            {/* Sub-headline: Build Together for a Smarter Tomorrow */}
+            <h2 className={`text-xl sm:text-2xl md:text-3xl font-extrabold mb-3 ${isDark ? "text-white" : "text-gray-900"}`}>
+              Build Together for a Smarter Tomorrow.
+            </h2>
 
             {/* Description Paragraph */}
-            <p className={`text-sm sm:text-base max-w-xl mb-6 leading-relaxed ${isDark ? "text-white/80 font-normal" : "text-[#374151] font-medium"
-              }`}>
-              {isDark ? (
-                "A flagship community event bringing together developers, creators, researchers and industry leaders to learn, build and grow with the latest in AI, Cloud, Web, Android and more."
-              ) : (
-                <>
-                  Central India&apos;s premier gathering of{" "}
-                  <strong className="text-[#111827] font-extrabold">1,500+ builders</strong>,
-                  engineers, and creators. Discover breakthroughs in{" "}
-                  <strong className="text-[#111827] font-extrabold">
-                    GenAI, Cloud, Web, Android & Open Source
-                  </strong>{" "}
-                  — right in the heart of India&apos;s cleanest and most vibrant city!
-                </>
-              )}
+            <p className={`text-sm sm:text-base max-w-xl mb-6 leading-relaxed ${isDark ? "text-white/80 font-normal" : "text-[#374151] font-medium"}`}>
+              Central India&apos;s premier gathering of{" "}
+              <strong className={isDark ? "text-white font-extrabold" : "text-[#111827] font-extrabold"}>
+                1,500+ builders
+              </strong>
+              , engineers, and creators. Discover breakthroughs in{" "}
+              <strong className={isDark ? "text-white font-extrabold" : "text-[#111827] font-extrabold"}>
+                GenAI, Cloud, Web, Android & Space Tech
+              </strong>{" "}
+              — right in the heart of India&apos;s cleanest and most vibrant city!
             </p>
 
             {/* Event Date & Location Info Row */}
-            {isDark ? (
-              <div className="flex flex-wrap items-center gap-6 sm:gap-10 mb-8 text-sm">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center border bg-[#0070f3]/15 border-[#0070f3]/40 text-[#0070f3]">
-                    <Calendar className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block font-bold text-sm text-white">
-                      Sat, 28 November 2026
-                    </span>
-                    <span className="block text-xs text-white/60">
-                      9:00 AM – 6:00 PM IST
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center border bg-[#ea4335]/15 border-[#ea4335]/40 text-[#ea4335]">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="block font-bold text-sm text-white">
-                      Essentia Luxury Hotel
-                    </span>
-                    <span className="block text-xs text-white/60">
-                      Indore, Madhya Pradesh
-                    </span>
-                  </div>
-                </div>
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <div
+                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold shadow-sm border ${
+                  isDark
+                    ? "bg-[#0d1526]/85 border-[#0070f3]/40 text-white"
+                    : "bg-white/95 border-gray-200/90 text-gray-800"
+                }`}
+              >
+                <Calendar className="w-4 h-4 text-[#1a73e8]" />
+                <span>Saturday, 28th November 2026</span>
               </div>
-            ) : (
-              /* Light Mode Info Pills matching exact Reference Screenshot */
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/95 border border-gray-200/90 shadow-sm text-xs font-semibold text-gray-800">
-                  <Calendar className="w-4 h-4 text-[#1a73e8]" />
-                  <span>28th November 2026</span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/95 border border-gray-200/90 shadow-sm text-xs font-semibold text-gray-800">
-                  <MapPin className="w-4 h-4 text-[#ea4335]" />
-                  <span>Essentia Luxury Hotel Indore</span>
-                </div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#e6f4ea] border border-[#ceead6] shadow-sm text-xs font-bold text-[#137333]">
-                  <UserCheck className="w-4 h-4 text-[#137333]" />
-                  <span>Registrations Open</span>
-                </div>
+              <div
+                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold shadow-sm border ${
+                  isDark
+                    ? "bg-[#0d1526]/85 border-[#ea4335]/40 text-white"
+                    : "bg-white/95 border-gray-200/90 text-gray-800"
+                }`}
+              >
+                <MapPin className="w-4 h-4 text-[#ea4335]" />
+                <span>Essentia Luxury Hotel Indore</span>
               </div>
-            )}
+              <div
+                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm border ${
+                  isDark
+                    ? "bg-[#0d2618]/85 border-[#34a853]/40 text-[#4ade80]"
+                    : "bg-[#e6f4ea] border-[#ceead6] text-[#137333]"
+                }`}
+              >
+                <UserCheck className={`w-4 h-4 ${isDark ? "text-[#4ade80]" : "text-[#137333]"}`} />
+                <span>Registrations Open</span>
+              </div>
+            </div>
 
             {/* Action Buttons */}
-            {isDark ? (
-              <div className="flex flex-wrap items-center gap-4 mb-6">
-                <a
-                  href="#tickets"
-                  onClick={triggerHeroConfetti}
-                  className="px-7 py-3.5 rounded-full font-bold text-sm bg-gradient-to-r from-[#0070f3] to-[#00a3ff] text-white hover:brightness-110 flex items-center gap-2 shadow-[0_0_30px_rgba(0,112,243,0.55)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                >
-                  <span>Book Your Pass Now</span>
-                  <span className="text-base font-black">→</span>
-                </a>
+            <div className="flex flex-wrap items-center gap-4 mb-7">
+              <a
+                href="#tickets"
+                onClick={triggerHeroConfetti}
+                className={`px-7 py-3.5 rounded-full font-bold text-sm flex items-center gap-2.5 shadow-lg hover:scale-105 active:scale-95 transition-all cursor-pointer ${
+                  isDark
+                    ? "bg-gradient-to-r from-[#0070f3] to-[#00a3ff] text-white hover:brightness-110 shadow-[0_0_30px_rgba(0,112,243,0.55)]"
+                    : "bg-[#1a73e8] hover:bg-[#1557b0] text-white shadow-[0_6px_20px_rgba(26,115,232,0.35)]"
+                }`}
+              >
+                <Ticket className="w-4 h-4" />
+                <span className="tracking-wide">GET TICKETS NOW</span>
+                <span className="text-base font-black">→</span>
+              </a>
 
-                <a
-                  href="#sessions-split"
-                  className="px-6 py-3.5 rounded-full font-bold text-sm border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer bg-[#0a0d14]/80 border-white/20 text-white hover:bg-white/10"
+              <a
+                href="#call-for-speakers"
+                className={`px-6 py-3.5 rounded-full font-bold text-sm border flex items-center gap-2 hover:scale-105 active:scale-95 transition-all cursor-pointer ${
+                  isDark
+                    ? "bg-[#0a0d14]/85 border-white/20 text-white hover:bg-white/10"
+                    : "bg-white hover:bg-gray-50 text-gray-900 border-gray-300 shadow-sm"
+                }`}
+              >
+                <span className="text-[#f9ab00]">✦</span>
+                <span>Submit your proposal (CFP)</span>
+              </a>
+
+              <a
+                href="#sessions-split"
+                className={`px-5 py-3.5 rounded-full font-bold text-sm border flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer ${
+                  isDark
+                    ? "bg-transparent border-white/15 text-white/80 hover:text-white hover:border-white/30"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-200"
+                }`}
+              >
+                <span>View Schedule</span>
+              </a>
+            </div>
+
+            {/* Mission Telemetry Countdown Card - Consistent in Both Dark and Light Modes */}
+            <div
+              className={`w-full max-w-md rounded-2xl p-4 border backdrop-blur-md transition-all ${
+                isDark
+                  ? "bg-[#080d19]/90 border-[#0070f3]/35 shadow-[0_8px_30px_rgba(0,0,0,0.5)]"
+                  : "bg-white/95 border-gray-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
+              }`}
+            >
+              <div
+                className={`flex items-center justify-between pb-3 mb-3 border-b ${
+                  isDark ? "border-white/10" : "border-gray-100"
+                }`}
+              >
+                <div
+                  className={`flex items-center gap-2 text-xs font-bold font-mono ${
+                    isDark ? "text-white/90" : "text-gray-800"
+                  }`}
                 >
-                  <span>View Schedule</span>
-                </a>
+                  <Sparkles className="w-3.5 h-3.5 text-[#1a73e8]" />
+                  <span>MISSION TELEMETRY • T-MINUS LAUNCH</span>
+                </div>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
+                    isDark
+                      ? "bg-[#0d2618]/85 text-[#4ade80] border-[#34a853]/40"
+                      : "bg-[#e6f4ea] text-[#137333] border-[#ceead6]"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#34a853] animate-pulse" />
+                  LIVE ORBIT CLOCK
+                </span>
               </div>
-            ) : (
-              /* Light Mode Buttons matching exact Reference Screenshot */
-              <div className="flex flex-wrap items-center gap-4 mb-7">
-                <a
-                  href="#tickets"
-                  onClick={triggerHeroConfetti}
-                  className="px-7 py-3.5 rounded-full font-bold text-sm bg-[#1a73e8] hover:bg-[#1557b0] text-white flex items-center gap-2.5 shadow-[0_6px_20px_rgba(26,115,232,0.35)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                >
-                  <Ticket className="w-4 h-4" />
-                  <span className="tracking-wide">GET TICKETS NOW</span>
-                  <span className="text-base font-black">→</span>
-                </a>
 
-                <a
-                  href="#call-for-speakers"
-                  className="px-6 py-3.5 rounded-full font-bold text-sm bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 shadow-sm flex items-center gap-2 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              <div className="grid grid-cols-4 gap-2.5">
+                {/* Days */}
+                <div
+                  className={`rounded-xl p-2.5 text-center border ${
+                    isDark
+                      ? "bg-[#0b1b36] border-[#1d4ed8]/40"
+                      : "bg-[#e8f0fe] border-[#d2e3fc]"
+                  }`}
                 >
-                  <span className="text-[#f9ab00]">✦</span>
-                  <span>Submit your proposal (CFP)</span>
-                </a>
-              </div>
-            )}
-
-            {/* Social Proof (Dark Mode) OR Telemetry Card (Light Mode) */}
-            {!isDark && (
-              /* Light Mode: Mission Telemetry Countdown Card matching exact Screenshot */
-              <div className="w-full max-w-md rounded-2xl p-4 bg-white/95 border border-gray-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-md">
-                <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-100">
-                  <div className="flex items-center gap-2 text-xs font-bold font-mono text-gray-800">
-                    <Sparkles className="w-3.5 h-3.5 text-[#1a73e8]" />
-                    <span>MISSION TELEMETRY • T-MINUS LAUNCH</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#e6f4ea] text-[#137333] border border-[#ceead6]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#34a853] animate-pulse" />
-                    LIVE ORBIT CLOCK
+                  <span className="block text-2xl font-black text-[#1a73e8] leading-none mb-1">
+                    {String(timeLeft.days).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`block text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isDark ? "text-blue-200/70" : "text-gray-500"
+                    }`}
+                  >
+                    DAYS
                   </span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2.5">
-                  {/* Days */}
-                  <div className="rounded-xl p-2.5 text-center bg-[#e8f0fe] border border-[#d2e3fc]">
-                    <span className="block text-2xl font-black text-[#1a73e8] leading-none mb-1">
-                      {String(timeLeft.days).padStart(2, "0")}
-                    </span>
-                    <span className="block text-[10px] font-mono font-bold text-gray-500 uppercase tracking-wider">
-                      DAYS
-                    </span>
-                  </div>
+                {/* Hours */}
+                <div
+                  className={`rounded-xl p-2.5 text-center border ${
+                    isDark
+                      ? "bg-[#2b1f09] border-[#b45309]/40"
+                      : "bg-[#fef7e0] border-[#feefc3]"
+                  }`}
+                >
+                  <span className="block text-2xl font-black text-[#e37400] leading-none mb-1">
+                    {String(timeLeft.hours).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`block text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isDark ? "text-amber-200/70" : "text-gray-500"
+                    }`}
+                  >
+                    HOURS
+                  </span>
+                </div>
 
-                  {/* Hours */}
-                  <div className="rounded-xl p-2.5 text-center bg-[#fef7e0] border border-[#feefc3]">
-                    <span className="block text-2xl font-black text-[#e37400] leading-none mb-1">
-                      {String(timeLeft.hours).padStart(2, "0")}
-                    </span>
-                    <span className="block text-[10px] font-mono font-bold text-gray-500 uppercase tracking-wider">
-                      HOURS
-                    </span>
-                  </div>
+                {/* Minutes */}
+                <div
+                  className={`rounded-xl p-2.5 text-center border ${
+                    isDark
+                      ? "bg-[#0b291b] border-[#15803d]/40"
+                      : "bg-[#e6f4ea] border-[#ceead6]"
+                  }`}
+                >
+                  <span className="block text-2xl font-black text-[#137333] leading-none mb-1">
+                    {String(timeLeft.minutes).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`block text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isDark ? "text-emerald-200/70" : "text-gray-500"
+                    }`}
+                  >
+                    MINUTES
+                  </span>
+                </div>
 
-                  {/* Minutes */}
-                  <div className="rounded-xl p-2.5 text-center bg-[#e6f4ea] border border-[#ceead6]">
-                    <span className="block text-2xl font-black text-[#137333] leading-none mb-1">
-                      {String(timeLeft.minutes).padStart(2, "0")}
-                    </span>
-                    <span className="block text-[10px] font-mono font-bold text-gray-500 uppercase tracking-wider">
-                      MINUTES
-                    </span>
-                  </div>
-
-                  {/* Seconds */}
-                  <div className="rounded-xl p-2.5 text-center bg-[#fce8e6] border border-[#fad2cf]">
-                    <span className="block text-2xl font-black text-[#d93025] leading-none mb-1">
-                      {String(timeLeft.seconds).padStart(2, "0")}
-                    </span>
-                    <span className="block text-[10px] font-mono font-bold text-gray-500 uppercase tracking-wider">
-                      SECONDS
-                    </span>
-                  </div>
+                {/* Seconds */}
+                <div
+                  className={`rounded-xl p-2.5 text-center border ${
+                    isDark
+                      ? "bg-[#2f1212] border-[#b91c1c]/40"
+                      : "bg-[#fce8e6] border-[#fad2cf]"
+                  }`}
+                >
+                  <span className="block text-2xl font-black text-[#d93025] leading-none mb-1">
+                    {String(timeLeft.seconds).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`block text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isDark ? "text-rose-200/70" : "text-gray-500"
+                    }`}
+                  >
+                    SECONDS
+                  </span>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Right Column: */}
