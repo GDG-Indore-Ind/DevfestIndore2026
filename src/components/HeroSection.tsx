@@ -89,7 +89,7 @@ export default function HeroSection() {
           {/* Main Full-width Stage Image */}
           <div className="absolute inset-0 w-full h-full">
             <Image
-              src="/images/ll.jpg"
+              src="/devfestindore.png"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
