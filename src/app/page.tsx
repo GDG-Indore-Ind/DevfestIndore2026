@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeBanner from "@/components/MarqueeBanner";
@@ -26,15 +26,22 @@ import FloatingShapesBackground from "@/components/FloatingShapesBackground";
 import CosmicAudioPlayer from "@/components/CosmicAudioPlayer";
 import PageLoader from "@/components/PageLoader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useEffect } from "react";
 import { trackPageImpression } from "@/lib/telemetryService";
+import { SectionConfig, INITIAL_SECTIONS_CONFIG, getSectionsConfig } from "@/lib/firestoreService";
 
 export default function Home() {
   // Initialize Awwwards-style IntersectionObserver scroll animations
   useScrollReveal();
 
+  const [sections, setSections] = useState<SectionConfig[]>(INITIAL_SECTIONS_CONFIG);
+
   useEffect(() => {
     trackPageImpression();
+    getSectionsConfig().then((res) => {
+      if (res && res.length > 0) {
+        setSections(res);
+      }
+    });
   }, []);
 
   const [savedSessionIds, setSavedSessionIds] = useState<string[]>([
@@ -57,6 +64,106 @@ export default function Home() {
     setSavedSessionIds([]);
   };
 
+  // Section component resolver map
+  const renderSectionComponent = (anchor: string) => {
+    switch (anchor) {
+      case "hero":
+        return <HeroSection key="hero" />;
+      case "marquee":
+        return <MarqueeBanner key="marquee" />;
+      case "about":
+        return (
+          <div id="about" key="about">
+            <AboutSection />
+          </div>
+        );
+      case "flow":
+        return (
+          <div id="flow" key="flow">
+            <ThreeDFlowSection />
+          </div>
+        );
+      case "pillars":
+        return (
+          <div id="pillars" key="pillars">
+            <ContentPillarsSection />
+          </div>
+        );
+      case "space-collaboration":
+        return (
+          <div id="space-collaboration" key="space-collaboration">
+            <SpaceCollaborationSection />
+          </div>
+        );
+      case "call-for-speakers":
+        return (
+          <div id="call-for-speakers" key="call-for-speakers">
+            <CallForSpeakersSection />
+          </div>
+        );
+      case "speakers":
+        return (
+          <div id="speakers" key="speakers">
+            <FeaturedTeamSection />
+          </div>
+        );
+      case "recap-gallery":
+        return (
+          <div id="recap-gallery" key="recap-gallery">
+            <GalleryVideoSection />
+          </div>
+        );
+      case "social-stream":
+        return (
+          <div id="social-stream" key="social-stream">
+            <InstagramFeedSection />
+          </div>
+        );
+      case "recap":
+        return (
+          <div id="recap" key="recap">
+            <EventRecapSection />
+          </div>
+        );
+      case "satellite-events":
+        return (
+          <div id="satellite-events" key="satellite-events">
+            <SatelliteEventsSection />
+          </div>
+        );
+      case "tickets":
+        return (
+          <div id="tickets" key="tickets">
+            <TicketsSection />
+          </div>
+        );
+      case "sponsors":
+        return (
+          <div id="sponsors" key="sponsors">
+            <SponsorsSection />
+          </div>
+        );
+      case "faq":
+        return (
+          <div id="faq" key="faq">
+            <FaqSection />
+          </div>
+        );
+      case "venue":
+        return (
+          <div id="venue" key="venue">
+            <VenueSection />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const sortedVisibleSections = useMemo(() => {
+    return [...sections].filter((s) => s.visible).sort((a, b) => a.order - b.order);
+  }, [sections]);
+
   return (
     <div className="min-h-screen bg-[var(--page-bg,#000000)] text-[var(--text-primary,#ffffff)] flex flex-col font-sans selection:bg-[#4285f4]/40 relative transition-colors duration-300">
       {/* Intro Welcome Loader */}
@@ -77,83 +184,9 @@ export default function Home() {
         onOpenSavedModal={() => setSavedModalOpen(true)}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Content Sections (Dynamically ordered and visibility toggled via Admin) */}
       <main className="flex-1 relative z-10">
-        {/* Full-Screen 3D Hero Section */}
-        <HeroSection />
-
-        {/* Double-decker Animated Marquee Banner with Brand Logos */}
-        <MarqueeBanner />
-
-        {/* About Section (Fixed: Anchor target for Navigation #about) */}
-        <div id="about">
-          <AboutSection />
-        </div>
-
-        {/* 3D Journey & Collective Flow Component */}
-        <div id="flow">
-          <ThreeDFlowSection />
-        </div>
-
-        {/* 5 Strategic Content Pillars (Space Tech, Agentic AI, Physical AI, Data, Enterprise) */}
-        <div id="pillars">
-          <ContentPillarsSection />
-        </div>
-
-        {/* Space Club of India Collaboration */}
-        <div id="space-collaboration">
-          <SpaceCollaborationSection />
-        </div>
-
-        {/* Official Call for Speakers — Space Edition Poster & Sessionize Portal */}
-        <div id="call-for-speakers">
-          <CallForSpeakersSection />
-        </div>
-
-        {/* Featured Core Organizers & Continuous Scrolling Past Speakers Ticker (Includes Speakers Coming Soon) */}
-        <div id="speakers">
-          <FeaturedTeamSection />
-        </div>
-
-        {/* High-Impact Previous Editions Photo Stream Carousel (Video Player hidden as requested) */}
-        <div id="recap-gallery">
-          <GalleryVideoSection />
-        </div>
-
-        {/* Live Instagram Feed & Social Reels Stream (Official Elfsight Widget) */}
-        <div id="social-stream">
-          <InstagramFeedSection />
-        </div>
-
-        {/* High-Impact Executive Event Recap Section */}
-        <div id="recap">
-          <EventRecapSection />
-        </div>
-
-        {/* Pre-DevFest Satellite Events & City Activations */}
-        <div id="satellite-events">
-          <SatelliteEventsSection />
-        </div>
-
-        {/* Tickets, Pricing & Interactive Digital Badge Generator */}
-        <div id="tickets">
-          <TicketsSection />
-        </div>
-
-        {/* Sponsors, Google for Developers & Community Partners */}
-        <div id="sponsors">
-          <SponsorsSection />
-        </div>
-
-        {/* Frequently Asked Questions Accordion */}
-        <div id="faq">
-          <FaqSection />
-        </div>
-
-        {/* Mission Launchpad • Coordinates & Essentia Luxury Hotel (Positioned Right Above Footer) */}
-        <div id="venue">
-          <VenueSection />
-        </div>
+        {sortedVisibleSections.map((sec) => renderSectionComponent(sec.anchor))}
       </main>
 
       {/* Footer with GDG Disclaimer & Social Channels */}

@@ -76,13 +76,17 @@ import {
   getNavItems,
   saveNavItem,
   removeNavItem,
+  SectionConfig,
+  INITIAL_SECTIONS_CONFIG,
+  getSectionsConfig,
+  saveSectionsConfig,
 } from "@/lib/firestoreService";
 import {
   subscribeToRealtimeAnalytics,
   TelemetryMetrics,
   trackDevFestEvent,
 } from "@/lib/telemetryService";
-import { Menu as MenuIcon } from "lucide-react";
+import { Menu as MenuIcon, ArrowUp, ArrowDown } from "lucide-react";
 
 export default function AdminPage() {
   // Authentication State
@@ -91,9 +95,9 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  // Tab Navigation in Admin Sidebar
+  // Tab Navigation in Admin Sidebar (proposals and support removed as requested)
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "navbar" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
+    "analytics" | "navbar" | "sections" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "config"
   >("analytics");
 
   // Navigation Items Management State
@@ -103,8 +107,12 @@ export default function AdminPage() {
   const [newNavDesc, setNewNavDesc] = useState("");
   const [editingNavId, setEditingNavId] = useState<string | null>(null);
 
-  // Gallery State & Upload
+  // Sections Order & Visibility Management State
+  const [sectionsList, setSectionsList] = useState<SectionConfig[]>(INITIAL_SECTIONS_CONFIG);
+
+  // Gallery State & Upload / Editing
   const [gallery, setGallery] = useState<GalleryItem[]>(INITIAL_GALLERY_ITEMS);
+  const [editingGalleryId, setEditingGalleryId] = useState<string | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const [newCategory, setNewCategory] = useState<GalleryItem["category"]>("Space");
   const [newImageUrl, setNewImageUrl] = useState("");
@@ -221,13 +229,7 @@ export default function AdminPage() {
     getFaqItems().then((f) => { if (f && f.length > 0) setFaqs(f); });
     getSocialLinks().then((s) => { if (s) setSocialLinks(s); });
     getNavItems().then((n) => { if (n && n.length > 0) setNavItemsList(n); });
-
-    if (typeof window !== "undefined") {
-      const savedProposals = localStorage.getItem("devfest-speaker-proposals");
-      if (savedProposals) {
-        setProposals(JSON.parse(savedProposals));
-      }
-    }
+    getSectionsConfig().then((sec) => { if (sec && sec.length > 0) setSectionsList(sec); });
 
     return () => {
       unsubTelemetry();
@@ -269,37 +271,100 @@ export default function AdminPage() {
     }
   };
 
-  // Add Image
-  const handleAddImage = (e: React.FormEvent) => {
+  // Add or Edit Gallery Image
+  const handleAddImage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle || !newImageUrl) return;
 
+    const targetId = editingGalleryId || ("gal-" + Date.now());
     const newItem: GalleryItem = {
-      id: "gal-" + Date.now(),
+      id: targetId,
       title: newTitle,
       category: newCategory,
       imageUrl: newImageUrl,
       caption: newCaption || newTitle,
     };
 
-    const updated = [newItem, ...gallery];
+    let updated: GalleryItem[];
+    if (editingGalleryId) {
+      updated = gallery.map((item) => (item.id === targetId ? newItem : item));
+      setStatusMsg({ text: "Gallery photo updated successfully!", type: "success" });
+    } else {
+      updated = [newItem, ...gallery];
+      setStatusMsg({ text: "Gallery photo added successfully!", type: "success" });
+    }
+
     setGallery(updated);
+    try {
+      await saveGalleryPhoto(newItem);
+    } catch (e) {}
     localStorage.setItem("devfest-gallery-items", JSON.stringify(updated));
 
+    setEditingGalleryId(null);
     setNewTitle("");
     setNewImageUrl("");
     setNewCaption("");
-    setStatusMsg({ text: "Gallery photo added successfully!", type: "success" });
     setTimeout(() => setStatusMsg(null), 3000);
   };
 
+  const handleStartEditGallery = (item: GalleryItem) => {
+    setEditingGalleryId(item.id);
+    setNewTitle(item.title);
+    setNewCategory(item.category);
+    setNewImageUrl(item.imageUrl);
+    setNewCaption(item.caption || "");
+    window.scrollTo({ top: 300, behavior: "smooth" });
+  };
+
+  const handleCancelEditGallery = () => {
+    setEditingGalleryId(null);
+    setNewTitle("");
+    setNewImageUrl("");
+    setNewCaption("");
+  };
+
   // Delete Image
-  const handleDeleteImage = (id: string) => {
+  const handleDeleteImage = async (id: string) => {
     const updated = gallery.filter((item) => item.id !== id);
     setGallery(updated);
+    try {
+      await removeGalleryPhoto(id);
+    } catch (e) {}
     localStorage.setItem("devfest-gallery-items", JSON.stringify(updated));
     setStatusMsg({ text: "Image removed from gallery.", type: "info" });
     setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Sections Order & Visibility Handlers for Volunteers & Admins
+  const handleMoveSection = async (index: number, direction: "up" | "down") => {
+    const targetIdx = direction === "up" ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= sectionsList.length) return;
+
+    const reordered = [...sectionsList];
+    const temp = reordered[index];
+    reordered[index] = reordered[targetIdx];
+    reordered[targetIdx] = temp;
+
+    const updated = reordered.map((sec, i) => ({ ...sec, order: i + 1 }));
+    setSectionsList(updated);
+    await saveSectionsConfig(updated);
+    setStatusMsg({ text: `Section "${temp.name}" moved ${direction}!`, type: "success" });
+    setTimeout(() => setStatusMsg(null), 2500);
+  };
+
+  const handleToggleSectionVisibility = async (id: string) => {
+    const target = sectionsList.find((s) => s.id === id);
+    if (!target) return;
+    const updated = sectionsList.map((s) =>
+      s.id === id ? { ...s, visible: !s.visible } : s
+    );
+    setSectionsList(updated);
+    await saveSectionsConfig(updated);
+    setStatusMsg({
+      text: `Section "${target.name}" is now ${!target.visible ? "visible" : "hidden"}!`,
+      type: "info",
+    });
+    setTimeout(() => setStatusMsg(null), 2500);
   };
 
   // Add / Edit Team Member
@@ -676,7 +741,19 @@ export default function AdminPage() {
               }`}
             >
               <MenuIcon className="w-4 h-4" />
-              <span>Navbar & Sections ({navItemsList.length})</span>
+              <span>Navbar Links ({navItemsList.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab("sections")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "sections"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <ArrowUp className="w-4 h-4" />
+              <span>Page Sections & Order ({sectionsList.length})</span>
             </button>
 
             <button
@@ -688,7 +765,7 @@ export default function AdminPage() {
               }`}
             >
               <ImageIcon className="w-4 h-4" />
-              <span>Gallery & Photos</span>
+              <span>Gallery & Photos ({gallery.length})</span>
             </button>
 
             <button
@@ -764,18 +841,6 @@ export default function AdminPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("proposals")}
-              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
-                activeTab === "proposals"
-                  ? "bg-[#4285f4] text-white shadow-sm"
-                  : "text-[#5f6368] hover:bg-gray-100"
-              }`}
-            >
-              <Radio className="w-4 h-4" />
-              <span>Speaker Proposals ({proposals.length})</span>
-            </button>
-
-            <button
               onClick={() => setActiveTab("config")}
               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
                 activeTab === "config"
@@ -816,14 +881,15 @@ export default function AdminPage() {
           <div>
             <h1 className="text-2xl font-black text-[#1e1e1e] capitalize">
               {activeTab === "analytics" && "Traffic & Google Analytics Intelligence"}
+              {activeTab === "navbar" && "Navbar Links & Navigation Architect"}
+              {activeTab === "sections" && "Page Sections Order & Visibility Controller"}
               {activeTab === "gallery" && "Gallery Photos & Cloudinary Uploader"}
               {activeTab === "partners" && "Sponsors, Media & Community Partners Manager"}
               {activeTab === "team" && "Core Organizing Team Directory"}
               {activeTab === "speakers" && "Previous Speakers & Hall of Fame"}
               {activeTab === "agenda" && "Agenda & Schedule Architect"}
               {activeTab === "faqs" && "Frequently Asked Questions (FAQs) Live Manager"}
-              {activeTab === "proposals" && "Call For Speakers Proposals"}
-              {activeTab === "support" && "Attendee Support Inquiries & Tickets"}
+              {activeTab === "socials" && "Social Media Links & Handles"}
               {activeTab === "config" && "Ecosystem Plan Parameters"}
             </h1>
             <p className="text-xs text-[#5f6368]">
@@ -1218,15 +1284,120 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* TAB 2: GALLERY & CLOUDINARY UPLOADER */}
+        {/* TAB: PAGE SECTIONS & ORDER (REORDER UP/DOWN, HIDE/UNHIDE) */}
+        {activeTab === "sections" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-100 gap-3 mb-5">
+                <div>
+                  <h2 className="text-base font-bold flex items-center gap-2">
+                    <ArrowUp className="w-5 h-5 text-[#4285f4]" />
+                    <span>Home Page Section Order & Dynamic Visibility</span>
+                  </h2>
+                  <p className="text-xs text-[#5f6368] mt-1">
+                    Volunteers & organizers can reorder any section up or down, or hide/unhide sections in real-time. Changes sync to Cloud Firestore and update the live home page instantly.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setSectionsList(INITIAL_SECTIONS_CONFIG);
+                    await saveSectionsConfig(INITIAL_SECTIONS_CONFIG);
+                    setStatusMsg({ text: "Restored original default section sequence!", type: "info" });
+                    setTimeout(() => setStatusMsg(null), 2500);
+                  }}
+                  className="px-4 py-2 rounded-full border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50 shrink-0 self-start sm:self-auto cursor-pointer"
+                >
+                  Reset Default Layout
+                </button>
+              </div>
+
+              <div className="divide-y divide-gray-100">
+                {sectionsList.map((sec, idx) => (
+                  <div
+                    key={sec.id}
+                    className={`py-3.5 px-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${
+                      sec.visible ? "bg-white hover:bg-gray-50/80" : "bg-gray-50/50 opacity-60"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-7 h-7 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-xs font-black text-gray-600 shrink-0">
+                        {sec.order}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleToggleSectionVisibility(sec.id)}
+                        className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider cursor-pointer transition-colors ${
+                          sec.visible
+                            ? "bg-emerald-100 text-[#34a853] hover:bg-emerald-200"
+                            : "bg-gray-200 text-gray-500 hover:bg-gray-300"
+                        }`}
+                        title="Click to toggle section visibility on Home Page"
+                      >
+                        {sec.visible ? "Visible" : "Hidden"}
+                      </button>
+
+                      <div>
+                        <div className="text-xs font-black text-[#1e1e1e] flex items-center gap-2">
+                          <span>{sec.name}</span>
+                          <code className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-[#4285f4] border border-blue-100">
+                            #{sec.anchor}
+                          </code>
+                        </div>
+                        <div className="text-[11px] text-[#5f6368]">
+                          Position {sec.order} of {sectionsList.length} • {sec.visible ? "Live on site" : "Hidden from attendees"}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-end sm:self-auto">
+                      <button
+                        type="button"
+                        disabled={idx === 0}
+                        onClick={() => handleMoveSection(idx, "up")}
+                        className="p-2 rounded-xl border border-gray-200 hover:bg-blue-50 text-[#4285f4] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        title="Move Section Up"
+                      >
+                        <ArrowUp className="w-4 h-4" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled={idx === sectionsList.length - 1}
+                        onClick={() => handleMoveSection(idx, "down")}
+                        className="p-2 rounded-xl border border-gray-200 hover:bg-blue-50 text-[#4285f4] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        title="Move Section Down"
+                      >
+                        <ArrowDown className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 2: GALLERY & CLOUDINARY UPLOADER (EDITABLE & ADDABLE) */}
         {activeTab === "gallery" && (
           <div className="space-y-8">
-            {/* Upload Box */}
+            {/* Upload & Edit Box */}
             <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <Upload className="w-5 h-5 text-[#4285f4]" />
-                <span>Upload Direct via Cloudinary / URL</span>
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-bold flex items-center gap-2">
+                  <Upload className="w-5 h-5 text-[#4285f4]" />
+                  <span>{editingGalleryId ? "Edit Gallery Photo Details" : "Upload Direct via Cloudinary / URL"}</span>
+                </h2>
+                {editingGalleryId && (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditGallery}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline cursor-pointer"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
+              </div>
 
               <form onSubmit={handleAddImage} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1249,7 +1420,7 @@ export default function AdminPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Image URL (Populated automatically or paste link)
+                      Image URL (Populated automatically or paste link) *
                     </label>
                     <input
                       type="url"
@@ -1265,7 +1436,7 @@ export default function AdminPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Photo Title
+                      Photo Title *
                     </label>
                     <input
                       type="text"
@@ -1308,38 +1479,63 @@ export default function AdminPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
-                >
-                  Save Photo to Gallery
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingGalleryId ? "Save Updated Photo" : "Save Photo to Gallery"}
+                  </button>
+                  {editingGalleryId && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEditGallery}
+                      className="px-4 py-2.5 rounded-full font-bold text-xs border border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
 
-            {/* Gallery Grid */}
+            {/* Gallery Grid with Edit & Delete Controls */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {gallery.map((item) => (
                 <div
                   key={item.id}
-                  className="p-3 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between"
+                  className={`p-3 rounded-2xl bg-white border-2 transition-all flex flex-col justify-between ${
+                    editingGalleryId === item.id ? "border-[#4285f4] ring-2 ring-blue-100" : "border-gray-200"
+                  }`}
                 >
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="w-full aspect-video object-cover rounded-xl mb-3"
-                  />
                   <div>
-                    <div className="text-xs font-bold text-[#1e1e1e]">{item.title}</div>
-                    <div className="text-[10px] text-[#4285f4] font-semibold">{item.category}</div>
-                    <p className="text-[11px] text-[#5f6368] mt-1">{item.caption}</p>
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      className="w-full aspect-video object-cover rounded-xl mb-3"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-[#1e1e1e]">{item.title}</div>
+                      <div className="text-[10px] text-[#4285f4] font-semibold">{item.category}</div>
+                      <p className="text-[11px] text-[#5f6368] mt-1">{item.caption}</p>
+                    </div>
                   </div>
-                  <button
-                    onClick={() => handleDeleteImage(item.id)}
-                    className="mt-3 py-1.5 rounded-xl bg-red-50 text-[#ea4335] text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-red-100"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" /> Remove
-                  </button>
+
+                  <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
+                    <button
+                      onClick={() => handleStartEditGallery(item)}
+                      className="flex-1 py-1.5 rounded-xl bg-blue-50 text-[#4285f4] text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-blue-100 transition-colors cursor-pointer"
+                    >
+                      <Edit3 className="w-3.5 h-3.5" /> Edit Photo
+                    </button>
+                    <button
+                      onClick={() => handleDeleteImage(item.id)}
+                      className="py-1.5 px-3 rounded-xl bg-red-50 text-[#ea4335] text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-red-100 transition-colors cursor-pointer"
+                      title="Remove Photo"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -2798,106 +2994,6 @@ export default function AdminPage() {
                   </button>
                 </div>
               </form>
-            </div>
-          </div>
-        )}
-
-        {/* TAB: SPEAKER PROPOSALS */}
-        {activeTab === "proposals" && (
-          <div className="space-y-6">
-            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-base font-bold flex items-center gap-2">
-                  <Radio className="w-5 h-5 text-[#ea4335]" />
-                  <span>Call for Speakers — Submitted Proposals</span>
-                </h2>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-[#4285f4]">
-                  {proposals.length} Total Submissions
-                </span>
-              </div>
-              <p className="text-xs text-[#5f6368] mb-6">
-                Direct submissions received via the Call for Speakers portal form. Review talk abstracts, formats, and speaker headshots.
-              </p>
-
-              {proposals.length === 0 ? (
-                <div className="p-8 text-center rounded-2xl bg-gray-50 border border-gray-200 text-xs text-gray-500">
-                  No direct speaker proposals submitted yet. Submissions from the CFP form will appear here instantly.
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {proposals.map((prop: any) => (
-                    <div
-                      key={prop.id}
-                      className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4"
-                    >
-                      <div className="flex items-start gap-4">
-                        {prop.avatarUrl ? (
-                          <img
-                            src={prop.avatarUrl}
-                            alt={prop.name}
-                            className="w-14 h-14 rounded-2xl object-cover border border-gray-200 shrink-0 shadow-sm"
-                          />
-                        ) : (
-                          <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-[#4285f4] font-black shrink-0">
-                            {prop.name.charAt(0)}
-                          </div>
-                        )}
-
-                        <div>
-                          <div className="flex flex-wrap items-center gap-2 mb-1">
-                            <span className="font-extrabold text-sm text-[#1e1e1e]">{prop.name}</span>
-                            <span className="text-xs text-gray-500">({prop.email})</span>
-                            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100 text-[#4285f4]">
-                              {prop.track}
-                            </span>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
-                              {prop.format}
-                            </span>
-                          </div>
-
-                          <div className="text-xs font-bold text-gray-700 mb-1">
-                            Topic: <span className="text-[#1e1e1e]">{prop.topic}</span>
-                          </div>
-
-                          {prop.organization && (
-                            <div className="text-[11px] text-gray-500 mb-2">
-                              Organization: {prop.organization}
-                            </div>
-                          )}
-
-                          <p className="text-xs text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-100 leading-relaxed mb-2 max-w-2xl">
-                            {prop.abstract}
-                          </p>
-
-                          {prop.bio && (
-                            <div className="text-[11px] text-gray-500 italic">
-                              Bio: {prop.bio}
-                            </div>
-                          )}
-
-                          <span className="text-[10px] text-gray-400 block mt-2">
-                            Submitted on {prop.submittedAt}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 shrink-0">
-                        <button
-                          onClick={() => {
-                            const updated = proposals.filter((p: any) => p.id !== prop.id);
-                            setProposals(updated);
-                            localStorage.setItem("devfest-speaker-proposals", JSON.stringify(updated));
-                          }}
-                          className="p-2 rounded-xl text-red-600 hover:bg-red-50 transition-colors"
-                          title="Delete Proposal"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         )}

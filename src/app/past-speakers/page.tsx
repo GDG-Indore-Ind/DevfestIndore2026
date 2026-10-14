@@ -128,6 +128,21 @@ export default function PastSpeakersPage() {
     });
   }, [validSpeakers, selectedYear, selectedTrack, searchQuery]);
 
+  const PAGE_SIZE = 12;
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Reset pagination to page 1 whenever filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedYear, selectedTrack, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredSpeakers.length / PAGE_SIZE));
+
+  const paginatedSpeakers = useMemo(() => {
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    return filteredSpeakers.slice(startIndex, startIndex + PAGE_SIZE);
+  }, [filteredSpeakers, currentPage, PAGE_SIZE]);
+
   const openAddModal = () => {
     setEditingSpeaker(null);
     setFormName("");
@@ -402,9 +417,9 @@ export default function PastSpeakersPage() {
             </div>
           </div>
 
-          {/* Speakers Detailed Grid (Much Larger Image Cards + Live Photo Presentation) */}
+          {/* Speakers Detailed Grid (Paginated 12 speakers per page for maximum performance) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredSpeakers.map((sp) => {
+            {paginatedSpeakers.map((sp) => {
               const isExpanded = !!expandedCards[sp.id];
               const hasLongDesc = (sp.description?.length || 0) > 160;
 
@@ -656,6 +671,77 @@ export default function PastSpeakersPage() {
               );
             })}
           </div>
+
+          {/* Super Optimized Pagination Controls */}
+          {filteredSpeakers.length > PAGE_SIZE && (
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-3xl border bg-white/5 backdrop-blur-md border-gray-200 dark:border-white/10">
+              <div className="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                Showing{" "}
+                <span className="font-bold text-[#4285f4]">
+                  {Math.min(filteredSpeakers.length, (currentPage - 1) * PAGE_SIZE + 1)} -{" "}
+                  {Math.min(filteredSpeakers.length, currentPage * PAGE_SIZE)}
+                </span>{" "}
+                of <span className="font-bold">{filteredSpeakers.length}</span> speakers
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  disabled={currentPage === 1}
+                  onClick={() => {
+                    setCurrentPage((p) => Math.max(1, p - 1));
+                    window.scrollTo({ top: 380, behavior: "smooth" });
+                  }}
+                  className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
+                    currentPage === 1
+                      ? "opacity-40 cursor-not-allowed bg-gray-100 dark:bg-white/5 text-gray-400"
+                      : "bg-[#4285f4] text-white hover:bg-blue-600 shadow-sm cursor-pointer"
+                  }`}
+                >
+                  Previous
+                </button>
+
+                {/* Page Number Pills */}
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      type="button"
+                      onClick={() => {
+                        setCurrentPage(pageNum);
+                        window.scrollTo({ top: 380, behavior: "smooth" });
+                      }}
+                      className={`w-8 h-8 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        currentPage === pageNum
+                          ? "bg-[#4285f4] text-white shadow-sm scale-105"
+                          : isDark
+                          ? "bg-white/5 text-white/70 hover:bg-white/10"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                    >
+                      {pageNum}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  disabled={currentPage === totalPages}
+                  onClick={() => {
+                    setCurrentPage((p) => Math.min(totalPages, p + 1));
+                    window.scrollTo({ top: 380, behavior: "smooth" });
+                  }}
+                  className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all ${
+                    currentPage === totalPages
+                      ? "opacity-40 cursor-not-allowed bg-gray-100 dark:bg-white/5 text-gray-400"
+                      : "bg-[#4285f4] text-white hover:bg-blue-600 shadow-sm cursor-pointer"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
 
           {filteredSpeakers.length === 0 && (
             <div className="text-center py-24">

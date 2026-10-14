@@ -524,4 +524,66 @@ export async function removeNavItem(id: string): Promise<void> {
   }
 }
 
+export interface SectionConfig {
+  id: string;
+  name: string;
+  anchor: string;
+  visible: boolean;
+  order: number;
+}
+
+export const INITIAL_SECTIONS_CONFIG: SectionConfig[] = [
+  { id: "sec-hero", name: "3D Mars Launchpad Hero", anchor: "hero", visible: true, order: 1 },
+  { id: "sec-marquee", name: "Animated Community Marquee", anchor: "marquee", visible: true, order: 2 },
+  { id: "sec-about", name: "About DevFest Indore", anchor: "about", visible: true, order: 3 },
+  { id: "sec-flow", name: "3D Journey & Collective Flow", anchor: "flow", visible: true, order: 4 },
+  { id: "sec-pillars", name: "5 Strategic Content Pillars", anchor: "pillars", visible: true, order: 5 },
+  { id: "sec-space", name: "Space Club of India Alliance", anchor: "space-collaboration", visible: true, order: 6 },
+  { id: "sec-cfp", name: "Call for Speakers (Sessionize Portal)", anchor: "call-for-speakers", visible: true, order: 7 },
+  { id: "sec-speakers", name: "Organizing Committee & Past Keynotes Marquee", anchor: "speakers", visible: true, order: 8 },
+  { id: "sec-recap-gallery", name: "Curated Editions Photo Stream", anchor: "recap-gallery", visible: true, order: 9 },
+  { id: "sec-social", name: "Live Instagram Feed (#GDGIndore)", anchor: "social-stream", visible: true, order: 10 },
+  { id: "sec-recap", name: "Executive Recap & Milestones", anchor: "recap", visible: true, order: 11 },
+  { id: "sec-satellite", name: "Satellite Events & Hackathons", anchor: "satellite-events", visible: true, order: 12 },
+  { id: "sec-tickets", name: "Tickets & Pass Reservation", anchor: "tickets", visible: true, order: 13 },
+  { id: "sec-sponsors", name: "Sponsors & Industry Partners", anchor: "sponsors", visible: true, order: 14 },
+  { id: "sec-faq", name: "Frequently Asked Questions", anchor: "faq", visible: true, order: 15 },
+  { id: "sec-venue", name: "Essentia Hotel Venue & Coordinates", anchor: "venue", visible: true, order: 16 },
+];
+
+export async function getSectionsConfig(): Promise<SectionConfig[]> {
+  try {
+    const colRef = collection(db, "sections_config");
+    const snap = await getDocs(colRef);
+    if (!snap.empty) {
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SectionConfig));
+      return items.sort((a, b) => a.order - b.order);
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-sections-config");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_SECTIONS_CONFIG;
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-sections-config");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_SECTIONS_CONFIG;
+  }
+}
+
+export async function saveSectionsConfig(sections: SectionConfig[]): Promise<void> {
+  try {
+    for (const sec of sections) {
+      const docRef = doc(db, "sections_config", sec.id);
+      await setDoc(docRef, sec, { merge: true });
+    }
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    localStorage.setItem("devfest-sections-config", JSON.stringify(sections));
+  }
+}
+
+
 
