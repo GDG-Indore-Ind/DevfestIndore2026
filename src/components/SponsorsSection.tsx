@@ -7,19 +7,21 @@ import {
   Download,
   Mail,
   Sparkles,
-  Rocket,
-  Award,
-  Users,
-  Building2,
   Tv,
   CheckCircle2,
-  TrendingUp,
-  Layers,
-  ChevronRight,
   ExternalLink,
 } from "lucide-react";
 import CardTilt from "./CardTilt";
 import { useTheme } from "@/contexts/ThemeContext";
+import {
+  GoogleCloudLogo,
+  FlutterLogo,
+  JetBrainsLogo,
+  GitHubLogo,
+  FirebaseLogo,
+  AndroidLogo,
+  TensorFlowLogo,
+} from "./TechLogos";
 
 // Key Noteworthy Statistics from Sponsorship Deck (Page 8)
 const DECK_STATISTICS = [
@@ -31,23 +33,23 @@ const DECK_STATISTICS = [
   { value: "300+", label: "Technical Meetups", sub: "Hands-on workshops & summits", color: "text-[#ea4335]" },
 ];
 
-// Curated Past Sponsors from Deck (Page 5)
+// Curated Past Sponsors with Authentic Logos
 const PAST_SPONSORS_FEATURED = [
-  { name: "Google for Developers", category: "Global Tech", tier: "Title Partner" },
-  { name: "FlutterFlow", category: "Low-Code AI", tier: "Gold Partner" },
-  { name: "JetBrains", category: "Dev Tools", tier: "Developer Ecosystem" },
-  { name: "GitHub", category: "DevOps & Open Source", tier: "Global Partner" },
+  { name: "Google for Developers", category: "Global Tech", tier: "Title Partner", Logo: GoogleCloudLogo },
+  { name: "FlutterFlow", category: "Low-Code AI", tier: "Gold Partner", Logo: FlutterLogo },
+  { name: "JetBrains", category: "Dev Tools", tier: "Developer Ecosystem", Logo: JetBrainsLogo },
+  { name: "GitHub", category: "DevOps & Open Source", tier: "Global Partner", Logo: GitHubLogo },
+  { name: "Firebase", category: "App Development", tier: "Cloud Partner", Logo: FirebaseLogo },
+  { name: "Android", category: "Mobile OS", tier: "Platform Partner", Logo: AndroidLogo },
+  { name: "TensorFlow", category: "Machine Learning", tier: "AI Partner", Logo: TensorFlowLogo },
   { name: "Diaspark", category: "Enterprise IT", tier: "Corporate Partner" },
   { name: "QuillBot", category: "AI & Productivity", tier: "AI Innovation" },
   { name: "MSI", category: "Hardware & Compute", tier: "Hardware Partner" },
   { name: "GenieTalk.ai", category: "Conversational AI", tier: "AI Partner" },
   { name: "Softude (Systematix)", category: "Cloud & Digital", tier: "Enterprise Partner" },
   { name: "ProtonsHub", category: "Tech Labs", tier: "Ecosystem Partner" },
-  { name: "Webllisto", category: "Web3 & Cloud", tier: "Technology Partner" },
   { name: "GraffersID", category: "Product Dev", tier: "Startup Partner" },
   { name: "Coding Blocks", category: "EdTech", tier: "Learning Partner" },
-  { name: "Workie Coworks", category: "Community Spaces", tier: "Venue Partner" },
-  { name: "Next Coworks", category: "Tech Hub", tier: "Community Partner" },
 ];
 
 // Past Media Partners from Deck (Page 6)
@@ -100,7 +102,7 @@ export default function SponsorsSection() {
           </p>
         </div>
 
-        {/* Noteworthy Statistics Grid (From Sponsorship Deck) */}
+        {/* Noteworthy Statistics Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-14 reveal-on-scroll">
           {DECK_STATISTICS.map((stat, idx) => (
             <div
@@ -260,7 +262,7 @@ export default function SponsorsSection() {
                     : isDark ? "text-white/70 hover:text-white" : "text-gray-700 hover:text-black"
                 }`}
               >
-                Past Sponsors ({PAST_SPONSORS_FEATURED.length})
+                Sponsors & Partners ({PAST_SPONSORS_FEATURED.length})
               </button>
               <button
                 onClick={() => setActivePartnerTab("media")}
@@ -285,32 +287,42 @@ export default function SponsorsSection() {
             </div>
           </div>
 
-          {/* TAB 1: PAST SPONSORS CARDS + HIGH-RES GRID */}
+          {/* TAB 1: PAST SPONSORS WITH HIGH-RES LOGOS + GRID */}
           {activePartnerTab === "sponsors" && (
             <div className="space-y-6 animate-in fade-in duration-300">
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
-                {PAST_SPONSORS_FEATURED.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className={`p-4 rounded-2xl border flex flex-col justify-between transition-all hover:scale-105 ${
-                      isDark ? "bg-[#0d0d0d]/80 border-white/10" : "bg-white border-gray-200/90 shadow-sm"
-                    }`}
-                  >
-                    <div>
-                      <span className="text-[10px] font-mono font-bold text-[#4285f4] uppercase tracking-wider block mb-1">
-                        {item.category}
+                {PAST_SPONSORS_FEATURED.map((item, idx) => {
+                  const LogoComponent = item.Logo;
+                  return (
+                    <div
+                      key={idx}
+                      className={`p-4 rounded-2xl border flex flex-col justify-between transition-all hover:scale-105 group ${
+                        isDark ? "bg-[#0d0d0d]/80 border-white/10 hover:border-white/20" : "bg-white border-gray-200/90 shadow-sm hover:border-blue-300"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[10px] font-mono font-bold text-[#4285f4] uppercase tracking-wider">
+                            {item.category}
+                          </span>
+                          {LogoComponent && (
+                            <div className="w-6 h-6 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                              <LogoComponent className="w-5 h-5 object-contain" />
+                            </div>
+                          )}
+                        </div>
+                        <h4 className={`text-sm sm:text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+                          {item.name}
+                        </h4>
+                      </div>
+                      <span className={`text-[11px] font-medium mt-3 px-2 py-0.5 rounded-lg border inline-block w-fit ${
+                        isDark ? "bg-white/5 border-white/10 text-white/60" : "bg-gray-50 border-gray-200 text-gray-600"
+                      }`}>
+                        {item.tier}
                       </span>
-                      <h4 className={`text-sm sm:text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                        {item.name}
-                      </h4>
                     </div>
-                    <span className={`text-[11px] font-medium mt-3 px-2 py-0.5 rounded-lg border inline-block w-fit ${
-                      isDark ? "bg-white/5 border-white/10 text-white/60" : "bg-gray-50 border-gray-200 text-gray-600"
-                    }`}>
-                      {item.tier}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Verified High-Resolution Visual Brand Grid from Official Deck */}
@@ -322,7 +334,7 @@ export default function SponsorsSection() {
                     Official Sponsor Brand Roster (DevFest Indore Series)
                   </span>
                   <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-blue-50 text-[#4285f4] font-bold border border-blue-200">
-                    Verified Deck Roster
+                    Verified High-Res Deck Roster
                   </span>
                 </div>
                 <div className="relative w-full aspect-[21/9] sm:aspect-[24/9] md:aspect-[32/11] rounded-2xl overflow-hidden bg-white p-2">

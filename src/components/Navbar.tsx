@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Ticket, Menu, X, Bookmark, MapPin, Sun, Moon } from "lucide-react";
+import { Ticket, Menu, X, MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
 interface NavbarProps {
@@ -16,7 +16,6 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme, isDark } = useTheme();
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,29 +41,21 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
     setIsCheckoutOpen(true);
   };
 
-  const primaryLinks = [
-    { name: "Sessions", href: "#sessions-split" },
-    { name: "Pillars", href: "#pillars" },
-    { name: "CFP", href: "#call-for-speakers" },
-    { name: "Gallery", href: "#recap-gallery" },
-    { name: "Tickets", href: "#tickets" },
-    { name: "Venue", href: "#venue" },
-  ];
-
   const allDrawerLinks = [
-    { name: "Overview & Vision", href: "#flow", desc: "DevFest 2026 flagship vision & collective flow" },
-    { name: "Sessions & Live CLI", href: "#sessions-split", desc: "Curated session architectures & live terminal feed" },
-    { name: "Content Pillars", href: "#pillars", desc: "Space Tech, AI, Robotics, Data & Enterprise" },
-    { name: "Space Club of India", href: "#space-collaboration", desc: "Emerging Madhya Pradesh space tech alliance" },
-    { name: "Venue & 9 Zones", href: "#zones", desc: "Qualcomm showcase, lounges & workshop halls" },
-    { name: "Call for Speakers", href: "#call-for-speakers", desc: "Submit your session proposal on Sessionize" },
-    { name: "Photo Archive & Cinema", href: "#recap-gallery", desc: "Previous editions photography & 4K video player" },
-    { name: "Satellite Events", href: "#satellite-events", desc: "Indore pre-events & community hackathons" },
-    { name: "Tickets & Passes", href: "#tickets", desc: "Reserve your seat via KonfHub" },
-    { name: "Essentia Hotel Venue", href: "#venue", desc: "World Cup Square, Pipliyahana, Indore" },
-    { name: "Sponsors & Partners", href: "#sponsors", desc: "Ecosystem catalysts & tech showcases" },
-    { name: "Team & Past Speakers", href: "/team", desc: "Core organizers & distinguished speakers" },
-    { name: "FAQ", href: "#faq", desc: "Common questions & guidelines" },
+    { name: "Overview & Vision", href: "/#flow", desc: "DevFest 2026 flagship vision & collective flow" },
+    { name: "About DevFest", href: "/#about", desc: "Where modern engineering meets Indore's innovation" },
+    { name: "Content Pillars", href: "/#pillars", desc: "Space Tech, AI, Robotics, Data & Enterprise" },
+    { name: "Space Club of India", href: "/#space-collaboration", desc: "Emerging Madhya Pradesh space tech alliance" },
+    { name: "Call for Speakers", href: "/#call-for-speakers", desc: "Submit your session proposal on Sessionize" },
+    { name: "Speakers (Coming Soon)", href: "/#speakers", desc: "2026 Curation & Past Keynote Alumni" },
+    { name: "Past Speakers Directory", href: "/past-speakers", desc: "Full alumni directory of GDEs & pioneers" },
+    { name: "Previous Editions Gallery", href: "/gallery", desc: "Curated 4K photo archive from previous editions" },
+    { name: "Satellite Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons" },
+    { name: "Tickets & Passes", href: "/#tickets", desc: "Reserve your seat via KonfHub" },
+    { name: "Essentia Hotel Venue", href: "/#venue", desc: "World Cup Square, Pipliyahana, Indore" },
+    { name: "Sponsors & Partners", href: "/#sponsors", desc: "Ecosystem catalysts & tech showcases" },
+    { name: "Team & Organizers", href: "/team", desc: "Core organizers & distinguished community leads" },
+    { name: "FAQ", href: "/#faq", desc: "Common questions & guidelines" },
   ];
 
   return (
@@ -86,7 +77,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Left: Brand Identity (Matching Reference Screenshot) */}
+          {/* Left: Brand Identity */}
           <div className="flex items-center gap-3 shrink-0">
             {/* Mobile / Compact Explore Trigger */}
             <button
@@ -130,7 +121,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
             </Link>
           </div>
 
-          {/* Center: Desktop Navigation Links (Home, About, Previous Editions, Schedule, Speakers, Events, Sponsors, FAQ) */}
+          {/* Center: Desktop Navigation Links (Cross-page resilient with /#anchors) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
             <Link
               href="/"
@@ -139,7 +130,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               Home
             </Link>
             <Link
-              href="#about"
+              href="/#about"
               className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
             >
               About
@@ -151,31 +142,31 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               Previous Editions
             </Link>
             <Link
-              href="#sessions-split"
-              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
-            >
-              Schedule
-            </Link>
-            <Link
               href="/past-speakers"
               className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
             >
               Speakers
             </Link>
             <Link
-              href="#satellite-events"
+              href="/team"
+              className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
+            >
+              Team
+            </Link>
+            <Link
+              href="/#satellite-events"
               className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
             >
               Events
             </Link>
             <Link
-              href="#sponsors"
+              href="/#sponsors"
               className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
             >
               Sponsors
             </Link>
             <Link
-              href="#faq"
+              href="/#faq"
               className={`transition-colors ${isDark ? "text-white/75 hover:text-white" : "text-gray-600 hover:text-black"}`}
             >
               FAQ
@@ -196,7 +187,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
               {isDark ? <Sun className="w-4 h-4 text-[#f9ab00]" /> : <Moon className="w-4 h-4 text-[#4285f4]" />}
             </button>
 
-            {/* Glowing Get Tickets Pill (Reference Screenshot button with bright cyan/blue glow) */}
+            {/* Glowing Get Tickets Pill */}
             <button
               onClick={handleOpenCheckout}
               className={`px-5 py-2 rounded-full font-bold text-xs sm:text-sm tracking-wide flex items-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer ${
@@ -212,7 +203,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
         </div>
       </header>
 
-      {/* Global Slide-Over Navigation Cart Drawer (Root level z-[100] to prevent any background bleed/overlap) */}
+      {/* Global Slide-Over Navigation Cart Drawer */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[100] overflow-hidden">
           {/* Solid Opaque Backdrop */}
@@ -267,10 +258,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 </span>
               </div>
 
-              {/* Drawer Scrollable Navigation Links (Isolated internal scroll, no page bleed) */}
+              {/* Drawer Scrollable Navigation Links */}
               <div className="flex-1 overflow-y-auto px-7 py-6 space-y-1">
                 {allDrawerLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.name}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
@@ -291,7 +282,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                     <span className="text-gray-400 group-hover:text-[#4285f4] text-lg font-mono opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
                       ›
                     </span>
-                  </a>
+                  </Link>
                 ))}
               </div>
 
@@ -329,7 +320,7 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
                 </div>
 
                 <a
-                  href="#tickets"
+                  href="/#tickets"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     handleOpenCheckout();

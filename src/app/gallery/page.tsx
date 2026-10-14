@@ -2,33 +2,117 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sparkles,
-  Image as ImageIcon,
-  ArrowLeft,
-  Filter,
   Camera,
-  Download,
-  Share2,
-  Rocket,
-  ShieldCheck,
+  Filter,
   Eye,
+  ShieldCheck,
+  ArrowLeft,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import { getCloudinaryUrl } from "@/lib/cloudinary";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useTheme } from "@/contexts/ThemeContext";
+
+// Local verified high-resolution fallback photos from previous editions
+const LOCAL_GALLERY_FALLBACKS: GalleryItem[] = [
+  {
+    id: "loc-1",
+    title: "Keynote Plenary Hall & Main Stage",
+    category: "Keynotes",
+    imageUrl: "/gallery/opt_DSCF7164.JPG",
+    caption: "Auditorium keynote spotlighting emerging technology ecosystems and developer opportunities.",
+  },
+  {
+    id: "loc-2",
+    title: "Auditorium Crowd Energy",
+    category: "Community",
+    imageUrl: "/gallery/opt_DSCF7165.JPG",
+    caption: "Over 600 developers united under one roof engaging with deep-tech presentations.",
+  },
+  {
+    id: "loc-3",
+    title: "Speaker Stage Discussion & Panel",
+    category: "Keynotes",
+    imageUrl: "/gallery/opt_DSCF7166.JPG",
+    caption: "Distinguished Google Developer Experts presenting production architectural patterns.",
+  },
+  {
+    id: "loc-4",
+    title: "Hands-on Codelab Swarm Arena",
+    category: "AI & Robotics",
+    imageUrl: "/gallery/opt_DSCF7167.JPG",
+    caption: "Real-time AI models running on local silicon with hands-on mentors guiding every step.",
+  },
+  {
+    id: "loc-5",
+    title: "Community Huddles & Indori Hospitality",
+    category: "Community",
+    imageUrl: "/gallery/opt_DSCF7168.JPG",
+    caption: "Indori high tea networking breaks + tech discussions = unmatched community warmth.",
+  },
+  {
+    id: "loc-6",
+    title: "Tech Innovation Demos & Startup Alley",
+    category: "Showcase",
+    imageUrl: "/gallery/opt_DSCF7169.JPG",
+    caption: "Student creators and startup founders showcasing edge devices and cloud software.",
+  },
+  {
+    id: "loc-7",
+    title: "Speakers & Organizers Plenary",
+    category: "Keynotes",
+    imageUrl: "/gallery/opt_DSCF7170.JPG",
+    caption: "GDG Indore core leadership stage finale celebrating ecosystem milestones.",
+  },
+  {
+    id: "loc-8",
+    title: "Cosmic Banquet Lawns & Dinner",
+    category: "Community",
+    imageUrl: "/gallery/opt_DSCF7175.JPG",
+    caption: "Essentia Arena dinner gathering celebrating Central India developer solidarity.",
+  },
+  {
+    id: "loc-9",
+    title: "Main Stage Visual Production",
+    category: "Showcase",
+    imageUrl: "/gallery/opt_DSCF7182.JPG",
+    caption: "Immersive 4K visual displays and lighting production at DevFest Indore.",
+  },
+  {
+    id: "loc-10",
+    title: "Developer Community Solidarity",
+    category: "Space",
+    imageUrl: "/gallery/opt_DSCF7183.JPG",
+    caption: "Space Club of India delegates and aerospace pioneers connecting with software engineers.",
+  },
+  {
+    id: "loc-11",
+    title: "Ecosystem Lawns & Breakout Sessions",
+    category: "Showcase",
+    imageUrl: "/gallery/opt_DSCF7184.JPG",
+    caption: "Parallel discussion sessions exploring AI agents, cloud resilience, and open source.",
+  },
+];
 
 export default function GalleryPage() {
-  const [items, setItems] = useState<GalleryItem[]>(INITIAL_GALLERY_ITEMS);
+  const { isDark } = useTheme();
+  const [items, setItems] = useState<GalleryItem[]>(LOCAL_GALLERY_FALLBACKS);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   useEffect(() => {
+    // If local storage has valid items use them; otherwise defaults to high-res local photos
     const saved = localStorage.getItem("devfest-gallery-items");
     if (saved) {
       try {
-        setItems(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setItems(parsed);
+        }
       } catch (e) {
         console.error(e);
       }
@@ -37,9 +121,9 @@ export default function GalleryPage() {
 
   const categories = [
     "All",
-    "Space",
-    "AI & Robotics",
     "Keynotes",
+    "AI & Robotics",
+    "Space",
     "Showcase",
     "Community",
   ];
@@ -50,30 +134,34 @@ export default function GalleryPage() {
       : items.filter((item) => item.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#fafbfc] text-[#1e1e1e] flex flex-col font-sans">
+    <div className={`min-h-screen flex flex-col font-sans transition-colors ${
+      isDark ? "bg-[#000000] text-white" : "bg-[#fafbfc] text-[#1e1e1e]"
+    }`}>
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Gallery Page Hero Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 mb-10 border-b border-gray-200 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 mb-10 border-b border-gray-200 dark:border-white/10 gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-[#4285f4] mb-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-bold text-[#4285f4] mb-4">
                 <Camera className="w-3.5 h-3.5" />
-                <span>Cloudinary Optimized Media Archive</span>
+                <span>Previous Editions Visual Archive</span>
               </div>
-              <h1 className="text-4xl sm:text-6xl font-black text-[#1e1e1e] tracking-tight mb-3">
+              <h1 className={`text-4xl sm:text-6xl font-black tracking-tight mb-3 ${isDark ? "text-white" : "text-[#1e1e1e]"}`}>
                 DevFest Indore Visual Showcase
               </h1>
-              <p className="text-base sm:text-lg text-[#5f6368] max-w-2xl leading-relaxed">
-                Explore curated moments from space technology showcases, Qualcomm edge demonstrations, keynote sessions, and vibrant community huddles across Indore.
+              <p className={`text-base sm:text-lg max-w-2xl leading-relaxed ${isDark ? "text-white/70" : "text-[#5f6368]"}`}>
+                Explore curated moments from space technology showcases, keynote plenary sessions, hands-on codelab swarms, and vibrant community huddles across Indore.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
               <Link
                 href="/admin"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full font-bold text-xs bg-white text-[#1e1e1e] border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
+                className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full font-bold text-xs border-2 google-pill-shadow hover:scale-105 transition-transform ${
+                  isDark ? "bg-white/10 text-white border-white/20 hover:bg-white/15" : "bg-white text-[#1e1e1e] border-[#1e1e1e]"
+                }`}
               >
                 <ShieldCheck className="w-4 h-4 text-[#34a853]" />
                 <span>Upload New Photos</span>
@@ -83,17 +171,19 @@ export default function GalleryPage() {
 
           {/* Interactive Category Filter Pills */}
           <div className="flex flex-wrap items-center gap-2.5 mb-10">
-            <span className="text-xs font-bold text-[#5f6368] mr-2 flex items-center gap-1.5">
+            <span className={`text-xs font-bold mr-2 flex items-center gap-1.5 ${isDark ? "text-white/60" : "text-[#5f6368]"}`}>
               <Filter className="w-3.5 h-3.5 text-[#4285f4]" /> Filter by Track:
             </span>
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeCategory === cat
-                    ? "bg-[#1e1e1e] text-white shadow-md scale-105"
-                    : "bg-white text-[#5f6368] border border-gray-200 hover:border-gray-400"
+                    ? "bg-[#4285f4] text-white shadow-md scale-105"
+                    : isDark
+                      ? "bg-white/5 text-white/70 border border-white/15 hover:bg-white/10 hover:text-white"
+                      : "bg-white text-[#5f6368] border border-gray-200 hover:border-gray-400"
                 }`}
               >
                 {cat}
@@ -103,66 +193,70 @@ export default function GalleryPage() {
 
           {/* High-Definition Responsive Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredItems.map((item) => {
-              // Apply Cloudinary optimization
-              const optimizedSrc = getCloudinaryUrl(item.imageUrl, {
-                width: 800,
-                height: 500,
-                crop: "fill",
-                format: "auto",
-              });
-
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedImage(item)}
-                  className="group cursor-pointer rounded-3xl overflow-hidden bg-white border-2 border-gray-200 hover:border-[#1e1e1e] hover:shadow-2xl transition-all duration-300 flex flex-col"
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
-                    <img
-                      src={optimizedSrc}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
-                      <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                        <Eye className="w-3.5 h-3.5" /> Click to enlarge
-                      </span>
-                    </div>
-                    <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider">
-                      {item.category}
-                    </div>
+            {filteredItems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => setSelectedImage(item)}
+                className={`group cursor-pointer rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col hover:scale-[1.02] hover:shadow-2xl ${
+                  isDark
+                    ? "bg-[#0d0d0d] border-white/10 hover:border-blue-400/50"
+                    : "bg-white border-gray-200 hover:border-[#1e1e1e]"
+                }`}
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback to local gallery image if external image fails
+                      (e.target as HTMLImageElement).src = "/gallery/opt_DSCF7164.JPG";
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5">
+                    <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                      <Eye className="w-3.5 h-3.5 text-[#4285f4]" /> Click to enlarge 4K preview
+                    </span>
                   </div>
-
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-black text-lg text-[#1e1e1e] mb-2 group-hover:text-[#4285f4] transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-[#5f6368] leading-relaxed">
-                        {item.caption}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-100 mt-4 flex items-center justify-between text-[11px] text-[#5f6368]">
-                      <span>DevFest Indore 2026 Archive</span>
-                      <span className="font-bold text-[#4285f4]">Essentia Hotel</span>
-                    </div>
+                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider border border-white/15">
+                    {item.category}
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className={`font-black text-lg mb-2 transition-colors ${
+                      isDark ? "text-white group-hover:text-[#4285f4]" : "text-[#1e1e1e] group-hover:text-[#4285f4]"
+                    }`}>
+                      {item.title}
+                    </h3>
+                    <p className={`text-xs leading-relaxed ${isDark ? "text-white/70" : "text-[#5f6368]"}`}>
+                      {item.caption}
+                    </p>
+                  </div>
+
+                  <div className={`pt-4 border-t mt-4 flex items-center justify-between text-[11px] ${
+                    isDark ? "border-white/10 text-white/50" : "border-gray-100 text-[#5f6368]"
+                  }`}>
+                    <span>DevFest Indore Archive</span>
+                    <span className="font-bold text-[#4285f4]">Essentia Luxury Arena</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Modal Lightbox for Fullscreen Image View */}
           {selectedImage && (
             <div
-              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-in fade-in duration-200"
+              className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-in fade-in duration-200 cursor-pointer"
               onClick={() => setSelectedImage(null)}
             >
               <div
-                className="max-w-4xl w-full bg-white rounded-3xl overflow-hidden border-2 border-[#1e1e1e] shadow-2xl"
+                className={`max-w-4xl w-full rounded-3xl overflow-hidden border-2 shadow-2xl ${
+                  isDark ? "bg-[#0d0d0d] border-white/20" : "bg-white border-[#1e1e1e]"
+                }`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative aspect-video w-full bg-black">
@@ -172,21 +266,23 @@ export default function GalleryPage() {
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white">
+                <div className={`p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${
+                  isDark ? "bg-[#0d0d0d]" : "bg-white"
+                }`}>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-100 text-[#4285f4] mb-2 inline-block">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-500/15 text-[#4285f4] mb-2 inline-block border border-blue-500/30">
                       {selectedImage.category}
                     </span>
-                    <h2 className="text-xl font-black text-[#1e1e1e] mb-1">
+                    <h2 className={`text-xl font-black mb-1 ${isDark ? "text-white" : "text-[#1e1e1e]"}`}>
                       {selectedImage.title}
                     </h2>
-                    <p className="text-xs text-[#5f6368] max-w-xl">
+                    <p className={`text-xs max-w-xl ${isDark ? "text-white/70" : "text-[#5f6368]"}`}>
                       {selectedImage.caption}
                     </p>
                   </div>
                   <button
                     onClick={() => setSelectedImage(null)}
-                    className="px-5 py-2 rounded-full font-bold text-xs bg-[#1e1e1e] text-white hover:bg-black transition-colors"
+                    className="px-5 py-2 rounded-full font-bold text-xs bg-[#4285f4] text-white hover:bg-[#3367d6] transition-colors cursor-pointer"
                   >
                     Close Preview
                   </button>

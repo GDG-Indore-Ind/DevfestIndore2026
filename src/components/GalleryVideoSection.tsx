@@ -7,11 +7,6 @@ import {
   Camera,
   ArrowRight,
   Sparkles,
-  Play,
-  Film,
-  ExternalLink,
-  Layers,
-  ChevronRight,
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -84,12 +79,11 @@ const GALLERY_PHOTOS = [
 
 export default function GalleryVideoSection() {
   const { isDark } = useTheme();
-  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isHoveredMarquee, setIsHoveredMarquee] = useState(false);
 
   return (
-    <section id="recap-gallery" className="pt-8 pb-10 md:pt-10 md:pb-12 bg-transparent relative overflow-hidden transition-colors">
+    <section id="recap-gallery" className="pt-4 pb-8 md:pt-6 md:pb-10 bg-transparent relative overflow-hidden transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 reveal-on-scroll">
@@ -102,29 +96,33 @@ export default function GalleryVideoSection() {
               <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              <span className={isDark ? "text-white" : "text-gray-900"}>Moments, Culture &</span>{" "}
+              <span className={isDark ? "text-white" : "text-gray-900"}>Moments & Culture From</span>{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4285f4] via-[#f9ab00] to-[#34a853]">
-                Event Recap Cinema
+                Previous Editions
               </span>
             </h2>
             <p className={`mt-1.5 text-sm sm:text-base font-normal max-w-2xl ${isDark ? "text-white/80" : "text-gray-700"}`}>
-              Glance through the electricity of past DevFest Indore gatherings, high-octane keynotes, codelab swarms, and official event motion.
+              Glance through the electricity of past DevFest Indore gatherings, high-octane keynotes, codelab swarms, and memorable community celebrations.
             </p>
           </div>
 
           <Link
             href="/gallery"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase border-2 transition-all group shrink-0 shadow-sm hover:scale-105 active:scale-95 bg-white text-gray-900 border-gray-900 dark:bg-white dark:text-black dark:border-white"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black tracking-wider uppercase border-2 transition-all group shrink-0 shadow-sm hover:scale-105 active:scale-95 bg-white text-gray-900 border-gray-900 dark:bg-white dark:text-black dark:border-white cursor-pointer"
           >
             <span>View Full 4K Gallery</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {/* 1-Line Continuous Scrolling Photo Ribbon (Inspired by Mumbai Tech Week recap strip) */}
-        <div className="mb-10 reveal-on-scroll">
+        {/* 1-Line Continuous Scrolling Photo Ribbon */}
+        <div className="reveal-on-scroll">
           <div
-            className="overflow-hidden relative rounded-3xl border-2 border-black/10 dark:border-white/10 p-3 bg-black/20 backdrop-blur-md"
+            className={`overflow-hidden relative rounded-3xl border-2 p-3.5 backdrop-blur-md transition-colors ${
+              isDark
+                ? "border-white/10 bg-black/40 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+                : "border-gray-200 bg-white/80 shadow-md"
+            }`}
             onMouseEnter={() => setIsHoveredMarquee(true)}
             onMouseLeave={() => setIsHoveredMarquee(false)}
           >
@@ -161,118 +159,6 @@ export default function GalleryVideoSection() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Dedicated 1 Video Cinema Area (Large Panoramic Cinema Screen + Highlights) */}
-        <div className="reveal-on-scroll">
-          <div className={`p-6 sm:p-10 rounded-3xl border-2 transition-all ${
-            isDark
-              ? "bg-[#0d0d0d]/90 border-white/15 shadow-[0_0_60px_rgba(0,0,0,0.8)]"
-              : "bg-white border-gray-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
-          }`}>
-            {/* Header info above the grand video */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-black/10 dark:border-white/10">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-500 border border-blue-500/20 text-xs font-black mb-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Cinematic Official Broadcast</span>
-                </div>
-                <h3 className={`text-2xl sm:text-3xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                  Relive the DevFest Velocity & Momentum
-                </h3>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className={`text-xs font-mono font-bold px-3 py-1.5 rounded-full border ${
-                  isDark ? "bg-white/5 border-white/10 text-white/80" : "bg-gray-100 border-gray-200 text-gray-800"
-                }`}>
-                  Resolution: 4K 2160p 60fps
-                </span>
-                <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#ea4335]/15 text-[#ea4335] border border-[#ea4335]/30">
-                  Duration: 02:45 min
-                </span>
-              </div>
-            </div>
-
-            {/* Grand Video Cinema Player (Full Width, Cinematic Panoramic Experience) */}
-            <div className="relative w-full aspect-[16/9] md:aspect-[21/9] min-h-[340px] sm:min-h-[460px] md:min-h-[540px] rounded-2xl overflow-hidden border border-black/15 dark:border-white/15 shadow-2xl bg-black group mb-6">
-              {!isPlayingVideo ? (
-                <>
-                  {/* Video Thumbnail Backdrop */}
-                  <Image
-                    src="/gallery/opt_DSCF7182.JPG"
-                    alt="DevFest Indore Official Event Motion Recap"
-                    fill
-                    className="object-cover group-hover:scale-102 transition-transform duration-700 opacity-90"
-                    priority
-                    unoptimized
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/25 group-hover:opacity-80 transition-opacity" />
-
-                  {/* Play Button Trigger */}
-                  <button
-                    onClick={() => setIsPlayingVideo(true)}
-                    className="absolute inset-0 m-auto w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#ea4335] text-white flex items-center justify-center shadow-[0_0_60px_rgba(234,67,53,0.9)] hover:scale-110 active:scale-95 transition-all cursor-pointer group/btn"
-                    aria-label="Play DevFest Indore Official Aftermovie"
-                  >
-                    <Play className="w-12 h-12 ml-2 fill-white" />
-                  </button>
-
-                  {/* Video Title Overlay */}
-                  <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white pointer-events-none">
-                    <div>
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-black/80 backdrop-blur-md text-xs font-mono font-bold text-[#f9ab00] border border-white/20 mb-2">
-                        <Film className="w-4 h-4" />
-                        <span>OFFICIAL 4K AFTERMOVIE • CENTRAL INDIA</span>
-                      </div>
-                      <h4 className="text-xl sm:text-3xl font-black drop-shadow-lg">
-                        DevFest Indore Experience, Keynotes & Plenary Energy
-                      </h4>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                  title="DevFest Indore Official Aftermovie"
-                  className="w-full h-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              )}
-            </div>
-
-            {/* Video Footer Telemetry & Actions */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className={`p-4 rounded-2xl border ${
-                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-              }`}>
-                <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Audience Energy</div>
-                <div className={`text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>1,500+ Engineers & Creators</div>
-              </div>
-
-              <div className={`p-4 rounded-2xl border ${
-                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-              }`}>
-                <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Audio Mastering</div>
-                <div className="text-base font-black text-[#34a853]">Dolby Mastered Stereo</div>
-              </div>
-
-              <div className={`p-4 rounded-2xl border flex items-center justify-between ${
-                isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
-              }`}>
-                <div>
-                  <div className={`text-xs font-bold mb-1 ${isDark ? "text-white/60" : "text-gray-500"}`}>Full Gallery</div>
-                  <div className={`text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>Explore 40+ Photos</div>
-                </div>
-                <Link
-                  href="/gallery"
-                  className="px-4 py-2 rounded-xl text-xs font-black bg-[#4285f4] text-white hover:bg-[#3367d6] transition-colors"
-                >
-                  View All →
-                </Link>
-              </div>
             </div>
           </div>
         </div>

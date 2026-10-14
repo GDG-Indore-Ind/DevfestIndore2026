@@ -7,16 +7,13 @@ import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
 import ContentPillarsSection from "@/components/ContentPillarsSection";
 import SpaceCollaborationSection from "@/components/SpaceCollaborationSection";
-import ShowcaseZonesSection from "@/components/ShowcaseZonesSection";
 import ThreeDFlowSection from "@/components/ThreeDFlowSection";
 import EventRecapSection from "@/components/EventRecapSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 import CallForSpeakersSection from "@/components/CallForSpeakersSection";
 import FeaturedTeamSection from "@/components/FeaturedTeamSection";
-// import ScheduleSection from "@/components/ScheduleSection";
 import TicketsSection from "@/components/TicketsSection";
 import SponsorsSection from "@/components/SponsorsSection";
-import SplitSessionsSection from "@/components/SplitSessionsSection";
 import GalleryVideoSection from "@/components/GalleryVideoSection";
 import InstagramFeedSection from "@/components/InstagramFeedSection";
 import VenueSection from "@/components/VenueSection";
@@ -75,13 +72,17 @@ export default function Home() {
       />
 
       {/* Main Content Sections */}
-      {/* Main Content Sections */}
       <main className="flex-1 relative z-10">
         {/* Full-Screen 3D Hero Section */}
         <HeroSection />
 
-        {/* Double-decker Animated Marquee Banner */}
+        {/* Double-decker Animated Marquee Banner with Brand Logos */}
         <MarqueeBanner />
+
+        {/* About Section (Fixed: Anchor target for Navigation #about) */}
+        <div id="about">
+          <AboutSection />
+        </div>
 
         {/* 3D Journey & Collective Flow Component */}
         <div id="flow">
@@ -93,25 +94,29 @@ export default function Home() {
           <ContentPillarsSection />
         </div>
 
-        {/* Split Sessions Section: Left Scrollable Sessions & Right Sticky Live Agentic Terminal Console */}
-        <div id="sessions-split">
-          <SplitSessionsSection />
-        </div>
-
         {/* Space Club of India Collaboration */}
         <div id="space-collaboration">
           <SpaceCollaborationSection />
         </div>
 
         {/* Official Call for Speakers — Space Edition Poster & Sessionize Portal */}
-        <CallForSpeakersSection />
+        <div id="call-for-speakers">
+          <CallForSpeakersSection />
+        </div>
 
-        {/* Featured Core Organizers & Continuous Scrolling Past Speakers Ticker */}
-        <FeaturedTeamSection />
+        {/* Featured Core Organizers & Continuous Scrolling Past Speakers Ticker (Includes Speakers Coming Soon) */}
+        <div id="speakers">
+          <FeaturedTeamSection />
+        </div>
 
-        {/* High-Impact Previous Editions Photo Stream & Full-Width 4K Cinema Video */}
+        {/* High-Impact Previous Editions Photo Stream Carousel (Video Player hidden as requested) */}
         <div id="recap-gallery">
           <GalleryVideoSection />
+        </div>
+
+        {/* Live Instagram Feed & Social Reels Stream (Official Elfsight Widget) */}
+        <div id="social-stream">
+          <InstagramFeedSection />
         </div>
 
         {/* High-Impact Executive Event Recap Section */}
@@ -119,22 +124,25 @@ export default function Home() {
           <EventRecapSection />
         </div>
 
-        {/* Live Instagram Feed & Social Reels Stream */}
-        <div id="social-stream">
-          <InstagramFeedSection />
+        {/* Pre-DevFest Satellite Events & City Activations */}
+        <div id="satellite-events">
+          <SatelliteEventsSection />
         </div>
 
-        {/* Pre-DevFest Satellite Events & City Activations */}
-        <SatelliteEventsSection />
-
         {/* Tickets, Pricing & Interactive Digital Badge Generator */}
-        <TicketsSection />
+        <div id="tickets">
+          <TicketsSection />
+        </div>
 
         {/* Sponsors, Google for Developers & Community Partners */}
-        <SponsorsSection />
+        <div id="sponsors">
+          <SponsorsSection />
+        </div>
 
         {/* Frequently Asked Questions Accordion */}
-        <FaqSection />
+        <div id="faq">
+          <FaqSection />
+        </div>
 
         {/* Mission Launchpad • Coordinates & Essentia Luxury Hotel (Positioned Right Above Footer) */}
         <div id="venue">
