@@ -84,26 +84,28 @@ export default function HeroSection() {
     <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden min-h-[92vh] flex flex-col justify-between">
       {/* DYNAMIC ATMOSPHERIC HERO BACKGROUND */}
       {isDark ? (
-        /* Dark Mode: Full-Width 4K Vibrant Keynote Arena across the background with electric stage beams */
+        /* Dark Mode: Full-Width 4K Vibrant Keynote Arena across the right side with deep pitch-black left hero canvas */
         <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-[#000000]">
-          {/* Main Full-width Stage Image */}
-          <div className="absolute inset-0 w-full h-full">
+          {/* Main Stage Image aligned to the right */}
+          <div className="absolute inset-y-0 right-0 w-full md:w-[75%] lg:w-[68%] xl:w-[62%] h-full">
             <Image
               src="/devfestindore.png"
               alt="DevFest Indore Keynote Arena Stage"
               fill
               priority
               quality={100}
-              className="object-cover object-right md:object-[95%_center] w-full h-full opacity-100 transition-all duration-700"
+              className="object-cover object-right md:object-[85%_center] w-full h-full opacity-100 transition-all duration-700"
             />
+            {/* Seamless Left Fade Gradient blending image into pure pitch black canvas */}
+            <div className="absolute inset-y-0 left-0 w-48 sm:w-64 md:w-80 lg:w-96 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
           </div>
 
-          {/* Gentle smooth gradient on left side for text contrast while keeping the right side completely transparent */}
-          <div className="absolute inset-y-0 left-0 w-full lg:w-[42%] bg-gradient-to-r from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+          {/* Solid deep black background for left text column */}
+          <div className="absolute inset-y-0 left-0 w-full md:w-[45%] lg:w-[48%] bg-gradient-to-r from-black via-black/95 to-transparent z-10 pointer-events-none" />
 
           {/* Top and Bottom soft vignette fades */}
-          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/70 to-transparent z-10 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/75 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black via-black/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black via-black/85 to-transparent z-10 pointer-events-none" />
         </div>
       ) : (
         /* Light Mode: 4K Vivid Airy Space Earth Background matching user design reference */
