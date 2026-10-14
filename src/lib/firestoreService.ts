@@ -14,6 +14,7 @@ import { TeamMember, PastSpeaker, SupportQuery, AgendaItem, INITIAL_TEAM, INITIA
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { GalleryItem, INITIAL_GALLERY_ITEMS } from "@/data/ecosystemData";
 import { FAQS } from "@/data/devfestData";
+import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
 
 export interface FaqItem {
   id: string;
@@ -32,6 +33,7 @@ const COLLECTIONS = {
   AGENDA: "agenda_sessions",
   FAQS: "faq_items",
   SOCIALS: "social_links",
+  PARTNERS: "partners",
 };
 
 export interface SocialLinks {
@@ -394,4 +396,58 @@ export async function saveSocialLinks(links: SocialLinks): Promise<void> {
     localStorage.setItem("devfest-social-links", JSON.stringify(links));
   }
 }
+
+/**
+ * Fetch Partners (Sponsors, Media, Community)
+ */
+export async function getPartners(): Promise<PartnerItem[]> {
+  try {
+    const colRef = collection(db, COLLECTIONS.PARTNERS);
+    const snap = await getDocs(colRef);
+    if (!snap.empty) {
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as PartnerItem));
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-partners-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_PARTNERS;
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-partners-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_PARTNERS;
+  }
+}
+
+/**
+ * Save or Update Partner
+ */
+export async function savePartner(partner: PartnerItem): Promise<void> {
+  try {
+    const docRef = doc(db, COLLECTIONS.PARTNERS, partner.id);
+    await setDoc(docRef, partner, { merge: true });
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getPartners();
+    const updated = [partner, ...current.filter((p) => p.id !== partner.id)];
+    localStorage.setItem("devfest-partners-items", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Remove Partner
+ */
+export async function removePartner(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, COLLECTIONS.PARTNERS, id));
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getPartners();
+    const updated = current.filter((p) => p.id !== id);
+    localStorage.setItem("devfest-partners-items", JSON.stringify(updated));
+  }
+}
+
 

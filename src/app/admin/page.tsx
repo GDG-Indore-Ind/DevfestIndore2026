@@ -30,6 +30,7 @@ import {
   HelpCircle,
   Edit3,
   Share2,
+  Handshake,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import {
@@ -44,6 +45,7 @@ import {
 } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { uploadToCloudinary } from "@/lib/cloudinary";
+import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
 
 import {
   getTeamMembers,
@@ -66,6 +68,9 @@ import {
   INITIAL_SOCIAL_LINKS,
   getSocialLinks,
   saveSocialLinks,
+  getPartners,
+  savePartner,
+  removePartner,
 } from "@/lib/firestoreService";
 import {
   subscribeToRealtimeAnalytics,
@@ -82,7 +87,7 @@ export default function AdminPage() {
 
   // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "gallery" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
+    "analytics" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "proposals" | "support" | "config"
   >("analytics");
 
   // Gallery State & Upload
@@ -92,6 +97,19 @@ export default function AdminPage() {
   const [newImageUrl, setNewImageUrl] = useState("");
   const [newCaption, setNewCaption] = useState("");
   const [uploadingFile, setUploadingFile] = useState(false);
+
+  // Partners / Sponsors State & Upload
+  const [partnersList, setPartnersList] = useState<PartnerItem[]>(INITIAL_PARTNERS);
+  const [editingPartnerId, setEditingPartnerId] = useState<string | null>(null);
+  const [newPartnerName, setNewPartnerName] = useState("");
+  const [newPartnerType, setNewPartnerType] = useState<"sponsor" | "media" | "community">("sponsor");
+  const [newPartnerCategory, setNewPartnerCategory] = useState("");
+  const [newPartnerTier, setNewPartnerTier] = useState("");
+  const [newPartnerScope, setNewPartnerScope] = useState("");
+  const [newPartnerDesc, setNewPartnerDesc] = useState("");
+  const [newPartnerLogo, setNewPartnerLogo] = useState("");
+  const [newPartnerWebsite, setNewPartnerWebsite] = useState("");
+  const [uploadingPartnerLogo, setUploadingPartnerLogo] = useState(false);
 
   // FAQ State
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
@@ -135,6 +153,7 @@ export default function AdminPage() {
 
   // Agenda State
   const [agendaList, setAgendaList] = useState<AgendaItem[]>(INITIAL_AGENDA);
+  const [editingAgendaId, setEditingAgendaId] = useState<string | null>(null);
   const [newAgendaTime, setNewAgendaTime] = useState("");
   const [newAgendaTitle, setNewAgendaTitle] = useState("");
   const [newAgendaSpeaker, setNewAgendaSpeaker] = useState("");
@@ -181,8 +200,8 @@ export default function AdminPage() {
       setTelemetry(data);
     });
 
-    // Load from Firestore DB Service & Local Proposals Store
     getGalleryPhotos().then((g) => { if (g && g.length > 0) setGallery(g); });
+    getPartners().then((p) => { if (p && p.length > 0) setPartnersList(p); });
     getTeamMembers().then((t) => { if (t && t.length > 0) setTeamMembers(t); });
     getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
     getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
@@ -596,6 +615,18 @@ export default function AdminPage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("partners")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "partners"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <Handshake className="w-4 h-4" />
+              <span>Sponsors & Partners ({partnersList.length})</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("team")}
               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
                 activeTab === "team"
@@ -721,6 +752,7 @@ export default function AdminPage() {
             <h1 className="text-2xl font-black text-[#1e1e1e] capitalize">
               {activeTab === "analytics" && "Traffic & Google Analytics Intelligence"}
               {activeTab === "gallery" && "Gallery Photos & Cloudinary Uploader"}
+              {activeTab === "partners" && "Sponsors, Media & Community Partners Manager"}
               {activeTab === "team" && "Core Organizing Team Directory"}
               {activeTab === "speakers" && "Previous Speakers & Hall of Fame"}
               {activeTab === "agenda" && "Agenda & Schedule Architect"}
@@ -1099,6 +1131,285 @@ export default function AdminPage() {
                   >
                     <Trash2 className="w-3.5 h-3.5" /> Remove
                   </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* TAB: SPONSORS & PARTNERS DIRECTORY */}
+        {activeTab === "partners" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <h2 className="text-base font-bold mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Handshake className="w-5 h-5 text-[#34a853]" />
+                  <span>{editingPartnerId ? "Edit Partner / Sponsor Details" : "Add Partner, Sponsor or Alliance"}</span>
+                </div>
+                {editingPartnerId && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingPartnerId(null);
+                      setNewPartnerName("");
+                      setNewPartnerType("sponsor");
+                      setNewPartnerCategory("");
+                      setNewPartnerTier("");
+                      setNewPartnerScope("");
+                      setNewPartnerDesc("");
+                      setNewPartnerLogo("");
+                      setNewPartnerWebsite("");
+                    }}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline cursor-pointer"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
+              </h2>
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newPartnerName.trim()) return;
+
+                  const targetId = editingPartnerId || `partner-${Date.now()}`;
+                  const item: PartnerItem = {
+                    id: targetId,
+                    name: newPartnerName.trim(),
+                    type: newPartnerType,
+                    category: newPartnerCategory.trim() || undefined,
+                    tier: newPartnerTier.trim() || undefined,
+                    scope: newPartnerScope.trim() || undefined,
+                    description: newPartnerDesc.trim() || undefined,
+                    logoUrl: newPartnerLogo.trim() || undefined,
+                    websiteUrl: newPartnerWebsite.trim() || undefined,
+                  };
+
+                  await savePartner(item);
+                  setPartnersList((prev) => {
+                    const exists = prev.some((p) => p.id === targetId);
+                    if (exists) {
+                      return prev.map((p) => (p.id === targetId ? item : p));
+                    }
+                    return [item, ...prev];
+                  });
+
+                  setEditingPartnerId(null);
+                  setNewPartnerName("");
+                  setNewPartnerType("sponsor");
+                  setNewPartnerCategory("");
+                  setNewPartnerTier("");
+                  setNewPartnerScope("");
+                  setNewPartnerDesc("");
+                  setNewPartnerLogo("");
+                  setNewPartnerWebsite("");
+                  setStatusMsg({ text: "Partner saved and synced across site!", type: "success" });
+                  setTimeout(() => setStatusMsg(null), 3000);
+                }}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Partner Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={newPartnerName}
+                      onChange={(e) => setNewPartnerName(e.target.value)}
+                      placeholder="e.g. Google Cloud, JetBrains, Dainik Bhaskar"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Partner Tier / Type *</label>
+                    <select
+                      value={newPartnerType}
+                      onChange={(e) => setNewPartnerType(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    >
+                      <option value="sponsor">Sponsor & Tech Titan</option>
+                      <option value="media">Media Partner</option>
+                      <option value="community">Community & College Partner</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Domain / Category</label>
+                    <input
+                      type="text"
+                      value={newPartnerCategory}
+                      onChange={(e) => setNewPartnerCategory(e.target.value)}
+                      placeholder="e.g. AI & Cloud, Developer Tools, Regional Press"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                      {newPartnerType === "sponsor" ? "Tier Badge (e.g. Title, Gold, AI Innovation)" : "Coverage Scope / Role"}
+                    </label>
+                    <input
+                      type="text"
+                      value={newPartnerType === "sponsor" ? newPartnerTier : newPartnerScope}
+                      onChange={(e) => newPartnerType === "sponsor" ? setNewPartnerTier(e.target.value) : setNewPartnerScope(e.target.value)}
+                      placeholder={newPartnerType === "sponsor" ? "e.g. Gold Partner" : "e.g. Statewide Reach (600k+)"}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Website URL</label>
+                    <input
+                      type="url"
+                      value={newPartnerWebsite}
+                      onChange={(e) => setNewPartnerWebsite(e.target.value)}
+                      placeholder="https://..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                {/* Logo Upload (Cloudinary) & URL */}
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
+                    Partner Logo (Direct Cloudinary Upload or Custom URL)
+                  </label>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      disabled={uploadingPartnerLogo}
+                      onChange={async (e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        try {
+                          setUploadingPartnerLogo(true);
+                          const url = await uploadToCloudinary(file);
+                          setNewPartnerLogo(url);
+                          setStatusMsg({ text: "Logo uploaded to Cloudinary successfully!", type: "success" });
+                        } catch (err: any) {
+                          setStatusMsg({ text: err.message || "Logo upload failed", type: "info" });
+                        } finally {
+                          setUploadingPartnerLogo(false);
+                        }
+                      }}
+                      className="text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#4285f4] hover:file:bg-blue-100"
+                    />
+
+                    <input
+                      type="url"
+                      value={newPartnerLogo}
+                      onChange={(e) => setNewPartnerLogo(e.target.value)}
+                      placeholder="Or paste direct logo link (https://...)"
+                      className="flex-1 w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                    />
+
+                    {newPartnerLogo && (
+                      <img src={newPartnerLogo} alt="Preview" className="w-8 h-8 object-contain rounded border p-0.5" />
+                    )}
+                  </div>
+                  {uploadingPartnerLogo && (
+                    <span className="text-[10px] text-[#4285f4] font-bold block mt-1">Uploading logo to Cloudinary...</span>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Description / Collaboration Scope</label>
+                  <textarea
+                    rows={2}
+                    value={newPartnerDesc}
+                    onChange={(e) => setNewPartnerDesc(e.target.value)}
+                    placeholder="Short description of partnership highlights or community role..."
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                  />
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#34a853] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingPartnerId ? "Update Partner" : "Publish Partner"}
+                  </button>
+                  {editingPartnerId && (
+                    <button
+                      type="button"
+                      onClick={() => setEditingPartnerId(null)}
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-black cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Existing Partners Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {partnersList.map((p) => (
+                <div
+                  key={p.id}
+                  className="p-4 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        p.type === "sponsor" ? "bg-blue-100 text-[#4285f4]" : p.type === "media" ? "bg-red-100 text-[#ea4335]" : "bg-green-100 text-[#34a853]"
+                      }`}>
+                        {p.type}
+                      </span>
+                      {p.logoUrl && (
+                        <img src={p.logoUrl} alt={p.name} className="max-w-[28px] max-h-[28px] object-contain" />
+                      )}
+                    </div>
+
+                    <div className="text-sm font-black text-[#1e1e1e]">{p.name}</div>
+                    <div className="text-xs text-[#5f6368] font-medium">{p.category || p.tier || p.scope}</div>
+                    {p.description && (
+                      <p className="text-[11px] text-gray-600 mt-2 line-clamp-2">{p.description}</p>
+                    )}
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-gray-500 truncate max-w-[120px]">
+                      {p.tier || p.scope || p.type}
+                    </span>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => {
+                          setEditingPartnerId(p.id);
+                          setNewPartnerName(p.name);
+                          setNewPartnerType(p.type);
+                          setNewPartnerCategory(p.category || "");
+                          setNewPartnerTier(p.tier || "");
+                          setNewPartnerScope(p.scope || "");
+                          setNewPartnerDesc(p.description || "");
+                          setNewPartnerLogo(p.logoUrl || "");
+                          setNewPartnerWebsite(p.websiteUrl || "");
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                        title="Edit Partner"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (!confirm(`Delete ${p.name}?`)) return;
+                          await removePartner(p.id);
+                          setPartnersList((prev) => prev.filter((item) => item.id !== p.id));
+                        }}
+                        className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                        title="Delete Partner"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1685,17 +1996,37 @@ export default function AdminPage() {
         {activeTab === "agenda" && (
           <div className="space-y-8">
             <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
-              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
-                <Compass className="w-5 h-5 text-[#4285f4]" />
-                <span>Add / Declare Agenda Session</span>
+              <h2 className="text-base font-bold mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Compass className="w-5 h-5 text-[#4285f4]" />
+                  <span>{editingAgendaId ? "Edit Agenda Session" : "Add / Declare Agenda Session"}</span>
+                </div>
+                {editingAgendaId && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingAgendaId(null);
+                      setNewAgendaTitle("");
+                      setNewAgendaTime("");
+                      setNewAgendaSpeaker("");
+                      setNewAgendaRole("");
+                      setNewAgendaAvatar("");
+                      setNewAgendaDesc("");
+                    }}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline cursor-pointer"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
               </h2>
 
               <form
                 onSubmit={async (e) => {
                   e.preventDefault();
                   if (!newAgendaTitle || !newAgendaSpeaker) return;
+                  const targetId = editingAgendaId || "ag-" + Date.now();
                   const newItem: AgendaItem = {
-                    id: "ag-" + Date.now(),
+                    id: targetId,
                     time: newAgendaTime || "10:00 AM – 10:45 AM",
                     title: newAgendaTitle,
                     speakerName: newAgendaSpeaker,
@@ -1707,13 +2038,21 @@ export default function AdminPage() {
                     tags: [newAgendaTrack, newAgendaHall],
                   };
                   await saveAgendaItem(newItem);
-                  setAgendaList([newItem, ...agendaList]);
+                  setAgendaList((prev) => {
+                    const exists = prev.some((a) => a.id === targetId);
+                    if (exists) {
+                      return prev.map((a) => (a.id === targetId ? newItem : a));
+                    }
+                    return [newItem, ...prev];
+                  });
+                  setEditingAgendaId(null);
                   setNewAgendaTitle("");
+                  setNewAgendaTime("");
                   setNewAgendaSpeaker("");
                   setNewAgendaRole("");
                   setNewAgendaAvatar("");
                   setNewAgendaDesc("");
-                  setStatusMsg({ text: "Agenda session added and synced!", type: "success" });
+                  setStatusMsg({ text: "Agenda session saved and synced!", type: "success" });
                   setTimeout(() => setStatusMsg(null), 3000);
                 }}
                 className="space-y-4"
@@ -1862,12 +2201,31 @@ export default function AdminPage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform"
-                >
-                  Publish Agenda Session
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingAgendaId ? "Update Agenda Session" : "Publish Agenda Session"}
+                  </button>
+                  {editingAgendaId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingAgendaId(null);
+                        setNewAgendaTitle("");
+                        setNewAgendaTime("");
+                        setNewAgendaSpeaker("");
+                        setNewAgendaRole("");
+                        setNewAgendaAvatar("");
+                        setNewAgendaDesc("");
+                      }}
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-black cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
               </form>
             </div>
 
@@ -1900,16 +2258,37 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <button
-                    onClick={async () => {
-                      await removeAgendaItem(item.id);
-                      setAgendaList(agendaList.filter((a) => a.id !== item.id));
-                    }}
-                    className="p-2 rounded-xl text-[#ea4335] hover:bg-red-50"
-                    title="Remove Session"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => {
+                        setEditingAgendaId(item.id);
+                        setNewAgendaTitle(item.title);
+                        setNewAgendaTime(item.time);
+                        setNewAgendaSpeaker(item.speakerName);
+                        setNewAgendaRole(item.speakerRole || "");
+                        setNewAgendaAvatar(item.speakerAvatar || "");
+                        setNewAgendaTrack(item.track);
+                        setNewAgendaHall(item.hall);
+                        setNewAgendaDesc(item.description || "");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="p-2 rounded-xl text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                      title="Edit Session Details"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={async () => {
+                        if (!confirm(`Delete agenda session "${item.title}"?`)) return;
+                        await removeAgendaItem(item.id);
+                        setAgendaList(agendaList.filter((a) => a.id !== item.id));
+                      }}
+                      className="p-2 rounded-xl text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                      title="Remove Session"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

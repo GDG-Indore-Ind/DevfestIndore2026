@@ -43,6 +43,7 @@ next-env.d.ts
 # Large local media & raw photoshoot dumps
 drive-download*
 *.JPG
+!public/gallery/**
 *.CR2
 
 local_storage_private/
