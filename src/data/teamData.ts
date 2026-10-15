@@ -274,10 +274,10 @@ export const INITIAL_TEAM: TeamMember[] = [
   {
     id: "tm-aarti-jethaniya",
     name: "Aarti Jethaniya",
-    role: "Community Coordinator & Volunteer Lead",
-    team: "Community",
-    bio: "Coordinating community programs, volunteer squads, codelab sessions, and attendee onboarding.",
-    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+    role: "Core Organizer",
+    team: "Core Organizer",
+    bio: "Technology founder, Women Techmakers Ambassador & community builder helping startups turn operational challenges into scalable technology solutions.",
+    avatar: "https://media.licdn.com/dms/image/v2/D4D03AQFv68FA7EzYqw/profile-displayphoto-crop_800_800/B4DaDrzqIBJsAI-/0/1790662583931?e=1793836800&v=beta&t=BgZV1Z70YWh6gpHpFTc0dRZdsujFHmxrbD3cTv4u3Os",
     socials: {
       linkedin: "https://www.linkedin.com/in/aarti-jethaniya-4308211b0/",
       instagram: "https://www.instagram.com/gdgindore/",
