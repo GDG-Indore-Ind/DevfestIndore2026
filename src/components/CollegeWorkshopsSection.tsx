@@ -82,110 +82,69 @@ export default function CollegeWorkshopsSection() {
             Leading up to DevFest Indore 2026, our GDG community architects and technical experts conducted specialized hands-on codelabs, GenAI hacklabs, and cloud workshops across universities. Explore lecture recaps, live photos, and student chapters below.
           </p>
 
-          {/* Quick Action to Pre-DevFest Gallery */}
+        {/* Quick Action to Dedicated Workshops Page */}
           <div className="mt-5 flex items-center justify-center gap-3">
             <Link
-              href="/gallery"
-              className="px-4 py-2 rounded-full text-xs font-bold bg-[#4285f4] text-white flex items-center gap-2 hover:bg-[#3367d6] shadow-sm hover:scale-105 transition-transform"
+              href="/workshops"
+              className="px-5 py-2.5 rounded-full text-xs font-bold bg-[#4285f4] text-white flex items-center gap-2 hover:bg-[#3367d6] shadow-md hover:scale-105 transition-all cursor-pointer"
             >
-              <ImageIcon className="w-3.5 h-3.5" />
-              <span>Explore Pre-DevFest Photo Gallery ↗</span>
+              <GraduationCap className="w-4 h-4" />
+              <span>Explore All Pre-DevFest Workshops ↗</span>
             </Link>
           </div>
         </div>
 
-        {/* Filter & Live Search Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <span className="text-xs font-mono uppercase text-[#4285f4] font-black">
-              Showing {filteredWorkshops.length} Workshops:
-            </span>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-            {/* Speaker Filter Dropdown */}
-            <div className="w-full sm:w-auto">
-              <select
-                value={filterSpeaker}
-                onChange={(e) => setFilterSpeaker(e.target.value)}
-                className={`w-full sm:w-auto px-3.5 py-2 rounded-xl border text-xs font-bold cursor-pointer ${
-                  isDark ? "bg-[#0d0d0d] border-white/15 text-white" : "bg-white border-gray-300 text-gray-900"
-                }`}
-              >
-                <option value="All">All Speakers & Mentors ({speakersList.length})</option>
-                {speakersList.map((spk) => (
-                  <option key={spk} value={spk}>
-                    Speaker: {spk}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Live Search Input */}
-            <div className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border w-full sm:w-72 ${
-              isDark ? "bg-[#0d0d0d] border-white/15" : "bg-white border-gray-300"
-            }`}>
-              <Search className="w-4 h-4 text-gray-400 shrink-0" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search college, topic, or speaker..."
-                className="bg-transparent text-xs w-full focus:outline-none"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Workshop Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredWorkshops.map((ws) => {
+        {/* Workshop Cards Grid - Displaying Featured 3 Workshops */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {workshops.slice(0, 3).map((ws) => {
             const images = ws.images && ws.images.length > 0 ? ws.images : ["/gallery/opt_DSCF7167.JPG"];
             const primaryImage = images[0];
 
             return (
               <div
                 key={ws.id}
-                className={`rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden ${
+                className={`rounded-3xl border-2 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 group relative overflow-hidden ${
                   isDark
-                    ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#4285f4]/50 hover:shadow-[0_0_25px_rgba(66,133,244,0.15)]"
-                    : "bg-white border-gray-200/90 shadow-sm hover:border-blue-300 hover:shadow-lg"
+                    ? "bg-[#0d0d0d]/95 border-white/10 hover:border-[#4285f4]/60 hover:shadow-[0_0_35px_rgba(66,133,244,0.2)]"
+                    : "bg-white border-gray-200 shadow-sm hover:border-blue-400 hover:shadow-xl"
                 }`}
               >
                 <div>
-                  {/* Visual Image Stage with Thumbnails Preview */}
-                  <div className="relative h-48 w-full bg-black/40 overflow-hidden cursor-pointer" onClick={() => handleOpenPhotoModal(ws, 0)}>
+                  {/* Large Visual Image Stage */}
+                  <div
+                    className="relative h-64 sm:h-72 w-full bg-black/40 overflow-hidden cursor-pointer"
+                    onClick={() => handleOpenPhotoModal(ws, 0)}
+                  >
                     <Image
                       src={primaryImage}
                       alt={ws.college}
                       fill
+                      priority
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
                     {/* Status Badge */}
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-md flex items-center gap-1 shadow-md">
-                        <CheckCircle2 className="w-3 h-3" />
+                    <div className="absolute top-3.5 left-3.5">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-emerald-500 text-white backdrop-blur-md flex items-center gap-1.5 shadow-md">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>Workshop Conducted</span>
                       </span>
                     </div>
 
                     {/* Multi-photo Counter / Click to view */}
-                    {images.length > 1 && (
-                      <div className="absolute top-3 right-3">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-black/70 text-white backdrop-blur-md flex items-center gap-1 border border-white/20">
-                          <ImageIcon className="w-3 h-3 text-[#4285f4]" />
-                          <span>{images.length} Photos</span>
-                        </span>
-                      </div>
-                    )}
+                    <div className="absolute top-3.5 right-3.5">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-black/75 text-white backdrop-blur-md flex items-center gap-1.5 border border-white/20 shadow-md">
+                        <ImageIcon className="w-3.5 h-3.5 text-[#4285f4]" />
+                        <span>{images.length} {images.length === 1 ? "Photo" : "Photos"}</span>
+                      </span>
+                    </div>
 
-                    {/* College Title & Logo Overlay on Image */}
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center gap-3">
-                      {/* Prominent College Logo Crest */}
-                      <div className="w-12 h-12 rounded-2xl bg-white border-2 border-white/80 shadow-lg flex items-center justify-center shrink-0 overflow-hidden p-1">
+                    {/* College Title & Enlarged Logo Crest on Image */}
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3.5">
+                      {/* Prominent Large College Logo Crest */}
+                      <div className="w-16 h-16 rounded-2xl bg-white border-2 border-white/90 shadow-xl flex items-center justify-center shrink-0 overflow-hidden p-1.5">
                         {ws.collegeLogoUrl ? (
                           <img
                             src={ws.collegeLogoUrl}
@@ -193,74 +152,73 @@ export default function CollegeWorkshopsSection() {
                             className="w-full h-full object-contain"
                           />
                         ) : (
-                          <School className="w-6 h-6 text-[#4285f4]" />
+                          <School className="w-8 h-8 text-[#4285f4]" />
                         )}
                       </div>
 
-                      <div className="truncate">
-                        <div className="flex items-center gap-1.5 text-blue-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5 text-blue-300 text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5">
                           <span>Campus Chapter</span>
                         </div>
-                        <h3 className="text-white text-base sm:text-lg font-black leading-tight drop-shadow truncate">
+                        <h3 className="text-white text-base sm:text-lg font-black leading-snug drop-shadow-md break-words">
                           {ws.college}
                         </h3>
                       </div>
                     </div>
                   </div>
 
-                  {/* Multi-Photo Mini-Gallery Strip */}
+                  {/* Multi-Photo Mini-Gallery Strip (shown if multiple photos exist) */}
                   {images.length > 1 && (
                     <div className="px-5 pt-3 pb-1 flex items-center gap-2 overflow-x-auto scrollbar-none">
                       {images.map((img, i) => (
                         <button
                           key={i}
                           onClick={() => handleOpenPhotoModal(ws, i)}
-                          className="relative w-12 h-10 rounded-lg overflow-hidden border border-white/20 hover:border-[#4285f4] shrink-0 transition-transform hover:scale-105 cursor-pointer"
+                          className="relative w-14 h-11 rounded-lg overflow-hidden border border-white/20 hover:border-[#4285f4] shrink-0 transition-transform hover:scale-105 cursor-pointer"
                         >
-                          <Image src={img} alt={`Photo ${i + 1}`} fill className="object-cover" sizes="48px" />
+                          <Image src={img} alt={`Photo ${i + 1}`} fill className="object-cover" sizes="56px" />
                         </button>
                       ))}
                     </div>
                   )}
 
                   {/* Details Body */}
-                  <div className="p-5 space-y-3">
-                    {/* College Crest & Speaker Header Bar */}
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2.5">
-                        <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 overflow-hidden ${
-                          isDark ? "bg-white/10 border-white/20" : "bg-white border-gray-200 shadow-xs"
-                        }`}>
-                          {ws.collegeLogoUrl ? (
-                            <img src={ws.collegeLogoUrl} alt="Logo" className="w-full h-full object-contain p-0.5" />
-                          ) : (
-                            <School className="w-4 h-4 text-[#4285f4]" />
-                          )}
-                        </div>
-                        <span className="text-[11px] font-mono font-bold text-[#4285f4] uppercase tracking-wide truncate max-w-[150px]">
-                          {ws.college.split("(")[0].trim()}
-                        </span>
+                  <div className="p-5 sm:p-6 space-y-3.5">
+                    {/* Full College Name Banner */}
+                    <div className={`p-3 rounded-2xl border flex items-center gap-3 ${
+                      isDark ? "bg-white/[0.04] border-white/10" : "bg-blue-50/60 border-blue-100"
+                    }`}>
+                      <div className="w-11 h-11 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 overflow-hidden p-1 shadow-xs">
+                        {ws.collegeLogoUrl ? (
+                          <img src={ws.collegeLogoUrl} alt="Logo" className="w-full h-full object-contain" />
+                        ) : (
+                          <School className="w-5 h-5 text-[#4285f4]" />
+                        )}
                       </div>
-
-                      {ws.collegeLogoUrl && (
-                        <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-[#4285f4] border border-blue-500/20 shrink-0">
-                          Official Chapter
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[10px] font-mono uppercase text-[#4285f4] font-bold block">
+                          Institution
                         </span>
-                      )}
+                        <div className={`text-xs sm:text-sm font-bold leading-snug break-words ${
+                          isDark ? "text-white" : "text-gray-900"
+                        }`}>
+                          {ws.college}
+                        </div>
+                      </div>
                     </div>
 
                     {/* Speaker Bar */}
-                    <div className={`p-2.5 rounded-xl border flex items-center gap-2.5 ${
+                    <div className={`p-3 rounded-2xl border flex items-center gap-3 ${
                       isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
                     }`}>
-                      <div className="w-7 h-7 rounded-full bg-[#34a853]/15 text-[#34a853] flex items-center justify-center font-bold text-xs shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-[#34a853]/15 text-[#34a853] flex items-center justify-center font-bold text-xs shrink-0">
                         <UserCheck className="w-4 h-4" />
                       </div>
-                      <div className="truncate">
+                      <div className="min-w-0 flex-1">
                         <span className="text-[10px] font-mono uppercase text-gray-400 font-bold block">
                           Speaker / Mentor
                         </span>
-                        <span className={`text-xs font-black truncate block ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <span className={`text-xs sm:text-sm font-black block ${isDark ? "text-white" : "text-gray-900"}`}>
                           {ws.speaker}
                         </span>
                       </div>
@@ -268,29 +226,30 @@ export default function CollegeWorkshopsSection() {
 
                     {/* Lecture Topic */}
                     {ws.topic && (
-                      <div className="flex items-start gap-2">
+                      <div className="flex items-start gap-2.5 pt-1">
                         <BookOpen className="w-4 h-4 text-[#4285f4] shrink-0 mt-0.5" />
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <div className="text-[10px] font-mono uppercase text-[#4285f4] font-black">
                             Lecture Topic
                           </div>
-                          <h4 className={`text-xs font-bold leading-snug ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <h4 className={`text-xs sm:text-sm font-bold leading-snug break-words ${isDark ? "text-white" : "text-gray-900"}`}>
                             {ws.topic}
                           </h4>
                         </div>
                       </div>
                     )}
 
-                    {/* Description or Collaboration notice */}
+                    {/* Description */}
                     {ws.description && (
-                      <p className={`text-xs leading-relaxed line-clamp-2 ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                      <p className={`text-xs leading-relaxed line-clamp-3 ${isDark ? "text-white/75" : "text-gray-600"}`}>
                         {ws.description}
                       </p>
                     )}
 
+                    {/* Collaboration notice */}
                     {ws.collabNotice && (
-                      <div className={`p-2 rounded-lg text-[11px] font-mono italic ${
-                        isDark ? "bg-white/[0.03] text-gray-400" : "bg-gray-50 text-gray-600"
+                      <div className={`p-2.5 rounded-xl text-[11px] font-mono italic ${
+                        isDark ? "bg-white/[0.03] text-gray-400 border border-white/5" : "bg-gray-50 text-gray-600 border border-gray-100"
                       }`}>
                         "{ws.collabNotice}"
                       </div>
@@ -299,15 +258,15 @@ export default function CollegeWorkshopsSection() {
                 </div>
 
                 {/* Footer Action Links */}
-                <div className="p-5 pt-0 flex items-center justify-between gap-2 border-t border-white/5 mt-2">
+                <div className="p-5 sm:p-6 pt-0 flex items-center justify-between gap-2 border-t border-white/5 mt-2">
                   <div className="flex items-center gap-2">
-                    {/* Instagram Post Button */}
-                    {ws.instagramUrl && (
+                    {/* Instagram Post Button - only rendered if instagramUrl exists and is not empty */}
+                    {ws.instagramUrl && ws.instagramUrl.trim() !== "" && (
                       <a
                         href={ws.instagramUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-2.5 py-1.5 rounded-xl bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 text-xs font-bold flex items-center gap-1.5 transition-colors border border-pink-500/30"
+                        className="px-3 py-1.5 rounded-xl bg-pink-500/10 text-pink-400 hover:bg-pink-500/20 text-xs font-bold flex items-center gap-1.5 transition-colors border border-pink-500/30"
                         title="View Instagram Post / Reel"
                       >
                         <InstagramIcon className="w-3.5 h-3.5" />
@@ -316,12 +275,12 @@ export default function CollegeWorkshopsSection() {
                     )}
 
                     {/* Google Drive Link */}
-                    {ws.photosDrive && (
+                    {ws.photosDrive && ws.photosDrive.trim() !== "" && (
                       <a
                         href={ws.photosDrive}
                         target="_blank"
                         rel="noreferrer"
-                        className="px-2.5 py-1.5 rounded-xl bg-blue-500/10 text-[#4285f4] hover:bg-blue-500/20 text-xs font-bold flex items-center gap-1.5 transition-colors border border-blue-500/30"
+                        className="px-3 py-1.5 rounded-xl bg-blue-500/10 text-[#4285f4] hover:bg-blue-500/20 text-xs font-bold flex items-center gap-1.5 transition-colors border border-blue-500/30"
                         title="View Google Drive Photos"
                       >
                         <FolderOpen className="w-3.5 h-3.5" />
@@ -343,27 +302,38 @@ export default function CollegeWorkshopsSection() {
           })}
         </div>
 
+        {/* View All Workshops Navigation Card */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/workshops"
+            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-black text-sm bg-gradient-to-r from-[#4285f4] via-[#ea4335] to-[#f9ab00] text-white shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          >
+            <span>View All Campus Workshops & Gallery</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
         {/* Bottom Banner Linking to Gallery Page */}
         <div className="mt-14 p-6 sm:p-8 rounded-3xl border bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-transparent border-blue-500/20 flex flex-col sm:flex-row items-center justify-between gap-6 reveal-on-scroll">
           <div>
             <div className="flex items-center gap-2 text-[#4285f4] text-xs font-mono font-bold uppercase mb-1">
               <Sparkles className="w-4 h-4" />
-              <span>Full Visual Archive</span>
+              <span>Dedicated Workshops Portal</span>
             </div>
             <h3 className={`text-xl sm:text-2xl font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-              Looking for All Pre-DevFest Workshop Photos?
+              Explore All Pre-DevFest 2026 Campus Workshops
             </h3>
             <p className={`text-xs sm:text-sm mt-1 max-w-xl ${isDark ? "text-white/70" : "text-gray-600"}`}>
-              Browse the dedicated gallery page to see high-resolution photo highlights, codelab swarm sessions, and stage moments from all 18+ college activations.
+              Browse the dedicated workshops portal to see all college activations, hands-on codelab topics, and student chapter photos.
             </p>
           </div>
 
           <Link
-            href="/gallery"
-            className="px-6 py-3 rounded-2xl bg-[#4285f4] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#3367d6] hover:scale-105 transition-all shadow-md shrink-0 flex items-center gap-2"
+            href="/workshops"
+            className="px-6 py-3 rounded-2xl bg-[#4285f4] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#3367d6] hover:scale-105 transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer"
           >
-            <ImageIcon className="w-4 h-4" />
-            <span>Open Pre-DevFest Gallery</span>
+            <GraduationCap className="w-4 h-4" />
+            <span>Open Workshops Portal</span>
           </Link>
         </div>
       </div>

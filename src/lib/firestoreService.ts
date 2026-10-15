@@ -470,8 +470,8 @@ export interface NavItem {
 export const INITIAL_NAV_ITEMS: NavItem[] = [
   { id: "nav-home", name: "Home", href: "/", desc: "DevFest 2026 flagship vision & home", visible: true, order: 1 },
   { id: "nav-about", name: "About", href: "/#about", desc: "Where modern engineering meets Indore's innovation", visible: true, order: 2 },
-  { id: "nav-workshops", name: "Workshops", href: "/#workshops", desc: "Hands-on pre-devfest codelabs across 18+ colleges", visible: true, order: 3 },
-  { id: "nav-gallery", name: "Previous Editions", href: "/gallery", desc: "Curated 4K photo archive from previous editions", visible: true, order: 4 },
+  { id: "nav-workshops", name: "Workshops", href: "/workshops", desc: "Hands-on pre-devfest codelabs across Central India colleges", visible: true, order: 3 },
+  { id: "nav-gallery", name: "Previous Editions", href: "/gallery", desc: "Curated 4K photo archive from previous editions", visible: false, order: 4 },
   { id: "nav-speakers", name: "Speakers", href: "/past-speakers", desc: "Full directory of GDEs & past keynote speakers", visible: true, order: 5 },
   { id: "nav-team", name: "Team", href: "/team", desc: "Core organizers & community leads", visible: true, order: 6 },
   { id: "nav-events", name: "Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons", visible: true, order: 7 },
