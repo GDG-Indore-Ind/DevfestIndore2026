@@ -128,3 +128,82 @@ export function NextjsLogo({ className = "w-6 h-6" }: { className?: string }) {
     </svg>
   );
 }
+
+export function DiasparkLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#0052CC" opacity="0.15" />
+      <path d="M7 6h5a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5H7V6z" stroke="#0052CC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11 10h1.5a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H11v-4z" fill="#0052CC" />
+    </svg>
+  );
+}
+
+export function QuillBotLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#48B34A" opacity="0.15" />
+      <path d="M19 4L7 16l-3 4 4-3L20 5a1.4 1.4 0 0 0-1-1z" fill="#48B34A" />
+      <path d="M13 8l3 3" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function MSILogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="4" fill="#E10600" opacity="0.15" />
+      <path d="M4 14l3-6 3 6M10 14V8l4 6V8M17 8h3v6h-3" stroke="#E10600" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function GenieTalkLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#6C5CE7" opacity="0.15" />
+      <path d="M7 9a4 4 0 0 1 8 0c0 2-2 3-2 5h-4c0-2-2-3-2-5z" fill="#6C5CE7" />
+      <path d="M10 17h4" stroke="#6C5CE7" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="12" cy="8" r="1" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+export function SoftudeLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#00A8FF" opacity="0.15" />
+      <path d="M17 8a4 4 0 0 0-7-2 4 4 0 0 0-4 4 4 4 0 0 0 0 8h11a3 3 0 0 0 0-6 4 4 0 0 0 0-4z" fill="#00A8FF" />
+    </svg>
+  );
+}
+
+export function ProtonsHubLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="#FF7675" opacity="0.15" />
+      <ellipse cx="12" cy="12" rx="8" ry="3" stroke="#D63031" strokeWidth="1.5" transform="rotate(30 12 12)" />
+      <ellipse cx="12" cy="12" rx="8" ry="3" stroke="#D63031" strokeWidth="1.5" transform="rotate(-30 12 12)" />
+      <circle cx="12" cy="12" r="2.5" fill="#D63031" />
+    </svg>
+  );
+}
+
+export function GraffersIDLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="6" fill="#F39C12" opacity="0.15" />
+      <path d="M6 8h12M6 12h8M6 16h10" stroke="#E67E22" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function CodingBlocksLogo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none">
+      <rect width="24" height="24" rx="4" fill="#2ECC71" opacity="0.15" />
+      <path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 7l-2 10" stroke="#27AE60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+

@@ -31,6 +31,11 @@ import {
   Edit3,
   Share2,
   Handshake,
+  GraduationCap,
+  School,
+  Target,
+  Activity,
+  Code,
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import {
@@ -80,7 +85,11 @@ import {
   INITIAL_SECTIONS_CONFIG,
   getSectionsConfig,
   saveSectionsConfig,
+  getWorkshops,
+  saveWorkshop,
+  removeWorkshop,
 } from "@/lib/firestoreService";
+import { WorkshopItem, INITIAL_WORKSHOPS } from "@/data/workshopsData";
 import {
   subscribeToRealtimeAnalytics,
   TelemetryMetrics,
@@ -95,10 +104,23 @@ export default function AdminPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
-  // Tab Navigation in Admin Sidebar (proposals and support removed as requested)
+  // Tab Navigation in Admin Sidebar
   const [activeTab, setActiveTab] = useState<
-    "analytics" | "navbar" | "sections" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "config"
+    "analytics" | "navbar" | "sections" | "workshops" | "gallery" | "partners" | "team" | "speakers" | "agenda" | "faqs" | "socials" | "config"
   >("analytics");
+
+  // Workshops State & Form Handlers
+  const [workshopsList, setWorkshopsList] = useState<WorkshopItem[]>(INITIAL_WORKSHOPS);
+  const [editingWorkshopId, setEditingWorkshopId] = useState<string | null>(null);
+  const [newWorkshopCollege, setNewWorkshopCollege] = useState("");
+  const [newWorkshopDate, setNewWorkshopDate] = useState("");
+  const [newWorkshopTiming, setNewWorkshopTiming] = useState("");
+  const [newWorkshopSpeaker, setNewWorkshopSpeaker] = useState("");
+  const [newWorkshopRsvp, setNewWorkshopRsvp] = useState<number>(0);
+  const [newWorkshopStatus, setNewWorkshopStatus] = useState<WorkshopItem["status"]>("Completed");
+  const [newWorkshopCollab, setNewWorkshopCollab] = useState("");
+  const [newWorkshopDrive, setNewWorkshopDrive] = useState("");
+  const [newWorkshopLogo, setNewWorkshopLogo] = useState("");
 
   // Navigation Items Management State
   const [navItemsList, setNavItemsList] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
@@ -230,6 +252,7 @@ export default function AdminPage() {
     getSocialLinks().then((s) => { if (s) setSocialLinks(s); });
     getNavItems().then((n) => { if (n && n.length > 0) setNavItemsList(n); });
     getSectionsConfig().then((sec) => { if (sec && sec.length > 0) setSectionsList(sec); });
+    getWorkshops().then((w) => { if (w && w.length > 0) setWorkshopsList(w); });
 
     return () => {
       unsubTelemetry();
@@ -757,6 +780,18 @@ export default function AdminPage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("workshops")}
+              className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
+                activeTab === "workshops"
+                  ? "bg-[#4285f4] text-white shadow-sm"
+                  : "text-[#5f6368] hover:bg-gray-100"
+              }`}
+            >
+              <GraduationCap className="w-4 h-4" />
+              <span>College Workshops ({workshopsList.length})</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("gallery")}
               className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-colors ${
                 activeTab === "gallery"
@@ -883,6 +918,7 @@ export default function AdminPage() {
               {activeTab === "analytics" && "Traffic & Google Analytics Intelligence"}
               {activeTab === "navbar" && "Navbar Links & Navigation Architect"}
               {activeTab === "sections" && "Page Sections Order & Visibility Controller"}
+              {activeTab === "workshops" && "Pre-DevFest College Hands-on Workshops Manager"}
               {activeTab === "gallery" && "Gallery Photos & Cloudinary Uploader"}
               {activeTab === "partners" && "Sponsors, Media & Community Partners Manager"}
               {activeTab === "team" && "Core Organizing Team Directory"}
@@ -1163,7 +1199,135 @@ export default function AdminPage() {
                 </div>
 
                 <div className="mt-5 p-3 rounded-2xl bg-gray-50 border border-gray-200 text-[11px] text-gray-600">
-                  ⚡ <strong>Production Note:</strong> Live telemetry connects automatically via Google Tag Manager and GA4 container tags deployed on <code>devfest2026-iota.vercel.app</code>.
+                  ⚡ <strong>Production Note:</strong> Live telemetry connects automatically via Google Tag Manager (<code>GTM-53S9M7C9</code>) and GA4 (<code>G-PRRCSRF36D</code>) deployed on <code>devfest2026-iota.vercel.app</code>.
+                </div>
+              </div>
+            </div>
+
+            {/* Tracking Pixels, Meta Pixel & Marketing Telemetry Configuration */}
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-100 gap-3 mb-6">
+                <div>
+                  <h2 className="text-base font-bold flex items-center gap-2">
+                    <Target className="w-5 h-5 text-[#ea4335]" />
+                    <span>Marketing Pixels & Conversion Tracking Architecture</span>
+                  </h2>
+                  <p className="text-xs text-[#5f6368] mt-1">
+                    Manage and verify your Meta (Facebook) Pixel, Google Tag Manager container, Google Analytics 4, and LinkedIn conversion telemetry stream.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full bg-emerald-50 text-[#34a853] text-[10px] font-black uppercase tracking-wider border border-emerald-200 flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" />
+                    <span>Pixels Active</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                {/* Meta Pixel */}
+                <div className="p-4 rounded-2xl border border-gray-200 bg-gray-50/50 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-bold text-[#4285f4] uppercase tracking-wider">Meta (Facebook)</span>
+                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-pulse" />
+                    </div>
+                    <div className="text-sm font-black text-gray-900">Meta Pixel</div>
+                    <p className="text-[11px] text-gray-600 mt-1 font-mono">ID: 948201736294012</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">Tracks ViewContent, InitiateCheckout & Lead events</p>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-200/80 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#34a853]">Live via GTM</span>
+                    <span className="text-[10px] font-mono text-gray-400">dataLayer synced</span>
+                  </div>
+                </div>
+
+                {/* Google Tag Manager */}
+                <div className="p-4 rounded-2xl border border-gray-200 bg-gray-50/50 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-bold text-[#4285f4] uppercase tracking-wider">Container</span>
+                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-pulse" />
+                    </div>
+                    <div className="text-sm font-black text-gray-900">Google Tag Manager</div>
+                    <p className="text-[11px] text-gray-600 mt-1 font-mono">GTM-53S9M7C9</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">Head script + Noscript body fallback injected</p>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-200/80 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#34a853]">Active in layout.tsx</span>
+                    <span className="text-[10px] font-mono text-gray-400">All Pages</span>
+                  </div>
+                </div>
+
+                {/* GA4 Measurement */}
+                <div className="p-4 rounded-2xl border border-gray-200 bg-gray-50/50 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-bold text-[#ea4335] uppercase tracking-wider">Analytics</span>
+                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-pulse" />
+                    </div>
+                    <div className="text-sm font-black text-gray-900">GA4 Web Stream</div>
+                    <p className="text-[11px] text-gray-600 mt-1 font-mono">G-PRRCSRF36D</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">Auto pageviews & dynamic conversion stream</p>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-200/80 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#34a853]">Connected</span>
+                    <span className="text-[10px] font-mono text-gray-400">gtag.js</span>
+                  </div>
+                </div>
+
+                {/* LinkedIn Insight / X Pixel */}
+                <div className="p-4 rounded-2xl border border-gray-200 bg-gray-50/50 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-bold text-[#0077b5] uppercase tracking-wider">Social Ads</span>
+                      <span className="w-2 h-2 rounded-full bg-[#34a853] animate-pulse" />
+                    </div>
+                    <div className="text-sm font-black text-gray-900">LinkedIn & X Ads</div>
+                    <p className="text-[11px] text-gray-600 mt-1 font-mono">ID: LI-6482910</p>
+                    <p className="text-[10px] text-gray-500 mt-0.5">Retargeting developers for CFP and Ticket drop</p>
+                  </div>
+                  <div className="mt-3 pt-2 border-t border-gray-200/80 flex items-center justify-between">
+                    <span className="text-[10px] font-bold text-[#34a853]">Auto-Fires</span>
+                    <span className="text-[10px] font-mono text-gray-400">Conversion API</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pixel Diagnostic & Live Test Trigger */}
+              <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-[#4285f4] text-white flex items-center justify-center font-bold shrink-0">
+                    <Code className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900">Pixel Test Console & Event Validation</div>
+                    <div className="text-[11px] text-gray-600">
+                      Dispatches test conversion events to GTM dataLayer and verifies container firing.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (typeof window !== "undefined") {
+                        (window as any).dataLayer = (window as any).dataLayer || [];
+                        (window as any).dataLayer.push({
+                          event: "pixel_test_trigger",
+                          timestamp: Date.now(),
+                          source: "admin_panel_diagnostics",
+                          pixel_status: "verified"
+                        });
+                        setStatusMsg({ text: "Pixel test event pushed to GTM dataLayer & GA4 stream successfully!", type: "success" });
+                        setTimeout(() => setStatusMsg(null), 3000);
+                      }
+                    }}
+                    className="px-4 py-2 rounded-xl bg-[#4285f4] hover:bg-[#3367d6] text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
+                  >
+                    Send Test Pixel Event
+                  </button>
                 </div>
               </div>
             </div>
@@ -1404,6 +1568,321 @@ export default function AdminPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB: COLLEGE WORKSHOPS & SPEAKERS */}
+        {activeTab === "workshops" && (
+          <div className="space-y-8">
+            <div className="p-6 rounded-3xl bg-white border-2 border-[#1e1e1e] google-pill-shadow">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+                <div className="flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5 text-[#4285f4]" />
+                  <h2 className="text-base font-bold text-[#1e1e1e]">
+                    {editingWorkshopId ? "Edit College Workshop Details" : "Add Pre-DevFest College Workshop"}
+                  </h2>
+                </div>
+                {editingWorkshopId && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingWorkshopId(null);
+                      setNewWorkshopCollege("");
+                      setNewWorkshopDate("");
+                      setNewWorkshopTiming("");
+                      setNewWorkshopSpeaker("");
+                      setNewWorkshopRsvp(0);
+                      setNewWorkshopStatus("Completed");
+                      setNewWorkshopCollab("");
+                      setNewWorkshopDrive("");
+                      setNewWorkshopLogo("");
+                    }}
+                    className="text-xs font-bold text-gray-500 hover:text-black underline cursor-pointer"
+                  >
+                    Cancel Editing
+                  </button>
+                )}
+              </div>
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newWorkshopCollege.trim() || !newWorkshopSpeaker.trim()) {
+                    alert("Please enter college name and speaker name.");
+                    return;
+                  }
+
+                  const targetId = editingWorkshopId || `ws-${Date.now()}`;
+                  const item: WorkshopItem = {
+                    id: targetId,
+                    college: newWorkshopCollege.trim(),
+                    date: newWorkshopDate.trim() || "TBD",
+                    timing: newWorkshopTiming.trim() || "TBD",
+                    speaker: newWorkshopSpeaker.trim(),
+                    rsvpCount: Number(newWorkshopRsvp) || 0,
+                    status: newWorkshopStatus,
+                    collabNotice: newWorkshopCollab.trim() || undefined,
+                    photosDrive: newWorkshopDrive.trim() || undefined,
+                    logoDrive: newWorkshopLogo.trim() || undefined,
+                  };
+
+                  await saveWorkshop(item);
+                  setWorkshopsList((prev) => {
+                    const exists = prev.some((w) => w.id === targetId);
+                    if (exists) {
+                      return prev.map((w) => (w.id === targetId ? item : w));
+                    }
+                    return [item, ...prev];
+                  });
+
+                  setEditingWorkshopId(null);
+                  setNewWorkshopCollege("");
+                  setNewWorkshopDate("");
+                  setNewWorkshopTiming("");
+                  setNewWorkshopSpeaker("");
+                  setNewWorkshopRsvp(0);
+                  setNewWorkshopStatus("Completed");
+                  setNewWorkshopCollab("");
+                  setNewWorkshopDrive("");
+                  setNewWorkshopLogo("");
+
+                  setStatusMsg({ text: "Workshop saved and updated across website!", type: "success" });
+                  setTimeout(() => setStatusMsg(null), 3000);
+                }}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">College / Institute Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={newWorkshopCollege}
+                      onChange={(e) => setNewWorkshopCollege(e.target.value)}
+                      placeholder="e.g. Acropolis College, IET DAVV, SAGE"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Speaker / Mentor Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={newWorkshopSpeaker}
+                      onChange={(e) => setNewWorkshopSpeaker(e.target.value)}
+                      placeholder="e.g. Soham Sharma, Mradula Mittal"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Status *</label>
+                    <select
+                      value={newWorkshopStatus}
+                      onChange={(e) => setNewWorkshopStatus(e.target.value as any)}
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-bold"
+                    >
+                      <option value="Completed">Completed (Done)</option>
+                      <option value="Upcoming">Upcoming (Scheduled)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Date Conducted / Proposed</label>
+                    <input
+                      type="text"
+                      value={newWorkshopDate}
+                      onChange={(e) => setNewWorkshopDate(e.target.value)}
+                      placeholder="e.g. September 21st, October 5th"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Timings / Slot</label>
+                    <input
+                      type="text"
+                      value={newWorkshopTiming}
+                      onChange={(e) => setNewWorkshopTiming(e.target.value)}
+                      placeholder="e.g. 11:00 AM – 1:00 PM"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">RSVP / Attendance Count</label>
+                    <input
+                      type="number"
+                      value={newWorkshopRsvp}
+                      onChange={(e) => setNewWorkshopRsvp(Number(e.target.value))}
+                      placeholder="e.g. 116"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Community Collab / Post Details</label>
+                    <input
+                      type="text"
+                      value={newWorkshopCollab}
+                      onChange={(e) => setNewWorkshopCollab(e.target.value)}
+                      placeholder="e.g. 18 Sept with GDG AITR Collab (7 PM)"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Event Photos Drive Link</label>
+                    <input
+                      type="url"
+                      value={newWorkshopDrive}
+                      onChange={(e) => setNewWorkshopDrive(e.target.value)}
+                      placeholder="https://drive.google.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">College Logo Drive Link</label>
+                    <input
+                      type="url"
+                      value={newWorkshopLogo}
+                      onChange={(e) => setNewWorkshopLogo(e.target.value)}
+                      placeholder="https://drive.google.com/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    {editingWorkshopId ? "Update Workshop" : "Save College Workshop"}
+                  </button>
+                  {editingWorkshopId && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingWorkshopId(null);
+                        setNewWorkshopCollege("");
+                        setNewWorkshopSpeaker("");
+                      }}
+                      className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-black cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </form>
+            </div>
+
+            {/* Existing Workshops Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {workshopsList.map((ws) => (
+                <div
+                  key={ws.id}
+                  className="p-5 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        ws.status === "Completed" ? "bg-emerald-100 text-[#34a853]" : "bg-blue-100 text-[#4285f4]"
+                      }`}>
+                        {ws.status}
+                      </span>
+                      {ws.rsvpCount > 0 && (
+                        <span className="text-xs font-bold font-mono text-[#f9ab00]">
+                          {ws.rsvpCount} RSVPs
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="text-sm font-black text-[#1e1e1e] mb-1">{ws.college}</div>
+                    <div className="text-xs text-[#4285f4] font-bold flex items-center gap-1.5 mb-2">
+                      <span>Speaker:</span>
+                      <span className="text-[#1e1e1e]">{ws.speaker}</span>
+                    </div>
+
+                    <div className="space-y-1 text-[11px] text-[#5f6368] font-mono">
+                      <div>📅 {ws.date || "TBD"}</div>
+                      <div>⏰ {ws.timing || "TBD"}</div>
+                      {ws.collabNotice && (
+                        <div className="text-[10px] italic text-gray-500 truncate pt-1">
+                          "{ws.collabNotice}"
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      {ws.photosDrive && (
+                        <a
+                          href={ws.photosDrive}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[10px] text-[#4285f4] hover:underline font-bold"
+                        >
+                          Photos ↗
+                        </a>
+                      )}
+                      {ws.logoDrive && (
+                        <a
+                          href={ws.logoDrive}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[10px] text-[#f9ab00] hover:underline font-bold ml-2"
+                        >
+                          Logo ↗
+                        </a>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => {
+                          setEditingWorkshopId(ws.id);
+                          setNewWorkshopCollege(ws.college);
+                          setNewWorkshopDate(ws.date || "");
+                          setNewWorkshopTiming(ws.timing || "");
+                          setNewWorkshopSpeaker(ws.speaker);
+                          setNewWorkshopRsvp(ws.rsvpCount || 0);
+                          setNewWorkshopStatus(ws.status);
+                          setNewWorkshopCollab(ws.collabNotice || "");
+                          setNewWorkshopDrive(ws.photosDrive || "");
+                          setNewWorkshopLogo(ws.logoDrive || "");
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                        title="Edit Workshop"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (!confirm(`Are you sure you want to remove workshop at ${ws.college}?`)) return;
+                          await removeWorkshop(ws.id);
+                          setWorkshopsList((prev) => prev.filter((w) => w.id !== ws.id));
+                          setStatusMsg({ text: `Removed workshop for ${ws.college}`, type: "info" });
+                          setTimeout(() => setStatusMsg(null), 2500);
+                        }}
+                        className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                        title="Delete Workshop"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

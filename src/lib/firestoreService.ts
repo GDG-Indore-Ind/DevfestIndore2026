@@ -15,6 +15,7 @@ import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { GalleryItem, INITIAL_GALLERY_ITEMS } from "@/data/ecosystemData";
 import { FAQS } from "@/data/devfestData";
 import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
+import { WorkshopItem, INITIAL_WORKSHOPS } from "@/data/workshopsData";
 
 export interface FaqItem {
   id: string;
@@ -34,6 +35,7 @@ const COLLECTIONS = {
   FAQS: "faq_items",
   SOCIALS: "social_links",
   PARTNERS: "partners",
+  WORKSHOPS: "college_workshops",
 };
 
 export interface SocialLinks {
@@ -462,12 +464,13 @@ export interface NavItem {
 export const INITIAL_NAV_ITEMS: NavItem[] = [
   { id: "nav-home", name: "Home", href: "/", desc: "DevFest 2026 flagship vision & home", visible: true, order: 1 },
   { id: "nav-about", name: "About", href: "/#about", desc: "Where modern engineering meets Indore's innovation", visible: true, order: 2 },
-  { id: "nav-gallery", name: "Previous Editions", href: "/gallery", desc: "Curated 4K photo archive from previous editions", visible: true, order: 3 },
-  { id: "nav-speakers", name: "Speakers", href: "/past-speakers", desc: "Full directory of GDEs & past keynote speakers", visible: true, order: 4 },
-  { id: "nav-team", name: "Team", href: "/team", desc: "Core organizers & community leads", visible: true, order: 5 },
-  { id: "nav-events", name: "Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons", visible: true, order: 6 },
-  { id: "nav-sponsors", name: "Sponsors", href: "/#sponsors", desc: "Ecosystem catalysts & tech showcases", visible: true, order: 7 },
-  { id: "nav-instagram", name: "Instagram Feed", href: "/#social-stream", desc: "Real-time #GDGIndore Instagram reels & updates", visible: true, order: 8 },
+  { id: "nav-workshops", name: "Workshops", href: "/#workshops", desc: "Hands-on pre-devfest codelabs across 18+ colleges", visible: true, order: 3 },
+  { id: "nav-gallery", name: "Previous Editions", href: "/gallery", desc: "Curated 4K photo archive from previous editions", visible: true, order: 4 },
+  { id: "nav-speakers", name: "Speakers", href: "/past-speakers", desc: "Full directory of GDEs & past keynote speakers", visible: true, order: 5 },
+  { id: "nav-team", name: "Team", href: "/team", desc: "Core organizers & community leads", visible: true, order: 6 },
+  { id: "nav-events", name: "Events", href: "/#satellite-events", desc: "Indore pre-events & community hackathons", visible: true, order: 7 },
+  { id: "nav-sponsors", name: "Sponsors", href: "/#sponsors", desc: "Ecosystem catalysts & tech showcases", visible: true, order: 8 },
+  { id: "nav-instagram", name: "Instagram Feed", href: "/#social-stream", desc: "Real-time #GDGIndore Instagram reels & updates", visible: true, order: 9 },
 ];
 
 /**
@@ -539,16 +542,17 @@ export const INITIAL_SECTIONS_CONFIG: SectionConfig[] = [
   { id: "sec-flow", name: "3D Journey & Collective Flow", anchor: "flow", visible: true, order: 4 },
   { id: "sec-pillars", name: "5 Strategic Content Pillars", anchor: "pillars", visible: true, order: 5 },
   { id: "sec-space", name: "Space Club of India Alliance", anchor: "space-collaboration", visible: true, order: 6 },
-  { id: "sec-cfp", name: "Call for Speakers (Sessionize Portal)", anchor: "call-for-speakers", visible: true, order: 7 },
-  { id: "sec-speakers", name: "Organizing Committee & Past Keynotes Marquee", anchor: "speakers", visible: true, order: 8 },
-  { id: "sec-recap-gallery", name: "Curated Editions Photo Stream", anchor: "recap-gallery", visible: true, order: 9 },
-  { id: "sec-social", name: "Live Instagram Feed (#GDGIndore)", anchor: "social-stream", visible: true, order: 10 },
-  { id: "sec-recap", name: "Executive Recap & Milestones", anchor: "recap", visible: true, order: 11 },
-  { id: "sec-satellite", name: "Satellite Events & Hackathons", anchor: "satellite-events", visible: true, order: 12 },
-  { id: "sec-tickets", name: "Tickets & Pass Reservation", anchor: "tickets", visible: true, order: 13 },
-  { id: "sec-sponsors", name: "Sponsors & Industry Partners", anchor: "sponsors", visible: true, order: 14 },
-  { id: "sec-faq", name: "Frequently Asked Questions", anchor: "faq", visible: true, order: 15 },
-  { id: "sec-venue", name: "Essentia Hotel Venue & Coordinates", anchor: "venue", visible: true, order: 16 },
+  { id: "sec-workshops", name: "Pre-DevFest College Hands-on Workshops", anchor: "workshops", visible: true, order: 7 },
+  { id: "sec-cfp", name: "Call for Speakers (Sessionize Portal)", anchor: "call-for-speakers", visible: true, order: 8 },
+  { id: "sec-speakers", name: "Organizing Committee & Past Keynotes Marquee", anchor: "speakers", visible: true, order: 9 },
+  { id: "sec-recap-gallery", name: "Curated Editions Photo Stream", anchor: "recap-gallery", visible: true, order: 10 },
+  { id: "sec-social", name: "Live Instagram Feed (#GDGIndore)", anchor: "social-stream", visible: true, order: 11 },
+  { id: "sec-recap", name: "Executive Recap & Milestones", anchor: "recap", visible: true, order: 12 },
+  { id: "sec-satellite", name: "Satellite Events & Hackathons", anchor: "satellite-events", visible: true, order: 13 },
+  { id: "sec-tickets", name: "Tickets & Pass Reservation", anchor: "tickets", visible: true, order: 14 },
+  { id: "sec-sponsors", name: "Sponsors & Industry Partners", anchor: "sponsors", visible: true, order: 15 },
+  { id: "sec-faq", name: "Frequently Asked Questions", anchor: "faq", visible: true, order: 16 },
+  { id: "sec-venue", name: "Essentia Hotel Venue & Coordinates", anchor: "venue", visible: true, order: 17 },
 ];
 
 export async function getSectionsConfig(): Promise<SectionConfig[]> {
@@ -584,6 +588,60 @@ export async function saveSectionsConfig(sections: SectionConfig[]): Promise<voi
     localStorage.setItem("devfest-sections-config", JSON.stringify(sections));
   }
 }
+
+/**
+ * Fetch Pre-DevFest College Workshops
+ */
+export async function getWorkshops(): Promise<WorkshopItem[]> {
+  try {
+    const colRef = collection(db, COLLECTIONS.WORKSHOPS);
+    const snap = await getDocs(colRef);
+    if (!snap.empty) {
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as WorkshopItem));
+    }
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-workshops-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_WORKSHOPS;
+  } catch (e) {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("devfest-workshops-items");
+      if (saved) return JSON.parse(saved);
+    }
+    return INITIAL_WORKSHOPS;
+  }
+}
+
+/**
+ * Save or Update College Workshop
+ */
+export async function saveWorkshop(item: WorkshopItem): Promise<void> {
+  try {
+    const docRef = doc(db, COLLECTIONS.WORKSHOPS, item.id);
+    await setDoc(docRef, item, { merge: true });
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getWorkshops();
+    const updated = [item, ...current.filter((w) => w.id !== item.id)];
+    localStorage.setItem("devfest-workshops-items", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Remove College Workshop
+ */
+export async function removeWorkshop(id: string): Promise<void> {
+  try {
+    await deleteDoc(doc(db, COLLECTIONS.WORKSHOPS, id));
+  } catch (e) {}
+  if (typeof window !== "undefined") {
+    const current = await getWorkshops();
+    const updated = current.filter((w) => w.id !== id);
+    localStorage.setItem("devfest-workshops-items", JSON.stringify(updated));
+  }
+}
+
 
 
 

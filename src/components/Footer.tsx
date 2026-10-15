@@ -228,6 +228,7 @@ export default function Footer() {
                     { name: "About DevFest", href: "/#about" },
                     { name: "Content Pillars", href: "/#pillars" },
                     { name: "Space Alliance", href: "/#space-collaboration" },
+                    { name: "Campus Workshops", href: "/#workshops" },
                     { name: "Featured Speakers", href: "/past-speakers" },
                     { name: "Previous Editions", href: "/gallery" },
                     { name: "Satellite Events", href: "/#satellite-events" },

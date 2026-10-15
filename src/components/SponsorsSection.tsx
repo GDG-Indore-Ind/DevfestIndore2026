@@ -21,11 +21,17 @@ import {
   FirebaseLogo,
   AndroidLogo,
   TensorFlowLogo,
+  DiasparkLogo,
+  QuillBotLogo,
+  MSILogo,
+  GenieTalkLogo,
+  SoftudeLogo,
+  ProtonsHubLogo,
+  GraffersIDLogo,
+  CodingBlocksLogo,
 } from "./TechLogos";
 import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
-import { getPartners, savePartner, removePartner } from "@/lib/firestoreService";
-import { uploadToCloudinary } from "@/lib/cloudinary";
-import { Plus, Edit3, Trash2, X, Upload } from "lucide-react";
+import { getPartners } from "@/lib/firestoreService";
 
 // Key Noteworthy Statistics from Sponsorship Deck (Page 8)
 const DECK_STATISTICS = [
@@ -87,20 +93,6 @@ export default function SponsorsSection() {
   const [activePartnerTab, setActivePartnerTab] = useState<"sponsors" | "media" | "community">("sponsors");
   const [partners, setPartners] = useState<PartnerItem[]>(INITIAL_PARTNERS);
 
-  // Edit/Add Modal State
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingPartner, setEditingPartner] = useState<PartnerItem | null>(null);
-  const [formName, setFormName] = useState("");
-  const [formType, setFormType] = useState<"sponsor" | "media" | "community">("sponsor");
-  const [formCategory, setFormCategory] = useState("");
-  const [formTier, setFormTier] = useState("");
-  const [formScope, setFormScope] = useState("");
-  const [formDescription, setFormDescription] = useState("");
-  const [formLogoUrl, setFormLogoUrl] = useState("");
-  const [formWebsiteUrl, setFormWebsiteUrl] = useState("");
-  const [uploadingLogo, setUploadingLogo] = useState(false);
-  const [statusMsg, setStatusMsg] = useState<string | null>(null);
-
   useEffect(() => {
     getPartners().then((res) => {
       if (res && res.length > 0) setPartners(res);
@@ -110,71 +102,6 @@ export default function SponsorsSection() {
   const sponsorsList = partners.filter((p) => p.type === "sponsor");
   const mediaList = partners.filter((p) => p.type === "media");
   const communityList = partners.filter((p) => p.type === "community");
-
-  const openAddModal = (presetType?: "sponsor" | "media" | "community") => {
-    const targetType = presetType || (activePartnerTab === "sponsors" ? "sponsor" : activePartnerTab);
-    setEditingPartner(null);
-    setFormName("");
-    setFormType(targetType);
-    setFormCategory(targetType === "media" ? "Digital Media" : targetType === "community" ? "Tech Community" : "Cloud & AI");
-    setFormTier(targetType === "sponsor" ? "Ecosystem Partner" : "");
-    setFormScope(targetType === "media" ? "Regional Coverage" : "");
-    setFormDescription("");
-    setFormLogoUrl("");
-    setFormWebsiteUrl("");
-    setIsModalOpen(true);
-  };
-
-  const openEditModal = (p: PartnerItem) => {
-    setEditingPartner(p);
-    setFormName(p.name);
-    setFormType(p.type);
-    setFormCategory(p.category || "");
-    setFormTier(p.tier || "");
-    setFormScope(p.scope || "");
-    setFormDescription(p.description || "");
-    setFormLogoUrl(p.logoUrl || "");
-    setFormWebsiteUrl(p.websiteUrl || "");
-    setIsModalOpen(true);
-  };
-
-  const handleSavePartner = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formName.trim()) return;
-
-    const item: PartnerItem = {
-      id: editingPartner ? editingPartner.id : `partner-${Date.now()}`,
-      name: formName.trim(),
-      type: formType,
-      category: formCategory.trim() || undefined,
-      tier: formTier.trim() || undefined,
-      scope: formScope.trim() || undefined,
-      description: formDescription.trim() || undefined,
-      logoUrl: formLogoUrl.trim() || undefined,
-      websiteUrl: formWebsiteUrl.trim() || undefined,
-    };
-
-    await savePartner(item);
-    setPartners((prev) => {
-      const exists = prev.some((p) => p.id === item.id);
-      if (exists) {
-        return prev.map((p) => (p.id === item.id ? item : p));
-      }
-      return [item, ...prev];
-    });
-
-    setStatusMsg("Partner updated successfully!");
-    setTimeout(() => {
-      setStatusMsg(null);
-      setIsModalOpen(false);
-    }, 1200);
-  };
-
-  const handleDeletePartner = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to remove ${name}?`)) return;
-    await removePartner(id);
-    setPartners((prev) => prev.filter((p) => p.id !== id));
-  };
 
   // Helper to match built-in vector logos if logoUrl isn't provided
   const getBuiltinLogo = (name: string) => {
@@ -186,6 +113,14 @@ export default function SponsorsSection() {
     if (lower.includes("firebase")) return FirebaseLogo;
     if (lower.includes("android")) return AndroidLogo;
     if (lower.includes("tensorflow")) return TensorFlowLogo;
+    if (lower.includes("diaspark")) return DiasparkLogo;
+    if (lower.includes("quillbot")) return QuillBotLogo;
+    if (lower.includes("msi")) return MSILogo;
+    if (lower.includes("genie")) return GenieTalkLogo;
+    if (lower.includes("softude") || lower.includes("systematix")) return SoftudeLogo;
+    if (lower.includes("protons")) return ProtonsHubLogo;
+    if (lower.includes("graffers")) return GraffersIDLogo;
+    if (lower.includes("coding blocks")) return CodingBlocksLogo;
     return null;
   };
 
@@ -357,7 +292,7 @@ export default function SponsorsSection() {
               </h3>
             </div>
 
-            {/* Category Toggle Tabs + Add Button */}
+            {/* Category Toggle Tabs */}
             <div className="flex flex-wrap items-center gap-2">
               <div className={`p-1.5 rounded-2xl border flex items-center gap-1.5 ${
                 isDark ? "bg-[#0d0d0d] border-white/15" : "bg-gray-100 border-gray-300"
@@ -393,90 +328,86 @@ export default function SponsorsSection() {
                   Community ({communityList.length})
                 </button>
               </div>
-
-              <button
-                onClick={() => openAddModal(activePartnerTab === "sponsors" ? "sponsor" : activePartnerTab)}
-                className="px-3.5 py-2.5 rounded-2xl bg-[#34a853] hover:bg-[#2d9247] text-white text-xs font-bold flex items-center gap-1.5 shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                title="Add Partner / Sponsor"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Add {activePartnerTab === "sponsors" ? "Sponsor" : activePartnerTab === "media" ? "Media Partner" : "Community Partner"}</span>
-              </button>
             </div>
           </div>
 
-          {/* TAB 1: SPONSORS WITH VECTOR/UPLOADED LOGOS + CARDS */}
+          {/* TAB 1: SPONSORS WITH PROMINENT LOGOS + HIGH IMPACT CARDS */}
           {activePartnerTab === "sponsors" && (
             <div className="space-y-6 animate-in fade-in duration-300">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
                 {sponsorsList.map((item) => {
                   const BuiltinLogo = getBuiltinLogo(item.name);
                   return (
                     <div
                       key={item.id}
-                      className={`p-4 rounded-2xl border flex flex-col justify-between transition-all hover:scale-102 group relative ${
-                        isDark ? "bg-[#0d0d0d]/80 border-white/10 hover:border-white/20" : "bg-white border-gray-200/90 shadow-sm hover:border-blue-300"
+                      className={`p-5 rounded-3xl border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 group relative overflow-hidden ${
+                        isDark
+                          ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#4285f4]/50 hover:shadow-[0_0_25px_rgba(66,133,244,0.18)]"
+                          : "bg-white border-gray-200/90 shadow-sm hover:border-[#4285f4]/60 hover:shadow-lg"
                       }`}
                     >
+                      {/* Subtle Ambient Glow Behind Logo */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#4285f4]/10 to-transparent rounded-full blur-xl pointer-events-none group-hover:scale-150 transition-transform" />
+
                       <div>
-                        <div className="flex items-center justify-between mb-3 min-h-[28px]">
-                          <span className="text-[10px] font-mono font-bold text-[#4285f4] uppercase tracking-wider truncate mr-1">
+                        {/* Top Metadata: Category & External Link */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-[10px] font-mono font-bold text-[#4285f4] uppercase tracking-wider truncate max-w-[130px]">
                             {item.category}
                           </span>
-                          {item.logoUrl ? (
-                            <img
-                              src={item.logoUrl}
-                              alt={item.name}
-                              className="max-w-[32px] max-h-[32px] object-contain group-hover:scale-110 transition-transform"
-                            />
-                          ) : BuiltinLogo ? (
-                            <div className="w-6 h-6 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                              <BuiltinLogo className="w-5 h-5 object-contain" />
-                            </div>
-                          ) : (
-                            <div className="w-6 h-6 rounded-lg bg-blue-500/10 text-[#4285f4] text-xs font-bold flex items-center justify-center">
-                              {item.name.charAt(0)}
-                            </div>
-                          )}
-                        </div>
-                        <h4 className={`text-sm sm:text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                          {item.name}
-                        </h4>
-                      </div>
-                      <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/5">
-                        <span className={`text-[10px] font-medium px-2 py-0.5 rounded-lg border inline-block w-fit truncate max-w-[90px] ${
-                          isDark ? "bg-white/5 border-white/10 text-white/60" : "bg-gray-50 border-gray-200 text-gray-600"
-                        }`}>
-                          {item.tier}
-                        </span>
-
-                        <div className="flex items-center gap-1">
                           {item.websiteUrl && (
                             <a
                               href={item.websiteUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="text-gray-400 hover:text-[#4285f4] transition-colors p-1"
-                              title="Visit Website"
+                              className="text-gray-400 hover:text-[#4285f4] transition-colors p-1 rounded-md hover:bg-white/5"
+                              title={`Visit ${item.name}`}
                             >
-                              <ExternalLink className="w-3 h-3" />
+                              <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                           )}
-                          <button
-                            onClick={() => openEditModal(item)}
-                            className="p-1 text-gray-400 hover:text-[#4285f4] transition-colors cursor-pointer"
-                            title="Edit Sponsor Details"
-                          >
-                            <Edit3 className="w-3 h-3" />
-                          </button>
-                          <button
-                            onClick={() => handleDeletePartner(item.id, item.name)}
-                            className="p-1 text-gray-400 hover:text-[#ea4335] transition-colors cursor-pointer"
-                            title="Delete Sponsor"
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </button>
                         </div>
+
+                        {/* Heroic Logo Display Area */}
+                        <div
+                          className={`w-full h-24 sm:h-28 rounded-2xl border flex items-center justify-center p-3 mb-4 transition-all duration-300 group-hover:scale-105 ${
+                            isDark
+                              ? "bg-gradient-to-b from-white/[0.07] to-white/[0.02] border-white/10 shadow-inner"
+                              : "bg-gradient-to-b from-gray-50 to-gray-100/60 border-gray-200/80 shadow-inner"
+                          }`}
+                        >
+                          {item.logoUrl ? (
+                            <img
+                              src={item.logoUrl}
+                              alt={item.name}
+                              className="max-h-16 max-w-[85%] w-auto object-contain drop-shadow"
+                            />
+                          ) : BuiltinLogo ? (
+                            <BuiltinLogo className="w-14 h-14 sm:w-16 sm:h-16 object-contain drop-shadow" />
+                          ) : (
+                            <div className="w-14 h-14 rounded-2xl bg-[#4285f4]/15 border border-[#4285f4]/30 flex items-center justify-center">
+                              <span className="text-[#4285f4] text-2xl font-black">
+                                {item.name.charAt(0)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Sponsor Name */}
+                        <h4 className={`text-base sm:text-lg font-black text-center tracking-tight leading-snug ${isDark ? "text-white" : "text-gray-900"}`}>
+                          {item.name}
+                        </h4>
+                      </div>
+
+                      {/* Tier Pill */}
+                      <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-center">
+                        <span className={`text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-full border text-center truncate max-w-full tracking-wide ${
+                          isDark
+                            ? "bg-white/5 border-white/10 text-white/80"
+                            : "bg-gray-100 border-gray-200 text-gray-700"
+                        }`}>
+                          {item.tier || "Ecosystem Partner"}
+                        </span>
                       </div>
                     </div>
                   );
@@ -485,53 +416,76 @@ export default function SponsorsSection() {
             </div>
           )}
 
-          {/* TAB 2: MEDIA PARTNERS */}
+          {/* TAB 2: MEDIA PARTNERS WITH ENLARGED LOGOS */}
           {activePartnerTab === "media" && (
             <div className="space-y-6 animate-in fade-in duration-300">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
                 {mediaList.map((media) => (
                   <div
                     key={media.id}
-                    className={`p-4 rounded-2xl border transition-all hover:scale-102 flex flex-col justify-between group ${
-                      isDark ? "bg-[#0d0d0d]/80 border-white/10" : "bg-white border-gray-200/90 shadow-sm"
+                    className={`p-5 rounded-3xl border transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between group overflow-hidden ${
+                      isDark
+                        ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#ea4335]/50 hover:shadow-[0_0_25px_rgba(234,67,53,0.18)]"
+                        : "bg-white border-gray-200/90 shadow-sm hover:border-[#ea4335]/60 hover:shadow-lg"
                     }`}
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <Tv className="w-4 h-4 text-[#ea4335]" />
-                        {media.logoUrl && (
-                          <img src={media.logoUrl} alt={media.name} className="max-w-[28px] max-h-[28px] object-contain" />
+                      {/* Top Header */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-1.5 text-[#ea4335]">
+                          <Tv className="w-4 h-4" />
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider">
+                            Media Voice
+                          </span>
+                        </div>
+                        {media.websiteUrl && (
+                          <a
+                            href={media.websiteUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-gray-400 hover:text-[#ea4335] transition-colors p-1"
+                            title={`Visit ${media.name}`}
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
                         )}
                       </div>
-                      <h4 className={`text-sm sm:text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>
+
+                      {/* Prominent Media Logo / Identity Stage */}
+                      <div
+                        className={`w-full h-20 sm:h-24 rounded-2xl border flex items-center justify-center p-3 mb-3.5 transition-all duration-300 group-hover:scale-105 ${
+                          isDark
+                            ? "bg-gradient-to-b from-white/[0.07] to-white/[0.02] border-white/10"
+                            : "bg-gradient-to-b from-gray-50 to-gray-100/60 border-gray-200/80"
+                        }`}
+                      >
+                        {media.logoUrl ? (
+                          <img
+                            src={media.logoUrl}
+                            alt={media.name}
+                            className="max-h-14 max-w-[85%] w-auto object-contain drop-shadow"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-2xl bg-[#ea4335]/15 border border-[#ea4335]/30 flex items-center justify-center">
+                            <span className="text-[#ea4335] text-xl font-black">
+                              {media.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <h4 className={`text-base font-black text-center ${isDark ? "text-white" : "text-gray-900"}`}>
                         {media.name}
                       </h4>
-                      <span className="text-[11px] font-mono text-[#ea4335] font-semibold block mt-0.5">
+                      <span className="text-xs font-mono text-[#ea4335] font-semibold block text-center mt-1">
                         {media.category || "Media Partner"}
                       </span>
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/5">
-                      <span className={`text-[10px] block truncate max-w-[110px] ${isDark ? "text-white/60" : "text-gray-500"}`}>
+                    <div className="mt-4 pt-3 border-t border-white/5 text-center">
+                      <span className={`text-[11px] block truncate ${isDark ? "text-white/60" : "text-gray-500"}`}>
                         {media.scope || "Regional Coverage"}
                       </span>
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => openEditModal(media)}
-                          className="p-1 text-gray-400 hover:text-[#4285f4] transition-colors cursor-pointer"
-                          title="Edit Media Partner"
-                        >
-                          <Edit3 className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => handleDeletePartner(media.id, media.name)}
-                          className="p-1 text-gray-400 hover:text-[#ea4335] transition-colors cursor-pointer"
-                          title="Delete Media Partner"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -539,49 +493,76 @@ export default function SponsorsSection() {
             </div>
           )}
 
-          {/* TAB 3: COMMUNITY & COLLEGE ALLIANCES */}
+          {/* TAB 3: COMMUNITY & COLLEGE ALLIANCES WITH PROMINENT LOGOS */}
           {activePartnerTab === "community" && (
             <div className="space-y-6 animate-in fade-in duration-300">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                 {communityList.map((cp) => (
                   <div
                     key={cp.id}
-                    className={`p-4 sm:p-5 rounded-2xl border flex items-start justify-between gap-3 transition-all hover:scale-102 group ${
-                      isDark ? "bg-[#0d0d0d]/80 border-white/10" : "bg-white border-gray-200/90 shadow-sm"
+                    className={`p-5 rounded-3xl border flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1 group overflow-hidden ${
+                      isDark
+                        ? "bg-[#0d0d0d]/90 border-white/10 hover:border-[#34a853]/50 hover:shadow-[0_0_25px_rgba(52,168,83,0.18)]"
+                        : "bg-white border-gray-200/90 shadow-sm hover:border-[#34a853]/60 hover:shadow-lg"
                     }`}
                   >
-                    <div className="flex items-start gap-3 flex-1">
-                      <CheckCircle2 className="w-5 h-5 text-[#34a853] shrink-0 mt-0.5" />
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className={`text-sm sm:text-base font-black ${isDark ? "text-white" : "text-gray-900"}`}>
-                            {cp.name}
-                          </h4>
-                          {cp.logoUrl && (
-                            <img src={cp.logoUrl} alt={cp.name} className="max-w-[28px] max-h-[28px] object-contain ml-2" />
-                          )}
+                    <div>
+                      {/* Top Header */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-1.5 text-[#34a853]">
+                          <CheckCircle2 className="w-4 h-4" />
+                          <span className="text-[10px] font-mono font-bold uppercase tracking-wider">
+                            Alliance
+                          </span>
                         </div>
-                        <p className={`text-xs mt-1 leading-snug ${isDark ? "text-white/70" : "text-gray-600"}`}>
-                          {cp.description || cp.category}
-                        </p>
+                        {cp.websiteUrl && (
+                          <a
+                            href={cp.websiteUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-gray-400 hover:text-[#34a853] transition-colors p-1"
+                            title={`Visit ${cp.name}`}
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
                       </div>
+
+                      {/* Prominent Logo Area */}
+                      <div
+                        className={`w-full h-20 sm:h-24 rounded-2xl border flex items-center justify-center p-3 mb-3.5 transition-all duration-300 group-hover:scale-105 ${
+                          isDark
+                            ? "bg-gradient-to-b from-white/[0.07] to-white/[0.02] border-white/10"
+                            : "bg-gradient-to-b from-gray-50 to-gray-100/60 border-gray-200/80"
+                        }`}
+                      >
+                        {cp.logoUrl ? (
+                          <img
+                            src={cp.logoUrl}
+                            alt={cp.name}
+                            className="max-h-14 max-w-[85%] w-auto object-contain drop-shadow"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-2xl bg-[#34a853]/15 border border-[#34a853]/30 flex items-center justify-center">
+                            <span className="text-[#34a853] text-xl font-black">
+                              {cp.name.charAt(0)}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <h4 className={`text-base font-black text-center ${isDark ? "text-white" : "text-gray-900"}`}>
+                        {cp.name}
+                      </h4>
+                      <p className={`text-xs mt-2 text-center leading-relaxed ${isDark ? "text-white/70" : "text-gray-600"}`}>
+                        {cp.description || cp.category}
+                      </p>
                     </div>
 
-                    <div className="flex items-center gap-1 shrink-0 pt-0.5">
-                      <button
-                        onClick={() => openEditModal(cp)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-[#4285f4] hover:bg-white/5 transition-colors cursor-pointer"
-                        title="Edit Community Partner"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleDeletePartner(cp.id, cp.name)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-[#ea4335] hover:bg-white/5 transition-colors cursor-pointer"
-                        title="Delete Community Partner"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                    <div className="pt-2 border-t border-white/5 text-center">
+                      <span className={`text-[10px] font-mono font-medium ${isDark ? "text-white/50" : "text-gray-500"}`}>
+                        Developer Network Partner
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -590,172 +571,7 @@ export default function SponsorsSection() {
           )}
         </div>
 
-        {/* Modal: Add / Edit Partner with Logo Uploader */}
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className={`w-full max-w-lg p-6 sm:p-8 rounded-3xl border shadow-2xl relative max-h-[90vh] overflow-y-auto ${
-              isDark ? "bg-[#111111] border-white/15 text-white" : "bg-white border-gray-200 text-gray-900"
-            }`}>
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-200 dark:border-white/10">
-                <div className="flex items-center gap-2">
-                  <Handshake className="w-5 h-5 text-[#4285f4]" />
-                  <h3 className="text-lg font-black">
-                    {editingPartner ? "Edit Partner Details" : "Add New Partner / Sponsor"}
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              {statusMsg && (
-                <div className="mb-4 p-3 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-bold text-center">
-                  {statusMsg}
-                </div>
-              )}
-
-              <form onSubmit={handleSavePartner} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold mb-1 opacity-80">Partner Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={formName}
-                      onChange={(e) => setFormName(e.target.value)}
-                      placeholder="e.g. JetBrains, FlutterFlow"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold mb-1 opacity-80">Partner Type *</label>
-                    <select
-                      value={formType}
-                      onChange={(e) => setFormType(e.target.value as any)}
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                    >
-                      <option value="sponsor" className="text-black">Sponsor & Tech Titan</option>
-                      <option value="media" className="text-black">Media Partner</option>
-                      <option value="community" className="text-black">Community & College</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold mb-1 opacity-80">Category / Domain</label>
-                    <input
-                      type="text"
-                      value={formCategory}
-                      onChange={(e) => setFormCategory(e.target.value)}
-                      placeholder="e.g. Cloud & AI, DevOps, Print & Digital"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold mb-1 opacity-80">
-                      {formType === "sponsor" ? "Tier Badge" : formType === "media" ? "Coverage Scope" : "Role"}
-                    </label>
-                    <input
-                      type="text"
-                      value={formType === "sponsor" ? formTier : formScope}
-                      onChange={(e) => formType === "sponsor" ? setFormTier(e.target.value) : setFormScope(e.target.value)}
-                      placeholder={formType === "sponsor" ? "e.g. Gold Partner, Ecosystem" : "e.g. Statewide Daily"}
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold mb-1 opacity-80">Description / Focus</label>
-                  <textarea
-                    rows={2}
-                    value={formDescription}
-                    onChange={(e) => setFormDescription(e.target.value)}
-                    placeholder="Short description of partnership or collaborative initiative..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                  />
-                </div>
-
-                {/* Logo Upload (Cloudinary) or Direct URL */}
-                <div>
-                  <label className="block text-xs font-bold mb-1 opacity-80">Partner Logo (Direct Cloudinary Upload)</label>
-                  <div className="flex items-center gap-3 mb-2">
-                    <label className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 text-[#4285f4] text-xs font-bold cursor-pointer transition-colors border border-blue-500/30">
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>{uploadingLogo ? "Uploading..." : "Upload Logo PNG/SVG"}</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        disabled={uploadingLogo}
-                        onChange={async (e) => {
-                          const file = e.target.files?.[0];
-                          if (!file) return;
-                          try {
-                            setUploadingLogo(true);
-                            const url = await uploadToCloudinary(file);
-                            setFormLogoUrl(url);
-                          } catch (err: any) {
-                            alert(err.message || "Failed to upload logo");
-                          } finally {
-                            setUploadingLogo(false);
-                          }
-                        }}
-                      />
-                    </label>
-
-                    {formLogoUrl && (
-                      <div className="flex items-center gap-2 bg-white/5 p-1 rounded-lg border border-white/10">
-                        <img src={formLogoUrl} alt="Preview" className="w-8 h-8 object-contain rounded" />
-                        <span className="text-[10px] text-green-400 font-bold">Logo Ready</span>
-                      </div>
-                    )}
-                  </div>
-                  <input
-                    type="url"
-                    value={formLogoUrl}
-                    onChange={(e) => setFormLogoUrl(e.target.value)}
-                    placeholder="Or enter logo URL directly (https://...)"
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold mb-1 opacity-80">Website Link</label>
-                  <input
-                    type="url"
-                    value={formWebsiteUrl}
-                    onChange={(e) => setFormWebsiteUrl(e.target.value)}
-                    placeholder="https://..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 dark:border-white/15 bg-transparent text-xs"
-                  />
-                </div>
-
-                <div className="pt-3 flex items-center justify-end gap-3 border-t border-gray-200 dark:border-white/10">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-white cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] hover:bg-[#3367d6] text-white shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                  >
-                    {editingPartner ? "Update Partner" : "Save Partner"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        {/* Sponsor Callout & Download Deck Box */}
 
         {/* Sponsor Callout & Download Deck Box */}
         <CardTilt

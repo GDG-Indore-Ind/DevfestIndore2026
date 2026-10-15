@@ -11,6 +11,7 @@ import ThreeDFlowSection from "@/components/ThreeDFlowSection";
 import EventRecapSection from "@/components/EventRecapSection";
 import SatelliteEventsSection from "@/components/SatelliteEventsSection";
 import CallForSpeakersSection from "@/components/CallForSpeakersSection";
+import CollegeWorkshopsSection from "@/components/CollegeWorkshopsSection";
 import FeaturedTeamSection from "@/components/FeaturedTeamSection";
 import TicketsSection from "@/components/TicketsSection";
 import SponsorsSection from "@/components/SponsorsSection";
@@ -93,6 +94,12 @@ export default function Home() {
         return (
           <div id="space-collaboration" key="space-collaboration">
             <SpaceCollaborationSection />
+          </div>
+        );
+      case "workshops":
+        return (
+          <div id="workshops" key="workshops">
+            <CollegeWorkshopsSection />
           </div>
         );
       case "call-for-speakers":
