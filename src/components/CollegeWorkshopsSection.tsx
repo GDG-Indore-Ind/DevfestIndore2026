@@ -181,15 +181,29 @@ export default function CollegeWorkshopsSection() {
                       </div>
                     )}
 
-                    {/* College Title Overlay on Image */}
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <div className="flex items-center gap-1.5 text-blue-400 text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5">
-                        <School className="w-3.5 h-3.5" />
-                        <span>Campus Codelab Chapter</span>
+                    {/* College Title & Logo Overlay on Image */}
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center gap-3">
+                      {/* Prominent College Logo Crest */}
+                      <div className="w-12 h-12 rounded-2xl bg-white border-2 border-white/80 shadow-lg flex items-center justify-center shrink-0 overflow-hidden p-1">
+                        {ws.collegeLogoUrl ? (
+                          <img
+                            src={ws.collegeLogoUrl}
+                            alt={`${ws.college} Logo`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <School className="w-6 h-6 text-[#4285f4]" />
+                        )}
                       </div>
-                      <h3 className="text-white text-base sm:text-lg font-black leading-tight drop-shadow truncate">
-                        {ws.college}
-                      </h3>
+
+                      <div className="truncate">
+                        <div className="flex items-center gap-1.5 text-blue-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                          <span>Campus Chapter</span>
+                        </div>
+                        <h3 className="text-white text-base sm:text-lg font-black leading-tight drop-shadow truncate">
+                          {ws.college}
+                        </h3>
+                      </div>
                     </div>
                   </div>
 
@@ -210,6 +224,30 @@ export default function CollegeWorkshopsSection() {
 
                   {/* Details Body */}
                   <div className="p-5 space-y-3">
+                    {/* College Crest & Speaker Header Bar */}
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 overflow-hidden ${
+                          isDark ? "bg-white/10 border-white/20" : "bg-white border-gray-200 shadow-xs"
+                        }`}>
+                          {ws.collegeLogoUrl ? (
+                            <img src={ws.collegeLogoUrl} alt="Logo" className="w-full h-full object-contain p-0.5" />
+                          ) : (
+                            <School className="w-4 h-4 text-[#4285f4]" />
+                          )}
+                        </div>
+                        <span className="text-[11px] font-mono font-bold text-[#4285f4] uppercase tracking-wide truncate max-w-[150px]">
+                          {ws.college.split("(")[0].trim()}
+                        </span>
+                      </div>
+
+                      {ws.collegeLogoUrl && (
+                        <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-[#4285f4] border border-blue-500/20 shrink-0">
+                          Official Chapter
+                        </span>
+                      )}
+                    </div>
+
                     {/* Speaker Bar */}
                     <div className={`p-2.5 rounded-xl border flex items-center gap-2.5 ${
                       isDark ? "bg-white/5 border-white/10" : "bg-gray-50 border-gray-200"
@@ -333,15 +371,24 @@ export default function CollegeWorkshopsSection() {
       {selectedWorkshop && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
           <div className="max-w-4xl w-full bg-[#111111] border border-white/20 rounded-3xl overflow-hidden shadow-2xl relative text-white">
-            {/* Header */}
+            {/* Header with College Logo */}
             <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono text-[#4285f4] uppercase font-bold block">
-                  {selectedWorkshop.college}
-                </span>
-                <h4 className="text-base sm:text-lg font-black">
-                  Speaker: {selectedWorkshop.speaker} {selectedWorkshop.topic ? `— ${selectedWorkshop.topic}` : ""}
-                </h4>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white border border-white/20 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                  {selectedWorkshop.collegeLogoUrl ? (
+                    <img src={selectedWorkshop.collegeLogoUrl} alt="Logo" className="w-full h-full object-contain" />
+                  ) : (
+                    <School className="w-5 h-5 text-[#4285f4]" />
+                  )}
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-[#4285f4] uppercase font-bold block">
+                    {selectedWorkshop.college}
+                  </span>
+                  <h4 className="text-base sm:text-lg font-black">
+                    Speaker: {selectedWorkshop.speaker} {selectedWorkshop.topic ? `— ${selectedWorkshop.topic}` : ""}
+                  </h4>
+                </div>
               </div>
               <button
                 onClick={() => setSelectedWorkshop(null)}

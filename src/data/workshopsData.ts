@@ -4,6 +4,7 @@ export interface WorkshopItem {
   speaker: string;
   topic?: string;
   description?: string;
+  collegeLogoUrl?: string; // College / Institute crest or logo
   images?: string[]; // Multiple photos uploaded for this workshop
   instagramUrl?: string; // Relevant Instagram post / reel link
   photosDrive?: string; // Drive link if available

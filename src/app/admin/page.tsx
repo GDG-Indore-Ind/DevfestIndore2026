@@ -121,7 +121,9 @@ export default function AdminPage() {
   const [newWorkshopDrive, setNewWorkshopDrive] = useState("");
   const [newWorkshopLogo, setNewWorkshopLogo] = useState("");
   const [newWorkshopCollab, setNewWorkshopCollab] = useState("");
+  const [newCollegeLogo, setNewCollegeLogo] = useState("");
   const [uploadingWorkshopImages, setUploadingWorkshopImages] = useState(false);
+  const [uploadingCollegeLogo, setUploadingCollegeLogo] = useState(false);
 
   // Navigation Items Management State
   const [navItemsList, setNavItemsList] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
@@ -1621,6 +1623,7 @@ export default function AdminPage() {
                     speaker: newWorkshopSpeaker.trim(),
                     topic: newWorkshopTopic.trim() || undefined,
                     description: newWorkshopDesc.trim() || undefined,
+                    collegeLogoUrl: newCollegeLogo.trim() || undefined,
                     images: newWorkshopImages.length > 0 ? newWorkshopImages : undefined,
                     instagramUrl: newWorkshopInstagram.trim() || undefined,
                     photosDrive: newWorkshopDrive.trim() || undefined,
@@ -1642,6 +1645,7 @@ export default function AdminPage() {
                   setNewWorkshopSpeaker("");
                   setNewWorkshopTopic("");
                   setNewWorkshopDesc("");
+                  setNewCollegeLogo("");
                   setNewWorkshopImages([]);
                   setNewWorkshopInstagram("");
                   setNewWorkshopDrive("");
@@ -1848,6 +1852,59 @@ export default function AdminPage() {
                   </div>
                 </div>
 
+                {/* College Logo Uploader / Input */}
+                <div className="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                        {newCollegeLogo ? (
+                          <img src={newCollegeLogo} alt="Logo" className="w-full h-full object-contain p-1" />
+                        ) : (
+                          <School className="w-5 h-5 text-amber-600" />
+                        )}
+                      </div>
+                      <div>
+                        <span className="text-xs font-black text-[#1e1e1e] block">College / University Logo</span>
+                        <span className="text-[10px] text-[#5f6368]">Displayed prominently on the workshop card crest</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <label className="px-3 py-1.5 rounded-xl bg-[#f9ab00] hover:bg-[#e09a00] text-black text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs transition-transform active:scale-95 shrink-0">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>{uploadingCollegeLogo ? "Uploading..." : "Upload Logo"}</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          disabled={uploadingCollegeLogo}
+                          className="hidden"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            try {
+                              setUploadingCollegeLogo(true);
+                              const url = await uploadToCloudinary(file);
+                              setNewCollegeLogo(url);
+                            } catch (err: any) {
+                              alert(err.message || "Failed to upload logo");
+                            } finally {
+                              setUploadingCollegeLogo(false);
+                            }
+                          }}
+                        />
+                      </label>
+
+                      <input
+                        type="url"
+                        value={newCollegeLogo}
+                        onChange={(e) => setNewCollegeLogo(e.target.value)}
+                        placeholder="Or paste direct logo URL (https://...)"
+                        className="flex-1 sm:w-64 px-3 py-1.5 rounded-xl border border-gray-300 text-xs bg-white font-medium"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-3 pt-2">
                   <button
                     type="submit"
@@ -1960,6 +2017,7 @@ export default function AdminPage() {
                           setNewWorkshopSpeaker(ws.speaker);
                           setNewWorkshopTopic(ws.topic || "");
                           setNewWorkshopDesc(ws.description || "");
+                          setNewCollegeLogo(ws.collegeLogoUrl || "");
                           setNewWorkshopImages(ws.images || []);
                           setNewWorkshopInstagram(ws.instagramUrl || "");
                           setNewWorkshopDrive(ws.photosDrive || "");
