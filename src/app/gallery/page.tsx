@@ -131,6 +131,7 @@ export default function GalleryPage() {
 
   const categories = [
     "All",
+    "Pre-DevFest Workshops",
     "Keynotes",
     "AI & Robotics",
     "Space",

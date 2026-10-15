@@ -113,14 +113,15 @@ export default function AdminPage() {
   const [workshopsList, setWorkshopsList] = useState<WorkshopItem[]>(INITIAL_WORKSHOPS);
   const [editingWorkshopId, setEditingWorkshopId] = useState<string | null>(null);
   const [newWorkshopCollege, setNewWorkshopCollege] = useState("");
-  const [newWorkshopDate, setNewWorkshopDate] = useState("");
-  const [newWorkshopTiming, setNewWorkshopTiming] = useState("");
   const [newWorkshopSpeaker, setNewWorkshopSpeaker] = useState("");
-  const [newWorkshopRsvp, setNewWorkshopRsvp] = useState<number>(0);
-  const [newWorkshopStatus, setNewWorkshopStatus] = useState<WorkshopItem["status"]>("Completed");
-  const [newWorkshopCollab, setNewWorkshopCollab] = useState("");
+  const [newWorkshopTopic, setNewWorkshopTopic] = useState("");
+  const [newWorkshopDesc, setNewWorkshopDesc] = useState("");
+  const [newWorkshopImages, setNewWorkshopImages] = useState<string[]>([]);
+  const [newWorkshopInstagram, setNewWorkshopInstagram] = useState("");
   const [newWorkshopDrive, setNewWorkshopDrive] = useState("");
   const [newWorkshopLogo, setNewWorkshopLogo] = useState("");
+  const [newWorkshopCollab, setNewWorkshopCollab] = useState("");
+  const [uploadingWorkshopImages, setUploadingWorkshopImages] = useState(false);
 
   // Navigation Items Management State
   const [navItemsList, setNavItemsList] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
@@ -1580,7 +1581,7 @@ export default function AdminPage() {
                 <div className="flex items-center gap-2">
                   <GraduationCap className="w-5 h-5 text-[#4285f4]" />
                   <h2 className="text-base font-bold text-[#1e1e1e]">
-                    {editingWorkshopId ? "Edit College Workshop Details" : "Add Pre-DevFest College Workshop"}
+                    {editingWorkshopId ? "Edit College Workshop & Photo Gallery" : "Add Pre-DevFest College Workshop & Photos"}
                   </h2>
                 </div>
                 {editingWorkshopId && (
@@ -1589,14 +1590,14 @@ export default function AdminPage() {
                     onClick={() => {
                       setEditingWorkshopId(null);
                       setNewWorkshopCollege("");
-                      setNewWorkshopDate("");
-                      setNewWorkshopTiming("");
                       setNewWorkshopSpeaker("");
-                      setNewWorkshopRsvp(0);
-                      setNewWorkshopStatus("Completed");
-                      setNewWorkshopCollab("");
+                      setNewWorkshopTopic("");
+                      setNewWorkshopDesc("");
+                      setNewWorkshopImages([]);
+                      setNewWorkshopInstagram("");
                       setNewWorkshopDrive("");
                       setNewWorkshopLogo("");
+                      setNewWorkshopCollab("");
                     }}
                     className="text-xs font-bold text-gray-500 hover:text-black underline cursor-pointer"
                   >
@@ -1617,14 +1618,14 @@ export default function AdminPage() {
                   const item: WorkshopItem = {
                     id: targetId,
                     college: newWorkshopCollege.trim(),
-                    date: newWorkshopDate.trim() || "TBD",
-                    timing: newWorkshopTiming.trim() || "TBD",
                     speaker: newWorkshopSpeaker.trim(),
-                    rsvpCount: Number(newWorkshopRsvp) || 0,
-                    status: newWorkshopStatus,
-                    collabNotice: newWorkshopCollab.trim() || undefined,
+                    topic: newWorkshopTopic.trim() || undefined,
+                    description: newWorkshopDesc.trim() || undefined,
+                    images: newWorkshopImages.length > 0 ? newWorkshopImages : undefined,
+                    instagramUrl: newWorkshopInstagram.trim() || undefined,
                     photosDrive: newWorkshopDrive.trim() || undefined,
                     logoDrive: newWorkshopLogo.trim() || undefined,
+                    collabNotice: newWorkshopCollab.trim() || undefined,
                   };
 
                   await saveWorkshop(item);
@@ -1638,21 +1639,21 @@ export default function AdminPage() {
 
                   setEditingWorkshopId(null);
                   setNewWorkshopCollege("");
-                  setNewWorkshopDate("");
-                  setNewWorkshopTiming("");
                   setNewWorkshopSpeaker("");
-                  setNewWorkshopRsvp(0);
-                  setNewWorkshopStatus("Completed");
-                  setNewWorkshopCollab("");
+                  setNewWorkshopTopic("");
+                  setNewWorkshopDesc("");
+                  setNewWorkshopImages([]);
+                  setNewWorkshopInstagram("");
                   setNewWorkshopDrive("");
                   setNewWorkshopLogo("");
+                  setNewWorkshopCollab("");
 
-                  setStatusMsg({ text: "Workshop saved and updated across website!", type: "success" });
+                  setStatusMsg({ text: "College workshop & photo gallery updated successfully!", type: "success" });
                   setTimeout(() => setStatusMsg(null), 3000);
                 }}
                 className="space-y-4"
               >
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-[#1e1e1e] mb-1">College / Institute Name *</label>
                     <input
@@ -1661,7 +1662,7 @@ export default function AdminPage() {
                       value={newWorkshopCollege}
                       onChange={(e) => setNewWorkshopCollege(e.target.value)}
                       placeholder="e.g. Acropolis College, IET DAVV, SAGE"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
                     />
                   </div>
 
@@ -1673,67 +1674,154 @@ export default function AdminPage() {
                       value={newWorkshopSpeaker}
                       onChange={(e) => setNewWorkshopSpeaker(e.target.value)}
                       placeholder="e.g. Soham Sharma, Mradula Mittal"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Status *</label>
-                    <select
-                      value={newWorkshopStatus}
-                      onChange={(e) => setNewWorkshopStatus(e.target.value as any)}
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-bold"
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Lecture Topic / Hands-on Domain</label>
+                    <input
+                      type="text"
+                      value={newWorkshopTopic}
+                      onChange={(e) => setNewWorkshopTopic(e.target.value)}
+                      placeholder="e.g. GenAI, Vertex AI, Flutter, Cloud"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Workshop Description / Key Takeaways</label>
+                  <textarea
+                    rows={2}
+                    value={newWorkshopDesc}
+                    onChange={(e) => setNewWorkshopDesc(e.target.value)}
+                    placeholder="Brief description of the hands-on session, practical codelabs, and student engagement..."
+                    className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
+                  />
+                </div>
+
+                {/* Multiple Images Upload (Max 6) */}
+                <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-200">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
+                    <div>
+                      <span className="text-xs font-black text-[#1e1e1e] flex items-center gap-1.5">
+                        <ImageIcon className="w-4 h-4 text-[#4285f4]" />
+                        <span>Workshop Photo Gallery (Upload up to 5-6 Photos)</span>
+                      </span>
+                      <p className="text-[11px] text-[#5f6368] mt-0.5">
+                        Photos appear in a high-impact interactive card gallery and pre-devfest visual archive.
+                      </p>
+                    </div>
+
+                    <label className="px-3.5 py-2 rounded-xl bg-[#4285f4] hover:bg-[#3367d6] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-sm transition-transform active:scale-95 shrink-0">
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>{uploadingWorkshopImages ? "Uploading to Cloud..." : "Upload Images (PNG/JPG)"}</span>
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        disabled={uploadingWorkshopImages}
+                        className="hidden"
+                        onChange={async (e) => {
+                          const files = e.target.files;
+                          if (!files || files.length === 0) return;
+                          if (newWorkshopImages.length + files.length > 6) {
+                            alert("You can upload a maximum of 6 images per workshop.");
+                            return;
+                          }
+                          try {
+                            setUploadingWorkshopImages(true);
+                            const uploadedUrls: string[] = [];
+                            for (let i = 0; i < files.length; i++) {
+                              const url = await uploadToCloudinary(files[i]);
+                              uploadedUrls.push(url);
+                            }
+                            setNewWorkshopImages((prev) => [...prev, ...uploadedUrls]);
+                          } catch (err: any) {
+                            alert(err.message || "Failed to upload images");
+                          } finally {
+                            setUploadingWorkshopImages(false);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  {/* Uploaded Images Preview Strip */}
+                  {newWorkshopImages.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 pt-1">
+                      {newWorkshopImages.map((imgUrl, i) => (
+                        <div key={i} className="relative group rounded-xl overflow-hidden border border-gray-200 bg-white shadow-xs aspect-video flex items-center justify-center">
+                          <img src={imgUrl} alt={`Upload ${i + 1}`} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => setNewWorkshopImages((prev) => prev.filter((_, idx) => idx !== i))}
+                            className="absolute top-1 right-1 p-1 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
+                            title="Remove Photo"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-[11px] text-gray-500 font-medium py-1">
+                      No photos uploaded yet. You can also paste an image URL directly below:
+                    </div>
+                  )}
+
+                  {/* Direct Image URL input fallback */}
+                  <div className="mt-2.5 flex items-center gap-2">
+                    <input
+                      type="url"
+                      placeholder="Or enter direct photo URL (e.g. /gallery/opt_DSCF7167.JPG or https://...)"
+                      id="direct-img-url"
+                      className="flex-1 px-3 py-1.5 rounded-xl border border-gray-300 text-xs bg-white"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const val = (e.target as HTMLInputElement).value.trim();
+                          if (val) {
+                            if (newWorkshopImages.length >= 6) {
+                              alert("Maximum 6 images allowed per workshop.");
+                              return;
+                            }
+                            setNewWorkshopImages((prev) => [...prev, val]);
+                            (e.target as HTMLInputElement).value = "";
+                          }
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById("direct-img-url") as HTMLInputElement;
+                        if (input && input.value.trim()) {
+                          if (newWorkshopImages.length >= 6) {
+                            alert("Maximum 6 images allowed per workshop.");
+                            return;
+                          }
+                          setNewWorkshopImages((prev) => [...prev, input.value.trim()]);
+                          input.value = "";
+                        }
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-gray-200 hover:bg-gray-300 text-xs font-bold text-[#1e1e1e] cursor-pointer"
                     >
-                      <option value="Completed">Completed (Done)</option>
-                      <option value="Upcoming">Upcoming (Scheduled)</option>
-                    </select>
+                      + Add URL
+                    </button>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Date Conducted / Proposed</label>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Instagram Post / Reel URL</label>
                     <input
-                      type="text"
-                      value={newWorkshopDate}
-                      onChange={(e) => setNewWorkshopDate(e.target.value)}
-                      placeholder="e.g. September 21st, October 5th"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Timings / Slot</label>
-                    <input
-                      type="text"
-                      value={newWorkshopTiming}
-                      onChange={(e) => setNewWorkshopTiming(e.target.value)}
-                      placeholder="e.g. 11:00 AM – 1:00 PM"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">RSVP / Attendance Count</label>
-                    <input
-                      type="number"
-                      value={newWorkshopRsvp}
-                      onChange={(e) => setNewWorkshopRsvp(Number(e.target.value))}
-                      placeholder="e.g. 116"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Community Collab / Post Details</label>
-                    <input
-                      type="text"
-                      value={newWorkshopCollab}
-                      onChange={(e) => setNewWorkshopCollab(e.target.value)}
-                      placeholder="e.g. 18 Sept with GDG AITR Collab (7 PM)"
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      type="url"
+                      value={newWorkshopInstagram}
+                      onChange={(e) => setNewWorkshopInstagram(e.target.value)}
+                      placeholder="https://instagram.com/p/..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
                     />
                   </div>
 
@@ -1744,18 +1832,18 @@ export default function AdminPage() {
                       value={newWorkshopDrive}
                       onChange={(e) => setNewWorkshopDrive(e.target.value)}
                       placeholder="https://drive.google.com/..."
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">College Logo Drive Link</label>
+                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">Collab / Chapter Notice</label>
                     <input
-                      type="url"
-                      value={newWorkshopLogo}
-                      onChange={(e) => setNewWorkshopLogo(e.target.value)}
-                      placeholder="https://drive.google.com/..."
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      type="text"
+                      value={newWorkshopCollab}
+                      onChange={(e) => setNewWorkshopCollab(e.target.value)}
+                      placeholder="e.g. Conducted with GDG on Campus Chapter"
+                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs font-medium"
                     />
                   </div>
                 </div>
@@ -1765,7 +1853,7 @@ export default function AdminPage() {
                     type="submit"
                     className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#4285f4] text-white border-2 border-[#1e1e1e] google-pill-shadow hover:scale-105 transition-transform cursor-pointer"
                   >
-                    {editingWorkshopId ? "Update Workshop" : "Save College Workshop"}
+                    {editingWorkshopId ? "Update Workshop" : "Save College Workshop & Photos"}
                   </button>
                   {editingWorkshopId && (
                     <button
@@ -1774,6 +1862,13 @@ export default function AdminPage() {
                         setEditingWorkshopId(null);
                         setNewWorkshopCollege("");
                         setNewWorkshopSpeaker("");
+                        setNewWorkshopTopic("");
+                        setNewWorkshopDesc("");
+                        setNewWorkshopImages([]);
+                        setNewWorkshopInstagram("");
+                        setNewWorkshopDrive("");
+                        setNewWorkshopLogo("");
+                        setNewWorkshopCollab("");
                       }}
                       className="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:text-black cursor-pointer"
                     >
@@ -1785,45 +1880,66 @@ export default function AdminPage() {
             </div>
 
             {/* Existing Workshops Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {workshopsList.map((ws) => (
                 <div
                   key={ws.id}
-                  className="p-5 rounded-2xl bg-white border border-gray-200 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
+                  className="rounded-3xl bg-white border border-gray-200 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow overflow-hidden"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                        ws.status === "Completed" ? "bg-emerald-100 text-[#34a853]" : "bg-blue-100 text-[#4285f4]"
-                      }`}>
-                        {ws.status}
+                    {/* Visual Preview */}
+                    <div className="relative h-40 w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                      {ws.images && ws.images.length > 0 ? (
+                        <img src={ws.images[0]} alt={ws.college} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="flex flex-col items-center gap-1 text-gray-400">
+                          <ImageIcon className="w-6 h-6" />
+                          <span className="text-[10px] font-mono">No Photos Uploaded</span>
+                        </div>
+                      )}
+                      <span className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-mono font-bold">
+                        Conducted
                       </span>
-                      {ws.rsvpCount > 0 && (
-                        <span className="text-xs font-bold font-mono text-[#f9ab00]">
-                          {ws.rsvpCount} RSVPs
+                      {ws.images && ws.images.length > 0 && (
+                        <span className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-full bg-black/70 text-white text-[10px] font-mono font-bold">
+                          {ws.images.length} Photos
                         </span>
                       )}
                     </div>
 
-                    <div className="text-sm font-black text-[#1e1e1e] mb-1">{ws.college}</div>
-                    <div className="text-xs text-[#4285f4] font-bold flex items-center gap-1.5 mb-2">
-                      <span>Speaker:</span>
-                      <span className="text-[#1e1e1e]">{ws.speaker}</span>
-                    </div>
+                    <div className="p-4">
+                      <div className="text-sm font-black text-[#1e1e1e] mb-1 line-clamp-1">{ws.college}</div>
+                      <div className="text-xs text-[#4285f4] font-bold flex items-center gap-1.5 mb-1.5">
+                        <span>Speaker:</span>
+                        <span className="text-[#1e1e1e] font-black">{ws.speaker}</span>
+                      </div>
 
-                    <div className="space-y-1 text-[11px] text-[#5f6368] font-mono">
-                      <div>📅 {ws.date || "TBD"}</div>
-                      <div>⏰ {ws.timing || "TBD"}</div>
+                      {ws.topic && (
+                        <div className="text-[11px] font-bold text-gray-800 line-clamp-1 mb-1">
+                          Topic: {ws.topic}
+                        </div>
+                      )}
+
                       {ws.collabNotice && (
-                        <div className="text-[10px] italic text-gray-500 truncate pt-1">
+                        <div className="text-[10px] text-gray-500 italic line-clamp-1">
                           "{ws.collabNotice}"
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <div className="flex items-center gap-1">
+                  <div className="p-4 pt-2 border-t border-gray-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {ws.instagramUrl && (
+                        <a
+                          href={ws.instagramUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-[10px] text-pink-600 hover:underline font-bold"
+                        >
+                          IG Reel ↗
+                        </a>
+                      )}
                       {ws.photosDrive && (
                         <a
                           href={ws.photosDrive}
@@ -1831,17 +1947,7 @@ export default function AdminPage() {
                           rel="noreferrer"
                           className="text-[10px] text-[#4285f4] hover:underline font-bold"
                         >
-                          Photos ↗
-                        </a>
-                      )}
-                      {ws.logoDrive && (
-                        <a
-                          href={ws.logoDrive}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-[10px] text-[#f9ab00] hover:underline font-bold ml-2"
-                        >
-                          Logo ↗
+                          Drive ↗
                         </a>
                       )}
                     </div>
@@ -1851,15 +1957,15 @@ export default function AdminPage() {
                         onClick={() => {
                           setEditingWorkshopId(ws.id);
                           setNewWorkshopCollege(ws.college);
-                          setNewWorkshopDate(ws.date || "");
-                          setNewWorkshopTiming(ws.timing || "");
                           setNewWorkshopSpeaker(ws.speaker);
-                          setNewWorkshopRsvp(ws.rsvpCount || 0);
-                          setNewWorkshopStatus(ws.status);
-                          setNewWorkshopCollab(ws.collabNotice || "");
+                          setNewWorkshopTopic(ws.topic || "");
+                          setNewWorkshopDesc(ws.description || "");
+                          setNewWorkshopImages(ws.images || []);
+                          setNewWorkshopInstagram(ws.instagramUrl || "");
                           setNewWorkshopDrive(ws.photosDrive || "");
                           setNewWorkshopLogo(ws.logoDrive || "");
-                          window.scrollTo({ top: 0, behavior: "smooth" });
+                          setNewWorkshopCollab(ws.collabNotice || "");
+                          window.scrollTo({ top: 350, behavior: "smooth" });
                         }}
                         className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
                         title="Edit Workshop"

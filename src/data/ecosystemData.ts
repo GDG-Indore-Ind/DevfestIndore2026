@@ -22,7 +22,7 @@ export interface VenueZone {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community";
+  category: "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
   imageUrl: string;
   caption: string;
 }
