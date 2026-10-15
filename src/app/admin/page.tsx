@@ -37,20 +37,15 @@ import {
   Activity,
   Code,
 } from "lucide-react";
-import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
+import { GalleryItem } from "@/data/ecosystemData";
 import {
-  INITIAL_TEAM,
-  INITIAL_PAST_SPEAKERS,
-  INITIAL_SUPPORT_QUERIES,
   TeamMember,
   PastSpeaker,
   SupportQuery,
   AgendaItem,
-  INITIAL_AGENDA,
 } from "@/data/teamData";
-import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
 import { uploadToCloudinary } from "@/lib/cloudinary";
-import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
+import { PartnerItem } from "@/data/partnersData";
 
 import {
   getTeamMembers,
@@ -88,8 +83,18 @@ import {
   getWorkshops,
   saveWorkshop,
   removeWorkshop,
+  subscribeToWorkshops,
+  subscribeToPartners,
+  subscribeToTeamMembers,
+  subscribeToPastSpeakers,
+  subscribeToGalleryPhotos,
+  subscribeToSectionsConfig,
+  subscribeToNavItems,
+  subscribeToAgenda,
+  subscribeToFaqs,
+  subscribeToSocialLinks,
 } from "@/lib/firestoreService";
-import { WorkshopItem, INITIAL_WORKSHOPS } from "@/data/workshopsData";
+import { WorkshopItem } from "@/data/workshopsData";
 import {
   subscribeToRealtimeAnalytics,
   TelemetryMetrics,
@@ -110,7 +115,7 @@ export default function AdminPage() {
   >("analytics");
 
   // Workshops State & Form Handlers
-  const [workshopsList, setWorkshopsList] = useState<WorkshopItem[]>(INITIAL_WORKSHOPS);
+  const [workshopsList, setWorkshopsList] = useState<WorkshopItem[]>([]);
   const [editingWorkshopId, setEditingWorkshopId] = useState<string | null>(null);
   const [newWorkshopCollege, setNewWorkshopCollege] = useState("");
   const [newWorkshopSpeaker, setNewWorkshopSpeaker] = useState("");
@@ -126,17 +131,17 @@ export default function AdminPage() {
   const [uploadingCollegeLogo, setUploadingCollegeLogo] = useState(false);
 
   // Navigation Items Management State
-  const [navItemsList, setNavItemsList] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
+  const [navItemsList, setNavItemsList] = useState<NavItem[]>([]);
   const [newNavName, setNewNavName] = useState("");
   const [newNavHref, setNewNavHref] = useState("");
   const [newNavDesc, setNewNavDesc] = useState("");
   const [editingNavId, setEditingNavId] = useState<string | null>(null);
 
   // Sections Order & Visibility Management State
-  const [sectionsList, setSectionsList] = useState<SectionConfig[]>(INITIAL_SECTIONS_CONFIG);
+  const [sectionsList, setSectionsList] = useState<SectionConfig[]>([]);
 
   // Gallery State & Upload / Editing
-  const [gallery, setGallery] = useState<GalleryItem[]>(INITIAL_GALLERY_ITEMS);
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const [editingGalleryId, setEditingGalleryId] = useState<string | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const [newCategory, setNewCategory] = useState<GalleryItem["category"]>("Space");
@@ -145,7 +150,7 @@ export default function AdminPage() {
   const [uploadingFile, setUploadingFile] = useState(false);
 
   // Partners / Sponsors State & Upload
-  const [partnersList, setPartnersList] = useState<PartnerItem[]>(INITIAL_PARTNERS);
+  const [partnersList, setPartnersList] = useState<PartnerItem[]>([]);
   const [editingPartnerId, setEditingPartnerId] = useState<string | null>(null);
   const [newPartnerName, setNewPartnerName] = useState("");
   const [newPartnerType, setNewPartnerType] = useState<"sponsor" | "media" | "community">("sponsor");
@@ -164,7 +169,7 @@ export default function AdminPage() {
   const [editingFaqId, setEditingFaqId] = useState<string | null>(null);
 
   // Team State & File Upload
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(INITIAL_TEAM);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [editingTeamId, setEditingTeamId] = useState<string | null>(null);
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("");
@@ -179,7 +184,7 @@ export default function AdminPage() {
   const [uploadingTeamAvatar, setUploadingTeamAvatar] = useState(false);
 
   // Speakers State & File Upload
-  const [pastSpeakers, setPastSpeakers] = useState<PastSpeaker[]>(DEV_FEST_PAST_SPEAKERS_FULL);
+  const [pastSpeakers, setPastSpeakers] = useState<PastSpeaker[]>([]);
   const [editingSpeakerId, setEditingSpeakerId] = useState<string | null>(null);
   const [newSpeakerName, setNewSpeakerName] = useState("");
   const [newSpeakerRole, setNewSpeakerRole] = useState("");
@@ -198,7 +203,7 @@ export default function AdminPage() {
   const [uploadingSpeakerAvatar, setUploadingSpeakerAvatar] = useState(false);
 
   // Agenda State
-  const [agendaList, setAgendaList] = useState<AgendaItem[]>(INITIAL_AGENDA);
+  const [agendaList, setAgendaList] = useState<AgendaItem[]>([]);
   const [editingAgendaId, setEditingAgendaId] = useState<string | null>(null);
   const [newAgendaTime, setNewAgendaTime] = useState("");
   const [newAgendaTitle, setNewAgendaTitle] = useState("");
@@ -211,7 +216,7 @@ export default function AdminPage() {
   const [uploadingAgendaAvatar, setUploadingAgendaAvatar] = useState(false);
 
   // Support Queries State
-  const [supportQueries, setSupportQueries] = useState<SupportQuery[]>(INITIAL_SUPPORT_QUERIES);
+  const [supportQueries, setSupportQueries] = useState<SupportQuery[]>([]);
 
   // Ecosystem Config State
   const [eventDate, setEventDate] = useState("Saturday, November 28, 2026");
@@ -247,19 +252,29 @@ export default function AdminPage() {
       setTelemetry(data);
     });
 
-    getGalleryPhotos().then((g) => { if (g && g.length > 0) setGallery(g); });
-    getPartners().then((p) => { if (p && p.length > 0) setPartnersList(p); });
-    getTeamMembers().then((t) => { if (t && t.length > 0) setTeamMembers(t); });
-    getPastSpeakers().then((s) => { if (s && s.length > 0) setPastSpeakers(s); });
-    getAgendaItems().then((a) => { if (a && a.length > 0) setAgendaList(a); });
-    getFaqItems().then((f) => { if (f && f.length > 0) setFaqs(f); });
-    getSocialLinks().then((s) => { if (s) setSocialLinks(s); });
-    getNavItems().then((n) => { if (n && n.length > 0) setNavItemsList(n); });
-    getSectionsConfig().then((sec) => { if (sec && sec.length > 0) setSectionsList(sec); });
-    getWorkshops().then((w) => { if (w && w.length > 0) setWorkshopsList(w); });
+    const unsubWorkshops = subscribeToWorkshops((w) => setWorkshopsList(w || []));
+    const unsubPartners = subscribeToPartners((p) => setPartnersList(p || []));
+    const unsubTeam = subscribeToTeamMembers((t) => setTeamMembers(t || []));
+    const unsubSpeakers = subscribeToPastSpeakers((s) => setPastSpeakers(s || []));
+    const unsubGallery = subscribeToGalleryPhotos((g) => setGallery(g || []));
+    const unsubSections = subscribeToSectionsConfig((sec) => setSectionsList(sec || []));
+    const unsubNav = subscribeToNavItems((n) => setNavItemsList(n || []));
+    const unsubAgenda = subscribeToAgenda((a) => setAgendaList(a || []));
+    const unsubFaqs = subscribeToFaqs((f) => setFaqs(f || []));
+    const unsubSocials = subscribeToSocialLinks((s) => { if (s) setSocialLinks(s); });
 
     return () => {
       unsubTelemetry();
+      unsubWorkshops();
+      unsubPartners();
+      unsubTeam();
+      unsubSpeakers();
+      unsubGallery();
+      unsubSections();
+      unsubNav();
+      unsubAgenda();
+      unsubFaqs();
+      unsubSocials();
     };
   }, []);
 

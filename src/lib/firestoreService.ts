@@ -91,13 +91,13 @@ export async function getAgendaItems(): Promise<AgendaItem[]> {
       const saved = localStorage.getItem("devfest-agenda-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_AGENDA;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-agenda-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_AGENDA;
+    return [];
   }
 }
 
@@ -141,50 +141,16 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     const colRef = collection(db, COLLECTIONS.TEAM);
     const snap = await getDocs(colRef);
     if (!snap.empty) {
-      const remote = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
-      // Merge remote with initial so newly added predefined members are always present
-      const remoteIds = new Set(remote.map((r) => r.id));
-      const combined = [...remote];
-      INITIAL_TEAM.forEach((initial) => {
-        if (!remoteIds.has(initial.id)) {
-          combined.push(initial);
-        }
-      });
-      return combined;
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
     }
-    // Check localStorage fallback or initial seed
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("devfest-team-members");
-      if (saved) {
-        const parsed: TeamMember[] = JSON.parse(saved);
-        const parsedIds = new Set(parsed.map((p) => p.id));
-        const merged = [...parsed];
-        INITIAL_TEAM.forEach((init) => {
-          if (!parsedIds.has(init.id)) {
-            merged.push(init);
-          }
-        });
-        return merged;
-      }
-    }
-    return INITIAL_TEAM;
+    return [];
   } catch (error) {
-    console.warn("Firestore offline or permission notice, fallback to local:", error);
+    console.warn("Firestore error getting team members:", error);
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-team-members");
-      if (saved) {
-        const parsed: TeamMember[] = JSON.parse(saved);
-        const parsedIds = new Set(parsed.map((p) => p.id));
-        const merged = [...parsed];
-        INITIAL_TEAM.forEach((init) => {
-          if (!parsedIds.has(init.id)) {
-            merged.push(init);
-          }
-        });
-        return merged;
-      }
+      if (saved) return JSON.parse(saved);
     }
-    return INITIAL_TEAM;
+    return [];
   }
 }
 
@@ -234,13 +200,13 @@ export async function getPastSpeakers(): Promise<PastSpeaker[]> {
       const saved = localStorage.getItem("devfest-past-speakers");
       if (saved) return JSON.parse(saved);
     }
-    return DEV_FEST_PAST_SPEAKERS_FULL;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-past-speakers");
       if (saved) return JSON.parse(saved);
     }
-    return DEV_FEST_PAST_SPEAKERS_FULL;
+    return [];
   }
 }
 
@@ -290,13 +256,13 @@ export async function getGalleryPhotos(): Promise<GalleryItem[]> {
       const saved = localStorage.getItem("devfest-gallery-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_GALLERY_ITEMS;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-gallery-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_GALLERY_ITEMS;
+    return [];
   }
 }
 
@@ -343,16 +309,16 @@ export async function getFaqItems(): Promise<FaqItem[]> {
       return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FaqItem));
     }
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("devfest-faq-items");
-      if (saved) return JSON.parse(saved);
+       const saved = localStorage.getItem("devfest-faq-items");
+       if (saved) return JSON.parse(saved);
     }
-    return FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }));
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-faq-items");
       if (saved) return JSON.parse(saved);
     }
-    return FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }));
+    return [];
   }
 }
 
@@ -450,13 +416,13 @@ export async function getPartners(): Promise<PartnerItem[]> {
       const saved = localStorage.getItem("devfest-partners-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_PARTNERS;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-partners-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_PARTNERS;
+    return [];
   }
 }
 
@@ -518,7 +484,7 @@ export const INITIAL_NAV_ITEMS: NavItem[] = [
  */
 export async function getNavItems(): Promise<NavItem[]> {
   try {
-    const colRef = collection(db, "nav_items");
+    const colRef = collection(db, "navigation_links");
     const snap = await getDocs(colRef);
     if (!snap.empty) {
       const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as NavItem));
@@ -528,13 +494,13 @@ export async function getNavItems(): Promise<NavItem[]> {
       const saved = localStorage.getItem("devfest-nav-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_NAV_ITEMS;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-nav-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_NAV_ITEMS;
+    return [];
   }
 }
 
@@ -543,7 +509,7 @@ export async function getNavItems(): Promise<NavItem[]> {
  */
 export async function saveNavItem(item: NavItem): Promise<void> {
   try {
-    const docRef = doc(db, "nav_items", item.id);
+    const docRef = doc(db, "navigation_links", item.id);
     const sanitized = sanitizeForFirestore(item);
     await setDoc(docRef, sanitized, { merge: true });
   } catch (e) {
@@ -561,7 +527,7 @@ export async function saveNavItem(item: NavItem): Promise<void> {
  */
 export async function removeNavItem(id: string): Promise<void> {
   try {
-    await deleteDoc(doc(db, "nav_items", id));
+    await deleteDoc(doc(db, "navigation_links", id));
   } catch (e) {}
   if (typeof window !== "undefined") {
     const current = await getNavItems();
@@ -610,13 +576,13 @@ export async function getSectionsConfig(): Promise<SectionConfig[]> {
       const saved = localStorage.getItem("devfest-sections-config");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_SECTIONS_CONFIG;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-sections-config");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_SECTIONS_CONFIG;
+    return [];
   }
 }
 
@@ -649,13 +615,13 @@ export async function getWorkshops(): Promise<WorkshopItem[]> {
       const saved = localStorage.getItem("devfest-workshops-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_WORKSHOPS;
+    return [];
   } catch (e) {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-workshops-items");
       if (saved) return JSON.parse(saved);
     }
-    return INITIAL_WORKSHOPS;
+    return [];
   }
 }
 
@@ -700,12 +666,8 @@ export function subscribeToWorkshops(callback: (items: WorkshopItem[]) => void):
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WorkshopItem));
-          callback(items);
-        } else {
-          callback(INITIAL_WORKSHOPS);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WorkshopItem));
+        callback(items);
       },
       (err) => {
         console.warn("Workshops subscription notice:", err);
@@ -724,12 +686,8 @@ export function subscribeToPartners(callback: (items: PartnerItem[]) => void): (
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PartnerItem));
-          callback(items);
-        } else {
-          callback(INITIAL_PARTNERS);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PartnerItem));
+        callback(items);
       },
       (err) => {
         console.warn("Partners subscription notice:", err);
@@ -748,12 +706,8 @@ export function subscribeToTeamMembers(callback: (items: TeamMember[]) => void):
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
-          callback(items);
-        } else {
-          callback(INITIAL_TEAM);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+        callback(items);
       },
       (err) => {
         console.warn("Team subscription notice:", err);
@@ -772,12 +726,8 @@ export function subscribeToPastSpeakers(callback: (items: PastSpeaker[]) => void
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PastSpeaker));
-          callback(items);
-        } else {
-          callback(DEV_FEST_PAST_SPEAKERS_FULL);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PastSpeaker));
+        callback(items);
       },
       (err) => {
         console.warn("Speakers subscription notice:", err);
@@ -796,12 +746,8 @@ export function subscribeToGalleryPhotos(callback: (items: GalleryItem[]) => voi
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as GalleryItem));
-          callback(items);
-        } else {
-          callback(INITIAL_GALLERY_ITEMS);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as GalleryItem));
+        callback(items);
       },
       (err) => {
         console.warn("Gallery subscription notice:", err);
@@ -820,13 +766,9 @@ export function subscribeToSectionsConfig(callback: (items: SectionConfig[]) => 
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SectionConfig));
-          items.sort((a, b) => a.order - b.order);
-          callback(items);
-        } else {
-          callback(INITIAL_SECTIONS_CONFIG);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SectionConfig));
+        items.sort((a, b) => a.order - b.order);
+        callback(items);
       },
       (err) => {
         console.warn("Sections subscription notice:", err);
@@ -845,12 +787,8 @@ export function subscribeToNavItems(callback: (items: NavItem[]) => void): () =>
     return onSnapshot(
       colRef,
       (snap) => {
-        if (!snap.empty) {
-          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as NavItem));
-          callback(items);
-        } else {
-          callback(INITIAL_NAV_ITEMS);
-        }
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as NavItem));
+        callback(items);
       },
       (err) => {
         console.warn("Nav subscription notice:", err);
@@ -859,6 +797,69 @@ export function subscribeToNavItems(callback: (items: NavItem[]) => void): () =>
     );
   } catch (e) {
     getNavItems().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToAgenda(callback: (items: AgendaItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.AGENDA);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as AgendaItem));
+        callback(items);
+      },
+      (err) => {
+        console.warn("Agenda subscription notice:", err);
+        getAgendaItems().then(callback);
+      }
+    );
+  } catch (e) {
+    getAgendaItems().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToFaqs(callback: (items: FaqItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.FAQS);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as FaqItem));
+        callback(items);
+      },
+      (err) => {
+        console.warn("FAQs subscription notice:", err);
+        getFaqItems().then(callback);
+      }
+    );
+  } catch (e) {
+    getFaqItems().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToSocialLinks(callback: (links: SocialLinks) => void): () => void {
+  try {
+    const docRef = doc(db, COLLECTIONS.CONFIG, "social_media_links");
+    return onSnapshot(
+      docRef,
+      (snap) => {
+        if (snap.exists()) {
+          callback(snap.data() as SocialLinks);
+        } else {
+          getSocialLinks().then(callback);
+        }
+      },
+      (err) => {
+        console.warn("Social links subscription notice:", err);
+        getSocialLinks().then(callback);
+      }
+    );
+  } catch (e) {
+    getSocialLinks().then(callback);
     return () => {};
   }
 }
