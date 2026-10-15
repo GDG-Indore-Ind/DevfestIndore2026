@@ -57,6 +57,27 @@ export const INITIAL_SOCIAL_LINKS: SocialLinks = {
 };
 
 /**
+ * Strips all undefined fields recursively so Firestore setDoc never throws
+ * "Unsupported field value: undefined"
+ */
+export function sanitizeForFirestore<T>(data: T): T {
+  if (data === null || data === undefined) return null as unknown as T;
+  if (typeof data !== "object") return data;
+  if (Array.isArray(data)) {
+    return data
+      .filter((item) => item !== undefined)
+      .map((item) => sanitizeForFirestore(item)) as unknown as T;
+  }
+  const result: Record<string, any> = {};
+  for (const [key, val] of Object.entries(data as Record<string, any>)) {
+    if (val !== undefined) {
+      result[key] = sanitizeForFirestore(val);
+    }
+  }
+  return result as T;
+}
+
+/**
  * Fetch Agenda items from Firestore or fallback
  */
 export async function getAgendaItems(): Promise<AgendaItem[]> {
@@ -86,8 +107,11 @@ export async function getAgendaItems(): Promise<AgendaItem[]> {
 export async function saveAgendaItem(item: AgendaItem): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.AGENDA, item.id);
-    await setDoc(docRef, item, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(item);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveAgendaItem error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getAgendaItems();
     const updated = [...current.filter((a) => a.id !== item.id), item];
@@ -170,9 +194,10 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 export async function saveTeamMember(member: TeamMember): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.TEAM, member.id);
-    await setDoc(docRef, member, { merge: true });
+    const sanitized = sanitizeForFirestore(member);
+    await setDoc(docRef, sanitized, { merge: true });
   } catch (e) {
-    console.warn("Saved to local store:", e);
+    console.warn("Firestore saveTeamMember error:", e);
   }
   if (typeof window !== "undefined") {
     const current = await getTeamMembers();
@@ -225,8 +250,11 @@ export async function getPastSpeakers(): Promise<PastSpeaker[]> {
 export async function savePastSpeaker(speaker: PastSpeaker): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.PAST_SPEAKERS, speaker.id);
-    await setDoc(docRef, speaker, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(speaker);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore savePastSpeaker error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getPastSpeakers();
     const updated = [...current.filter((s) => s.id !== speaker.id), speaker];
@@ -278,8 +306,11 @@ export async function getGalleryPhotos(): Promise<GalleryItem[]> {
 export async function saveGalleryPhoto(item: GalleryItem): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.GALLERY, item.id);
-    await setDoc(docRef, item, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(item);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveGalleryPhoto error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getGalleryPhotos();
     const updated = [item, ...current.filter((g) => g.id !== item.id)];
@@ -331,8 +362,11 @@ export async function getFaqItems(): Promise<FaqItem[]> {
 export async function saveFaqItem(item: FaqItem): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.FAQS, item.id);
-    await setDoc(docRef, item, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(item);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveFaqItem error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getFaqItems();
     const existingIndex = current.findIndex((f) => f.id === item.id);
@@ -392,8 +426,11 @@ export async function getSocialLinks(): Promise<SocialLinks> {
 export async function saveSocialLinks(links: SocialLinks): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.CONFIG, "social_media_links");
-    await setDoc(docRef, links, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(links);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveSocialLinks error:", e);
+  }
   if (typeof window !== "undefined") {
     localStorage.setItem("devfest-social-links", JSON.stringify(links));
   }
@@ -429,8 +466,11 @@ export async function getPartners(): Promise<PartnerItem[]> {
 export async function savePartner(partner: PartnerItem): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.PARTNERS, partner.id);
-    await setDoc(docRef, partner, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(partner);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore savePartner error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getPartners();
     const updated = [partner, ...current.filter((p) => p.id !== partner.id)];
@@ -504,8 +544,11 @@ export async function getNavItems(): Promise<NavItem[]> {
 export async function saveNavItem(item: NavItem): Promise<void> {
   try {
     const docRef = doc(db, "nav_items", item.id);
-    await setDoc(docRef, item, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(item);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveNavItem error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getNavItems();
     const updated = [...current.filter((n) => n.id !== item.id), item].sort((a, b) => a.order - b.order);
@@ -581,9 +624,12 @@ export async function saveSectionsConfig(sections: SectionConfig[]): Promise<voi
   try {
     for (const sec of sections) {
       const docRef = doc(db, "sections_config", sec.id);
-      await setDoc(docRef, sec, { merge: true });
+      const sanitized = sanitizeForFirestore(sec);
+      await setDoc(docRef, sanitized, { merge: true });
     }
-  } catch (e) {}
+  } catch (e) {
+    console.warn("Firestore saveSectionsConfig error:", e);
+  }
   if (typeof window !== "undefined") {
     localStorage.setItem("devfest-sections-config", JSON.stringify(sections));
   }
@@ -619,8 +665,11 @@ export async function getWorkshops(): Promise<WorkshopItem[]> {
 export async function saveWorkshop(item: WorkshopItem): Promise<void> {
   try {
     const docRef = doc(db, COLLECTIONS.WORKSHOPS, item.id);
-    await setDoc(docRef, item, { merge: true });
-  } catch (e) {}
+    const sanitized = sanitizeForFirestore(item);
+    await setDoc(docRef, sanitized, { merge: true });
+  } catch (e) {
+    console.warn("Firestore saveWorkshop error:", e);
+  }
   if (typeof window !== "undefined") {
     const current = await getWorkshops();
     const updated = [item, ...current.filter((w) => w.id !== item.id)];
