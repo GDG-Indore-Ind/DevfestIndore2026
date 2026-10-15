@@ -229,6 +229,7 @@ export default function AdminPage() {
   // Real-Time Advanced Analytics Telemetry State
   const [telemetry, setTelemetry] = useState<TelemetryMetrics | null>(null);
   const [telemetryFilter, setTelemetryFilter] = useState<"All" | "Today" | "Week">("All");
+  const [pixelTestStatus, setPixelTestStatus] = useState<{ count: number; lastSentAt: string | null; eventData?: any } | null>(null);
 
   // Social Links State
   const [socialLinks, setSocialLinks] = useState<SocialLinks>(INITIAL_SOCIAL_LINKS);
@@ -1311,25 +1312,67 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  {pixelTestStatus && (
+                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold animate-pulse">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <span>✓ Dispatched to GTM #{pixelTestStatus.count} ({pixelTestStatus.lastSentAt})</span>
+                    </div>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => {
                       if (typeof window !== "undefined") {
-                        (window as any).dataLayer = (window as any).dataLayer || [];
-                        (window as any).dataLayer.push({
+                        const eventPayload = {
                           event: "pixel_test_trigger",
-                          timestamp: Date.now(),
+                          timestamp: new Date().toISOString(),
                           source: "admin_panel_diagnostics",
-                          pixel_status: "verified"
-                        });
-                        setStatusMsg({ text: "Pixel test event pushed to GTM dataLayer & GA4 stream successfully!", type: "success" });
-                        setTimeout(() => setStatusMsg(null), 3000);
+                          pixel_status: "verified",
+                          gtm_container: "GTM-53S9M7C9",
+                          ga4_stream: "G-PRRCSRF36D",
+                          meta_pixel: "948201736294012"
+                        };
+
+                        // 1. Push to GTM dataLayer
+                        (window as any).dataLayer = (window as any).dataLayer || [];
+                        (window as any).dataLayer.push(eventPayload);
+
+                        // 2. Push to GA4 gtag if loaded
+                        if (typeof (window as any).gtag === "function") {
+                          (window as any).gtag("event", "pixel_test_trigger", {
+                            event_category: "diagnostics",
+                            event_label: "Admin Pixel Test Event",
+                            value: 1
+                          });
+                        }
+
+                        // 3. Push to Meta Pixel fbq if loaded
+                        if (typeof (window as any).fbq === "function") {
+                          (window as any).fbq("trackCustom", "AdminPixelTest", {
+                            timestamp: Date.now()
+                          });
+                        }
+
+                        // 4. Also register in local telemetry telemetryService
+                        try {
+                          trackDevFestEvent("pixel_test_trigger");
+                        } catch (e) {}
+
+                        const nowTime = new Date().toLocaleTimeString();
+                        setPixelTestStatus((prev) => ({
+                          count: (prev?.count || 0) + 1,
+                          lastSentAt: nowTime,
+                          eventData: eventPayload
+                        }));
+
+                        setStatusMsg({ text: `Test pixel event (#${(pixelTestStatus?.count || 0) + 1}) fired to GTM, GA4 & Meta dataLayer at ${nowTime}!`, type: "success" });
+                        setTimeout(() => setStatusMsg(null), 4000);
                       }
                     }}
-                    className="px-4 py-2 rounded-xl bg-[#4285f4] hover:bg-[#3367d6] text-white text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-[#4285f4] hover:bg-[#3367d6] text-white text-xs font-bold transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2"
                   >
-                    Send Test Pixel Event
+                    <span>⚡ Send Test Pixel Event</span>
                   </button>
                 </div>
               </div>
@@ -1856,7 +1899,7 @@ export default function AdminPage() {
                 <div className="p-3.5 rounded-2xl bg-amber-50/60 border border-amber-200">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center shrink-0 overflow-hidden shadow-xs relative">
                         {newCollegeLogo ? (
                           <img src={newCollegeLogo} alt="Logo" className="w-full h-full object-contain p-1" />
                         ) : (
@@ -1864,8 +1907,16 @@ export default function AdminPage() {
                         )}
                       </div>
                       <div>
-                        <span className="text-xs font-black text-[#1e1e1e] block">College / University Logo</span>
-                        <span className="text-[10px] text-[#5f6368]">Displayed prominently on the workshop card crest</span>
+                        <span className="text-xs font-black text-[#1e1e1e] block">College / University Logo (Optional)</span>
+                        <span className="text-[10px] text-[#5f6368]">
+                          {newCollegeLogo ? (
+                            <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                              ✓ Active Logo Set ({newCollegeLogo.includes("cloudinary") ? "Cloudinary Upload" : "Direct URL"})
+                            </span>
+                          ) : (
+                            "Displayed prominently on the workshop card crest"
+                          )}
+                        </span>
                       </div>
                     </div>
 
@@ -1901,6 +1952,17 @@ export default function AdminPage() {
                         placeholder="Or paste direct logo URL (https://...)"
                         className="flex-1 sm:w-64 px-3 py-1.5 rounded-xl border border-gray-300 text-xs bg-white font-medium"
                       />
+
+                      {newCollegeLogo && (
+                        <button
+                          type="button"
+                          onClick={() => setNewCollegeLogo("")}
+                          className="px-2.5 py-1.5 rounded-xl bg-red-100 hover:bg-red-200 text-red-700 text-xs font-bold transition-colors cursor-pointer shrink-0"
+                          title="Remove active logo"
+                        >
+                          ✕ Clear
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -2092,17 +2154,40 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Image URL (Populated automatically or paste link) *
-                    </label>
-                    <input
-                      type="url"
-                      required
-                      value={newImageUrl}
-                      onChange={(e) => setNewImageUrl(e.target.value)}
-                      placeholder="https://res.cloudinary.com/..."
-                      className="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
-                    />
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-[#1e1e1e]">
+                        Image URL (Auto-set on upload or paste link) *
+                      </label>
+                      {newImageUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setNewImageUrl("")}
+                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                        >
+                          ✕ Clear Image
+                        </button>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="url"
+                        required
+                        value={newImageUrl}
+                        onChange={(e) => setNewImageUrl(e.target.value)}
+                        placeholder="https://res.cloudinary.com/... or https://..."
+                        className="flex-1 px-3.5 py-2 rounded-xl border border-gray-300 text-xs"
+                      />
+                      {newImageUrl && (
+                        <div className="w-10 h-10 rounded-xl border border-gray-200 overflow-hidden shrink-0 bg-gray-50 flex items-center justify-center shadow-xs">
+                          <img src={newImageUrl} alt="Preview" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
+                    {newImageUrl && (
+                      <span className="text-[10px] text-emerald-700 font-bold block mt-1">
+                        ✓ Active Photo: {newImageUrl.includes("cloudinary") ? "Uploaded to Cloudinary" : "External Web URL"}
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -2352,9 +2437,20 @@ export default function AdminPage() {
 
                 {/* Logo Upload (Cloudinary) & URL */}
                 <div>
-                  <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                    Partner Logo (Direct Cloudinary Upload or Custom URL)
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-[#1e1e1e]">
+                      Partner Logo (Direct Cloudinary Upload or Custom URL)
+                    </label>
+                    {newPartnerLogo && (
+                      <button
+                        type="button"
+                        onClick={() => setNewPartnerLogo("")}
+                        className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                      >
+                        ✕ Clear Logo
+                      </button>
+                    )}
+                  </div>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <input
                       type="file"
@@ -2386,11 +2482,18 @@ export default function AdminPage() {
                     />
 
                     {newPartnerLogo && (
-                      <img src={newPartnerLogo} alt="Preview" className="w-8 h-8 object-contain rounded border p-0.5" />
+                      <div className="w-9 h-9 rounded-lg border border-gray-300 p-1 bg-white shrink-0 overflow-hidden flex items-center justify-center">
+                        <img src={newPartnerLogo} alt="Preview" className="w-full h-full object-contain" />
+                      </div>
                     )}
                   </div>
                   {uploadingPartnerLogo && (
                     <span className="text-[10px] text-[#4285f4] font-bold block mt-1">Uploading logo to Cloudinary...</span>
+                  )}
+                  {newPartnerLogo && (
+                    <span className="text-[10px] text-emerald-700 font-bold block mt-1">
+                      ✓ Active Logo: {newPartnerLogo.includes("cloudinary") ? "Cloudinary Upload" : "Direct Link"}
+                    </span>
                   )}
                 </div>
 
@@ -2564,9 +2667,20 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Upload Avatar Picture (Direct Cloudinary)
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-[#1e1e1e]">
+                        Avatar Picture (Direct Cloudinary or Image URL)
+                      </label>
+                      {newMemberAvatar && (
+                        <button
+                          type="button"
+                          onClick={() => setNewMemberAvatar("")}
+                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                        >
+                          ✕ Clear Avatar
+                        </button>
+                      )}
+                    </div>
                     <input
                       type="file"
                       accept="image/*"
@@ -2586,16 +2700,28 @@ export default function AdminPage() {
                       }}
                       className="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-green-50 file:text-[#34a853] hover:file:bg-green-100 mb-1"
                     />
-                    <input
-                      type="url"
-                      value={newMemberAvatar}
-                      onChange={(e) => setNewMemberAvatar(e.target.value)}
-                      placeholder="Or paste image URL (https://...)"
-                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
-                    />
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="url"
+                        value={newMemberAvatar}
+                        onChange={(e) => setNewMemberAvatar(e.target.value)}
+                        placeholder="Or paste image URL (https://...)"
+                        className="flex-1 px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                      />
+                      {newMemberAvatar && (
+                        <div className="w-8 h-8 rounded-full border border-gray-300 overflow-hidden shrink-0 bg-gray-50 flex items-center justify-center">
+                          <img src={newMemberAvatar} alt="Avatar" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
                     {uploadingTeamAvatar && (
                       <span className="text-[10px] text-[#34a853] font-bold block mt-0.5">
                         Uploading avatar to Cloudinary...
+                      </span>
+                    )}
+                    {newMemberAvatar && (
+                      <span className="text-[10px] text-emerald-700 font-bold block mt-0.5">
+                        ✓ Active: {newMemberAvatar.includes("cloudinary") ? "Cloudinary Upload" : "Direct Link"}
                       </span>
                     )}
                   </div>
@@ -2867,9 +2993,20 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Upload Speaker Photo (Direct Cloudinary)
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-[#1e1e1e]">
+                        Speaker Photo (Direct Cloudinary or Photo URL)
+                      </label>
+                      {newSpeakerAvatar && (
+                        <button
+                          type="button"
+                          onClick={() => setNewSpeakerAvatar("")}
+                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                        >
+                          ✕ Clear Photo
+                        </button>
+                      )}
+                    </div>
                     <input
                       type="file"
                       accept="image/*"
@@ -2889,16 +3026,28 @@ export default function AdminPage() {
                       }}
                       className="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-amber-50 file:text-amber-800 hover:file:bg-amber-100 mb-1"
                     />
-                    <input
-                      type="url"
-                      value={newSpeakerAvatar}
-                      onChange={(e) => setNewSpeakerAvatar(e.target.value)}
-                      placeholder="Or paste photo URL (https://...)"
-                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
-                    />
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="url"
+                        value={newSpeakerAvatar}
+                        onChange={(e) => setNewSpeakerAvatar(e.target.value)}
+                        placeholder="Or paste photo URL (https://...)"
+                        className="flex-1 px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                      />
+                      {newSpeakerAvatar && (
+                        <div className="w-8 h-8 rounded-full border border-gray-300 overflow-hidden shrink-0 bg-gray-50 flex items-center justify-center">
+                          <img src={newSpeakerAvatar} alt="Speaker" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
                     {uploadingSpeakerAvatar && (
                       <span className="text-[10px] text-amber-700 font-bold block mt-0.5">
                         Uploading photo to Cloudinary...
+                      </span>
+                    )}
+                    {newSpeakerAvatar && (
+                      <span className="text-[10px] text-emerald-700 font-bold block mt-0.5">
+                        ✓ Active: {newSpeakerAvatar.includes("cloudinary") ? "Cloudinary Upload" : "Direct Link"}
                       </span>
                     )}
                   </div>
@@ -3227,9 +3376,20 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-[#1e1e1e] mb-1">
-                      Upload Speaker Photo (Direct Cloudinary)
-                    </label>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-xs font-bold text-[#1e1e1e]">
+                        Speaker Photo (Direct Cloudinary or Photo URL)
+                      </label>
+                      {newAgendaAvatar && (
+                        <button
+                          type="button"
+                          onClick={() => setNewAgendaAvatar("")}
+                          className="text-[11px] font-bold text-red-600 hover:text-red-800 underline cursor-pointer"
+                        >
+                          ✕ Clear Photo
+                        </button>
+                      )}
+                    </div>
                     <input
                       type="file"
                       accept="image/*"
@@ -3249,16 +3409,28 @@ export default function AdminPage() {
                       }}
                       className="w-full text-xs file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-[#4285f4] hover:file:bg-blue-100 mb-1"
                     />
-                    <input
-                      type="url"
-                      value={newAgendaAvatar}
-                      onChange={(e) => setNewAgendaAvatar(e.target.value)}
-                      placeholder="Or paste photo URL (https://...)"
-                      className="w-full px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
-                    />
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="url"
+                        value={newAgendaAvatar}
+                        onChange={(e) => setNewAgendaAvatar(e.target.value)}
+                        placeholder="Or paste photo URL (https://...)"
+                        className="flex-1 px-3.5 py-1.5 rounded-xl border border-gray-300 text-xs"
+                      />
+                      {newAgendaAvatar && (
+                        <div className="w-8 h-8 rounded-full border border-gray-300 overflow-hidden shrink-0 bg-gray-50 flex items-center justify-center">
+                          <img src={newAgendaAvatar} alt="Speaker" className="w-full h-full object-cover" />
+                        </div>
+                      )}
+                    </div>
                     {uploadingAgendaAvatar && (
                       <span className="text-[10px] text-[#4285f4] font-bold block mt-0.5">
                         Uploading photo to Cloudinary...
+                      </span>
+                    )}
+                    {newAgendaAvatar && (
+                      <span className="text-[10px] text-emerald-700 font-bold block mt-0.5">
+                        ✓ Active: {newAgendaAvatar.includes("cloudinary") ? "Cloudinary Upload" : "Direct Link"}
                       </span>
                     )}
                   </div>
