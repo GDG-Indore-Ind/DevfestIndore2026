@@ -20,7 +20,12 @@ import {
 } from "lucide-react";
 import { PastSpeaker } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
-import { getPastSpeakers, savePastSpeaker, removePastSpeaker } from "@/lib/firestoreService";
+import {
+  getPastSpeakers,
+  savePastSpeaker,
+  removePastSpeaker,
+  subscribeToPastSpeakers,
+} from "@/lib/firestoreService";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -70,11 +75,12 @@ export default function PastSpeakersPage() {
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    getPastSpeakers().then((res) => {
-      if (res && res.length > 0) {
-        setSpeakers(res);
+    const unsub = subscribeToPastSpeakers((items) => {
+      if (items && items.length > 0) {
+        setSpeakers(items);
       }
     });
+    return () => unsub();
   }, []);
 
   const toggleExpand = (id: string) => {

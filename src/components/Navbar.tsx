@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Ticket, Menu, X, MapPin, Sun, Moon } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { NavItem, INITIAL_NAV_ITEMS, getNavItems } from "@/lib/firestoreService";
+import { NavItem, INITIAL_NAV_ITEMS, getNavItems, subscribeToNavItems } from "@/lib/firestoreService";
 
 interface NavbarProps {
   savedCount?: number;
@@ -20,11 +20,10 @@ export default function Navbar({ savedCount = 0, onOpenSavedModal }: NavbarProps
   const [navItems, setNavItems] = useState<NavItem[]>(INITIAL_NAV_ITEMS);
 
   useEffect(() => {
-    getNavItems().then((items) => {
-      if (items && items.length > 0) {
-        setNavItems(items);
-      }
+    const unsub = subscribeToNavItems((items) => {
+      if (items && items.length > 0) setNavItems(items);
     });
+    return () => unsub();
   }, []);
 
   useEffect(() => {

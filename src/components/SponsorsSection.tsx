@@ -31,7 +31,7 @@ import {
   CodingBlocksLogo,
 } from "./TechLogos";
 import { PartnerItem, INITIAL_PARTNERS } from "@/data/partnersData";
-import { getPartners } from "@/lib/firestoreService";
+import { getPartners, subscribeToPartners } from "@/lib/firestoreService";
 
 // Key Noteworthy Statistics from Sponsorship Deck (Page 8)
 const DECK_STATISTICS = [
@@ -94,9 +94,10 @@ export default function SponsorsSection() {
   const [partners, setPartners] = useState<PartnerItem[]>(INITIAL_PARTNERS);
 
   useEffect(() => {
-    getPartners().then((res) => {
-      if (res && res.length > 0) setPartners(res);
+    const unsub = subscribeToPartners((items) => {
+      if (items && items.length > 0) setPartners(items);
     });
+    return () => unsub();
   }, []);
 
   const sponsorsList = partners.filter((p) => p.type === "sponsor");

@@ -19,7 +19,12 @@ import {
 } from "lucide-react";
 import { INITIAL_GALLERY_ITEMS, GalleryItem } from "@/data/ecosystemData";
 import { getCloudinaryUrl, uploadToCloudinary } from "@/lib/cloudinary";
-import { getGalleryPhotos, saveGalleryPhoto, removeGalleryPhoto } from "@/lib/firestoreService";
+import {
+  getGalleryPhotos,
+  saveGalleryPhoto,
+  removeGalleryPhoto,
+  subscribeToGalleryPhotos,
+} from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -122,11 +127,12 @@ export default function GalleryPage() {
   const [notification, setNotification] = useState<string | null>(null);
 
   useEffect(() => {
-    getGalleryPhotos().then((res) => {
-      if (res && res.length > 0) {
-        setItems(res);
+    const unsub = subscribeToGalleryPhotos((photos) => {
+      if (photos && photos.length > 0) {
+        setItems(photos);
       }
     });
+    return () => unsub();
   }, []);
 
   const categories = [

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Users, Sparkles, ShieldCheck } from "lucide-react";
 import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "@/components/SocialIcons";
 import { INITIAL_TEAM, TeamMember } from "@/data/teamData";
-import { getTeamMembers } from "@/lib/firestoreService";
+import { getTeamMembers, subscribeToTeamMembers } from "@/lib/firestoreService";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingShapesBackground from "@/components/FloatingShapesBackground";
@@ -18,11 +18,12 @@ export default function TeamPage() {
   const { isDark } = useTheme();
 
   useEffect(() => {
-    getTeamMembers().then((res) => {
-      if (res && res.length > 0) {
-        setTeam(res);
+    const unsub = subscribeToTeamMembers((items) => {
+      if (items && items.length > 0) {
+        setTeam(items);
       }
     });
+    return () => unsub();
   }, []);
 
   const categories = [

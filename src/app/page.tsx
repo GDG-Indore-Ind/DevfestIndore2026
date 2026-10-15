@@ -28,7 +28,7 @@ import CosmicAudioPlayer from "@/components/CosmicAudioPlayer";
 import PageLoader from "@/components/PageLoader";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { trackPageImpression } from "@/lib/telemetryService";
-import { SectionConfig, INITIAL_SECTIONS_CONFIG, getSectionsConfig } from "@/lib/firestoreService";
+import { SectionConfig, INITIAL_SECTIONS_CONFIG, getSectionsConfig, subscribeToSectionsConfig } from "@/lib/firestoreService";
 
 export default function Home() {
   // Initialize Awwwards-style IntersectionObserver scroll animations
@@ -38,11 +38,10 @@ export default function Home() {
 
   useEffect(() => {
     trackPageImpression();
-    getSectionsConfig().then((res) => {
-      if (res && res.length > 0) {
-        setSections(res);
-      }
+    const unsub = subscribeToSectionsConfig((items) => {
+      if (items && items.length > 0) setSections(items);
     });
+    return () => unsub();
   }, []);
 
   const [savedSessionIds, setSavedSessionIds] = useState<string[]>([

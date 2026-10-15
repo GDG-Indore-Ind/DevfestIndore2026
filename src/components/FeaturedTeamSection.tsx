@@ -14,7 +14,12 @@ import {
 import { TwitterIcon, LinkedInIcon, GithubIcon, InstagramIcon, MailIcon } from "./SocialIcons";
 import { INITIAL_TEAM, TeamMember, PastSpeaker } from "@/data/teamData";
 import { DEV_FEST_PAST_SPEAKERS_FULL } from "@/data/pastSpeakersFull";
-import { getTeamMembers, getPastSpeakers } from "@/lib/firestoreService";
+import {
+  getTeamMembers,
+  getPastSpeakers,
+  subscribeToTeamMembers,
+  subscribeToPastSpeakers,
+} from "@/lib/firestoreService";
 import { useTheme } from "@/contexts/ThemeContext";
 import CardTilt from "./CardTilt";
 
@@ -26,12 +31,16 @@ export default function FeaturedTeamSection() {
   const [selectedMarqueeYear, setSelectedMarqueeYear] = useState<"All" | "2025" | "2024">("All");
 
   useEffect(() => {
-    getTeamMembers().then((res) => {
-      if (res && res.length > 0) setTeam(res);
+    const unsubTeam = subscribeToTeamMembers((items) => {
+      if (items && items.length > 0) setTeam(items);
     });
-    getPastSpeakers().then((res) => {
-      if (res && res.length > 0) setSpeakers(res);
+    const unsubSpeakers = subscribeToPastSpeakers((items) => {
+      if (items && items.length > 0) setSpeakers(items);
     });
+    return () => {
+      unsubTeam();
+      unsubSpeakers();
+    };
   }, []);
 
   const coreOrganizers = team.filter((m) => m.team === "Core Organizer");

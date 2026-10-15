@@ -642,6 +642,174 @@ export async function removeWorkshop(id: string): Promise<void> {
   }
 }
 
+/**
+ * Real-time Live Subscriptions (onSnapshot) for Zero-Latency Instant UI Reflection
+ */
+export function subscribeToWorkshops(callback: (items: WorkshopItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.WORKSHOPS);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as WorkshopItem));
+          callback(items);
+        } else {
+          callback(INITIAL_WORKSHOPS);
+        }
+      },
+      (err) => {
+        console.warn("Workshops subscription notice:", err);
+        getWorkshops().then(callback);
+      }
+    );
+  } catch (e) {
+    getWorkshops().then(callback);
+    return () => {};
+  }
+}
 
+export function subscribeToPartners(callback: (items: PartnerItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.PARTNERS);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PartnerItem));
+          callback(items);
+        } else {
+          callback(INITIAL_PARTNERS);
+        }
+      },
+      (err) => {
+        console.warn("Partners subscription notice:", err);
+        getPartners().then(callback);
+      }
+    );
+  } catch (e) {
+    getPartners().then(callback);
+    return () => {};
+  }
+}
 
+export function subscribeToTeamMembers(callback: (items: TeamMember[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.TEAM);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+          callback(items);
+        } else {
+          callback(INITIAL_TEAM);
+        }
+      },
+      (err) => {
+        console.warn("Team subscription notice:", err);
+        getTeamMembers().then(callback);
+      }
+    );
+  } catch (e) {
+    getTeamMembers().then(callback);
+    return () => {};
+  }
+}
 
+export function subscribeToPastSpeakers(callback: (items: PastSpeaker[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.PAST_SPEAKERS);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PastSpeaker));
+          callback(items);
+        } else {
+          callback(DEV_FEST_PAST_SPEAKERS_FULL);
+        }
+      },
+      (err) => {
+        console.warn("Speakers subscription notice:", err);
+        getPastSpeakers().then(callback);
+      }
+    );
+  } catch (e) {
+    getPastSpeakers().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToGalleryPhotos(callback: (items: GalleryItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, COLLECTIONS.GALLERY);
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as GalleryItem));
+          callback(items);
+        } else {
+          callback(INITIAL_GALLERY_ITEMS);
+        }
+      },
+      (err) => {
+        console.warn("Gallery subscription notice:", err);
+        getGalleryPhotos().then(callback);
+      }
+    );
+  } catch (e) {
+    getGalleryPhotos().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToSectionsConfig(callback: (items: SectionConfig[]) => void): () => void {
+  try {
+    const colRef = collection(db, "sections_config");
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SectionConfig));
+          items.sort((a, b) => a.order - b.order);
+          callback(items);
+        } else {
+          callback(INITIAL_SECTIONS_CONFIG);
+        }
+      },
+      (err) => {
+        console.warn("Sections subscription notice:", err);
+        getSectionsConfig().then(callback);
+      }
+    );
+  } catch (e) {
+    getSectionsConfig().then(callback);
+    return () => {};
+  }
+}
+
+export function subscribeToNavItems(callback: (items: NavItem[]) => void): () => void {
+  try {
+    const colRef = collection(db, "navigation_links");
+    return onSnapshot(
+      colRef,
+      (snap) => {
+        if (!snap.empty) {
+          const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as NavItem));
+          callback(items);
+        } else {
+          callback(INITIAL_NAV_ITEMS);
+        }
+      },
+      (err) => {
+        console.warn("Nav subscription notice:", err);
+        getNavItems().then(callback);
+      }
+    );
+  } catch (e) {
+    getNavItems().then(callback);
+    return () => {};
+  }
+}

@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { InstagramIcon } from "./SocialIcons";
 import { WorkshopItem, INITIAL_WORKSHOPS } from "@/data/workshopsData";
-import { getWorkshops } from "@/lib/firestoreService";
+import { getWorkshops, subscribeToWorkshops } from "@/lib/firestoreService";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export default function CollegeWorkshopsSection() {
@@ -34,9 +34,10 @@ export default function CollegeWorkshopsSection() {
   const [activePhotoIdx, setActivePhotoIdx] = useState<number>(0);
 
   useEffect(() => {
-    getWorkshops().then((res) => {
-      if (res && res.length > 0) setWorkshops(res);
+    const unsub = subscribeToWorkshops((items) => {
+      if (items && items.length > 0) setWorkshops(items);
     });
+    return () => unsub();
   }, []);
 
   // Compute unique speakers
