@@ -224,22 +224,22 @@ export default function WorkshopsPage() {
     return () => unsub();
   }, []);
 
-  // Compute campus pins dynamically from the full workshops dataset with deduplication
+  // Compute campus pins dynamically from the full workshops dataset with smart deduplication
   const seenCampuses = new Set<string>();
   const campusPins: CampusPin[] = [];
 
   for (const ws of workshops) {
-    // Normalise name to avoid accidental duplicates
-    const normKey = ws.college.trim().toLowerCase();
-    if (seenCampuses.has(normKey)) continue;
-    seenCampuses.add(normKey);
-
     const reg = CAMPUS_METADATA_REGISTRY[ws.id] || {
       shortName: ws.college.includes("(") ? ws.college.split("(")[1]?.replace(")", "") : ws.college.split(" ")[0] || "Campus",
       location: "Indore Campus Arena",
       dateStr: "Conducted • DevFest Series",
       attendees: "350+ Students",
     };
+
+    // Normalize shortName key to strictly prevent duplicate entries like "IPS" vs "IPS Academy"
+    const dedupeKey = reg.shortName.toLowerCase().replace(/\s+/g, "").replace("academy", "").trim();
+    if (seenCampuses.has(dedupeKey)) continue;
+    seenCampuses.add(dedupeKey);
 
     campusPins.push({
       id: ws.id,
@@ -511,29 +511,29 @@ export default function WorkshopsPage() {
                   </span>
                 </div>
 
-                {/* Structured Responsive Grid: 2 rows of clean, perfectly-aligned cards */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2">
+                {/* Responsive Balanced Pills - Full College Names Clearly Visible Without Truncation */}
+                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                   {campusPins.map((pin, index) => {
                     const isActive = pin.id === activePinId;
                     return (
                       <button
                         key={pin.id}
                         onClick={() => setActivePinId(pin.id)}
-                        className={`group px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 border text-left truncate relative overflow-hidden select-none ${
+                        className={`group px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 border select-none shrink-0 ${
                           isActive
                             ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md shadow-blue-500/25 ring-2 ring-[#4285f4]/40 scale-[1.02]"
                             : isDark
-                            ? "bg-black/50 text-white/80 border-white/10 hover:border-white/25 hover:bg-white/5 hover:text-white"
-                            : "bg-gray-50/80 text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-white hover:text-black shadow-xs"
+                            ? "bg-[#141414] text-white/90 border-white/15 hover:border-white/35 hover:bg-white/10 hover:text-white"
+                            : "bg-white text-gray-800 border-gray-300 hover:border-blue-400 hover:bg-blue-50/50 hover:text-blue-950 shadow-xs"
                         }`}
                       >
                         <span
-                          className={`text-[9px] font-mono px-1.5 py-0.5 rounded-md font-bold shrink-0 transition-colors ${
+                          className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md font-black shrink-0 transition-colors ${
                             isActive
                               ? "bg-white/20 text-white"
                               : isDark
                               ? "bg-white/10 text-gray-300 group-hover:bg-white/20"
-                              : "bg-gray-200/80 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-700"
+                              : "bg-gray-100 text-gray-700 group-hover:bg-blue-100 group-hover:text-blue-700"
                           }`}
                         >
                           {index + 1}
@@ -543,7 +543,7 @@ export default function WorkshopsPage() {
                             isActive ? "text-white" : "text-[#ea4335]"
                           }`}
                         />
-                        <span className="truncate font-semibold text-[11.5px] tracking-tight">{pin.shortName}</span>
+                        <span className="font-semibold text-xs whitespace-nowrap tracking-tight">{pin.shortName}</span>
                       </button>
                     );
                   })}
