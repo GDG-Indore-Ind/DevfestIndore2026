@@ -68,6 +68,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className="scroll-smooth"
     >
