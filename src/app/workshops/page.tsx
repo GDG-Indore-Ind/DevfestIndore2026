@@ -57,80 +57,120 @@ interface CampusPin {
   attendees: string;
 }
 
-const CAMPUS_PINS: CampusPin[] = [
-  {
-    id: "pin-acropolis",
-    name: "Acropolis Institute of Technology and Research (AITR)",
+// Complete metadata dictionary for all 18 Central India colleges
+const CAMPUS_METADATA_REGISTRY: Record<
+  string,
+  { shortName: string; location: string; dateStr: string; attendees: string }
+> = {
+  "ws-1": {
     shortName: "AITR Campus",
     location: "Bypass Road, Manglia, Indore",
-    workshopId: "ws-1",
     dateStr: "Completed • Oct 2026",
     attendees: "450+ Students",
   },
-  {
-    id: "pin-medicaps",
-    name: "Medi-Caps University",
+  "ws-2": {
+    shortName: "IET DAVV",
+    location: "Khandwa Road, DAVV Campus, Indore",
+    dateStr: "Completed • Mar 2026",
+    attendees: "400+ Students",
+  },
+  "ws-3": {
+    shortName: "PIMR Indore",
+    location: "Scheme 54, Vijay Nagar, Indore",
+    dateStr: "Completed • Mar 2026",
+    attendees: "350+ Students",
+  },
+  "ws-4": {
+    shortName: "SAGE University",
+    location: "Kailod Kartal, Bypass Road, Indore",
+    dateStr: "Completed • Apr 2026",
+    attendees: "420+ Students",
+  },
+  "ws-5": {
+    shortName: "SAIT Indore",
+    location: "Indore-Ujjain Highway, Bhawrasla, Indore",
+    dateStr: "Completed • Apr 2026",
+    attendees: "380+ Students",
+  },
+  "ws-6": {
+    shortName: "IPS Academy",
+    location: "Rajendra Nagar, A.B. Road, Indore",
+    dateStr: "Completed • May 2026",
+    attendees: "460+ Students",
+  },
+  "ws-7": {
+    shortName: "SGSITS",
+    location: "Park Road, Vallabh Nagar, Indore",
+    dateStr: "Completed • Oct 2025",
+    attendees: "500+ Students",
+  },
+  "ws-8": {
+    shortName: "CDGI Indore",
+    location: "Gram Umrikheda, Khandwa Road, Indore",
+    dateStr: "Completed • Nov 2025",
+    attendees: "350+ Students",
+  },
+  "ws-9": {
+    shortName: "IIPS DAVV",
+    location: "Takshashila Campus, Khandwa Road, Indore",
+    dateStr: "Completed • Nov 2025",
+    attendees: "390+ Students",
+  },
+  "ws-10": {
     shortName: "Medi-Caps",
     location: "AB Road, Pigdamber, Rau, Indore",
-    workshopId: "ws-10",
     dateStr: "Completed • Jan 2026",
     attendees: "600+ Students",
   },
-  {
-    id: "pin-iist",
-    name: "Indore Institute of Science and Technology (IIST)",
+  "ws-11": {
     shortName: "IIST Indore",
     location: "Opposite IIM Indore, Rau Pithampur Road",
-    workshopId: "ws-11",
     dateStr: "Completed • Feb 2026",
     attendees: "380+ Students",
   },
-  {
-    id: "pin-iet",
-    name: "Institute of Engineering & Technology, DAVV (IET DAVV)",
-    shortName: "IET DAVV",
-    location: "Khandwa Road, DAVV Campus, Indore",
-    workshopId: "ws-2",
-    dateStr: "Completed • 2026",
-    attendees: "400+ Students",
-  },
-  {
-    id: "pin-pimr",
-    name: "Prestige Institute of Management & Research (PIMR)",
-    shortName: "PIMR Indore",
-    location: "Scheme 54, Vijay Nagar, Indore",
-    workshopId: "ws-3",
-    dateStr: "Completed • 2026",
-    attendees: "350+ Students",
-  },
-  {
-    id: "pin-sage",
-    name: "SAGE University Indore",
-    shortName: "SAGE University",
-    location: "Kailod Kartal, Bypass Road, Indore",
-    workshopId: "ws-4",
-    dateStr: "Completed • 2026",
-    attendees: "420+ Students",
-  },
-  {
-    id: "pin-sgsits",
-    name: "Shri Govindram Seksaria Institute of Technology and Science (SGSITS)",
-    shortName: "SGSITS",
-    location: "Park Road, Vallabh Nagar, Indore",
-    workshopId: "ws-7",
-    dateStr: "Completed • 2025",
-    attendees: "500+ Students",
-  },
-  {
-    id: "pin-iit",
-    name: "Indian Institute of Technology Indore (IIT Indore)",
+  "ws-12": {
     shortName: "IIT Indore",
     location: "Khandwa Road, Simrol, Indore",
-    workshopId: "ws-12",
-    dateStr: "Completed • Nov 2025",
+    dateStr: "Completed • Dec 2025",
     attendees: "320+ Researchers",
   },
-];
+  "ws-13": {
+    shortName: "Symbiosis University",
+    location: "Bada Bangadda, Super Corridor, Indore",
+    dateStr: "Completed • Dec 2025",
+    attendees: "340+ Students",
+  },
+  "ws-14": {
+    shortName: "LNCT Indore",
+    location: "Sector-3, Sanwer Road Industrial Area, Indore",
+    dateStr: "Completed • Jan 2025",
+    attendees: "310+ Students",
+  },
+  "ws-15": {
+    shortName: "Malwa Institute",
+    location: "Nipania Bypass, Near Best Price, Indore",
+    dateStr: "Completed • Feb 2025",
+    attendees: "290+ Students",
+  },
+  "ws-16": {
+    shortName: "NMIMS Indore",
+    location: "Off Super Corridor, Bada Bangarda, Indore",
+    dateStr: "Completed • Mar 2025",
+    attendees: "330+ Students",
+  },
+  "ws-17": {
+    shortName: "SKITM Campus",
+    location: "Gram Ralamandal, Tillore Khurd, Indore",
+    dateStr: "Completed • Apr 2024",
+    attendees: "280+ Students",
+  },
+  "ws-18": {
+    shortName: "SVVV Indore",
+    location: "Ujjain Road, Gram Baroli, Indore",
+    dateStr: "Completed • May 2024",
+    attendees: "520+ Students",
+  },
+};
 
 // Chronological Roadmap Dates & Metadata for Lively Road View
 const WORKSHOP_ROAD_METADATA: Record<string, { date: string; year: string; badge: string; milestone: string }> = {
@@ -161,8 +201,8 @@ export default function WorkshopsPage() {
   const [filterSpeaker, setFilterSpeaker] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Map Interactive Pin State
-  const [activePinId, setActivePinId] = useState<string>("pin-acropolis");
+  // Map Interactive Pin State (stored as workshopId)
+  const [activePinId, setActivePinId] = useState<string>("ws-1");
 
   // Modal for previewing workshop photos
   const [selectedWorkshop, setSelectedWorkshop] = useState<WorkshopItem | null>(null);
@@ -174,6 +214,25 @@ export default function WorkshopsPage() {
     });
     return () => unsub();
   }, []);
+
+  // Compute campus pins dynamically from the full workshops dataset
+  const campusPins: CampusPin[] = workshops.map((ws) => {
+    const reg = CAMPUS_METADATA_REGISTRY[ws.id] || {
+      shortName: ws.college.split("(")[1]?.replace(")", "") || ws.college.split(" ")[0] || "Campus",
+      location: "Indore Campus Arena",
+      dateStr: "Conducted • DevFest Series",
+      attendees: "350+ Students",
+    };
+    return {
+      id: ws.id,
+      name: ws.college,
+      shortName: reg.shortName,
+      location: reg.location,
+      workshopId: ws.id,
+      dateStr: reg.dateStr,
+      attendees: reg.attendees,
+    };
+  });
 
   // Compute unique speakers
   const speakersList = Array.from(
@@ -199,10 +258,10 @@ export default function WorkshopsPage() {
   };
 
   // Find active workshop for interactive map preview
-  const activePin = CAMPUS_PINS.find((p) => p.id === activePinId) || CAMPUS_PINS[0];
+  const activePin = campusPins.find((p) => p.id === activePinId) || campusPins[0];
   const activePinWorkshop =
-    workshops.find((w) => w.id === activePin.workshopId) ||
-    workshops.find((w) => w.college.toLowerCase().includes(activePin.shortName.toLowerCase())) ||
+    workshops.find((w) => w.id === activePin?.workshopId) ||
+    workshops.find((w) => w.college.toLowerCase().includes(activePin?.shortName.toLowerCase())) ||
     workshops[0];
 
   return (
@@ -413,7 +472,7 @@ export default function WorkshopsPage() {
 
               {/* Campus Selector Pills Strip */}
               <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                {CAMPUS_PINS.map((pin) => {
+                {campusPins.map((pin) => {
                   const isActive = pin.id === activePinId;
                   return (
                     <button

@@ -12,7 +12,7 @@ export interface PartnerItem {
 
 export const INITIAL_PARTNERS: PartnerItem[] = [
   // Sponsors
-  { id: "sp-1", name: "Google for Developers", category: "Global Tech", tier: "Title Partner", type: "sponsor", logoUrl: "", websiteUrl: "https://developers.google.com" },
+  { id: "sp-1", name: "Google for Developers", category: "Global Tech", tier: "Title Partner", type: "sponsor", logoUrl: "/images/google-for-developers.png", websiteUrl: "https://developers.google.com" },
   { id: "sp-2", name: "FlutterFlow", category: "Low-Code AI", tier: "Gold Partner", type: "sponsor", logoUrl: "", websiteUrl: "https://flutterflow.io" },
   { id: "sp-3", name: "JetBrains", category: "Dev Tools", tier: "Developer Ecosystem", type: "sponsor", logoUrl: "", websiteUrl: "https://jetbrains.com" },
   { id: "sp-4", name: "GitHub", category: "DevOps & Open Source", tier: "Global Partner", type: "sponsor", logoUrl: "", websiteUrl: "https://github.com" },

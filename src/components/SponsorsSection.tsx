@@ -180,21 +180,15 @@ export default function SponsorsSection() {
             </div>
 
             <div
-              className={`max-w-md mx-auto py-6 px-8 rounded-2xl google-pill-shadow mb-4 hover:scale-105 transition-transform border ${
+              className={`max-w-md mx-auto py-5 px-8 rounded-2xl google-pill-shadow mb-4 hover:scale-105 transition-transform border flex items-center justify-center ${
                 isDark ? "bg-[#0d0d0d] border-white/10" : "bg-gray-50 border-gray-200"
               }`}
             >
-              <span className="text-2xl sm:text-3xl font-black tracking-tight flex items-center justify-center gap-2">
-                <span className="text-[#4285f4]">G</span>
-                <span className="text-[#ea4335]">o</span>
-                <span className="text-[#f9ab00]">o</span>
-                <span className="text-[#4285f4]">g</span>
-                <span className="text-[#34a853]">l</span>
-                <span className="text-[#ea4335]">e</span>
-                <span className={`text-xl font-normal ml-1 ${isDark ? "text-white/70" : "text-gray-600"}`}>
-                  for Developers
-                </span>
-              </span>
+              <img
+                src="/images/google-for-developers.png"
+                alt="Google for Developers"
+                className="h-14 sm:h-16 w-auto max-w-full object-contain filter drop-shadow-md"
+              />
             </div>
             <p className={`text-sm max-w-xl mx-auto font-normal leading-relaxed ${isDark ? "text-white/80" : "text-gray-700"}`}>
               Empowering engineers with Google Cloud, Vertex AI, Gemini models, Android, and Web platforms to drive next-generation intelligent applications.
