@@ -43,8 +43,9 @@ export default function FeaturedTeamSection() {
     };
   }, []);
 
-  const coreOrganizers = team.filter((m) => m.team === "Core Organizer");
-  const featuredLeads = coreOrganizers.length > 0 ? coreOrganizers : team.slice(0, 6);
+  // Strictly display only the first 3 people according to ordered priority on the main landing page
+  const sortedTeam = [...team].sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+  const featuredLeads = sortedTeam.slice(0, 3);
   // Strictly filter only 2025 and 2024 speakers
   const validSpeakers = speakers.filter((s) => s.year === "2025" || s.year === "2024");
   const filteredMarqueeSpeakers =

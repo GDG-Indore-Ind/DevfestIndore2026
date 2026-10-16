@@ -5,6 +5,7 @@ export interface TeamMember {
   team: "Core Organizer" | "Design & Experience" | "Tech & Operations" | "Space & Ecosystem" | "Community";
   bio: string;
   avatar: string;
+  order?: number;
   socials: {
     linkedin?: string;
     twitter?: string;

@@ -35,10 +35,11 @@ export default function TeamPage() {
     "Space & Ecosystem",
   ];
 
+  const sortedTeam = [...team].sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
   const filteredTeam =
     selectedTeam === "All"
-      ? team
-      : team.filter((m) => m.team === selectedTeam);
+      ? sortedTeam
+      : sortedTeam.filter((m) => m.team === selectedTeam);
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors relative selection:bg-[#4285f4]/40 ${

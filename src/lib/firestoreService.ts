@@ -8,6 +8,7 @@ import {
   query,
   orderBy,
   onSnapshot,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { TeamMember, PastSpeaker, SupportQuery, AgendaItem, INITIAL_TEAM, INITIAL_AGENDA } from "@/data/teamData";
@@ -141,14 +142,18 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     const colRef = collection(db, COLLECTIONS.TEAM);
     const snap = await getDocs(colRef);
     if (!snap.empty) {
-      return snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
+      return items.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
     }
     return [];
   } catch (error) {
     console.warn("Firestore error getting team members:", error);
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("devfest-team-members");
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved) as TeamMember[];
+        return parsed.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+      }
     }
     return [];
   }
@@ -169,6 +174,36 @@ export async function saveTeamMember(member: TeamMember): Promise<void> {
     const current = await getTeamMembers();
     const updated = [...current.filter((m) => m.id !== member.id), member];
     localStorage.setItem("devfest-team-members", JSON.stringify(updated));
+  }
+}
+
+/**
+ * Save reordered list of Team Members to Firestore (using batch) & localStorage
+ */
+export async function saveTeamOrder(orderedMembers: TeamMember[]): Promise<void> {
+  try {
+    const batch = writeBatch(db);
+    orderedMembers.forEach((member, index) => {
+      const docRef = doc(db, COLLECTIONS.TEAM, member.id);
+      const sanitized = sanitizeForFirestore({ ...member, order: index + 1 });
+      batch.set(docRef, sanitized, { merge: true });
+    });
+    await batch.commit();
+  } catch (e) {
+    console.warn("Firestore saveTeamOrder error:", e);
+    // Fallback: individually update if batch has an issue
+    try {
+      await Promise.all(
+        orderedMembers.map((m, idx) => {
+          const docRef = doc(db, COLLECTIONS.TEAM, m.id);
+          return setDoc(docRef, sanitizeForFirestore({ ...m, order: idx + 1 }), { merge: true });
+        })
+      );
+    } catch (err) {}
+  }
+  if (typeof window !== "undefined") {
+    const withOrder = orderedMembers.map((m, idx) => ({ ...m, order: idx + 1 }));
+    localStorage.setItem("devfest-team-members", JSON.stringify(withOrder));
   }
 }
 
@@ -707,7 +742,8 @@ export function subscribeToTeamMembers(callback: (items: TeamMember[]) => void):
       colRef,
       (snap) => {
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as TeamMember));
-        callback(items);
+        const sorted = items.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+        callback(sorted);
       },
       (err) => {
         console.warn("Team subscription notice:", err);

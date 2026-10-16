@@ -36,6 +36,9 @@ import {
   Target,
   Activity,
   Code,
+  GripVertical,
+  ArrowUp,
+  ArrowDown,
 } from "lucide-react";
 import { GalleryItem } from "@/data/ecosystemData";
 import {
@@ -50,6 +53,7 @@ import { PartnerItem } from "@/data/partnersData";
 import {
   getTeamMembers,
   saveTeamMember,
+  saveTeamOrder,
   removeTeamMember,
   getPastSpeakers,
   savePastSpeaker,
@@ -100,7 +104,7 @@ import {
   TelemetryMetrics,
   trackDevFestEvent,
 } from "@/lib/telemetryService";
-import { Menu as MenuIcon, ArrowUp, ArrowDown } from "lucide-react";
+import { Menu as MenuIcon } from "lucide-react";
 
 export default function AdminPage() {
   // Authentication State
@@ -170,6 +174,8 @@ export default function AdminPage() {
 
   // Team State & File Upload
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [draggedTeamIndex, setDraggedTeamIndex] = useState<number | null>(null);
+  const [savingTeamOrderState, setSavingTeamOrderState] = useState(false);
   const [editingTeamId, setEditingTeamId] = useState<string | null>(null);
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("");
@@ -495,6 +501,54 @@ export default function AdminPage() {
     } catch (e) {}
     setStatusMsg({ text: "Team member removed.", type: "info" });
     setTimeout(() => setStatusMsg(null), 3000);
+  };
+
+  // Reorder Team Members Handlers (Drag and Drop + Up/Down arrows)
+  const persistTeamOrder = async (newList: TeamMember[]) => {
+    setTeamMembers(newList);
+    setSavingTeamOrderState(true);
+    try {
+      await saveTeamOrder(newList);
+      setStatusMsg({
+        text: "Team sequence saved! Top 3 now appear on Home Page.",
+        type: "success",
+      });
+    } catch (err) {
+      console.error("Failed to save team order:", err);
+    } finally {
+      setSavingTeamOrderState(false);
+      setTimeout(() => setStatusMsg(null), 3000);
+    }
+  };
+
+  const handleTeamDragStart = (index: number) => {
+    setDraggedTeamIndex(index);
+  };
+
+  const handleTeamDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleTeamDrop = async (targetIndex: number) => {
+    if (draggedTeamIndex === null || draggedTeamIndex === targetIndex) {
+      setDraggedTeamIndex(null);
+      return;
+    }
+    const updated = [...teamMembers];
+    const [moved] = updated.splice(draggedTeamIndex, 1);
+    updated.splice(targetIndex, 0, moved);
+    setDraggedTeamIndex(null);
+    await persistTeamOrder(updated);
+  };
+
+  const handleMoveTeamMember = async (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= teamMembers.length) return;
+    const updated = [...teamMembers];
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+    await persistTeamOrder(updated);
   };
 
   // Add / Edit Speaker
@@ -2835,54 +2889,140 @@ export default function AdminPage() {
               </form>
             </div>
 
-            {/* Existing Team Directory */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {teamMembers.map((member) => (
-                <div
-                  key={member.id}
-                  className="p-4 rounded-2xl bg-white border border-gray-200 flex items-start justify-between gap-3 shadow-xs"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="w-12 h-12 rounded-xl object-cover shrink-0 border"
-                    />
-                    <div className="min-w-0">
-                      <div className="text-xs font-bold text-[#1e1e1e] truncate">{member.name}</div>
-                      <div className="text-[11px] text-[#4285f4] font-semibold truncate">{member.role}</div>
-                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                        <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-                          {member.team}
-                        </span>
-                        {member.socials?.linkedin && (
-                          <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">LinkedIn</span>
-                        )}
-                        {member.socials?.twitter && (
-                          <span className="text-[9px] font-bold text-red-600 bg-red-50 px-1.5 py-0.2 rounded">X</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 shrink-0">
-                    <button
-                      onClick={() => handleStartEditTeamMember(member)}
-                      className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
-                      title="Edit Member Details & Socials"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteTeamMember(member.id)}
-                      className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
-                      title="Delete Member"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+            {/* Existing Team Directory with Drag-and-Drop Reordering */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border border-blue-200">
+                <div className="flex items-center gap-2">
+                  <GripVertical className="w-5 h-5 text-[#4285f4]" />
+                  <div>
+                    <h3 className="text-xs font-bold text-gray-900">
+                      Drag & Drop to Reorder Team Members
+                    </h3>
+                    <p className="text-[11px] text-gray-600">
+                      The top 3 people here appear on the main landing page. All others appear in this exact order on the <Link href="/team" target="_blank" className="text-[#4285f4] font-bold underline">/team</Link> page.
+                    </p>
                   </div>
                 </div>
-              ))}
+                {savingTeamOrderState && (
+                  <span className="text-xs font-bold text-[#4285f4] flex items-center gap-1.5 animate-pulse">
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Saving order...</span>
+                  </span>
+                )}
+              </div>
+
+              <div className="space-y-2.5">
+                {teamMembers.map((member, idx) => {
+                  const isTop3 = idx < 3;
+                  const isDragging = draggedTeamIndex === idx;
+
+                  return (
+                    <div
+                      key={member.id}
+                      draggable
+                      onDragStart={() => handleTeamDragStart(idx)}
+                      onDragOver={handleTeamDragOver}
+                      onDrop={() => handleTeamDrop(idx)}
+                      className={`p-3.5 sm:p-4 rounded-2xl bg-white border transition-all flex items-center justify-between gap-3 shadow-xs cursor-move ${
+                        isDragging
+                          ? "opacity-50 border-dashed border-[#4285f4] scale-[0.99] bg-blue-50/50"
+                          : "border-gray-200 hover:border-gray-400 hover:shadow-md"
+                      } ${isTop3 ? "ring-2 ring-emerald-400/40 bg-emerald-50/20" : ""}`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        {/* Drag Handle & Order Badge */}
+                        <div className="flex items-center gap-1.5 shrink-0 text-gray-400 hover:text-gray-700">
+                          <GripVertical className="w-5 h-5" />
+                          <div
+                            className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono font-black text-xs ${
+                              isTop3
+                                ? "bg-emerald-500 text-white shadow-xs"
+                                : "bg-gray-100 text-gray-700"
+                            }`}
+                            title={isTop3 ? `Rank #${idx + 1} (Featured on Main Landing Page)` : `Rank #${idx + 1} (Team Page)`}
+                          >
+                            #{idx + 1}
+                          </div>
+                        </div>
+
+                        {/* Avatar */}
+                        <img
+                          src={member.avatar}
+                          alt={member.name}
+                          className="w-12 h-12 rounded-xl object-cover shrink-0 border"
+                        />
+
+                        {/* Details */}
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-xs sm:text-sm font-bold text-[#1e1e1e] truncate">
+                              {member.name}
+                            </span>
+                            {isTop3 && (
+                              <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                ★ Home Page (Top 3)
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[11px] text-[#4285f4] font-semibold truncate">
+                            {member.role}
+                          </div>
+                          <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                            <span className="text-[10px] text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full font-medium">
+                              {member.team}
+                            </span>
+                            {member.socials?.linkedin && (
+                              <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">LinkedIn</span>
+                            )}
+                            {member.socials?.twitter && (
+                              <span className="text-[9px] font-bold text-red-600 bg-red-50 px-1.5 py-0.2 rounded">X</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Reorder Buttons & Actions */}
+                      <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          type="button"
+                          disabled={idx === 0}
+                          onClick={() => handleMoveTeamMember(idx, "up")}
+                          className="p-1.5 rounded-lg text-gray-500 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                          title="Move Up"
+                        >
+                          <ArrowUp className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          disabled={idx === teamMembers.length - 1}
+                          onClick={() => handleMoveTeamMember(idx, "down")}
+                          className="p-1.5 rounded-lg text-gray-500 hover:text-black hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                          title="Move Down"
+                        >
+                          <ArrowDown className="w-4 h-4" />
+                        </button>
+
+                        <div className="w-[1px] h-5 bg-gray-200 mx-1" />
+
+                        <button
+                          onClick={() => handleStartEditTeamMember(member)}
+                          className="p-1.5 rounded-lg text-[#4285f4] hover:bg-blue-50 transition-colors cursor-pointer"
+                          title="Edit Member Details & Socials"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteTeamMember(member.id)}
+                          className="p-1.5 rounded-lg text-[#ea4335] hover:bg-red-50 transition-colors cursor-pointer"
+                          title="Delete Member"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
