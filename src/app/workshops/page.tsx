@@ -39,7 +39,6 @@ import Footer from "@/components/Footer";
 import FloatingShapesBackground from "@/components/FloatingShapesBackground";
 import InteractiveCursor from "@/components/InteractiveCursor";
 import CardTilt from "@/components/CardTilt";
-import CampusBeacon3D from "@/components/CampusBeacon3D";
 import { useTheme } from "@/contexts/ThemeContext";
 
 // Google My Maps Embed URL provided by user
@@ -495,15 +494,12 @@ export default function WorkshopsPage() {
 
               {/* Map & Focused Workshop Card Split Screen */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                {/* Embedded Google My Maps (7 Columns) with 3D Holographic HUD Frame */}
+                {/* Embedded Google My Maps (7 Columns) - Clean Modern Glass Frame */}
                 <div
-                  className={`lg:col-span-7 rounded-3xl border-2 overflow-hidden shadow-2xl relative min-h-[460px] sm:min-h-[580px] group ${
-                    isDark ? "bg-[#050505] border-white/15" : "bg-white border-gray-300"
+                  className={`lg:col-span-7 rounded-3xl border overflow-hidden shadow-xl relative min-h-[460px] sm:min-h-[580px] ${
+                    isDark ? "bg-[#0d0d0d] border-white/10" : "bg-white border-gray-200"
                   }`}
                 >
-                  {/* Subtle 3D Depth Backdrop Grid */}
-                  <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#4285f4_1px,transparent_1px)] [background-size:16px_16px] z-10" />
-
                   <iframe
                     src={GOOGLE_MY_MAPS_EMBED_URL}
                     width="100%"
@@ -514,53 +510,6 @@ export default function WorkshopsPage() {
                     title="DevFest Indore 2026 Campus Workshops Map"
                     className="w-full h-full min-h-[460px] sm:min-h-[580px] relative z-0"
                   />
-
-                  {/* 3D HUD Top Left: Live Layer Tag */}
-                  <div className="absolute top-3 left-3 pointer-events-none z-20 flex items-center gap-2">
-                    <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold bg-black/85 text-white backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>Live 3D Satellite & Google My Maps HUD</span>
-                    </span>
-                  </div>
-
-                  {/* 3D HUD Top Right: Interactive Campus Holographic Beacon */}
-                  <div className="absolute top-3 right-3 pointer-events-none z-20 hidden sm:flex flex-col items-end">
-                    <div className="p-2 rounded-2xl bg-black/80 backdrop-blur-md border border-white/15 shadow-2xl flex flex-col items-center">
-                      <div className="text-[9px] font-mono font-bold text-blue-300 uppercase tracking-wider mb-1 flex items-center gap-1">
-                        <Sparkles className="w-2.5 h-2.5 text-[#f9ab00]" />
-                        <span>3D Telemetry Beacon</span>
-                      </div>
-                      <CampusBeacon3D
-                        color="#4285f4"
-                        collegeName={activePin.shortName}
-                        badge={activePin.shortName}
-                        isDark={isDark}
-                      />
-                    </div>
-                  </div>
-
-                  {/* 3D HUD Bottom Bar: Live Radar Coordinate Telemetry */}
-                  <div className="absolute bottom-3 left-3 right-3 pointer-events-none z-20 flex items-center justify-between gap-2 flex-wrap">
-                    <div className="px-3 py-1 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono text-white/90 shadow-md flex items-center gap-2">
-                      <span className="text-[#4285f4] font-bold">LAT: 22.7196° N</span>
-                      <span className="text-white/40">•</span>
-                      <span className="text-[#34a853] font-bold">LON: 75.8577° E</span>
-                      <span className="text-white/40">•</span>
-                      <span className="text-[#ea4335] font-bold">{activePin.shortName}</span>
-                    </div>
-
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                        activePin.name + " Indore"
-                      )}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pointer-events-auto px-3 py-1 rounded-xl bg-[#4285f4]/90 hover:bg-[#4285f4] text-white text-[10px] font-bold shadow-md transition-all flex items-center gap-1"
-                    >
-                      <Navigation className="w-3 h-3" />
-                      <span>Directions ↗</span>
-                    </a>
-                  </div>
                 </div>
 
                 {/* Highlighted Workshop Details Card (5 Columns) with 3D Tilt */}
