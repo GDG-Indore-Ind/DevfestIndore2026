@@ -76,7 +76,7 @@ export default function CollegeWorkshopsSection() {
             <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
           <h2 className={`text-3xl sm:text-5xl font-black tracking-tight mb-3 ${isDark ? "text-white" : "text-gray-900"}`}>
-            Conducted Across 18+ Central India Campuses
+            Conducted Across {workshops.length > 0 ? workshops.length : 17}+ Central India Campuses
           </h2>
           <p className={`text-sm sm:text-base leading-relaxed ${isDark ? "text-white/80" : "text-gray-700"}`}>
             Leading up to DevFest Indore 2026, our GDG community architects and technical experts conducted specialized hands-on codelabs, GenAI hacklabs, and cloud workshops across universities. Explore lecture recaps, live photos, and student chapters below.

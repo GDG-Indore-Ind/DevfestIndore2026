@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -207,6 +207,16 @@ export default function WorkshopsPage() {
   const [selectedWorkshop, setSelectedWorkshop] = useState<WorkshopItem | null>(null);
   const [activePhotoIdx, setActivePhotoIdx] = useState<number>(0);
 
+  // Ref for horizontal scrolling of campus pills
+  const pillContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollPills = (direction: "left" | "right") => {
+    if (pillContainerRef.current) {
+      const scrollAmount = direction === "left" ? -280 : 280;
+      pillContainerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     const unsub = subscribeToWorkshops((items) => {
       if (items && items.length > 0) setWorkshops(items);
@@ -327,7 +337,7 @@ export default function WorkshopsPage() {
                   isDark ? "bg-[#0d0d0d]/90 border-white/10" : "bg-white border-gray-200 shadow-xs"
                 }`}
               >
-                <div className="text-2xl sm:text-3xl font-black text-[#4285f4]">18+</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#4285f4]">{workshops.length}</div>
                 <div className="text-[11px] font-mono text-gray-400 uppercase mt-0.5 font-bold">
                   University Campuses
                 </div>
@@ -469,27 +479,75 @@ export default function WorkshopsPage() {
                 </a>
               </div>
 
-              {/* Campus Selector Pills Strip */}
-              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                {campusPins.map((pin) => {
-                  const isActive = pin.id === activePinId;
-                  return (
+              {/* Campus Selector Pills Strip Header & Scroll Bar */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs text-gray-500 font-mono px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-pulse" />
+                    <span className="font-bold text-sm tracking-tight text-gray-900 dark:text-white">
+                      All {campusPins.length} Indore Campuses
+                    </span>
+                    <span className="text-[11px] px-2 py-0.5 rounded-md bg-blue-500/10 text-[#4285f4] font-bold border border-blue-500/20">
+                      Live on Map
+                    </span>
+                  </div>
+                  {/* Left & Right Smooth Scroll Buttons */}
+                  <div className="flex items-center gap-1.5">
                     <button
-                      key={pin.id}
-                      onClick={() => setActivePinId(pin.id)}
-                      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-2 border ${
-                        isActive
-                          ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md scale-105"
-                          : isDark
-                          ? "bg-[#0d0d0d] text-white/80 border-white/10 hover:border-white/30"
-                          : "bg-white text-gray-700 border-gray-200 hover:border-gray-400 shadow-xs"
+                      onClick={() => scrollPills("left")}
+                      title="Scroll Left"
+                      className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                        isDark
+                          ? "bg-[#0d0d0d] border-white/10 hover:bg-white/10 text-white"
+                          : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700 shadow-xs"
                       }`}
                     >
-                      <MapPin className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-[#ea4335]"}`} />
-                      <span>{pin.shortName}</span>
+                      <ChevronLeft className="w-4 h-4" />
                     </button>
-                  );
-                })}
+                    <button
+                      onClick={() => scrollPills("right")}
+                      title="Scroll Right"
+                      className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
+                        isDark
+                          ? "bg-[#0d0d0d] border-white/10 hover:bg-white/10 text-white"
+                          : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700 shadow-xs"
+                      }`}
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Horizontal Scrolling Pill Container with Smooth Shadow and Custom Scrollbar */}
+                <div
+                  ref={pillContainerRef}
+                  className="flex items-center gap-2.5 overflow-x-auto pb-3 pt-1 scroll-smooth scrollbar-thin scrollbar-thumb-blue-500/40 hover:scrollbar-thumb-blue-500/70"
+                >
+                  {campusPins.map((pin, index) => {
+                    const isActive = pin.id === activePinId;
+                    return (
+                      <button
+                        key={pin.id}
+                        onClick={() => setActivePinId(pin.id)}
+                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-2 border select-none ${
+                          isActive
+                            ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md scale-105 ring-2 ring-[#4285f4]/30"
+                            : isDark
+                            ? "bg-[#0d0d0d] text-white/80 border-white/10 hover:border-white/30 hover:bg-white/5"
+                            : "bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:bg-gray-50 shadow-xs"
+                        }`}
+                      >
+                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md font-bold ${
+                          isActive ? "bg-white/20 text-white" : "bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300"
+                        }`}>
+                          {index + 1}
+                        </span>
+                        <MapPin className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-white" : "text-[#ea4335]"}`} />
+                        <span className="whitespace-nowrap">{pin.shortName}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Map & Focused Workshop Card Split Screen */}
