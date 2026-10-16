@@ -224,15 +224,24 @@ export default function WorkshopsPage() {
     return () => unsub();
   }, []);
 
-  // Compute campus pins dynamically from the full workshops dataset
-  const campusPins: CampusPin[] = workshops.map((ws) => {
+  // Compute campus pins dynamically from the full workshops dataset with deduplication
+  const seenCampuses = new Set<string>();
+  const campusPins: CampusPin[] = [];
+
+  for (const ws of workshops) {
+    // Normalise name to avoid accidental duplicates
+    const normKey = ws.college.trim().toLowerCase();
+    if (seenCampuses.has(normKey)) continue;
+    seenCampuses.add(normKey);
+
     const reg = CAMPUS_METADATA_REGISTRY[ws.id] || {
-      shortName: ws.college.split("(")[1]?.replace(")", "") || ws.college.split(" ")[0] || "Campus",
+      shortName: ws.college.includes("(") ? ws.college.split("(")[1]?.replace(")", "") : ws.college.split(" ")[0] || "Campus",
       location: "Indore Campus Arena",
       dateStr: "Conducted • DevFest Series",
       attendees: "350+ Students",
     };
-    return {
+
+    campusPins.push({
       id: ws.id,
       name: ws.college,
       shortName: reg.shortName,
@@ -240,8 +249,8 @@ export default function WorkshopsPage() {
       workshopId: ws.id,
       dateStr: reg.dateStr,
       attendees: reg.attendees,
-    };
-  });
+    });
+  }
 
   // Compute unique speakers
   const speakersList = Array.from(
@@ -479,46 +488,62 @@ export default function WorkshopsPage() {
                 </a>
               </div>
 
-              {/* Campus Selector Pills - 2 Rows Display (No Hidden Scroll) */}
-              <div className="space-y-2.5">
-                <div className="flex items-center justify-between text-xs text-gray-500 font-mono px-1">
-                  <div className="flex items-center gap-2">
+              {/* Campus Selector Pills - Premium Multi-Column Balanced Grid */}
+              <div
+                className={`p-4 sm:p-5 rounded-3xl border transition-all ${
+                  isDark
+                    ? "bg-[#0d0d0d]/90 border-white/10 shadow-2xl backdrop-blur-md"
+                    : "bg-white/95 border-gray-200 shadow-md backdrop-blur-md"
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-gray-100 dark:border-white/10">
+                  <div className="flex items-center gap-2.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-pulse" />
-                    <span className="font-bold text-sm tracking-tight text-gray-900 dark:text-white">
+                    <span className="font-black text-sm tracking-tight text-gray-900 dark:text-white">
                       All {campusPins.length} Indore Campuses
                     </span>
-                    <span className="text-[11px] px-2.5 py-0.5 rounded-md bg-blue-500/10 text-[#4285f4] font-bold border border-blue-500/20">
-                      Live on Map
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/10 text-[#4285f4] font-bold border border-blue-500/20">
+                      Google My Maps Live
                     </span>
                   </div>
-                  <span className="text-[11px] text-gray-400 hidden sm:inline">
-                    Click any campus to preview details & location
+                  <span className="text-[11px] font-mono text-gray-400">
+                    Click campus button to view session details & recap
                   </span>
                 </div>
 
-                {/* Multi-Row Clean Grid / Flex Wrap - Displays All 17+ Campus Boxes Visible at Once */}
-                <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                {/* Structured Responsive Grid: 2 rows of clean, perfectly-aligned cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2">
                   {campusPins.map((pin, index) => {
                     const isActive = pin.id === activePinId;
                     return (
                       <button
                         key={pin.id}
                         onClick={() => setActivePinId(pin.id)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 border select-none ${
+                        className={`group px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer flex items-center gap-2 border text-left truncate relative overflow-hidden select-none ${
                           isActive
-                            ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md scale-[1.02] ring-2 ring-[#4285f4]/30"
+                            ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md shadow-blue-500/25 ring-2 ring-[#4285f4]/40 scale-[1.02]"
                             : isDark
-                            ? "bg-[#0d0d0d] text-white/80 border-white/10 hover:border-white/30 hover:bg-white/5"
-                            : "bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:bg-gray-50 shadow-xs"
+                            ? "bg-black/50 text-white/80 border-white/10 hover:border-white/25 hover:bg-white/5 hover:text-white"
+                            : "bg-gray-50/80 text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-white hover:text-black shadow-xs"
                         }`}
                       >
-                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md font-bold ${
-                          isActive ? "bg-white/20 text-white" : "bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300"
-                        }`}>
+                        <span
+                          className={`text-[9px] font-mono px-1.5 py-0.5 rounded-md font-bold shrink-0 transition-colors ${
+                            isActive
+                              ? "bg-white/20 text-white"
+                              : isDark
+                              ? "bg-white/10 text-gray-300 group-hover:bg-white/20"
+                              : "bg-gray-200/80 text-gray-600 group-hover:bg-blue-100 group-hover:text-blue-700"
+                          }`}
+                        >
                           {index + 1}
                         </span>
-                        <MapPin className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-white" : "text-[#ea4335]"}`} />
-                        <span className="whitespace-nowrap">{pin.shortName}</span>
+                        <MapPin
+                          className={`w-3.5 h-3.5 shrink-0 transition-transform group-hover:scale-110 ${
+                            isActive ? "text-white" : "text-[#ea4335]"
+                          }`}
+                        />
+                        <span className="truncate font-semibold text-[11.5px] tracking-tight">{pin.shortName}</span>
                       </button>
                     );
                   })}
