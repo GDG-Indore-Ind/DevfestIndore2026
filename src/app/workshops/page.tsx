@@ -479,59 +479,34 @@ export default function WorkshopsPage() {
                 </a>
               </div>
 
-              {/* Campus Selector Pills Strip Header & Scroll Bar */}
-              <div className="space-y-3">
+              {/* Campus Selector Pills - 2 Rows Display (No Hidden Scroll) */}
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between text-xs text-gray-500 font-mono px-1">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#34a853] animate-pulse" />
                     <span className="font-bold text-sm tracking-tight text-gray-900 dark:text-white">
                       All {campusPins.length} Indore Campuses
                     </span>
-                    <span className="text-[11px] px-2 py-0.5 rounded-md bg-blue-500/10 text-[#4285f4] font-bold border border-blue-500/20">
+                    <span className="text-[11px] px-2.5 py-0.5 rounded-md bg-blue-500/10 text-[#4285f4] font-bold border border-blue-500/20">
                       Live on Map
                     </span>
                   </div>
-                  {/* Left & Right Smooth Scroll Buttons */}
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => scrollPills("left")}
-                      title="Scroll Left"
-                      className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
-                        isDark
-                          ? "bg-[#0d0d0d] border-white/10 hover:bg-white/10 text-white"
-                          : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700 shadow-xs"
-                      }`}
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => scrollPills("right")}
-                      title="Scroll Right"
-                      className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
-                        isDark
-                          ? "bg-[#0d0d0d] border-white/10 hover:bg-white/10 text-white"
-                          : "bg-white border-gray-200 hover:bg-gray-100 text-gray-700 shadow-xs"
-                      }`}
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
+                  <span className="text-[11px] text-gray-400 hidden sm:inline">
+                    Click any campus to preview details & location
+                  </span>
                 </div>
 
-                {/* Horizontal Scrolling Pill Container with Smooth Shadow and Custom Scrollbar */}
-                <div
-                  ref={pillContainerRef}
-                  className="flex items-center gap-2.5 overflow-x-auto pb-3 pt-1 scroll-smooth scrollbar-thin scrollbar-thumb-blue-500/40 hover:scrollbar-thumb-blue-500/70"
-                >
+                {/* Multi-Row Clean Grid / Flex Wrap - Displays All 17+ Campus Boxes Visible at Once */}
+                <div className="flex flex-wrap items-center gap-2 pt-0.5">
                   {campusPins.map((pin, index) => {
                     const isActive = pin.id === activePinId;
                     return (
                       <button
                         key={pin.id}
                         onClick={() => setActivePinId(pin.id)}
-                        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer flex items-center gap-2 border select-none ${
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 border select-none ${
                           isActive
-                            ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md scale-105 ring-2 ring-[#4285f4]/30"
+                            ? "bg-[#4285f4] text-white border-[#4285f4] shadow-md scale-[1.02] ring-2 ring-[#4285f4]/30"
                             : isDark
                             ? "bg-[#0d0d0d] text-white/80 border-white/10 hover:border-white/30 hover:bg-white/5"
                             : "bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:bg-gray-50 shadow-xs"
