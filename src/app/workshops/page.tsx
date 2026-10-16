@@ -550,31 +550,31 @@ export default function WorkshopsPage() {
                 </div>
               </div>
 
-              {/* Map & Focused Workshop Card Split Screen */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Map & Focused Workshop Card Split Screen - Equal Heights & Perfect Alignment */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                 {/* Embedded Google My Maps (7 Columns) - Clean Modern Glass Frame */}
                 <div
-                  className={`lg:col-span-7 rounded-3xl border overflow-hidden shadow-xl relative min-h-[460px] sm:min-h-[580px] ${
+                  className={`lg:col-span-7 rounded-3xl border overflow-hidden shadow-xl relative h-[620px] sm:h-[640px] flex flex-col ${
                     isDark ? "bg-[#0d0d0d] border-white/10" : "bg-white border-gray-200"
                   }`}
                 >
                   <iframe
                     src={GOOGLE_MY_MAPS_EMBED_URL}
                     width="100%"
-                    height="580"
+                    height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     title="DevFest Indore 2026 Campus Workshops Map"
-                    className="w-full h-full min-h-[460px] sm:min-h-[580px] relative z-0"
+                    className="w-full h-full flex-1 relative z-0"
                   />
                 </div>
 
-                {/* Highlighted Workshop Details Card (5 Columns) with 3D Tilt */}
-                <div className="lg:col-span-5">
-                  <CardTilt maxTilt={4}>
+                {/* Highlighted Workshop Details Card (5 Columns) with 3D Tilt - Matching Equal Height */}
+                <div className="lg:col-span-5 h-[620px] sm:h-[640px] flex flex-col">
+                  <CardTilt maxTilt={3} className="h-full flex flex-col">
                     <div
-                      className={`rounded-3xl border-2 p-6 sm:p-7 transition-all duration-300 ${
+                      className={`rounded-3xl border-2 p-6 sm:p-7 transition-all duration-300 h-full flex flex-col justify-between overflow-y-auto ${
                         isDark
                           ? "bg-[#0d0d0d]/95 border-white/15 shadow-2xl"
                           : "bg-white border-gray-200 shadow-xl"
