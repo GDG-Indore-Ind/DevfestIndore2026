@@ -9,7 +9,7 @@ export default function InteractiveCursor() {
   const [isTouch, setIsTouch] = useState(true);
 
   useEffect(() => {
-    // Disable on touch devices
+    // Disable on mobile/touch screens
     if (window.matchMedia("(pointer: coarse)").matches) {
       return;
     }
@@ -26,10 +26,9 @@ export default function InteractiveCursor() {
       targetY = e.clientY;
       setPos({ x: targetX, y: targetY });
 
-      // Check if hovering interactive element
       const target = e.target as HTMLElement | null;
       if (
-        target?.closest("button, a, input, select, .google-card-shadow, .glow-btn")
+        target?.closest("button, a, input, select, .google-card-shadow, .glow-btn, .group")
       ) {
         setHovered(true);
       } else {
@@ -38,9 +37,8 @@ export default function InteractiveCursor() {
     };
 
     const animateTrailing = () => {
-      // Smooth lerp interpolation
-      currentX += (targetX - currentX) * 0.18;
-      currentY += (targetY - currentY) * 0.18;
+      currentX += (targetX - currentX) * 0.16;
+      currentY += (targetY - currentY) * 0.16;
       setTrailingPos({ x: currentX, y: currentY });
       animationFrameId = requestAnimationFrame(animateTrailing);
     };
@@ -58,29 +56,40 @@ export default function InteractiveCursor() {
 
   return (
     <>
-      {/* Trailing Soft Halo */}
+      {/* Outer Sleek Trailing Ring Follower */}
       <div
-        className="pointer-events-none fixed z-[9998] rounded-full transition-all duration-200 -translate-x-1/2 -translate-y-1/2 border border-[#4285f4]/40"
+        className="pointer-events-none fixed z-[9998] rounded-full transition-transform duration-150 ease-out -translate-x-1/2 -translate-y-1/2"
         style={{
           left: `${trailingPos.x}px`,
           top: `${trailingPos.y}px`,
-          width: hovered ? "52px" : "32px",
-          height: hovered ? "52px" : "32px",
-          backgroundColor: hovered ? "rgba(66, 133, 244, 0.12)" : "rgba(66, 133, 244, 0.05)",
-          transform: `translate(-50%, -50%) scale(${hovered ? 1.25 : 1})`,
+          width: hovered ? "52px" : "36px",
+          height: hovered ? "52px" : "36px",
+          border: hovered
+            ? "1.5px solid rgba(66, 133, 244, 0.85)"
+            : "1px solid rgba(66, 133, 244, 0.4)",
+          background: hovered
+            ? "radial-gradient(circle, rgba(66, 133, 244, 0.12) 0%, transparent 70%)"
+            : "transparent",
+          boxShadow: hovered
+            ? "0 0 20px rgba(66, 133, 244, 0.45), inset 0 0 10px rgba(66, 133, 244, 0.2)"
+            : "0 0 10px rgba(66, 133, 244, 0.15)",
+          transform: `translate(-50%, -50%) scale(${hovered ? 1.15 : 1})`,
         }}
       />
 
-      {/* Main Sharp Google Core Dot */}
+      {/* Center Precision Target Dot */}
       <div
-        className="pointer-events-none fixed z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
+        className="pointer-events-none fixed z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-75 ease-out"
         style={{
           left: `${pos.x}px`,
           top: `${pos.y}px`,
           width: hovered ? "10px" : "7px",
           height: hovered ? "10px" : "7px",
-          backgroundColor: hovered ? "#ea4335" : "#4285f4",
-          boxShadow: "0 0 10px rgba(66, 133, 244, 0.5)",
+          background: hovered ? "#4285f4" : "#38bdf8",
+          boxShadow: hovered
+            ? "0 0 14px #4285f4, 0 0 4px #ffffff"
+            : "0 0 8px #38bdf8",
+          transform: `translate(-50%, -50%) scale(${hovered ? 1.3 : 1})`,
         }}
       />
     </>

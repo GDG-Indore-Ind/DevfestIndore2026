@@ -1,64 +1,96 @@
 "use client";
 
-import { Sparkles, Terminal, Cpu, Cloud, Smartphone, Globe, Code, Heart, Trophy, Rocket } from "lucide-react";
+import {
+  GoogleCloudLogo,
+  FirebaseLogo,
+  GeminiLogo,
+  FlutterLogo,
+  AndroidLogo,
+  SatelliteLogo,
+  KubernetesLogo,
+  TensorFlowLogo,
+  GitHubLogo,
+  NextjsLogo,
+} from "./TechLogos";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function MarqueeBanner() {
-  const techRow = [
-    { label: "Gemini 2.5 Flash & Vertex AI", color: "bg-[#c3ecf6] text-[#1e1e1e] border-[#57caff]", icon: Cpu },
-    { label: "Flutter 3.24 & Dart", color: "bg-[#ccf6c5] text-[#1e1e1e] border-[#5cdb6d]", icon: Smartphone },
-    { label: "Google Kubernetes Engine (GKE)", color: "bg-[#f8d8d8] text-[#1e1e1e] border-[#ff7daf]", icon: Cloud },
-    { label: "Android 15 & Jetpack Compose", color: "bg-[#ffe7a5] text-[#1e1e1e] border-[#ffd427]", icon: Smartphone },
-    { label: "Next.js 16 & Server Components", color: "bg-[#c3ecf6] text-[#1e1e1e] border-[#57caff]", icon: Globe },
-    { label: "Multi-Agent Workflows", color: "bg-[#ccf6c5] text-[#1e1e1e] border-[#5cdb6d]", icon: Terminal },
-    { label: "Firebase & Cloud Run", color: "bg-[#ffe7a5] text-[#1e1e1e] border-[#ffd427]", icon: Code },
-    { label: "Open Source Ecosystem", color: "bg-[#f8d8d8] text-[#1e1e1e] border-[#ff7daf]", icon: Sparkles },
+  const { isDark } = useTheme();
+
+  // Row 1: High-res Tech Ecosystem Logos (Firebase, Google Cloud, Gemini, Flutter, Satellite, Android, etc.)
+  const techLogosRow = [
+    { label: "Google Cloud", Logo: GoogleCloudLogo, border: "hover:border-[#4285f4]" },
+    { label: "Firebase", Logo: FirebaseLogo, border: "hover:border-[#f9ab00]" },
+    { label: "Gemini AI", Logo: GeminiLogo, border: "hover:border-[#a855f7]" },
+    { label: "Flutter & Dart", Logo: FlutterLogo, border: "hover:border-[#02569b]" },
+    { label: "Satellite Comms", Logo: SatelliteLogo, border: "hover:border-[#4285f4]" },
+    { label: "Android 15", Logo: AndroidLogo, border: "hover:border-[#3ddc84]" },
+    { label: "Kubernetes GKE", Logo: KubernetesLogo, border: "hover:border-[#326ce5]" },
+    { label: "TensorFlow", Logo: TensorFlowLogo, border: "hover:border-[#ff6f00]" },
+    { label: "Next.js 16", Logo: NextjsLogo, border: "hover:border-[#4285f4]" },
+    { label: "GitHub", Logo: GitHubLogo, border: "hover:border-white/50" },
   ];
 
+  // Row 2: DevFest Indore Metrics & Space Vibe Pills
   const vibeRow = [
-    { label: "Indore: India's Cleanest City #1", color: "bg-[#34a853] text-white border-[#1e1e1e]", icon: Trophy },
-    { label: "1,500+ Builders & Engineers", color: "bg-[#4285f4] text-white border-[#1e1e1e]", icon: Rocket },
-    { label: "28+ Global Speakers & GDEs", color: "bg-[#ea4335] text-white border-[#1e1e1e]", icon: Sparkles },
-    { label: "Poha, Jalebi & Sarafa Food Culture", color: "bg-[#f9ab00] text-[#1e1e1e] border-[#1e1e1e]", icon: Heart },
-    { label: "Essentia Luxury Hotel Indore, Pipliyahana", color: "bg-[#4285f4] text-white border-[#1e1e1e]", icon: Globe },
-    { label: "Hands-on Codelabs & Cloud Credits", color: "bg-[#34a853] text-white border-[#1e1e1e]", icon: Terminal },
-    { label: "₹2,50,000+ Hackathon & Bounties", color: "bg-[#ea4335] text-white border-[#1e1e1e]", icon: Trophy },
+    { label: "1,500+ Astronaut Builders", color: "border-[#4285f4] text-[#4285f4]", badge: "🚀" },
+    { label: "Indore: India's Cleanest City #1", color: "border-[#34a853] text-[#34a853]", badge: "🏆" },
+    { label: "28+ Global GDEs & Speakers", color: "border-[#ea4335] text-[#ea4335]", badge: "✨" },
+    { label: "Orbit Telemetry Online", color: "border-[#4285f4] text-[#4285f4]", badge: "🛰️" },
+    { label: "Essentia Luxury Launchpad", color: "border-[#f9ab00] text-[#f9ab00]", badge: "📍" },
+    { label: "Hands-on AI Codelabs", color: "border-[#34a853] text-[#34a853]", badge: "💻" },
+    { label: "Poha, Jalebi & Food Culture", color: "border-[#ea4335] text-[#ea4335]", badge: "❤️" },
+    { label: "₹2,50,000+ Hackathon Bounties", color: "border-[#f9ab00] text-[#f9ab00]", badge: "💎" },
   ];
 
   return (
-    <div className="py-6 bg-white border-y-2 border-[#1e1e1e] overflow-hidden space-y-3">
-      {/* Track 1: Moving left */}
-      <div className="flex overflow-hidden">
+    <div
+      className={`py-6 border-y overflow-hidden space-y-4 transition-colors relative z-20 ${
+        isDark
+          ? "bg-[#0a0a0a]/90 backdrop-blur-md border-white/10"
+          : "bg-white/95 backdrop-blur-md border-black/10 shadow-sm"
+      }`}
+    >
+      {/* Track 1: Moving left with Authentic High-Resolution Logos */}
+      <div className="flex overflow-hidden mask-fade-edges">
         <div className="animate-marquee flex gap-4 shrink-0 py-1">
-          {techRow.concat(techRow).map((item, idx) => {
-            const Icon = item.icon;
+          {techLogosRow.concat(techLogosRow).map((item, idx) => {
+            const LogoComponent = item.Logo;
             return (
               <div
                 key={idx}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-black tracking-wide uppercase shadow-sm ${item.color}`}
+                className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl border transition-all duration-300 hover:scale-105 cursor-pointer shadow-sm ${
+                  isDark
+                    ? "bg-[#111827]/90 border-white/15 text-white hover:bg-[#1f2937]"
+                    : "bg-white border-gray-200 text-gray-900 hover:border-gray-400 hover:bg-gray-50"
+                } ${item.border}`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{item.label}</span>
+                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <LogoComponent className="w-5 h-5 sm:w-6 sm:h-6 object-contain" />
+                </div>
+                <span className="text-xs sm:text-sm font-bold tracking-tight whitespace-nowrap">
+                  {item.label}
+                </span>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Track 2: Moving right */}
-      <div className="flex overflow-hidden">
+      {/* Track 2: Moving right with Space & Indore Ecosystem Tags */}
+      <div className="flex overflow-hidden mask-fade-edges">
         <div className="animate-marquee-reverse flex gap-4 shrink-0 py-1">
-          {vibeRow.concat(vibeRow).map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={idx}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs font-extrabold tracking-wide uppercase shadow-sm ${item.color}`}
-              >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{item.label}</span>
-              </div>
-            );
-          })}
+          {vibeRow.concat(vibeRow).map((item, idx) => (
+            <div
+              key={idx}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 text-xs sm:text-[13px] font-black tracking-wide uppercase shadow-sm ${
+                isDark ? "bg-[#111] " + item.color : "bg-white " + item.color + " shadow-sm"
+              }`}
+            >
+              <span className="text-sm">{item.badge}</span>
+              <span className="whitespace-nowrap">{item.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

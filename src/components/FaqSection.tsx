@@ -1,66 +1,95 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FAQS } from "@/data/devfestData";
-import { HelpCircle, ChevronDown, ChevronUp, Mail } from "lucide-react";
+import { HelpCircle, ChevronDown, ChevronUp, Mail, Sparkles } from "lucide-react";
 import CardTilt from "./CardTilt";
+import { useTheme } from "@/contexts/ThemeContext";
+import { getFaqItems, FaqItem } from "@/lib/firestoreService";
 
 export default function FaqSection() {
+  const { isDark } = useTheme();
+  const [faqs, setFaqs] = useState<FaqItem[]>(() =>
+    FAQS.map((f, idx) => ({ id: `faq-${idx + 1}`, ...f }))
+  );
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  useEffect(() => {
+    getFaqItems().then((items) => {
+      if (items && items.length > 0) {
+        setFaqs(items);
+      }
+    });
+  }, []);
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-white relative">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading with Scroll Reveal */}
+    <section id="faq" className="py-20 md:py-28 bg-transparent relative transition-colors">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-16 reveal-on-scroll">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-[#1e1e1e] google-pill-shadow mb-4 hover:scale-105 transition-transform">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full telemetry-card google-pill-shadow mb-4 hover:scale-105 transition-transform">
             <HelpCircle className="w-4 h-4 text-[#f9ab00]" />
-            <span className="text-xs font-black uppercase tracking-wider text-[#1e1e1e]">
-              Got Questions?
+            <span className={`text-xs font-mono font-black uppercase tracking-wider ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}>
+              Mission Debrief • Protocols
             </span>
+            <span className="text-xs text-[#f9ab00] cosmic-sparkle">✦</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#1e1e1e] tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
             Frequently Asked <span className="text-[#f9ab00]">Questions</span>
           </h2>
-          <p className="mt-4 text-base text-[#5f6368] font-medium leading-relaxed">
+          <p className={`mt-4 text-base sm:text-lg font-medium leading-relaxed ${
+            isDark ? "text-white/85" : "text-gray-700"
+          }`}>
             Everything you need to know about passes, registration, codelabs, food, and attending DevFest Indore 2026.
           </p>
         </div>
 
-        {/* FAQ Accordion List with Scroll Reveal */}
+        {/* FAQ Accordion — space telemetry glass */}
         <div className="space-y-4 mb-14">
-          {FAQS.map((faq, idx) => {
+          {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
             return (
               <div
                 key={idx}
-                className="bg-[#fafbfc] rounded-2xl border-2 border-[#1e1e1e] google-pill-shadow overflow-hidden transition-all spotlight-card reveal-on-scroll"
+                className={`rounded-2xl google-pill-shadow overflow-hidden transition-all spotlight-card reveal-on-scroll border ${
+                  isDark ? "bg-[#0d0d0d]/90 border-white/10" : "!bg-white !border-gray-200/90 shadow-sm"
+                }`}
                 style={{ transitionDelay: `${idx * 80}ms` }}
               >
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none hover:bg-gray-50/70 transition-colors"
+                  className={`w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none transition-colors ${
+                    isDark ? "hover:bg-white/5" : "hover:bg-gray-50"
+                  }`}
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg font-black text-[#1e1e1e]">
+                  <span className={`text-base sm:text-lg font-black ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}>
                     {faq.question}
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center shrink-0 transition-transform duration-200">
+                  <div className={`w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                    isDark ? "bg-white/8 border-white/20 text-white" : "bg-gray-100 border-gray-200 text-gray-800"
+                  }`}>
                     {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-[#1e1e1e]" />
+                      <ChevronUp className="w-4 h-4" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-[#5f6368]" />
+                      <ChevronDown className="w-4 h-4 opacity-60" />
                     )}
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-6 sm:px-6 text-sm text-[#1e1e1e]/85 font-medium leading-relaxed border-t border-gray-200/80 pt-4 animate-in fade-in duration-200">
+                  <div className={`px-5 pb-6 sm:px-6 text-sm sm:text-[15px] font-normal leading-relaxed border-t pt-4 animate-in fade-in duration-200 ${
+                    isDark ? "border-white/8 text-white/85" : "border-gray-100 text-gray-700"
+                  }`}>
                     {faq.answer}
                   </div>
                 )}
@@ -68,25 +97,6 @@ export default function FaqSection() {
             );
           })}
         </div>
-
-        {/* Extra Support Strip with CardTilt */}
-        <CardTilt className="bg-[#ccf6c5]/50 p-6 sm:p-8 rounded-3xl border-2 border-[#1e1e1e] google-pill-shadow flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left reveal-on-scroll">
-          <div>
-            <h4 className="text-lg font-black text-[#1e1e1e]">Still have queries or need assistance?</h4>
-            <p className="text-xs sm:text-sm text-[#5f6368] mt-0.5">
-              Our organizing team is happy to help with campus group bookings, speaker inquiries, or accessibility.
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <a
-              href="mailto:organizers@gdgindore.in"
-              className="px-5 py-2.5 rounded-xl bg-[#1e1e1e] text-white text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-black hover:scale-105 transition-all cursor-pointer"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Email Support</span>
-            </a>
-          </div>
-        </CardTilt>
       </div>
     </section>
   );
