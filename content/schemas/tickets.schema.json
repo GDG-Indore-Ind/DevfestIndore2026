@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest tickets",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "passes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "enum": [
+              "liftoff",
+              "student",
+              "professional",
+              "vip",
+              "last-orbit",
+              "observer"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "audience": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "allocation": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "opensAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "closesAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "eligibility": {
+            "type": "string",
+            "minLength": 1
+          },
+          "benefits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "audience",
+          "summary",
+          "allocation",
+          "description",
+          "opensAt",
+          "closesAt",
+          "eligibility",
+          "benefits",
+          "note"
+        ]
+      }
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "title",
+          "text"
+        ]
+      }
+    },
+    "registrationChecklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "title",
+          "text"
+        ]
+      }
+    },
+    "registrationDeclaration": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "$schema",
+    "passes",
+    "policies",
+    "registrationChecklist",
+    "registrationDeclaration"
+  ]
+}

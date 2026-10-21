@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest gallery",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "enum": [
+              "Space",
+              "AI & Robotics",
+              "Keynotes",
+              "Showcase",
+              "Community",
+              "Pre-DevFest Workshops"
+            ]
+          },
+          "imageUrl": {
+            "type": "string",
+            "pattern": "^(https://|/[^/])"
+          },
+          "caption": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "category",
+          "imageUrl",
+          "caption"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "photos"
+  ]
+}

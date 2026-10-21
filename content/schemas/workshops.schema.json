@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest workshops",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "workshops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "college": {
+            "type": "string",
+            "minLength": 1
+          },
+          "speakerIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*$"
+            }
+          },
+          "publication": {
+            "enum": [
+              "archived",
+              "confirmed"
+            ]
+          },
+          "topic": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "collegeLogoUrl": {
+            "type": "string",
+            "pattern": "^(https://|/[^/])"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(https://|/[^/])"
+            }
+          },
+          "instagramUrl": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "photosDrive": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "logoDrive": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "collabNotice": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "college",
+          "speakerIds",
+          "publication"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "workshops"
+  ]
+}

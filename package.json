@@ -6,30 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "content:validate": "node scripts/validate-content.mjs",
+    "predev": "npm run content:validate",
+    "prebuild": "npm run content:validate"
   },
   "dependencies": {
-    "@types/three": "^0.186.0",
-    "canvas-confetti": "^1.9.4",
-    "cloudinary": "^2.11.0",
-    "firebase": "^13.0.0",
     "lucide-react": "^1.49.0",
     "next": "16.3.8",
     "react": "19.2.8",
-    "react-dom": "19.2.8",
-    "three": "^0.186.1"
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "ajv": "^6.15.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
-    "firebase-admin": "^14.5.0",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "xlsx": "^0.18.5"
+    "typescript": "^5"
   }
 }

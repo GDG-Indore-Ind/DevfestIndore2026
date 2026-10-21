@@ -1,0 +1,81 @@
+{
+  "$schema": "./schemas/events.schema.json",
+  "events": [
+    {
+      "id": "2025",
+      "title": "DevFest Indore 2025",
+      "date": "2025-12-20",
+      "venue": "Indore Marriott Hotel",
+      "kind": "DevFest",
+      "summary": "AI, cloud, mobile and web development, with technical talks, codelabs and community conversations.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+      "publication": "archived",
+      "officialSpeakerIds": [
+        "abhishek-doshi",
+        "ganesh-divekar",
+        "nikhilesh-tayal",
+        "divyanshu-bhargava",
+        "himanshu-jain"
+      ]
+    },
+    {
+      "id": "2024",
+      "title": "DevFest Indore 2024",
+      "date": "2024-12-21",
+      "venue": "Sayaji Hotel Indore",
+      "kind": "DevFest",
+      "summary": "Responsible AI was the edition’s central theme, alongside web, cloud, mobile and startup tracks.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+      "publication": "archived",
+      "officialSpeakerIds": []
+    },
+    {
+      "id": "2023",
+      "title": "DevFest Indore 2023",
+      "date": "2023-11-26",
+      "venue": "Sayaji Hotel Indore",
+      "kind": "DevFest",
+      "summary": "A community gathering around AI, machine learning, web development, cloud and startups.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2023/",
+      "publication": "archived",
+      "officialSpeakerIds": []
+    },
+    {
+      "id": "2022",
+      "title": "DevFest Indore 2022",
+      "date": "2022-12-04",
+      "venue": "Labh Mandapam Auditorium, Abhay Prashal",
+      "kind": "DevFest",
+      "summary": "The local developer community came together for the annual GDG conference in Indore.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+      "publication": "archived",
+      "officialSpeakerIds": []
+    },
+    {
+      "id": "ai-unplugged-2025",
+      "title": "AI Unplugged",
+      "date": "2025-11-15",
+      "venue": "Devi Ahilya University Auditorium, Indore",
+      "kind": "Community event",
+      "summary": "A prelude to DevFest with AI and cloud sessions, demos and a discussion about careers in AI.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-ai-unplugged-a-prelude-to-devfest-2025/cohost-gdg-on-campus-ips-academy-indore-india/",
+      "publication": "archived",
+      "officialSpeakerIds": [
+        "dhananjay-kumar"
+      ]
+    },
+    {
+      "id": "cloud-bytes-2025",
+      "title": "Cloud Bytes: Your CCD 2025 Intro",
+      "date": "2025-07-02",
+      "venue": "Online · Bevy Virtual Conference",
+      "kind": "Online session",
+      "summary": "A cloud introduction with Karan Mittal and GDG on Campus chapters, ahead of Cloud Community Days Indore.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-bytes-your-ccd-2025-intro/cohost-gdg-on-campus-shri-vaishnav-vidyapeeth-vishwavidyalaya-indore-india/",
+      "publication": "archived",
+      "officialSpeakerIds": [
+        "karan-mittal"
+      ]
+    }
+  ]
+}

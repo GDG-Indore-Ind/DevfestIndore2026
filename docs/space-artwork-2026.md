@@ -1,0 +1,8 @@
+# DevFest space artwork — 20 October 2026
+
+Created using the built-in Image Generation tool. New asset; no existing artwork was overwritten. PNG original remains in the generation archive; the site uses a WebP encoding with alpha at public/images/android-astronaut-2026.webp (1254 × 1254, 184,374 bytes). The conversion changes the encoding only.
+
+## Final prompt
+
+Use case: stylized-concept. Asset type: transparent hero illustration for GDG DevFest Indore 2026 developer conference website. Create ONE friendly Android robot astronaut, waist-up portrait, isolated on genuinely transparent background. Recognizable Android green rounded head with two antennae and two small dark circular eyes, inside a clear rounded space helmet. White simplified astronaut suit with black edging and subtle blue hardware, one tiny four-color Google-inspired set of rectangular suit accents. Face angled slightly to viewer left, welcoming curious expression through posture. Polished editorial 3D illustration with softly lit matte surfaces and restrained blue reflective visor rim; bold clean silhouette, large simple forms, minimal hardware. Helmet visor should remain clear enough to see the green Android face; hint of blue planetary horizon reflection only on right side. The antennae fit comfortably inside helmet. Bust ends naturally at lower chest, full helmet completely within frame with generous transparent margins. Premium clean conference-brand artwork, legible at 250 pixels. No text, no words, no lettering, no badges with text, no watermark. No background scenery, no stars, no floating objects, no planets outside helmet, no extra characters, no dense mechanical detailing, no neon glow, no rainbow gradients. 1:1 square composition.
+

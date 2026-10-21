@@ -1,0 +1,140 @@
+{
+  "$schema": "./schemas/tickets.schema.json",
+  "passes": [
+    {
+      "id": "liftoff",
+      "name": "Liftoff Pass",
+      "audience": "Early community access",
+      "allocation": 70,
+      "description": "The first release, open to all developers and community members.",
+      "opensAt": "2026-10-24T00:00:00+05:30",
+      "closesAt": "2026-10-25T23:00:00+05:30",
+      "eligibility": "Open to all developers and community members. Maximum 2 tickets per order. Each ticket must have a different attendee’s details.",
+      "benefits": [
+        "Full-day admission across all technical tracks",
+        "Keynote sessions",
+        "Official DevFest Indore swag kit",
+        "Lunch and refreshments"
+      ],
+      "note": "Tickets are non-transferable.",
+      "summary": "A full day of talks, a DevFest swag kit, lunch and refreshments."
+    },
+    {
+      "id": "student",
+      "name": "Cadet Pass",
+      "audience": "Students only",
+      "allocation": 200,
+      "description": "For currently enrolled undergraduate and postgraduate students.",
+      "opensAt": "2026-10-31T00:00:00+05:30",
+      "closesAt": "2026-11-18T23:00:00+05:30",
+      "eligibility": "For currently enrolled college and university students only. Enter your college name, degree and graduation year at checkout. Bring your original, active physical student photo ID, matching your registration name. Maximum 1 ticket per order.",
+      "benefits": [
+        "Full-day admission across all technical tracks",
+        "Keynote sessions",
+        "Student delegate kit",
+        "Lunch and refreshments"
+      ],
+      "note": "Working professionals booking this pass may have their registration cancelled or be required to pay the difference for a Commander upgrade at the venue. Missing valid student ID may mean denied entry without refund or an on-site upgrade fee.",
+      "summary": "Full-day access, a student delegate kit, lunch and refreshments. Active student photo ID required."
+    },
+    {
+      "id": "professional",
+      "name": "Commander Pass",
+      "audience": "Working professionals",
+      "allocation": 250,
+      "description": "For engineers, architects, tech leads, managers and founders.",
+      "opensAt": "2026-10-31T00:00:00+05:30",
+      "closesAt": "2026-11-18T23:00:00+05:30",
+      "eligibility": "For working software engineers, architects, tech leads, engineering managers and founders. Register each team member with their own name, email address and LinkedIn profile.",
+      "benefits": [
+        "Full-day conference admission and breakout room access",
+        "Priority partner networking zones",
+        "Delegate kit, lunch and refreshments",
+        "Automatic team discounts at checkout",
+        "Corporate tax invoice available at checkout"
+      ],
+      "note": "Volume discounts apply when booking multiple passes for engineering teams and startups. The checkout will show the applicable discount.",
+      "summary": "Conference and breakout access, partner networking, a delegate kit and meals. Team bookings welcome."
+    },
+    {
+      "id": "vip",
+      "name": "Flight Deck Pass",
+      "audience": "VIP · Private code required",
+      "allocation": 20,
+      "description": "Curated access for founders, senior technical leaders and ecosystem partners.",
+      "opensAt": "2026-11-18T00:00:00+05:30",
+      "closesAt": "2026-11-28T23:00:00+05:30",
+      "eligibility": "Curated for founders, senior technical leadership and ecosystem partners. A private VIP access code is required to unlock booking in the ticket section on KonfHub.",
+      "benefits": [
+        "Dedicated, expedited VIP registration desk",
+        "Reserved front-row seating across keynotes and tracks",
+        "All-day Speaker & Partner Networking Lounge access",
+        "Exclusive evening mixer",
+        "Premium VIP delegate kit"
+      ],
+      "note": "Have a private VIP access code? Enter it in the KonfHub ticket section when this release opens. The code does not replace a completed registration.",
+      "summary": "Reserved seating, the speaker and partner lounge, an evening mixer and a premium kit. Private access code required."
+    },
+    {
+      "id": "last-orbit",
+      "name": "Last Orbit Pass",
+      "audience": "Final general release",
+      "allocation": 100,
+      "description": "A final chance to join, subject to venue capacity.",
+      "opensAt": "2026-11-20T00:00:00+05:30",
+      "closesAt": "2026-11-27T12:00:00+05:30",
+      "eligibility": "General registration for late-decision attendees. Allocation is subject to final venue hall capacity.",
+      "benefits": [
+        "Full-day technical track access",
+        "Conference lunch"
+      ],
+      "note": "Final-phase surge pricing applies. Delegate kits and swag are first come, first served, while supplies last.",
+      "summary": "Full-day technical tracks and conference lunch. Swag while supplies last."
+    },
+    {
+      "id": "observer",
+      "name": "Observer Pass",
+      "audience": "Sessions only",
+      "allocation": 100,
+      "description": "For community walk-ins attending main auditorium keynotes and open tracks.",
+      "opensAt": "2026-11-26T00:00:00+05:30",
+      "closesAt": "2026-11-28T23:00:00+05:30",
+      "eligibility": "For community walk-ins and session-only attendees.",
+      "benefits": [
+        "Main auditorium keynote admission",
+        "Open technical tracks"
+      ],
+      "note": "No conference lunch, tea or refreshments, workshop hall access, or delegate swag kit.",
+      "summary": "Main auditorium keynotes and open tracks. Food, workshops and swag are not included."
+    }
+  ],
+  "policies": [
+    {
+      "title": "All purchases are final",
+      "text": "Tickets cannot be cancelled, transferred, rescheduled or refunded under any circumstances, including personal scheduling conflicts or corporate travel changes."
+    },
+    {
+      "title": "Cadet student ID check",
+      "text": "Bring your original, active physical institutional photo ID matching your registration name. Without valid proof, organizers may deny entry without a refund or require an on-site upgrade fee. Working professionals who book Cadet may have their registration cancelled or need to pay the difference for a Commander upgrade."
+    },
+    {
+      "title": "A welcoming community",
+      "text": "DevFest Indore is an inclusive, harassment-free conference. Attendees must follow the community code of conduct. Organizers may revoke passes or dismiss attendees engaging in disruptive behavior without a refund."
+    }
+  ],
+  "registrationChecklist": [
+    {
+      "title": "Prepare your KonfHub profile",
+      "text": "Log in before the release and fill in your full name, mobile number and LinkedIn profile URL for faster checkout."
+    },
+    {
+      "title": "One pass per person",
+      "text": "Use a unique name, email address and LinkedIn profile for each attendee so their digital credential and QR code are issued correctly."
+    },
+    {
+      "title": "Tell us your food preference",
+      "text": "Choose Veg or Jain Veg on the registration form to help us plan catering at Essentia."
+    }
+  ],
+  "registrationDeclaration": "I confirm that the attendee details are accurate and that I meet the eligibility requirements for my selected pass. I understand that all ticket purchases are final and tickets cannot be cancelled, transferred, rescheduled or refunded."
+}

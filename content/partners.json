@@ -1,0 +1,785 @@
+{
+  "$schema": "./schemas/partners.schema.json",
+  "archiveLogoSheet": "/images/deck_logos/past_sponsors_grid.png",
+  "organizations": [
+    {
+      "id": "space-club-of-india",
+      "name": "Space Club of India",
+      "partnerships": [
+        {
+          "id": "space-club-2026",
+          "editionId": "2026",
+          "kind": "collaborator",
+          "role": "Space collaborator",
+          "publication": "confirmed",
+          "order": 0,
+          "featured": "space"
+        }
+      ],
+      "logoUrl": "/images/partners/space-club-current.jpg",
+      "websiteUrl": "https://www.spaceclubofindia.com/",
+      "description": "Connecting students, researchers, founders and space enthusiasts across India. Space Club of India brings space education, scientific curiosity, research and entrepreneurship into one growing community."
+    },
+    {
+      "id": "qualcomm",
+      "name": "Qualcomm",
+      "partnerships": [
+        {
+          "id": "qualcomm-2026",
+          "editionId": "2026",
+          "kind": "collaborator",
+          "role": "Expo booth & speaker participation",
+          "publication": "confirmed",
+          "order": 1,
+          "featured": "technology"
+        }
+      ],
+      "logoUrl": "/images/partners/qualcomm.png",
+      "websiteUrl": "https://www.qualcomm.com/",
+      "description": "Bringing intelligence closer to the device. Qualcomm combines compute, connectivity and developer tools to help AI run at the edge, on local hardware and in the physical world.",
+      "topics": [
+        {
+          "title": "Edge AI",
+          "text": "Efficient inference close to sensors and data, with less dependence on a distant cloud."
+        },
+        {
+          "title": "Physical AI",
+          "text": "Perception, reasoning and control for robots and intelligent machines."
+        },
+        {
+          "title": "Local AI",
+          "text": "Tools to optimize, validate and deploy AI models directly on supported devices."
+        }
+      ]
+    },
+    {
+      "id": "google-for-developers",
+      "name": "Google for Developers",
+      "partnerships": [
+        {
+          "id": "historical-google-for-developers",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 3,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        },
+        {
+          "id": "network-google",
+          "editionId": "ecosystem",
+          "kind": "community",
+          "role": "Developer ecosystem",
+          "publication": "ecosystem",
+          "order": 2
+        }
+      ],
+      "archiveLogoWindow": [
+        862,
+        185,
+        423,
+        57
+      ],
+      "logoUrl": "/images/partners/google-developers-current.png",
+      "socialUrl": "https://www.linkedin.com/showcase/googledevelopers/"
+    },
+    {
+      "id": "women-techmakers-indore",
+      "name": "Women Techmakers Indore",
+      "partnerships": [
+        {
+          "id": "2024-women-techmakers-indore",
+          "editionId": "2024",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 1
+        },
+        {
+          "id": "2023-women-techmakers-indore",
+          "editionId": "2023",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2023/",
+          "order": 1
+        },
+        {
+          "id": "2022-women-techmakers-indore",
+          "editionId": "2022",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 2
+        },
+        {
+          "id": "network-wtm",
+          "editionId": "ecosystem",
+          "kind": "community",
+          "role": "Community network",
+          "publication": "ecosystem",
+          "order": 3
+        }
+      ],
+      "logoUrl": "/images/partners/wtm-indore-current.jpg",
+      "socialUrl": "https://www.linkedin.com/company/wtmindore/"
+    },
+    {
+      "id": "gdg-cloud-indore",
+      "name": "GDG Cloud Indore",
+      "partnerships": [
+        {
+          "id": "2024-gdg-cloud-indore",
+          "editionId": "2024",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 2
+        },
+        {
+          "id": "2023-gdg-cloud-indore",
+          "editionId": "2023",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2023/",
+          "order": 0
+        },
+        {
+          "id": "2022-gdg-cloud-indore",
+          "editionId": "2022",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 0
+        },
+        {
+          "id": "network-cloud",
+          "editionId": "ecosystem",
+          "kind": "community",
+          "role": "Community network",
+          "publication": "ecosystem",
+          "order": 4
+        }
+      ],
+      "logoUrl": "/images/partners/gdg-cloud-indore-current.jpg",
+      "socialUrl": "https://www.instagram.com/gdgcloudindore/"
+    },
+    {
+      "id": "msi",
+      "name": "MSI",
+      "partnerships": [
+        {
+          "id": "historical-msi",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 0,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        122,
+        184,
+        158,
+        60
+      ]
+    },
+    {
+      "id": "flutterflow",
+      "name": "FlutterFlow",
+      "partnerships": [
+        {
+          "id": "historical-flutterflow",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 1,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        },
+        {
+          "id": "2024-flutterflow",
+          "editionId": "2024",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 4
+        }
+      ],
+      "archiveLogoWindow": [
+        322,
+        184,
+        275,
+        60
+      ]
+    },
+    {
+      "id": "vena",
+      "name": "Vena",
+      "partnerships": [
+        {
+          "id": "historical-vena",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 2,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        640,
+        182,
+        162,
+        64
+      ]
+    },
+    {
+      "id": "metafic",
+      "name": "Metafic",
+      "partnerships": [
+        {
+          "id": "historical-metafic",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 4,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        124,
+        275,
+        185,
+        52
+      ]
+    },
+    {
+      "id": "yatrikart",
+      "name": "Yatrikart",
+      "partnerships": [
+        {
+          "id": "historical-yatrikart",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 5,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        360,
+        277,
+        228,
+        50
+      ]
+    },
+    {
+      "id": "diaspark",
+      "name": "Diaspark",
+      "partnerships": [
+        {
+          "id": "historical-diaspark",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 6,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        626,
+        272,
+        304,
+        48
+      ]
+    },
+    {
+      "id": "genietalk-ai",
+      "name": "GenieTalk.ai",
+      "partnerships": [
+        {
+          "id": "historical-genietalk-ai",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 7,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        958,
+        269,
+        215,
+        55
+      ]
+    },
+    {
+      "id": "workie",
+      "name": "Workie",
+      "partnerships": [
+        {
+          "id": "historical-workie",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 8,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        1187,
+        273,
+        144,
+        51
+      ]
+    },
+    {
+      "id": "siya",
+      "name": "Siya",
+      "partnerships": [
+        {
+          "id": "historical-siya",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 9,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        130,
+        357,
+        181,
+        55
+      ]
+    },
+    {
+      "id": "kyari",
+      "name": "Kyari",
+      "partnerships": [
+        {
+          "id": "historical-kyari",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 10,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        366,
+        352,
+        211,
+        66
+      ]
+    },
+    {
+      "id": "protonshub",
+      "name": "Protonshub",
+      "partnerships": [
+        {
+          "id": "historical-protonshub",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 11,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        637,
+        344,
+        211,
+        45
+      ]
+    },
+    {
+      "id": "aspiringshe",
+      "name": "AspiringShe",
+      "partnerships": [
+        {
+          "id": "historical-aspiringshe",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 12,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        890,
+        340,
+        170,
+        64
+      ]
+    },
+    {
+      "id": "graffersid",
+      "name": "GraffersID",
+      "partnerships": [
+        {
+          "id": "historical-graffersid",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 13,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        1114,
+        360,
+        171,
+        47
+      ]
+    },
+    {
+      "id": "indore-institute-of-science-and-technology",
+      "name": "Indore Institute of Science and Technology",
+      "partnerships": [
+        {
+          "id": "historical-indore-institute-of-science-and-technology",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 14,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        139,
+        444,
+        329,
+        58
+      ]
+    },
+    {
+      "id": "acropolis",
+      "name": "Acropolis",
+      "partnerships": [
+        {
+          "id": "historical-acropolis",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 15,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        496,
+        448,
+        199,
+        50
+      ]
+    },
+    {
+      "id": "weblisto",
+      "name": "Weblisto",
+      "partnerships": [
+        {
+          "id": "historical-weblisto",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 16,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        726,
+        437,
+        207,
+        53
+      ]
+    },
+    {
+      "id": "softude",
+      "name": "Softude",
+      "partnerships": [
+        {
+          "id": "historical-softude",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 17,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        956,
+        434,
+        177,
+        63
+      ]
+    },
+    {
+      "id": "quillbot",
+      "name": "QuillBot",
+      "partnerships": [
+        {
+          "id": "historical-quillbot",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 18,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        1154,
+        430,
+        193,
+        60
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "partnerships": [
+        {
+          "id": "historical-github",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 19,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        139,
+        531,
+        112,
+        102
+      ]
+    },
+    {
+      "id": "coding-blocks",
+      "name": "Coding Blocks",
+      "partnerships": [
+        {
+          "id": "historical-coding-blocks",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 20,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        306,
+        528,
+        188,
+        69
+      ]
+    },
+    {
+      "id": "jetbrains",
+      "name": "JetBrains",
+      "partnerships": [
+        {
+          "id": "historical-jetbrains",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 21,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        532,
+        518,
+        128,
+        128
+      ]
+    },
+    {
+      "id": "softinator-techlabs",
+      "name": "Softinator TechLabs",
+      "partnerships": [
+        {
+          "id": "historical-softinator-techlabs",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 22,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        713,
+        510,
+        105,
+        141
+      ]
+    },
+    {
+      "id": "next-coworks",
+      "name": "Next Coworks",
+      "partnerships": [
+        {
+          "id": "historical-next-coworks",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 23,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        866,
+        528,
+        158,
+        85
+      ]
+    },
+    {
+      "id": "webvillee",
+      "name": "Webvillee",
+      "partnerships": [
+        {
+          "id": "historical-webvillee",
+          "editionId": "historical",
+          "kind": "sponsor",
+          "role": "Historical sponsor",
+          "publication": "archived",
+          "order": 24,
+          "source": "/images/deck_logos/past_sponsors_grid.png"
+        }
+      ],
+      "archiveLogoWindow": [
+        1029,
+        535,
+        344,
+        52
+      ]
+    },
+    {
+      "id": "flutterflow-developer-group-indore",
+      "name": "FlutterFlow Developer Group Indore",
+      "partnerships": [
+        {
+          "id": "2025-flutterflow-developer-group-indore",
+          "editionId": "2025",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 0
+        },
+        {
+          "id": "2024-flutterflow-developer-group-indore",
+          "editionId": "2024",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "thehackersmeetup",
+      "name": "TheHackersMeetup",
+      "partnerships": [
+        {
+          "id": "2025-thehackersmeetup",
+          "editionId": "2025",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 1
+        }
+      ]
+    },
+    {
+      "id": "friendsoffigma",
+      "name": "FriendsOfFigma",
+      "partnerships": [
+        {
+          "id": "2025-friendsoffigma",
+          "editionId": "2025",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "id": "indorix",
+      "name": "Indorix",
+      "partnerships": [
+        {
+          "id": "2025-indorix",
+          "editionId": "2025",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "tensorflow-user-group-indore",
+      "name": "TensorFlow User Group Indore",
+      "partnerships": [
+        {
+          "id": "2024-tensorflow-user-group-indore",
+          "editionId": "2024",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "gdsc-indore",
+      "name": "GDSC Indore",
+      "partnerships": [
+        {
+          "id": "2022-gdsc-indore",
+          "editionId": "2022",
+          "kind": "community",
+          "role": "Event partner",
+          "publication": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 1
+        }
+      ]
+    }
+  ]
+}

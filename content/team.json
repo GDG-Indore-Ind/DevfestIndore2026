@@ -1,0 +1,103 @@
+{
+  "$schema": "./schemas/team.schema.json",
+  "members": [
+    {
+      "id": "tm-tushar-pal",
+      "personId": "tushar-pal",
+      "role": "Community Lead & GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 10
+    },
+    {
+      "id": "tm-akash-gangrade",
+      "personId": "akash-gangrade",
+      "role": "Organizer & Tech Architecture Lead",
+      "team": "Core Organizer",
+      "order": 20
+    },
+    {
+      "id": "tm-karan-mittal",
+      "personId": "karan-mittal",
+      "role": "Organizer & Operations Lead",
+      "team": "Core Organizer",
+      "order": 30
+    },
+    {
+      "id": "tm-darshan-kusumakar",
+      "personId": "darshan-kusumakar",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 40
+    },
+    {
+      "id": "tm-priyal-jain",
+      "personId": "priyal-jain",
+      "role": "GDG Indore Organizer & Ecosystem Lead",
+      "team": "Core Organizer",
+      "order": 50
+    },
+    {
+      "id": "tm-yash-jain",
+      "personId": "yash-jain",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 60
+    },
+    {
+      "id": "tm-manan-chimnani",
+      "personId": "manan-chimnani",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 70
+    },
+    {
+      "id": "tm-vikas-ratnawat",
+      "personId": "vikas-ratnawat",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 80
+    },
+    {
+      "id": "tm-shubham-sharma",
+      "personId": "shubham-sharma",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 90
+    },
+    {
+      "id": "tm-kunal-singh",
+      "personId": "kunal-singh",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 100
+    },
+    {
+      "id": "tm-tanmay-jain",
+      "personId": "tanmay-jain",
+      "role": "GDG Indore Organizer",
+      "team": "Core Organizer",
+      "order": 110
+    },
+    {
+      "id": "tm-mradula-mittal",
+      "personId": "mradula-mittal",
+      "role": "Community Evangelist & Outreach",
+      "team": "Community",
+      "order": 120
+    },
+    {
+      "id": "tm-aarti-jethaniya",
+      "personId": "aarti-jethaniya",
+      "role": "Core Organizer",
+      "team": "Core Organizer",
+      "order": 130
+    },
+    {
+      "id": "tm-meenal-saxena",
+      "personId": "meenal-saxena",
+      "role": "Design & Experience Lead",
+      "team": "Design & Experience",
+      "order": 140
+    }
+  ]
+}

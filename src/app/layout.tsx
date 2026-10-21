@@ -1,5 +1,11 @@
+import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
+import { getTicketReleaseTime } from "@/lib/ticketReleaseTime";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./audience.css";
+import "./engineering.css";
+import "./space.css";
+import { TicketReleaseProvider } from "@/contexts/TicketReleaseContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const viewport: Viewport = {
@@ -9,11 +15,17 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+// Keep the attendee site pre-rendered while refreshing ticket release windows.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devfest.gdgindore.in"),
-  title: "GDG DevFest Indore 2026 | Central India's Biggest Tech Festival",
+  metadataBase: new URL(EVENT.links.website),
+  title: {
+    default: EVENT.name,
+    template: `%s | ${EVENT.name}`,
+  },
   description:
-    "GDG Indore presents DevFest Indore 2026. A 1-day mega tech extravaganza featuring GenAI, Cloud, Web, Mobile, Open Source, hands-on codelabs, networking, and celebration at Essentia Luxury Hotel Indore.",
+    `Join GDG Indore on ${EVENT_SHORT_DATE} at ${EVENT.venue.name} for space technology, AI agents, cloud architecture, hands-on labs and community networking.`,
   keywords: [
     "DevFest Indore",
     "GDG Indore",
@@ -24,28 +36,28 @@ export const metadata: Metadata = {
     "Tech Events Indore",
     "Madhya Pradesh Tech Community",
   ],
-  authors: [{ name: "GDG Indore Team", url: "https://gdg.community.dev/gdg-indore/" }],
-  creator: "Google Developer Group Indore",
+  authors: [{ name: "GDG Indore Team", url: EVENT.links.chapter }],
+  creator: EVENT.organizer,
   openGraph: {
-    title: "GDG DevFest Indore 2026 | Central India's Biggest Tech Festival",
+    title: `${EVENT.name} | ${EVENT_SHORT_DATE}`,
     description:
-      "Code, Community & Clean Innovation! Join 1,500+ developers, tech leaders, and Google Developer Experts in Indore.",
-    siteName: "DevFest Indore 2026",
+      `Space technology, AI agents and the systems we build. Join talks, hands-on labs and the GDG Indore community on ${EVENT_SHORT_DATE}.`,
+    siteName: EVENT.name,
     locale: "en_IN",
     type: "website",
     images: [
       {
-        url: "/images/hero-mascot_2026.jpg",
-        width: 1200,
-        height: 1200,
-        alt: "GDG DevFest Indore 2026",
+        url: "/images/android-astronaut-2026.webp",
+        width: 1254,
+        height: 1254,
+        alt: EVENT.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GDG DevFest Indore 2026",
-    description: "Central India's Flagship Developer Festival. Join us in Indore!",
+    title: EVENT.name,
+    description: `AI, cloud, modern systems and hands-on labs. ${EVENT_SHORT_DATE}, ${EVENT.venue.fullName}.`,
     creator: "@gdgindore",
   },
   icons: {
@@ -59,11 +71,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialNow = getTicketReleaseTime();
   return (
     <html
       lang="en"
@@ -73,13 +86,7 @@ export default function RootLayout({
       className="scroll-smooth"
     >
       <head>
-        {/* Google Fonts preconnect & stylesheet */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="preload" href="/fonts/google-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         {/* FOWT-prevention: read localStorage before first paint and apply data-theme */}
         <script
           dangerouslySetInnerHTML={{
@@ -93,48 +100,40 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Event",
-              name: "GDG DevFest Indore 2026",
+              name: EVENT.name,
               description:
-                "Central India's biggest developer and space technology festival featuring Generative AI, Multi-Agent Swarms, Satellite Tech, and physical computing.",
-              startDate: "2026-11-28T08:30:00+05:30",
-              endDate: "2026-11-28T18:30:00+05:30",
+                "A GDG Indore developer conference with keynotes, technical tracks, hands-on labs and community networking.",
+              startDate: EVENT.startsAt,
               eventStatus: "https://schema.org/EventScheduled",
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
               location: {
                 "@type": "Place",
-                name: "Essentia Luxury Hotel Indore",
+                name: EVENT.venue.fullName,
                 address: {
                   "@type": "PostalAddress",
-                  streetAddress: "Near World Cup Square, Pipliyahana, Ring Road",
-                  addressLocality: "Indore",
-                  addressRegion: "Madhya Pradesh",
-                  postalCode: "452018",
-                  addressCountry: "IN",
+                  streetAddress: EVENT.venue.streetAddress,
+                  addressLocality: EVENT.venue.city,
+                  addressRegion: EVENT.venue.region,
+                  postalCode: EVENT.venue.postalCode,
+                  addressCountry: EVENT.venue.country,
                 },
                 geo: {
                   "@type": "GeoCoordinates",
-                  latitude: 22.71013,
-                  longitude: 75.9039,
+                  latitude: EVENT.venue.latitude,
+                  longitude: EVENT.venue.longitude,
                 },
               },
               image: [
-                "https://devfest.gdgindore.in/images/essentia-hotel-actual.jpg",
-                "https://devfest.gdgindore.in/images/hero-mascot_2026.jpg",
+                `${EVENT.links.website}${EVENT.venue.photo}`,
+                `${EVENT.links.website}/images/android-astronaut-2026.webp`,
               ],
               organizer: {
                 "@type": "Organization",
-                name: "Google Developer Group Indore",
-                url: "https://gdg.community.dev/gdg-indore/",
+                name: EVENT.organizer,
+                url: EVENT.links.chapter,
               },
-              offers: {
-                "@type": "Offer",
-                url: "https://konfhub.com/devfest-indore-2026",
-                price: "0",
-                priceCurrency: "INR",
-                availability: "https://schema.org/InStock",
-                validFrom: "2026-09-01T00:00:00+05:30",
-              },
-            }),
+
+            }).replace(/</g, "\\u003c"),
           }}
         />
         {/* Google Tag Manager Container */}
@@ -194,7 +193,7 @@ fbq('track', 'PageView');`,
           />
         </noscript>
         <ThemeProvider>
-          {children}
+          <TicketReleaseProvider initialNow={initialNow}>{children}</TicketReleaseProvider>
         </ThemeProvider>
       </body>
     </html>

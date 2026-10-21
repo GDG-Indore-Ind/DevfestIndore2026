@@ -1,0 +1,37 @@
+{
+  "$schema": "./schemas/event.schema.json",
+  "id": "2026",
+  "name": "DevFest Indore 2026",
+  "organizer": "Google Developer Group Indore",
+  "startsAt": "2026-11-28T08:30:00+05:30",
+  "timezone": "Asia/Kolkata",
+  "tagline": "A day for developers, by developers",
+  "subTagline": "Applied AI, cloud, modern systems and physical AI",
+  "contactEmail": "gdgindore@gmail.com",
+  "venue": {
+    "name": "Essentia Luxury Hotel",
+    "fullName": "Essentia Luxury Hotel Indore",
+    "tag": "Essentia Arena · Pipliyahana",
+    "address": "Near World Cup Square, Pipliyahana, Ring Road, Indore, Madhya Pradesh 452016",
+    "streetAddress": "Near World Cup Square, Pipliyahana, Ring Road",
+    "city": "Indore",
+    "region": "Madhya Pradesh",
+    "postalCode": "452016",
+    "country": "IN",
+    "latitude": 22.71013,
+    "longitude": 75.9039,
+    "mapUrl": "https://maps.google.com/?q=Essentia+Luxury+Hotel+Indore+Pipliyahana",
+    "photo": "/images/essentia-hotel-actual.jpg"
+  },
+  "links": {
+    "website": "https://devfest.gdgindore.in",
+    "booking": "https://konfhub.com/gdg-devfest-indore-2026",
+    "cfp": "https://sessionize.com/devfest-indore-2026/",
+    "linkedin": "https://www.linkedin.com/company/gdg-indore/",
+    "instagram": "https://www.instagram.com/gdgindore/",
+    "chapter": "https://gdg.community.dev/gdg-indore/"
+  },
+  "booking": {
+    "enabled": false
+  }
+}

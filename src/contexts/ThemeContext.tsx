@@ -1,52 +1,26 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 type Theme = "dark" | "light";
-
-interface ThemeContextValue {
-  theme: Theme;
-  toggleTheme: () => void;
-  isDark: boolean;
-}
-
-const ThemeContext = createContext<ThemeContextValue>({
-  theme: "light",
-  toggleTheme: () => {},
-  isDark: false,
-});
+interface ThemeContextValue { theme: Theme; setTheme: (theme: Theme) => void; toggleTheme: () => void; isDark: boolean }
+const ThemeContext = createContext<ThemeContextValue>({ theme: "light", setTheme: () => {}, toggleTheme: () => {}, isDark: false });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-  const [mounted, setMounted] = useState(false);
-
-  // On mount: read persisted preference (defaulting to light)
+  const [theme, updateTheme] = useState<Theme>("light");
   useEffect(() => {
-    const stored = localStorage.getItem("devfest-theme") as Theme | null;
-    const resolved: Theme = stored ?? "light";
-    setTheme(resolved);
+    let saved: string | null = null;
+    try { saved = localStorage.getItem("devfest-theme"); } catch { /* Appearance still works without storage. */ }
+    const resolved = saved === "dark" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", resolved);
-    setMounted(true);
+    const frame = requestAnimationFrame(() => updateTheme(resolved));
+    return () => cancelAnimationFrame(frame);
   }, []);
-
-  // Sync data-theme attribute and localStorage whenever theme changes
-  useEffect(() => {
-    if (!mounted) return;
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("devfest-theme", theme);
-  }, [theme, mounted]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark: theme === "dark" }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  function setTheme(next: Theme) {
+    updateTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("devfest-theme", next); } catch { /* Keep the choice for this visit. */ }
+  }
+  return <ThemeContext.Provider value={{ theme, setTheme, toggleTheme: () => setTheme(theme === "dark" ? "light" : "dark"), isDark: theme === "dark" }}>{children}</ThemeContext.Provider>;
 }
-
-export function useTheme(): ThemeContextValue {
-  return useContext(ThemeContext);
-}
+export function useTheme() { return useContext(ThemeContext); }

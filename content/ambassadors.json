@@ -1,0 +1,83 @@
+{
+  "$schema": "./schemas/ambassadors.schema.json",
+  "ambassadors": {
+    "priya-medicaps": {
+      "name": "Priya Sharma",
+      "college": "Medi-Caps University",
+      "coupon": "MEDICAPS10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "rohit-sage": {
+      "name": "Rohit Verma",
+      "college": "SAGE University",
+      "coupon": "SAGE10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "aman-sgsits": {
+      "name": "Aman Gupta",
+      "college": "SGSITS Indore",
+      "coupon": "SGSITS10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "shreya-acropolis": {
+      "name": "Shreya Jain",
+      "college": "Acropolis Institute (AITR)",
+      "coupon": "ACROPOLIS10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "aditya-ips": {
+      "name": "Aditya Tiwari",
+      "college": "IPS Academy",
+      "coupon": "IPS10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "vanshika-svvv": {
+      "name": "Vanshika Patel",
+      "college": "Shri Vaishnav Vidyapeeth (SVVV)",
+      "coupon": "SVVV10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "kunal-iet": {
+      "name": "Kunal Joshi",
+      "college": "IET DAVV",
+      "coupon": "IET10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "neha-oriental": {
+      "name": "Neha Rathore",
+      "college": "Oriental University",
+      "coupon": "ORIENTAL10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "harsh-cdgi": {
+      "name": "Harsh Sharma",
+      "college": "Chameli Devi Group of Institutions",
+      "coupon": "CDGI10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "ananya-prestige": {
+      "name": "Ananya Mishra",
+      "college": "Prestige Institute (PIMR)",
+      "coupon": "PRESTIGE10",
+      "discount": "10% off",
+      "city": "Indore"
+    },
+    "gdg-community": {
+      "name": "GDG Indore",
+      "college": "Community Campus Network",
+      "coupon": "DEVFEST10",
+      "discount": "10% off",
+      "city": "Indore",
+      "avatar": "/gdglogo-removebg-preview.png"
+    }
+  }
+}

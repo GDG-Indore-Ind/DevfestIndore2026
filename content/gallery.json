@@ -1,0 +1,19 @@
+{
+  "$schema": "./schemas/gallery.schema.json",
+  "photos": [
+    {
+      "id": "archive-group-1",
+      "title": "Together at DevFest Indore",
+      "category": "Community",
+      "imageUrl": "/gallery/opt_DSCF7164.JPG",
+      "caption": "The DevFest Indore community on stage at the 2025 edition."
+    },
+    {
+      "id": "archive-group-2",
+      "title": "A community photograph",
+      "category": "Community",
+      "imageUrl": "/gallery/opt_DSCF7182.JPG",
+      "caption": "Another group moment from DevFest Indore 2025."
+    }
+  ]
+}

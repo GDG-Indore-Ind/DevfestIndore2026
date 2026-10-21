@@ -77,3 +77,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Canonical content ownership — 21 October 2026
+
+All editable public website data belongs in `content/*.json`. Read `content/README.md` before editing records. The JSON Schemas in `content/schemas/` and `scripts/validate-content.mjs` enforce the data model. `src/content/` derives typed views that pages import directly; there is no separate `src/data/` compatibility layer. Never restore inline speaker, sponsor or ticket arrays or regenerate them from spreadsheets.
+
+People and organizations are defined once and referenced by stable IDs. Partnerships describe their real contribution and edition without inferring financial tiers. Only confirmed 2026 participation may be published. Keep tentative/private planning data outside public records. Event facts and the checkout switch live in `content/event.json`; pass facts live in `content/tickets.json`.
+
+Run `npm run content:validate` and TypeScript checks for data/model changes. Content validation runs before dev/build. Spreadsheets and `docs/source-archive/` are reference material and must not be imported by application code.

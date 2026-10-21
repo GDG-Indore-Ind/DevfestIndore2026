@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest team",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "personId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "team": {
+            "enum": [
+              "Core Organizer",
+              "Design & Experience",
+              "Tech & Operations",
+              "Space & Ecosystem",
+              "Community"
+            ]
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "bio": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "personId",
+          "role",
+          "team",
+          "order"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "members"
+  ]
+}

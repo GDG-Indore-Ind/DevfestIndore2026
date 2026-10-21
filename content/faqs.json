@@ -1,0 +1,30 @@
+{
+  "$schema": "./schemas/faqs.schema.json",
+  "questions": [
+    {
+      "id": "event-1",
+      "question": "What is GDG DevFest Indore 2026?",
+      "answer": "DevFest is the annual developer conference hosted by Google Developer Groups worldwide. The Indore edition brings practitioners, researchers, software engineers and founders together for applied AI/ML, cloud architecture, modern systems design and physical AI."
+    },
+    {
+      "id": "event-2",
+      "question": "Who can attend DevFest?",
+      "answer": "Developers, researchers, students, tech leads, architects and founders are welcome. Choose a pass that matches your eligibility and the access you need."
+    },
+    {
+      "id": "event-3",
+      "question": "When and where is DevFest?",
+      "answer": "{{date}} at {{venue}}, {{address}}. Registration opens at {{registrationTime}}."
+    },
+    {
+      "id": "event-4",
+      "question": "Are campus workshops part of the event-day program?",
+      "answer": "Campus workshops are separate events held before DevFest. Find their dates and registration details on the Campus workshops page."
+    },
+    {
+      "id": "event-5",
+      "question": "Should I bring a laptop?",
+      "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details. Observer does not include workshop hall access."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest sessions",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "editionId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "speakerId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "publication": {
+            "enum": [
+              "confirmed",
+              "archived"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "spotlightBadge": {
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "GenAI",
+              "Cloud",
+              "Mobile & Flutter",
+              "Web",
+              "Leadership & Ecosystem",
+              "Space Technology",
+              "Physical AI & Robotics",
+              "Data & Systems"
+            ]
+          },
+          "track": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "avatar": {
+                "type": "string",
+                "pattern": "^(https://|/[^/])"
+              },
+              "bio": {
+                "type": "string"
+              },
+              "socials": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "linkedin": {
+                    "type": "string"
+                  },
+                  "twitter": {
+                    "type": "string"
+                  },
+                  "github": {
+                    "type": "string"
+                  },
+                  "instagram": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "blog": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            },
+            "required": []
+          },
+          "time": {
+            "type": "string"
+          },
+          "hall": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "editionId",
+          "speakerId",
+          "publication",
+          "title",
+          "role",
+          "company",
+          "description",
+          "spotlightBadge",
+          "category"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "sessions"
+  ]
+}
