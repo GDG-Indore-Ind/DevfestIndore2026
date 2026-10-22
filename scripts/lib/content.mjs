@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import Ajv from "ajv";
 
 export const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const COLLECTIONS = ["event", "people", "speakers", "sessions", "team", "partners", "events", "workshops", "gallery", "tickets", "themes", "faqs", "ambassadors"];
+export const COLLECTIONS = ["event", "people", "speakers", "sessions", "team", "partners", "events", "workshops", "gallery", "tickets", "themes", "faqs", "ambassadors", "pages"];
 export function readContent(root = PROJECT_ROOT) {
   return Object.fromEntries(COLLECTIONS.map(name => [name, JSON.parse(readFileSync(path.join(root, "content", `${name}.json`), "utf8"))]));
 }
@@ -67,6 +67,13 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   for (const pass of tickets.passes) if (Date.parse(pass.opensAt) >= Date.parse(pass.closesAt)) errors.push(`pass ${pass.id}: closesAt must be after opensAt`);
   if (!tickets.policies.length) errors.push("tickets: at least one booking policy is required");
   unique(tickets.policies, "ticket policies");
+  const guidelineSections = content.pages.guidelines.sections;
+  unique(guidelineSections, "guideline sections");
+  const policyIds = new Set(tickets.policies.map(policy => policy.id));
+  const displayedPolicyIds = guidelineSections.flatMap(section => section.policyIds);
+  unique(displayedPolicyIds, "guideline policy placement", id => id);
+  for (const section of guidelineSections) for (const id of section.policyIds) reference(policyIds, id, `guideline section ${section.id}`);
+  for (const id of policyIds) if (!displayedPolicyIds.includes(id)) errors.push(`guidelines: missing policy ${id}`);
   for (const id of ["final-sale", "entry-identification", "workshop-access"]) {
     if (!tickets.policies.some(policy => policy.id === id)) errors.push(`tickets: ${id} policy is required`);
   }

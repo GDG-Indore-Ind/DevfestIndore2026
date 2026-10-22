@@ -17,7 +17,7 @@ function PartnerLogo({ item, featured = false, decorative = false }: { item: Eve
     : <span className="event-partner-wordmark">{item.name}</span>;
 }
 
-export default function SponsorShowcase() {
+export default function SponsorShowcase({ showIntro = true }: { showIntro?: boolean }) {
   const rail = useRef<HTMLUListElement>(null);
   const featured = CONFIRMED_EVENT_PARTNERS.filter(item => item.featured);
   const additional = CONFIRMED_EVENT_PARTNERS.filter(item => !item.featured);
@@ -28,7 +28,7 @@ export default function SponsorShowcase() {
     node.scrollBy({ left: direction * node.clientWidth, behavior: reducedMotion ? "instant" : "smooth" });
   }
   return <section className="audience-section event-partners-section" aria-labelledby="partners-title"><div className="audience-wrap">
-    <div className="edition-section-heading"><div><p className="audience-overline">{EVENT.id} partners & collaborators</p><h2 id="partners-title">Great missions take<br />more than one crew.</h2></div><div><p className="audience-body">Technology, expertise, ideas and support. Help shape what developers discover at DevFest Indore.</p><ExternalLink href={EVENT.links.partnerApplication} className="audience-button space-primary-button">Partner with DevFest</ExternalLink></div></div>
+    {showIntro ? <div className="edition-section-heading"><div><p className="audience-overline">{EVENT.id} partners & collaborators</p><h2 id="partners-title">Great missions take<br />more than one crew.</h2></div><div><p className="audience-body">Technology, expertise, ideas and support. Help shape what developers discover at DevFest Indore.</p><ExternalLink href={EVENT.links.partnerApplication} className="audience-button space-primary-button">Partner with DevFest</ExternalLink><Link href="/partners" className="audience-text-link partner-details-link">Meet our partners<ArrowRight className="audience-icon" aria-hidden="true" /></Link></div></div> : <h2 id="partners-title" className="practical-partners-heading">{EVENT.id} partners & collaborators</h2>}
     <div className="featured-partners" aria-label="Featured 2026 collaborators">{featured.map(item => <article key={item.id} className={`partner-feature partner-feature-${item.featured}`}>
       <div className="partner-feature-logo"><ExternalLink href={item.websiteUrl}><PartnerLogo item={item} featured /></ExternalLink></div>
       <div className="partner-feature-copy"><p className="partner-feature-role">{item.role}</p><h3 className={item.featured === "technology" ? "sr-only" : undefined}>{item.name}</h3><p className="partner-feature-description">{item.description}</p>

@@ -13,8 +13,10 @@ Get tickets is the primary homepage action and is always visible in the sticky h
 ```mermaid
 flowchart TD
   Home[Home /] --> Tickets[Current release /tickets]
+  Tickets --> Guidelines[Registration guidelines /guidelines]
+  Home --> Partners[Partners /partners]
   Home --> Themes[Programme /#flow]
-  Home --> Venue[Venue /#venue]
+  Home --> Venue[Venue /venue]
   Home --> Events[Workshops & events /events]
   Home --> Archive[Past events /past-events]
   Archive --> Edition[Edition /past-events/year]
@@ -31,10 +33,11 @@ flowchart TD
 
 ```
 Desktop / mobile header
-[GDG · DevFest Indore]                 [Sun | Moon] [Explore v]
+[GDG · DevFest Indore] [Social icons] [Programme] [Sun | Moon] [Explore v] [Get tickets]
 
 Explore disclosure
 [Attend / tickets & pass details]            [Discover]
+[Registration guidelines]                   [Partners & collaborators]
 [Archive]                            [What’s on]
   Past events                        [Getting here]
   Past speakers                      [Workshops & events]
@@ -53,6 +56,9 @@ Footer groups: Attend (tickets, programme, venue, questions and ticket policies)
 | `/` | Landing | Five chapters; primary ticket action; secondary programme link |
 | `/tickets` | Current listing | Only current/next release according to time |
 | `/tickets/[existing-pass-id]` | Detail | Existing links preserved; future passes guarded |
+| `/guidelines` | Practical guide | Profile preparation, booking steps, all approved policies with explicit pass scope, conduct and support |
+| `/partners` | Current edition | Confirmed collaborators, developer ecosystem and official partner application form |
+| `/venue` | Arrival guide | Verified venue photo, address, directions, embedded map and check-in requirements |
 | `/events` | Directory | Sourced community events, searchable workshop records |
 | `/workshops` | Permanent redirect | `/events#workshops` |
 | `/past-events` | Index | Verified 2022–2025 DevFest editions |
@@ -87,3 +93,11 @@ The homepage and footer partner actions use `event.links.partnerApplication`. Th
 The ticket listing shows inclusions and eligibility directly, plus a release/price panel and booking steps. On narrow screens the release/price panel comes before the longer pass details. Unknown prices stay explicit; checkout links appear only when both the release window and booking switch allow them.
 
 Registration guidelines are reconciled in canonical ticket JSON. General entry, accuracy, capacity and correction rules apply across releases; pass-scoped rules use stable policy IDs and optional `appliesTo` fields. The KonfHub profile/LinkedIn reminder is visible above pass selection and on current pass details. The matching KonfHub copy is an export for review, not a second source of application content.
+
+## Practical launch pages — 22 October 2026
+
+Guidelines, Partners and Venue are implemented locally. Their title/lead/support copy and guideline policy placement live in `content/pages.json`. Policy text, organization identity and venue facts remain in their existing canonical files. Validation enforces complete, non-duplicated guideline coverage. The new pages have canonical/social metadata and sitemap entries.
+
+Guidelines uses an in-page contents list, sticky beside the text on desktop and stacked above it on mobile. Direct section links cover before-booking, entry, eligibility, workshops, ticket-policy and support. Tickets and pass pages link to it; `/tickets#attendee-policies` still works. Explore and the footer link to Guidelines, Partners and Venue, and the homepage partner/venue previews link to their full pages. Get tickets remains visible in the header. Programme remains `/#flow` until confirmed sessions warrant a full page.
+
+The partner page reuses the homepage's confirmed collaborator and ecosystem presentation and adds the official application form as an outbound action. The venue page reuses the real photo/address, embeds the map from canonical coordinates and links the shared ID policy to full guidelines. Parking, accessibility facilities, room plans and city activities are not inferred from dormant source components.

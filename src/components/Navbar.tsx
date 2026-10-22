@@ -2,7 +2,7 @@
 
 import { EVENT, EVENT_WEEKDAY_DATE } from "@/content/event";
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, Rocket, CalendarDays, MapPin, CircleHelp, History, Users, Handshake, Layers, Images } from "lucide-react";
+import { ArrowRight, ChevronDown, Rocket, CalendarDays, MapPin, CircleHelp, History, Users, Handshake, Layers, Images, ClipboardCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,7 +15,10 @@ interface NavbarProps {
 }
 
 export default function Navbar({ visibleAnchors }: NavbarProps) {
-  const attendLinks = [{ href: "/tickets", label: "Tickets & pass details", detail: "Release dates, eligibility and booking information", Icon: Rocket }];
+  const attendLinks = [
+    { href: "/tickets", label: "Tickets & pass details", detail: "Release dates, eligibility and booking information", Icon: Rocket },
+    { href: "/guidelines", label: "Registration guidelines", detail: "KonfHub details, entry ID and ticket policies", Icon: ClipboardCheck },
+  ];
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -24,7 +27,8 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
 
   const discoverLinks = [
     { anchor: "flow", href: "/#flow", label: "Programme", detail: "Four frontiers · agenda coming soon", Icon: Layers },
-    { anchor: "venue", href: "/#venue", label: "Getting here", detail: `${EVENT.venue.name}, ${EVENT.venue.city}`, Icon: MapPin },
+    { anchor: "venue", href: "/venue", label: "Getting here", detail: `${EVENT.venue.name}, ${EVENT.venue.city}`, Icon: MapPin },
+    { anchor: "sponsors", href: "/partners", label: "Partners & collaborators", detail: "This edition’s collaborators and how to get involved", Icon: Handshake },
     { anchor: "workshops", href: "/events", label: "Workshops & events", detail: "Community sessions and campus workshops", Icon: CalendarDays },
     { anchor: "faq", href: "/faq", label: "Common questions", detail: "Practical answers before you attend", Icon: CircleHelp },
   ].filter((link) => link.anchor === "workshops" || link.anchor === "faq" || !visibleAnchors || visibleAnchors.includes(link.anchor));

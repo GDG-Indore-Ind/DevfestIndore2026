@@ -1,12 +1,14 @@
 # Public page roadmap — DevFest Indore 2026
 
-22 October 2026 · proposal for discussion · no routes implemented by this plan.
+22 October 2026 · Guidelines, Partners and Venue implemented locally; remaining proposals are content-dependent.
 
 ## Recommendation
 
 Build a shareable **Registration guidelines** page first, followed by **Partners** and **Venue**. Keep the homepage concise, with previews linking to useful detail. Expand **Programme** and introduce **2026 speakers** when confirmed content supports those pages. Keep Get tickets visible throughout.
 
-The [implemented information architecture](information-architecture.md) documents today's site. This document describes proposed additions, not published pages. Admin remains deferred.
+The [implemented information architecture](information-architecture.md) documents today's site. Admin remains deferred.
+
+Implementation update: the first three additions now exist at `/guidelines`, `/partners` and `/venue` in the local preview. Ticket pages, Explore, the footer and relevant homepage previews link to them. Production deployment and the external KonfHub update are still separate steps. The original proposal and audit below remain as the rationale for future work.
 
 ## Evidence and audience
 

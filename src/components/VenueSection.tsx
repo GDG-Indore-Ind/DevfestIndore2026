@@ -1,9 +1,10 @@
 import ExternalLink from "@/components/ExternalLink";
 import { EVENT, EVENT_WEEKDAY_DATE, REGISTRATION_TIME } from "@/content/event";
 import Image from "next/image";
-import { MapPin, Navigation } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, MapPin, Navigation } from "lucide-react";
 
-export default function VenueSection() {
+export default function VenueSection({ showDetailsLink = true }: { showDetailsLink?: boolean }) {
   return (
     <section className="audience-section audience-venue-band" id="venue" aria-labelledby="venue-title">
       <div className="audience-wrap audience-venue-grid">
@@ -24,6 +25,7 @@ export default function VenueSection() {
               <Navigation className="audience-icon" aria-hidden="true" />
               Open in Google Maps
             </ExternalLink>
+            {showDetailsLink && <Link href="/venue" className="audience-text-link">Plan your arrival<ArrowRight className="audience-icon" aria-hidden="true" /></Link>}
           </div>
         </div>
 

@@ -40,5 +40,6 @@ export default function PassBooking({ category }: { category: PublicPassId }) {
     {status === "open" ? <ExternalLink href={bookingUrl} className="audience-button space-primary-button">Continue to KonfHub</ExternalLink> : status === "closed" ? <Link href="/tickets" className="audience-text-link">See current releases<ArrowRight className="audience-icon" aria-hidden="true" /></Link> : <p className="ticket-booking-wait"><Clock3 className="audience-icon" aria-hidden="true" />Booking is not open yet.</p>}
     <p className="audience-caption">{status === "open" ? "Complete registration and payment on KonfHub. Review the total and any applicable discount there." : status === "closed" ? "This release is no longer available." : "Release dates are scheduled. Pricing and checkout will be available once booking opens."}</p>
     <p className="ticket-final-sale">All purchases are final. No refunds or transfers.</p>
+    <Link href="/guidelines" className="audience-text-link ticket-guidelines-link">Registration guidelines<ArrowRight className="audience-icon" aria-hidden="true" /></Link>
   </aside>;
 }

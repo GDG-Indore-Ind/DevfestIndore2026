@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
+    ...["/guidelines", "/partners", "/venue"].map(path => ({ url: `${baseUrl}${path}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 })),
     {
       url: `${baseUrl}/events`,
       lastModified: now,

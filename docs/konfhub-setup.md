@@ -52,3 +52,5 @@ Validation for this revision: canonical content validation, TypeScript, targeted
 ## Reconciled participant guidance — 22 October 2026
 
 See `guideline-reconciliation-2026-10-22.md` for the two-way comparison and `konfhub-guidelines-ready-to-paste.md` for replacement copy. The website now carries general QR/photo-ID entry guidance, attendee accuracy checks, workshop capacity conditions and a correction contact route from the existing public KonfHub text. The confirmed website final-sale and pass-entitlement rules govern the reconciled copy. LinkedIn/profile preparation is visible above pass selection and on current pass detail pages. General entry, preparation and workshop FAQs derive from the same records.
+
+The local website now has a shareable `/guidelines` page sourced from these same records, alongside `/venue` for arrival information. After deployment, verify their URLs on the production domain before linking them from KonfHub. This implementation has not published external policy changes or enabled ticket checkout.

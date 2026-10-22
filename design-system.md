@@ -124,3 +124,11 @@ The pass listing uses one ticket-shaped frame with a four-color top rule. On des
 `ticket-summary-card`, `ticket-booking-simple` and `ticket-purchase-guide` share this pattern. The booking panel displays exact release times in IST, an approved INR price or an explicit unknown-price label, and a clear KonfHub handoff only when booking is enabled and in-window. Booking steps are an ordered list rather than another row of cards.
 
 The referral notice remains a short sentence. `referral-notice-close` has a 44px target, an accessible label and visible keyboard focus. Dismissal is per referral code for the browser session; it never removes the saved referral.
+
+## Practical launch pages — 22 October 2026
+
+Guidelines, Partners and Venue reuse PageIntro, Google Sans, the existing orbital marks and appearance tokens. `practical-guide-layout` uses a 240px sticky contents column and a readable policy column on desktop; mobile places a two-column contents list above the body. Policies use headings and rules, with a single blue profile-preparation reminder. Pass-specific policies have explicit pass labels. Section links clear the sticky header.
+
+`practical-split` pairs supporting copy with plain contribution or arrival information, stacking below 900px. Partner application and check-in sections use `--engineering-paper`; the map has a 24px window. Reuse the confirmed collaborator presentation and venue photograph rather than adding stock images. Keep all actions at least 44px, Get tickets visible, and external checkout ownership unchanged.
+
+Validation: all 41 production routes generated; content validation, TypeScript and changed-file ESLint passed. Guideline validation rejects omitted, unknown or repeated policies and duplicate section IDs. Browser checks cover 1440px desktop and 375px mobile, light/dark appearance, section navigation, partner form destinations, loaded logos/photo, canonical metadata and tickets-to-guidelines navigation. No horizontal page overflow was found. Lighthouse was unavailable; no performance score is claimed.

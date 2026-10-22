@@ -1,0 +1,47 @@
+{
+  "$schema": "./schemas/pages.schema.json",
+  "guidelines": {
+    "title": "Registration guidelines",
+    "description": "Prepare for DevFest Indore: KonfHub and LinkedIn details, entry ID, pass eligibility, workshop access and ticket policies.",
+    "lead": "A little preparation before you book. Everything you need to register, choose the right pass and arrive ready.",
+    "navigationLabel": "On this page",
+    "bookingTitle": "From pass to confirmation",
+    "sections": [
+      { "id": "before-booking", "title": "Before you book", "policyIds": ["accurate-details"] },
+      { "id": "entry", "title": "At check-in", "policyIds": ["entry-identification"] },
+      { "id": "eligibility", "title": "Pass-specific requirements", "policyIds": ["cadet-id", "vip-code"] },
+      { "id": "workshops", "title": "Workshops & inclusions", "policyIds": ["workshop-access", "pass-inclusions"] },
+      { "id": "ticket-policy", "title": "Ticket policy", "policyIds": ["final-sale"] },
+      { "id": "support", "title": "Corrections, conduct & support", "policyIds": ["registration-corrections", "community-conduct"] }
+    ],
+    "supportText": "For help with your registration or a question about attending, contact the GDG Indore organizers before the event.",
+    "supportLabel": "Email the organizers"
+  },
+  "partners": {
+    "title": "Build this edition with us.",
+    "description": "Meet the confirmed partners and collaborators of DevFest Indore 2026 and apply to contribute to this edition.",
+    "lead": "Technology, expertise and community. Meet the collaborators contributing to DevFest Indore 2026, and find your way to get involved.",
+    "applicationTitle": "What could we build together?",
+    "applicationText": "Tell us what your organization would like to contribute. Share your ideas through the call-for-partners form so the organizing team can explore the right fit with you.",
+    "applicationPoints": [
+      { "title": "Share your expertise", "text": "Propose technical knowledge, developer demonstrations or practical learning experiences." },
+      { "title": "Connect communities", "text": "Bring a relevant developer community, industry network or outreach idea." },
+      { "title": "Support the experience", "text": "Discuss how your organization could support the event and its attendees." }
+    ],
+    "applicationButton": "Apply to partner",
+    "contactText": "Have a question before applying? Email the organizing team.",
+    "archiveLabel": "Explore previous editions"
+  },
+  "venue": {
+    "title": "Plan your arrival.",
+    "description": "Find Essentia Luxury Hotel, the DevFest Indore 2026 venue, with directions, check-in information and an entry checklist.",
+    "lead": "Your route to a day of talks, ideas and community. Find the venue, prepare for check-in and get help before you travel.",
+    "mapTitle": "Find the venue",
+    "arrivalTitle": "Arrive ready for check-in.",
+    "registrationLabel": "Registration opens",
+    "entryTitle": "Bring your ticket and ID",
+    "supportTitle": "Planning your visit?",
+    "supportText": "For accessibility, parking or other arrival questions, contact the organizers before you travel so we can help you plan.",
+    "supportLabel": "Ask the organizers"
+  }
+}

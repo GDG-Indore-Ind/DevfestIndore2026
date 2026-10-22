@@ -29,7 +29,7 @@ export default function TicketPassPage({ category }: { category: PublicPassId })
           </div>
           <PassBooking key={category} category={category} />
         </div></section>
-        <section className="ticket-path-support" id="pass-support"><div className="audience-wrap"><p>Plan before you book.</p><div><Link href="/tickets">Current release <ArrowRight className="audience-icon" aria-hidden="true" /></Link><Link href="/tickets#attendee-policies">Ticket policies <ArrowRight className="audience-icon" aria-hidden="true" /></Link><Link href="/faq">Common questions <ArrowRight className="audience-icon" aria-hidden="true" /></Link></div></div></section>
+        <section className="ticket-path-support" id="pass-support"><div className="audience-wrap"><p>Plan before you book.</p><div><Link href="/tickets">Current release <ArrowRight className="audience-icon" aria-hidden="true" /></Link><Link href="/guidelines">Registration guidelines <ArrowRight className="audience-icon" aria-hidden="true" /></Link><Link href="/venue">Venue & directions <ArrowRight className="audience-icon" aria-hidden="true" /></Link></div></div></section>
       </main><Footer /><OrbitScrollRail stops={[{ id: "page-overview", label: "Your pass" }, { id: "pass-details-title", label: "Pass details" }, { id: "pass-support", label: "More help" }]} />
     </div>
   );

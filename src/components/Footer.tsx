@@ -10,13 +10,13 @@ export default function Footer() {
       <div className="edition-footer-group" id="tickets"><h2>Attend</h2>
         <Link href="/tickets">Tickets & pass details</Link>
         <Link href="/#flow">Programme</Link>
-        <Link href="/#venue">Venue & directions</Link>
+        <Link href="/venue">Venue & directions</Link>
         <Link href="/faq">Common questions</Link>
-        <Link href="/tickets#attendee-policies">Ticket policies</Link>
+        <Link href="/guidelines">Registration guidelines</Link>
       </div>
       <div className="edition-footer-group"><h2>Get involved</h2>
         <ExternalLink href={EVENT.links.cfp}>Speak at DevFest</ExternalLink>
-        <Link href="/#sponsors">Partners & collaborators</Link>
+        <Link href="/partners">Partners & collaborators</Link>
         <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
         <Link href="/team">Meet the team</Link>
         <ExternalLink href={EVENT.links.codeOfConduct}>Code of conduct</ExternalLink>

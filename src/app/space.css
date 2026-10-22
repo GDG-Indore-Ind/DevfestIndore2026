@@ -590,3 +590,61 @@
 .ticket-profile-reminder p { margin: 0; font-size: .9375rem; line-height: 1.65; max-width: 88ch; }
 .ticket-policy-compact a { color: var(--audience-blue); text-underline-offset: 4px; }
 .ticket-policy-compact .audience-external-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+
+/* Practical launch pages: readable policies, partner enquiries and arrival. */
+.practical-page .space-page-intro { padding-bottom: 36px; }
+.practical-page .space-page-meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--audience-muted); font-size: .875rem; margin-bottom: 16px; }
+.practical-guide-layout { display: grid; gap: 40px; padding-block: 12px 64px; align-items: start; }
+.practical-guide-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; padding-block: 20px; border-block: 1px solid var(--audience-line); }
+.practical-guide-nav > p { grid-column: 1 / -1; margin: 0 0 12px; color: var(--audience-muted); font-size: .875rem; }
+.practical-guide-nav > a:not(.audience-button) { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-block: 8px; color: var(--audience-ink); text-decoration: none; font-size: .875rem; line-height: 1.45; }
+.practical-guide-nav > a:hover { color: var(--audience-blue); }
+.practical-guide-nav svg { width: 16px; height: 16px; flex-shrink: 0; }
+.practical-guide-nav > .audience-button { grid-column: 1 / -1; margin-top: 16px; justify-self: start; }
+.practical-guide-body { min-width: 0; }
+.practical-guide-section { padding-block: 32px; border-top: 1px solid var(--audience-line); }
+.practical-guide-section:first-child { border-top: 0; padding-top: 0; }
+.practical-guide-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 500; line-height: 1.2; letter-spacing: -.025em; margin: 0 0 24px; }
+.practical-policy + .practical-policy { margin-top: 24px; }
+.practical-policy h3,.practical-booking-title,.practical-contributions h3,.practical-arrival h3 { font-size: 1.0625rem; line-height: 1.4; font-weight: 600; margin: 0 0 8px; }
+.practical-policy p,.practical-support p,.practical-contributions p { color: var(--audience-muted); margin: 0; line-height: 1.75; overflow-wrap: anywhere; }
+.practical-policy .practical-policy-scope { font-size: .8125rem; color: var(--audience-blue); margin-bottom: 6px; font-weight: 500; }
+.practical-guide-body .ticket-profile-reminder { width: 100%; margin: 0 0 28px; padding: 20px; }
+.ticket-profile-reminder h3 { font-size: 1rem; font-weight: 600; line-height: 1.4; margin: 0 0 6px; letter-spacing: -.015em; }
+.practical-booking-title { margin-top: 28px; }
+.practical-booking-steps { list-style: decimal; padding-left: 24px; margin: 16px 0 28px; }
+.practical-booking-steps li { padding-left: 6px; margin-block: 16px; }
+.practical-booking-steps li::marker { color: var(--audience-blue); }
+.practical-booking-steps strong { font-weight: 500; }
+.practical-booking-steps p { color: var(--audience-muted); margin: 4px 0 0; }
+.practical-support { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--audience-line); }
+.practical-support .audience-text-link { display: flex; width: fit-content; }
+.practical-next-links { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding-block: 24px 48px; }
+.practical-page .audience-text-link,.ticket-guidelines-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.ticket-guidelines-link { margin-block: 12px; }
+.partner-details-link { margin-top: 16px; }
+.partners-page .event-partners-section { padding-top: 12px; min-height: auto; }
+.practical-partners-heading { margin-bottom: 32px; }
+.practical-application,.practical-arrival { background: var(--engineering-paper); }
+.practical-split { display: grid; gap: 36px; }
+.practical-application .audience-button { margin-block: 16px; }
+.practical-application .audience-caption a { color: var(--audience-blue); overflow-wrap: anywhere; }
+.practical-contributions { padding: 0; margin: 0; list-style: none; }
+.practical-contributions li { padding-block: 24px; border-top: 1px solid var(--audience-line); }
+.practical-contributions li:first-child { padding-top: 0; border-top: 0; }
+.practical-map-section { padding-block: 40px; }
+.practical-map { display: block; width: 100%; height: 340px; border: 1px solid var(--audience-line); border-radius: 24px; background: var(--engineering-paper); }
+.practical-checkin { display: flex; gap: 16px; margin-block: 28px; }
+.practical-checkin > svg { margin-top: 8px; color: var(--audience-blue); }
+.practical-checkin p { margin: 0; color: var(--audience-muted); }
+.practical-checkin strong { display: block; font-size: 2rem; font-weight: 500; letter-spacing: -.03em; }
+.practical-checkin span { display: block; color: var(--audience-muted); font-size: .875rem; }
+.practical-arrival .audience-body { margin-top: 0; }
+@media (min-width: 900px) {
+  .practical-guide-layout { grid-template-columns: 240px minmax(0, 1fr); gap: 72px; padding-bottom: 80px; }
+  .practical-guide-nav { display: grid; grid-template-columns: 1fr; position: sticky; top: 112px; border-bottom: 0; }
+  .practical-guide-nav > a:not(.audience-button) { font-size: .9375rem; }
+  .practical-guide-body { max-width: 760px; }
+  .practical-split { grid-template-columns: 1fr 1fr; gap: 80px; }
+  .practical-map { height: 400px; }
+}
