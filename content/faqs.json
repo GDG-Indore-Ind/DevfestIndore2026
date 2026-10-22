@@ -4,27 +4,80 @@
     {
       "id": "event-1",
       "question": "What is GDG DevFest Indore 2026?",
-      "answer": "DevFest is the annual developer conference hosted by Google Developer Groups worldwide. The Indore edition brings practitioners, researchers, software engineers and founders together for applied AI/ML, cloud architecture, modern systems design and physical AI."
+      "answer": "DevFest is an annual developer conference hosted by Google Developer Groups. The Indore edition brings developers, researchers, students and founders together for technical talks and hands-on learning.",
+      "kind": "event"
     },
     {
       "id": "event-2",
       "question": "Who can attend DevFest?",
-      "answer": "Developers, researchers, students, tech leads, architects and founders are welcome. Choose a pass that matches your eligibility and the access you need."
+      "answer": "Developers, researchers, students, tech leads, architects and founders are welcome. Choose a pass that matches your eligibility and the access you need.",
+      "kind": "event"
     },
     {
       "id": "event-3",
       "question": "When and where is DevFest?",
-      "answer": "{{date}} at {{venue}}, {{address}}. Registration opens at {{registrationTime}}."
+      "answer": "{{date}} at {{venue}}. Registration opens at {{registrationTime}}.",
+      "kind": "event",
+      "link": {
+        "href": "/venue",
+        "label": "Venue & directions"
+      }
     },
     {
       "id": "event-4",
       "question": "Are campus workshops part of the event-day program?",
-      "answer": "Campus workshops are separate events held before DevFest. Find their dates and registration details on the Campus workshops page."
+      "answer": "Campus workshops are separate events held before DevFest, with their own dates and registration details.",
+      "kind": "event",
+      "link": {
+        "href": "/events#workshops",
+        "label": "Workshops & events"
+      }
     },
     {
       "id": "event-5",
       "question": "Should I bring a laptop?",
-      "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details. Observer does not include workshop hall access."
+      "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details. Observer does not include workshop hall access.",
+      "kind": "event"
+    },
+    {
+      "id": "ticket-current",
+      "kind": "tickets",
+      "question": "Which pass should I choose?",
+      "answer": "Compare the featured pass, eligibility and inclusions on Tickets. KonfHub confirms current availability and pricing.",
+      "link": {
+        "href": "/tickets",
+        "label": "View tickets"
+      }
+    },
+    {
+      "id": "ticket-entry",
+      "kind": "tickets",
+      "question": "What should I bring for check-in?",
+      "answer": "{{entryPolicy}}",
+      "link": {
+        "href": "/guidelines#eligibility",
+        "label": "Additional pass requirements"
+      }
+    },
+    {
+      "id": "ticket-workshops",
+      "kind": "tickets",
+      "question": "Does my ticket reserve a workshop seat?",
+      "answer": "{{workshopPolicy}}",
+      "link": {
+        "href": "/guidelines#workshops",
+        "label": "Workshop guidelines"
+      }
+    },
+    {
+      "id": "ticket-final-sale",
+      "kind": "tickets",
+      "question": "Can I cancel, refund or transfer my ticket?",
+      "answer": "{{finalSalePolicy}}",
+      "link": {
+        "href": "/guidelines#ticket-policy",
+        "label": "Ticket policy"
+      }
     }
   ]
 }

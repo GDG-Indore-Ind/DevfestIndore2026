@@ -83,8 +83,7 @@
           "opensAt",
           "closesAt",
           "eligibility",
-          "benefits",
-          "note"
+          "benefits"
         ]
       }
     },
@@ -162,18 +161,14 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "heading",
         "buttonLabel",
         "handoffText",
         "unavailableText",
         "scheduleHeading",
-        "finalSaleText"
+        "finalSaleText",
+        "profileReminder"
       ],
       "properties": {
-        "heading": {
-          "type": "string",
-          "minLength": 1
-        },
         "buttonLabel": {
           "type": "string",
           "minLength": 1
@@ -191,6 +186,10 @@
           "minLength": 1
         },
         "finalSaleText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profileReminder": {
           "type": "string",
           "minLength": 1
         }

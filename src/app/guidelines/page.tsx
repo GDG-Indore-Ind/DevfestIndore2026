@@ -7,7 +7,7 @@ import ExternalLink from "@/components/ExternalLink";
 import RegistrationReminder from "@/components/RegistrationReminder";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import { GUIDELINES_PAGE as page } from "@/content/pages";
-import { BOOKING_STEPS, REGISTRATION_CHECKLIST, TICKET_POLICIES, getPublicPass } from "@/content/tickets";
+import { REGISTRATION_CHECKLIST, TICKET_POLICIES, getPublicPass } from "@/content/tickets";
 import { pageMetadata } from "@/lib/pageMetadata";
 
 export const metadata = pageMetadata("/guidelines", page.title, page.description);
@@ -29,8 +29,6 @@ export default function GuidelinesPage() {
             {section.id === "before-booking" && <>
               <RegistrationReminder contained />
               {REGISTRATION_CHECKLIST.slice(1).map(item => <div className="practical-policy" key={item.title}><h3>{item.title}</h3><p>{item.text}</p></div>)}
-              <h3 className="practical-booking-title">{page.bookingTitle}</h3>
-              <ol className="practical-booking-steps">{BOOKING_STEPS.map(step => <li key={step.title}><strong>{step.title}</strong><p>{step.text}</p></li>)}</ol>
             </>}
             {section.policyIds.map(id => {
               const policy = TICKET_POLICIES.find(item => item.id === id)!;

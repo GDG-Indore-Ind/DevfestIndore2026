@@ -8,7 +8,9 @@
     "guidelines",
     "partners",
     "venue",
-    "home"
+    "home",
+    "tickets",
+    "faq"
   ],
   "definitions": {
     "text": {
@@ -49,7 +51,6 @@
       "additionalProperties": false,
       "required": [
         "navigationLabel",
-        "bookingTitle",
         "sections",
         "supportText",
         "supportLabel"
@@ -65,9 +66,6 @@
           "$ref": "#/definitions/text"
         },
         "navigationLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "bookingTitle": {
           "$ref": "#/definitions/text"
         },
         "supportText": {
@@ -132,7 +130,6 @@
         "archiveLabel",
         "revealed",
         "revealTitle",
-        "revealHeading",
         "revealText",
         "revealButton",
         "revealLead",
@@ -189,9 +186,6 @@
         "revealTitle": {
           "$ref": "#/definitions/text"
         },
-        "revealHeading": {
-          "$ref": "#/definitions/text"
-        },
         "revealText": {
           "$ref": "#/definitions/text"
         },
@@ -221,7 +215,8 @@
         "entryTitle",
         "supportTitle",
         "supportText",
-        "supportLabel"
+        "supportLabel",
+        "entrySummary"
       ],
       "properties": {
         "title": {
@@ -253,6 +248,9 @@
         },
         "supportLabel": {
           "$ref": "#/definitions/text"
+        },
+        "entrySummary": {
+          "$ref": "#/definitions/text"
         }
       }
     },
@@ -272,7 +270,12 @@
         "ecosystemHistoryLabel",
         "galleryTitle",
         "galleryLead",
-        "galleryDescription"
+        "galleryDescription",
+        "heroLead",
+        "heroDescription",
+        "artworkCaption",
+        "historyEyebrow",
+        "venueLead"
       ],
       "properties": {
         "programmeTitle": {
@@ -314,6 +317,85 @@
           "$ref": "#/definitions/text"
         },
         "galleryDescription": {
+          "$ref": "#/definitions/text"
+        },
+        "heroLead": {
+          "$ref": "#/definitions/text"
+        },
+        "heroDescription": {
+          "$ref": "#/definitions/text"
+        },
+        "artworkCaption": {
+          "$ref": "#/definitions/text"
+        },
+        "historyEyebrow": {
+          "$ref": "#/definitions/text"
+        },
+        "venueLead": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    },
+    "tickets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "lead",
+        "endedLead",
+        "supportText",
+        "guidelinesLabel"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "endedLead": {
+          "$ref": "#/definitions/text"
+        },
+        "supportText": {
+          "$ref": "#/definitions/text"
+        },
+        "guidelinesLabel": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    },
+    "faq": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "lead",
+        "eventTitle",
+        "eventLead",
+        "ticketsTitle",
+        "ticketsLead",
+        "contactText"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "eventTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "eventLead": {
+          "$ref": "#/definitions/text"
+        },
+        "ticketsTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "ticketsLead": {
+          "$ref": "#/definitions/text"
+        },
+        "contactText": {
           "$ref": "#/definitions/text"
         }
       }

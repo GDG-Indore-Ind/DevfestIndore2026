@@ -24,8 +24,6 @@ Open to all developers and community members. Maximum 2 tickets per order. Each 
 
 **Included:** Full-day admission across all technical tracks; Keynote sessions; Official DevFest Indore swag kit; Lunch and refreshments.
 
-Tickets are non-transferable.
-
 ### Cadet Pass
 
 For currently enrolled undergraduate and postgraduate students.

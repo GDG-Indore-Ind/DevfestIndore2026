@@ -16,7 +16,7 @@ const text = `# ${event.name} — Registration guidelines\n\n` +
   `${eventDate} · ${event.venue.fullName}\n\nRegistration opens at ${checkIn} IST.\n\n` +
   `## Before you book\n\n` + tickets.registrationChecklist.map(item => `**${item.title}.** ${item.text}`).join('\n\n') +
   `\n\nFood preferences apply only to passes that include catering.\n\n## Choose the right pass\n\n` +
-  tickets.passes.map(pass => `### ${pass.name}\n\n${pass.description}\n\n${pass.eligibility}\n\n**Included:** ${pass.benefits.join('; ')}.\n\n${pass.note}`).join('\n\n') +
+  tickets.passes.map(pass => `### ${pass.name}\n\n${pass.description}\n\n${pass.eligibility}\n\n**Included:** ${pass.benefits.join('; ')}.${pass.note ? `\n\n${pass.note}` : ''}`).join('\n\n') +
   `\n\n## Registration and attendance policies\n\n` +
   tickets.policies.map((policy, index) => `### ${index + 1}. ${policy.title}\n\n${policy.text}`).join('\n\n') +
   `\n\n## Registration declaration\n\n${tickets.registrationDeclaration}\n\n` +

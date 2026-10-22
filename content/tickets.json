@@ -16,7 +16,6 @@
         "Official DevFest Indore swag kit",
         "Lunch and refreshments"
       ],
-      "note": "Tickets are non-transferable.",
       "summary": "A full day of talks, a DevFest swag kit, lunch and refreshments."
     },
     {
@@ -191,11 +190,11 @@
   ],
   "registrationDeclaration": "I confirm that the attendee details are accurate, that I meet the eligibility requirements for my selected pass, and that I have read and agree to the registration guidelines and community code of conduct. I understand that ticket purchases are final and tickets cannot be cancelled, transferred, resold, rescheduled or refunded.",
   "registration": {
-    "heading": "Register for DevFest",
     "buttonLabel": "Register",
-    "handoffText": "View available tickets, pricing and complete your registration on KonfHub.",
+    "handoffText": "KonfHub confirms availability and pricing and completes your registration.",
     "unavailableText": "The registration link will be available here.",
     "scheduleHeading": "Scheduled pass release",
-    "finalSaleText": "All purchases are final. No refunds or transfers."
+    "finalSaleText": "All purchases are final. No refunds or transfers.",
+    "profileReminder": "For smoother registration, add your own LinkedIn URL to your KonfHub profile before booking."
   }
 }

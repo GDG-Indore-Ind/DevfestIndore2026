@@ -1,5 +1,6 @@
 import ExternalLink from "@/components/ExternalLink";
-import { EVENT, EVENT_WEEKDAY_DATE, REGISTRATION_TIME } from "@/content/event";
+import { EVENT, REGISTRATION_TIME } from "@/content/event";
+import { HOME_PAGE } from "@/content/pages";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Navigation } from "lucide-react";
@@ -12,7 +13,7 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
           <p className="explore-section-eyebrow">Getting here</p>
           <h2 id="venue-title">See you at Essentia.</h2>
           <p className="venue-lead">
-            Join us at {EVENT.venue.name} on {EVENT_WEEKDAY_DATE}. Registration opens at {REGISTRATION_TIME}.
+            {HOME_PAGE.venueLead.replace("{{registrationTime}}", REGISTRATION_TIME)}
           </p>
 
           <address className="audience-body venue-address">

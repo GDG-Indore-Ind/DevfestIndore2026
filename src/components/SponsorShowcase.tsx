@@ -18,7 +18,7 @@ function PartnerLogo({ item, featured = false, decorative = false }: { item: Eve
     : <span className="event-partner-wordmark">{item.name}</span>;
 }
 
-export default function SponsorShowcase({ showIntro = true }: { showIntro?: boolean }) {
+export default function SponsorShowcase({ showIntro = true, showEcosystem = true }: { showIntro?: boolean; showEcosystem?: boolean }) {
   const rail = useRef<HTMLDivElement>(null);
   const featured = CONFIRMED_EVENT_PARTNERS.filter(item => item.featured);
   const additional = CONFIRMED_EVENT_PARTNERS.filter(item => !item.featured);
@@ -29,7 +29,7 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
     node.scrollBy({ left: direction * node.clientWidth, behavior: reducedMotion ? "instant" : "smooth" });
   }
   return <section className="audience-section event-partners-section" aria-labelledby="partners-title"><div className="audience-wrap">
-    {!PARTNERS_PAGE.revealed ? <><div className="edition-section-heading partner-reveal-heading"><div><p className="audience-overline">{EVENT.id} partners & collaborators</p><h2 id="partners-title">{PARTNERS_PAGE.revealTitle}</h2></div></div><div className="partner-reveal"><div className="partner-reveal-backdrop" aria-hidden="true"><span /><span /></div><div className="partner-reveal-message"><span className="partner-reveal-spark" aria-hidden="true">✦</span><h3>{PARTNERS_PAGE.revealHeading}</h3><p>{PARTNERS_PAGE.revealText}</p><ExternalLink href={EVENT.links.partnerApplication} className="audience-button space-primary-button">{PARTNERS_PAGE.revealButton}</ExternalLink></div></div></> : <>
+    {!PARTNERS_PAGE.revealed ? <><p className="audience-overline">{EVENT.id} partners & collaborators</p><div className="partner-reveal"><div className="partner-reveal-backdrop" aria-hidden="true"><span /><span /></div><div className="partner-reveal-message"><span className="partner-reveal-spark" aria-hidden="true">✦</span><h2 id="partners-title">{PARTNERS_PAGE.revealTitle}</h2><p>{PARTNERS_PAGE.revealText}</p><ExternalLink href={EVENT.links.partnerApplication} className="audience-button space-primary-button">{PARTNERS_PAGE.revealButton}</ExternalLink></div></div></> : <>
     {showIntro ? <div className="edition-section-heading"><div><p className="audience-overline">{EVENT.id} partners & collaborators</p><h2 id="partners-title">Great missions take<br />more than one crew.</h2></div><Link href="/partners#partner-application" className="audience-button space-primary-button">{PARTNERS_PAGE.revealButton}<ArrowRight className="audience-icon" aria-hidden="true" /></Link></div> : <h2 id="partners-title" className="practical-partners-heading">{EVENT.id} partners & collaborators</h2>}
     {featured.length > 1 && <div className="event-partner-controls"><button type="button" aria-label="Previous featured partners" onClick={() => move(-1)}><ChevronLeft aria-hidden="true" /></button><button type="button" aria-label="Next featured partners" onClick={() => move(1)}><ChevronRight aria-hidden="true" /></button></div>}
     <div ref={rail} className="featured-partners" aria-label="Featured 2026 collaborators" tabIndex={0}>{featured.map(item => <article key={item.id} className={`partner-feature partner-feature-${item.featured}`}>
@@ -42,8 +42,8 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
     {!!additional.length && <div className="additional-partners"><div className="event-partner-heading"><h3>More partners & supporters</h3></div>
       <ul className="supporter-logo-grid" aria-label="More 2026 partners">{additional.map(item => <li key={item.id}><div className="event-partner-logo">{item.websiteUrl ? <ExternalLink href={item.websiteUrl}><PartnerLogo item={item} /></ExternalLink> : <PartnerLogo item={item} />}</div><h3>{item.name}</h3><p>{item.role}</p></li>)}</ul>
     </div>}</>}
-    <div className="event-ecosystem-heading"><div><h3>{HOME_PAGE.ecosystemTitle}</h3><p>{HOME_PAGE.ecosystemLead}</p></div></div>
+    {showEcosystem && <><div className="event-ecosystem-heading"><div><h3>{HOME_PAGE.ecosystemTitle}</h3><p>{HOME_PAGE.ecosystemLead}</p></div></div>
     <ul className="community-logo-row" aria-label="Developer community social pages">{ECOSYSTEM_PARTNERS.map(item => <li key={item.id}><ExternalLink href={item.socialUrl} className="community-social-link"><span className="community-social-logo" data-shape={item.logoShape ?? "square"}><PartnerLogo item={item} decorative /></span><span className="community-social-name">{item.name}</span></ExternalLink></li>)}</ul>
-    <div className="community-history-network"><p>{HOME_PAGE.ecosystemHistoryLabel}</p><ul>{HISTORICAL_COMMUNITIES.map(item => <li key={item.id}>{item.name}<small>{item.years.join(" · ")}</small></li>)}</ul></div>
+    <div className="community-history-network"><p>{HOME_PAGE.ecosystemHistoryLabel}</p><ul>{HISTORICAL_COMMUNITIES.map(item => <li key={item.id}>{item.name}<small>{item.years.join(" · ")}</small></li>)}</ul></div></>}
   </div></section>;
 }

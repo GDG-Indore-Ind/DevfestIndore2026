@@ -1,6 +1,6 @@
 # Information architecture: DevFest Indore 2026
 
-Updated 22 October 2026 · implemented local revision · validation with attendees still pending.
+Updated 23 October 2026 · implemented local revision · validation with attendees still pending.
 
 ## Audience and tasks
 
@@ -56,8 +56,8 @@ Footer groups: Attend (tickets, programme, venue, questions and ticket policies)
 | `/` | Landing | Five chapters; primary ticket action; secondary programme link |
 | `/tickets` | Current listing | Only current/next release according to time |
 | `/tickets/[former-pass-id]` | Permanent redirect | All former ticket subpages lead to `/tickets`; query values are preserved |
-| `/guidelines` | Practical guide | Profile preparation, booking steps, all approved policies with explicit pass scope, conduct and support |
-| `/partners` | Current edition | Confirmed collaborators, developer ecosystem and official partner application form |
+| `/guidelines` | Practical guide | Profile preparation, all approved policies with explicit pass scope, conduct and support |
+| `/partners` | Current edition | Contribution options and official partner application; confirmed collaborator cards when revealed |
 | `/venue` | Arrival guide | Verified venue photo, address, directions, embedded map and check-in requirements |
 | `/events` | Directory | Sourced community events, searchable workshop records |
 | `/workshops` | Permanent redirect | `/events#workshops` |
@@ -90,9 +90,9 @@ The homepage has fixed-size previews rather than a card per record. Keep two par
 
 The homepage and footer partner actions use `event.links.partnerApplication`. The referral notification is informational text with a close icon and no action links. Dismissal lasts for the browser session and does not clear the saved referral code. It displays only when a referral code is stored.
 
-The ticket listing shows inclusions and eligibility directly, plus a registration panel and booking steps. On narrow screens the registration panel comes before the longer pass details. The prominent red Register action opens the public KonfHub event when the registration switch is enabled. KonfHub owns live availability and prices; local release windows choose the pass preview independently of that outbound action.
+The ticket listing shows eligibility before registration, followed by inclusions on narrow screens. The LinkedIn reminder sits immediately before Register. The separate booking steps and repeated policy disclosures have been removed; Guidelines owns the complete rules. The prominent red Register action opens the public KonfHub event when the registration switch is enabled. KonfHub owns live availability and prices; local release windows choose the pass preview independently of that outbound action.
 
-Registration guidelines are reconciled in canonical ticket JSON. General entry, accuracy, capacity and correction rules apply across releases; pass-scoped rules use stable policy IDs and optional `appliesTo` fields. The KonfHub profile/LinkedIn reminder is visible above pass selection and on current pass details. The matching KonfHub copy is an export for review, not a second source of application content.
+Registration guidelines are reconciled in canonical ticket JSON. General entry, accuracy, capacity and correction rules apply across releases; pass-scoped rules use stable policy IDs and optional `appliesTo` fields. A short KonfHub profile/LinkedIn reminder is visible beside Register; the full profile guidance lives on Guidelines. The matching KonfHub copy is an export for review, not a second source of application content.
 
 ## Practical launch pages — 22 October 2026
 
@@ -100,7 +100,7 @@ Guidelines, Partners and Venue are implemented locally. Their title/lead/support
 
 Guidelines uses an in-page contents list, sticky beside the text on desktop and stacked above it on mobile. Direct section links cover before-booking, entry, eligibility, workshops, ticket-policy and support. Tickets and pass pages link to it; `/tickets#attendee-policies` still works. Explore and the footer link to Guidelines, Partners and Venue, and the homepage partner/venue previews link to their full pages. Get tickets remains visible in the header. Programme remains `/#flow` until confirmed sessions warrant a full page.
 
-The partner page reuses the homepage's confirmed collaborator and ecosystem presentation and adds the official application form as an outbound action. The venue page reuses the real photo/address, embeds the map from canonical coordinates and links the shared ID policy to full guidelines. Parking, accessibility facilities, room plans and city activities are not inferred from dormant source components.
+The partner page focuses on contribution options and the official application form, adding the confirmed collaborator cards when revealed. The venue page combines its introduction with the real photo/address, then pairs the map with check-in information and a link to full guidelines. Parking, accessibility facilities, room plans and city activities are not inferred from dormant source components.
 
 ## Homepage refinement — organizer direction, 22 October
 
@@ -111,3 +111,7 @@ Hero date/location and Programme action are larger. Programme has a compact head
 Partner announcements are temporarily held behind `pages.partners.revealed=false`. Both public partner surfaces show a reveal-soon invitation and central application button. The existing confirmed card design remains available when the switch is enabled. Ecosystem logo cards use three desktop/two mobile columns, followed by a compact historical community/network wall with edition years. Historical relationships do not imply current partnership.
 
 The community chapter acknowledges the organizer-confirmed 2014 origin, links the available 2022–2025 editions along a line, and displays a manual photo carousel. Past events, speakers and sponsors sit below it. Photos include DevFest and other GDG Cloud Indore events, distinguished in captions. The full gallery uses matching broader community wording. Venue uses a larger photo, closer columns and grouped direction/arrival buttons. See `photo-selection-2026-10-22.md` for provenance.
+
+## Content and space refinement — 23 October 2026
+
+Implemented the approved culling plan in `content-culling-plan-2026-10-22.md`. Home no longer repeats Programme topics in the hero or repeats the history origin in three places. Programme retains its selector, illustration and concrete tags without the additional text flow. The partner teaser has one headline; the enlarged ecosystem grid and historical labels stay on Home. Venue presents the date once, with a single directions action and compact arrival details beside the map. FAQ uses explicit content groups, contextual detail links and simple disclosure rows instead of another pass catalogue. The header ticket action, rocket navigation, community photographs and full Guidelines policies remain. No routes were removed.

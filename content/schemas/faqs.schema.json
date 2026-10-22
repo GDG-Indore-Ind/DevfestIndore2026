@@ -25,12 +25,37 @@
           "answer": {
             "type": "string",
             "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "event",
+              "tickets"
+            ]
+          },
+          "link": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "href",
+              "label"
+            ],
+            "properties": {
+              "href": {
+                "type": "string",
+                "pattern": "^/[^ ]*$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
         },
         "required": [
           "id",
           "question",
-          "answer"
+          "answer",
+          "kind"
         ]
       }
     }

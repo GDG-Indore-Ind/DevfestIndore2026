@@ -78,7 +78,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
     if (!tickets.policies.some(policy => policy.id === id)) errors.push(`tickets: ${id} policy is required`);
   }
   try { new Intl.DateTimeFormat("en",{timeZone:event.timezone}).format(); } catch { errors.push(`event: unknown timezone ${event.timezone}`); }
-  const tokens = new Set(["date","venue","address","registrationTime"]);
+  const tokens = new Set(["date","venue","address","registrationTime","entryPolicy","workshopPolicy","finalSalePolicy"]);
   for (const faq of faqs.questions) for (const match of faq.answer.matchAll(/\{\{(\w+)\}\}/g)) if (!tokens.has(match[1])) errors.push(`FAQ ${faq.id}: unknown template token ${match[1]}`);
   const assetKeys = new Set(["avatar","logoUrl","imageUrl","photo","archiveLogoSheet","images","source","collegeLogoUrl"]);
   function walk(value, location = "", key = "") {
