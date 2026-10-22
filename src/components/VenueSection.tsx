@@ -23,9 +23,9 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
           <div className="venue-actions">
             <ExternalLink href={EVENT.venue.mapUrl} className="audience-button venue-directions-btn">
               <Navigation className="audience-icon" aria-hidden="true" />
-              Open in Google Maps
+              Get directions
             </ExternalLink>
-            {showDetailsLink && <Link href="/venue" className="audience-text-link">Plan your arrival<ArrowRight className="audience-icon" aria-hidden="true" /></Link>}
+            {showDetailsLink && <Link href="/venue" className="audience-button programme-outline-button">Plan your arrival<ArrowRight className="audience-icon" aria-hidden="true" /></Link>}
           </div>
         </div>
 
@@ -35,7 +35,7 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
             alt={`${EVENT.venue.fullName}, the venue for ${EVENT.name}`}
             width={800}
             height={540}
-            sizes="(max-width: 760px) 100vw, 45vw"
+            sizes="(max-width: 760px) 100vw, 60vw"
             className="audience-venue-photo"
           />
           <span className="venue-photo-tag">{EVENT.venue.tag}</span>

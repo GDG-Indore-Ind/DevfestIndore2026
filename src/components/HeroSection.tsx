@@ -28,7 +28,7 @@ export default function HeroSection() {
           <p className="space-hero-lead">From intelligent software<br />to systems beyond Earth.</p>
           <p className="audience-body">A day of technical talks, hands-on labs and fresh perspectives on space technology, AI agents and the systems we build.</p>
           <div className="space-event-facts"><p><CalendarDays aria-hidden="true" /><time dateTime={EVENT.startsAt}>{EVENT_DATE}</time></p><p><MapPin aria-hidden="true" /><span>{EVENT.venue.name}, {EVENT.venue.city}</span></p></div>
-          <div className="space-actions"><Link href="/tickets" className="audience-button space-primary-button">Get tickets <ArrowRight className="audience-icon" aria-hidden="true" /></Link><a href="#flow" className="audience-text-link">Explore the programme <ArrowRight className="audience-icon" aria-hidden="true" /></a></div>
+          <div className="space-actions"><Link href="/tickets" className="audience-button space-primary-button">Get tickets <ArrowRight className="audience-icon" aria-hidden="true" /></Link><a href="#flow" className="audience-button programme-outline-button">Explore the programme <ArrowRight className="audience-icon" aria-hidden="true" /></a></div>
         </div>
         <SpaceArtwork />
       </div>

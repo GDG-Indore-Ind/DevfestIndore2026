@@ -71,6 +71,9 @@ export interface GalleryItem {
   category: "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
   imageUrl: string;
   caption: string;
+  source?: string;
+  width?: number;
+  height?: number;
 }
 export interface Socials {
   linkedin?: string;

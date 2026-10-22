@@ -6,6 +6,7 @@ import { ArrowRight, Bot, Braces, Radio, Satellite } from "lucide-react";
 import ExternalLink from "@/components/ExternalLink";
 
 import { THEMES } from "@/content/themes";
+import { HOME_PAGE } from "@/content/pages";
 const themeIcons = { Satellite, Braces, Bot, Radio };
 const TOPICS = THEMES.map(theme => ({ ...theme, icon: themeIcons[theme.icon] }));
 
@@ -26,10 +27,10 @@ export default function ExploreSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const active = TOPICS[activeIndex];
   return <section className="audience-section engineering-topics edition-themes" id="flow" aria-labelledby="flow-title"><div className="audience-wrap">
-    <div className="edition-section-heading"><div><p className="audience-overline">Programme</p><h2 id="flow-title">Big questions.<br />Builder energy.</h2></div><p className="audience-body">From a signal in orbit to an agent in production. Four connected frontiers to explore. Agenda & speakers coming soon.</p></div>
+    <div className="edition-section-heading programme-heading"><h2 id="flow-title">{HOME_PAGE.programmeTitle}</h2><p className="programme-tagline">{HOME_PAGE.programmeTagline}</p></div>
     <div className="engineering-topic-layout"><div className="engineering-topic-index" role="group" aria-label="Programme topics">{TOPICS.map((topic, index) => { const Icon = topic.icon; return <button key={topic.id} type="button" aria-pressed={activeIndex === index} aria-controls="topic-detail" data-color={topic.color} onClick={() => setActiveIndex(index)}><Icon aria-hidden="true" /><span>{topic.label}</span><ArrowRight className="theme-choice-arrow" aria-hidden="true" /></button>; })}</div>
       <div className="engineering-topic-detail theme-story" data-color={active.color} id="topic-detail" aria-live="polite" aria-atomic="true"><ThemeScene topic={active} /><div className="theme-story-copy"><h3>{active.title}</h3><p>{active.description}</p><ul className="theme-tags" aria-label="Topics to explore">{active.tags.map(tag => <li key={tag}>{tag}</li>)}</ul><div className="theme-route" aria-hidden="true">{active.route.map((step,index) => <span key={step}>{index > 0 && <ArrowRight />}{step}</span>)}</div></div></div>
     </div>
-    <div className="theme-contribution"><p>Built something worth sharing?</p><ExternalLink href={EVENT.links.cfp} className="audience-text-link">Bring it to the stage</ExternalLink></div>
+    <div className="theme-contribution"><p>{HOME_PAGE.programmeStatus}</p><ExternalLink href={EVENT.links.cfp} className="audience-text-link">Bring it to the stage</ExternalLink></div>
   </div></section>;
 }

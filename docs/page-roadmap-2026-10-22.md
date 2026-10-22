@@ -10,6 +10,8 @@ The [implemented information architecture](information-architecture.md) document
 
 Implementation update: the first three additions now exist at `/guidelines`, `/partners` and `/venue` in the local preview. Ticket pages, Explore, the footer and relevant homepage previews link to them. Production deployment and the external KonfHub update are still separate steps. The original proposal and audit below remain as the rationale for future work.
 
+Subsequent organizer direction: temporarily hold partner identities behind a reveal-soon invitation, retain the existing card design behind `pages.partners.revealed`, enlarge the community section, acknowledge the 2014 origin and curate a seven-photo carousel from the supplied albums and existing photos. Implemented locally with a horizontal rocket rail below the header, stronger hero details, compact Programme and a larger venue photo. The supplied albums cover DevFest and Cloud Community Days; captions distinguish them. See `photo-selection-2026-10-22.md`.
+
 ## Evidence and audience
 
 Compared the rendered [original homepage](https://devfest.indore.community/) and its internal links on 22 October, the earlier repository route snapshot at `8154151`, and the current local routes/content. This is a homepage/link and source audit, not a crawl of every external destination. No attendee interviews or navigation tests were available; labels and priorities follow the organizer's requests and the tasks below.

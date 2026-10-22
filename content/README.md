@@ -17,7 +17,7 @@ Edit the JSON files in this folder to manage DevFest content. The site reads the
 | `themes.json` | Homepage themes, topic copy, icon names and diagrams’ labels |
 | `faqs.json` | Event questions and answers |
 | `ambassadors.json` | Public invitation profiles and referral codes |
-| `pages.json` | Introductions and supporting copy for Guidelines, Partners and Venue; guideline section order and policy references |
+| `pages.json` | Homepage/gallery copy, partner reveal switch, practical-page introductions and guideline policy references |
 
 Every file contains a `$schema` reference. Editors that support JSON Schema can show field suggestions and highlight mistakes. The schemas live in `schemas/`; ordinary content edits do not require changing them.
 
@@ -66,6 +66,10 @@ The call-for-partners form (`links.partnerApplication`), official community dest
 Ticket policies have stable `id` values. Optional `appliesTo` pass IDs limit pass-specific rules (such as Cadet ID checks or Flight Deck codes) to relevant releases; general rules apply to everyone. Keep `final-sale`, `entry-identification` and `workshop-access` IDs stable because ticket FAQs derive their answers from those records. The first registration-checklist entry supplies the visible KonfHub/LinkedIn reminder.
 
 The full `/guidelines` page reads these same policies. `pages.json` → `guidelines.sections` arranges them by stable `policyIds`; validation requires every policy to appear exactly once and rejects missing or unknown references. Keep the six section IDs stable for shared links. Page copy belongs in `pages.json`; policy wording remains in `tickets.json`. `/partners` reuses confirmed organization records, and `/venue` reuses event facts, the photo, map coordinates and entry policy. Do not add tentative facilities, partner benefits or transport arrangements as page copy.
+
+`pages.json` → `partners.revealed` controls the partner announcement. It is currently `false`: both the homepage and Partners page show the reveal-soon invitation without rendering the featured partner identities. Set it to `true` when ready to restore the existing confirmed cards, horizontal controls and smaller supporter grid. Reveal copy and the full-page introduction/metadata switch together. Community ecosystem records stay visible separately; the additional name wall is explicitly historical and includes edition years.
+
+`pages.json` → `home` owns the Programme heading/tagline, the organizer-confirmed 2014 history origin and community/gallery introduction. Recent edition records still begin in 2022; this does not create unsupported annual event records. `gallery.json` orders the homepage photo carousel and the gallery. Use accurate event captions, optional original `source` links and actual pixel `width`/`height`. Optimized local assets live in `public/images/archive/`. See `docs/photo-selection-2026-10-22.md` for the supplied album sources and selection.
 
 Run `node scripts/export-registration-guidelines.mjs` to generate `docs/konfhub-guidelines-ready-to-paste.md` from the approved JSON. Use it to replace outdated KonfHub guidance after reviewing the full copy; the export does not publish online or alter existing purchases.
 

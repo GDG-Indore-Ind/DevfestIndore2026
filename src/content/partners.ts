@@ -19,6 +19,10 @@ export function getHistoricalSponsors() {
 }
 export const CONFIRMED_EVENT_PARTNERS = getEventPartners();
 export const ECOSYSTEM_PARTNERS = getEventPartners("ecosystem");
+export const HISTORICAL_COMMUNITIES = ORGANIZATIONS.filter(organization => !ECOSYSTEM_PARTNERS.some(partner => partner.name === organization.name)).flatMap(organization => {
+  const appearances = organization.partnerships.filter(partnership => partnership.kind === "community" && partnership.publication === "archived" && /^20\d\d$/.test(partnership.editionId));
+  return appearances.length ? [{ id: organization.id, name: organization.name, years: appearances.map(item => item.editionId).sort().reverse() }] : [];
+});
 const historicalSponsors = getHistoricalSponsors();
 export const PAST_SPONSOR_NAMES = historicalSponsors.map(organization => organization.name);
 export const PAST_SPONSOR_LOGOS = Object.fromEntries(historicalSponsors.map(organization => [organization.name, organization.archiveLogoWindow!]));

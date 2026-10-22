@@ -39,6 +39,19 @@
           "caption": {
             "type": "string",
             "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1
           }
         },
         "required": [

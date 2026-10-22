@@ -101,3 +101,13 @@ Guidelines, Partners and Venue are implemented locally. Their title/lead/support
 Guidelines uses an in-page contents list, sticky beside the text on desktop and stacked above it on mobile. Direct section links cover before-booking, entry, eligibility, workshops, ticket-policy and support. Tickets and pass pages link to it; `/tickets#attendee-policies` still works. Explore and the footer link to Guidelines, Partners and Venue, and the homepage partner/venue previews link to their full pages. Get tickets remains visible in the header. Programme remains `/#flow` until confirmed sessions warrant a full page.
 
 The partner page reuses the homepage's confirmed collaborator and ecosystem presentation and adds the official application form as an outbound action. The venue page reuses the real photo/address, embeds the map from canonical coordinates and links the shared ID policy to full guidelines. Parking, accessibility facilities, room plans and city activities are not inferred from dormant source components.
+
+## Homepage refinement — organizer direction, 22 October
+
+The flight navigation now runs horizontally immediately below the sticky header. It uses the same page-specific anchors, preserves 44px mobile targets and follows header/banner height changes. Removing the sidebar restores the ordinary content gutters. Progress reverses with scrolling and the planet returns to the document top. Reduced motion keeps the anchor links and hides the moving craft.
+
+Hero date/location and Programme action are larger. Programme has a compact heading, a two-word tagline and the agenda status below the topic selector. Homepage sections grow from their content instead of imposing a shared 680px minimum.
+
+Partner announcements are temporarily held behind `pages.partners.revealed=false`. Both public partner surfaces show a reveal-soon invitation and central application button. The existing confirmed card design remains available when the switch is enabled. Ecosystem logo cards use three desktop/two mobile columns, followed by a compact historical community/network wall with edition years. Historical relationships do not imply current partnership.
+
+The community chapter acknowledges the organizer-confirmed 2014 origin, links the available 2022–2025 editions along a line, and displays a manual photo carousel. Past events, speakers and sponsors sit below it. Photos include DevFest and other GDG Cloud Indore events, distinguished in captions. The full gallery uses matching broader community wording. Venue uses a larger photo, closer columns and grouped direction/arrival buttons. See `photo-selection-2026-10-22.md` for provenance.

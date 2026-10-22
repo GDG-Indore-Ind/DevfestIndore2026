@@ -5,15 +5,69 @@
       "id": "archive-group-1",
       "title": "Together at DevFest Indore",
       "category": "Community",
-      "imageUrl": "/gallery/opt_DSCF7164.JPG",
-      "caption": "The DevFest Indore community on stage at the 2025 edition."
+      "imageUrl": "/images/archive/devfest-2025-community.webp",
+      "caption": "The DevFest Indore community on stage at the 2025 edition.",
+      "width": 1400,
+      "height": 933
+    },
+    {
+      "id": "devfest-2024-community",
+      "title": "Together at DevFest Indore 2024",
+      "category": "Community",
+      "imageUrl": "/images/archive/devfest-2024-community.webp",
+      "caption": "The community gathered at DevFest Indore 2024.",
+      "source": "https://drive.google.com/file/d/1TIW9KbIwCQpXMoMN_hP_6KdhmkdSHGre/view",
+      "width": 1400,
+      "height": 933
+    },
+    {
+      "id": "ccd-2025-conversations",
+      "title": "Conversations at Cloud Community Days 2025",
+      "category": "Community",
+      "imageUrl": "/images/archive/ccd-2025-conversations.webp",
+      "caption": "A conversation between sessions at Cloud Community Days Indore 2025.",
+      "source": "https://drive.google.com/file/d/1nVjdEhXUiS2ef9PrFtVQSMGFIzRqpDhP/view",
+      "width": 1400,
+      "height": 933
+    },
+    {
+      "id": "ccd-2024-speaker",
+      "title": "On stage at Cloud Community Days 2024",
+      "category": "Keynotes",
+      "imageUrl": "/images/archive/ccd-2024-speaker.webp",
+      "caption": "A speaker moment from Cloud Community Days Indore 2024.",
+      "source": "https://drive.google.com/file/d/1Ytjq06Fimr5dzQpBUBgGt069KPZcaN1Z/view",
+      "width": 667,
+      "height": 1000
+    },
+    {
+      "id": "devfest-2024-community-wall",
+      "title": "The community wall at DevFest 2024",
+      "category": "Community",
+      "imageUrl": "/images/archive/devfest-2024-community-wall.webp",
+      "caption": "A moment beside the community photo wall at DevFest Indore 2024.",
+      "source": "https://drive.google.com/file/d/1F85vCZpb59DBtq-LwIt4QUsFMp34yrYR/view",
+      "width": 1400,
+      "height": 933
+    },
+    {
+      "id": "cloud-community-speaker",
+      "title": "A GDG Cloud Indore speaker moment",
+      "category": "Keynotes",
+      "imageUrl": "/images/archive/cloud-community-speaker.webp",
+      "caption": "A speaker at a GDG Cloud Indore community event.",
+      "source": "https://drive.google.com/file/d/1foXF3vz3aWVcAlb-PVYnJ1di_P6QbtcV/view",
+      "width": 667,
+      "height": 1000
     },
     {
       "id": "archive-group-2",
       "title": "A community photograph",
       "category": "Community",
-      "imageUrl": "/gallery/opt_DSCF7182.JPG",
-      "caption": "Another group moment from DevFest Indore 2025."
+      "imageUrl": "/images/archive/devfest-2025-together.webp",
+      "caption": "Another group moment from DevFest Indore 2025.",
+      "width": 1400,
+      "height": 933
     }
   ]
 }

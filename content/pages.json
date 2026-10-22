@@ -7,12 +7,51 @@
     "navigationLabel": "On this page",
     "bookingTitle": "From pass to confirmation",
     "sections": [
-      { "id": "before-booking", "title": "Before you book", "policyIds": ["accurate-details"] },
-      { "id": "entry", "title": "At check-in", "policyIds": ["entry-identification"] },
-      { "id": "eligibility", "title": "Pass-specific requirements", "policyIds": ["cadet-id", "vip-code"] },
-      { "id": "workshops", "title": "Workshops & inclusions", "policyIds": ["workshop-access", "pass-inclusions"] },
-      { "id": "ticket-policy", "title": "Ticket policy", "policyIds": ["final-sale"] },
-      { "id": "support", "title": "Corrections, conduct & support", "policyIds": ["registration-corrections", "community-conduct"] }
+      {
+        "id": "before-booking",
+        "title": "Before you book",
+        "policyIds": [
+          "accurate-details"
+        ]
+      },
+      {
+        "id": "entry",
+        "title": "At check-in",
+        "policyIds": [
+          "entry-identification"
+        ]
+      },
+      {
+        "id": "eligibility",
+        "title": "Pass-specific requirements",
+        "policyIds": [
+          "cadet-id",
+          "vip-code"
+        ]
+      },
+      {
+        "id": "workshops",
+        "title": "Workshops & inclusions",
+        "policyIds": [
+          "workshop-access",
+          "pass-inclusions"
+        ]
+      },
+      {
+        "id": "ticket-policy",
+        "title": "Ticket policy",
+        "policyIds": [
+          "final-sale"
+        ]
+      },
+      {
+        "id": "support",
+        "title": "Corrections, conduct & support",
+        "policyIds": [
+          "registration-corrections",
+          "community-conduct"
+        ]
+      }
     ],
     "supportText": "For help with your registration or a question about attending, contact the GDG Indore organizers before the event.",
     "supportLabel": "Email the organizers"
@@ -24,13 +63,29 @@
     "applicationTitle": "What could we build together?",
     "applicationText": "Tell us what your organization would like to contribute. Share your ideas through the call-for-partners form so the organizing team can explore the right fit with you.",
     "applicationPoints": [
-      { "title": "Share your expertise", "text": "Propose technical knowledge, developer demonstrations or practical learning experiences." },
-      { "title": "Connect communities", "text": "Bring a relevant developer community, industry network or outreach idea." },
-      { "title": "Support the experience", "text": "Discuss how your organization could support the event and its attendees." }
+      {
+        "title": "Share your expertise",
+        "text": "Propose technical knowledge, developer demonstrations or practical learning experiences."
+      },
+      {
+        "title": "Connect communities",
+        "text": "Bring a relevant developer community, industry network or outreach idea."
+      },
+      {
+        "title": "Support the experience",
+        "text": "Discuss how your organization could support the event and its attendees."
+      }
     ],
     "applicationButton": "Apply to partner",
     "contactText": "Have a question before applying? Email the organizing team.",
-    "archiveLabel": "Explore previous editions"
+    "archiveLabel": "Explore previous editions",
+    "revealed": false,
+    "revealTitle": "A few surprises.",
+    "revealHeading": "Good company. Coming soon.",
+    "revealText": "We’re in talks with partners and collaborators for this edition. We’ll reveal more soon. Want to be part of it?",
+    "revealButton": "Be our partner",
+    "revealLead": "We’re bringing together technology, expertise and community for this edition. Partner announcements are coming soon. There’s still room to get involved.",
+    "revealDescription": "Explore the DevFest Indore community and apply to partner with this edition. Partner announcements are coming soon."
   },
   "venue": {
     "title": "Plan your arrival.",
@@ -43,5 +98,20 @@
     "supportTitle": "Planning your visit?",
     "supportText": "For accessibility, parking or other arrival questions, contact the organizers before you travel so we can help you plan.",
     "supportLabel": "Ask the organizers"
+  },
+  "home": {
+    "programmeTitle": "Programme",
+    "programmeTagline": "New frontiers.",
+    "programmeStatus": "Agenda & speakers coming soon.",
+    "historySince": 2014,
+    "historyTitle": "One community. Still building.",
+    "historyLead": "A story that began in 2014. Talks, workshops and the people who keep showing up. Explore recent editions, and a few moments from across our community.",
+    "historyRecentLabel": "Recent edition records",
+    "ecosystemTitle": "Communities & ecosystem",
+    "ecosystemLead": "The developer communities and networks that connect us.",
+    "ecosystemHistoryLabel": "Communities & networks from previous editions",
+    "galleryTitle": "Our community, in pictures",
+    "galleryLead": "Moments from DevFest Indore and GDG Cloud Indore community events. The faces, conversations and people behind the gatherings.",
+    "galleryDescription": "Photographs from DevFest Indore and GDG Cloud Indore community events, with captions identifying the event where known."
   }
 }

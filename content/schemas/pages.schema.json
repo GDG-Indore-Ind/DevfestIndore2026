@@ -3,60 +3,319 @@
   "title": "Public page copy",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "guidelines", "partners", "venue"],
+  "required": [
+    "$schema",
+    "guidelines",
+    "partners",
+    "venue",
+    "home"
+  ],
   "definitions": {
-    "text": { "type": "string", "minLength": 1 },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
     "intro": {
       "type": "object",
-      "required": ["title", "description", "lead"],
+      "required": [
+        "title",
+        "description",
+        "lead"
+      ],
       "properties": {
-        "title": { "$ref": "#/definitions/text" },
-        "description": { "$ref": "#/definitions/text" },
-        "lead": { "$ref": "#/definitions/text" }
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "description": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        }
       }
     }
   },
   "properties": {
-    "$schema": { "type": "string" },
+    "$schema": {
+      "type": "string"
+    },
     "guidelines": {
-      "allOf": [{ "$ref": "#/definitions/intro" }],
+      "allOf": [
+        {
+          "$ref": "#/definitions/intro"
+        }
+      ],
       "type": "object",
       "additionalProperties": false,
-      "required": ["navigationLabel", "bookingTitle", "sections", "supportText", "supportLabel"],
+      "required": [
+        "navigationLabel",
+        "bookingTitle",
+        "sections",
+        "supportText",
+        "supportLabel"
+      ],
       "properties": {
-        "title": { "$ref": "#/definitions/text" }, "description": { "$ref": "#/definitions/text" }, "lead": { "$ref": "#/definitions/text" },
-        "navigationLabel": { "$ref": "#/definitions/text" }, "bookingTitle": { "$ref": "#/definitions/text" },
-        "supportText": { "$ref": "#/definitions/text" }, "supportLabel": { "$ref": "#/definitions/text" },
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "description": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "navigationLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "bookingTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "supportText": {
+          "$ref": "#/definitions/text"
+        },
+        "supportLabel": {
+          "$ref": "#/definitions/text"
+        },
         "sections": {
-          "type": "array", "minItems": 6, "maxItems": 6,
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
           "items": {
-            "type": "object", "additionalProperties": false, "required": ["id", "title", "policyIds"],
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "title",
+              "policyIds"
+            ],
             "properties": {
-              "id": { "enum": ["before-booking", "entry", "eligibility", "workshops", "ticket-policy", "support"] },
-              "title": { "$ref": "#/definitions/text" },
-              "policyIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/definitions/text" } }
+              "id": {
+                "enum": [
+                  "before-booking",
+                  "entry",
+                  "eligibility",
+                  "workshops",
+                  "ticket-policy",
+                  "support"
+                ]
+              },
+              "title": {
+                "$ref": "#/definitions/text"
+              },
+              "policyIds": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/definitions/text"
+                }
+              }
             }
           }
         }
       }
     },
     "partners": {
-      "allOf": [{ "$ref": "#/definitions/intro" }], "type": "object", "additionalProperties": false,
-      "required": ["applicationTitle", "applicationText", "applicationPoints", "applicationButton", "contactText", "archiveLabel"],
+      "allOf": [
+        {
+          "$ref": "#/definitions/intro"
+        }
+      ],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicationTitle",
+        "applicationText",
+        "applicationPoints",
+        "applicationButton",
+        "contactText",
+        "archiveLabel",
+        "revealed",
+        "revealTitle",
+        "revealHeading",
+        "revealText",
+        "revealButton",
+        "revealLead",
+        "revealDescription"
+      ],
       "properties": {
-        "title": { "$ref": "#/definitions/text" }, "description": { "$ref": "#/definitions/text" }, "lead": { "$ref": "#/definitions/text" },
-        "applicationTitle": { "$ref": "#/definitions/text" }, "applicationText": { "$ref": "#/definitions/text" },
-        "applicationButton": { "$ref": "#/definitions/text" }, "contactText": { "$ref": "#/definitions/text" }, "archiveLabel": { "$ref": "#/definitions/text" },
-        "applicationPoints": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["title", "text"], "properties": { "title": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" } } } }
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "description": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "applicationTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "applicationText": {
+          "$ref": "#/definitions/text"
+        },
+        "applicationButton": {
+          "$ref": "#/definitions/text"
+        },
+        "contactText": {
+          "$ref": "#/definitions/text"
+        },
+        "archiveLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "applicationPoints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "text"
+            ],
+            "properties": {
+              "title": {
+                "$ref": "#/definitions/text"
+              },
+              "text": {
+                "$ref": "#/definitions/text"
+              }
+            }
+          }
+        },
+        "revealed": {
+          "type": "boolean"
+        },
+        "revealTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "revealHeading": {
+          "$ref": "#/definitions/text"
+        },
+        "revealText": {
+          "$ref": "#/definitions/text"
+        },
+        "revealButton": {
+          "$ref": "#/definitions/text"
+        },
+        "revealLead": {
+          "$ref": "#/definitions/text"
+        },
+        "revealDescription": {
+          "$ref": "#/definitions/text"
+        }
       }
     },
     "venue": {
-      "allOf": [{ "$ref": "#/definitions/intro" }], "type": "object", "additionalProperties": false,
-      "required": ["mapTitle", "arrivalTitle", "registrationLabel", "entryTitle", "supportTitle", "supportText", "supportLabel"],
+      "allOf": [
+        {
+          "$ref": "#/definitions/intro"
+        }
+      ],
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapTitle",
+        "arrivalTitle",
+        "registrationLabel",
+        "entryTitle",
+        "supportTitle",
+        "supportText",
+        "supportLabel"
+      ],
       "properties": {
-        "title": { "$ref": "#/definitions/text" }, "description": { "$ref": "#/definitions/text" }, "lead": { "$ref": "#/definitions/text" },
-        "mapTitle": { "$ref": "#/definitions/text" }, "arrivalTitle": { "$ref": "#/definitions/text" }, "registrationLabel": { "$ref": "#/definitions/text" }, "entryTitle": { "$ref": "#/definitions/text" },
-        "supportTitle": { "$ref": "#/definitions/text" }, "supportText": { "$ref": "#/definitions/text" }, "supportLabel": { "$ref": "#/definitions/text" }
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "description": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "mapTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "arrivalTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "registrationLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "entryTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "supportTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "supportText": {
+          "$ref": "#/definitions/text"
+        },
+        "supportLabel": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    },
+    "home": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "programmeTitle",
+        "programmeTagline",
+        "programmeStatus",
+        "historySince",
+        "historyTitle",
+        "historyLead",
+        "historyRecentLabel",
+        "ecosystemTitle",
+        "ecosystemLead",
+        "ecosystemHistoryLabel",
+        "galleryTitle",
+        "galleryLead",
+        "galleryDescription"
+      ],
+      "properties": {
+        "programmeTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "programmeTagline": {
+          "$ref": "#/definitions/text"
+        },
+        "programmeStatus": {
+          "$ref": "#/definitions/text"
+        },
+        "historySince": {
+          "type": "integer",
+          "minimum": 1900,
+          "maximum": 2026
+        },
+        "historyTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "historyLead": {
+          "$ref": "#/definitions/text"
+        },
+        "historyRecentLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "ecosystemTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "ecosystemLead": {
+          "$ref": "#/definitions/text"
+        },
+        "ecosystemHistoryLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "galleryTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "galleryLead": {
+          "$ref": "#/definitions/text"
+        },
+        "galleryDescription": {
+          "$ref": "#/definitions/text"
+        }
       }
     }
   }
