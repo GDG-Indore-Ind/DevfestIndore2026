@@ -126,3 +126,33 @@ For old fragment links, retain meaningful anchor aliases or handle them in the p
 Check that a visitor can find student ID requirements, LinkedIn preparation, venue directions and the partner form from the homepage in at most three clicks. Test those tasks with attendees when available; the proposed labels have not yet been user-tested. Preview mobile and both appearance modes, check keyboard navigation and verify internal/external links. Run content validation and TypeScript checks for implementation changes.
 
 Open content dependencies: approved partner pitch/deck; venue parking and accessibility information; exact social post URLs and assets; confirmed 2026 speakers and sessions. These do not block planning or the Guidelines page. Admin and broader policy-page work remain outside this increment.
+
+## Follow-up: direct original-branch audit
+
+Inspected local `main` (`b22aac5`), `origin/develop` (`61792ff`) and the later original `codex/event-copy-design` (`8eb9eaa`) without switching branches. Current launch work was committed first as `e92f1df` at the organizer's request. These are local ref snapshots; no remote fetch was performed.
+
+The earlier `main` and `origin/develop` have only the homepage as an application page. The later original has `/`, `/gallery`, `/past-speakers`, `/team`, `/workshops` and `/admin`. Every public page from that later original is retained or redirected in the current site; admin is deliberately deferred. The route audit therefore found no additional lost public page beyond the new detail-page opportunities proposed above.
+
+Source files checked include the original `src/app/page.tsx`, the section resolver and default configuration in `src/lib/firestoreService.ts`, and the component files listed below. The old configuration could be overridden by Firestore, so source defaults alone do not prove live visibility; the earlier live homepage audit provides that separate evidence.
+
+| Missing or reduced presentation | Original source | Current treatment / recommendation |
+|---|---|---|
+| About DevFest and the Indore story | `AboutSection.tsx` | Homepage hero is shorter. Add a concise introduction; a separate About page remains optional. |
+| Instagram feed | `InstagramFeedSection.tsx` | Original used an Elfsight app, not just social links. Add a curated visual strip or assess that existing embed; post thumbnails and reels need actual links/assets. |
+| CFP showcase | `CallForSpeakersSection.tsx` | Sessionize link remains in Programme and footer. Restore a stronger visual invitation; a `/speak` page depends on approved requirements/deadlines. |
+| Organizer preview and alumni strip | `FeaturedTeamSection.tsx` | Full team and past-speaker directories remain. A compact homepage preview could improve discovery. |
+| Satellite meetups | `SatelliteEventsSection.tsx` | `/events` exists. Publish confirmed current events there rather than making another directory or restoring unverified scheduling claims. |
+| Space collaboration narrative | `SpaceCollaborationSection.tsx` | Partner preview remains. Expand verified contribution copy on the proposed Partners page. |
+| Recap / milestones | `EventRecapSection.tsx` | Archives cover previous editions. Put verified edition outcomes there; a 2026 recap belongs after the event. |
+| Five content pillars and collective-flow narrative | `ContentPillarsSection.tsx`, `ThreeDFlowSection.tsx` | Current Programme consolidates the topic presentation. Preserve useful approved subject copy without reinstating redundant sections. |
+
+### Additional ideas found in dormant source
+
+The later original also contains dormant components with no references from other source files. Their existence is not evidence that they were reachable on the live homepage. Related features are distinguished below:
+
+- **Indore visitor guide:** `IndoreExperienceSection.tsx`. The older `main` did import/render it. This could become an optional `/visit-indore` page, or a short section on Venue, covering travel and local recommendations. Old promises of a hosted food walk, specific breakfast and sustainability arrangements require fresh confirmation.
+- **Venue zones / experience:** `ShowcaseZonesSection.tsx` and `VENUE_ZONES` in `src/data/ecosystemData.ts`. Nine proposed areas included a main hall, two workshop tracks, Qualcomm showcase, enterprise showcase, space corner, experts' lounge, community lounge and registration arena. Use the proposed Venue page for a real approved floor plan; the source array does not confirm these facilities.
+- **Session overview and saved agenda:** `SplitSessionsSection.tsx` and `ScheduleSection.tsx` are dormant in the later branch. Its homepage still renders `SavedSessionsModal.tsx`, but saved-session state starts with preset IDs. A future Programme page can offer local bookmarks once actual confirmed sessions exist; this is not an existing dependable schedule to restore.
+- **Solar-system visualization:** `SolarSystemEcosystem3D.tsx`. A dormant visual feature rather than another missing page; revisit only if it makes programme discovery easier.
+
+Recommended adjustment to the build order: keep Guidelines → Partners → Venue. Fold confirmed venue-experience details into Venue; treat an Indore visitor guide as optional. Recover Instagram and a clearer CFP invitation as small homepage improvements. Programme, current speakers and saved-session functionality remain dependent on confirmed programme content.
