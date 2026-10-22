@@ -77,3 +77,5 @@ Ten existing team portraits used signed LinkedIn CDN URLs. Their original image 
 ## Verification
 
 Content/reference validation, TypeScript, lint on changed code and the production build pass. Partnerships, editions and publication states remain unchanged. Historical community entries require logo artwork in content validation. Browser checks cover Home, Past sponsors and Team in both appearances on compact and wide layouts, with no horizontal overflow or duplicate SVG clip IDs. The nine community logo plates load, the homepage has seven historical community cards plus six sponsor previews, the development badge is absent, and both corrected organizer portraits load locally.
+
+The final asset audit also found that the broad raw-photo ignore rule excluded website JPEGs on this filesystem. Narrow exceptions for `public/images/team/` and `public/images/partners/` now keep all cached portraits and three previously local-only current partner assets in Git. Every local image referenced by public content is tracked for deployment.

@@ -45,6 +45,7 @@ drive-download*
 *.JPG
 !public/gallery/**
 !public/images/team/**
+!public/images/partners/**
 *.CR2
 
 local_storage_private/
