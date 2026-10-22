@@ -33,7 +33,7 @@ Final prices, tax/fee presentation, team discount thresholds and the applicable 
 4. Verify each ticket's inclusions, food/kit entitlement, policy text, attendee credentials and confirmation emails.
 5. Review existing Early Bird booking records separately. The new brief does not authorize cancelling or changing already-purchased tickets.
 6. Check referral codes against the final categories. The website preserves referrals but does not guarantee a discount; KonfHub must validate it.
-7. Verify `content/event.json` → `links.booking`, then set `booking.enabled` to true. Each pass page also checks its own window. Availability, allocation and private-code enforcement belong to KonfHub.
+7. Verify `content/event.json` → `links.booking`. `booking.enabled` controls the website's public event-page handoff. Availability, allocation, release windows, payment and private-code enforcement belong to KonfHub. The website has one ticket page.
 
 Previously discussed private delegation and crew categories are outside the final public directory. Confirm their disposition separately before publishing any private offer. Keep private codes and allocations off the public site.
 
@@ -54,3 +54,9 @@ Validation for this revision: canonical content validation, TypeScript, targeted
 See `guideline-reconciliation-2026-10-22.md` for the two-way comparison and `konfhub-guidelines-ready-to-paste.md` for replacement copy. The website now carries general QR/photo-ID entry guidance, attendee accuracy checks, workshop capacity conditions and a correction contact route from the existing public KonfHub text. The confirmed website final-sale and pass-entitlement rules govern the reconciled copy. LinkedIn/profile preparation is visible above pass selection and on current pass detail pages. General entry, preparation and workshop FAQs derive from the same records.
 
 The local website now has a shareable `/guidelines` page sourced from these same records, alongside `/venue` for arrival information. After deployment, verify their URLs on the production domain before linking them from KonfHub. This implementation has not published external policy changes or enabled ticket checkout.
+
+## Public registration handoff — later organizer update, 22 October 2026
+
+The organizer made the event public/unhidden and requested a large red Register button and no ticket subpages. `booking.enabled` is now true for the website link to that public event. Local pass schedules still select the preview; they no longer disable the event-page link. The single `/tickets` page shows inclusions, eligibility, registration preparation and the red action. Former ticket subpages are removed, redirect to the index with query values preserved, and are absent from the sitemap.
+
+Read-only inspection found the event page publicly accessible, with the LinkedIn reminder and updated general final-sale/entry policies. Liftoff is listed at ₹699, but both KonfHub purchase controls still say Coming Soon. The website button therefore opens the event page without asserting immediate purchase availability. No purchase was attempted, no KonfHub settings were changed, and no new price was entered into the local records.

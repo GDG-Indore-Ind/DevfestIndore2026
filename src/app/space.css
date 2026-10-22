@@ -726,3 +726,18 @@
 /* Keep hidden new-tab annotations inside horizontally scrolling links. */
 .audience-external-link { position: relative; }
 .history-timeline > * { justify-content: flex-start; padding-top: 10px; }
+
+/* Registration hands off directly to the public KonfHub event. */
+:root { --ticket-register-bg: #c5221f; --ticket-register-hover: #a91b18; --ticket-register-ink: #ffffff; }
+.ticket-registration-panel { display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.ticket-registration-action { margin-block: auto; padding-block: 12px 28px; }
+.ticket-registration-action h3 { font-size: 1.25rem; font-weight: 500; letter-spacing: -.025em; margin: 0 0 24px; }
+.ticket-journey .ticket-register-button { background: var(--ticket-register-bg); color: var(--ticket-register-ink); border: 0; min-height: 76px; width: 100%; font-size: 1.5rem; font-weight: 600; gap: 14px; box-shadow: none; }
+.ticket-journey .ticket-register-button:hover { background: var(--ticket-register-hover); filter: none; }
+.ticket-register-button > .audience-icon { width: 22px; height: 22px; }
+.ticket-journey .ticket-registration-panel .audience-caption { max-width: none; margin-top: 20px; }
+.ticket-registration-schedule { border-top: 1px solid var(--audience-line); padding-top: 20px; text-align: left; }
+.ticket-registration-schedule > p { margin: 0 0 12px; font-size: .875rem; font-weight: 500; }
+.ticket-registration-schedule .ticket-release-times { margin: 0; gap: 12px; }
+.ticket-journey .ticket-registration-panel .ticket-final-sale { margin-top: 20px; }
+.ticket-journey .ticket-registration-panel > .ticket-guidelines-link { align-self: center; margin-bottom: 0; }

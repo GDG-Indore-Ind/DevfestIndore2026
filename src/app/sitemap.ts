@@ -1,7 +1,6 @@
 import { EVENT } from "@/content/event";
 import type { MetadataRoute } from "next";
 import { DEVFEST_EDITIONS } from "@/content/archive";
-import { getVisiblePasses } from "@/content/ticketRelease";
 
 import { AMBASSADORS } from "@/lib/referral";
 
@@ -24,12 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
-    ...getVisiblePasses(now.getTime()).map((pass) => ({
-      url: `${baseUrl}/tickets/${pass.id}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
     ...["/guidelines", "/partners", "/venue"].map(path => ({ url: `${baseUrl}${path}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 })),
     {
       url: `${baseUrl}/events`,

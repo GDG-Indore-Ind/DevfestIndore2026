@@ -37,6 +37,6 @@
     "codeOfConduct": "https://developers.google.com/community-guidelines"
   },
   "booking": {
-    "enabled": false
+    "enabled": true
   }
 }

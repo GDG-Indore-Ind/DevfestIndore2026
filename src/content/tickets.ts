@@ -32,6 +32,7 @@ export const REGISTRATION_CHECKLIST = tickets.registrationChecklist;
 // The first checklist entry is the prominent KonfHub profile-preparation reminder.
 export const KONFHUB_PROFILE_REMINDER = REGISTRATION_CHECKLIST[0];
 export const BOOKING_STEPS = tickets.bookingSteps;
+export const TICKET_REGISTRATION = tickets.registration;
 export const formatPassPrice = (pass: Pick<PublicPass, "price">) => pass.price === undefined ? "Price to be announced" : new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(pass.price);
 export const REGISTRATION_DECLARATION = tickets.registrationDeclaration;
 export interface TicketPolicy { id: string; title: string; text: string; appliesTo?: PublicPassId[] }

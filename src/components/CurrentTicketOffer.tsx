@@ -1,8 +1,7 @@
 "use client";
 
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
-import Link from "next/link";
-import { ArrowRight, Check, ShieldCheck, Ticket } from "lucide-react";
+import { Check, ShieldCheck, Ticket } from "lucide-react";
 import { useTicketRelease } from "@/contexts/TicketReleaseContext";
 import PassBooking from "@/components/PassBooking";
 import PageIntro from "@/components/PageIntro";
@@ -18,8 +17,8 @@ export default function CurrentTicketOffer() {
         <div className="ticket-summary-content">
         <h3 className="ticket-inclusions-heading">What’s included</h3><ul className="ticket-summary-benefits">{pass.benefits.map(benefit => <li key={benefit}><Check aria-hidden="true" /><span>{benefit}</span></li>)}</ul>
         <div className="ticket-summary-eligibility"><ShieldCheck aria-hidden="true" /><div><h3>Who can book</h3><p>{pass.eligibility}</p></div></div><p className="ticket-summary-note">{pass.note}</p>
-        <Link href={`/tickets/${pass.id}`} className="audience-text-link">View full pass details<ArrowRight className="audience-icon" aria-hidden="true" /></Link>
       </div><PassBooking key={pass.id} category={pass.id} /></article>)}
+      {!passes.length && <PassBooking />}
     </div></section>
   </>;
 }

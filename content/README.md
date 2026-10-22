@@ -57,9 +57,11 @@ Put original image assets under `public/images/partners/` and use a path such as
 
 ## Update tickets or event facts
 
-Edit ticket details in `tickets.json`. Each pass can have an optional `price` in INR once approved; omit it while unknown. Zero is treated as a real zero price. `bookingSteps` supplies the public explanation of the KonfHub handoff. Adding a price does not enable checkout. Existing pass IDs are reserved URL identifiers; edit their display names and content without renaming the IDs. Keep eligibility and final-sale policies explicit. Allocation values remain internal content and are not displayed as live remaining counts.
+Edit ticket details in `tickets.json`. Each pass can have an optional `price` in INR once approved; omit it while unknown. Zero is treated as a real zero price. `bookingSteps` supplies the public explanation of the KonfHub handoff. Adding a price does not enable checkout. Existing pass IDs are stable content identifiers; edit their display names and content without renaming the IDs. Keep eligibility and final-sale policies explicit. Allocation values remain internal content and are not displayed as live remaining counts.
 
-`event.json` owns `booking.enabled` and `links.booking`. Enable booking only after final prices, eligibility restrictions, private-code access and the actual KonfHub setup have been verified. Release dates alone do not enable checkout. Referral URLs use this same booking destination.
+`event.json` owns `booking.enabled` and `links.booking`. The switch now enables the Register link to the public KonfHub event page, independently of local pass-preview dates. It is enabled at the organizer's request. KonfHub controls ticket availability, pricing, eligibility enforcement and payment; the website does not claim that an upcoming pass can already be purchased. Referral URLs use this same destination. Set the switch to `false` to withdraw the website registration link.
+
+Tickets use one page at `/tickets`, with current pass details inline. Former `/tickets/...` URLs redirect there and are excluded from the sitemap. Stable pass IDs still identify content and pass-scoped policies. `tickets.json` → `registration` owns the red Register button's heading, label and supporting copy. The public event page may be visible before its ticket sales open.
 
 The call-for-partners form (`links.partnerApplication`), official community destinations and the code-of-conduct link live under `event.json` → `links`. The shared footer uses these values directly; update them here instead of adding separate URLs to page components.
 

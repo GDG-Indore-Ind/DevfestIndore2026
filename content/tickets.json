@@ -168,7 +168,7 @@
     },
     {
       "title": "Book on KonfHub",
-      "text": "When booking opens, continue to KonfHub to enter attendee details, review the total and complete payment."
+      "text": "Continue to KonfHub to check available tickets, enter attendee details, review the total and complete payment."
     },
     {
       "title": "Keep your confirmation",
@@ -189,5 +189,13 @@
       "text": "Choose Veg or Jain Veg on the registration form to help us plan catering at Essentia."
     }
   ],
-  "registrationDeclaration": "I confirm that the attendee details are accurate, that I meet the eligibility requirements for my selected pass, and that I have read and agree to the registration guidelines and community code of conduct. I understand that ticket purchases are final and tickets cannot be cancelled, transferred, resold, rescheduled or refunded."
+  "registrationDeclaration": "I confirm that the attendee details are accurate, that I meet the eligibility requirements for my selected pass, and that I have read and agree to the registration guidelines and community code of conduct. I understand that ticket purchases are final and tickets cannot be cancelled, transferred, resold, rescheduled or refunded.",
+  "registration": {
+    "heading": "Register for DevFest",
+    "buttonLabel": "Register",
+    "handoffText": "View available tickets, pricing and complete your registration on KonfHub.",
+    "unavailableText": "The registration link will be available here.",
+    "scheduleHeading": "Scheduled pass release",
+    "finalSaleText": "All purchases are final. No refunds or transfers."
+  }
 }

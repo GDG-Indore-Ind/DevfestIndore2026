@@ -55,7 +55,7 @@ Footer groups: Attend (tickets, programme, venue, questions and ticket policies)
 |---|---|---|
 | `/` | Landing | Five chapters; primary ticket action; secondary programme link |
 | `/tickets` | Current listing | Only current/next release according to time |
-| `/tickets/[existing-pass-id]` | Detail | Existing links preserved; future passes guarded |
+| `/tickets/[former-pass-id]` | Permanent redirect | All former ticket subpages lead to `/tickets`; query values are preserved |
 | `/guidelines` | Practical guide | Profile preparation, booking steps, all approved policies with explicit pass scope, conduct and support |
 | `/partners` | Current edition | Confirmed collaborators, developer ecosystem and official partner application form |
 | `/venue` | Arrival guide | Verified venue photo, address, directions, embedded map and check-in requirements |
@@ -90,7 +90,7 @@ The homepage has fixed-size previews rather than a card per record. Keep two par
 
 The homepage and footer partner actions use `event.links.partnerApplication`. The referral notification is informational text with a close icon and no action links. Dismissal lasts for the browser session and does not clear the saved referral code. It displays only when a referral code is stored.
 
-The ticket listing shows inclusions and eligibility directly, plus a release/price panel and booking steps. On narrow screens the release/price panel comes before the longer pass details. Unknown prices stay explicit; checkout links appear only when both the release window and booking switch allow them.
+The ticket listing shows inclusions and eligibility directly, plus a registration panel and booking steps. On narrow screens the registration panel comes before the longer pass details. The prominent red Register action opens the public KonfHub event when the registration switch is enabled. KonfHub owns live availability and prices; local release windows choose the pass preview independently of that outbound action.
 
 Registration guidelines are reconciled in canonical ticket JSON. General entry, accuracy, capacity and correction rules apply across releases; pass-scoped rules use stable policy IDs and optional `appliesTo` fields. The KonfHub profile/LinkedIn reminder is visible above pass selection and on current pass details. The matching KonfHub copy is an export for review, not a second source of application content.
 

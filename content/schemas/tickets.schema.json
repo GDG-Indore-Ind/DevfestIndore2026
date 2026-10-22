@@ -157,6 +157,44 @@
     "registrationDeclaration": {
       "type": "string",
       "minLength": 1
+    },
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "heading",
+        "buttonLabel",
+        "handoffText",
+        "unavailableText",
+        "scheduleHeading",
+        "finalSaleText"
+      ],
+      "properties": {
+        "heading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "buttonLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "handoffText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unavailableText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scheduleHeading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "finalSaleText": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     }
   },
   "required": [
@@ -165,6 +203,7 @@
     "policies",
     "registrationChecklist",
     "registrationDeclaration",
-    "bookingSteps"
+    "bookingSteps",
+    "registration"
   ]
 }
