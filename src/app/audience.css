@@ -345,78 +345,8 @@ body { font-family: var(--font-sans); }
   animation: explore-enter 200ms ease-out;
 }
 
-.referral-banner-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
+.referral-banner-message { margin-block: 0; overflow-wrap: anywhere; }
 
-.referral-banner-text {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.referral-banner-text p {
-  margin: 0;
-}
-
-.referral-banner-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: var(--audience-blue);
-  color: #ffffff;
-  font-size: .75rem;
-  font-weight: 500;
-}
-
-.referral-banner-text code {
-  background: var(--audience-bg);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--audience-line);
-  font-weight: 600;
-  color: var(--audience-blue);
-}
-
-.referral-banner-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.referral-banner-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: .8125rem;
-  font-weight: 500;
-  color: var(--audience-blue);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.referral-banner-close {
-  background: none;
-  border: 0;
-  padding: 4px;
-  cursor: pointer;
-  color: var(--audience-muted);
-  display: flex;
-  align-items: center;
-  border-radius: 50%;
-}
-
-.referral-banner-close:hover {
-  color: var(--audience-ink);
-  background: var(--audience-line);
-}
 .ambassador-invite-page {
   min-height: 100vh;
 }
@@ -702,6 +632,5 @@ body { font-family: var(--font-sans); }
   .ticket-pass-content-grid { gap: 32px; }
   .ticket-next-step { padding: 24px; }
 }
-.referral-banner-close { min-width: 44px; min-height: 44px; justify-content: center; }
 .culled-footer { padding-top: 40px; }
 .culled-footer .footer-brand { font-size: 1.5rem; }

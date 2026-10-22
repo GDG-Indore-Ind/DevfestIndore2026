@@ -7,11 +7,10 @@ export interface FlightStop { id: string; label: string }
 
 const homeStops = [
   { id: "hero", label: "Launch" },
-  { id: "flow", label: "Themes" },
+  { id: "flow", label: "Programme" },
   { id: "sponsors", label: "Partners & collaborators" },
   { id: "archive", label: "Community" },
   { id: "venue", label: "Venue" },
-  { id: "tickets", label: "Tickets" },
 ] as const;
 
 function FlightPath({ mini = false }: { mini?: boolean }) {

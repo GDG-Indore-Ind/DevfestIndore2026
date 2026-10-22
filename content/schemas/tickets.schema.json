@@ -40,6 +40,11 @@
             "type": "integer",
             "minimum": 0
           },
+          "price": {
+            "description": "Approved base price in INR. Omit until confirmed; zero is a real free price.",
+            "type": "number",
+            "minimum": 0
+          },
           "description": {
             "type": "string",
             "minLength": 1
@@ -96,9 +101,29 @@
           "text": {
             "type": "string",
             "minLength": 1
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "appliesTo": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "liftoff",
+                "student",
+                "professional",
+                "vip",
+                "last-orbit",
+                "observer"
+              ]
+            }
           }
         },
         "required": [
+          "id",
           "title",
           "text"
         ]
@@ -106,6 +131,7 @@
     },
     "registrationChecklist": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -125,6 +151,9 @@
         ]
       }
     },
+    "bookingSteps": {
+      "$ref": "#/properties/registrationChecklist"
+    },
     "registrationDeclaration": {
       "type": "string",
       "minLength": 1
@@ -135,6 +164,7 @@
     "passes",
     "policies",
     "registrationChecklist",
-    "registrationDeclaration"
+    "registrationDeclaration",
+    "bookingSteps"
   ]
 }

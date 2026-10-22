@@ -2,30 +2,28 @@
 
 import { EVENT, EVENT_WEEKDAY_DATE } from "@/content/event";
 import { useEffect, useId, useRef, useState } from "react";
-import { ArrowRight, ChevronDown, Rocket, CalendarDays, MapPin, CircleHelp, History, Users, Handshake, Layers } from "lucide-react";
+import { ArrowRight, ChevronDown, Rocket, CalendarDays, MapPin, CircleHelp, History, Users, Handshake, Layers, Images } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTicketRelease } from "@/contexts/TicketReleaseContext";
 import ThemeChoice from "@/components/ThemeChoice";
 import ReferralBanner from "@/components/ReferralBanner";
+import SocialLinks from "@/components/SocialLinks";
 
 interface NavbarProps {
   visibleAnchors?: string[];
 }
 
 export default function Navbar({ visibleAnchors }: NavbarProps) {
-  const passes = useTicketRelease();
-  const attendLinks = passes.map((pass) => ({ href: "/tickets", label: pass.name, detail: pass.audience, Icon: Rocket }));
+  const attendLinks = [{ href: "/tickets", label: "Tickets & pass details", detail: "Release dates, eligibility and booking information", Icon: Rocket }];
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const pathname = usePathname();
-  const showTickets = !visibleAnchors || visibleAnchors.includes("tickets");
 
   const discoverLinks = [
-    { anchor: "flow", href: "/#flow", label: "Themes", detail: "Four frontiers · agenda coming soon", Icon: Layers },
+    { anchor: "flow", href: "/#flow", label: "Programme", detail: "Four frontiers · agenda coming soon", Icon: Layers },
     { anchor: "venue", href: "/#venue", label: "Getting here", detail: `${EVENT.venue.name}, ${EVENT.venue.city}`, Icon: MapPin },
     { anchor: "workshops", href: "/events", label: "Workshops & events", detail: "Community sessions and campus workshops", Icon: CalendarDays },
     { anchor: "faq", href: "/faq", label: "Common questions", detail: "Practical answers before you attend", Icon: CircleHelp },
@@ -67,11 +65,13 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
             <span className="space-header-brand"><span className="space-brand-full">Google Developer Group<small>Indore</small></span><span className="space-brand-compact">GDG Indore</span></span>
           </Link>
 
-          <div className="header-utilities"><Link href="/#flow" className="space-header-programme">Themes</Link><ThemeChoice /><button className="explore-trigger" type="button" ref={trigger} aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(!open)}>
+          <SocialLinks primaryOnly className="header-socials" />
+          <div className="header-utilities"><Link href="/#flow" className="space-header-programme">Programme</Link><ThemeChoice /><button className="explore-trigger" type="button" ref={trigger} aria-expanded={open} aria-controls={panelId} onClick={() => setOpen(!open)}>
             <span className="explore-trigger-dot" aria-hidden="true" />
             <span>Explore</span>
             <ChevronDown className="audience-icon" aria-hidden="true" />
           </button></div>
+          <Link href="/tickets" className="audience-button space-primary-button header-ticket-cta" onClick={() => setOpen(false)}>Get tickets</Link>
 
           <nav className="explore-panel" id={panelId} aria-label="Explore DevFest" hidden={!open}>
             <div className="explore-panel-top">
@@ -80,7 +80,7 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
             </div>
 
             <div className="explore-columns">
-              <div className="explore-attend">{showTickets && <>
+              <div className="explore-attend">
                   <p className="explore-group-label">Attend</p>
                   {attendLinks.map(({ href, label, detail, Icon }) => (
                     <Link
@@ -98,7 +98,7 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
                       <ArrowRight className="audience-icon" aria-hidden="true" />
                     </Link>
                   ))}
-              </>}</div>
+              </div>
 
               <div className="explore-discover">
                 <p className="explore-group-label">Discover</p>
@@ -117,7 +117,7 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
                   </Link>
                 ))}
               </div>
-              <div className="explore-archive"><p className="explore-group-label">The archive</p><div>{[{ href: "/past-events", label: "Past events", Icon: History }, { href: "/past-speakers", label: "Past speakers", Icon: Users }, { href: "/past-sponsors", label: "Past sponsors", Icon: Handshake }].map(({ href, label, Icon }) => <Link key={href} href={href} onClick={() => setOpen(false)}><Icon className="audience-icon" aria-hidden="true" />{label}<ArrowRight className="audience-icon" aria-hidden="true" /></Link>)}</div></div>
+              <div className="explore-archive"><p className="explore-group-label">The archive</p><div>{[{ href: "/past-events", label: "Past editions", Icon: History }, { href: "/past-speakers", label: "Past speakers", Icon: Users }, { href: "/past-sponsors", label: "Past sponsors", Icon: Handshake }, { href: "/gallery", label: "Photo gallery", Icon: Images }].map(({ href, label, Icon }) => <Link key={href} href={href} onClick={() => setOpen(false)}><Icon className="audience-icon" aria-hidden="true" />{label}<ArrowRight className="audience-icon" aria-hidden="true" /></Link>)}</div></div>
             </div>
           </nav>
         </div>

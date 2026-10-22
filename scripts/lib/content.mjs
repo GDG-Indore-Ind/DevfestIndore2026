@@ -66,6 +66,10 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   unique(people.people, "people names", item => item.name.toLowerCase().replace(/[^a-z0-9]/g,""));
   for (const pass of tickets.passes) if (Date.parse(pass.opensAt) >= Date.parse(pass.closesAt)) errors.push(`pass ${pass.id}: closesAt must be after opensAt`);
   if (!tickets.policies.length) errors.push("tickets: at least one booking policy is required");
+  unique(tickets.policies, "ticket policies");
+  for (const id of ["final-sale", "entry-identification", "workshop-access"]) {
+    if (!tickets.policies.some(policy => policy.id === id)) errors.push(`tickets: ${id} policy is required`);
+  }
   try { new Intl.DateTimeFormat("en",{timeZone:event.timezone}).format(); } catch { errors.push(`event: unknown timezone ${event.timezone}`); }
   const tokens = new Set(["date","venue","address","registrationTime"]);
   for (const faq of faqs.questions) for (const match of faq.answer.matchAll(/\{\{(\w+)\}\}/g)) if (!tokens.has(match[1])) errors.push(`FAQ ${faq.id}: unknown template token ${match[1]}`);

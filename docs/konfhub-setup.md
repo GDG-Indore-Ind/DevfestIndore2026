@@ -40,3 +40,15 @@ Previously discussed private delegation and crew categories are outside the fina
 ## Public presentation — organizer clarification, 20 October
 
 The six categories are the timed inventory plan. Feature Liftoff only now, not the whole directory. The website reveals current release windows, or the next release during a gap. Alpha Drop remains historical and is not advertised as an active offer. The public KonfHub description was checked and still has the earlier refund/transfer/workshop terms; reconcile it with the final brief before enabling checkout. The supplied screenshot verifies windows and caps but does not provide prices.
+
+## Public page recheck — 22 October 2026
+
+Read-only browser review of the configured event URL still found a 21 November refund deadline, transfers with organizer approval, a student waitlist and reserved VIP workshop access. These differ from the current canonical ticket brief. Reconcile the external copy and checkout requirements before enabling the website booking switch. No KonfHub data or existing bookings were changed. Final approved prices remain absent from the local records.
+
+The ticket website now explains the booking handoff, shows current-pass inclusions and eligibility without another click, displays exact scheduled release times, and marks an unknown price explicitly. An optional `price` field can be added to each canonical pass once approved; it does not activate checkout.
+
+Validation for this revision: canonical content validation, TypeScript, targeted ESLint and production webpack build passed. Price formatting was checked for unknown, zero and paid values; negative prices are rejected. Release checks covered the opening boundary, disabled booking and closure. Browser review covered 375px layouts in light/dark, persistent notice dismissal after reload, current-release-only presentation and no live checkout link while booking is disabled. Checked new text/surface pairs range from 7.37:1 to 14.84:1 in light and 9.21:1 to 14.37:1 in dark. No Lighthouse tool was available, so no performance score is claimed.
+
+## Reconciled participant guidance — 22 October 2026
+
+See `guideline-reconciliation-2026-10-22.md` for the two-way comparison and `konfhub-guidelines-ready-to-paste.md` for replacement copy. The website now carries general QR/photo-ID entry guidance, attendee accuracy checks, workshop capacity conditions and a correction contact route from the existing public KonfHub text. The confirmed website final-sale and pass-entitlement rules govern the reconciled copy. LinkedIn/profile preparation is visible above pass selection and on current pass detail pages. General entry, preparation and workshop FAQs derive from the same records.

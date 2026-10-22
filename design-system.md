@@ -1,6 +1,6 @@
 # DevFest Indore attendee design system
 
-Updated 21 October 2026. Direction: clean orbital festival. The organizer has now approved the supplied Figma references: bold DevFest typography, an इंदौर / 2026 pill, rounded artwork windows, and a single Android astronaut. This direction supersedes the earlier technical-editorial hero while retaining its clear copy, navigation and factual content.
+Updated 22 October 2026. Direction: clean orbital festival. The organizer has now approved the supplied Figma references: bold DevFest typography, an इंदौर / 2026 pill, rounded artwork windows, and a single Android astronaut. This direction supersedes the earlier technical-editorial hero while retaining its clear copy, navigation and factual content.
 
 ## Foundations
 
@@ -116,3 +116,11 @@ Verification: production webpack build generated all 38 pages; TypeScript and ch
 Space Club of India leads, with a square desktop card and a proportionally larger circular seal. Qualcomm follows in a wider card with its original full wordmark and concrete Edge AI, Physical AI and Local AI context. Both cards share their baseline at wide desktop. Mobile stacks them and permits content to determine height. This richer featured section may grow beyond the shared 680px minimum; the common container and section gutters remain.
 
 Further confirmed sponsors are a separate row below these lead collaborators. Developer ecosystem logos form an unboxed row, link directly to verified Instagram/LinkedIn pages, and use display windows no wider than 2.5:1. Current downloaded profile images replace older logos. Do not infer financial tiers or announce tentative speakers from a collaboration.
+
+## Ticket selection and notification dismissal
+
+The pass listing uses one ticket-shaped frame with a four-color top rule. On desktop, pass information occupies the wider left column and release/checkout information the tinted right column, separated by a dashed rule. On mobile, show the pass introduction, release/price panel, then the longer inclusions and eligibility. Use the existing Google Sans, 24px corners, 1160px content width and audience/space tokens. Do not add stock illustrations, invented availability counts or decorative barcodes.
+
+`ticket-summary-card`, `ticket-booking-simple` and `ticket-purchase-guide` share this pattern. The booking panel displays exact release times in IST, an approved INR price or an explicit unknown-price label, and a clear KonfHub handoff only when booking is enabled and in-window. Booking steps are an ordered list rather than another row of cards.
+
+The referral notice remains a short sentence. `referral-notice-close` has a 44px target, an accessible label and visible keyboard focus. Dismissal is per referral code for the browser session; it never removes the saved referral.

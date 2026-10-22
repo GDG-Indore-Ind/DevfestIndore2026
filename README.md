@@ -100,7 +100,7 @@ Read `AGENTS.md` before implementation work, including its requirement to consul
 
 ## Attendee site and performance
 
-The homepage is focused on attendance: event introduction, experience, passes, community photographs, partners and venue. FAQs have a separate page. Talk proposals and organizers are quiet footer links. Public pages use checked-in content; proposals and ticket registration stay with Sessionize and KonfHub.
+The homepage introduces the event, programme, partners, community photographs and venue. Get tickets is the primary hero action and remains visible in the sticky header across pages. Programme is a secondary link; tickets also remain in Explore and the footer. FAQs have a separate page. Talk proposals and organizers are quiet footer links. Public pages use checked-in content; proposals and ticket registration stay with Sessionize and KonfHub.
 
 - `src/app/audience.css` defines the attendee design system. Google Sans is self-hosted from `public/fonts/`, with its license included. No Google Fonts request is needed at runtime.
 - `content/event.json` → `links.booking` holds the organizer-provided KonfHub event page (`https://konfhub.com/gdg-devfest-indore-2026`). When sales are enabled, the ticket link opens it directly; the homepage mounts no payment iframe or checkout modal.
@@ -121,7 +121,7 @@ See [design-system.md](design-system.md) for visual rules, [information architec
 
 ### Public page consistency
 
-The footer groups destinations under Attend, Community, and Help and policies, keeping the header limited to event-day navigation. `/team`, `/past-speakers`, `/gallery`, and `/workshops` use checked-in content, shared attendee typography, spacing, light/dark tokens, rounded photography, archive search/filter/pagination, gallery viewing and campus links. `/admin` and its bespoke editing tools have been removed; Sessionize owns CFP submissions and Git is the content source of truth.
+The footer groups destinations under Attend, Get involved, Community, and Explore more, keeping the header limited to event-day navigation. `/team`, `/past-speakers`, `/gallery`, and `/workshops` use checked-in content, shared attendee typography, spacing, light/dark tokens, rounded photography, archive search/filter/pagination, gallery viewing and campus links. `/admin` and its bespoke editing tools have been removed; Sessionize owns CFP submissions and Git is the content source of truth.
 
 The local DSCF photo series contains repeated group photographs, not separate workshop/robotics/space scenes. The archive uses two visually verified photographs with accurate captions. Campus cards do not repurpose those group photos as campus evidence. Public portraits have consistent crops and an initials fallback if an image expires.
 

@@ -13,7 +13,7 @@ Edit the JSON files in this folder to manage DevFest content. The site reads the
 | `events.json` | Past editions and community events, with official sources |
 | `workshops.json` | Campus sessions, institutions, speaker IDs and supplied links |
 | `gallery.json` | Verified photos and accurate captions |
-| `tickets.json` | Pass descriptions, eligibility, inclusions, release times and policies |
+| `tickets.json` | Pass descriptions, eligibility, inclusions, release times, booking steps and policies |
 | `themes.json` | Homepage themes, topic copy, icon names and diagrams’ labels |
 | `faqs.json` | Event questions and answers |
 | `ambassadors.json` | Public invitation profiles and referral codes |
@@ -56,9 +56,15 @@ Put original image assets under `public/images/partners/` and use a path such as
 
 ## Update tickets or event facts
 
-Edit ticket details in `tickets.json`. Existing pass IDs are reserved URL identifiers; edit their display names and content without renaming the IDs. Keep eligibility and final-sale policies explicit. Allocation values remain internal content and are not displayed as live remaining counts.
+Edit ticket details in `tickets.json`. Each pass can have an optional `price` in INR once approved; omit it while unknown. Zero is treated as a real zero price. `bookingSteps` supplies the public explanation of the KonfHub handoff. Adding a price does not enable checkout. Existing pass IDs are reserved URL identifiers; edit their display names and content without renaming the IDs. Keep eligibility and final-sale policies explicit. Allocation values remain internal content and are not displayed as live remaining counts.
 
 `event.json` owns `booking.enabled` and `links.booking`. Enable booking only after final prices, eligibility restrictions, private-code access and the actual KonfHub setup have been verified. Release dates alone do not enable checkout. Referral URLs use this same booking destination.
+
+The call-for-partners form (`links.partnerApplication`), official community destinations and the code-of-conduct link live under `event.json` → `links`. The shared footer uses these values directly; update them here instead of adding separate URLs to page components.
+
+Ticket policies have stable `id` values. Optional `appliesTo` pass IDs limit pass-specific rules (such as Cadet ID checks or Flight Deck codes) to relevant releases; general rules apply to everyone. Keep `final-sale`, `entry-identification` and `workshop-access` IDs stable because ticket FAQs derive their answers from those records. The first registration-checklist entry supplies the visible KonfHub/LinkedIn reminder.
+
+Run `node scripts/export-registration-guidelines.mjs` to generate `docs/konfhub-guidelines-ready-to-paste.md` from the approved JSON. Use it to replace outdated KonfHub guidance after reviewing the full copy; the export does not publish online or alter existing purchases.
 
 Event FAQs can use `{{date}}`, `{{venue}}`, `{{address}}` and `{{registrationTime}}` so those facts stay synchronized. Ticket FAQs are derived from ticket records.
 

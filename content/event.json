@@ -27,9 +27,14 @@
     "website": "https://devfest.gdgindore.in",
     "booking": "https://konfhub.com/gdg-devfest-indore-2026",
     "cfp": "https://sessionize.com/devfest-indore-2026/",
+    "partnerApplication": "https://forms.gle/M1Hp18HWfen2b5BA8",
     "linkedin": "https://www.linkedin.com/company/gdg-indore/",
     "instagram": "https://www.instagram.com/gdgindore/",
-    "chapter": "https://gdg.community.dev/gdg-indore/"
+    "chapter": "https://gdg.community.dev/gdg-indore/",
+    "youtube": "https://youtube.com/@GDGIndore",
+    "github": "https://github.com/GDG-Indore",
+    "twitter": "https://x.com/GDG_Indore",
+    "codeOfConduct": "https://developers.google.com/community-guidelines"
   },
   "booking": {
     "enabled": false

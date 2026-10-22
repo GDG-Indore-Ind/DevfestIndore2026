@@ -1,20 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { X, ArrowRight, Tag } from "lucide-react";
-import { getStoredReferral, type Ambassador } from "@/lib/referral";
+import { X } from "lucide-react";
+import { getStoredReferral } from "@/lib/referral";
+
+const DISMISSED_REFERRAL_KEY = "devfest-dismissed-referral";
 
 export default function ReferralBanner() {
-  const [data, setData] = useState<{ coupon: string | null; ambassador: Ambassador | null }>({
-    coupon: null,
-    ambassador: null,
-  });
-  const [dismissed, setDismissed] = useState(false);
+  const [coupon, setCoupon] = useState<string | null>(null);
+  const [dismissedCoupon, setDismissedCoupon] = useState<string | null>(null);
 
   function syncReferral() {
-    const stored = getStoredReferral();
-    setData(stored);
+    setCoupon(getStoredReferral().coupon);
+    try { setDismissedCoupon(sessionStorage.getItem(DISMISSED_REFERRAL_KEY)); } catch { /* Dismissal still works for this page. */ }
   }
 
   useEffect(() => {
@@ -29,40 +27,16 @@ export default function ReferralBanner() {
     };
   }, []);
 
-  if (!data.coupon || dismissed) return null;
+  if (!coupon || coupon === dismissedCoupon) return null;
 
+  function dismiss() {
+    setDismissedCoupon(coupon);
+    if (coupon) try { sessionStorage.setItem(DISMISSED_REFERRAL_KEY, coupon); } catch { /* Storage may be unavailable. */ }
+  }
 
   return (
     <div className="referral-global-banner" role="status" aria-live="polite">
-      <div className="audience-wrap referral-banner-inner">
-        <div className="referral-banner-text">
-          <span className="referral-banner-tag">
-            <Tag className="audience-icon" aria-hidden="true" />
-            Referral saved
-          </span>
-          <p>
-            Code <code>{data.coupon}</code> is saved. Eligibility and any discount are confirmed at checkout.
-          </p>
-        </div>
-
-        <div className="referral-banner-actions">
-          <Link
-            href="/tickets"
-            className="referral-banner-cta"
-          >
-            <span>Ticket details</span>
-            <ArrowRight className="audience-icon" aria-hidden="true" />
-          </Link>
-          <button
-            type="button"
-            onClick={() => setDismissed(true)}
-            className="referral-banner-close"
-            aria-label="Dismiss referral notification"
-          >
-            <X className="audience-icon" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
+      <div className="audience-wrap referral-notice-inner"><p className="referral-banner-message">Referral code <strong>{coupon}</strong> is saved. Eligibility and any discount are confirmed at checkout.</p><button type="button" className="referral-notice-close" onClick={dismiss} aria-label="Dismiss referral notification"><X aria-hidden="true" /></button></div>
     </div>
   );
 }

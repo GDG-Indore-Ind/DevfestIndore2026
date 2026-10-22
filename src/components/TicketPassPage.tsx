@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageIntro from "@/components/PageIntro";
+import RegistrationReminder from "@/components/RegistrationReminder";
 import OrbitScrollRail from "@/components/OrbitScrollRail";
 import PassBooking from "@/components/PassBooking";
 import { useTicketRelease } from "@/contexts/TicketReleaseContext";
@@ -20,6 +21,7 @@ export default function TicketPassPage({ category }: { category: PublicPassId })
       <Navbar />
       <main id="main-content">
         <PageIntro title={pass.name} titleId="pass-title" lead={pass.description} motif="tickets" meta={<><Link href="/tickets" className="space-intro-back"><ArrowLeft className="audience-icon" aria-hidden="true" />All tickets</Link><span>{EVENT_SHORT_DATE} · {EVENT.venue.name}</span></>} />
+        <RegistrationReminder />
         <section className="audience-section ticket-pass-content" aria-labelledby="pass-details-title"><div className="audience-wrap ticket-pass-content-grid">
           <div><h2 id="pass-details-title">What’s included</h2><ul className="ticket-detail-benefits">{pass.benefits.map((benefit) => <li key={benefit}><Check className="audience-icon" aria-hidden="true" />{benefit}</li>)}</ul>
             <aside className="ticket-path-eligibility"><ShieldCheck className="audience-icon" aria-hidden="true" /><div><h3>{category === "vip" ? "Private code required" : "Who can book"}</h3><p>{pass.eligibility}</p></div></aside>
