@@ -44,6 +44,7 @@ next-env.d.ts
 drive-download*
 *.JPG
 !public/gallery/**
+!public/images/team/**
 *.CR2
 
 local_storage_private/
