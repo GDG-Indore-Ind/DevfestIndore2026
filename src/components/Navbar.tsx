@@ -9,12 +9,14 @@ import { usePathname } from "next/navigation";
 import ThemeChoice from "@/components/ThemeChoice";
 import ReferralBanner from "@/components/ReferralBanner";
 import SocialLinks from "@/components/SocialLinks";
+import OrbitScrollRail, { type FlightStop } from "@/components/OrbitScrollRail";
 
 interface NavbarProps {
   visibleAnchors?: string[];
+  flightStops?: readonly FlightStop[] | true;
 }
 
-export default function Navbar({ visibleAnchors }: NavbarProps) {
+export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
   const attendLinks = [
     { href: "/tickets", label: "Tickets & pass details", detail: "Release dates, eligibility and booking information", Icon: Rocket },
     { href: "/guidelines", label: "Registration guidelines", detail: "KonfHub details, entry ID and ticket policies", Icon: ClipboardCheck },
@@ -125,6 +127,7 @@ export default function Navbar({ visibleAnchors }: NavbarProps) {
             </div>
           </nav>
         </div>
+        {flightStops && <OrbitScrollRail stops={flightStops === true ? undefined : flightStops} onNavigate={() => setOpen(false)} />}
       </header>
     </>
   );

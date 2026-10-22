@@ -115,3 +115,7 @@ The community chapter acknowledges the organizer-confirmed 2014 origin, links th
 ## Content and space refinement — 23 October 2026
 
 Implemented the approved culling plan in `content-culling-plan-2026-10-22.md`. Home no longer repeats Programme topics in the hero or repeats the history origin in three places. Programme retains its selector, illustration and concrete tags without the additional text flow. The partner teaser has one headline; the enlarged ecosystem grid and historical labels stay on Home. Venue presents the date once, with a single directions action and compact arrival details beside the map. FAQ uses explicit content groups, contextual detail links and simple disclosure rows instead of another pass catalogue. The header ticket action, rocket navigation, community photographs and full Guidelines policies remain. No routes were removed.
+
+## Header attachment correction — 23 October 2026
+
+Flight navigation now belongs to Navbar and the same sticky header as the global actions. The path aligns with its bottom border; section labels sit above that border. Main content follows the header in normal flow without a second reserved floating strip. Existing route-specific stops, return-to-top behavior, touch targets and reduced-motion behavior are retained. Selecting a section also dismisses Explore.

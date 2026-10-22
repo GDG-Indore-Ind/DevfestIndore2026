@@ -4,7 +4,6 @@ import { FAQ_PAGE as page } from "@/content/pages";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageIntro from "@/components/PageIntro";
-import OrbitScrollRail from "@/components/OrbitScrollRail";
 import FaqSection from "@/components/FaqSection";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +13,7 @@ export const metadata: Metadata = { title: "Common questions", description: "Pra
 export default function FaqPage() {
   return (
     <div className="audience-site space-subpage space-faq-page">
-      <Navbar />
+      <Navbar flightStops={[{ id: "page-overview", label: "Overview" }, { id: "questions-event", label: "The day" }, { id: "questions-tickets", label: "Tickets" }]} />
       <main id="main-content">
         <PageIntro title={page.title} lead={page.lead} motif="guide" />
         <FaqSection kind="event" />
@@ -23,7 +22,7 @@ export default function FaqPage() {
         <div className="audience-wrap faq-support-line"><p>{page.contactText}</p><a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">{EVENT.contactEmail}</a></div>
       </main>
       <Footer />
-      <OrbitScrollRail stops={[{ id: "page-overview", label: "Overview" }, { id: "questions-event", label: "The day" }, { id: "questions-tickets", label: "Tickets" }]} />
+
     </div>
   );
 }

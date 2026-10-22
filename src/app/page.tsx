@@ -5,7 +5,6 @@ import GalleryVideoSection from "@/components/GalleryVideoSection";
 import SponsorShowcase from "@/components/SponsorShowcase";
 import VenueSection from "@/components/VenueSection";
 import Footer from "@/components/Footer";
-import OrbitScrollRail from "@/components/OrbitScrollRail";
 
 // Deliberate attendee narrative order:
 // Event, programme, partners, community and venue. Tickets remain in navigation.
@@ -24,7 +23,7 @@ export default function Home() {
 
   return (
     <div className="audience-site engineering-home">
-      <Navbar visibleAnchors={[...visibleAnchors]} />
+      <Navbar visibleAnchors={[...visibleAnchors]} flightStops />
       <main id="main-content">
         {visibleAnchors.map((anchor) => (
           <div key={anchor} id={["hero", "archive", "sponsors"].includes(anchor) ? anchor : undefined}>
@@ -33,7 +32,6 @@ export default function Home() {
         ))}
       </main>
       <Footer />
-      <OrbitScrollRail />
     </div>
   );
 }

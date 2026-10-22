@@ -13,9 +13,10 @@ const homeStops = [
   { id: "venue", label: "Venue" },
 ] as const;
 
-function OrbitScrollRail({ stops = homeStops }: { stops?: readonly FlightStop[] }) {
+function OrbitScrollRail({ stops = homeStops, onNavigate }: { stops?: readonly FlightStop[]; onNavigate?: () => void }) {
   const rail = useRef<HTMLDivElement>(null);
   function returnToTop(event: MouseEvent<HTMLAnchorElement>) {
+    onNavigate?.();
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     window.history.replaceState(window.history.state, "", `#${stops[0].id}`);
@@ -35,7 +36,6 @@ function OrbitScrollRail({ stops = homeStops }: { stops?: readonly FlightStop[] 
 
     function update() {
       frame = 0;
-      element!.style.top = `${Math.max(0, header?.getBoundingClientRect().bottom ?? 0)}px`;
       const y = Math.max(0, Math.min(window.scrollY, maxScroll));
       let segment = 0;
       while (segment < destinations.length - 2 && y + 2 >= destinations[segment + 1]) segment++;
@@ -57,10 +57,9 @@ function OrbitScrollRail({ stops = homeStops }: { stops?: readonly FlightStop[] 
 
     function measure() {
       const headerHeight = header?.getBoundingClientRect().height ?? 80;
-      const railHeight = element!.getBoundingClientRect().height;
       element!.style.setProperty("--flight-distance", `${element!.querySelector(".flight-path")?.getBoundingClientRect().width ?? 0}px`);
       site?.style.setProperty("--flight-header-height", `${headerHeight}px`);
-      const offset = headerHeight + railHeight + 16;
+      const offset = headerHeight + 16;
       maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
       destinations = stops.map(stop => {
         const target = document.getElementById(stop.id);
@@ -93,7 +92,7 @@ function OrbitScrollRail({ stops = homeStops }: { stops?: readonly FlightStop[] 
   return <div className="orbital-scroll" ref={rail} style={{ "--flight-stop-count": stops.length, "--flight-edge": `${50 / (stops.length + 1)}%` } as CSSProperties}>
     <nav className="flight-navigation" aria-label="Explore the page">
       <div className="flight-path" aria-hidden="true"><span className="flight-path-line" /><span className="flight-path-travelled" /><span className="flight-craft-travel"><span className="flight-craft"><Rocket /><span className="flight-flame" /></span></span></div>
-      {stops.map((stop,index) => <a key={stop.id} href={`#${stop.id}`} data-flight-stop={stop.id} aria-label={stop.label} onClick={index === 0 ? returnToTop : undefined}><span className="flight-stop-dot" aria-hidden="true" /><span className="flight-stop-label">{stop.label}</span></a>)}
+      {stops.map((stop,index) => <a key={stop.id} href={`#${stop.id}`} data-flight-stop={stop.id} aria-label={stop.label} onClick={index === 0 ? returnToTop : onNavigate}><span className="flight-stop-dot" aria-hidden="true" /><span className="flight-stop-label">{stop.label}</span></a>)}
       <a href={`#${stops[0].id}`} className="flight-destination" aria-label="Back to launch — return to top" onClick={returnToTop}><span className="flight-planet" aria-hidden="true"><span /></span><span className="flight-stop-label"><span className="flight-arriving-label">Touchdown</span><span className="flight-arrived-label">Back to top ↑</span></span></a>
     </nav>
   </div>;

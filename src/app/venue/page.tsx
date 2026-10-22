@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageIntro from "@/components/PageIntro";
 import ExternalLink from "@/components/ExternalLink";
-import OrbitScrollRail from "@/components/OrbitScrollRail";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "@/content/event";
 import { VENUE_PAGE as page } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
@@ -15,7 +14,7 @@ export const metadata = pageMetadata("/venue", "Venue & directions", page.descri
 export default function VenuePage() {
   const map = `https://maps.google.com/maps?q=${EVENT.venue.latitude},${EVENT.venue.longitude}&z=16&output=embed`;
   return <div className="audience-site space-subpage practical-page venue-page">
-    <Navbar /><main id="main-content">
+    <Navbar flightStops={[{ id: "page-overview", label: "The venue" }, { id: "venue-map", label: "Map" }, { id: "arrival", label: "Check-in" }]} /><main id="main-content">
       <div id="venue"><PageIntro title={page.title} lead={EVENT.venue.fullName} meta={<span>{EVENT_DATE}</span>} art={<div className="venue-photo-wrapper"><Image src={EVENT.venue.photo} alt={`${EVENT.venue.fullName}, the venue for ${EVENT.name}`} width={800} height={540} sizes="(max-width: 760px) 100vw, 60vw" className="audience-venue-photo" /><span className="venue-photo-tag">{EVENT.venue.tag}</span></div>}>
         <address className="audience-body venue-address"><MapPin className="audience-icon" aria-hidden="true" /><span>{EVENT.venue.address}</span></address>
         <div className="venue-actions"><ExternalLink href={EVENT.venue.mapUrl} className="audience-button venue-directions-btn"><Navigation className="audience-icon" aria-hidden="true" />Get directions</ExternalLink></div>
@@ -27,6 +26,6 @@ export default function VenuePage() {
           <div className="practical-support"><p>{page.supportText}</p><a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">{page.supportLabel}<ArrowRight className="audience-icon" aria-hidden="true" /></a></div>
         </div>
       </div></section>
-    </main><Footer /><OrbitScrollRail stops={[{ id: "page-overview", label: "The venue" }, { id: "venue-map", label: "Map" }, { id: "arrival", label: "Check-in" }]} />
+    </main><Footer />
   </div>;
 }

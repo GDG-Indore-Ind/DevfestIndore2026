@@ -162,14 +162,13 @@
   .space-art-label { font-size: .625rem; }
   .space-artwork figcaption { font-size: .625rem; }
 }
-/* Horizontal flight path, attached visually to the sticky header. */
-.audience-site:has(.orbital-scroll) { --flight-bar-height: 52px; }
-.audience-site:has(.orbital-scroll) #main-content { padding-top: var(--flight-bar-height); }
-.audience-site:has(.orbital-scroll) :is(#main-content, .audience-footer) [id] { scroll-margin-top: calc(var(--flight-header-height, 80px) + var(--flight-bar-height) + 16px); }
-.orbital-scroll { --flight-progress: 0; position: fixed; z-index: 25; top: 80px; left: 0; right: 0; height: var(--flight-bar-height); background: var(--audience-bg); border-bottom: 1px solid var(--audience-line); }
-.flight-navigation { position: relative; display: grid; grid-template-columns: repeat(calc(var(--flight-stop-count) + 1),minmax(0,1fr)); width: min(var(--audience-width),calc(100% - 40px)); height: 100%; margin-inline: auto; }
-.flight-navigation > a { position: relative; display: flex; justify-content: center; min-width: 44px; height: 100%; color: var(--audience-muted); text-decoration: none; }
-.flight-path { position: absolute; left: var(--flight-edge); right: var(--flight-edge); top: 17px; height: 1px; pointer-events: none; }
+/* The flight path is part of the sticky header, on its bottom border. */
+.audience-site:has(.orbital-scroll) { --flight-bar-height: 44px; }
+.audience-site:has(.orbital-scroll) :is(#main-content, .audience-footer) [id] { scroll-margin-top: calc(var(--flight-header-height, 116px) + 16px); }
+.orbital-scroll { --flight-progress: 0; position: relative; height: var(--flight-bar-height); }
+.audience-header .flight-navigation { position: relative; display: grid; gap: 0; grid-template-columns: repeat(calc(var(--flight-stop-count) + 1),minmax(0,1fr)); width: min(var(--audience-width),calc(100% - 40px)); height: 100%; margin-inline: auto; }
+.audience-header .flight-navigation > a { position: relative; display: flex; justify-content: center; min-width: 44px; height: 100%; color: var(--audience-muted); text-decoration: none; }
+.flight-path { position: absolute; left: var(--flight-edge); right: var(--flight-edge); top: 100%; height: 1px; pointer-events: none; }
 .flight-path-line,.flight-path-travelled { position: absolute; inset: 0; }
 .flight-path-line { background: repeating-linear-gradient(to right,var(--audience-line) 0 4px,transparent 4px 8px); }
 .flight-path-travelled { background: var(--audience-blue); transform: scaleX(var(--flight-progress)); transform-origin: left; }
@@ -177,23 +176,19 @@
 .flight-craft { position: absolute; top: 50%; left: 0; display: grid; place-items: center; width: 26px; height: 26px; transform: translate(-50%,-50%); border-radius: 50%; background: var(--audience-bg); color: var(--audience-blue); z-index: 2; }
 .flight-craft > svg { width: 21px; height: 21px; transform: rotate(45deg); stroke-width: 1.8; }
 .flight-flame { position: absolute; left: -3px; top: calc(50% - 2px); width: 6px; height: 4px; border-radius: 3px 1px 1px 3px; background: var(--space-yellow); }
-.flight-stop-dot { position: absolute; top: 14px; width: 7px; height: 7px; border: 1px solid var(--audience-muted); border-radius: 50%; background: var(--audience-bg); }
-.flight-stop-label { position: absolute; top: 30px; font-size: .6875rem; line-height: 1.4; white-space: nowrap; }
-.flight-navigation a[aria-current='location'] { color: var(--audience-blue); }
+.flight-stop-dot { position: absolute; top: calc(100% - 3px); width: 7px; height: 7px; border: 1px solid var(--audience-muted); border-radius: 50%; background: var(--audience-bg); }
+.flight-stop-label { position: absolute; bottom: 12px; font-size: .6875rem; line-height: 1.4; white-space: nowrap; }
+.audience-header .flight-navigation a[aria-current='location'] { color: var(--audience-blue); }
 .flight-navigation a[aria-current='location'] .flight-stop-dot { background: var(--audience-blue); border-color: var(--audience-blue); }
 .flight-navigation > a:hover .flight-stop-label { text-decoration: underline; text-underline-offset: 3px; }
-.flight-planet { position: absolute; top: 8px; display: block; width: 19px; height: 19px; border-radius: 50%; background: var(--space-blue); box-shadow: inset -5px -2px 0 var(--audience-blue); }
+.flight-planet { position: absolute; top: calc(100% - 9px); display: block; width: 19px; height: 19px; border-radius: 50%; background: var(--space-blue); box-shadow: inset -5px -2px 0 var(--audience-blue); }
 .flight-planet > span { position: absolute; inset: 5px -5px; border: 1px solid var(--audience-muted); border-radius: 50%; transform: rotate(-28deg); }
 .flight-arrived-label { display: none; }
 .orbital-scroll[data-arrived='true'] .flight-craft { color: var(--space-green); }
 .orbital-scroll[data-arrived='true'] .flight-flame,.orbital-scroll[data-arrived='true'] .flight-arriving-label { display: none; }
 .orbital-scroll[data-arrived='true'] .flight-arrived-label { display: inline; }
 @media (max-width: 760px) {
-  .audience-site:has(.orbital-scroll) { --flight-bar-height: 45px; }
-  .flight-path { top: 22px; }
-  .flight-stop-dot { top: 19px; }
-  .flight-planet { top: 13px; }
-  .flight-stop-label { display: none; top: 39px; padding: 5px 9px; border: 1px solid var(--audience-line); border-radius: 999px; background: var(--audience-bg); color: var(--audience-ink); z-index: 3; }
+  .flight-stop-label { display: none; bottom: 12px; padding: 5px 9px; border: 1px solid var(--audience-line); border-radius: 999px; background: var(--audience-bg); color: var(--audience-ink); z-index: 3; }
   .flight-navigation a:focus-visible .flight-stop-label,.flight-navigation a:hover .flight-stop-label { display: block; }
   .flight-navigation > a:first-of-type .flight-stop-label { left: 0; }
   .flight-destination .flight-stop-label { right: 0; }
