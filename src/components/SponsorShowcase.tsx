@@ -9,6 +9,7 @@ import type { EventPartner } from "@/content/model";
 import { CONFIRMED_EVENT_PARTNERS, ECOSYSTEM_PARTNERS, HISTORICAL_COMMUNITIES } from "@/content/partners";
 import { HOME_PAGE, PARTNERS_PAGE } from "@/content/pages";
 import ExternalLink from "@/components/ExternalLink";
+import OrganizationLogo from "@/components/OrganizationLogo";
 
 function PartnerLogo({ item, featured = false, decorative = false }: { item: EventPartner; featured?: boolean; decorative?: boolean }) {
   const [failed, setFailed] = useState(false);
@@ -44,6 +45,6 @@ export default function SponsorShowcase({ showIntro = true, showEcosystem = true
     </div>}</>}
     {showEcosystem && <><div className="event-ecosystem-heading"><div><h3>{HOME_PAGE.ecosystemTitle}</h3><p>{HOME_PAGE.ecosystemLead}</p></div></div>
     <ul className="community-logo-row" aria-label="Developer community social pages">{ECOSYSTEM_PARTNERS.map(item => <li key={item.id}><ExternalLink href={item.socialUrl} className="community-social-link"><span className="community-social-logo" data-shape={item.logoShape ?? "square"}><PartnerLogo item={item} decorative /></span><span className="community-social-name">{item.name}</span></ExternalLink></li>)}</ul>
-    <div className="community-history-network"><p>{HOME_PAGE.ecosystemHistoryLabel}</p><ul>{HISTORICAL_COMMUNITIES.map(item => <li key={item.id}>{item.name}<small>{item.years.join(" · ")}</small></li>)}</ul></div></>}
+    <div className="community-history-network"><p>{HOME_PAGE.ecosystemHistoryLabel}</p><ul>{HISTORICAL_COMMUNITIES.map(item => <li key={item.id}><div className="compact-sponsor-logo"><OrganizationLogo organization={item} /></div><span>{item.name}</span><small>{item.years.join(" · ")}</small></li>)}</ul></div></>}
   </div></section>;
 }

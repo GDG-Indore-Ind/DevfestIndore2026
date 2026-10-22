@@ -218,7 +218,8 @@
         184,
         275,
         60
-      ]
+      ],
+      "logoUrl": "/images/partners/flutterflow-archive.png"
     },
     {
       "id": "vena",
@@ -704,7 +705,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
           "order": 3
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/flutterflow-developer-group-indore-archive.png"
     },
     {
       "id": "thehackersmeetup",
@@ -719,7 +721,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "order": 1
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/thehackersmeetup-archive.png"
     },
     {
       "id": "friendsoffigma",
@@ -734,7 +737,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "order": 2
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/friendsoffigma-archive.png"
     },
     {
       "id": "indorix",
@@ -749,7 +753,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "order": 3
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/indorix-archive.png"
     },
     {
       "id": "tensorflow-user-group-indore",
@@ -764,7 +769,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
           "order": 0
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/tensorflow-user-group-indore-archive.png"
     },
     {
       "id": "gdsc-indore",
@@ -779,7 +785,8 @@
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
           "order": 1
         }
-      ]
+      ],
+      "logoUrl": "/images/partners/gdsc-indore-archive.png"
     }
   ]
 }

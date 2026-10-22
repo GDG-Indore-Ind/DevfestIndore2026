@@ -20,3 +20,7 @@ The smaller developer ecosystem row has no individual card border or background.
 - GDG Cloud Indore: the current Open Graph/profile logo from https://www.linkedin.com/company/gdgcloudindore/. Link destination: https://www.instagram.com/gdgcloudindore/, independently listed by the official GDG chapter event record: https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2024/.
 
 Community logo display windows support 1:1, 2:1 or 2.5:1 proportions; images are contained rather than stretched. Additional confirmed sponsors without a featured designation render below the two lead cards. No pending names or placeholder sponsor logos are published.
+
+## Historical artwork and retired files — 23 October 2026
+
+Historical community logo sources and the sponsor preview are recorded in [historical logos and cleanup](historical-logos-and-cleanup-2026-10-23.md). Unused website-seal artwork for Space Club was removed during cleanup; the current profile logo and the gated collaborator design remain.

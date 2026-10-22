@@ -412,7 +412,7 @@
       "id": "akash-gangrade",
       "name": "Akash Gangrade",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQHGJEYps90cFw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1701579941553?e=1793836800&v=beta&t=XsSNAFcOOhqX-anCqJ0i2EV_T23uvzUI_0at97qbPX0",
+      "avatar": "/images/team/akash-gangrade.jpg",
       "bio": "Head of technical operations, infrastructure, speaker curation, and developer experience for DevFest Indore 2026.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/akash-gangrade",
@@ -424,7 +424,7 @@
       "id": "karan-mittal",
       "name": "Karan Mittal",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFmHTvdVRzaqg/profile-displayphoto-crop_800_800/B4DaDrygFKIkAI-/0/1790662280870?e=1793836800&v=beta&t=wAmRkARi5G2UyzUaH2HbLo98qpSwHxK_xhZSwahSSdk",
+      "avatar": "/images/team/karan-mittal.png",
       "bio": "Orchestrating event partnerships, venue logistics, attendee experience, and corporate sponsorship ecosystems.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/karansmittal/",
@@ -436,7 +436,7 @@
       "id": "darshan-kusumakar",
       "name": "Darshan Kusumakar",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQE6KFwbzzji9w/profile-displayphoto-crop_800_800/B4DZyjemkxIUAI-/0/1772269247321?e=1793836800&v=beta&t=kxbtvkOm48EVe7fEtx8edkBiBlsB8z3CQSDGmjbFM0Y",
+      "avatar": "/images/team/darshan-kusumakar.png",
       "bio": "Leading developer initiatives, tech ecosystem community programs, and event coordination for GDG Indore.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/xyresic-darshan",
@@ -460,7 +460,7 @@
       "id": "yash-jain",
       "name": "Yash Jain",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQHtW7I2mgzgbA/profile-displayphoto-crop_800_800/B4DZzEangWH4AI-/0/1772821840677?e=1793836800&v=beta&t=Z0CoL3MY2T9F-Uc6Cn7IE2e5AKYD4RyVtm4lcGxn6As",
+      "avatar": "/images/team/yash-jain.png",
       "bio": "Driving developer community activations, operational frameworks, and DevFest Indore technical tracks.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/iamyashjain",
@@ -472,7 +472,7 @@
       "id": "manan-chimnani",
       "name": "Manan Chimnani",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFeUxy8bU_xhg/profile-displayphoto-crop_800_800/B4DZmgujmHH4AI-/0/1759338183910?e=1793836800&v=beta&t=qNBo5UeoblPIvISty18Dg282zMdPqM2UZF3qLAchjvQ",
+      "avatar": "/images/team/manan-chimnani.jpg",
       "bio": "Coordinating technical workshops, participant onboarding, and partner ecosystem integrations for DevFest.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/manan-chimnani/",
@@ -484,7 +484,7 @@
       "id": "vikas-ratnawat",
       "name": "Vikas Ratnawat",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQH6t0FEy-N8cQ/profile-displayphoto-crop_800_800/B4DZrAaoe2GwAM-/0/1764164799091?e=1793836800&v=beta&t=rJHqi-TiXLKsLAVXMEdIjoHALToBfMjVPZoGyRwJkM4",
+      "avatar": "/images/team/vikas-ratnawat.jpg",
       "bio": "Spearheading engineering community engagement, speaker operations, and technical logistics for GDG Indore.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/vikasratnawat/",
@@ -496,7 +496,7 @@
       "id": "shubham-sharma",
       "name": "Shubham Sharma",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFk3WZUcp3BNw/profile-displayphoto-crop_800_800/B4DaE5lY88KcAI-/0/1791967466324?e=1793836800&v=beta&t=DiXScUSyebkmWaot-rhX7j_Ra_5Y_CRo3DdQke20e3o",
+      "avatar": "/images/team/shubham-sharma.png",
       "bio": "Community builder focused on developer collaborations, track management, and student dev mentorship.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/shubham-sharma-8889893109",
@@ -508,7 +508,7 @@
       "id": "kunal-singh",
       "name": "Kunal Singh",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4E03AQG3IZ4xLfVLFg/profile-displayphoto-scale_200_200/B4EZ5q5RVjHsAc-/0/1779909862843?e=1793836800&v=beta&t=eLPEiTbDKNabfNLoCUO42b0QpbuUByMcPoX-vNguSjA",
+      "avatar": "/images/team/kunal-singh.jpg",
       "bio": "Dedicated organizer and community builder supporting event stage experiences and attendee interactions.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/kunal-singh-a066a22a0",
@@ -520,7 +520,7 @@
       "id": "tanmay-jain",
       "name": "Tanmay Jain",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D5603AQE7kLDtJ3sqJg/profile-displayphoto-scale_200_200/B56aDMrTaOKYAk-/0/1790140299961?e=1793836800&v=beta&t=gRxyUSrmKn8wndQIZHT0PO45mTtf3vfIpy1t30sigrE",
+      "avatar": "/images/team/tanmay-jain.jpg",
       "bio": "Active developer community advocate organizing hackathons, dev meetups, and open-source activities.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/tanmayjain2911/",
@@ -532,7 +532,7 @@
       "id": "mradula-mittal",
       "name": "Mradula Mittal",
       "kind": "person",
-      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      "avatar": "/images/team/mradula-mittal.jpg",
       "bio": "Mobilizing tech enthusiasts, mentoring student developers, and spearheading diversity initiatives across Central India.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/mradula-mittal/",
@@ -544,7 +544,7 @@
       "id": "aarti-jethaniya",
       "name": "Aarti Jethaniya",
       "kind": "person",
-      "avatar": "https://media.licdn.com/dms/image/v2/D4D03AQFv68FA7EzYqw/profile-displayphoto-crop_800_800/B4DaDrzqIBJsAI-/0/1790662583931?e=1793836800&v=beta&t=BgZV1Z70YWh6gpHpFTc0dRZdsujFHmxrbD3cTv4u3Os",
+      "avatar": "/images/team/aarti-jethaniya.png",
       "bio": "Technology founder, Women Techmakers Ambassador & community builder helping startups turn operational challenges into scalable technology solutions.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/aarti-jethaniya-4308211b0/",
@@ -556,7 +556,7 @@
       "id": "meenal-saxena",
       "name": "Meenal Saxena",
       "kind": "person",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "avatar": "/images/team/meenal-saxena.jpg",
       "bio": "Directing spatial aesthetics, digital design collateral, visual storytelling, and brand experience for DevFest Indore 2026.",
       "socials": {
         "linkedin": "https://www.linkedin.com/in/meenal-saxena-42035114b/",

@@ -53,7 +53,7 @@ Find the organization in `partners.json` first. Reuse its ID if it supported an 
 - Ecosystem organizations use `editionId: "ecosystem"`, `publication: "ecosystem"` and a verified `socialUrl`. Their community logos link to that social page.
 - `logoShape` supports `square`, `wide` (2:1) or `wide-large` (2.5:1) for community logo display windows.
 
-Put original image assets under `public/images/partners/` and use a path such as `/images/partners/qualcomm.png`. Existing historical sponsors use `archiveLogoWindow` to display their logo from the supplied organizer sheet; that sheet remains the provenance for those historical listings.
+Put original image assets under `public/images/partners/` and use a path such as `/images/partners/qualcomm.png`. Existing historical sponsors use `archiveLogoWindow` to display their logo from the supplied organizer sheet; that sheet remains the provenance for those historical listings. Historical communities use original `logoUrl` assets from official event records, with dates derived from their archived relationships. Home previews six past sponsors in archive order and keeps historical community logos separate from current edition announcements. See `docs/historical-logos-and-cleanup-2026-10-23.md` for artwork sources.
 
 ## Update tickets or event facts
 

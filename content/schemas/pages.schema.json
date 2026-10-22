@@ -275,7 +275,9 @@
         "heroDescription",
         "artworkCaption",
         "historyEyebrow",
-        "venueLead"
+        "venueLead",
+        "pastSponsorsTitle",
+        "pastSponsorsLink"
       ],
       "properties": {
         "programmeTitle": {
@@ -332,6 +334,12 @@
           "$ref": "#/definitions/text"
         },
         "venueLead": {
+          "$ref": "#/definitions/text"
+        },
+        "pastSponsorsTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "pastSponsorsLink": {
           "$ref": "#/definitions/text"
         }
       }

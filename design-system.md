@@ -158,3 +158,7 @@ Retain the approved orbital identity and navigation. The hero uses one artwork c
 ## Header flight navigation — 23 October 2026
 
 The rocket route is rendered inside the sticky header rather than positioned as a separate fixed strip. Its horizontal path sits on the header’s bottom border, with desktop labels above it and mobile labels revealed above on hover or keyboard focus. Keep 44px targets. Route-specific stops are passed through Navbar; short pages without stops retain their ordinary header. The browser keeps the route and header together during scrolling, including when the referral banner scrolls away. Scroll handling updates progress only; it no longer writes a header-following top position. Anchor offsets use the complete header height once.
+
+## Historical logo presentation — 23 October 2026
+
+Use original historical sponsor and community logos on contained white plates in both appearances. Keep visible organization names and edition years outside the artwork. Home shows a six-logo sponsor preview under the community photographs and retains links to the full archive and past speakers. The historical community grid has original logos as well as names and dates. Reuse OrganizationLogo for the supplied sponsor-sheet windows and standalone community images. Keep archive source links behind a native disclosure. The development indicator is hidden with Next.js configuration; errors are still surfaced.

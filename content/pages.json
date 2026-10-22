@@ -116,7 +116,9 @@
     "heroDescription": "Technical talks and hands-on labs with the developer community.",
     "artworkCaption": "Space to think. People to build with.",
     "historyEyebrow": "Our community",
-    "venueLead": "Registration opens at {{registrationTime}}."
+    "venueLead": "Registration opens at {{registrationTime}}.",
+    "pastSponsorsTitle": "Past sponsors",
+    "pastSponsorsLink": "View all sponsors"
   },
   "tickets": {
     "title": "Tickets",

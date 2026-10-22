@@ -59,6 +59,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
       if (item.publication === "confirmed" && (!organization.logoUrl || !organization.websiteUrl)) errors.push(`organization ${organization.id}: confirmed partners require a logo and website`);
       if (item.publication === "ecosystem" && (!organization.logoUrl || !organization.socialUrl)) errors.push(`organization ${organization.id}: ecosystem logos require a logo and social URL`);
       if (item.editionId === "historical" && !organization.archiveLogoWindow) errors.push(`organization ${organization.id}: logo-sheet sponsors require archiveLogoWindow`);
+      if (item.kind === "community" && item.publication === "archived" && !organization.logoUrl && !organization.archiveLogoWindow) errors.push(`organization ${organization.id}: archived communities require logo artwork`);
       if (item.featured && (item.publication !== "confirmed" || item.editionId !== event.id)) errors.push(`partnership ${item.id}: only confirmed current partners can be featured`);
     }
   }
