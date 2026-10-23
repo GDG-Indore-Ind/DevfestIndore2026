@@ -3,6 +3,7 @@
   margin-block: 24px;
 }
 .heading {
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,6 +23,8 @@
   color: var(--audience-muted);
 }
 .controls {
+  margin-left: auto;
+  max-width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -126,10 +129,12 @@
 }
 @media (max-width: 480px) {
   .controls {
+    margin-left: auto;
+    max-width: 100%;
     gap: 8px;
   }
   .controls > a {
-    max-width: 100px;
+    max-width: 100%;
   }
 }
 @media (prefers-reduced-motion: reduce) {

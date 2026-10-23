@@ -1,5 +1,6 @@
+import ContentAction from "@/components/shared/ContentAction";
 import Link from "next/link";
-import { ArrowRight, Home } from "lucide-react";
+import { Home } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
@@ -7,7 +8,12 @@ import PageIntro from "@/components/shared/PageIntro";
 export default function NotFound() {
   return (
     <div className="audience-site space-subpage">
-      <Navbar />
+      <Navbar
+        flightStops={[
+          { id: "page-overview", label: "Overview" },
+          { id: "recovery", label: "Find your way" },
+        ]}
+      />
       <main id="main-content">
         <PageIntro
           title="A little off orbit."
@@ -15,16 +21,15 @@ export default function NotFound() {
           motif="guide"
           meta="404 · Page not found"
         />
-        <section className="audience-section">
+        <section className="audience-section" id="recovery">
           <div className="audience-wrap space-recovery-actions">
             <Link href="/" className="audience-button space-primary-button">
               <Home className="audience-icon" aria-hidden="true" />
               Back to DevFest
             </Link>
-            <Link href="/#flow" className="audience-text-link">
-              Explore the programme
-              <ArrowRight className="audience-icon" aria-hidden="true" />
-            </Link>
+            <ContentAction href="/#flow" icon="themes" tone="yellow">
+              Explore the themes
+            </ContentAction>
           </div>
         </section>
       </main>

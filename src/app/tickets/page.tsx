@@ -10,7 +10,7 @@ import { TICKET_REGISTRATION } from "@/content/tickets";
 export const metadata: Metadata = {
   title: "Tickets",
   description:
-    "Compare upcoming DevFest Indore 2026 passes, eligibility, inclusions and booking information for November 28 at Essentia Luxury Hotel.",
+    "Compare DevFest Indore 2026 passes, eligibility, inclusions and booking information for November 28 at Essentia Luxury Hotel.",
 };
 
 export default function TicketsPage() {
@@ -20,7 +20,6 @@ export default function TicketsPage() {
         flightStops={[
           { id: "page-overview", label: "Your pass" },
           { id: "ticket-options", label: "Pass details" },
-          { id: "attendee-policies", label: "Before you book" },
           ...(TICKET_REGISTRATION_ENABLED
             ? [{ id: "registration", label: TICKET_REGISTRATION.widgetHeading }]
             : []),

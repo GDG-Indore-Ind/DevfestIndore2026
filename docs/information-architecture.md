@@ -53,7 +53,7 @@ Footer groups: Attend (tickets, programme, venue, questions and ticket policies)
 
 | URL | Type | Content |
 |---|---|---|
-| `/` | Landing | Five chapters; primary ticket action; secondary programme link |
+| `/` | Landing | Six chapters: launch, themes, exhibit invitation, partners, community and venue; primary ticket action |
 | `/tickets` | Current listing | Only current/next release according to time |
 | `/tickets/[former-pass-id]` | Permanent redirect | All former ticket subpages lead to `/tickets`; query values are preserved |
 | `/guidelines` | Practical guide | Profile preparation, all approved policies with explicit pass scope, conduct and support |
@@ -119,3 +119,5 @@ Implemented the approved culling plan in `content-culling-plan-2026-10-22.md`. H
 ## Header attachment correction — 23 October 2026
 
 Flight navigation now belongs to Navbar and the same sticky header as the global actions. The path aligns with its bottom border; section labels sit above that border. Main content follows the header in normal flow without a second reserved floating strip. Existing route-specific stops, return-to-top behavior, touch targets and reduced-motion behavior are retained. Selecting a section also dismisses Explore.
+
+The homepage now includes `/#exhibits` after Themes. It invites expressions of interest from individual builders, startups and companies through the organizer-supplied Google Form. The rocket navigation and Explore disclosure link to the section; the footer also links directly to the form. Exhibit copy and the URL remain canonical JSON content.

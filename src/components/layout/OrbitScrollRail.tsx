@@ -2,6 +2,7 @@
 
 import { memo, useEffect, useRef, type CSSProperties, type MouseEvent } from "react";
 import { Rocket } from "lucide-react";
+import styles from "./OrbitScrollRail.module.css";
 
 export interface FlightStop {
   id: string;
@@ -10,7 +11,8 @@ export interface FlightStop {
 
 const homeStops = [
   { id: "hero", label: "Launch" },
-  { id: "flow", label: "Programme" },
+  { id: "flow", label: "Themes" },
+  { id: "exhibits", label: "Exhibits" },
   { id: "sponsors", label: "Partners" },
   { id: "archive", label: "Community" },
   { id: "venue", label: "Venue" },
@@ -24,6 +26,7 @@ function OrbitScrollRail({
   onNavigate?: () => void;
 }) {
   const rail = useRef<HTMLDivElement>(null);
+  const caption = useRef<HTMLSpanElement>(null);
   function returnToTop(event: MouseEvent<HTMLAnchorElement>) {
     onNavigate?.();
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -64,6 +67,8 @@ function OrbitScrollRail({
       const nextId = stops[maxScroll <= 1 ? 0 : Math.min(segment, stops.length - 1)].id;
       if (nextId !== activeId) {
         activeId = nextId;
+        if (caption.current)
+          caption.current.textContent = stops.find((stop) => stop.id === nextId)?.label ?? "";
         links.forEach((link) => {
           if (link.dataset.flightStop === nextId) link.setAttribute("aria-current", "location");
           else link.removeAttribute("aria-current");
@@ -113,7 +118,7 @@ function OrbitScrollRail({
   if (!stops.length) return null;
   return (
     <div
-      className="orbital-scroll"
+      className={`orbital-scroll ${styles.root}`}
       ref={rail}
       style={
         {
@@ -122,6 +127,9 @@ function OrbitScrollRail({
         } as CSSProperties
       }
     >
+      <span ref={caption} className={styles.current} aria-hidden="true">
+        {stops[0].label}
+      </span>
       <nav className="flight-navigation" aria-label="Explore the page">
         <div className="flight-path" aria-hidden="true">
           <span className="flight-path-line" />

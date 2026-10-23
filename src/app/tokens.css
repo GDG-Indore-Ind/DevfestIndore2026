@@ -9,6 +9,10 @@
   --event-focus: #8ab4f8;
   --font-sans: "Google Sans", sans-serif;
   --font-display: "Google Sans", sans-serif;
+  --icon-blue: #185abc;
+  --icon-green: #146c36;
+  --icon-red: #b3261e;
+  --icon-yellow: #8a6000;
   --audience-bg: #fff;
   --audience-ink: #202124;
   --audience-muted: #4c5159;
@@ -57,6 +61,10 @@
   --event-focus: #174ea6;
 }
 :root[data-theme="dark"] {
+  --icon-blue: #a8c7fa;
+  --icon-green: #91d5a7;
+  --icon-red: #f28b82;
+  --icon-yellow: #f8d76d;
   --audience-bg: #10141d;
   --audience-ink: #f1f3f4;
   --audience-muted: #bdc5d3;

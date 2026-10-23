@@ -1,10 +1,10 @@
 "use client";
 
 import { EVENT } from "@/content/event";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { EventPartner } from "@/content/model";
 import {
   CONFIRMED_EVENT_PARTNERS,
@@ -15,6 +15,9 @@ import {
 import { HOME_PAGE, PARTNERS_PAGE } from "@/content/pages";
 import ExternalLink from "@/components/shared/ExternalLink";
 import LogoMarquee from "@/components/home/LogoMarquee";
+import PartnerCarousel from "@/components/home/PartnerCarousel";
+import ContentIcon from "@/components/shared/ContentIcon";
+import styles from "./SponsorShowcase.module.css";
 
 function PartnerLogo({
   item,
@@ -48,24 +51,16 @@ export default function SponsorShowcase({
   showIntro?: boolean;
   showEcosystem?: boolean;
 }) {
-  const rail = useRef<HTMLDivElement>(null);
   const featured = CONFIRMED_EVENT_PARTNERS.filter((item) => item.featured);
   const additional = CONFIRMED_EVENT_PARTNERS.filter((item) => !item.featured);
-  function move(direction: number) {
-    const node = rail.current;
-    if (!node) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    node.scrollBy({
-      left: direction * node.clientWidth,
-      behavior: reducedMotion ? "instant" : "smooth",
-    });
-  }
   return (
     <section className="audience-section event-partners-section" aria-labelledby="partners-title">
       <div className="audience-wrap">
         {!PARTNERS_PAGE.revealed ? (
           <>
-            <p className="audience-overline">{EVENT.id} partners & collaborators</p>
+            <p className="audience-overline">
+              {EVENT.id} {PARTNERS_PAGE.sectionLabel}
+            </p>
             <div className="partner-reveal">
               <div className="partner-reveal-backdrop" aria-hidden="true">
                 <span />
@@ -89,10 +84,13 @@ export default function SponsorShowcase({
         ) : (
           <>
             {showIntro ? (
-              <div className="edition-section-heading">
+              <div className={`edition-section-heading ${styles.heading}`}>
                 <div>
-                  <p className="audience-overline">{EVENT.id} partners & collaborators</p>
+                  <p className="audience-overline">
+                    {EVENT.id} {PARTNERS_PAGE.sectionLabel}
+                  </p>
                   <h2 id="partners-title">
+                    <ContentIcon name="partners" tone="yellow" heading />
                     Great missions take
                     <br />
                     more than one crew.
@@ -108,64 +106,11 @@ export default function SponsorShowcase({
               </div>
             ) : (
               <h2 id="partners-title" className="practical-partners-heading">
-                {EVENT.id} partners & collaborators
+                {EVENT.id} {PARTNERS_PAGE.sectionLabel}
               </h2>
             )}
-            {featured.length > 1 && (
-              <div className="event-partner-controls">
-                <button
-                  type="button"
-                  aria-label="Previous featured partners"
-                  onClick={() => move(-1)}
-                >
-                  <ChevronLeft aria-hidden="true" />
-                </button>
-                <button type="button" aria-label="Next featured partners" onClick={() => move(1)}>
-                  <ChevronRight aria-hidden="true" />
-                </button>
-              </div>
-            )}
-            <div
-              ref={rail}
-              className="featured-partners"
-              aria-label="Featured 2026 collaborators"
-              tabIndex={0}
-            >
-              {featured.map((item) => (
-                <article
-                  key={item.id}
-                  className={`partner-feature partner-feature-${item.featured}`}
-                >
-                  <div className="partner-feature-logo">
-                    <ExternalLink href={item.websiteUrl}>
-                      <PartnerLogo item={item} featured />
-                    </ExternalLink>
-                  </div>
-                  <div className="partner-feature-copy">
-                    <p className="partner-feature-role">{item.role}</p>
-                    <h3 className={item.featured === "technology" ? "sr-only" : undefined}>
-                      {item.name}
-                    </h3>
-                    <p className="partner-feature-description">{item.description}</p>
-                    {item.topics && (
-                      <dl className="partner-ai-topics">
-                        {item.topics.map((topic) => (
-                          <div key={topic.title}>
-                            <dt>{topic.title}</dt>
-                            <dd>{topic.text}</dd>
-                          </div>
-                        ))}
-                      </dl>
-                    )}
-                    <ExternalLink href={item.websiteUrl} className="partner-feature-link">
-                      {item.featured === "space"
-                        ? "Explore the space community"
-                        : "Explore Qualcomm AI"}
-                    </ExternalLink>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
+            <PartnerCarousel items={featured} />
             {!!additional.length && (
               <div className="additional-partners">
                 <div className="event-partner-heading">

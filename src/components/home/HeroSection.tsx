@@ -1,6 +1,6 @@
 import { EVENT, EVENT_DATE } from "@/content/event";
 import { HOME_PAGE } from "@/content/pages";
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -47,6 +47,7 @@ function SpaceArtwork() {
 }
 
 import styles from "./HeroSection.module.css";
+import ContentIcon from "@/components/shared/ContentIcon";
 
 export default function HeroSection() {
   return (
@@ -64,11 +65,11 @@ export default function HeroSection() {
           <p className="audience-body">{HOME_PAGE.heroDescription}</p>
           <div className={styles.facts}>
             <p>
-              <CalendarDays aria-hidden="true" />
+              <ContentIcon name="calendar" tone="blue" />
               <time dateTime={EVENT.startsAt}>{EVENT_DATE}</time>
             </p>
             <p>
-              <MapPin aria-hidden="true" />
+              <ContentIcon name="venue" tone="red" />
               <span>
                 {EVENT.venue.name}, {EVENT.venue.city}
               </span>
@@ -79,7 +80,7 @@ export default function HeroSection() {
               Get tickets <ArrowRight className="audience-icon" aria-hidden="true" />
             </Link>
             <a href="#flow" className="audience-button programme-outline-button">
-              Explore the programme <ArrowRight className="audience-icon" aria-hidden="true" />
+              Explore the themes <ArrowRight className="audience-icon" aria-hidden="true" />
             </a>
           </div>
         </div>

@@ -135,7 +135,10 @@
         "revealText",
         "revealButton",
         "revealLead",
-        "revealDescription"
+        "revealDescription",
+        "carousel",
+        "sectionLabel",
+        "sponsorshipText"
       ],
       "properties": {
         "title": {
@@ -198,6 +201,48 @@
           "$ref": "#/definitions/text"
         },
         "revealDescription": {
+          "$ref": "#/definitions/text"
+        },
+        "carousel": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "previousLabel",
+            "nextLabel",
+            "playLabel",
+            "pauseLabel",
+            "positionLabel",
+            "exploreLabel"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/definitions/text"
+            },
+            "previousLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "nextLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "playLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "pauseLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "positionLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "exploreLabel": {
+              "$ref": "#/definitions/text"
+            }
+          }
+        },
+        "sectionLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "sponsorshipText": {
           "$ref": "#/definitions/text"
         }
       }
@@ -287,7 +332,11 @@
         "photoArchiveLabel",
         "photoMarqueeLabel",
         "photoMarqueePauseLabel",
-        "photoMarqueePlayLabel"
+        "photoMarqueePlayLabel",
+        "themeSelectorLabel",
+        "themeSwipeHint",
+        "themeContributionLabel",
+        "exhibits"
       ],
       "properties": {
         "programmeTitle": {
@@ -379,6 +428,59 @@
         "photoMarqueePlayLabel": {
           "type": "string",
           "minLength": 1
+        },
+        "themeSelectorLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "themeSwipeHint": {
+          "$ref": "#/definitions/text"
+        },
+        "themeContributionLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "exhibits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "navigationLabel",
+            "navigationDetail",
+            "eyebrow",
+            "title",
+            "lead",
+            "body",
+            "mixLabel",
+            "buttonLabel",
+            "hint"
+          ],
+          "properties": {
+            "navigationLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "navigationDetail": {
+              "$ref": "#/definitions/text"
+            },
+            "eyebrow": {
+              "$ref": "#/definitions/text"
+            },
+            "title": {
+              "$ref": "#/definitions/text"
+            },
+            "lead": {
+              "$ref": "#/definitions/text"
+            },
+            "body": {
+              "$ref": "#/definitions/text"
+            },
+            "mixLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "buttonLabel": {
+              "$ref": "#/definitions/text"
+            },
+            "hint": {
+              "$ref": "#/definitions/text"
+            }
+          }
         }
       }
     },

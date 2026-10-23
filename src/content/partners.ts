@@ -16,6 +16,7 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
       .filter(
         (partnership) =>
           partnership.editionId === editionId &&
+          partnership.visible !== false &&
           (editionId === "ecosystem"
             ? partnership.publication === "ecosystem"
             : partnership.publication === "confirmed"),

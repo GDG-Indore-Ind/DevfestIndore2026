@@ -1,0 +1,26 @@
+.current {
+  display: none;
+}
+@media (max-width: 760px) {
+  .current {
+    display: block;
+    position: absolute;
+    inset: 0 20px auto;
+    text-align: center;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: var(--audience-blue);
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .root:has(a:is(:focus-visible, :hover)) .current {
+    visibility: hidden;
+  }
+}
+@media (max-width: 359px) {
+  .root :global(.flight-navigation) {
+    width: calc(100% - 8px);
+  }
+}

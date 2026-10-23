@@ -14,6 +14,10 @@ export const metadata: Metadata = {
 export default function PastEventsPage() {
   return (
     <CommunityPage
+      flightStops={[
+        { id: "page-overview", label: "Overview" },
+        { id: "page-directory", label: "Editions" },
+      ]}
       compact
       title="Past events"
       lead={`Our story began in ${HOME_PAGE.historySince}. Browse the recent edition records from 2022–2025.`}

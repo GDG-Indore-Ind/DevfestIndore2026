@@ -26,6 +26,10 @@ export default function KonfHubRegistration() {
           </h2>
           <p>{copy.widgetLead}</p>
         </div>
+        <div id="attendee-policies">
+          <p className={styles.referral}>{copy.profileReminder}</p>
+          <p className={styles.referral}>{copy.finalSaleText}</p>
+        </div>
         <p className={styles.terms}>
           <span aria-hidden="true">*</span>{" "}
           <Link href="/guidelines" className="audience-text-link">

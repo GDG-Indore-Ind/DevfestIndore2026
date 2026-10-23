@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HOME_PAGE } from "@/content/pages";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -27,7 +28,7 @@ export default function Footer() {
           <div className="edition-footer-group" id="tickets">
             <h2>Attend</h2>
             <Link href="/tickets">Tickets & pass details</Link>
-            <Link href="/#flow">Programme</Link>
+            <Link href="/#flow">Themes</Link>
             <Link href="/venue">Venue & directions</Link>
             <Link href="/faq">Common questions</Link>
             <Link href="/guidelines">Registration guidelines</Link>
@@ -36,6 +37,9 @@ export default function Footer() {
             <h2>Get involved</h2>
             <ExternalLink href={EVENT.links.cfp}>Speak at DevFest</ExternalLink>
             <Link href="/partners">Partners & collaborators</Link>
+            <ExternalLink href={EVENT.links.exhibitApplication}>
+              {HOME_PAGE.exhibits.buttonLabel}
+            </ExternalLink>
             <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
             <Link href="/team">Meet the team</Link>
             <ExternalLink href={EVENT.links.codeOfConduct}>Code of conduct</ExternalLink>

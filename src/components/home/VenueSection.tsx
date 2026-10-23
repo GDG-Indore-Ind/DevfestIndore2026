@@ -1,9 +1,8 @@
-import ExternalLink from "@/components/shared/ExternalLink";
 import { EVENT, REGISTRATION_TIME } from "@/content/event";
 import { HOME_PAGE } from "@/content/pages";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, MapPin, Navigation } from "lucide-react";
+import ContentAction from "@/components/shared/ContentAction";
+import ContentIcon from "@/components/shared/ContentIcon";
 
 export default function VenueSection({ showDetailsLink = true }: { showDetailsLink?: boolean }) {
   return (
@@ -15,29 +14,27 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
       <div className="audience-wrap audience-venue-grid">
         <div className="audience-section-heading">
           <p className="explore-section-eyebrow">Getting here</p>
-          <h2 id="venue-title">See you at Essentia.</h2>
+          <h2 id="venue-title">
+            <ContentIcon name="venue" tone="red" heading />
+            See you at Essentia.
+          </h2>
           <p className="venue-lead">
             {HOME_PAGE.venueLead.replace("{{registrationTime}}", REGISTRATION_TIME)}
           </p>
 
           <address className="audience-body venue-address">
-            <MapPin className="audience-icon" aria-hidden="true" />
+            <ContentIcon name="venue" tone="red" />
             <span>{EVENT.venue.address}</span>
           </address>
 
           <div className="venue-actions">
-            <ExternalLink
-              href={EVENT.venue.mapUrl}
-              className="audience-button venue-directions-btn"
-            >
-              <Navigation className="audience-icon" aria-hidden="true" />
+            <ContentAction href={EVENT.venue.mapUrl} icon="directions" tone="green" external>
               Get directions
-            </ExternalLink>
+            </ContentAction>
             {showDetailsLink && (
-              <Link href="/venue" className="audience-button programme-outline-button">
+              <ContentAction href="/venue" icon="venue" tone="red">
                 Plan your arrival
-                <ArrowRight className="audience-icon" aria-hidden="true" />
-              </Link>
+              </ContentAction>
             )}
           </div>
         </div>

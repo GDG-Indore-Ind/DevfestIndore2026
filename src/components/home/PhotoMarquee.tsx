@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import ContentAction from "@/components/shared/ContentAction";
+import { Pause, Play } from "lucide-react";
 import { GALLERY_PHOTOS } from "@/content/gallery";
 import { HOME_PAGE } from "@/content/pages";
 import styles from "./PhotoMarquee.module.css";
@@ -46,10 +46,9 @@ export default function PhotoMarquee() {
   return (
     <div className={styles.root}>
       <div className={styles.heading}>
-        <Link href="/gallery" className="audience-text-link">
+        <ContentAction href="/gallery" icon="gallery" tone="green">
           {HOME_PAGE.photoArchiveLabel}
-          <ArrowUpRight className="audience-icon" aria-hidden="true" />
-        </Link>
+        </ContentAction>
         <button
           type="button"
           className={styles.toggle}

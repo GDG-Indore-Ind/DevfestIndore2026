@@ -127,6 +127,10 @@
                     "space",
                     "technology"
                   ]
+                },
+                "visible": {
+                  "type": "boolean",
+                  "description": "Whether this confirmed partnership is publicly revealed. Defaults to true."
                 }
               },
               "required": [

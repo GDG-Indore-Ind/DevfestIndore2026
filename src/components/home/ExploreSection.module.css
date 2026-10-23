@@ -1,0 +1,263 @@
+.root {
+  padding-block: 44px;
+}
+.heading {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+  align-items: baseline;
+}
+.heading h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.heading > p {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+.selectionWindow {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding: 4px 0 12px;
+  margin-bottom: 12px;
+}
+.selector {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-width: 840px;
+  padding-top: 32px;
+}
+.selector,
+.button,
+.story {
+  --theme-accent: var(--icon-blue);
+  --theme-surface: var(--space-panel);
+}
+.selector[data-color="red"],
+.button[data-color="red"],
+.story[data-color="red"] {
+  --theme-accent: var(--icon-red);
+  --theme-surface: var(--space-soft-red);
+}
+.selector[data-color="yellow"],
+.button[data-color="yellow"],
+.story[data-color="yellow"] {
+  --theme-accent: var(--icon-yellow);
+  --theme-surface: var(--space-warm);
+}
+.selector[data-color="green"],
+.button[data-color="green"],
+.story[data-color="green"] {
+  --theme-accent: var(--icon-green);
+  --theme-surface: var(--space-soft-green);
+}
+.flightPath {
+  position: absolute;
+  top: 12px;
+  left: 12.5%;
+  right: 12.5%;
+  border-top: 1px dashed var(--audience-line);
+}
+.rocketPosition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 25%;
+  transform: translateX(calc(var(--active-theme) * 100%));
+  transition: transform 280ms ease-out;
+  color: var(--theme-accent);
+}
+.rocketPosition svg {
+  width: 26px;
+  height: 26px;
+  background: var(--audience-bg);
+  padding: 2px;
+  transform: rotate(45deg);
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-inline: 6px;
+  padding: 12px 16px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--space-control-radius);
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.button > svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--theme-accent);
+  stroke-width: 1.75;
+}
+.button[aria-pressed="true"] {
+  border-color: var(--theme-accent);
+  box-shadow: inset 0 0 0 1px var(--theme-accent);
+  background: var(--audience-tint);
+}
+.button:hover {
+  background: var(--audience-tint);
+}
+.button:focus-visible {
+  outline: 2px solid var(--audience-blue);
+  outline-offset: 3px;
+}
+.swipeHint {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: 0.8125rem;
+}
+.story {
+  display: grid;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--audience-tint);
+  animation: arrive 240ms ease-out both;
+}
+.scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 210px;
+  overflow: hidden;
+  background: var(--theme-surface);
+  color: var(--audience-ink);
+}
+.story[data-color="yellow"] .scene {
+  color: var(--space-warm-ink);
+}
+.lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.35;
+}
+.node {
+  fill: var(--theme-accent);
+  stroke: none;
+}
+.core {
+  display: grid;
+  place-items: center;
+  width: 78px;
+  height: 78px;
+  border: 1px solid currentColor;
+  border-radius: 24px;
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  transform: rotate(-8deg);
+}
+.core > svg {
+  width: 42px;
+  height: 42px;
+  transform: rotate(8deg);
+}
+.signal {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 20px;
+  text-align: center;
+  font-size: 0.6875rem;
+}
+.storyCopy {
+  padding: 24px;
+  align-content: center;
+}
+.storyCopy h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.25;
+  font-weight: 500;
+  text-wrap: balance;
+}
+.storyCopy > p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  padding-block: 6px;
+  border-bottom: 1px solid var(--audience-line);
+  color: var(--audience-muted);
+  font-size: 0.8125rem;
+}
+.contribution {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+}
+.contribution p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: 0.875rem;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (min-width: 761px) {
+  .heading {
+    grid-template-columns: 1fr auto;
+  }
+  .story {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    min-height: 310px;
+  }
+  .scene {
+    min-height: 310px;
+  }
+  .storyCopy {
+    padding: 32px;
+  }
+}
+@media (min-width: 920px) {
+  .swipeHint {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rocketPosition {
+    transition: none;
+  }
+  .story {
+    animation: none;
+  }
+}

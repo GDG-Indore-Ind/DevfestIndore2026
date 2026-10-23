@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ContentAction from "@/components/shared/ContentAction";
 import { ArrowRight, Clock3, MapPin, Navigation } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
@@ -87,10 +87,9 @@ export default function VenuePage() {
               </div>
               <h3>{page.entryTitle}</h3>
               <p className="audience-body">{page.entrySummary}</p>
-              <Link href="/guidelines#entry" className="audience-text-link">
+              <ContentAction href="/guidelines#entry" icon="guidelines" tone="blue">
                 Registration guidelines
-                <ArrowRight className="audience-icon" aria-hidden="true" />
-              </Link>
+              </ContentAction>
               <div className="practical-support">
                 <p>{page.supportText}</p>
                 <a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">

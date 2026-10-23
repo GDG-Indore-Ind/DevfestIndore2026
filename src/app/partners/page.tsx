@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import ContentAction from "@/components/shared/ContentAction";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
@@ -11,7 +10,7 @@ import { pageMetadata } from "@/lib/pageMetadata";
 
 export const metadata = pageMetadata(
   "/partners",
-  "Partners & collaborators",
+  page.sectionLabel,
   page.revealed ? page.description : page.revealDescription,
 );
 
@@ -70,14 +69,12 @@ export default function PartnersPage() {
           </div>
         </section>
         <div className="audience-wrap practical-next-links">
-          <Link href="/past-events" className="audience-text-link">
+          <ContentAction href="/past-events" icon="history" tone="blue">
             {page.archiveLabel}
-            <ArrowRight className="audience-icon" aria-hidden="true" />
-          </Link>
-          <Link href="/team" className="audience-text-link">
+          </ContentAction>
+          <ContentAction href="/team" icon="people" tone="green">
             Meet the team
-            <ArrowRight className="audience-icon" aria-hidden="true" />
-          </Link>
+          </ContentAction>
         </div>
       </main>
       <Footer />

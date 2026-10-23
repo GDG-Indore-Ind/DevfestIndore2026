@@ -22,7 +22,15 @@ export default function GalleryPage() {
     dialog.current?.showModal();
   }
   return (
-    <CommunityPage motif="photos" title={HOME_PAGE.galleryTitle} lead={HOME_PAGE.galleryLead}>
+    <CommunityPage
+      flightStops={[
+        { id: "page-overview", label: "Overview" },
+        { id: "page-directory", label: "Photos" },
+      ]}
+      motif="photos"
+      title={HOME_PAGE.galleryTitle}
+      lead={HOME_PAGE.galleryLead}
+    >
       <ArchiveNav current="/gallery" />
       {categories.length > 2 && (
         <div className="community-filters" role="group" aria-label="Filter photographs">

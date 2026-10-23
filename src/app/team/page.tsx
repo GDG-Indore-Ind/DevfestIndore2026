@@ -12,7 +12,15 @@ export default function TeamPage() {
   const categories = ["All", ...new Set(TEAM.map((member) => member.team))];
   const members = TEAM.filter((member) => category === "All" || member.team === category);
   return (
-    <CommunityPage compact title="The team" lead="The people bringing DevFest Indore together.">
+    <CommunityPage
+      flightStops={[
+        { id: "page-overview", label: "Overview" },
+        { id: "page-directory", label: "The team" },
+      ]}
+      compact
+      title="The team"
+      lead="The people bringing DevFest Indore together."
+    >
       <div className="compact-directory-toolbar">
         <div className="community-filters" role="group" aria-label="Filter organizers by team">
           {categories.map((item) => (

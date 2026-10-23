@@ -1,0 +1,84 @@
+.root {
+  padding-block: 16px 32px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--audience-line);
+  border-radius: 24px;
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+}
+.card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.audience {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--audience-muted);
+}
+.benefits {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.benefits li {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.benefits svg {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: var(--audience-blue);
+}
+.details {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--audience-muted);
+}
+.details summary {
+  cursor: pointer;
+  min-height: 44px;
+  align-content: center;
+  color: var(--audience-ink);
+}
+.details h3 {
+  margin: 16px 0 4px;
+  font-size: 0.9375rem;
+}
+.details p {
+  margin: 8px 0;
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.register {
+  width: 100%;
+  min-height: 48px;
+  margin-top: auto;
+  font-size: 1rem;
+}

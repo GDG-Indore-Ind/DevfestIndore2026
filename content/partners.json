@@ -13,7 +13,8 @@
           "role": "Space collaborator",
           "publication": "confirmed",
           "order": 0,
-          "featured": "space"
+          "featured": "space",
+          "visible": true
         }
       ],
       "logoUrl": "/images/partners/space-club-current.jpg",
@@ -31,7 +32,8 @@
           "role": "Expo booth & speaker participation",
           "publication": "confirmed",
           "order": 1,
-          "featured": "technology"
+          "featured": "technology",
+          "visible": false
         }
       ],
       "logoUrl": "/images/partners/qualcomm.png",

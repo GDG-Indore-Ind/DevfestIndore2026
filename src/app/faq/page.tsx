@@ -1,3 +1,4 @@
+import ContentAction from "@/components/shared/ContentAction";
 import type { Metadata } from "next";
 import { EVENT } from "@/content/event";
 import { FAQ_PAGE as page } from "@/content/pages";
@@ -5,8 +6,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import FaqSection from "@/components/shared/FaqSection";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Common questions",
@@ -31,14 +30,12 @@ export default function FaqPage() {
           <FaqSection kind="tickets" />
         </div>
         <div className="audience-wrap practical-next-links">
-          <Link href="/guidelines" className="audience-text-link">
+          <ContentAction href="/guidelines" icon="guidelines" tone="blue">
             Full registration guidelines
-            <ArrowRight className="audience-icon" aria-hidden="true" />
-          </Link>
-          <Link href="/venue" className="audience-text-link">
+          </ContentAction>
+          <ContentAction href="/venue" icon="venue" tone="red">
             Venue & directions
-            <ArrowRight className="audience-icon" aria-hidden="true" />
-          </Link>
+          </ContentAction>
         </div>
         <div className="audience-wrap faq-support-line">
           <p>{page.contactText}</p>

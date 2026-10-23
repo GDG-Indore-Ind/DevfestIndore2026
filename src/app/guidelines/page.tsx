@@ -1,3 +1,4 @@
+import ContentAction from "@/components/shared/ContentAction";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
@@ -15,7 +16,16 @@ export const metadata = pageMetadata("/guidelines", page.title, page.description
 export default function GuidelinesPage() {
   return (
     <div className="audience-site space-subpage practical-page">
-      <Navbar />
+      <Navbar
+        flightStops={[
+          { id: "page-overview", label: "Overview" },
+          { id: "before-booking", label: "Before booking" },
+          { id: "entry", label: "Check-in" },
+          { id: "eligibility", label: "Pass requirements" },
+          { id: "ticket-policy", label: "Ticket policy" },
+          { id: "support", label: "Help & conduct" },
+        ]}
+      />
       <main id="main-content">
         <PageIntro
           title={page.title}
@@ -89,14 +99,12 @@ export default function GuidelinesPage() {
               </section>
             ))}
             <div className="practical-next-links">
-              <Link href="/venue" className="audience-text-link">
+              <ContentAction href="/venue" icon="venue" tone="red">
                 Plan your arrival
-                <ArrowRight className="audience-icon" aria-hidden="true" />
-              </Link>
-              <Link href="/faq" className="audience-text-link">
+              </ContentAction>
+              <ContentAction href="/faq" icon="guidelines" tone="green">
                 Common questions
-                <ArrowRight className="audience-icon" aria-hidden="true" />
-              </Link>
+              </ContentAction>
             </div>
           </div>
         </div>

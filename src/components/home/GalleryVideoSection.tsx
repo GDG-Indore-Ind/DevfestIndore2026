@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowUpRight, History, Users } from "lucide-react";
+import ContentAction from "@/components/shared/ContentAction";
+import ContentIcon from "@/components/shared/ContentIcon";
 import PhotoMarquee from "./PhotoMarquee";
 import { DEVFEST_EDITIONS } from "@/content/archive";
 import { HOME_PAGE } from "@/content/pages";
@@ -20,7 +21,10 @@ export default function GalleryVideoSection() {
         <div className="edition-section-heading history-heading">
           <div>
             <p className="audience-overline">{HOME_PAGE.historyEyebrow}</p>
-            <h2 id="community-title">{HOME_PAGE.historyTitle}</h2>
+            <h2 id="community-title">
+              <ContentIcon name="people" tone="green" heading />
+              {HOME_PAGE.historyTitle}
+            </h2>
           </div>
           <p className="audience-body">{HOME_PAGE.historyLead}</p>
         </div>
@@ -61,40 +65,19 @@ export default function GalleryVideoSection() {
             label={HOME_PAGE.pastSponsorsTitle}
             items={HISTORICAL_SPONSORS.slice(0, 6)}
             action={
-              <Link href="/past-sponsors" className="audience-text-link">
+              <ContentAction href="/past-sponsors" icon="partners" tone="yellow">
                 {HOME_PAGE.pastSponsorsLink}
-                <ArrowUpRight className="audience-icon" aria-hidden="true" />
-              </Link>
+              </ContentAction>
             }
           />
         </div>
-        <nav
-          className="history-directory-links"
-          aria-label="People and organizations from previous editions"
-        >
-          {[
-            {
-              href: "/past-events",
-              label: "Past events",
-              detail: "Recent edition records",
-              Icon: History,
-            },
-            {
-              href: "/past-speakers",
-              label: "Past speakers",
-              detail: "People & sessions",
-              Icon: Users,
-            },
-          ].map(({ href, label, detail, Icon }) => (
-            <Link href={href} key={href}>
-              <Icon aria-hidden="true" />
-              <span>
-                {label}
-                <small>{detail}</small>
-              </span>
-              <ArrowUpRight aria-hidden="true" />
-            </Link>
-          ))}
+        <nav className="venue-actions" aria-label="Explore previous editions">
+          <ContentAction href="/past-events" icon="history">
+            Past events
+          </ContentAction>
+          <ContentAction href="/past-speakers" icon="people" tone="green">
+            Past speakers
+          </ContentAction>
         </nav>
       </div>
     </section>

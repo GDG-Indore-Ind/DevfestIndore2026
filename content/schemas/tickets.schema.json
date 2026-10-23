@@ -33,7 +33,7 @@
             "minLength": 1
           },
           "visible": {
-            "description": "Show this pass card on the public tickets page. Future release dates control when it can be booked.",
+            "description": "Show this pass card on the public tickets page. Register links hand off availability to KonfHub.",
             "type": "boolean"
           },
           "summary": {

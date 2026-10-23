@@ -48,7 +48,16 @@ export default function PastSpeakersPage() {
         ),
     );
   return (
-    <CommunityPage compact motif="people" title={page.title} lead={page.lead}>
+    <CommunityPage
+      flightStops={[
+        { id: "page-overview", label: "Overview" },
+        { id: "page-directory", label: "Speakers" },
+      ]}
+      compact
+      motif="people"
+      title={page.title}
+      lead={page.lead}
+    >
       <div className="speaker-directory">
         <ArchiveNav current="/past-speakers" />
         <div className="community-search-row">

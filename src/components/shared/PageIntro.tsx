@@ -1,24 +1,24 @@
 import type { ReactNode } from "react";
-import { CalendarDays, Compass, Handshake, Images, Orbit, Rocket, Users } from "lucide-react";
+import ContentIcon, { type ContentIconName, type IconTone } from "./ContentIcon";
 
 const marks = {
-  orbit: Orbit,
-  people: Users,
-  photos: Images,
-  events: CalendarDays,
-  partners: Handshake,
-  tickets: Rocket,
-  guide: Compass,
-};
+  orbit: ["themes", "blue"],
+  people: ["people", "green"],
+  photos: ["gallery", "yellow"],
+  events: ["calendar", "blue"],
+  partners: ["partners", "yellow"],
+  tickets: ["rocket", "red"],
+  guide: ["guidelines", "green"],
+} satisfies Record<string, [ContentIconName, IconTone]>;
 export type PageMotif = keyof typeof marks;
 
 export function PageMark({ motif = "orbit" }: { motif?: PageMotif }) {
-  const Icon = marks[motif];
+  const [icon, tone] = marks[motif];
   return (
     <div className={`space-page-mark space-page-mark-${motif}`} aria-hidden="true">
       <span className="space-mark-orbit" />
       <span className="space-mark-core">
-        <Icon />
+        <ContentIcon name={icon} tone={tone} />
       </span>
       <svg viewBox="0 0 40 40" className="space-mark-star" focusable="false">
         <path

@@ -1,12 +1,13 @@
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/home/HeroSection";
+import ExhibitsSection from "@/components/home/ExhibitsSection";
 import ExploreSection from "@/components/home/ExploreSection";
 import GalleryVideoSection from "@/components/home/GalleryVideoSection";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import VenueSection from "@/components/home/VenueSection";
 import Footer from "@/components/layout/Footer";
 
-const visibleAnchors = ["hero", "flow", "sponsors", "archive", "venue"];
+const visibleAnchors = ["hero", "flow", "exhibits", "sponsors", "archive", "venue"];
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <div>
           <ExploreSection />
         </div>
+        <ExhibitsSection />
         <div id="sponsors">
           <SponsorShowcase />
         </div>

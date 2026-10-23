@@ -1,10 +1,4 @@
-import { DEVFEST_EDITIONS } from "@/content/archive";
-import {
-  HISTORICAL_SPONSORS,
-  ARCHIVED_COMMUNITIES,
-  ARCHIVE_LOGO_SHEET,
-  getCommunityUrl,
-} from "@/content/partners";
+import { HISTORICAL_SPONSORS, ARCHIVED_COMMUNITIES, getCommunityUrl } from "@/content/partners";
 import ExternalLink from "@/components/shared/ExternalLink";
 import OrganizationLogo from "@/components/shared/OrganizationLogo";
 
@@ -42,17 +36,6 @@ export default function PastOrganizations() {
             ))}
         </ul>
       </section>
-      <div className="compact-archive-footnote">
-        <details>
-          <summary>Archive sources</summary>
-          <a href={ARCHIVE_LOGO_SHEET}>Sponsor artwork</a>
-          {DEVFEST_EDITIONS.map((event) => (
-            <ExternalLink key={event.id} href={event.source}>
-              {event.id} event record
-            </ExternalLink>
-          ))}
-        </details>
-      </div>
     </>
   );
 }

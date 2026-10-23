@@ -13,12 +13,14 @@ import {
   Users,
   Handshake,
   Layers,
+  Monitor,
   Images,
   ClipboardCheck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { HOME_PAGE } from "@/content/pages";
 import ThemeChoice from "@/components/layout/ThemeChoice";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -34,7 +36,7 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
     {
       href: "/tickets",
       label: "Tickets & pass details",
-      detail: "Release dates, eligibility and booking information",
+      detail: "Pass inclusions, eligibility and booking information",
       Icon: Rocket,
     },
     {
@@ -54,9 +56,16 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
     {
       anchor: "flow",
       href: "/#flow",
-      label: "Programme",
+      label: "Themes",
       detail: "Four frontiers · agenda coming soon",
       Icon: Layers,
+    },
+    {
+      anchor: "exhibits",
+      href: "/#exhibits",
+      label: HOME_PAGE.exhibits.navigationLabel,
+      detail: HOME_PAGE.exhibits.navigationDetail,
+      Icon: Monitor,
     },
     {
       anchor: "venue",
@@ -157,7 +166,7 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
           <SocialLinks primaryOnly className="header-socials" />
           <div className="header-utilities">
             <Link href="/#flow" className="space-header-programme">
-              Programme
+              Themes
             </Link>
             <ThemeChoice />
             <button

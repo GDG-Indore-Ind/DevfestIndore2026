@@ -1,8 +1,7 @@
+import ContentAction from "@/components/shared/ContentAction";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
 import CommunityPage from "@/components/layout/CommunityPage";
 import ExternalLink from "@/components/shared/ExternalLink";
 import { DEVFEST_EDITIONS } from "@/content/archive";
@@ -29,12 +28,21 @@ export default async function EditionPage({ params }: Props) {
     ).values(),
   ];
   return (
-    <CommunityPage compact title={event.title} lead={`${event.displayDate} · ${event.venue}`}>
+    <CommunityPage
+      flightStops={[
+        { id: "page-overview", label: "Overview" },
+        { id: "page-directory", label: "Highlights" },
+        ...(speakers.length ? [{ id: "edition-speakers", label: "Speakers" }] : []),
+        { id: "edition-partners", label: "Partners" },
+      ]}
+      compact
+      title={event.title}
+      lead={`${event.displayDate} · ${event.venue}`}
+    >
       <div className="compact-edition-links">
-        <Link href="/past-events" className="audience-text-link">
-          <ArrowLeft className="audience-icon" aria-hidden="true" />
+        <ContentAction href="/past-events" icon="history" tone="blue">
           All editions
-        </Link>
+        </ContentAction>
         <ExternalLink href={event.source}>Official event record</ExternalLink>
       </div>
       <div className="compact-edition-highlights">
@@ -72,9 +80,9 @@ export default async function EditionPage({ params }: Props) {
           ))}
         </ul>
       </section>
-      <Link href="/past-speakers" className="audience-text-link">
+      <ContentAction href="/past-speakers" icon="people" tone="green">
         Browse past speakers
-      </Link>
+      </ContentAction>
     </CommunityPage>
   );
 }

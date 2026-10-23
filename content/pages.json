@@ -57,10 +57,10 @@
   },
   "partners": {
     "title": "Build this edition with us.",
-    "description": "Meet the confirmed partners and collaborators of DevFest Indore 2026 and apply to contribute to this edition.",
-    "lead": "Technology, expertise and community. Meet the collaborators contributing to DevFest Indore 2026, and find your way to get involved.",
+    "description": "Meet the sponsors and collaborators contributing to DevFest Indore 2026, and explore sponsorship and partnership opportunities.",
+    "lead": "Support, expertise and community. Meet this edition’s collaborators and explore how your organization can help bring DevFest Indore to life.",
     "applicationTitle": "How you can contribute",
-    "applicationText": "Share your organization’s ideas through the partner form. Our team will follow up to explore the right fit.",
+    "applicationText": "Interested in sponsoring or partnering with DevFest Indore? Share what you have in mind through the form, and we’ll explore the right fit together.",
     "applicationPoints": [
       {
         "title": "Share your expertise",
@@ -72,18 +72,29 @@
       },
       {
         "title": "Support the experience",
-        "text": "Discuss how your organization could support the event and its attendees."
+        "text": "Financial sponsorship helps bring this edition to life for the developer community. Let’s explore how your organization can contribute."
       }
     ],
-    "applicationButton": "Be our partner",
+    "applicationButton": "Sponsor or partner with us",
     "contactText": "Questions before applying?",
     "archiveLabel": "Explore previous editions",
-    "revealed": false,
+    "revealed": true,
     "revealTitle": "A few surprises.",
-    "revealText": "Partner announcements are coming soon. Help shape this edition with us.",
-    "revealButton": "Be our partner",
-    "revealLead": "Contribute expertise, connect communities or support the event. Partner announcements are coming soon.",
-    "revealDescription": "Explore the DevFest Indore community and apply to partner with this edition. Partner announcements are coming soon."
+    "revealText": "Sponsor and partner announcements are coming soon. Help bring this edition to life with us.",
+    "revealButton": "Sponsor or partner with us",
+    "revealLead": "Support the event through sponsorship, contribute expertise or connect communities. Announcements are coming soon.",
+    "revealDescription": "Explore sponsorship and partnership opportunities with DevFest Indore 2026. Announcements are coming soon.",
+    "carousel": {
+      "label": "Featured partners and collaborators",
+      "previousLabel": "Previous partner",
+      "nextLabel": "Next partner",
+      "playLabel": "Play partner slideshow",
+      "pauseLabel": "Pause partner slideshow",
+      "positionLabel": "Choose a partner",
+      "exploreLabel": "Explore partner"
+    },
+    "sectionLabel": "Sponsors & partners",
+    "sponsorshipText": "Help bring this edition to life. Sponsor DevFest Indore and support the developer community behind it."
   },
   "venue": {
     "title": "Plan your arrival.",
@@ -99,7 +110,7 @@
     "entrySummary": "Bring your QR ticket and an original physical government-issued photo ID matching your registration. Check any additional requirements for your pass."
   },
   "home": {
-    "programmeTitle": "Programme",
+    "programmeTitle": "Themes",
     "programmeTagline": "New frontiers.",
     "programmeStatus": "Agenda & speakers coming soon.",
     "historySince": 2014,
@@ -126,11 +137,25 @@
     "photoArchiveLabel": "Photo archive",
     "photoMarqueeLabel": "Community event photographs",
     "photoMarqueePauseLabel": "Pause photos",
-    "photoMarqueePlayLabel": "Play photos"
+    "photoMarqueePlayLabel": "Play photos",
+    "themeSelectorLabel": "Explore the themes",
+    "themeSwipeHint": "Swipe to explore the themes",
+    "themeContributionLabel": "Bring it to the stage",
+    "exhibits": {
+      "navigationLabel": "Exhibits",
+      "navigationDetail": "Share your interest in exhibiting at DevFest",
+      "eyebrow": "Call for exhibits",
+      "title": "Bring what you’re building.",
+      "lead": "Software, physical AI, space technology—or something we haven’t imagined yet.",
+      "body": "We’re inviting developers, makers, startups and companies to share their interest in exhibiting at DevFest Indore. Bring a live demo, a working prototype or a product you’d love the community to experience.",
+      "mixLabel": "One space. Many possibilities.",
+      "buttonLabel": "Exhibit at DevFest",
+      "hint": "Tell us what you’re building through the exhibit interest form."
+    }
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "Compare upcoming passes, check eligibility and inclusions, then book through KonfHub.",
+    "lead": "Compare passes, check eligibility and inclusions, then book through KonfHub.",
     "endedLead": "No passes are currently listed. Contact the organizers for booking help.",
     "supportText": "Questions about your booking?",
     "guidelinesLabel": "Registration guidelines"

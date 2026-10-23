@@ -139,6 +139,7 @@ export interface SessionRecord {
   tags?: string[];
 }
 export interface Partnership {
+  visible?: boolean;
   id: string;
   editionId: string;
   kind: "sponsor" | "collaborator" | "community" | "media";

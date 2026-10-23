@@ -52,8 +52,7 @@
         "Full-day conference admission and breakout room access",
         "Priority partner networking zones",
         "Delegate kit, lunch and refreshments",
-        "Automatic team discounts at checkout",
-        "Corporate tax invoice available at checkout"
+        "Automatic team discounts and corporate tax invoice available at checkout"
       ],
       "note": "Volume discounts apply when booking multiple passes for engineering teams and startups. The checkout will show the applicable discount.",
       "summary": "Conference and breakout access, partner networking, a delegate kit and meals. Team bookings welcome."
@@ -69,20 +68,19 @@
       "closesAt": "2026-11-28T23:00:00+05:30",
       "eligibility": "Curated for founders, senior technical leadership and ecosystem partners. A private VIP access code is required to unlock booking in the ticket section on KonfHub.",
       "benefits": [
-        "Dedicated, expedited VIP registration desk",
-        "Reserved front-row seating across keynotes and tracks",
+        "Expedited VIP registration and reserved front-row seating across keynotes and tracks",
         "All-day Speaker & Partner Networking Lounge access",
         "Exclusive evening mixer",
         "Premium VIP delegate kit"
       ],
-      "note": "Have a private VIP access code? Enter it in the KonfHub ticket section when this release opens. The code does not replace a completed registration.",
+      "note": "Have a private VIP access code? Enter it in the KonfHub ticket section to check availability. The code does not replace a completed registration.",
       "summary": "Reserved seating, the speaker and partner lounge, an evening mixer and a premium kit. Private access code required."
     },
     {
       "id": "last-orbit",
       "name": "Last Orbit Pass",
       "audience": "Final general release",
-      "visible": true,
+      "visible": false,
       "allocation": 100,
       "description": "A final chance to join, subject to venue capacity.",
       "opensAt": "2026-11-20T00:00:00+05:30",
@@ -99,7 +97,7 @@
       "id": "observer",
       "name": "Observer Pass",
       "audience": "Sessions only",
-      "visible": true,
+      "visible": false,
       "allocation": 100,
       "description": "For community walk-ins attending main auditorium keynotes and open tracks.",
       "opensAt": "2026-11-26T00:00:00+05:30",
