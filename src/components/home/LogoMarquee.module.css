@@ -1,0 +1,147 @@
+.root {
+  min-width: 0;
+  margin-block: 24px;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.heading h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+}
+.heading p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 4px 0 0;
+  color: var(--audience-muted);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.controls > a {
+  min-height: 44px;
+  font-size: 0.875rem;
+}
+.toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--audience-line);
+  border-radius: 50%;
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  cursor: pointer;
+}
+.toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.window {
+  overflow: hidden;
+  padding-block: 8px;
+}
+.track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee-travel 42s linear infinite;
+}
+.group {
+  display: flex;
+  gap: 20px;
+  flex: 0 0 auto;
+  padding: 0 20px 0 0;
+  margin: 0;
+  list-style: none;
+}
+.group li {
+  flex: 0 0 180px;
+  width: 180px;
+}
+.root .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 180px;
+  min-height: 120px;
+  color: var(--audience-ink);
+  text-decoration: none;
+  text-align: center;
+}
+.plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 52px;
+  padding: 6px 12px;
+  background: var(--space-white);
+  border: 1px solid var(--audience-line);
+  border-radius: 10px;
+}
+.plate > :is(img, svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.name {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  max-width: 23ch;
+}
+.item small {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--audience-muted);
+}
+.item > :global(.audience-icon) {
+  display: none;
+}
+.root:hover .track,
+.window:focus-within .track,
+.track[data-paused="true"] {
+  animation-play-state: paused;
+}
+.item:hover .name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@keyframes logo-marquee-travel {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 480px) {
+  .controls {
+    gap: 8px;
+  }
+  .controls > a {
+    max-width: 100px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+  .toggle,
+  .group[aria-hidden="true"],
+  .group li[data-repeat="true"] {
+    display: none;
+  }
+  .window {
+    overflow-x: auto;
+  }
+}

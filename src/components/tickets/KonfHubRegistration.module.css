@@ -1,0 +1,72 @@
+:global(.ticket-journey) .root {
+  padding-block: 24px 40px;
+}
+.heading h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+.heading h2 sup {
+  font-size: 0.875rem;
+  margin-left: 3px;
+}
+.heading p {
+  margin: 0;
+  color: var(--audience-muted);
+  line-height: 1.6;
+}
+.terms {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  margin: 4px 0 16px;
+}
+.terms a {
+  min-height: 44px;
+}
+.referral {
+  margin: 0 0 20px;
+  color: var(--audience-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.referral strong {
+  color: var(--audience-ink);
+}
+.window {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--space-window-radius);
+  background: var(--space-white);
+  color-scheme: light;
+}
+.window iframe {
+  display: block;
+  width: 100%;
+  height: 650px;
+  border: 0;
+}
+.fallback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 20px;
+  margin-top: 16px;
+}
+.fallback p {
+  color: var(--audience-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}
+.fallback a {
+  min-height: 44px;
+  font-size: 0.875rem;
+}
+@media (min-width: 761px) {
+  .window iframe {
+    height: 540px;
+  }
+}

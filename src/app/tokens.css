@@ -1,0 +1,80 @@
+/* Shared theme tokens. Edit values here, not in component or refinement stylesheets. */
+:root {
+  --google-blue: #4285f4;
+  --google-green: #34a853;
+  --google-yellow: #f9ab00;
+  --google-red: #ea4335;
+  --page-bg: #000000;
+  --text-primary: #ffffff;
+  --event-focus: #8ab4f8;
+  --font-sans: "Google Sans", sans-serif;
+  --font-display: "Google Sans", sans-serif;
+  --audience-bg: #fff;
+  --audience-ink: #202124;
+  --audience-muted: #4c5159;
+  --audience-line: #dadce0;
+  --audience-tint: #f2f6fc;
+  --audience-blue: #185abc;
+  --audience-on-blue: #fff;
+  --audience-hero-bg: #edf5ff;
+  --audience-width: 1160px;
+  --audience-small: 0.875rem;
+  --audience-body: 1rem;
+  --audience-lead: 1.125rem;
+  --audience-h3: 1.375rem;
+  --audience-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --audience-h1: clamp(2.75rem, 6vw, 4.5rem);
+  --mission-grid: #20212412;
+  --mission-orbit: #b8c4d5;
+  --mission-blue: #185abc;
+  --mission-yellow: #765700;
+  --mission-green: #146c36;
+  --engineering-rule: #b9c5ce;
+  --engineering-paper: #f5f7f8;
+  --engineering-mono: var(--font-sans);
+  --space-black: #111214;
+  --space-white: #ffffff;
+  --space-blue: #4285f4;
+  --space-red: #ea4335;
+  --space-yellow: #fbbc04;
+  --space-green: #34a853;
+  --space-panel: #e9efff;
+  --space-panel-ink: #14264c;
+  --space-warm: #fff7df;
+  --space-warm-ink: #3e3215;
+  --space-soft-red: #fce9e7;
+  --space-soft-green: #e7f2e9;
+  --space-control-radius: 999px;
+  --space-window-radius: 24px;
+  --space-yellow-ink: #8a6000;
+  --ticket-register-bg: #c5221f;
+  --ticket-register-hover: #a91b18;
+  --ticket-register-ink: #ffffff;
+}
+:root[data-theme="light"] {
+  --page-bg: #ffffff;
+  --text-primary: #1a1a1a;
+  --event-focus: #174ea6;
+}
+:root[data-theme="dark"] {
+  --audience-bg: #10141d;
+  --audience-ink: #f1f3f4;
+  --audience-muted: #bdc5d3;
+  --audience-line: #353e4e;
+  --audience-tint: #192230;
+  --audience-blue: #a8c7fa;
+  --audience-on-blue: #102b54;
+  --audience-hero-bg: #142338;
+  --mission-grid: #ffffff12;
+  --mission-orbit: #52617b;
+  --mission-blue: #a8c7fa;
+  --mission-yellow: #f8d76d;
+  --mission-green: #91d5a7;
+  --engineering-rule: #465566;
+  --engineering-paper: #16202b;
+  --space-panel: #1b2a48;
+  --space-panel-ink: #e9efff;
+  --space-soft-red: #382426;
+  --space-soft-green: #1c3329;
+  --space-yellow-ink: #fbbc04;
+}

@@ -1,0 +1,233 @@
+.root {
+  padding-top: 40px;
+  background: var(--audience-bg);
+  padding-bottom: 40px;
+}
+.grid {
+  display: grid;
+  gap: 36px;
+}
+.root h1 {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 16vw, 6rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+  margin: 0 0 28px;
+}
+.edition {
+  display: flex;
+  align-items: center;
+  width: min(100%, 290px);
+  height: 49px;
+  margin-top: 20px;
+  border: 2px solid var(--audience-ink);
+  border-radius: var(--space-control-radius);
+  background: var(--audience-ink);
+  overflow: hidden;
+  font-size: 1.65rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.edition > span {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+}
+.edition > span:first-child {
+  font-family: "Kohinoor Devanagari", "Noto Sans Devanagari", sans-serif;
+  color: var(--audience-bg);
+  padding-top: 4px;
+}
+.edition > span:last-child {
+  border-radius: var(--space-control-radius);
+  background: var(--audience-bg);
+  color: var(--audience-blue);
+}
+.lead {
+  font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  margin: 0 0 16px;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+.copy > :global(.audience-body) {
+  margin: 0;
+  max-width: 45ch;
+}
+.facts {
+  display: grid;
+  gap: 12px;
+  margin-block: 28px;
+}
+.facts p {
+  display: flex;
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.45;
+  align-items: flex-start;
+  gap: 12px;
+}
+.facts svg {
+  color: var(--audience-muted);
+  flex-shrink: 0;
+  stroke-width: 1.75;
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+}
+.actions :global(.audience-text-link) {
+  font-size: 0.9375rem;
+}
+.artwork {
+  min-width: 0;
+  margin: 0;
+}
+.artGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  aspect-ratio: 1.1;
+}
+.artGrid > div {
+  position: relative;
+  border-radius: var(--space-window-radius);
+  overflow: hidden;
+}
+.spark {
+  background: var(--space-black);
+  color: var(--space-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 20px 10px;
+}
+.spark svg {
+  width: 60%;
+  max-width: 90px;
+}
+.mascot {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  background: var(--space-panel);
+  isolation: isolate;
+}
+.planet {
+  position: absolute;
+  width: 180%;
+  aspect-ratio: 1;
+  left: 10%;
+  top: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 28% 24%, #b5d0ff 0%, #4285f4 28%, #1646ad 53%, #0c1e49 75%);
+  z-index: -1;
+}
+.astronaut {
+  position: absolute;
+  left: -17%;
+  bottom: 3%;
+  width: 134%;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+}
+.orbit {
+  grid-column: 1;
+  grid-row: 2;
+  background: var(--space-warm);
+  color: var(--space-warm-ink);
+}
+.orbitLine {
+  position: absolute;
+  width: 130%;
+  height: 44%;
+  border: 1px solid var(--space-warm-ink);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+  left: -15%;
+  top: 20%;
+}
+.orbitDot {
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+  left: 29%;
+  top: 22%;
+  background: var(--space-yellow);
+  box-shadow: inset -7px -4px 0 #e3a500;
+  bottom: auto;
+  right: auto;
+}
+.artwork figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  color: var(--audience-muted);
+  font: 0.6875rem/1.6 var(--engineering-mono);
+  letter-spacing: 0.01em;
+}
+.artwork :global(.mission-colors) {
+  gap: 7px;
+}
+.artwork :global(.mission-colors) i {
+  width: 8px;
+  height: 8px;
+}
+.actions :global(.audience-button) {
+  font-size: 1.0625rem;
+  min-height: 52px;
+}
+@media (min-width: 761px) {
+  .root {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .root h1 {
+    font-size: clamp(4.5rem, 8.7vw, 7rem);
+  }
+  .edition {
+    width: 330px;
+    height: 56px;
+    font-size: 1.875rem;
+  }
+}
+@media (max-width: 480px) {
+  .artGrid {
+    gap: 8px;
+  }
+  .artGrid > div {
+    border-radius: 18px;
+  }
+  .artwork figcaption {
+    font-size: 0.625rem;
+  }
+  .actions {
+    align-items: stretch;
+    gap: 12px;
+  }
+  .actions :global(.audience-button) {
+    font-size: 1rem;
+  }
+}

@@ -24,8 +24,7 @@ export const metadata: Metadata = {
     default: EVENT.name,
     template: `%s | ${EVENT.name}`,
   },
-  description:
-    `Join GDG Indore on ${EVENT_SHORT_DATE} at ${EVENT.venue.name} for space technology, AI agents, cloud architecture, hands-on labs and community networking.`,
+  description: `Join GDG Indore on ${EVENT_SHORT_DATE} at ${EVENT.venue.name} for space technology, AI agents, cloud architecture, hands-on labs and community networking.`,
   keywords: [
     "DevFest Indore",
     "GDG Indore",
@@ -40,8 +39,7 @@ export const metadata: Metadata = {
   creator: EVENT.organizer,
   openGraph: {
     title: `${EVENT.name} | ${EVENT_SHORT_DATE}`,
-    description:
-      `Space technology, AI agents and the systems we build. Join talks, hands-on labs and the GDG Indore community on ${EVENT_SHORT_DATE}.`,
+    description: `Space technology, AI agents and the systems we build. Join talks, hands-on labs and the GDG Indore community on ${EVENT_SHORT_DATE}.`,
     siteName: EVENT.name,
     locale: "en_IN",
     type: "website",
@@ -65,17 +63,11 @@ export const metadata: Metadata = {
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.png", type: "image/png", sizes: "512x512" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const initialNow = getTicketReleaseTime();
   return (
     <html
@@ -86,7 +78,13 @@ export default async function RootLayout({
       className="scroll-smooth"
     >
       <head>
-        <link rel="preload" href="/fonts/google-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          href="/fonts/google-sans-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         {/* FOWT-prevention: read localStorage before first paint and apply data-theme */}
         <script
           dangerouslySetInnerHTML={{
@@ -132,7 +130,6 @@ export default async function RootLayout({
                 name: EVENT.organizer,
                 url: EVENT.links.chapter,
               },
-
             }).replace(/</g, "\\u003c"),
           }}
         />

@@ -196,10 +196,16 @@
       "properties": {
         "enabled": {
           "type": "boolean"
+        },
+        "widgetUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://konfhub\\.com/widget/id/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
         }
       },
       "required": [
-        "enabled"
+        "enabled",
+        "widgetUrl"
       ]
     }
   },

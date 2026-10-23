@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import { getAmbassador, AMBASSADORS } from "@/lib/referral";
 import AmbassadorClientView from "./AmbassadorClientView";
 
@@ -44,12 +44,16 @@ export default async function AmbassadorInvitePage({ params }: PageProps) {
 
   return (
     <div className="audience-site space-subpage ambassador-invite-page">
-      <Navbar flightStops={[{ id: "invitation", label: "Your invitation" }, { id: "referral", label: "Your referral" }]} />
+      <Navbar
+        flightStops={[
+          { id: "invitation", label: "Your invitation" },
+          { id: "referral", label: "Your referral" },
+        ]}
+      />
       <main id="main-content">
         <AmbassadorClientView slug={slug} ambassador={ambassador} />
       </main>
       <Footer />
-
     </div>
   );
 }

@@ -32,6 +32,10 @@
             "type": "string",
             "minLength": 1
           },
+          "visible": {
+            "description": "Show this pass card on the public tickets page. Future release dates control when it can be booked.",
+            "type": "boolean"
+          },
           "summary": {
             "type": "string",
             "minLength": 1
@@ -77,6 +81,7 @@
           "id",
           "name",
           "audience",
+          "visible",
           "summary",
           "allocation",
           "description",
@@ -166,7 +171,14 @@
         "unavailableText",
         "scheduleHeading",
         "finalSaleText",
-        "profileReminder"
+        "profileReminder",
+        "termsLabel",
+        "widgetHeading",
+        "widgetLead",
+        "widgetTitle",
+        "fallbackText",
+        "fallbackLabel",
+        "referralText"
       ],
       "properties": {
         "buttonLabel": {
@@ -190,6 +202,34 @@
           "minLength": 1
         },
         "profileReminder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "termsLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "widgetHeading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "widgetLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "widgetTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallbackText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallbackLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "referralText": {
           "type": "string",
           "minLength": 1
         }

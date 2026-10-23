@@ -219,7 +219,8 @@
         275,
         60
       ],
-      "logoUrl": "/images/partners/flutterflow-archive.png"
+      "logoUrl": "/images/partners/flutterflow-archive.png",
+      "websiteUrl": "https://www.flutterflow.io/flutterflow-developer-groups"
     },
     {
       "id": "vena",
@@ -706,7 +707,8 @@
           "order": 3
         }
       ],
-      "logoUrl": "/images/partners/flutterflow-developer-group-indore-archive.png"
+      "logoUrl": "/images/partners/flutterflow-developer-group-indore-archive.png",
+      "websiteUrl": "https://www.meetup.com/google-cloud-developer-community-indore/"
     },
     {
       "id": "thehackersmeetup",
@@ -722,7 +724,8 @@
           "order": 1
         }
       ],
-      "logoUrl": "/images/partners/thehackersmeetup-archive.png"
+      "logoUrl": "/images/partners/thehackersmeetup-archive.png",
+      "websiteUrl": "https://thehackersmeetup.org/"
     },
     {
       "id": "friendsoffigma",
@@ -738,27 +741,12 @@
           "order": 2
         }
       ],
-      "logoUrl": "/images/partners/friendsoffigma-archive.png"
-    },
-    {
-      "id": "indorix",
-      "name": "Indorix",
-      "partnerships": [
-        {
-          "id": "2025-indorix",
-          "editionId": "2025",
-          "kind": "community",
-          "role": "Event partner",
-          "publication": "archived",
-          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "order": 3
-        }
-      ],
-      "logoUrl": "/images/partners/indorix-archive.png"
+      "logoUrl": "/images/partners/friendsoffigma-archive.png",
+      "websiteUrl": "https://friends.figma.com/indore/"
     },
     {
       "id": "tensorflow-user-group-indore",
-      "name": "TensorFlow User Group Indore",
+      "name": "Machine Learning Indore",
       "partnerships": [
         {
           "id": "2024-tensorflow-user-group-indore",
@@ -768,9 +756,18 @@
           "publication": "archived",
           "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
           "order": 0
+        },
+        {
+          "id": "network-machine-learning-indore",
+          "editionId": "ecosystem",
+          "kind": "community",
+          "role": "Community network",
+          "publication": "ecosystem",
+          "order": 5
         }
       ],
-      "logoUrl": "/images/partners/tensorflow-user-group-indore-archive.png"
+      "logoUrl": "/images/partners/machine-learning-indore-current.png",
+      "websiteUrl": "https://www.commudle.com/communities/machine-learning-indore"
     },
     {
       "id": "gdsc-indore",
@@ -786,7 +783,24 @@
           "order": 1
         }
       ],
-      "logoUrl": "/images/partners/gdsc-indore-archive.png"
+      "logoUrl": "/images/partners/gdsc-indore-archive.png",
+      "websiteUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/"
+    },
+    {
+      "id": "gdg-on-campus-iet-davv",
+      "name": "GDG on Campus IET DAVV",
+      "partnerships": [
+        {
+          "id": "network-gdg-on-campus-iet-davv",
+          "editionId": "ecosystem",
+          "kind": "community",
+          "role": "Community network",
+          "publication": "ecosystem",
+          "order": 6
+        }
+      ],
+      "logoUrl": "/images/partners/gdg-on-campus-iet-davv.svg",
+      "websiteUrl": "https://gdg.community.dev/gdg-on-campus-institute-of-engineering-and-technology-davv-indore-india/"
     }
   ]
 }

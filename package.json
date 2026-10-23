@@ -9,7 +9,11 @@
     "lint": "eslint",
     "content:validate": "node scripts/validate-content.mjs",
     "predev": "npm run content:validate",
-    "prebuild": "npm run content:validate"
+    "prebuild": "npm run content:validate",
+    "typecheck": "next typegen && tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
+    "check": "npm run content:validate && npm run typecheck && npm run lint && npm run format:check"
   },
   "dependencies": {
     "lucide-react": "^1.49.0",
@@ -25,6 +29,7 @@
     "ajv": "^6.15.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "prettier": "3.9.10",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

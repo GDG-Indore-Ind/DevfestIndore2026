@@ -1,20 +1,20 @@
 # DevFest Indore attendee design system
 
-Updated 22 October 2026. Direction: clean orbital festival. The organizer has now approved the supplied Figma references: bold DevFest typography, an इंदौर / 2026 pill, rounded artwork windows, and a single Android astronaut. This direction supersedes the earlier technical-editorial hero while retaining its clear copy, navigation and factual content.
+Updated 23 October 2026. Direction: clean orbital festival. The organizer has now approved the supplied Figma references: bold DevFest typography, an इंदौर / 2026 pill, rounded artwork windows, and a single Android astronaut. This direction supersedes the earlier technical-editorial hero while retaining its clear copy, navigation and factual content.
 
 ## Foundations
 
 Keep the established self-hosted Google Sans family, 1160px container, 32px desktop / 20px mobile gutters, 4px spacing unit and `--audience-*` light/dark tokens. Display uses weights 500–600, with 700 reserved for the DevFest hero; body 400. Use the same Google Sans family for supporting labels and annotations; no monospace treatment. Use pill-shaped primary controls, 24px photograph/artwork windows and 12px topic controls. Prefer spacing and rules elsewhere. Keep the site uncluttered.
 
-Light: #ffffff background, #202124 ink, #4c5159 secondary, #185abc action with white label. Dark: #10141d background, #f1f3f4 ink, #bdc5d3 secondary, #a8c7fa action with #102b54 label. Technical drawing uses #102434 with #dcebf5 ink and #b9d1e2 labels. Paper panels use #f5f7f8 light / #16202b dark. Base tokens remain in `src/app/audience.css`; new public component styles live in `src/app/engineering.css`, imported afterward. Admin/campaign legacy styles are a temporary exception.
+Light: #ffffff background, #202124 ink, #4c5159 secondary, #185abc action with white label. Dark: #10141d background, #f1f3f4 ink, #bdc5d3 secondary, #a8c7fa action with #102b54 label. Technical drawing uses #102434 with #dcebf5 ink and #b9d1e2 labels. Paper panels use #f5f7f8 light / #16202b dark. Root theme tokens live in `src/app/tokens.css`, imported by globals.css. Existing global layers load in order: globals, audience, engineering, space. New isolated component styles belong in colocated CSS Modules; shared utilities and tokens remain global. There is no admin/campaign UI.
 
 Body 16px, secondary directory text 13–14px, overlines 13px, lead 18–26px, section headings 28–36px. Hero name is approximately 64–112px, set left above the compact Hindi city/year lockup. Small diagram labels are graphic annotation, not required event details. Date, venue and purchase action remain ordinary readable HTML.
 
 ## Visual language
 
-One Android astronaut illustration carries the hero alongside a single four-point sparkle and a simple orbital motif in rounded windows. Keep generous white space in light mode and quiet dark surfaces in dark mode. Google blue, red, yellow and green are small signals; the primary hero action is yellow with dark ink and an outlined offset shadow. No star fields, neon glows, custom cursors or perpetual decorative motion. Artwork never implies an official product partnership or announced session. Keep original organization logos on white plates in both themes.
+One Android astronaut illustration carries the hero alongside a single four-point sparkle and a simple orbital motif in rounded windows. Keep generous white space in light mode and quiet dark surfaces in dark mode. Google blue, red, yellow and green are small signals; the primary hero action is yellow with dark ink and an outlined offset shadow. No star fields, neon glows or custom cursors. Artwork remains static; organizer-requested logo marquees use explicit pause controls. Artwork never implies an official product partnership or announced session. Keep original organization logos on white plates in both themes.
 
-New theme tokens and refinements live in `src/app/space.css`, imported after engineering.css. New artwork is `public/images/android-astronaut-2026.webp`, with transparent alpha and an approximately 184 KB payload. The source prompt and generation details are recorded in `docs/space-artwork-2026.md`.
+Remaining shared refinements live in `src/app/space.css`, imported after engineering.css. Hero artwork, appearance and referral styling live beside their components in CSS Modules. New artwork is `public/images/android-astronaut-2026.webp`, with transparent alpha and an approximately 184 KB payload. The source prompt and generation details are recorded in `docs/space-artwork-2026.md`.
 
 ## Key components
 
@@ -31,134 +31,28 @@ New theme tokens and refinements live in `src/app/space.css`, imported after eng
 
 ## Accessibility and performance
 
-Use one h1 per page; proper headings, real links, native disclosures and labeled filters. Maintain 44px action targets, visible focus, keyboard access, reduced-motion behavior and no horizontal overflow at 375px. Portraits request appropriately small image sizes. Real photographs below the fold load lazily. No new dependency was introduced.
+Use one h1 per page; proper headings, real links, native disclosures and labeled filters. Maintain 44px action targets, visible focus, keyboard access, reduced-motion behavior and no horizontal overflow at 375px. Portraits request appropriately small image sizes. Real photographs below the fold load lazily.
 
 Existing token contrast: light ink 16.10:1, secondary 7.99:1, primary action 6.51:1; dark ink 16.55:1, secondary 10.61:1, primary action 8.17:1. New drawing and paper combinations are checked with relative luminance in validation. Verified new combinations: drawing text 13.03:1; drawing labels 10.03:1; light paper secondary 7.43:1; dark paper secondary 9.48:1. Fine diagram construction lines need not carry the event’s factual content.
 
-## Migration tracking
+## Content and release rules
 
-| Pattern | Target | Status |
-|---|---|---|
-| Hero identity | Figma-inspired city/year lockup, one Android astronaut and ordinary CTA | Applied |
-| Toy telescope | Compact unnumbered themes | Applied |
-| Footer-only theme toggle | Shared header/footer choice | Applied |
-| Large speaker and organizer cards | Compact portraits and disclosure rows | Applied |
-| Static partner strip | Admin-backed controlled logo rail | Applied |
-| Mixed historical/current sponsor claims | Explicit edition and relationship | Applied |
-| Campus-only destination | Workshops & events with legacy redirect | Applied |
-| Legacy public CSS rules | Isolated new engineering styles; legacy unused selectors remain for existing components | Incremental |
-| Custom admin and campaign visual language | Remove `/admin`; keep content changes in Git | Applied |
+Canonical event facts live in `content/event.json`; pass facts and policy wording live in `content/tickets.json`. Render all visible passes using their release windows. Do not hardcode a currently active pass in components or documentation.
 
-Historical baseline audit (before the current Figma-led revision): six important gaps (mascot tone, scattered topic controls, footer-only appearance, oversized directories, static partner rail, campus-only labeling) gave 70/100 using the skill’s 5-point deductions. All six targeted gaps are addressed. This limited design score does not claim an independent whole-site accessibility or usability certification; attendee tree testing remains outstanding.
+Sessionize owns proposals; KonfHub owns checkout. Preserve eligibility, final-sale wording, referral behavior and the booking switch. Only publish confirmed participation; show historical contributors with edition context. `pages.partners.revealed` controls the public partner announcement.
 
-## Content and release constraints
+## Current implementation details
 
-Final event facts remain in `docs/event-final-2026-10-20.md`. Tickets remain phase-based; only Liftoff is shown now. No permanent six-tier grid. Preserve eligibility, final-sale policies, release clock and KonfHub gating. Do not turn on sales or fabricate prices as part of a visual update. Keep the site free of custom telemetry and admin workflows. GA4/GTM remain external analytics destinations; Sessionize and KonfHub own proposals and ticket sales.
+- Keep Get tickets visible in the shared header; Programme is secondary. Explore groups attendee tasks, community destinations and historical directories.
+- The homepage composes event, programme, partners, community/history and venue. Supporting directories have their own routes.
+- The ticket page renders visible pass details, eligibility, inclusions and policy links. Register leads to the embedded booking section; saved coupons use the direct KonfHub destination.
+- One white KonfHub iframe appears below pass details, with terms above and a direct fallback below. Keep the supplied widget URL intact. Its styles live beside `tickets/KonfHubRegistration.tsx`.
+- Community logo marquees retain pause/resume, hover/keyboard pause and a static reduced-motion row. Their styles live beside `home/LogoMarquee.tsx`.
+- Keep partner logos on white plates in both themes. Historical sponsor and community records remain separate from current announcements.
+- Workshop directories use verified campus photographs, source links and actual dates. Speaker directories preserve edition context.
 
-See `docs/website-culling-plan.md`, `docs/information-architecture.md` and `docs/archive-sources.md` for chapter structure, route ownership and evidence.
+## Documentation ownership
 
-## Orbital theme validation — 20 October 2026
+This file describes current rules. `docs/information-architecture.md` describes routes; `content/README.md` describes editable records. Previous design iterations and dated validation claims are preserved in [the historical snapshot](docs/history/design-system-through-2026-10-23.md); they are not current test results.
 
-- Production build and all 38 generated pages pass with Next.js webpack. Turbopack production compilation hits a local process/port permission error; no configuration was changed to conceal it.
-- TypeScript and lint on updated interactive components pass. Whole-project lint still reports 10 existing errors in older components outside this visual update.
-- Browser verified at 1440px desktop and 375px mobile, with no horizontal overflow and no header controls below 44px. Light/dark appearance, Physical AI panel contrast, Explore/Escape focus return, and the homepage-to-ticket route checked. Browser error log empty.
-- New contrast ratios: hero action 10.97:1; warm panel 11.74:1; light illustration labels 12.93:1; dark illustration labels 12.41:1; yellow programme icon on white 5.59:1.
-- The transparent hero WebP is 184,374 bytes. Existing community and venue photographs and partner logos were verified loaded in the browser.
-
-## Copy and typography refinement
-
-Use Google Sans throughout, including ticket-page labels. Remove the homepage community byline and release teaser, section chapter numbers and topic index numbers. Both homepage ticket actions say “Get tickets”; the lower action is a compact button without pass descriptions, inclusions or allocation facts. The ticket destination retains the release window, eligibility and booking policies.
-
-## Scroll flight sidebar
-
-The homepage and longer secondary pages use route-specific section stops. A rocket follows a thin route in the outer gutter, passing unnumbered section stops and arriving at a planet at the bottom of the document. Section links support pointer/keyboard navigation and reveal labels on hover or focus. Reversing scroll reverses the journey. Desktop targets are 44px, spaced 56px apart. A small decorative rail replaces the navigation below 1024px or in short windows, within the existing outer gutter. It does not capture pointer or scroll input. Scroll updates use a passive listener and one scheduled animation frame to change transforms, without React rerenders. Reduced motion hides the moving craft and keeps ordinary section navigation.
-
-Flight rail verification: TypeScript and component lint pass. Browser checks confirm progress returns to 0 at launch and reaches 1 with the arrived state at document end, section-stop navigation works, and desktop and compact mobile layouts have no horizontal overflow. On mobile the 18px rail stays beyond the content gutter. Light/dark styles checked.
-
-## Secondary pages — 21 October 2026
-
-Shared PageIntro supplies a concise heading, lead and one small orbital motif; the team keeps its real community photograph. The default GDG eyebrow is removed. Tickets, FAQ, team, speakers, sponsors, editions, gallery, workshops and invitations share the same typography, 24px windows, pill filters and quiet page gutters. The 404 page uses this system and links to the actual programme anchor.
-
-Keep compact 18px people names and 72px portraits, visible 16px search fields on mobile, explicit active filters and 44px controls. Archive navigation is present on the gallery too. Preserve historical-source distinctions, booking dates, eligibility, release gating and referral propagation. The invitation avoids a hardcoded release banner and repeated referral-code copy.
-
-The scroll rail now accepts page-specific stops, adapts its height to their count and returns to each page’s actual overview anchor. It lands even when a filtered page is short. Short error and unavailable-pass screens have no rail.
-
-Verification: all 38 pages generated in the production webpack build; TypeScript and lint on changed components passed. Desktop and mobile browser checks cover team filtering, speaker search, sponsor relationship filters, workshop empty/reset states, photo dialog open/close, FAQ disclosures, ticket details, unreleased-pass guidance and the 404 programme link. Light/dark and overflow checks passed. The invitation was checked in the generated HTML without activating a test referral. Existing unrelated whole-project lint issues remain outside this refinement.
-
-## Compact team and historical directories — 21 October 2026
-
-These pages use a compact CommunityPage variant: 32–44px headings, 28px intro padding, one short lead and no large illustration or introductory photograph. Other page layouts retain their existing treatment.
-
-- Team: four-column desktop, two-column tablet, one-column mobile. Show 56px portraits, name, concise role and a link to the existing LinkedIn profile. Keep all 14 people and team filters; remove on-page biographies, repeated team labels and social-link lists.
-- Historical organizations: five-column desktop/two-column mobile sponsor logo wall. All 25 sponsor logos use clipped windows into the original organizer artwork. Event partners follow in a separate name wall without tab switching. Preserve relationship distinctions, edition years, historical context and visible source links. Remove the redundant headings, descriptions, search field and per-organization disclosure controls.
-- Past events: four compact linked rows containing the year, date and venue. Remove repeated titles and summaries. Edition pages use short name walls for speakers/partners and a short visible summary and available community photograph. Deduplicate speaker names and keep the official record link visible.
-
-Verified team filtering, expansion to all 25 sponsors, the nine recorded event partners, event navigation and highlights disclosure. Mobile and dark layouts have no horizontal overflow. Updated-file lint and TypeScript checks pass.
-
-## Continuous directories — 21 October 2026
-
-Avoid Show all/Show more and directory pagination: visitors scroll through all matching results. Team rows use four desktop columns with 20px gutters and 12px vertical padding; two columns on tablet and one on mobile. Sponsor logos sit on compact white plates in both themes and keep their original proportions. All 27 grouped speakers and 18 workshops render without paging; search and useful session disclosures remain.
-
-Verified 25 logos, all 14 organizers, four team columns at 1440px and 1024px, mobile layouts at 375px with no horizontal overflow, full speaker/workshop lists and speaker search. TypeScript and updated-file lint pass.
-
-## Partner-led edition refinement — 21 October 2026
-
-Confirmed by the organizer: Qualcomm (expo booth and speaker participation) and Space Club of India (space collaborator). These lead a single Partners & collaborators section ahead of the historical archive. Roles describe the contribution without implying a financial tier. Lt Gen PJS Pannu remains a tentative keynote and is not publicly announced. The Space Club of India is named accurately, without implying ISRO or a government agency partnership. Other discussions stay absent until confirmed.
-
-Themes, partners, community and venue share a 1160px content width and a 680px minimum section height at wide desktop, with consistent 56px vertical padding. At smaller sizes, sections grow with their content. The hero and compact final ticket CTA retain their own proportions.
-
-The ticket directory shows the current pass name, audience, short inclusions and booking state/action. No allocation counts, remaining quantities or detailed release tables are shown. Eligibility and detailed inclusions remain available on pass pages; policies use one compact disclosure. Sales gating and referral propagation remain intact; checkout is owned by KonfHub. The footer is a compact relevant-link strip with contact details.
-
-Verification: production webpack build generated all 38 pages; TypeScript and changed-file lint pass. Browser checks covered all four theme selections, dark Physical AI contrast, equal wide-desktop section heights, confirmed logos, speaker/sponsor destinations, mobile partner overflow within its own rail, concise ticket state and pass detail navigation.
-
-## Featured partner hierarchy — 21 October 2026
-
-Space Club of India leads, with a square desktop card and a proportionally larger circular seal. Qualcomm follows in a wider card with its original full wordmark and concrete Edge AI, Physical AI and Local AI context. Both cards share their baseline at wide desktop. Mobile stacks them and permits content to determine height. This richer featured section may grow beyond the shared 680px minimum; the common container and section gutters remain.
-
-Further confirmed sponsors are a separate row below these lead collaborators. Developer ecosystem logos form an unboxed row, link directly to verified Instagram/LinkedIn pages, and use display windows no wider than 2.5:1. Current downloaded profile images replace older logos. Do not infer financial tiers or announce tentative speakers from a collaboration.
-
-## Ticket selection and notification dismissal
-
-The pass listing uses one ticket-shaped frame with a four-color top rule. On desktop, pass information occupies the wider left column and release/checkout information the tinted right column, separated by a dashed rule. On mobile, show the pass introduction, release/price panel, then the longer inclusions and eligibility. Use the existing Google Sans, 24px corners, 1160px content width and audience/space tokens. Do not add stock illustrations, invented availability counts or decorative barcodes.
-
-`ticket-summary-card`, `ticket-booking-simple` and `ticket-purchase-guide` share this pattern. The booking panel displays exact release times in IST, an approved INR price or an explicit unknown-price label, and a clear KonfHub handoff only when booking is enabled and in-window. Booking steps are an ordered list rather than another row of cards.
-
-The referral notice remains a short sentence. `referral-notice-close` has a 44px target, an accessible label and visible keyboard focus. Dismissal is per referral code for the browser session; it never removes the saved referral.
-
-## Practical launch pages — 22 October 2026
-
-Guidelines, Partners and Venue reuse PageIntro, Google Sans, the existing orbital marks and appearance tokens. `practical-guide-layout` uses a 240px sticky contents column and a readable policy column on desktop; mobile places a two-column contents list above the body. Policies use headings and rules, with a single blue profile-preparation reminder. Pass-specific policies have explicit pass labels. Section links clear the sticky header.
-
-`practical-split` pairs supporting copy with plain contribution or arrival information, stacking below 900px. Partner application and check-in sections use `--engineering-paper`; the map has a 24px window. Reuse the confirmed collaborator presentation and venue photograph rather than adding stock images. Keep all actions at least 44px, Get tickets visible, and external checkout ownership unchanged.
-
-Validation: all 41 production routes generated; content validation, TypeScript and changed-file ESLint passed. Guideline validation rejects omitted, unknown or repeated policies and duplicate section IDs. Browser checks cover 1440px desktop and 375px mobile, light/dark appearance, section navigation, partner form destinations, loaded logos/photo, canonical metadata and tickets-to-guidelines navigation. No horizontal page overflow was found. Lighthouse was unavailable; no performance score is claimed.
-
-## Homepage refinement — 22 October 2026
-
-The flight rail is horizontal below the header on desktop and mobile, replacing the outer-gutter sidebar. The header height, banner movement and section offsets are measured together. Equal stops map to actual sections; a zero-width craft carrier translates along the measured track, avoiding overflow at progress extremes. The mobile bar is 45px including its border, leaving 44px link targets. Desktop labels remain visible; mobile labels appear on hover/focus. Reduced motion removes craft/progress motion and retains ordinary navigation.
-
-Hero facts use 17–20px medium text and 22px icons. Programme is an outlined pill beside Get tickets. Programme uses a strong two-word tagline and shorter topic controls; remove forced chapter heights. Venue uses a 0.85/1.15 column split with a 430px desktop photo and 310px small-mobile photo; group its buttons beneath the address.
-
-The partner reveal uses an abstract two-card backdrop, a centered announcement and one primary application button. It does not blur real partner identities. `pages.partners.revealed` restores the existing featured card carousel when ready. Community logos use a larger three/two-column grid; past community names follow in compact rows with years.
-
-The history chapter has an edition line, a manual scroll-snap photo carousel with arrow controls and archive links beneath. No autoplay. Seven optimized images serve both the homepage and gallery, with actual event captions and original-image provenance. The 2014 origin is separate from the available photo/edition records. Hidden new-tab annotations are positioned relative to their links so carousel descendants cannot create page overflow.
-
-Verification: the final production webpack build generated all 41 pages; content validation, TypeScript and changed-file ESLint passed. Browser checks at 1440px and 375px cover both appearances, header/rail alignment, section anchors, the larger hero details, photo navigation, gallery filtering/portrait viewing and venue layout. Mobile flight links measure at least 44px in both directions. Rocket progress reaches 1 with the arrived state at document end and returns to 0 at the actual document top. Tested the reveal switch on and off, including restored featured-card scrolling; it is saved as `false`. No horizontal page overflow was found in those states. Image lazy loading is retained. No Lighthouse score is claimed.
-
-## Direct registration — 22 October 2026
-
-The ticket purchase panel now centers a 76px-high red Register pill (`--ticket-register-bg: #c5221f`, white label), with a 5.80:1 text contrast in both appearances. It links directly to the public KonfHub event, retains saved referral codes and gives KonfHub ownership of live prices/availability. Scheduled pass dates remain supporting information beneath the action. Current pass inclusions and eligibility stay inline; pass subpages are removed and redirected. No date gate hides the enabled event-page action.
-
-Validation: content checks, changed-file ESLint, TypeScript and the production webpack build pass, generating 35 pages after removal of the six detail routes. HTTP checks verify 308 redirects for all six former pass URLs with query values preserved, a 200 response for `/tickets` and no child ticket URLs in the sitemap. Browser checks at 1440px and 375px verify a red 76px action, the real saved referral in its destination, no obsolete full-details links and no horizontal overflow.
-
-## Content and space refinement — 23 October 2026
-
-Retain the approved orbital identity and navigation. The hero uses one artwork caption and no repeated topic strip; Programme keeps its illustration, explanation and tags without the extra text flow. Partner announcements use one central teaser heading; community logos stay enlarged. The Partners page has a focused contribution list and application. Tickets puts eligibility before Register on mobile, with a short LinkedIn reminder adjacent to the red action; full policies live on Guidelines. Venue combines the introductory facts and real photograph, with map and arrival details side by side on desktop. FAQs use plain separated disclosure rows and contextual links. Section height follows content; keep readable type and the existing spacing scale. This revision supersedes earlier references to repeated booking steps and full ecosystem reuse on the Partners page.
-
-## Header flight navigation — 23 October 2026
-
-The rocket route is rendered inside the sticky header rather than positioned as a separate fixed strip. Its horizontal path sits on the header’s bottom border, with desktop labels above it and mobile labels revealed above on hover or keyboard focus. Keep 44px targets. Route-specific stops are passed through Navbar; short pages without stops retain their ordinary header. The browser keeps the route and header together during scrolling, including when the referral banner scrolls away. Scroll handling updates progress only; it no longer writes a header-following top position. Anchor offsets use the complete header height once.
-
-## Historical logo presentation — 23 October 2026
-
-Use original historical sponsor and community logos on contained white plates in both appearances. Keep visible organization names and edition years outside the artwork. Home shows a six-logo sponsor preview under the community photographs and retains links to the full archive and past speakers. The historical community grid has original logos as well as names and dates. Reuse OrganizationLogo for the supplied sponsor-sheet windows and standalone community images. Keep archive source links behind a native disclosure. The development indicator is hidden with Next.js configuration; errors are still surfaced.
+Community photographs use a continuous horizontal marquee with pause/resume, hover and keyboard-focus pause. Reduced motion shows one manually scrollable row and hides duplicate photographs. Captions and order still come from `content/gallery.json`; controls live in `content/pages.json`.

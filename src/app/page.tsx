@@ -1,35 +1,33 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import ExploreSection from "@/components/ExploreSection";
-import GalleryVideoSection from "@/components/GalleryVideoSection";
-import SponsorShowcase from "@/components/SponsorShowcase";
-import VenueSection from "@/components/VenueSection";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import HeroSection from "@/components/home/HeroSection";
+import ExploreSection from "@/components/home/ExploreSection";
+import GalleryVideoSection from "@/components/home/GalleryVideoSection";
+import SponsorShowcase from "@/components/home/SponsorShowcase";
+import VenueSection from "@/components/home/VenueSection";
+import Footer from "@/components/layout/Footer";
 
-// Deliberate attendee narrative order:
-// Event, programme, partners, community and venue. Tickets remain in navigation.
-const audienceSections = ["hero", "flow", "sponsors", "archive", "venue"] as const;
+const visibleAnchors = ["hero", "flow", "sponsors", "archive", "venue"];
 
 export default function Home() {
-  const visibleAnchors = [...audienceSections];
-
-  const content = {
-    hero: <HeroSection />,
-    flow: <ExploreSection />,
-    "archive": <GalleryVideoSection />,
-    sponsors: <SponsorShowcase />,
-    venue: <VenueSection />,
-  };
-
   return (
     <div className="audience-site engineering-home">
-      <Navbar visibleAnchors={[...visibleAnchors]} flightStops />
+      <Navbar visibleAnchors={visibleAnchors} flightStops />
       <main id="main-content">
-        {visibleAnchors.map((anchor) => (
-          <div key={anchor} id={["hero", "archive", "sponsors"].includes(anchor) ? anchor : undefined}>
-            {content[anchor]}
-          </div>
-        ))}
+        <div id="hero">
+          <HeroSection />
+        </div>
+        <div>
+          <ExploreSection />
+        </div>
+        <div id="sponsors">
+          <SponsorShowcase />
+        </div>
+        <div id="archive">
+          <GalleryVideoSection />
+        </div>
+        <div>
+          <VenueSection />
+        </div>
       </main>
       <Footer />
     </div>

@@ -1,20 +1,7 @@
 @import "tailwindcss";
+@import "./tokens.css";
 
 /* Shared browser defaults, theme surfaces, keyboard focus and reduced motion. */
-
-:root {
-  --google-blue: #4285f4;
-  --google-green: #34a853;
-  --google-yellow: #f9ab00;
-  --google-red: #ea4335;
-  --page-bg: #000000;
-  --text-primary: #ffffff;
-}
-
-:root[data-theme="light"] {
-  --page-bg: #ffffff;
-  --text-primary: #1a1a1a;
-}
 :root[data-theme="light"] body {
   background-color: #ffffff;
   color: #1a1a1a;
@@ -30,8 +17,7 @@
   background: rgba(66, 133, 244, 0.2);
   color: #1a1a1a;
 }
-html[data-theme="light"] p strong,
-html[data-theme="light"] p b {
+html[data-theme="light"] p strong, html[data-theme="light"] p b {
   color: #000000 !important;
 }
 
@@ -75,10 +61,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(#57caff, #ff7daf);
 }
-:root {
-  --event-focus: #8ab4f8;
-}
-:root[data-theme="light"] { --event-focus: #174ea6; }
 :where(a, button, input, select, textarea):focus-visible {
   outline: 3px solid var(--event-focus);
   outline-offset: 4px;

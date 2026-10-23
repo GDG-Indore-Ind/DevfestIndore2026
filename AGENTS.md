@@ -1,72 +1,28 @@
-# DevFest Indore 2026 — Master Engineering & Design System Playbook
+# DevFest Indore 2026 — contributor instructions
 
-Welcome to the autonomous engineering specifications for **GDG DevFest Indore 2026** (Central India's Flagship Developer & Space Technology Conference).
+## Current architecture
 
----
+- Next.js 16 App Router, React 19, TypeScript and Tailwind CSS 4. Read the installed Next.js guides before framework changes.
+- Public content lives in `content/*.json`; typed views in `src/content/` supply pages. Read `content/README.md` before editing records.
+- Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. There is no custom admin, proposal backend, database or upload service in this application.
+- Existing local/Cloudinary artwork is rendered through Next Image. Do not add a speaker upload workflow.
+- GTM, GA4 and Meta Pixel are external analytics integrations in the root layout. Do not infer that GTM already owns GA4 configuration without checking the container.
 
-## 1. Core Architecture & Deployment
-- **Production Host**: [https://devfest2026-iota.vercel.app/](https://devfest2026-iota.vercel.app/)
-- **Repository**: `https://github.com/soham2710/devfest2026.git` (Branch: `main`)
-- **Framework**: Next.js 16 (App Router + React 19 + Turbopack)
-- **Styling**: Tailwind CSS + Tokenized CSS Variables (`globals.css`)
-- **Backend / Storage**:
-  - Direct Cloudinary integration for live assets & speaker uploads (Cloud: `agcnziwc`).
-  - Offline-first resilient state with local persistence & structured telemetry.
-  - Zero serverless lock-in: Firebase backend folders (`.firebase`, `.firebaserc`, `firebase.json`) removed to guarantee pure, friction-free Vercel and edge deployments.
+## Design and file ownership
 
----
+- `design-system.md` owns the current visual direction: light default, saved light/dark choice, clear orbital artwork and readable event facts. Historical implementation notes are reference only.
+- `src/app/` owns routes, metadata and page composition.
+- `src/components/` groups layout, home, tickets, workshops and shared UI. Import directly from the owning folder; avoid barrel files.
+- New isolated component styling belongs beside its component in a CSS Module. Existing global styles retain their import order until their selectors are migrated together. See `docs/contributing.md`.
+- Use Server Components by default. Add `"use client"` only for state, effects, browser APIs or interactive handlers.
+- Keep JSX readable and run the formatter on changed source files. Do not hide content or change approved ticket policies during refactoring.
 
-## 2. Design System & Theme Foundations
-- **Dark Mode (Default & Deep Space Aesthetic)**:
-  - Background: Pitch-black void (`#000000`) with high-resolution Mars planetary artwork (`/images/mars-bg.jpg`).
-  - Cards: Pure dark glass (`rgba(13, 13, 13, 0.90)`), subtle 1px white border (`rgba(255, 255, 255, 0.12)`), and Google 4-color soft glows.
-  - Typography: Crisp white (`#ffffff`) headers and high-contrast light slate (`rgba(255, 255, 255, 0.85)`) body copy.
-- **Light Mode (Blueprint Technical Aesthetic)**:
-  - Background: Pristine clean surface (`#ffffff`) with subtle dot-grid blueprint coordinates.
-  - Cards: High-contrast white surfaces with distinct graphite borders (`#e5e7eb` / `#1f2937`) and Google pill drop-shadows.
-  - Typography: Jet black (`#111827`) headings and rich charcoal (`#374151`) body copy.
-  - Contrast Rules: Toggle pills and category filters **must** have WCAG 2.2 AA compliant contrast (e.g. active buttons use `#111827` bg with `#ffffff` text, unselected use white bg with `#111827` text).
+## Validation and releases
 
----
-
-## 3. Key Playbooks & Workflows
-
-### Playbook A: Venue & Location Presentation
-- **Left Column (Primary / Larger - 7 Columns)**:
-  - Official Essentia Luxury Convention Arena card with real venue photo (`/images/essentia-hotel-actual.jpg`).
-  - Key technical specifications: 600+ Auditorium Capacity, High-Density Enterprise Wi-Fi, Parallel Halls, and Cosmic Buffet Dining.
-- **Right Column (Navigation / Compact - 5 Columns)**:
-  - Embedded Google Map iframe pinpointing Essentia Luxury Hotel Indore (Lat 22.7101° N, Lon 75.9039° E).
-  - Direct action button to launch external turn-by-turn navigation in Google Maps.
-
-### Playbook B: Content Curriculum & Space Partnerships
-- **5 Strategic Pillars**:
-  - Scroll-triggered reveal cards powered by `IntersectionObserver`.
-  - Color-accented Google icons: Space Tech (Blue), Agentic AI (Red), Physical AI (Yellow), Scalable Data (Green), and Enterprise Adoption (Blue).
-  - Grounded partnership copy: Frame aerospace initiatives as an emerging alliance and telemetry pipeline, avoiding premature "completed MOU" commitments.
-- **9 Planetary Tracks**:
-  - Cinematic 3D interactive solar system with GDG Indore Sun at the focal center.
-
-### Playbook C: Call for Speakers (CFP) & Sessionize
-- Live CFP Sessionize link: `https://sessionize.com/devfest-indore-2026/`
-- Direct in-page proposal submission form with instant admin notification and review board.
-
-### Playbook D: Featured Steering Committee & Past Speakers
-- Mumbai Tech Week-inspired tokenized card layout.
-- **3 Anchor Leads**:
-  1. **Tushar Pal** — Community Lead & GDG Indore Organizer.
-  2. **Akash Gangrade** — Organizer & Tech Architecture Lead.
-  3. **Karan Mittal** — Organizer & Operations Lead.
-- Direct navigation link to the full `/team` page.
-- Hall of Past Keynote Speakers alumni strip showcasing previous Google Developer Experts and engineering leaders.
-
----
-
-## 4. Telemetry, Analytics & SEO Skills
-- **Google Tag Manager**: `GTM-53S9M7C9` container in `<head>` and `<noscript>` body fallback.
-- **Google Analytics 4**: Stream `G-PRRCSRF36D` with active pageview and custom conversion tracking.
-- **Structured Data (JSON-LD)**: Schema.org `Event`, `Place`, `Organization`, and `PostalAddress` injected into `<head>`.
-- **Admin Panel Dashboard**: Real-time event telemetry breakdown, geographic source distribution, and live CFP review board accessible at `/admin`.
+- Run `npm run check` and `npm run build` before release. Check affected pages at desktop/mobile widths in both themes.
+- Use feature branches and pull requests. Review the Vercel preview before merging into the configured production branch. Never assume a remote named `live` establishes Vercel's connection.
+- `origin` currently points to the GDG organization repository; `live` points to Soham's repository. Verify the Vercel project's connected repository and branch before publishing. See `docs/releasing.md`.
+- Preserve existing working-tree changes. Do not publish, enable checkout or change public claims as an incidental cleanup.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

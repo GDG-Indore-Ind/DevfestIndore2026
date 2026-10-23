@@ -39,14 +39,21 @@ The header keeps Get tickets visible. Section navigation travels along its botto
 
 ```sh
 npm run content:validate
-npx tsc --noEmit
+npm run check
 npm run build
 ```
 
 Where the local Turbopack build cannot run because of process restrictions, use `npm run build -- --webpack`. Check changed pages on desktop and mobile in both appearances before publishing.
 
+## Code and release workflow
+
+See [the contributor guide](docs/contributing.md) for the folder map and stylesheet ownership. Run `npm run format` after source edits; `npm run check` runs the local quality checks. The pull-request workflow also builds the application.
+
+Use feature branches and review the Vercel preview before merging. This checkout has separate GDG organization and Soham remotes; confirm which repository and production branch Vercel tracks before publishing. See [release instructions](docs/releasing.md).
+
 ## Project references
 
+- [Documentation map](docs/README.md)
 - [Engineering instructions](AGENTS.md)
 - [Design system](design-system.md)
 - [Information architecture](docs/information-architecture.md)

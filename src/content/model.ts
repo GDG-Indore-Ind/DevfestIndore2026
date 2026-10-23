@@ -2,7 +2,12 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  team: "Core Organizer" | "Design & Experience" | "Tech & Operations" | "Space & Ecosystem" | "Community";
+  team:
+    | "Core Organizer"
+    | "Design & Experience"
+    | "Tech & Operations"
+    | "Space & Ecosystem"
+    | "Community";
   bio: string;
   avatar: string;
   order?: number;
@@ -10,6 +15,7 @@ export interface TeamMember {
 }
 export interface PastSpeaker {
   id: string;
+  personId: string;
   name: string;
   role: string;
   company: string;
@@ -19,7 +25,15 @@ export interface PastSpeaker {
   bio?: string;
   avatar: string;
   spotlightBadge: string;
-  category: "GenAI" | "Cloud" | "Mobile & Flutter" | "Web" | "Leadership & Ecosystem" | "Space Technology" | "Physical AI & Robotics" | "Data & Systems";
+  category:
+    | "GenAI"
+    | "Cloud"
+    | "Mobile & Flutter"
+    | "Web"
+    | "Leadership & Ecosystem"
+    | "Space Technology"
+    | "Physical AI & Robotics"
+    | "Data & Systems";
   track?: string;
   level?: string;
   socials?: Socials;
@@ -52,23 +66,29 @@ export interface EventPartner {
     text: string;
   }[];
 }
+export interface WorkshopPhoto {
+  imageUrl: string;
+  caption: string;
+  width: number;
+  height: number;
+  source: string;
+}
 export interface WorkshopItem {
   id: string;
   college: string;
   speaker: string;
   topic?: string;
-  description?: string;
-  collegeLogoUrl?: string; // College / Institute crest or logo
-  images?: string[]; // Multiple photos uploaded for this workshop
-  instagramUrl?: string; // Relevant Instagram post / reel link
-  photosDrive?: string; // Drive link if available
-  logoDrive?: string;
-  collabNotice?: string;
+  date?: string;
+  displayDate?: string;
+  eventUrl?: string;
+  publication: "archived" | "confirmed";
+  photos: WorkshopPhoto[];
 }
 export interface GalleryItem {
   id: string;
   title: string;
-  category: "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
+  category:
+    "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
   imageUrl: string;
   caption: string;
   source?: string;
@@ -132,7 +152,10 @@ export interface Organization extends Omit<EventPartner, "role" | "featured"> {
   partnerships: Partnership[];
   archiveLogoWindow?: number[];
 }
-export interface EventRecord extends Omit<ArchivedEvent, "partners" | "speakerNames" | "displayDate"> {
+export interface EventRecord extends Omit<
+  ArchivedEvent,
+  "partners" | "speakerNames" | "displayDate"
+> {
   publication: "archived";
   officialSpeakerIds: string[];
 }

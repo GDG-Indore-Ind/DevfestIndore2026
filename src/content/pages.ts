@@ -6,3 +6,5 @@ export const VENUE_PAGE = pages.venue;
 export const HOME_PAGE = pages.home;
 export const TICKETS_PAGE = pages.tickets;
 export const FAQ_PAGE = pages.faq;
+export const WORKSHOPS_PAGE = pages.workshops;
+export const PAST_SPEAKERS_PAGE = pages.pastSpeakers;

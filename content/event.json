@@ -37,6 +37,7 @@
     "codeOfConduct": "https://developers.google.com/community-guidelines"
   },
   "booking": {
-    "enabled": true
+    "enabled": true,
+    "widgetUrl": "https://konfhub.com/widget/id/0278dd0b-f629-408a-9a47-9fb249bde1cc"
   }
 }

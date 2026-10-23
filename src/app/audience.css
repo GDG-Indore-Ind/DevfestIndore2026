@@ -6,35 +6,6 @@
   font-weight: 400 700;
   font-display: swap;
 }
-:root {
-  --font-sans: 'Google Sans', sans-serif;
-  --font-display: 'Google Sans', sans-serif;
-  --audience-bg: #fff;
-  --audience-ink: #202124;
-  --audience-muted: #4c5159;
-  --audience-line: #dadce0;
-  --audience-tint: #f2f6fc;
-  --audience-blue: #185abc;
-  --audience-on-blue: #fff;
-  --audience-hero-bg: #edf5ff;
-  --audience-width: 1160px;
-  --audience-small: .875rem;
-  --audience-body: 1rem;
-  --audience-lead: 1.125rem;
-  --audience-h3: 1.375rem;
-  --audience-h2: clamp(1.75rem, 3vw, 2.25rem);
-  --audience-h1: clamp(2.75rem, 6vw, 4.5rem);
-}
-:root[data-theme='dark'] {
-  --audience-bg: #10141d;
-  --audience-ink: #f1f3f4;
-  --audience-muted: #bdc5d3;
-  --audience-line: #353e4e;
-  --audience-tint: #192230;
-  --audience-blue: #a8c7fa;
-  --audience-on-blue: #102b54;
-  --audience-hero-bg: #142338;
-}
 body { font-family: var(--font-sans); }
 .audience-site { background: var(--audience-bg); color: var(--audience-ink); font-family: var(--font-sans); font-size: var(--audience-body); line-height: 1.65; }
 .audience-site *, .audience-header *, .audience-footer * { box-sizing: border-box; }
@@ -154,20 +125,6 @@ body { font-family: var(--font-sans); }
 }
 
 .community-results { scroll-margin-top: 128px; }
-:root {
-  --mission-grid: #20212412;
-  --mission-orbit: #b8c4d5;
-  --mission-blue: #185abc;
-  --mission-yellow: #765700;
-  --mission-green: #146c36;
-}
-:root[data-theme='dark'] {
-  --mission-grid: #ffffff12;
-  --mission-orbit: #52617b;
-  --mission-blue: #a8c7fa;
-  --mission-yellow: #f8d76d;
-  --mission-green: #91d5a7;
-}
 .audience-header nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .mission-colors { display: inline-flex; align-items: center; gap: 3px; }
 .mission-colors i { width: 6px; height: 6px; border-radius: 50%; background: var(--google-blue); }
@@ -336,16 +293,6 @@ body { font-family: var(--font-sans); }
   margin: 0;
   color: var(--audience-muted);
 }
-.referral-global-banner {
-  background: var(--audience-tint);
-  border-bottom: 1px solid var(--audience-line);
-  padding: 10px 0;
-  font-size: .875rem;
-  color: var(--audience-ink);
-  animation: explore-enter 200ms ease-out;
-}
-
-.referral-banner-message { margin-block: 0; overflow-wrap: anywhere; }
 
 .ambassador-invite-page {
   min-height: 100vh;
@@ -365,8 +312,7 @@ body { font-family: var(--font-sans); }
   margin-bottom: 24px;
 }
 
-.ambassador-campus-tag,
-.ambassador-verified-tag {
+.ambassador-campus-tag, .ambassador-verified-tag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -622,7 +568,6 @@ body { font-family: var(--font-sans); }
 .pass-help .audience-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 .pass-help p { margin: 0; color: var(--audience-muted); }
 .pass-help a { min-height: 44px; }
-.pass-booking-status { border-top: 1px solid var(--audience-line); padding-top: 24px; color: var(--audience-ink) !important; font-weight: 500; }
 .pass-detail-note { margin: 24px 0 0; color: var(--audience-muted); max-width: 55ch; }
 .pass-detail-exclusion { padding: 20px; background: var(--audience-tint); border-left: 2px solid var(--audience-blue); color: var(--audience-ink); }
 .ticket-next-step > .audience-caption { font-size: .875rem !important; }

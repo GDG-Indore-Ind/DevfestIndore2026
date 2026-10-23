@@ -1,87 +1,44 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "DevFest workshops",
-  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "description": "Confirmed campus records, direct event links and accurately matched photographs.",
   "type": "object",
   "additionalProperties": false,
+  "required": ["$schema", "workshops"],
   "properties": {
-    "$schema": {
-      "type": "string"
-    },
+    "$schema": { "type": "string" },
     "workshops": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
+        "required": ["id", "college", "speakerIds", "publication", "photos"],
+        "dependencies": { "date": ["eventUrl"] },
         "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[a-z0-9][a-z0-9-]*$"
-          },
-          "college": {
-            "type": "string",
-            "minLength": 1
-          },
-          "speakerIds": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "college": { "type": "string", "minLength": 1 },
+          "speakerIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" } },
+          "publication": { "enum": ["archived", "confirmed"] },
+          "topic": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "format": "date" },
+          "eventUrl": { "type": "string", "format": "uri", "pattern": "^https://gdg\\.community\\.dev/events/details/[^?#]+/?$" },
+          "photos": {
             "type": "array",
             "items": {
-              "type": "string",
-              "pattern": "^[a-z0-9][a-z0-9-]*$"
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["imageUrl", "caption", "width", "height", "source"],
+              "properties": {
+                "imageUrl": { "type": "string", "pattern": "^/images/workshops/[^/]+\\.webp$" },
+                "caption": { "type": "string", "minLength": 1 },
+                "width": { "type": "integer", "minimum": 1 },
+                "height": { "type": "integer", "minimum": 1 },
+                "source": { "type": "string", "format": "uri", "pattern": "^https://" }
+              }
             }
-          },
-          "publication": {
-            "enum": [
-              "archived",
-              "confirmed"
-            ]
-          },
-          "topic": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "collegeLogoUrl": {
-            "type": "string",
-            "pattern": "^(https://|/[^/])"
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^(https://|/[^/])"
-            }
-          },
-          "instagramUrl": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
-          },
-          "photosDrive": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
-          },
-          "logoDrive": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
-          },
-          "collabNotice": {
-            "type": "string"
           }
-        },
-        "required": [
-          "id",
-          "college",
-          "speakerIds",
-          "publication"
-        ]
+        }
       }
     }
-  },
-  "required": [
-    "$schema",
-    "workshops"
-  ]
+  }
 }

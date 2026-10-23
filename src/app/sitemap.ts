@@ -23,7 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
-    ...["/guidelines", "/partners", "/venue"].map(path => ({ url: `${baseUrl}${path}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 })),
+    ...["/guidelines", "/partners", "/venue"].map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/events`,
       lastModified: now,
@@ -48,7 +53,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
-    ...["/past-events", "/past-sponsors", ...DEVFEST_EDITIONS.map(event => `/past-events/${event.id}`)].map(path => ({ url: `${baseUrl}${path}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 })),
+    ...[
+      "/past-events",
+      "/past-sponsors",
+      ...DEVFEST_EDITIONS.map((event) => `/past-events/${event.id}`),
+    ].map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
     {
       url: `${baseUrl}/gallery`,
       lastModified: now,

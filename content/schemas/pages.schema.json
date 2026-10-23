@@ -10,7 +10,9 @@
     "venue",
     "home",
     "tickets",
-    "faq"
+    "faq",
+    "workshops",
+    "pastSpeakers"
   ],
   "definitions": {
     "text": {
@@ -265,6 +267,8 @@
         "historyTitle",
         "historyLead",
         "historyRecentLabel",
+        "historyOriginLabel",
+        "historyCurrentLabel",
         "ecosystemTitle",
         "ecosystemLead",
         "ecosystemHistoryLabel",
@@ -277,7 +281,13 @@
         "historyEyebrow",
         "venueLead",
         "pastSponsorsTitle",
-        "pastSponsorsLink"
+        "pastSponsorsLink",
+        "marqueePauseLabel",
+        "marqueePlayLabel",
+        "photoArchiveLabel",
+        "photoMarqueeLabel",
+        "photoMarqueePauseLabel",
+        "photoMarqueePlayLabel"
       ],
       "properties": {
         "programmeTitle": {
@@ -301,6 +311,12 @@
           "$ref": "#/definitions/text"
         },
         "historyRecentLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "historyOriginLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "historyCurrentLabel": {
           "$ref": "#/definitions/text"
         },
         "ecosystemTitle": {
@@ -341,6 +357,28 @@
         },
         "pastSponsorsLink": {
           "$ref": "#/definitions/text"
+        },
+        "marqueePauseLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "marqueePlayLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "photoArchiveLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photoMarqueeLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photoMarqueePauseLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photoMarqueePlayLabel": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -404,6 +442,174 @@
           "$ref": "#/definitions/text"
         },
         "contactText": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    },
+    "workshops": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "lead",
+        "workshopTitle",
+        "workshopLead",
+        "searchLabel",
+        "searchPlaceholder",
+        "emptyTitle",
+        "emptyText",
+        "clearLabel",
+        "eventLinkLabel",
+        "photoLabel",
+        "photoCloseLabel",
+        "undatedLabel",
+        "communityTitle",
+        "communityLead",
+        "archiveLabel",
+        "ticketTitle",
+        "ticketLead",
+        "ticketLabel",
+        "sessionSingular",
+        "sessionPlural"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "workshopTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "workshopLead": {
+          "$ref": "#/definitions/text"
+        },
+        "searchLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "searchPlaceholder": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyText": {
+          "$ref": "#/definitions/text"
+        },
+        "clearLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "eventLinkLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "photoLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "photoCloseLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "undatedLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "communityTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "communityLead": {
+          "$ref": "#/definitions/text"
+        },
+        "archiveLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "ticketTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "ticketLead": {
+          "$ref": "#/definitions/text"
+        },
+        "ticketLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "sessionSingular": {
+          "$ref": "#/definitions/text"
+        },
+        "sessionPlural": {
+          "$ref": "#/definitions/text"
+        }
+      }
+    },
+    "pastSpeakers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "lead",
+        "searchLabel",
+        "searchPlaceholder",
+        "editionLabel",
+        "trackLabel",
+        "allEditions",
+        "allTracks",
+        "speakerSingular",
+        "speakerPlural",
+        "sessionLabel",
+        "sessionsLabel",
+        "sourceLabel",
+        "emptyTitle",
+        "emptyText",
+        "clearLabel",
+        "provenance"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/text"
+        },
+        "lead": {
+          "$ref": "#/definitions/text"
+        },
+        "searchLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "searchPlaceholder": {
+          "$ref": "#/definitions/text"
+        },
+        "editionLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "trackLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "allEditions": {
+          "$ref": "#/definitions/text"
+        },
+        "allTracks": {
+          "$ref": "#/definitions/text"
+        },
+        "speakerSingular": {
+          "$ref": "#/definitions/text"
+        },
+        "speakerPlural": {
+          "$ref": "#/definitions/text"
+        },
+        "sessionLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "sessionsLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "sourceLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyText": {
+          "$ref": "#/definitions/text"
+        },
+        "clearLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "provenance": {
           "$ref": "#/definitions/text"
         }
       }

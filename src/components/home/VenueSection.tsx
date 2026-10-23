@@ -1,0 +1,59 @@
+import ExternalLink from "@/components/shared/ExternalLink";
+import { EVENT, REGISTRATION_TIME } from "@/content/event";
+import { HOME_PAGE } from "@/content/pages";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, MapPin, Navigation } from "lucide-react";
+
+export default function VenueSection({ showDetailsLink = true }: { showDetailsLink?: boolean }) {
+  return (
+    <section
+      className="audience-section audience-venue-band"
+      id="venue"
+      aria-labelledby="venue-title"
+    >
+      <div className="audience-wrap audience-venue-grid">
+        <div className="audience-section-heading">
+          <p className="explore-section-eyebrow">Getting here</p>
+          <h2 id="venue-title">See you at Essentia.</h2>
+          <p className="venue-lead">
+            {HOME_PAGE.venueLead.replace("{{registrationTime}}", REGISTRATION_TIME)}
+          </p>
+
+          <address className="audience-body venue-address">
+            <MapPin className="audience-icon" aria-hidden="true" />
+            <span>{EVENT.venue.address}</span>
+          </address>
+
+          <div className="venue-actions">
+            <ExternalLink
+              href={EVENT.venue.mapUrl}
+              className="audience-button venue-directions-btn"
+            >
+              <Navigation className="audience-icon" aria-hidden="true" />
+              Get directions
+            </ExternalLink>
+            {showDetailsLink && (
+              <Link href="/venue" className="audience-button programme-outline-button">
+                Plan your arrival
+                <ArrowRight className="audience-icon" aria-hidden="true" />
+              </Link>
+            )}
+          </div>
+        </div>
+
+        <div className="venue-photo-wrapper">
+          <Image
+            src={EVENT.venue.photo}
+            alt={`${EVENT.venue.fullName}, the venue for ${EVENT.name}`}
+            width={800}
+            height={540}
+            sizes="(max-width: 760px) 100vw, 60vw"
+            className="audience-venue-photo"
+          />
+          <span className="venue-photo-tag">{EVENT.venue.tag}</span>
+        </div>
+      </div>
+    </section>
+  );
+}

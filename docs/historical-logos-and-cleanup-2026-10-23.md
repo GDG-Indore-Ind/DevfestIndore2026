@@ -76,6 +76,16 @@ Ten existing team portraits used signed LinkedIn CDN URLs. Their original image 
 
 ## Verification
 
-Content/reference validation, TypeScript, lint on changed code and the production build pass. Partnerships, editions and publication states remain unchanged. Historical community entries require logo artwork in content validation. Browser checks cover Home, Past sponsors and Team in both appearances on compact and wide layouts, with no horizontal overflow or duplicate SVG clip IDs. The nine community logo plates load, the homepage has seven historical community cards plus six sponsor previews, the development badge is absent, and both corrected organizer portraits load locally.
+At the initial cleanup verification, content/reference validation, TypeScript, lint on changed code and the production build passed. At that point partnerships, editions and publication states were unchanged. Historical community entries required logo artwork in content validation. Browser checks covered Home, Past sponsors and Team in both appearances on compact and wide layouts, with no horizontal overflow or duplicate SVG clip IDs. The nine community logo plates loaded, the homepage had seven historical community cards plus six sponsor previews, the development badge was absent, and both corrected organizer portraits loaded locally. The community update below changes those community counts and relationships.
 
 The final asset audit also found that the broad raw-photo ignore rule excluded website JPEGs on this filesystem. Narrow exceptions for `public/images/team/` and `public/images/partners/` now keep all cached portraits and three previously local-only current partner assets in Git. Every local image referenced by public content is tracked for deployment.
+
+## Community destinations and current names
+
+On 23 October, the homepage community marquees and past-community cards were made clickable. They use each community's public website or platform, with social links as a fallback. The public content retains the archived appearances and original event sources while adding the current destination for each community.
+
+- Machine Learning Indore reuses the former TensorFlow User Group Indore record and 2024 appearance. Its current name, logo and [Commudle page](https://www.commudle.com/communities/machine-learning-indore) replace the older identity in the public listings.
+- GDG on Campus IET DAVV was added to the ecosystem from its [official GDG chapter page](https://gdg.community.dev/gdg-on-campus-institute-of-engineering-and-technology-davv-indore-india/); its logo comes from the chapter's [official site](https://gdsc.ietdavv.edu.in/).
+- FlutterFlow links to its [Developer Groups programme](https://www.flutterflow.io/flutterflow-developer-groups); FFDG Indore to its [Meetup chapter](https://www.meetup.com/google-cloud-developer-community-indore/); TheHackersMeetup to its [official site](https://thehackersmeetup.org/); and Friends of Figma Indore to its [official chapter page](https://friends.figma.com/indore/).
+- The archived GDSC Indore entry links to the [2022 GDG event record](https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/), which names GDSC Indore as a partner. No campus chapter is inferred from that citywide historical listing.
+- IndoriX was removed from public community content as requested. Its source artwork remains in this provenance archive only.
