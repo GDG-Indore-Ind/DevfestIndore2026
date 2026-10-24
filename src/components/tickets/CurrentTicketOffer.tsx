@@ -4,7 +4,6 @@ import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import { Check } from "lucide-react";
 import { useTicketRelease } from "@/contexts/TicketReleaseContext";
 import PassBooking from "@/components/tickets/PassBooking";
-import KonfHubRegistration from "@/components/tickets/KonfHubRegistration";
 import PageIntro from "@/components/shared/PageIntro";
 import { TICKETS_PAGE as page } from "@/content/pages";
 import styles from "./CurrentTicketOffer.module.css";
@@ -53,7 +52,6 @@ export default function CurrentTicketOffer() {
           {!passes.length && <p role="status">{page.endedLead}</p>}
         </div>
       </section>
-      <KonfHubRegistration />
     </>
   );
 }

@@ -42,6 +42,14 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
     reference(participation,`${item.editionId}/${item.speakerId}`,`session ${item.id} speaker participation`);
   }
   for (const item of team.members) reference(personIds,item.personId,`team ${item.id}`);
+  unique(content.ambassadors.directory, "ambassador directory", item => item.personId);
+  for (const item of content.ambassadors.directory) {
+    reference(personIds, item.personId, "ambassador directory");
+    const person = people.people.find(person => person.id === item.personId);
+    for (const platform of item.contactPlatforms) {
+      if (!person?.socials?.[platform]) errors.push(`ambassador directory ${item.personId}: missing ${platform} profile`);
+    }
+  }
   const workshopImages = new Map();
   unique(workshops.workshops.filter(item => item.eventUrl), "workshop event links", item => item.eventUrl.replace(/\/$/, ""));
   for (const item of workshops.workshops) {

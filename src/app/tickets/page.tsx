@@ -3,6 +3,8 @@ import { EVENT } from "@/content/event";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CurrentTicketOffer from "@/components/tickets/CurrentTicketOffer";
+import AmbassadorContact from "@/components/tickets/AmbassadorContact";
+import KonfHubRegistration from "@/components/tickets/KonfHubRegistration";
 import { TICKETS_PAGE as page } from "@/content/pages";
 import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
 import { TICKET_REGISTRATION } from "@/content/tickets";
@@ -27,6 +29,8 @@ export default function TicketsPage() {
       />
       <main id="main-content">
         <CurrentTicketOffer />
+        {page.ambassadorContactEnabled && <AmbassadorContact />}
+        <KonfHubRegistration />
         <section className="pass-help">
           <div className="audience-wrap">
             <p>{page.supportText}</p>

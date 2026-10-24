@@ -155,10 +155,11 @@
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "Compare passes, check eligibility and inclusions, then book through KonfHub.",
+    "lead": "Explore the current pass, check its inclusions and eligibility, then register through KonfHub.",
     "endedLead": "No passes are currently listed. Contact the organizers for booking help.",
     "supportText": "Questions about your booking?",
-    "guidelinesLabel": "Registration guidelines"
+    "guidelinesLabel": "Registration guidelines",
+    "ambassadorContactEnabled": false
   },
   "faq": {
     "title": "Common questions",
@@ -210,5 +211,36 @@
     "emptyText": "Try another name or choose a different edition or track.",
     "clearLabel": "Clear filters",
     "provenance": "Profiles and sessions come from the organizer’s speaker archive. Source links open the relevant event page."
+  },
+  "ambassadors": {
+    "title": "Contact your ambassador",
+    "description": "Connect with the DevFest Indore ambassador programme for campus and community ticket enquiries.",
+    "lead": "Coming with your campus or community? Start with your DevFest ambassador.",
+    "navigationLabel": "Contact your ambassador",
+    "navigationDetail": "Campus and community ticket enquiries",
+    "ticketLead": "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
+    "stepsTitle": "Connect through your community",
+    "steps": [
+      {
+        "title": "Speak with your ambassador",
+        "text": "Ask your campus or community’s DevFest ambassador about the programme and how to register."
+      },
+      {
+        "title": "Check the ticket details",
+        "text": "Review the eligibility and inclusions of the pass offered to you before booking."
+      },
+      {
+        "title": "Complete registration on KonfHub",
+        "text": "Use the booking instructions shared with you. Your KonfHub confirmation completes your registration."
+      }
+    ],
+    "contactTitle": "Need help finding your ambassador?",
+    "contactText": "Can’t find your campus or community? Email the organizers with its name and ask about connecting with an ambassador.",
+    "contactLabel": "Ask the organizers",
+    "emailSubject": "DevFest ambassador enquiry",
+    "ticketsLabel": "Explore current tickets",
+    "directoryTitle": "Meet your ambassadors",
+    "previewLabel": "Sample profile",
+    "directoryLead": "A preview of the ambassador directory. More profiles will be added once confirmed."
   }
 }

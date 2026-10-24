@@ -20,7 +20,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HOME_PAGE } from "@/content/pages";
+import { HOME_PAGE, AMBASSADORS_PAGE } from "@/content/pages";
 import ThemeChoice from "@/components/layout/ThemeChoice";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -33,6 +33,12 @@ interface NavbarProps {
 
 export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
   const attendLinks = [
+    {
+      href: "/ambassadors",
+      label: AMBASSADORS_PAGE.navigationLabel,
+      detail: AMBASSADORS_PAGE.navigationDetail,
+      Icon: Users,
+    },
     {
       href: "/tickets",
       label: "Tickets & pass details",

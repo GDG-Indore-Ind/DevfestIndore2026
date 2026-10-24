@@ -16,7 +16,7 @@ Edit the JSON files in this folder to manage DevFest content. The site reads the
 | `tickets.json` | Pass descriptions, eligibility, inclusions, release times, booking steps and policies |
 | `themes.json` | Homepage themes, topic copy, icon names and diagrams’ labels |
 | `faqs.json` | Event questions and answers |
-| `ambassadors.json` | Public invitation profiles and referral codes |
+| `ambassadors.json` | Public invitation profiles, referral codes and the contact directory |
 | `pages.json` | Homepage/gallery copy, partner reveal switch, practical-page introductions and guideline policy references |
 
 Every file contains a `$schema` reference. Editors that support JSON Schema can show field suggestions and highlight mistakes. The schemas live in `schemas/`; ordinary content edits do not require changing them.
@@ -111,3 +111,11 @@ Confirmed partnerships support `visible: false` to hold individual cards back fr
 `pages.json` → `partners.carousel` owns the featured partner carousel labels. One revealed card stays static; multiple revealed cards enable manual navigation and optional playback. The slideshow starts paused and honors reduced motion.
 
 The homepage exhibit invitation lives in `pages.json` → `home.exhibits`; its form URL is `event.json` → `links.exhibitApplication`. Keep it as an expression-of-interest invitation, and do not add unconfirmed exhibitors or booth benefits. Theme selector labels and the swipe hint also live under `pages.json` → `home`.
+
+## Ambassador contact directory and phased ticket rollout
+
+Only LiftOff Pass is currently visible. Cadet, Commander and Flight Deck are held back with `visible: false`, alongside Last Orbit and Observer. Reveal later passes explicitly when their approved release is ready; the ambassador and standard rollout estimates are not public release dates. Website visibility does not change KonfHub inventory or the embedded widget. Keep KonfHub availability in sync separately.
+
+`/ambassadors` is one shared directory for all ambassadors, separate from Tickets and accessible through the Explore menu. The Tickets page currently focuses on LiftOff; its ambassador link is held back by `pages.json` → `tickets.ambassadorContactEnabled: false`. After LiftOff sales end, enable that flag as the next manual rollout step to route visitors from Tickets to the directory. Standard tickets follow in a later update; there is no automatic phase transition. Its copy belongs in `pages.json` → `ambassadors`. `ambassadors.json` → `directory` references people by `personId`, with a campus/community label, a `preview` flag and `contactPlatforms`. Names, photos and public social URLs remain in `people.json`; the directory renders only the selected platforms. Karan Mittal is the explicitly labelled sample profile, using his existing photo and LinkedIn URL. Replace it with confirmed directory memberships when the organizer sheet arrives. Existing invitation/referral records are separate from directory membership and are not automatically listed.
+
+For the ambassador sheet, supply each person's name, campus/community, photo and public contact profile URLs. City and referral code/invitation link are optional. Do not put private phone numbers or unpublished contact information in public JSON.
