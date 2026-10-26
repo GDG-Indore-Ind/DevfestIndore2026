@@ -1,3 +1,7 @@
+import PartnerDirectory from "@/components/directory/PartnerDirectory";
+import ReviewNotice from "@/components/directory/ReviewNotice";
+import { DIRECTORY_COPY, getPublicOrganizations } from "@/content/directory";
+import { DIRECTORY_ACTIVE, DIRECTORY_REVIEW } from "@/lib/directoryAccess";
 import ContentAction from "@/components/shared/ContentAction";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -17,6 +21,7 @@ export const metadata = pageMetadata(
 export default function PartnersPage() {
   return (
     <div className="audience-site space-subpage practical-page partners-page">
+      <ReviewNotice />
       <Navbar
         flightStops={[
           { id: "page-overview", label: "Overview" },
@@ -27,15 +32,27 @@ export default function PartnersPage() {
       <main id="main-content">
         <div id={page.revealed ? undefined : "current-partners"}>
           <PageIntro
-            title={page.title}
-            lead={page.revealed ? page.lead : page.revealLead}
+            title={DIRECTORY_ACTIVE ? DIRECTORY_COPY.partners.title : page.title}
+            lead={
+              DIRECTORY_ACTIVE
+                ? DIRECTORY_COPY.partners.lead
+                : page.revealed
+                  ? page.lead
+                  : page.revealLead
+            }
             motif="partners"
           />
         </div>
-        {page.revealed && (
-          <div id="current-partners">
-            <SponsorShowcase showIntro={false} showEcosystem={false} />
+        {DIRECTORY_ACTIVE ? (
+          <div className="audience-wrap" id="current-partners">
+            <PartnerDirectory organizations={getPublicOrganizations()} preview={DIRECTORY_REVIEW} />
           </div>
+        ) : (
+          page.revealed && (
+            <div id="current-partners">
+              <SponsorShowcase showIntro={false} showEcosystem={false} />
+            </div>
+          )
         )}
         <section
           className="audience-section practical-application"
@@ -62,9 +79,6 @@ export default function PartnersPage() {
               >
                 {page.applicationButton}
               </ExternalLink>
-              <p className="audience-caption">
-                {page.contactText} <a href={`mailto:${EVENT.contactEmail}`}>{EVENT.contactEmail}</a>
-              </p>
             </div>
           </div>
         </section>

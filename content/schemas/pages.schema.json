@@ -54,9 +54,7 @@
       "additionalProperties": false,
       "required": [
         "navigationLabel",
-        "sections",
-        "supportText",
-        "supportLabel"
+        "sections"
       ],
       "properties": {
         "title": {
@@ -69,12 +67,6 @@
           "$ref": "#/definitions/text"
         },
         "navigationLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "supportText": {
-          "$ref": "#/definitions/text"
-        },
-        "supportLabel": {
           "$ref": "#/definitions/text"
         },
         "sections": {
@@ -129,7 +121,6 @@
         "applicationText",
         "applicationPoints",
         "applicationButton",
-        "contactText",
         "archiveLabel",
         "revealed",
         "revealTitle",
@@ -158,9 +149,6 @@
           "$ref": "#/definitions/text"
         },
         "applicationButton": {
-          "$ref": "#/definitions/text"
-        },
-        "contactText": {
           "$ref": "#/definitions/text"
         },
         "archiveLabel": {
@@ -261,9 +249,6 @@
         "arrivalTitle",
         "registrationLabel",
         "entryTitle",
-        "supportTitle",
-        "supportText",
-        "supportLabel",
         "entrySummary"
       ],
       "properties": {
@@ -286,15 +271,6 @@
           "$ref": "#/definitions/text"
         },
         "entryTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "supportTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "supportText": {
-          "$ref": "#/definitions/text"
-        },
-        "supportLabel": {
           "$ref": "#/definitions/text"
         },
         "entrySummary": {
@@ -444,7 +420,6 @@
           "additionalProperties": false,
           "required": [
             "navigationLabel",
-            "navigationDetail",
             "eyebrow",
             "title",
             "lead",
@@ -455,9 +430,6 @@
           ],
           "properties": {
             "navigationLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "navigationDetail": {
               "$ref": "#/definitions/text"
             },
             "eyebrow": {
@@ -492,8 +464,6 @@
         "title",
         "lead",
         "endedLead",
-        "supportText",
-        "guidelinesLabel",
         "ambassadorContactEnabled"
       ],
       "properties": {
@@ -504,12 +474,6 @@
           "$ref": "#/definitions/text"
         },
         "endedLead": {
-          "$ref": "#/definitions/text"
-        },
-        "supportText": {
-          "$ref": "#/definitions/text"
-        },
-        "guidelinesLabel": {
           "$ref": "#/definitions/text"
         },
         "ambassadorContactEnabled": {
@@ -526,8 +490,7 @@
         "eventTitle",
         "eventLead",
         "ticketsTitle",
-        "ticketsLead",
-        "contactText"
+        "ticketsLead"
       ],
       "properties": {
         "title": {
@@ -546,9 +509,6 @@
           "$ref": "#/definitions/text"
         },
         "ticketsLead": {
-          "$ref": "#/definitions/text"
-        },
-        "contactText": {
           "$ref": "#/definitions/text"
         }
       }
@@ -729,18 +689,18 @@
         "description",
         "lead",
         "navigationLabel",
-        "navigationDetail",
         "ticketLead",
         "stepsTitle",
-        "contactTitle",
-        "contactText",
-        "contactLabel",
-        "emailSubject",
         "ticketsLabel",
         "steps",
         "directoryTitle",
-        "previewLabel",
-        "directoryLead"
+        "directoryLead",
+        "searchLabel",
+        "searchPlaceholder",
+        "emptyTitle",
+        "emptyText",
+        "ambassadorSingular",
+        "ambassadorPlural"
       ],
       "properties": {
         "title": {
@@ -755,25 +715,10 @@
         "navigationLabel": {
           "$ref": "#/definitions/text"
         },
-        "navigationDetail": {
-          "$ref": "#/definitions/text"
-        },
         "ticketLead": {
           "$ref": "#/definitions/text"
         },
         "stepsTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "contactTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "contactText": {
-          "$ref": "#/definitions/text"
-        },
-        "contactLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "emailSubject": {
           "$ref": "#/definitions/text"
         },
         "ticketsLabel": {
@@ -802,10 +747,25 @@
         "directoryTitle": {
           "$ref": "#/definitions/text"
         },
-        "previewLabel": {
+        "directoryLead": {
           "$ref": "#/definitions/text"
         },
-        "directoryLead": {
+        "searchLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "searchPlaceholder": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "emptyText": {
+          "$ref": "#/definitions/text"
+        },
+        "ambassadorSingular": {
+          "$ref": "#/definitions/text"
+        },
+        "ambassadorPlural": {
           "$ref": "#/definitions/text"
         }
       }

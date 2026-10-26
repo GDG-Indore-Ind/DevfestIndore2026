@@ -20,18 +20,14 @@ export default function KonfHubRegistration() {
     >
       <div className="audience-wrap">
         <div className={styles.heading}>
-          <h2 id="registration-title">
-            {copy.widgetHeading}
-            <sup aria-hidden="true">*</sup>
-          </h2>
+          <h2 id="registration-title">{copy.widgetHeading}</h2>
           <p>{copy.widgetLead}</p>
         </div>
-        <div id="attendee-policies">
+        <div id="attendee-policies" className={styles.policies}>
           <p className={styles.referral}>{copy.profileReminder}</p>
           <p className={styles.referral}>{copy.finalSaleText}</p>
         </div>
         <p className={styles.terms}>
-          <span aria-hidden="true">*</span>{" "}
           <Link href="/guidelines" className="audience-text-link">
             {copy.termsLabel}
           </Link>

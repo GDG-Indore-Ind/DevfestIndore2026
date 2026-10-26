@@ -1,6 +1,5 @@
 import ContentAction from "@/components/shared/ContentAction";
 import type { Metadata } from "next";
-import { EVENT } from "@/content/event";
 import { FAQ_PAGE as page } from "@/content/pages";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -10,7 +9,7 @@ import FaqSection from "@/components/shared/FaqSection";
 export const metadata: Metadata = {
   title: "Common questions",
   description:
-    "Practical answers about DevFest Indore 2026: passes, entry, release dates, student ID, the venue and ticket policies.",
+    "Practical answers about DevFest Indore 2026: pass inclusions, entry, student ID, the venue and ticket policies.",
 };
 
 export default function FaqPage() {
@@ -36,12 +35,6 @@ export default function FaqPage() {
           <ContentAction href="/venue" icon="venue" tone="red">
             Venue & directions
           </ContentAction>
-        </div>
-        <div className="audience-wrap faq-support-line">
-          <p>{page.contactText}</p>
-          <a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">
-            {EVENT.contactEmail}
-          </a>
         </div>
       </main>
       <Footer />

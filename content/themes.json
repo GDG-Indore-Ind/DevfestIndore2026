@@ -13,13 +13,7 @@
         "Telemetry",
         "Earth observation",
         "Edge computing"
-      ],
-      "route": [
-        "Sense",
-        "Transmit",
-        "Understand"
-      ],
-      "stripLabel": "SPACE TECHNOLOGY"
+      ]
     },
     {
       "id": "agents",
@@ -33,13 +27,7 @@
         "Tool use",
         "Agent evaluation",
         "Human oversight"
-      ],
-      "route": [
-        "Reason",
-        "Use tools",
-        "Evaluate"
-      ],
-      "stripLabel": "AI AGENTS"
+      ]
     },
     {
       "id": "physical",
@@ -53,13 +41,7 @@
         "Robotics",
         "Perception",
         "Control loops"
-      ],
-      "route": [
-        "Perceive",
-        "Plan",
-        "Move"
-      ],
-      "stripLabel": "PHYSICAL AI"
+      ]
     },
     {
       "id": "systems",
@@ -73,13 +55,7 @@
         "Scalable data",
         "Reliability",
         "Observability"
-      ],
-      "route": [
-        "Observe",
-        "Recover",
-        "Improve"
-      ],
-      "stripLabel": "CLOUD & SYSTEMS"
+      ]
     }
   ]
 }

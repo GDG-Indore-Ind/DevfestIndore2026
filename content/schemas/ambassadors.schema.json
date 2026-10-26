@@ -8,48 +8,6 @@
     "$schema": {
       "type": "string"
     },
-    "ambassadors": {
-      "type": "object",
-      "propertyNames": {
-        "type": "string",
-        "pattern": "^[a-z0-9][a-z0-9-]*$"
-      },
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1
-          },
-          "college": {
-            "type": "string",
-            "minLength": 1
-          },
-          "coupon": {
-            "type": "string",
-            "pattern": "^[A-Z0-9_-]+$"
-          },
-          "discount": {
-            "type": "string",
-            "minLength": 1
-          },
-          "city": {
-            "type": "string"
-          },
-          "avatar": {
-            "type": "string",
-            "pattern": "^(https://|/[^/])"
-          }
-        },
-        "required": [
-          "name",
-          "college",
-          "coupon",
-          "discount"
-        ]
-      }
-    },
     "directory": {
       "type": "array",
       "items": {
@@ -58,7 +16,6 @@
         "required": [
           "personId",
           "community",
-          "preview",
           "contactPlatforms"
         ],
         "properties": {
@@ -70,20 +27,13 @@
             "type": "string",
             "minLength": 1
           },
-          "preview": {
-            "type": "boolean"
-          },
           "contactPlatforms": {
             "type": "array",
-            "minItems": 1,
+            "minItems": 0,
             "uniqueItems": true,
             "items": {
               "enum": [
-                "linkedin",
-                "instagram",
-                "twitter",
-                "github",
-                "website"
+                "linkedin"
               ]
             }
           }
@@ -93,7 +43,6 @@
   },
   "required": [
     "$schema",
-    "ambassadors",
     "directory"
   ]
 }

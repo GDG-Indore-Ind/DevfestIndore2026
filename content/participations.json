@@ -1,0 +1,424 @@
+{
+  "$schema": "./schemas/participations.schema.json",
+  "participations": [
+    {
+      "id": "2025-abhishek-doshi",
+      "personId": "abhishek-doshi",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/"
+    },
+    {
+      "id": "2025-nikhilesh-tayal",
+      "personId": "nikhilesh-tayal",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/"
+    },
+    {
+      "id": "2025-ganesh-divekar",
+      "personId": "ganesh-divekar",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/"
+    },
+    {
+      "id": "2025-himanshu-jain",
+      "personId": "himanshu-jain",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/"
+    },
+    {
+      "id": "2025-divyanshu-bhargava",
+      "personId": "divyanshu-bhargava",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/"
+    },
+    {
+      "id": "2025-ankit-sharma",
+      "personId": "ankit-sharma",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-mrinal-jain",
+      "personId": "mrinal-jain",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-shachita-jain",
+      "personId": "shachita-jain",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-shashank-saxena",
+      "personId": "shashank-saxena",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-rahul-chautel",
+      "personId": "rahul-chautel",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-sunny-ralli",
+      "personId": "sunny-ralli",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-gautam-billore",
+      "personId": "gautam-billore",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-srashti-jain",
+      "personId": "srashti-jain",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2025-harsh-tonde",
+      "personId": "harsh-tonde",
+      "eventId": "2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-divyanshu-bhargava",
+      "personId": "divyanshu-bhargava",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-dhananjay-kumar",
+      "personId": "dhananjay-kumar",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-usha-ramani",
+      "personId": "usha-ramani",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-varun-srinivas",
+      "personId": "varun-srinivas",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-abhishek-sharma",
+      "personId": "abhishek-sharma",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-drijesh-ppatel",
+      "personId": "drijesh-ppatel",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-ramesh-rajini",
+      "personId": "ramesh-rajini",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-jitendra-gupta",
+      "personId": "jitendra-gupta",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-soumya-upadhyay",
+      "personId": "soumya-upadhyay",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-sudip-mazumder",
+      "personId": "sudip-mazumder",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-adeen-shukla",
+      "personId": "adeen-shukla",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-prasad-seth",
+      "personId": "prasad-seth",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-harsh-tonde",
+      "personId": "harsh-tonde",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-manish-gehlot",
+      "personId": "manish-gehlot",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "2024-dr-gautam-billore",
+      "personId": "dr-gautam-billore",
+      "eventId": "2024",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "id": "ai-unplugged-2025-dhananjay-kumar",
+      "personId": "dhananjay-kumar",
+      "eventId": "ai-unplugged-2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-ai-unplugged-a-prelude-to-devfest-2025/cohost-gdg-on-campus-ips-academy-indore-india/"
+    },
+    {
+      "id": "cloud-bytes-2025-karan-mittal",
+      "personId": "karan-mittal",
+      "eventId": "cloud-bytes-2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-bytes-your-ccd-2025-intro/cohost-gdg-on-campus-shri-vaishnav-vidyapeeth-vishwavidyalaya-indore-india/"
+    },
+    {
+      "id": "2026-karan-mittal",
+      "personId": "karan-mittal",
+      "eventId": "2026",
+      "roles": [
+        {
+          "kind": "core-team",
+          "title": "Organizer",
+          "order": 30,
+          "responsibilities": [
+            {
+              "area": "Programme & Speakers",
+              "level": "lead"
+            },
+            {
+              "area": "Technology & Production",
+              "level": "lead"
+            }
+          ]
+        },
+        {
+          "kind": "ambassador",
+          "title": "Ambassador",
+          "order": 31
+        }
+      ]
+    },
+    {
+      "id": "ccd-2025-karan-mittal",
+      "personId": "karan-mittal",
+      "eventId": "ccd-2025",
+      "roles": [
+        {
+          "kind": "speaker",
+          "title": "Workshop speaker",
+          "order": 0
+        }
+      ],
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-2025-indore/cohost-gdg-cloud-indore/"
+    }
+  ]
+}

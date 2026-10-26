@@ -14,8 +14,8 @@ Start with the [README](../README.md). The [content guide](../content/README.md)
 | Pass presentation, checkout and referral notices | `src/components/tickets/` |
 | Campus photo viewer | `src/components/workshops/` |
 | Shared links, images, profiles and page introductions | `src/components/shared/` |
-| Saved theme and release clock | `src/contexts/` |
-| Referral URLs, metadata and server time | `src/lib/` |
+| Saved theme | `src/contexts/` |
+| Referral URLs and metadata | `src/lib/` |
 | Content validation and organizer exports | `scripts/` |
 
 Import components directly from their folders. Keep route-specific code beside its page when it is not reused. Avoid another generic utility or data layer.
@@ -41,6 +41,10 @@ npm run check
 npm run build
 ```
 
-`check` validates content, generates Next.js route types, checks TypeScript, lints and checks formatting. CI also builds the production application. Review changed routes on a Vercel preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking state, release times, direct-link coupons and the iframe fallback without making a purchase.
+`check` validates content, generates Next.js route types, checks TypeScript, lints and checks formatting. CI also builds the production application. Review changed routes on a Vercel preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking and sold-out states, direct-link coupons and the iframe fallback without making a purchase.
 
 See [release instructions](releasing.md) for deployment ownership and review.
+
+## Directory review
+
+`npm run content:test` covers the content relationships and approval gates and is part of `npm run check`. `npm run content:review` exports review packets, never approvals. For a local review of DevFest Team, Talks and linked profiles, run `CONTENT_DIRECTORY_PREVIEW=1 npm run dev`. Production ignores that override. Review the exact profile changes with the organizer before updating approval receipts; do not replace public-baseline fingerprints to accept unreviewed data.

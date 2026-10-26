@@ -1,3 +1,5 @@
+import { DIRECTORY_ACTIVE } from "@/lib/directoryAccess";
+import { DIRECTORY_COPY } from "@/content/directory";
 import ContentAction from "@/components/shared/ContentAction";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -80,8 +82,12 @@ export default async function EditionPage({ params }: Props) {
           ))}
         </ul>
       </section>
-      <ContentAction href="/past-speakers" icon="people" tone="green">
-        Browse past speakers
+      <ContentAction
+        href={DIRECTORY_ACTIVE ? `/talks?year=${year}` : "/past-speakers"}
+        icon="people"
+        tone="green"
+      >
+        {DIRECTORY_ACTIVE ? DIRECTORY_COPY.talks.title : "Browse past speakers"}
       </ContentAction>
     </CommunityPage>
   );

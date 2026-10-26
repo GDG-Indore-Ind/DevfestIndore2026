@@ -1,0 +1,100 @@
+.panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 5;
+  width: min(720px, calc(100vw - 40px));
+  max-height: calc(100dvh - 108px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px;
+  border: 1px solid var(--audience-line);
+  border-radius: 18px;
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  box-shadow: 0 20px 64px #10141d20;
+}
+:global(.audience-header) .panel {
+  display: block;
+}
+:global(.audience-header) .panel[hidden] {
+  display: none;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--audience-line);
+  color: var(--audience-muted);
+  font-size: 0.8125rem;
+}
+.groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 20px;
+}
+.group h2 {
+  margin: 0 0 8px;
+  color: var(--audience-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.links {
+  display: grid;
+}
+:global(.audience-header) .panel .links a {
+  display: flex;
+  min-width: 0;
+  min-height: 44px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 8px;
+  margin-inline: -8px;
+  border-radius: 8px;
+  color: var(--audience-ink);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+:global(.audience-header) .panel .links a:hover,
+:global(.audience-header) .panel .links a[aria-current="page"] {
+  background: var(--audience-tint);
+  color: var(--audience-blue);
+}
+.links svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+@media (max-width: 760px) {
+  .panel {
+    max-height: calc(100dvh - 156px);
+    padding: 18px;
+  }
+  .heading {
+    font-size: 0.75rem;
+  }
+  .groups {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-top: 16px;
+  }
+  .group + .group {
+    border-top: 1px solid var(--audience-line);
+    padding-top: 16px;
+  }
+  .links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 12px;
+  }
+  :global(.audience-header) .panel .links a {
+    margin-inline: 0;
+    padding: 8px 4px;
+  }
+}

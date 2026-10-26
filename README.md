@@ -16,18 +16,18 @@ Open [the local preview](http://localhost:3000). The development badge is hidden
 Read [the content editing guide](content/README.md). All editable public records belong in `content/*.json`; typed views in `src/content/` connect them to pages. JSON Schemas and reference validation run before development and builds.
 
 - `event.json`: event facts, official links and the registration-link switch.
-- `tickets.json`: pass windows, eligibility, inclusions and policies.
-- `people.json`, `speakers.json`, `sessions.json`, `team.json`: identities and edition-specific participation.
+- `tickets.json`: pass visibility, eligibility, inclusions, prices and policies.
+- `people.json`, `participations.json`, `sessions.json`, `team.json`: identities and edition-specific participation.
 - `partners.json`: organization artwork and confirmed, ecosystem or historical relationships.
 - `pages.json`, `themes.json`, `faqs.json`: page wording and partner reveal control.
-- `events.json`, `workshops.json`, `gallery.json`, `ambassadors.json`: archives, community activities, photographs and invitations.
+- `events.json`, `workshops.json`, `gallery.json`, `ambassadors.json`: archives, community activities, photographs and the ambassador directory.
 
 People and organizations are defined once and referenced by stable IDs. Publish only approved records. Historical appearances and community logos never imply current participation.
 
 ## Attendee journeys
 
-- Home introduces the event, Programme, partner invitation, communities, past-event photographs and venue.
-- `/tickets` shows the featured release and a direct Register action. KonfHub owns live inventory, pricing and payment. `booking.enabled` controls the outbound event link independently of the local pass-preview calendar; a visible event page does not guarantee an open ticket release.
+- Home introduces the event, Themes, exhibit and partner invitations, communities, past-event photographs and venue.
+- `/tickets` shows explicitly visible passes, their inclusions and confirmed prices. Sold-out passes retain their details without a Register action. Other Register actions scroll to the embedded KonfHub checkout. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `booking.enabled` controls the widget and direct fallback link.
 - `/guidelines` contains complete registration and attendance rules. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
 - `/partners` contains contribution options and the official partner form. `pages.partners.revealed` holds collaborator announcements until approved.
 - `/venue` contains the verified photo, address, directions, map and check-in information.
@@ -64,3 +64,5 @@ Use feature branches and review the Vercel preview before merging. This checkout
 `docs/source-archive/` preserves original reference material and is never imported by application code. Earlier design/planning notes are historical context; canonical JSON owns current public facts.
 
 Local changes are reviewed in Git. Publishing follows the repository’s normal deployment process; a local commit does not deploy the site.
+
+The new directory layout is held behind `content/directory.json` until review is complete. Individually approved profiles can be linked from existing listings before that launch. Review packets are in `docs/profile-review/`; `content/approvals.json` distinguishes existing-public baselines from explicit approvals.

@@ -43,7 +43,7 @@
       "id": "ticket-current",
       "kind": "tickets",
       "question": "Which pass should I choose?",
-      "answer": "Compare the featured pass, eligibility and inclusions on Tickets. KonfHub confirms current availability and pricing.",
+      "answer": "See pass inclusions and eligibility on Tickets. Check KonfHub for current availability and prices.",
       "link": {
         "href": "/tickets",
         "label": "View tickets"

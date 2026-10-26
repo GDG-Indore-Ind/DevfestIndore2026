@@ -5,7 +5,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import ExternalLink from "@/components/shared/ExternalLink";
-import RegistrationReminder from "@/components/tickets/RegistrationReminder";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import { GUIDELINES_PAGE as page } from "@/content/pages";
 import { REGISTRATION_CHECKLIST, TICKET_POLICIES, getPublicPass } from "@/content/tickets";
@@ -61,8 +60,7 @@ export default function GuidelinesPage() {
                 <h2 id={`${section.id}-title`}>{section.title}</h2>
                 {section.id === "before-booking" && (
                   <>
-                    <RegistrationReminder contained />
-                    {REGISTRATION_CHECKLIST.slice(1).map((item) => (
+                    {REGISTRATION_CHECKLIST.map((item) => (
                       <div className="practical-policy" key={item.title}>
                         <h3>{item.title}</h3>
                         <p>{item.text}</p>
@@ -86,11 +84,6 @@ export default function GuidelinesPage() {
                 })}
                 {section.id === "support" && (
                   <div className="practical-support">
-                    <p>{page.supportText}</p>
-                    <a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">
-                      {page.supportLabel}
-                      <ArrowRight className="audience-icon" aria-hidden="true" />
-                    </a>
                     <ExternalLink href={EVENT.links.codeOfConduct} className="audience-text-link">
                       Code of conduct
                     </ExternalLink>

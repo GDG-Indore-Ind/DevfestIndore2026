@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   devIndicators: false,
   async redirects() {
-    return [{ source: "/tickets/:path+", destination: "/tickets", permanent: true }];
+    return [
+      { source: "/tickets/:path+", destination: "/tickets", permanent: true },
+      { source: "/invite/:slug", destination: "/ambassadors", permanent: true },
+    ];
   },
   images: {
     qualities: [75, 100],

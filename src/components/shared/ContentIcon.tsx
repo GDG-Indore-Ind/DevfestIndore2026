@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  CircleHelp,
   Handshake,
   History,
   Images,
@@ -21,6 +22,7 @@ const icons = {
   partners: Handshake,
   history: History,
   gallery: Images,
+  help: CircleHelp,
   mail: Mail,
   venue: MapPin,
   microphone: Mic,

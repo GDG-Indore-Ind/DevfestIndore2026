@@ -6,10 +6,6 @@
   line-height: 1.2;
   margin: 0 0 12px;
 }
-.heading h2 sup {
-  font-size: 0.875rem;
-  margin-left: 3px;
-}
 .heading p {
   margin: 0;
   color: var(--audience-muted);
@@ -33,6 +29,14 @@
 }
 .referral strong {
   color: var(--audience-ink);
+}
+.policies {
+  display: grid;
+  gap: 8px;
+  margin-block: 12px 4px;
+}
+.policies p {
+  margin: 0;
 }
 .window {
   overflow: hidden;

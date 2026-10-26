@@ -76,6 +76,19 @@
       "officialSpeakerIds": [
         "karan-mittal"
       ]
+    },
+    {
+      "id": "ccd-2025",
+      "title": "Cloud Community Days Indore 2025",
+      "date": "2025-07-12",
+      "venue": "Indore Marriott Hotel",
+      "kind": "Community event",
+      "summary": "A GDG Cloud Indore conference with cloud and AI sessions and workshops.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-2025-indore/cohost-gdg-cloud-indore/",
+      "publication": "archived",
+      "officialSpeakerIds": [
+        "karan-mittal"
+      ]
     }
   ]
 }

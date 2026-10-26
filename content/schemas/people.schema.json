@@ -51,9 +51,6 @@
               "instagram": {
                 "type": "string"
               },
-              "email": {
-                "type": "string"
-              },
               "website": {
                 "type": "string"
               },

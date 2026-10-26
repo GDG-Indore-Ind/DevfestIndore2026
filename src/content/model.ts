@@ -1,5 +1,6 @@
 export interface TeamMember {
   id: string;
+  personId: string;
   name: string;
   role: string;
   team:
@@ -7,7 +8,10 @@ export interface TeamMember {
     | "Design & Experience"
     | "Tech & Operations"
     | "Space & Ecosystem"
-    | "Community";
+    | "Community"
+    | "Volunteers"
+    | "Ambassadors"
+    | "Core Team";
   bio: string;
   avatar: string;
   order?: number;
@@ -100,7 +104,6 @@ export interface Socials {
   twitter?: string;
   github?: string;
   instagram?: string;
-  email?: string;
   website?: string;
   blog?: string;
 }
@@ -114,16 +117,34 @@ export interface Person {
   company?: string;
   socials?: Socials;
 }
-export interface SpeakerRecord {
+export type TeamRoleKind = "core-team" | "volunteer" | "ambassador" | "speaker";
+export type Responsibility = {
+  area: string;
+  level: "lead" | "co-lead" | "coordinator" | "team-member" | "volunteer";
+};
+export interface ParticipationRole {
+  kind: TeamRoleKind;
+  title: string;
+  order: number;
+  responsibilities?: Responsibility[];
+}
+export interface Participation {
   id: string;
   personId: string;
-  editionId: string;
-  publication: "confirmed" | "archived";
+  eventId: string;
+  roles: ParticipationRole[];
+  sourceUrl?: string;
 }
 export interface SessionRecord {
   id: string;
   editionId: string;
-  speakerId: string;
+  speakerIds: string[];
+  speakerProfiles?: {
+    personId: string;
+    role?: string;
+    company?: string;
+    profile?: Partial<Pick<Person, "avatar" | "bio" | "socials">>;
+  }[];
   publication: "confirmed" | "archived";
   title: string;
   role: string;
@@ -137,13 +158,15 @@ export interface SessionRecord {
   time?: string;
   hall?: string;
   tags?: string[];
+  resources?: { label: string; url: string }[];
+  format?: "talk" | "keynote" | "panel" | "workshop";
+  sourceUrl?: string;
 }
 export interface Partnership {
   visible?: boolean;
   id: string;
   editionId: string;
-  kind: "sponsor" | "collaborator" | "community" | "media";
-  role: string;
+  contributions: { kind: "sponsor" | "collaborator" | "community" | "media"; role: string }[];
   publication: "confirmed" | "archived" | "ecosystem";
   order?: number;
   source?: string;

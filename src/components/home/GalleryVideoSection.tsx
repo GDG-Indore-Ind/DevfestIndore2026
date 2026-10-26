@@ -1,3 +1,4 @@
+import directory from "../../../content/directory.json";
 import Link from "next/link";
 import ContentAction from "@/components/shared/ContentAction";
 import ContentIcon from "@/components/shared/ContentIcon";
@@ -65,7 +66,11 @@ export default function GalleryVideoSection() {
             label={HOME_PAGE.pastSponsorsTitle}
             items={HISTORICAL_SPONSORS.slice(0, 6)}
             action={
-              <ContentAction href="/past-sponsors" icon="partners" tone="yellow">
+              <ContentAction
+                href={directory.enabled ? "/partners?year=all&type=sponsor" : "/past-sponsors"}
+                icon="partners"
+                tone="yellow"
+              >
                 {HOME_PAGE.pastSponsorsLink}
               </ContentAction>
             }
@@ -75,8 +80,12 @@ export default function GalleryVideoSection() {
           <ContentAction href="/past-events" icon="history">
             Past events
           </ContentAction>
-          <ContentAction href="/past-speakers" icon="people" tone="green">
-            Past speakers
+          <ContentAction
+            href={directory.enabled ? "/talks" : "/past-speakers"}
+            icon="people"
+            tone="green"
+          >
+            {directory.enabled ? directory.talks.title : "Past speakers"}
           </ContentAction>
         </nav>
       </div>

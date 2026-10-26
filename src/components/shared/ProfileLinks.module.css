@@ -1,0 +1,19 @@
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: var(--audience-small);
+  margin-top: 16px;
+}
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--audience-blue);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.links svg {
+  flex-shrink: 0;
+}

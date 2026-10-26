@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { EVENT } from "@/content/event";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CurrentTicketOffer from "@/components/tickets/CurrentTicketOffer";
@@ -31,14 +30,6 @@ export default function TicketsPage() {
         <CurrentTicketOffer />
         {page.ambassadorContactEnabled && <AmbassadorContact />}
         <KonfHubRegistration />
-        <section className="pass-help">
-          <div className="audience-wrap">
-            <p>{page.supportText}</p>
-            <a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">
-              {EVENT.contactEmail}
-            </a>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>

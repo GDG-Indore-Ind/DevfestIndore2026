@@ -19,15 +19,15 @@ Remaining shared refinements live in `src/app/space.css`, imported after enginee
 ## Key components
 
 - **Space hero:** bold DevFest name, Hindi city/year pill, readable date and venue and ordinary ticket action. One decorative Android astronaut in a rounded window, with two supporting geometric tiles. Static artwork; no motion control needed. Stacks on mobile.
-- **Topic index:** four native pressed-state pill buttons run horizontally, with a rocket marker moving to the selected topic. The row scrolls on narrow screens and centers a newly selected button; Left/Right/Home/End keys also select topics. Each choice reveals a story, orbital graphic and concrete topic tags. Motion is brief and interaction-driven, with a static reduced-motion equivalent. A small speaker CTA follows. Label navigation Themes; agenda and speakers are coming soon. Content changes in a polite live region.
-- **ThemeChoice:** paired Sun/Moon native buttons, each 44px, with explicit accessible light/dark labels and pressed state. Shared by header/footer, persisted locally. Existing default light and saved preferences remain.
-- **Explore:** compact two-column disclosure. Attend and Archive on the left, Discover on the right. One-column mobile layout, scrollable within viewport. Close on Escape/outside/navigation/focus leaving; Escape restores trigger focus.
-- **History preview:** one verified photograph, a short intro and three archive links. Section visibility and order are fixed in checked-in page composition.
+- **Topic index:** four native pressed-state buttons form a row on desktop and a two-column grid on mobile. A tinted surface, border and check mark identify the selected theme; Left/Right/Home/End keys also select topics. Each choice reveals a story, orbital graphic and concrete topic tags. Motion is brief and interaction-driven, with a static reduced-motion equivalent. A small speaker CTA follows. Label navigation Themes; agenda and speakers are coming soon. Content changes in a polite live region.
+- **ThemeChoice:** paired Sun/Moon native buttons, each 44px, with explicit accessible light/dark labels and pressed state. The header choice persists locally. Existing default light and saved preferences remain.
+- **Explore:** compact disclosure grouped into Plan your visit, Discover and Past editions. Three columns on desktop; stacked groups with two-column links on mobile, scrollable within the viewport. Close on Escape/outside/navigation/focus leaving; Escape restores trigger focus.
+- **History preview:** a community timeline, captioned photo marquee, past sponsor logos and archive links. Section visibility and order are fixed in checked-in page composition.
 - **Compact people:** 72×80 portraits, two-column desktop / one-column mobile rows, all matching speakers in one scrolling list. Group multiple appearances by normalized person name. Biographies and session abstracts stay behind disclosures.
 - **Organizations:** five-column desktop / two-column mobile sponsor logo wall, with all sponsors visible. Event partners follow as a separate compact name wall; source records remain in canonical content; the public archive does not show an artwork/source disclosure. Group repeated names across years within the same relationship.
 - **Workshops:** all session rows visible in a searchable scrolling list, with descriptions in disclosures. Keep dates absent when not supplied. Community event records remain explicitly historical.
 - **Partners & collaborators:** confirmed partners use one large card per slide on Home and Partners. A single revealed partner stays static. Multiple partners support touch swiping, keyboard arrows, previous/next and position controls. Optional playback advances every eight seconds and pauses for hover, focus, hidden tabs or offscreen content; reduced motion stays manual. Logos remain on white plates. Individual partnership `visible` flags hold announcements back independently of the overall reveal switch.
-- **Icons and outbound links:** Lucide 18px / stroke 1.75 for interface actions, hidden from assistive technology beside descriptive labels. Local Lucide v1 contains no brand icons; social links use semantic code/profile/camera icons plus their platform names. Outbound web links use ExternalLink and announce a new tab.
+- **Icons and outbound links:** Lucide 18px / stroke 1.75 for interface actions, hidden from assistive technology beside descriptive labels. Social links use platform marks with accessible names. Outbound web links use ExternalLink and announce a new tab.
 
 ## Accessibility and performance
 
@@ -37,15 +37,15 @@ Existing token contrast: light ink 16.10:1, secondary 7.99:1, primary action 6.5
 
 ## Content and release rules
 
-Canonical event facts live in `content/event.json`; pass facts and policy wording live in `content/tickets.json`. Render visible, unexpired passes without release date labels. Show four concise inclusion points and disclose eligibility and conditions; keep Last Orbit and Observer hidden until approved. Do not hardcode a currently active pass in components or documentation.
+Canonical event facts live in `content/event.json`; pass facts and policy wording live in `content/tickets.json`. Render passes using their explicit visibility flags, with no local release schedule. Show confirmed prices and sold-out labels, concise inclusions grouped by event access, food and goodies, and lounge access, with visible eligibility and disclosed conditions; keep Last Orbit and Observer hidden until approved. Do not hardcode a currently active pass in components or documentation.
 
 Sessionize owns proposals; KonfHub owns checkout. Preserve eligibility, final-sale wording, referral behavior and the booking switch. Only publish confirmed participation; show historical contributors with edition context. `pages.partners.revealed` controls the public partner announcement.
 
 ## Current implementation details
 
-- Keep Get tickets visible in the shared header; Programme is secondary. Explore groups attendee tasks, community destinations and historical directories.
+- Keep Get tickets visible in the shared header; Themes is secondary. Explore groups attendee tasks, community destinations and historical directories.
 - The homepage composes event, programme, partners, community/history and venue. Supporting directories have their own routes.
-- The ticket page renders compact pass cards with eligibility in disclosures and one shared reminder/policy area. Register leads to the embedded booking section; all Register links scroll to the widget. A separate direct KonfHub fallback retains saved coupons.
+- The ticket page renders grouped pass inclusions, visible eligibility, disclosed conditions and one shared reminder/policy area. Register leads to the embedded booking section; all Register links scroll to the widget. A separate direct KonfHub fallback retains saved coupons.
 - One white KonfHub iframe appears below pass details, with terms above and a direct fallback below. Keep the supplied widget URL intact. Its styles live beside `tickets/KonfHubRegistration.tsx`.
 - Community logo marquees retain pause/resume, hover/keyboard pause and a static reduced-motion row. Their styles live beside `home/LogoMarquee.tsx`.
 - Keep partner logos on white plates in both themes. Historical sponsor and community records remain separate from current announcements.
@@ -66,3 +66,9 @@ Icon accent contrast against the page background (light / dark): blue 6.51 / 10.
 ## Exhibit invitation
 
 Home places a single mixed exhibit invitation after Themes and before Sponsors & partners, with its own Exhibits rocket stop and Explore link. Software demos, physical AI, space ideas and other projects share one invitation for developers, makers, startups and companies. The panel uses a static illustration and one “Exhibit at DevFest” interest-form action; it does not announce accepted exhibitors, guaranteed space, pricing or benefits. `event.links.exhibitApplication` owns the form URL; `pages.home.exhibits` owns the invitation copy. Themes styling now lives entirely in `home/ExploreSection.module.css`.
+
+Help and policy links use shared `SupportLinks` with 24px horizontal and 8px vertical gaps, 44px link targets and natural wrapping. Before you book uses plain policy headings and paragraphs, including the LinkedIn reminder; do not turn it into a highlighted panel.
+
+Explore uses a decorative 18px Lucide icon beside each text label, with one accessible accent color per group. Plan your visit includes ambassador contact; Discover covers the current event and community; Past editions connects the archive. Keep each group concise and retain the text labels and 44px link targets.
+
+The footer uses three aligned navigation groups with small decorative icons, a labelled help email, and a separate community row with social icons and the chapter link. The code-of-conduct link sits beside the closing disclaimer. Social icons retain accessible platform names and 44px targets; keep all destinations visible on mobile.

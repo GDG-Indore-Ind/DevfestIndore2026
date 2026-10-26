@@ -1,5 +1,5 @@
 import ContentAction from "@/components/shared/ContentAction";
-import { ArrowRight, Clock3, MapPin, Navigation } from "lucide-react";
+import { Clock3, MapPin, Navigation } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -90,13 +90,6 @@ export default function VenuePage() {
               <ContentAction href="/guidelines#entry" icon="guidelines" tone="blue">
                 Registration guidelines
               </ContentAction>
-              <div className="practical-support">
-                <p>{page.supportText}</p>
-                <a href={`mailto:${EVENT.contactEmail}`} className="audience-text-link">
-                  {page.supportLabel}
-                  <ArrowRight className="audience-icon" aria-hidden="true" />
-                </a>
-              </div>
             </div>
           </div>
         </section>

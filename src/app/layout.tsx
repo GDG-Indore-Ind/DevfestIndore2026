@@ -1,11 +1,9 @@
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
-import { getTicketReleaseTime } from "@/lib/ticketReleaseTime";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./audience.css";
 import "./engineering.css";
 import "./space.css";
-import { TicketReleaseProvider } from "@/contexts/TicketReleaseContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const viewport: Viewport = {
@@ -14,9 +12,6 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
 };
-
-// Keep the attendee site pre-rendered while refreshing ticket release windows.
-export const revalidate = 60;
 
 export const metadata: Metadata = {
   metadataBase: new URL(EVENT.links.website),
@@ -67,8 +62,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const initialNow = getTicketReleaseTime();
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -189,9 +183,7 @@ fbq('track', 'PageView');`,
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <ThemeProvider>
-          <TicketReleaseProvider initialNow={initialNow}>{children}</TicketReleaseProvider>
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

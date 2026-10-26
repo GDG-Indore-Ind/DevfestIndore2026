@@ -19,13 +19,13 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
           partnership.visible !== false &&
           (editionId === "ecosystem"
             ? partnership.publication === "ecosystem"
-            : partnership.publication === "confirmed"),
+            : partnership.publication !== "ecosystem"),
       )
       .map((partnership) => ({
         ...organization,
         id: partnership.id,
-        role: partnership.role,
-        kind: partnership.kind,
+        role: partnership.contributions.map((item) => item.role).join(" · "),
+        kind: partnership.contributions[0].kind,
         featured: partnership.featured,
         order: partnership.order ?? 9999,
       })),
@@ -37,7 +37,7 @@ export function getHistoricalSponsors() {
       .filter(
         (partnership) =>
           partnership.editionId === "historical" &&
-          partnership.kind === "sponsor" &&
+          partnership.contributions.some((item) => item.kind === "sponsor") &&
           partnership.publication === "archived",
       )
       .map((partnership) => ({ ...organization, order: partnership.order ?? 9999 })),
@@ -48,8 +48,10 @@ export const ECOSYSTEM_PARTNERS = getEventPartners("ecosystem");
 export const ARCHIVED_COMMUNITIES = ORGANIZATIONS.flatMap((organization) => {
   const appearances = organization.partnerships.filter(
     (partnership) =>
-      partnership.kind === "community" &&
-      partnership.publication === "archived" &&
+      partnership.contributions.some((item) => item.kind === "community") &&
+      partnership.publication !== "ecosystem" &&
+      partnership.editionId !== EVENT.id &&
+      partnership.visible !== false &&
       /^20\d\d$/.test(partnership.editionId),
   );
   return appearances.length

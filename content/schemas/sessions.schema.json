@@ -22,10 +22,6 @@
             "type": "string",
             "pattern": "^[a-z0-9][a-z0-9-]*$"
           },
-          "speakerId": {
-            "type": "string",
-            "pattern": "^[a-z0-9][a-z0-9-]*$"
-          },
           "publication": {
             "enum": [
               "confirmed",
@@ -120,19 +116,127 @@
               "type": "string",
               "minLength": 1
             }
+          },
+          "speakerIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*$"
+            }
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ]
+            }
+          },
+          "speakerProfiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "personId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "role": {
+                  "type": "string"
+                },
+                "company": {
+                  "type": "string"
+                },
+                "profile": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "avatar": {
+                      "type": "string",
+                      "pattern": "^(https://|/[^/])"
+                    },
+                    "bio": {
+                      "type": "string"
+                    },
+                    "socials": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "linkedin": {
+                          "type": "string"
+                        },
+                        "twitter": {
+                          "type": "string"
+                        },
+                        "github": {
+                          "type": "string"
+                        },
+                        "instagram": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "website": {
+                          "type": "string"
+                        },
+                        "blog": {
+                          "type": "string"
+                        }
+                      },
+                      "required": []
+                    }
+                  },
+                  "required": []
+                }
+              },
+              "required": [
+                "personId"
+              ]
+            }
+          },
+          "format": {
+            "enum": [
+              "talk",
+              "keynote",
+              "panel",
+              "workshop"
+            ]
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
           }
         },
         "required": [
           "id",
           "editionId",
-          "speakerId",
           "publication",
           "title",
           "role",
           "company",
           "description",
           "spotlightBadge",
-          "category"
+          "category",
+          "speakerIds"
         ]
       }
     }

@@ -1,3 +1,5 @@
+import { permanentRedirect } from "next/navigation";
+import { DIRECTORY_ACTIVE } from "@/lib/directoryAccess";
 import type { Metadata } from "next";
 import PastOrganizations from "@/components/home/PastOrganizations";
 import CommunityPage from "@/components/layout/CommunityPage";
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
     "Organizations from the DevFest Indore sponsor archive. Historical support is kept separate from current event partners.",
 };
 export default function PastSponsorsPage() {
+  if (DIRECTORY_ACTIVE) permanentRedirect("/partners?year=all&type=sponsor");
   return (
     <CommunityPage
       compact

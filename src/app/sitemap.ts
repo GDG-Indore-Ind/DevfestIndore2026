@@ -1,8 +1,12 @@
+import {
+  DIRECTORY_ENABLED,
+  APPROVED_PERSON_IDS,
+  getPublicOrganizations,
+  getTalks,
+} from "@/content/directory";
 import { EVENT } from "@/content/event";
 import type { MetadataRoute } from "next";
 import { DEVFEST_EDITIONS } from "@/content/archive";
-
-import { AMBASSADORS } from "@/lib/referral";
 
 export const revalidate = 60;
 
@@ -48,14 +52,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/past-speakers`,
+      url: `${baseUrl}${DIRECTORY_ENABLED ? "/talks" : "/past-speakers"}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     ...[
       "/past-events",
-      "/past-sponsors",
+      ...(DIRECTORY_ENABLED ? [] : ["/past-sponsors"]),
       ...DEVFEST_EDITIONS.map((event) => `/past-events/${event.id}`),
     ].map((path) => ({
       url: `${baseUrl}${path}`,
@@ -71,12 +75,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const ambassadorRoutes: MetadataRoute.Sitemap = Object.keys(AMBASSADORS).map((slug) => ({
-    url: `${baseUrl}/invite/${slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
+  const profileRoutes: MetadataRoute.Sitemap = [
+    ...APPROVED_PERSON_IDS.map((id) => `/people/${id}`),
+    ...getPublicOrganizations()
+      .filter((item) => item.approved)
+      .map((item) => `/organizations/${item.id}`),
+    ...getTalks("all")
+      .filter(
+        (talk) =>
+          DIRECTORY_ENABLED || talk.speakerIds.every((id) => APPROVED_PERSON_IDS.includes(id)),
+      )
+      .map((talk) => `/talks/${talk.id}`),
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
   }));
-
-  return [...coreRoutes, ...ambassadorRoutes];
+  return [...coreRoutes, ...profileRoutes];
 }

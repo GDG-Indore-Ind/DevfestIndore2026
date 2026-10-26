@@ -56,17 +56,6 @@
               "type": "string",
               "minLength": 1
             }
-          },
-          "route": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "stripLabel": {
-            "type": "string",
-            "minLength": 1
           }
         },
         "required": [
@@ -77,8 +66,7 @@
           "signal",
           "title",
           "description",
-          "tags",
-          "route"
+          "tags"
         ]
       },
       "minItems": 1

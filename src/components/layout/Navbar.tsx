@@ -1,27 +1,11 @@
 "use client";
-
-import { EVENT, EVENT_WEEKDAY_DATE } from "@/content/event";
 import { useEffect, useId, useRef, useState } from "react";
-import {
-  ArrowRight,
-  ChevronDown,
-  Rocket,
-  CalendarDays,
-  MapPin,
-  CircleHelp,
-  History,
-  Users,
-  Handshake,
-  Layers,
-  Monitor,
-  Images,
-  ClipboardCheck,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HOME_PAGE, AMBASSADORS_PAGE } from "@/content/pages";
 import ThemeChoice from "@/components/layout/ThemeChoice";
+import ExploreMenu from "@/components/layout/ExploreMenu";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
 import SocialLinks from "@/components/shared/SocialLinks";
 import OrbitScrollRail, { type FlightStop } from "@/components/layout/OrbitScrollRail";
@@ -32,82 +16,11 @@ interface NavbarProps {
 }
 
 export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
-  const attendLinks = [
-    {
-      href: "/ambassadors",
-      label: AMBASSADORS_PAGE.navigationLabel,
-      detail: AMBASSADORS_PAGE.navigationDetail,
-      Icon: Users,
-    },
-    {
-      href: "/tickets",
-      label: "Tickets & pass details",
-      detail: "Pass inclusions, eligibility and booking information",
-      Icon: Rocket,
-    },
-    {
-      href: "/guidelines",
-      label: "Registration guidelines",
-      detail: "KonfHub details, entry ID and ticket policies",
-      Icon: ClipboardCheck,
-    },
-  ];
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const pathname = usePathname();
-
-  const discoverLinks = [
-    {
-      anchor: "flow",
-      href: "/#flow",
-      label: "Themes",
-      detail: "Four frontiers · agenda coming soon",
-      Icon: Layers,
-    },
-    {
-      anchor: "exhibits",
-      href: "/#exhibits",
-      label: HOME_PAGE.exhibits.navigationLabel,
-      detail: HOME_PAGE.exhibits.navigationDetail,
-      Icon: Monitor,
-    },
-    {
-      anchor: "venue",
-      href: "/venue",
-      label: "Getting here",
-      detail: `${EVENT.venue.name}, ${EVENT.venue.city}`,
-      Icon: MapPin,
-    },
-    {
-      anchor: "sponsors",
-      href: "/partners",
-      label: "Partners & collaborators",
-      detail: "This edition’s collaborators and how to get involved",
-      Icon: Handshake,
-    },
-    {
-      anchor: "workshops",
-      href: "/events",
-      label: "Workshops & events",
-      detail: "Community sessions and campus workshops",
-      Icon: CalendarDays,
-    },
-    {
-      anchor: "faq",
-      href: "/faq",
-      label: "Common questions",
-      detail: "Practical answers before you attend",
-      Icon: CircleHelp,
-    },
-  ].filter(
-    (link) =>
-      link.anchor === "workshops" ||
-      link.anchor === "faq" ||
-      !visibleAnchors ||
-      visibleAnchors.includes(link.anchor),
-  );
 
   useEffect(() => {
     if (!open) return;
@@ -196,72 +109,13 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             Get tickets
           </Link>
 
-          <nav className="explore-panel" id={panelId} aria-label="Explore DevFest" hidden={!open}>
-            <div className="explore-panel-top">
-              <span>{EVENT.name}</span>
-              <span>{EVENT_WEEKDAY_DATE}</span>
-            </div>
-
-            <div className="explore-columns">
-              <div className="explore-attend">
-                <p className="explore-group-label">Attend</p>
-                {attendLinks.map(({ href, label, detail, Icon }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    className="explore-attend-link"
-                    aria-current={pathname === href ? "page" : undefined}
-                    onClick={() => setOpen(false)}
-                  >
-                    <span className="explore-link-icon">
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <span>
-                      <strong>{label}</strong>
-                      <small>{detail}</small>
-                    </span>
-                    <ArrowRight className="audience-icon" aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-
-              <div className="explore-discover">
-                <p className="explore-group-label">Discover</p>
-                {discoverLinks.map(({ href, label, detail, Icon }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    aria-current={pathname === href ? "page" : undefined}
-                  >
-                    <Icon className="audience-icon" aria-hidden="true" />
-                    <span>
-                      <strong>{label}</strong>
-                      <small>{detail}</small>
-                    </span>
-                    <ArrowRight className="audience-icon" aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-              <div className="explore-archive">
-                <p className="explore-group-label">The archive</p>
-                <div>
-                  {[
-                    { href: "/past-events", label: "Past editions", Icon: History },
-                    { href: "/past-speakers", label: "Past speakers", Icon: Users },
-                    { href: "/past-sponsors", label: "Past sponsors", Icon: Handshake },
-                    { href: "/gallery", label: "Photo gallery", Icon: Images },
-                  ].map(({ href, label, Icon }) => (
-                    <Link key={href} href={href} onClick={() => setOpen(false)}>
-                      <Icon className="audience-icon" aria-hidden="true" />
-                      {label}
-                      <ArrowRight className="audience-icon" aria-hidden="true" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </nav>
+          <ExploreMenu
+            id={panelId}
+            open={open}
+            pathname={pathname}
+            visibleAnchors={visibleAnchors}
+            onNavigate={() => setOpen(false)}
+          />
         </div>
         {flightStops && (
           <OrbitScrollRail

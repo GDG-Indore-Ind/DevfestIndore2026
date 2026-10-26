@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "scope": {
+            "enum": [
+              "ambassador"
+            ]
+          },
+          "recordHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "approvedOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "approvalReference": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "personId",
+          "recordHash",
+          "approvedOn",
+          "approvalReference"
+        ]
+      }
+    },
+    "organizations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "organizationId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recordHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "approvedOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "approvalReference": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "organizationId",
+          "recordHash",
+          "approvedOn",
+          "approvalReference"
+        ]
+      }
+    },
+    "baselines": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "people": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "personId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recordHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "personId",
+              "recordHash"
+            ]
+          }
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recordHash": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "organizationId",
+              "recordHash"
+            ]
+          }
+        }
+      },
+      "required": [
+        "people",
+        "organizations"
+      ]
+    },
+    "emailRedactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "personId",
+          "baselineHash",
+          "recordHash",
+          "approvedOn",
+          "approvalReference"
+        ],
+        "properties": {
+          "personId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baselineHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "recordHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "approvedOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "approvalReference": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "people",
+    "organizations",
+    "baselines"
+  ]
+}

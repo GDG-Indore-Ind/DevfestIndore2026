@@ -22,43 +22,16 @@
   font-size: 1.25rem;
 }
 
-.steps p,
-.contact p {
+.steps p {
   max-width: 65ch;
   color: var(--audience-muted);
   line-height: 1.6;
 }
 
-.contact {
-  padding: 32px;
-  border: 1px solid var(--audience-line);
-  border-radius: 24px;
-}
-
-.contact h2 {
-  margin-top: 0;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 24px;
-}
-
 @media (max-width: 760px) {
-  .profile {
-    align-items: flex-start;
-    flex-direction: column;
-  }
   .steps {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-
-  .contact {
-    padding: 24px;
   }
 }
 .lead {
@@ -68,38 +41,76 @@
 
 .directory {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-  gap: 24px;
-  margin-top: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .profile {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 16px;
   padding: 24px;
   border: 1px solid var(--audience-line);
-  border-radius: 24px;
+  border-radius: 20px;
 }
 
 .profile h3 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
 }
 
 .profile p {
+  margin: 8px 0 0;
   color: var(--audience-muted);
+  line-height: 1.5;
 }
 
-.photo {
-  width: 120px;
-  height: 120px;
-  border-radius: 20px;
-  object-fit: cover;
-}
-
-.profile .preview {
-  margin-top: 0;
+.initials {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--audience-tint);
   color: var(--audience-blue);
+  font-weight: 600;
+}
+
+.search {
+  display: grid;
+  gap: 8px;
+  max-width: 400px;
+  margin-top: 24px;
   font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.search input {
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--audience-line);
+  border-radius: 12px;
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  font: inherit;
+}
+
+.count,
+.empty p {
+  color: var(--audience-muted);
+  font-size: 0.875rem;
+}
+
+.count {
+  margin: 16px 0 0;
+}
+
+.empty {
+  padding: 24px 0;
+}
+
+.empty h3 {
+  margin: 0;
 }

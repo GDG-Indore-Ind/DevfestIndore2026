@@ -1,13 +1,6 @@
+import styles from "./ProfileLinks.module.css";
 import type { Socials } from "@/content/model";
-import {
-  CodeXml,
-  BriefcaseBusiness,
-  Globe,
-  BookOpen,
-  Camera,
-  Mail,
-  MessageCircle,
-} from "lucide-react";
+import { CodeXml, BriefcaseBusiness, Globe, BookOpen, Camera, MessageCircle } from "lucide-react";
 import ExternalLink from "@/components/shared/ExternalLink";
 
 const icons = {
@@ -27,10 +20,8 @@ const labels: Record<string, string> = {
   blog: "Blog",
 };
 export default function ProfileLinks({ socials }: { socials?: Socials }) {
-  // Old backend records still contain the former shared organizer mailbox.
-  const email = socials?.email?.replace("organizers@gdgindore.in", "gdgindore@gmail.com");
   return (
-    <div className="community-profile-links">
+    <div className={styles.links}>
       {Object.entries(socials ?? {})
         .filter(([key, href]) => key in labels && href && /^https?:\/\//.test(href))
         .map(([key, href]) => {
@@ -42,12 +33,6 @@ export default function ProfileLinks({ socials }: { socials?: Socials }) {
             </ExternalLink>
           );
         })}
-      {email && (
-        <a href={email.startsWith("mailto:") ? email : `mailto:${email}`}>
-          <Mail className="audience-icon" aria-hidden="true" />
-          Email
-        </a>
-      )}
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.root {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.root > p {
+  margin: 0;
+  color: var(--audience-muted);
+  line-height: 1.65;
+}
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  min-width: 0;
+}
+.links > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.links > a > svg {
+  flex-shrink: 0;
+}

@@ -53,14 +53,6 @@
             "type": "string",
             "minLength": 1
           },
-          "opensAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "closesAt": {
-            "type": "string",
-            "format": "date-time"
-          },
           "eligibility": {
             "type": "string",
             "minLength": 1
@@ -68,13 +60,35 @@
           "benefits": {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "detail": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "group",
+                "label"
+              ]
             }
           },
           "note": {
             "type": "string",
             "minLength": 1
+          },
+          "soldOut": {
+            "description": "Show a sold-out label instead of a Register action. Confirm against KonfHub before updating.",
+            "type": "boolean"
           }
         },
         "required": [
@@ -85,8 +99,6 @@
           "summary",
           "allocation",
           "description",
-          "opensAt",
-          "closesAt",
           "eligibility",
           "benefits"
         ]
@@ -155,9 +167,6 @@
         ]
       }
     },
-    "bookingSteps": {
-      "$ref": "#/properties/registrationChecklist"
-    },
     "registrationDeclaration": {
       "type": "string",
       "minLength": 1
@@ -167,9 +176,7 @@
       "additionalProperties": false,
       "required": [
         "buttonLabel",
-        "handoffText",
         "unavailableText",
-        "scheduleHeading",
         "finalSaleText",
         "profileReminder",
         "termsLabel",
@@ -178,22 +185,15 @@
         "widgetTitle",
         "fallbackText",
         "fallbackLabel",
-        "referralText"
+        "referralText",
+        "soldOutLabel"
       ],
       "properties": {
         "buttonLabel": {
           "type": "string",
           "minLength": 1
         },
-        "handoffText": {
-          "type": "string",
-          "minLength": 1
-        },
         "unavailableText": {
-          "type": "string",
-          "minLength": 1
-        },
-        "scheduleHeading": {
           "type": "string",
           "minLength": 1
         },
@@ -232,7 +232,33 @@
         "referralText": {
           "type": "string",
           "minLength": 1
+        },
+        "soldOutLabel": {
+          "type": "string",
+          "minLength": 1
         }
+      }
+    },
+    "benefitGroups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
       }
     }
   },
@@ -242,7 +268,7 @@
     "policies",
     "registrationChecklist",
     "registrationDeclaration",
-    "bookingSteps",
-    "registration"
+    "registration",
+    "benefitGroups"
   ]
 }

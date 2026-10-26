@@ -1,23 +1,28 @@
-.root {
+:global(.ticket-journey) .root {
   padding-block: 16px 32px;
 }
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 16px;
   align-items: start;
+}
+.grid > :only-child {
+  grid-column: 1 / -1;
+  max-width: 680px;
+  width: 100%;
 }
 .card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
+  gap: 12px;
+  padding: 20px;
   border: 1px solid var(--audience-line);
   border-radius: 24px;
   background: var(--audience-bg);
   color: var(--audience-ink);
 }
-.card h2 {
+:global(.ticket-journey) .root .card h2 {
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.2;
@@ -27,12 +32,54 @@
   font-size: 0.875rem;
   color: var(--audience-muted);
 }
-.benefits {
+.price {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.eligibility {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--audience-muted);
+}
+.status {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--audience-line);
+  text-align: center;
+  font-weight: 700;
+}
+.benefitGroups {
   display: grid;
   gap: 12px;
+}
+.benefitGroup {
+  padding-top: 12px;
+  border-top: 1px solid var(--audience-line);
+}
+.benefitGroup h3 {
+  margin: 0 0 8px;
+  color: var(--audience-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 8px 16px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.benefits small {
+  display: block;
+  color: var(--audience-muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin-top: 2px;
 }
 .benefits li {
   display: flex;
@@ -57,10 +104,6 @@
   min-height: 44px;
   align-content: center;
   color: var(--audience-ink);
-}
-.details h3 {
-  margin: 16px 0 4px;
-  font-size: 0.9375rem;
 }
 .details p {
   margin: 8px 0;

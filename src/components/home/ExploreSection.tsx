@@ -1,8 +1,8 @@
 "use client";
 
 import { EVENT } from "@/content/event";
-import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { Bot, Braces, Radio, Rocket, Satellite } from "lucide-react";
+import { useState, type KeyboardEvent } from "react";
+import { Bot, Braces, Check, Radio, Satellite } from "lucide-react";
 import ContentAction from "@/components/shared/ContentAction";
 import ContentIcon from "@/components/shared/ContentIcon";
 import { THEMES } from "@/content/themes";
@@ -34,19 +34,10 @@ function ThemeScene({ topic }: { topic: (typeof TOPICS)[number] }) {
 
 export default function ExploreSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const selectionWindow = useRef<HTMLDivElement>(null);
   const active = TOPICS[activeIndex];
 
-  function select(index: number, button: HTMLButtonElement) {
+  function select(index: number) {
     setActiveIndex(index);
-    const viewport = selectionWindow.current;
-    if (!viewport) return;
-    viewport.scrollTo({
-      left: button.offsetLeft - (viewport.clientWidth - button.offsetWidth) / 2,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
   }
 
   function onKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -64,7 +55,7 @@ export default function ExploreSection() {
     const button = buttons?.[next];
     if (button) {
       button.focus({ preventScroll: true });
-      select(next, button);
+      select(next);
     }
   }
 
@@ -79,18 +70,8 @@ export default function ExploreSection() {
           <p>{HOME_PAGE.programmeTagline}</p>
         </div>
         <p className={styles.swipeHint}>{HOME_PAGE.themeSwipeHint}</p>
-        <div className={styles.selectionWindow} ref={selectionWindow}>
-          <div
-            className={styles.selector}
-            role="group"
-            aria-label={HOME_PAGE.themeSelectorLabel}
-            data-color={active.color}
-            style={{ "--active-theme": activeIndex } as CSSProperties}
-          >
-            <span className={styles.flightPath} aria-hidden="true" />
-            <span className={styles.rocketPosition} aria-hidden="true">
-              <Rocket />
-            </span>
+        <div className={styles.selectionWindow}>
+          <div className={styles.selector} role="group" aria-label={HOME_PAGE.themeSelectorLabel}>
             {TOPICS.map((topic, index) => {
               const Icon = topic.icon;
               return (
@@ -101,11 +82,12 @@ export default function ExploreSection() {
                   aria-pressed={activeIndex === index}
                   aria-controls="topic-detail"
                   data-color={topic.color}
-                  onClick={(event) => select(index, event.currentTarget)}
+                  onClick={() => select(index)}
                   onKeyDown={(event) => onKeyDown(event, index)}
                 >
                   <Icon aria-hidden="true" />
                   <span>{topic.label}</span>
+                  {activeIndex === index && <Check className={styles.check} aria-hidden="true" />}
                 </button>
               );
             })}

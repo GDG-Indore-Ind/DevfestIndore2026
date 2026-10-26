@@ -2,8 +2,8 @@
   "$schema": "./schemas/pages.schema.json",
   "guidelines": {
     "title": "Registration guidelines",
-    "description": "Prepare for DevFest Indore: KonfHub and LinkedIn details, entry ID, pass eligibility, workshop access and ticket policies.",
-    "lead": "Profile preparation, pass requirements and the full registration rules.",
+    "description": "Booking details, photo ID requirements, pass eligibility and ticket policies for DevFest Indore.",
+    "lead": "What to know before booking and what to bring on the day.",
     "navigationLabel": "On this page",
     "sections": [
       {
@@ -22,7 +22,7 @@
       },
       {
         "id": "eligibility",
-        "title": "Pass-specific requirements",
+        "title": "Choose the right pass",
         "policyIds": [
           "cadet-id",
           "vip-code"
@@ -51,9 +51,7 @@
           "community-conduct"
         ]
       }
-    ],
-    "supportText": "For help with your registration or a question about attending, contact the GDG Indore organizers before the event.",
-    "supportLabel": "Email the organizers"
+    ]
   },
   "partners": {
     "title": "Build this edition with us.",
@@ -76,7 +74,6 @@
       }
     ],
     "applicationButton": "Sponsor or partner with us",
-    "contactText": "Questions before applying?",
     "archiveLabel": "Explore previous editions",
     "revealed": true,
     "revealTitle": "A few surprises.",
@@ -104,9 +101,6 @@
     "arrivalTitle": "Arrive ready for check-in.",
     "registrationLabel": "Registration opens",
     "entryTitle": "Bring your ticket and ID",
-    "supportTitle": "Planning your visit?",
-    "supportText": "Ask the organizers about accessibility, parking or other arrival needs before you travel.",
-    "supportLabel": "Ask the organizers",
     "entrySummary": "Bring your QR ticket and an original physical government-issued photo ID matching your registration. Check any additional requirements for your pass."
   },
   "home": {
@@ -139,11 +133,10 @@
     "photoMarqueePauseLabel": "Pause photos",
     "photoMarqueePlayLabel": "Play photos",
     "themeSelectorLabel": "Explore the themes",
-    "themeSwipeHint": "Swipe to explore the themes",
+    "themeSwipeHint": "Choose a theme to explore",
     "themeContributionLabel": "Bring it to the stage",
     "exhibits": {
       "navigationLabel": "Exhibits",
-      "navigationDetail": "Share your interest in exhibiting at DevFest",
       "eyebrow": "Call for exhibits",
       "title": "Bring what you’re building.",
       "lead": "Software, physical AI, space technology—or something we haven’t imagined yet.",
@@ -155,10 +148,8 @@
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "Explore the current pass, check its inclusions and eligibility, then register through KonfHub.",
-    "endedLead": "No passes are currently listed. Contact the organizers for booking help.",
-    "supportText": "Questions about your booking?",
-    "guidelinesLabel": "Registration guidelines",
+    "lead": "See what your pass includes. Check KonfHub for available tickets and prices.",
+    "endedLead": "Check KonfHub below for ticket availability and prices.",
     "ambassadorContactEnabled": false
   },
   "faq": {
@@ -167,8 +158,7 @@
     "eventTitle": "Before you come",
     "eventLead": "The day, the venue and what to bring.",
     "ticketsTitle": "Booking & passes",
-    "ticketsLead": "For current pass details, visit Tickets.",
-    "contactText": "Need help? Email the organizers."
+    "ticketsLead": "For current pass details, visit Tickets."
   },
   "workshops": {
     "title": "Workshops & events",
@@ -217,7 +207,6 @@
     "description": "Connect with the DevFest Indore ambassador programme for campus and community ticket enquiries.",
     "lead": "Coming with your campus or community? Start with your DevFest ambassador.",
     "navigationLabel": "Contact your ambassador",
-    "navigationDetail": "Campus and community ticket enquiries",
     "ticketLead": "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
     "stepsTitle": "Connect through your community",
     "steps": [
@@ -234,13 +223,14 @@
         "text": "Use the booking instructions shared with you. Your KonfHub confirmation completes your registration."
       }
     ],
-    "contactTitle": "Need help finding your ambassador?",
-    "contactText": "Can’t find your campus or community? Email the organizers with its name and ask about connecting with an ambassador.",
-    "contactLabel": "Ask the organizers",
-    "emailSubject": "DevFest ambassador enquiry",
     "ticketsLabel": "Explore current tickets",
     "directoryTitle": "Meet your ambassadors",
-    "previewLabel": "Sample profile",
-    "directoryLead": "A preview of the ambassador directory. More profiles will be added once confirmed."
+    "directoryLead": "Find an ambassador from your campus or community and connect on LinkedIn.",
+    "searchLabel": "Find an ambassador",
+    "searchPlaceholder": "Search by name or college",
+    "emptyTitle": "No ambassadors found",
+    "emptyText": "Try a different name or college.",
+    "ambassadorSingular": "ambassador",
+    "ambassadorPlural": "ambassadors"
   }
 }

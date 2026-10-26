@@ -1,90 +1,201 @@
 {
   "$schema": "./schemas/ambassadors.schema.json",
-  "ambassadors": {
-    "priya-medicaps": {
-      "name": "Priya Sharma",
-      "college": "Medi-Caps University",
-      "coupon": "MEDICAPS10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "rohit-sage": {
-      "name": "Rohit Verma",
-      "college": "SAGE University",
-      "coupon": "SAGE10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "aman-sgsits": {
-      "name": "Aman Gupta",
-      "college": "SGSITS Indore",
-      "coupon": "SGSITS10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "shreya-acropolis": {
-      "name": "Shreya Jain",
-      "college": "Acropolis Institute (AITR)",
-      "coupon": "ACROPOLIS10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "aditya-ips": {
-      "name": "Aditya Tiwari",
-      "college": "IPS Academy",
-      "coupon": "IPS10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "vanshika-svvv": {
-      "name": "Vanshika Patel",
-      "college": "Shri Vaishnav Vidyapeeth (SVVV)",
-      "coupon": "SVVV10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "kunal-iet": {
-      "name": "Kunal Joshi",
-      "college": "IET DAVV",
-      "coupon": "IET10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "neha-oriental": {
-      "name": "Neha Rathore",
-      "college": "Oriental University",
-      "coupon": "ORIENTAL10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "harsh-cdgi": {
-      "name": "Harsh Sharma",
-      "college": "Chameli Devi Group of Institutions",
-      "coupon": "CDGI10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "ananya-prestige": {
-      "name": "Ananya Mishra",
-      "college": "Prestige Institute (PIMR)",
-      "coupon": "PRESTIGE10",
-      "discount": "10% off",
-      "city": "Indore"
-    },
-    "gdg-community": {
-      "name": "GDG Indore",
-      "college": "Community Campus Network",
-      "coupon": "DEVFEST10",
-      "discount": "10% off",
-      "city": "Indore",
-      "avatar": "/gdglogo-removebg-preview.png"
-    }
-  },
   "directory": [
     {
       "personId": "karan-mittal",
       "community": "GDG Indore",
-      "preview": true,
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "ashi-mahule",
+      "community": "IPS Academy Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "shivansh-bhatt",
+      "community": "IPS Academy Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "yash-chouhan",
+      "community": "IPS Academy Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "anmol-narela",
+      "community": "IPS Academy Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "shrija-tripathi",
+      "community": "Chameli Devi Group of Institutions",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "vasu-garg",
+      "community": "Indore Institute of Science and Technology",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "divya-sharma",
+      "community": "International Institute of Professional Studies, DAVV",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "siddharth-soni",
+      "community": "SAGE University Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "chaitanya-swaroop-vishwakarma",
+      "community": "Medicaps University",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "abhinandan-dhakad",
+      "community": "LNCT Bhopal, Indore Campus",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "prathak-soni",
+      "community": "Govt. Holkar Science College Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "ansh-shrivastava",
+      "community": "Medicaps University",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "aditya-barche",
+      "community": "Malwa Institute of Science and Technology",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "akshat-mittal",
+      "community": "Malwa Institute of Science and Technology",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "kanak-chouhan",
+      "community": "Devi Ahilya Vishwavidyalaya (DAVV), Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "tanish-tiwari",
+      "community": "Symbiosis University of Applied Sciences",
+      "contactPlatforms": []
+    },
+    {
+      "personId": "aditya-bhardwaj",
+      "community": "Symbiosis University of Applied Science",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "aditya-shah",
+      "community": "Acropolis Institute of Technology and Research",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "faisal-khan",
+      "community": "Rajasthan Technical University, Kota",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "divish-k",
+      "community": "Jain University",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "kaveska-j-s",
+      "community": "Jain",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "stuti-patel",
+      "community": "Avantika University",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "gulajapu-veera-nithin",
+      "community": "Pydah College of Engineering",
+      "contactPlatforms": []
+    },
+    {
+      "personId": "divy-pratap-singh-gaharwar",
+      "community": "Acropolis Institute of Technology and Research",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "arunav-paliwal",
+      "community": "Acropolis Institute of Technology and Research",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "kaashyap-sharma",
+      "community": "Acropolis Institute of Technology and Research Indore",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "madhav-ratnawat",
+      "community": "Indore Institute of Science & Technology",
+      "contactPlatforms": [
+        "linkedin"
+      ]
+    },
+    {
+      "personId": "anandi-bardia",
+      "community": "Narsee Monjee Institute of Management Studies, Indore",
       "contactPlatforms": [
         "linkedin"
       ]

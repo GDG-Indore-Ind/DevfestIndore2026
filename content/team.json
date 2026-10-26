@@ -16,13 +16,6 @@
       "order": 20
     },
     {
-      "id": "tm-karan-mittal",
-      "personId": "karan-mittal",
-      "role": "Organizer & Operations Lead",
-      "team": "Core Organizer",
-      "order": 30
-    },
-    {
       "id": "tm-darshan-kusumakar",
       "personId": "darshan-kusumakar",
       "role": "GDG Indore Organizer",
@@ -98,6 +91,126 @@
       "role": "Design & Experience Lead",
       "team": "Design & Experience",
       "order": 140
+    }
+  ],
+  "assignments": [
+    {
+      "personId": "tushar-pal",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Event Lead",
+        "Community & Outreach Lead"
+      ]
+    },
+    {
+      "personId": "karan-mittal",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Programme & Speakers Lead",
+        "Technology & Production Lead"
+      ]
+    },
+    {
+      "personId": "darshan-kusumakar",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Operations & Venue Lead"
+      ]
+    },
+    {
+      "personId": "akash-gangrade",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Partnerships & Sponsorships Lead"
+      ]
+    },
+    {
+      "personId": "priyal-jain",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Marketing & Communications Lead"
+      ]
+    },
+    {
+      "personId": "mradula-mittal",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Design & Creative Lead"
+      ]
+    },
+    {
+      "personId": "meenal-saxena",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "People & Volunteer Coordination Lead",
+        "Programme & Speakers Co-Lead"
+      ]
+    },
+    {
+      "personId": "aarti-jethaniya",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Pre-DevFest events",
+        "Design & Creative Co-Lead",
+        "Technology & Production Co-Lead"
+      ]
+    },
+    {
+      "personId": "manan-chimnani",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Design & Creative Co-Lead"
+      ]
+    },
+    {
+      "personId": "yash-jain",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Marketing & Communications Co-Lead"
+      ]
+    },
+    {
+      "personId": "tanmay-jain",
+      "eventId": "2026",
+      "category": "volunteer",
+      "responsibilities": [
+        "Marketing & Communications Co-Lead",
+        "Technology & Production Co-Lead"
+      ]
+    },
+    {
+      "personId": "vikas-ratnawat",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Marketing & Communications Co-Lead"
+      ]
+    },
+    {
+      "personId": "shubham-sharma",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Community & Outreach Co-Lead"
+      ]
+    },
+    {
+      "personId": "kunal-singh",
+      "eventId": "2026",
+      "category": "core-team",
+      "responsibilities": [
+        "Community & Outreach Co-Lead"
+      ]
     }
   ]
 }
