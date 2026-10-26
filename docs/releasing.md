@@ -9,9 +9,9 @@ Before the first release, inspect the Vercel project's Git connection and Produc
 ## Publish a reviewed change
 
 1. Review local changes first. Keep content corrections, code restructuring and visual redesigns in separate commits when practical. Never discard another contributor's work to obtain a clean tree.
-2. Start a focused feature branch, normally `codex/<change>` for agent work. Update it against the actual target repository's production branch before opening the PR; inspect and resolve differences rather than force-pushing.
+2. Work on the checked-out branch. Ask before creating or switching to another branch or using a separate worktree, unless the user explicitly requested one. Update the selected branch against the actual target repository's production branch before opening the PR; inspect and resolve differences rather than force-pushing.
 3. Run `npm run check` and `npm run build`.
-4. Push the feature branch to the repository Vercel actually tracks and open a PR targeting its production branch. A branch on the other repository does not guarantee a preview for this project.
+4. Push the selected branch to the repository Vercel actually tracks and open a PR targeting its production branch. A branch on the other repository does not guarantee a preview for this project.
 5. Review the preview: home, tickets, registration guidelines, venue, navigation, light/dark appearance and mobile layout. Confirm public facts and partner publication settings with the content owner.
 6. Merge the approved PR. Verify the resulting production deployment and its important links.
 

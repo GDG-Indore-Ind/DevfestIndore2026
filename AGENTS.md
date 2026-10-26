@@ -20,7 +20,8 @@
 ## Validation and releases
 
 - Run `npm run check` and `npm run build` before release. Check affected pages at desktop/mobile widths in both themes.
-- Use feature branches and pull requests. Review the Vercel preview before merging into the configured production branch. Never assume a remote named `live` establishes Vercel's connection.
+- Work on the branch currently checked out. Ask the user before creating or switching to another branch or using a separate worktree; an explicit request for a particular branch or worktree is sufficient authorization.
+- Use pull requests and review the Vercel preview before merging into the configured production branch. Never assume a remote named `live` establishes Vercel's connection.
 - `origin` currently points to the GDG organization repository; `live` points to Soham's repository. Verify the Vercel project's connected repository and branch before publishing. See `docs/releasing.md`.
 - Preserve existing working-tree changes. Do not publish, enable checkout or change public claims as an incidental cleanup.
 

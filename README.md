@@ -49,7 +49,7 @@ Where the local Turbopack build cannot run because of process restrictions, use 
 
 See [the contributor guide](docs/contributing.md) for the folder map and stylesheet ownership. Run `npm run format` after source edits; `npm run check` runs the local quality checks. The pull-request workflow also builds the application.
 
-Use feature branches and review the Vercel preview before merging. This checkout has separate GDG organization and Soham remotes; confirm which repository and production branch Vercel tracks before publishing. See [release instructions](docs/releasing.md).
+Work on the checked-out branch; ask before creating or switching branches or using a separate worktree. Review the Vercel preview before merging. This checkout has separate GDG organization and Soham remotes; confirm which repository and production branch Vercel tracks before publishing. See [release instructions](docs/releasing.md).
 
 ## Project references
 
