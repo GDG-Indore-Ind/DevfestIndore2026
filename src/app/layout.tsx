@@ -1,4 +1,5 @@
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./audience.css";
@@ -184,6 +185,7 @@ fbq('track', 'PageView');`,
           />
         </noscript>
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
