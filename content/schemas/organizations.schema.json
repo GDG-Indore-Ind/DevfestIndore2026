@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevFest organizations",
+  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "archiveLogoSheet": {
+      "type": "string",
+      "pattern": "^(https://|/[^/])"
+    },
+    "organizations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "logoShape": {
+            "enum": [
+              "square",
+              "wide",
+              "wide-large"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "title",
+                "text"
+              ]
+            }
+          },
+          "archiveLogoWindow": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "logo": {
+            "type": "string",
+            "pattern": "^(https://|/[^/])"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "social": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "contributions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "source": {
+                  "type": "string",
+                  "pattern": "^(https://|/[^/])"
+                },
+                "featured": {
+                  "enum": [
+                    "space",
+                    "technology"
+                  ]
+                },
+                "visible": {
+                  "type": "boolean",
+                  "description": "Whether this confirmed partnership is publicly revealed. Defaults to true."
+                },
+                "eventId": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                },
+                "scope": {
+                  "enum": [
+                    "historical",
+                    "ecosystem"
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "confirmed",
+                    "archived",
+                    "ecosystem"
+                  ]
+                },
+                "type": {
+                  "enum": [
+                    "sponsor",
+                    "collaborator",
+                    "community",
+                    "media"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "type",
+                "title"
+              ],
+              "oneOf": [
+                {
+                  "required": [
+                    "eventId"
+                  ],
+                  "not": {
+                    "required": [
+                      "scope"
+                    ]
+                  }
+                },
+                {
+                  "required": [
+                    "scope"
+                  ],
+                  "not": {
+                    "required": [
+                      "eventId"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "contributions"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "archiveLogoSheet",
+    "organizations"
+  ]
+}

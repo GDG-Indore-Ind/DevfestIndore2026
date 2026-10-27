@@ -50,7 +50,7 @@ export default function PartnersPage() {
         ) : (
           page.revealed && (
             <div id="current-partners">
-              <SponsorShowcase showIntro={false} showEcosystem={false} />
+              <SponsorShowcase showIntro={false} />
             </div>
           )
         )}

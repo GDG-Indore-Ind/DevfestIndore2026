@@ -15,6 +15,8 @@
 
 Dated photo selections, logo sources, workshop reconciliation and booking-widget notes retain the evidence behind current records. Their dates matter; they do not override the canonical JSON or prove that a remote service still has the documented settings.
 
+[Profile review](profile-review/README.md) explains how to generate local review packets on demand. Verification evidence is kept separately from the generated copies.
+
 ## Historical planning
 
 The `website-culling-plan`, `content-culling-plan`, `page-roadmap`, `launch-plan` and earlier `event-final` documents preserve prior planning. They are not current implementation specifications. [Previous design iterations](history/design-system-through-2026-10-23.md) and the [earlier information architecture](history/information-architecture-through-2026-10-27.md) retain their dated notes.

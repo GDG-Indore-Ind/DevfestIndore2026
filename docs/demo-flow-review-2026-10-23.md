@@ -31,7 +31,7 @@ Checks used the desktop browser at responsive viewport sizes. Physical iOS/Andro
 | Destination | Observed state on 23 October | Demo implication |
 | --- | --- | --- |
 | [Configured Vercel production URL](https://devfest2026-iota.vercel.app/) | Older long-form design, introductory loader and legacy ticket presentation. | Publish the reviewed current version to the intended demo host before presenting that public URL. |
-| [Canonical domain in event.json](https://devfest.gdgindore.in) | Browser reported `ERR_NAME_NOT_RESOLVED`. | Confirm the final domain and its DNS/hosting setup before sharing canonical links. |
+| Previously configured canonical domain | Browser reported `ERR_NAME_NOT_RESOLVED` during this dated review. | The organizer confirmed [devfest.indore.community](https://devfest.indore.community) as the official domain on 27 October 2026. |
 | [KonfHub](https://konfhub.com/gdg-devfest-indore-2026) | Event page loads; Liftoff shows ₹699 and a disabled Coming Soon action. Local release information says 24 October at 12:00 am IST. | The registration handoff can be shown, but purchasing was unavailable during this review. Price and inventory remain owned by KonfHub. |
 | [Sessionize](https://sessionize.com/devfest-indore-2026/) | CFP open, closes 10 November; Submit a session is present. | Speaker CTA has a working destination. |
 | [Partner application](https://forms.gle/M1Hp18HWfen2b5BA8) | Redirects to Google sign-in. | Use an already signed-in browser if the demo includes the form. No submission was made. |

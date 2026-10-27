@@ -1,4 +1,5 @@
-import directory from "../../../content/directory.json";
+import pages from "../../../content/pages.json";
+const directory = pages.directory;
 import Link from "next/link";
 import { History, Users, Handshake, Images } from "lucide-react";
 export default function ArchiveNav({ current }: { current: string }) {

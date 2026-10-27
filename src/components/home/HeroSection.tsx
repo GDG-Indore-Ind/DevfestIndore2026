@@ -58,7 +58,7 @@ export default function HeroSection() {
             DevFest
             <span className={styles.edition}>
               <span lang="hi">इंदौर</span>
-              <span>{EVENT.id}</span>
+              <span>{EVENT.year}</span>
             </span>
           </h1>
           <p className={styles.lead}>{HOME_PAGE.heroLead}</p>

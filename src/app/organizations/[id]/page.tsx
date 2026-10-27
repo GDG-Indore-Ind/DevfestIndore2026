@@ -59,7 +59,7 @@ export default async function OrganizationPage({ params }: Props) {
                       ? copy.partners.unknownYearLabel
                       : entry.editionId === "ecosystem"
                         ? copy.partners.ecosystemLabel
-                        : entry.editionId}
+                        : entry.editionId.replace(/^devfest-/, "")}
                   </strong>
                   <br />
                   {entry.contributions.map((item) => item.role).join(" · ")}

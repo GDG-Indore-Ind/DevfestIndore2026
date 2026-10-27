@@ -29,7 +29,7 @@ The local editor is a publishing tool. It cannot receive submissions from public
 | Partners | Sponsor enquiry plus Drive deck; past/current organizations mixed | Confirmed current partners separated from archive; enquiry present | Retain separation; restore deck after verifying approved version |
 | Programme | “View Schedule” links to `#sessions-split` | Themes explicitly say agenda and speakers are coming soon | Add programme only when confirmed; never relabel themes as a schedule |
 | Venue | Postal code 452018 | Approved record uses 452016 | Keep canonical record; do not copy old address |
-| Launch location | Public original domain and Vercel preview show older experience | Canonical URL in event record is `devfest.gdgindore.in` | Verify final domain, redirects and deployment source before publishing |
+| Launch location | Public original domain and Vercel preview show older experience | The event record used a different canonical URL at the time of this review | The organizer confirmed `devfest.indore.community` as the official domain on 27 October; verify redirects and deployment source before publishing |
 
 The recovery inventory is in `launch-link-audit-2026-10-22.csv`. It covers homepage navigation and principal outbound journeys, not a complete crawl of every historical profile and workshop page.
 

@@ -1,4 +1,4 @@
-import tickets from "../../content/tickets.json";
+import { EVENT_TICKETS as tickets } from "./event";
 export type PublicPassId =
   "liftoff" | "student" | "professional" | "vip" | "last-orbit" | "observer";
 export interface TicketBenefit {

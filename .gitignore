@@ -49,6 +49,7 @@ drive-download*
 *.CR2
 
 local_storage_private/
+/docs/profile-review/generated/
 *.pdf
 DevFest 2026 Indore _ Sponsorship Deck (1).pdf
 *-firebase-adminsdk-*.json

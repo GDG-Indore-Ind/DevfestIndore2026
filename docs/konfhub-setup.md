@@ -23,7 +23,7 @@ Final prices, tax/fee presentation, team discount thresholds and the applicable 
 - Food preference: Veg / Jain Veg. Observer has no food entitlement.
 - All purchases are final: no cancellations, transfers, rescheduling or refunds, including personal or corporate travel changes.
 - Publish the inclusive, harassment-free code of conduct and the organizer's right to dismiss disruptive attendees without refund.
-- Use the pass-specific inclusions and notes from `content/tickets.json`. Flight Deck lunch and workshop reservation benefits are not in the final brief; do not carry those older promises forward.
+- Use the pass-specific inclusions and notes from `content/event.json` → the current event’s `tickets`. Flight Deck lunch and workshop reservation benefits are not in the final brief; do not carry those older promises forward.
 
 ## Launch verification
 
@@ -33,7 +33,7 @@ Final prices, tax/fee presentation, team discount thresholds and the applicable 
 4. Verify each ticket's inclusions, food/kit entitlement, policy text, attendee credentials and confirmation emails.
 5. Review existing Early Bird booking records separately. The new brief does not authorize cancelling or changing already-purchased tickets.
 6. Check referral codes against the final categories. The website preserves referrals but does not guarantee a discount; KonfHub must validate it.
-7. Verify `content/event.json` → `links.booking`. `booking.enabled` controls the website's public event-page handoff. Availability, allocation, release windows, payment and private-code enforcement belong to KonfHub. The website has one ticket page.
+7. Verify `content/event.json` → the current event’s `tickets.booking.url`. `tickets.booking.enabled` controls the website's public event-page handoff. Availability, allocation, release windows, payment and private-code enforcement belong to KonfHub. The website has one ticket page.
 
 Previously discussed private delegation and crew categories are outside the final public directory. Confirm their disposition separately before publishing any private offer. Keep private codes and allocations off the public site.
 

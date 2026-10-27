@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/pageMetadata";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import CommunityPage from "@/components/layout/CommunityPage";
@@ -6,11 +6,11 @@ import ArchiveNav from "@/components/layout/ArchiveNav";
 import { DEVFEST_EDITIONS } from "@/content/archive";
 import { HOME_PAGE } from "@/content/pages";
 
-export const metadata: Metadata = {
-  title: "Past events",
-  description:
-    "Explore DevFest Indore editions from 2022 to 2025, with dates, venues and official event records.",
-};
+export const metadata = pageMetadata(
+  "/past-events",
+  "Past events",
+  "Explore DevFest Indore editions from 2022 to 2025, with dates, venues and official event records.",
+);
 export default function PastEventsPage() {
   return (
     <CommunityPage
@@ -27,11 +27,11 @@ export default function PastEventsPage() {
         {DEVFEST_EDITIONS.map((event) => (
           <Link
             key={event.id}
-            href={`/past-events/${event.id}`}
+            href={`/past-events/${event.date.slice(0, 4)}`}
             className="compact-edition-row"
             aria-label={`Explore ${event.title}`}
           >
-            <span className="compact-edition-year">{event.id}</span>
+            <span className="compact-edition-year">{event.date.slice(0, 4)}</span>
             <span className="compact-edition-meta">
               <time dateTime={event.date}>{event.displayDate}</time>
               <small>{event.venue}</small>

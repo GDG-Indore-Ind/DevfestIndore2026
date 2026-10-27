@@ -1,0 +1,114 @@
+.root {
+  min-width: 0;
+  margin-block: 24px;
+}
+.heading {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.heading h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
+}
+.heading p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 4px 0 0;
+  color: var(--audience-muted);
+}
+.controls {
+  margin-left: auto;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.controls > a {
+  min-height: 44px;
+  font-size: 0.875rem;
+}
+.window {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding-block: 8px 12px;
+  scrollbar-width: thin;
+}
+.window:focus-visible {
+  outline: 2px solid var(--audience-blue);
+  outline-offset: 2px;
+}
+.group {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.group li {
+  flex: 0 0 180px;
+  width: 180px;
+}
+.root .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 180px;
+  min-height: 120px;
+  color: var(--audience-ink);
+  text-decoration: none;
+  text-align: center;
+}
+.plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 52px;
+  padding: 6px 12px;
+  background: var(--space-white);
+  border: 1px solid var(--audience-line);
+  border-radius: 10px;
+}
+.plate > :is(img, svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.name {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  max-width: 23ch;
+}
+.item small {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--audience-muted);
+}
+.item > :global(.audience-icon) {
+  display: none;
+}
+.item:hover .name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .controls {
+    margin-left: auto;
+    max-width: 100%;
+    gap: 8px;
+  }
+  .controls > a {
+    max-width: 100%;
+  }
+}

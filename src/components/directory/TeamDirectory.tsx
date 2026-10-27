@@ -12,12 +12,15 @@ type Props = { people: ReturnType<typeof getTeamDirectory>; preview: boolean };
 export default function TeamDirectory({ people, preview }: Props) {
   const { values, setFilter, clear } = useDirectoryFilters({
     q: "",
-    year: preview ? "all" : EVENT.id,
+    year: preview ? "all" : EVENT.year,
     role: "all",
   });
   const { q: query, year, role } = values;
   const years = [
-    ...new Set([EVENT.id, ...people.flatMap((item) => item.history.map((entry) => entry.eventId))]),
+    ...new Set([
+      EVENT.year,
+      ...people.flatMap((item) => item.history.map((entry) => entry.event.year)),
+    ]),
   ]
     .sort()
     .reverse();
@@ -26,7 +29,7 @@ export default function TeamDirectory({ people, preview }: Props) {
       ...item,
       matches: item.history.filter(
         (entry) =>
-          (year === "all" || entry.eventId === year) &&
+          (year === "all" || entry.event.year === year) &&
           (role === "all" || entry.roles.some((r) => r.kind === role)),
       ),
     }))

@@ -13,15 +13,13 @@ export function pageMetadata(path: string, title: string, description: string): 
       siteName: EVENT.name,
       type: "website",
       locale: "en_IN",
-      images: [
-        { url: "/images/android-astronaut-2026.webp", width: 1254, height: 1254, alt: EVENT.name },
-      ],
+      images: [{ url: "/social-card.png", width: 1200, height: 630, alt: EVENT.name }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${EVENT.name}`,
       description,
-      images: ["/images/android-astronaut-2026.webp"],
+      images: ["/social-card.png"],
     },
   };
 }

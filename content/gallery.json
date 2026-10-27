@@ -8,7 +8,8 @@
       "imageUrl": "/images/archive/devfest-2025-community.webp",
       "caption": "The DevFest Indore community on stage at the 2025 edition.",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-community",
@@ -18,7 +19,8 @@
       "caption": "The community gathered at DevFest Indore 2024.",
       "source": "https://drive.google.com/file/d/1TIW9KbIwCQpXMoMN_hP_6KdhmkdSHGre/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "ccd-2025-conversations",
@@ -28,7 +30,8 @@
       "caption": "A conversation between sessions at Cloud Community Days Indore 2025.",
       "source": "https://drive.google.com/file/d/1nVjdEhXUiS2ef9PrFtVQSMGFIzRqpDhP/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "ccd-2024-volunteer",
@@ -38,7 +41,8 @@
       "caption": "A volunteer helping at Cloud Community Days Indore 2024.",
       "source": "https://drive.google.com/file/d/1Ytjq06Fimr5dzQpBUBgGt069KPZcaN1Z/view",
       "width": 667,
-      "height": 1000
+      "height": 1000,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-community-wall",
@@ -48,7 +52,8 @@
       "caption": "A moment beside the community photo wall at DevFest Indore 2024.",
       "source": "https://drive.google.com/file/d/1F85vCZpb59DBtq-LwIt4QUsFMp34yrYR/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "cloud-community-volunteer",
@@ -58,7 +63,8 @@
       "caption": "A volunteer at a GDG Cloud Indore community event.",
       "source": "https://drive.google.com/file/d/1foXF3vz3aWVcAlb-PVYnJ1di_P6QbtcV/view",
       "width": 667,
-      "height": 1000
+      "height": 1000,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-karan-event",
@@ -68,7 +74,8 @@
       "caption": "Speaker recognition during the DevFest Indore 2024 programme.",
       "source": "https://drive.google.com/file/d/1VqXP4lWGyV7FkTImaIcFyNeWDqSAXT45/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-speaker-podium",
@@ -78,7 +85,8 @@
       "caption": "A session presentation at DevFest Indore 2024.",
       "source": "https://drive.google.com/file/d/1O6-XzbcJOpJj4e7FSO4Zs1Im9ufZF1H1/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-tushar-event",
@@ -88,7 +96,8 @@
       "caption": "A candid moment from the DevFest Indore 2024 community gathering.",
       "source": "https://drive.google.com/file/d/11-dgJQ1FXI9j3dj1_TcRPoG79xmQxa6m/view",
       "width": 751,
-      "height": 1000
+      "height": 1000,
+      "showInGallery": true
     },
     {
       "id": "devfest-2024-speaker-talk",
@@ -98,7 +107,8 @@
       "caption": "A speaker presenting a talk at DevFest Indore 2024.",
       "source": "https://drive.google.com/file/d/1vRvH_fX4pGzRhyTeYlTopyvG3TjDTNdz/view",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "archive-group-2",
@@ -107,7 +117,8 @@
       "imageUrl": "/images/archive/devfest-2025-together.webp",
       "caption": "Another group moment from DevFest Indore 2025.",
       "width": 1400,
-      "height": 933
+      "height": 933,
+      "showInGallery": true
     },
     {
       "id": "workshop-acropolis",
@@ -117,7 +128,8 @@
       "caption": "Pre-DevFest hands-on workshop at Acropolis Institute of Technology and Research (AITR).",
       "source": "https://drive.google.com/file/d/1w-wtBg31vXomG3Dj3HD3KWC5iQMwT6TJ/view",
       "width": 1280,
-      "height": 720
+      "height": 720,
+      "showInGallery": true
     },
     {
       "id": "workshop-iet-davv",
@@ -127,7 +139,8 @@
       "caption": "Pre-DevFest hands-on workshop at Institute of Engineering & Technology, DAVV (IET DAVV).",
       "source": "https://drive.google.com/file/d/1WZGGI2Tz8NfvgkXC8zxJMvVBET6gUYZv/view",
       "width": 1400,
-      "height": 1050
+      "height": 1050,
+      "showInGallery": true
     },
     {
       "id": "workshop-prestige",
@@ -137,7 +150,8 @@
       "caption": "Pre-DevFest hands-on workshop at Prestige Institute of Engineering Management & Research (PIEMR).",
       "source": "https://drive.google.com/file/d/10pXJ5yrNBNxn7tAMqpXnQFvX-BJl8MkJ/view",
       "width": 1400,
-      "height": 1050
+      "height": 1050,
+      "showInGallery": true
     },
     {
       "id": "workshop-sage",
@@ -147,7 +161,8 @@
       "caption": "Pre-DevFest hands-on workshop at SAGE University Indore.",
       "source": "https://drive.google.com/file/d/1yMaUtpOySq06WG63gnBuurSb6yvyr8ZQ/view",
       "width": 1280,
-      "height": 960
+      "height": 960,
+      "showInGallery": true
     },
     {
       "id": "workshop-ips-academy",
@@ -157,7 +172,8 @@
       "caption": "Pre-DevFest hands-on workshop at IPS Academy, Institute of Engineering and Science.",
       "source": "https://drive.google.com/file/d/1ckGuVbtD5552GRmMYAqLa9T2qNA-yrLc/view",
       "width": 1280,
-      "height": 720
+      "height": 720,
+      "showInGallery": true
     },
     {
       "id": "workshop-sgsits",
@@ -167,7 +183,8 @@
       "caption": "Pre-DevFest hands-on workshop at Shri Govindram Seksaria Institute of Technology and Science (SGSITS).",
       "source": "https://drive.google.com/file/d/13dcTSaI0p_aNDXLv-YyBXPlK_XlMHjT7/view",
       "width": 1280,
-      "height": 720
+      "height": 720,
+      "showInGallery": true
     },
     {
       "id": "workshop-cdgi",
@@ -177,7 +194,8 @@
       "caption": "Pre-DevFest hands-on workshop at Chameli Devi Group of Institutions (CDGI).",
       "source": "https://drive.google.com/file/d/1iULioejBKgbZFfEYInoZhgaErXwZLt-9/view",
       "width": 1280,
-      "height": 960
+      "height": 960,
+      "showInGallery": true
     },
     {
       "id": "workshop-iips-davv",
@@ -187,7 +205,8 @@
       "caption": "Pre-DevFest hands-on workshop at International Institute of Professional Studies (IIPS DAVV).",
       "source": "https://drive.google.com/file/d/1tMHzUPVlP_Ji6tZPbgfZk3aLZMSfFk2j/view",
       "width": 1280,
-      "height": 960
+      "height": 960,
+      "showInGallery": true
     },
     {
       "id": "workshop-medicaps",
@@ -197,7 +216,8 @@
       "caption": "Pre-DevFest hands-on workshop at Medi-Caps University.",
       "source": "https://drive.google.com/file/d/1TMhJFHo8pJp5z5KPCaIXcEuCzr4D0P03/view",
       "width": 1280,
-      "height": 960
+      "height": 960,
+      "showInGallery": true
     },
     {
       "id": "workshop-iist",
@@ -207,7 +227,8 @@
       "caption": "Pre-DevFest hands-on workshop at Indore Institute of Science and Technology (IIST).",
       "source": "https://drive.google.com/file/d/1POksXwquKpYJ_CKmH5DkYqWaV9kfPXqK/view",
       "width": 1280,
-      "height": 960
+      "height": 960,
+      "showInGallery": true
     }
   ]
 }

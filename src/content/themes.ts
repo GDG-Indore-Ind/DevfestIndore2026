@@ -1,4 +1,4 @@
-import themesFile from "../../content/themes.json";
+import pages from "../../content/pages.json";
 export interface Theme {
   id: string;
   label: string;
@@ -9,4 +9,4 @@ export interface Theme {
   description: string;
   tags: string[];
 }
-export const THEMES = themesFile.themes as Theme[];
+export const THEMES = pages.home.themes as Theme[];

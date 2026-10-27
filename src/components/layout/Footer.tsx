@@ -1,4 +1,5 @@
-import directory from "../../../content/directory.json";
+import pages from "../../../content/pages.json";
+const directory = pages.directory;
 import Link from "next/link";
 import { HOME_PAGE } from "@/content/pages";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
@@ -20,7 +21,7 @@ export default function Footer() {
               </span>
             </p>
             <p>
-              DevFest Indore · {EVENT_SHORT_DATE} {EVENT.id}
+              DevFest Indore · {EVENT_SHORT_DATE} {EVENT.year}
             </p>
           </div>
           <div className={styles.contact}>

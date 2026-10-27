@@ -1,8 +1,10 @@
-import content from "../../content/ambassadors.json";
-import { getPerson } from "./people";
+import { getPerson, PERSON_RECORDS } from "./people";
 import type { Socials } from "./model";
 
-export const AMBASSADOR_DIRECTORY = content.directory
+export const AMBASSADOR_DIRECTORY = PERSON_RECORDS.flatMap((person) =>
+  person.ambassador ? [{ ...person.ambassador, personId: person.id }] : [],
+)
+  .sort((a, b) => a.order - b.order)
   .map((entry) => {
     const person = getPerson(entry.personId);
     const socials = Object.fromEntries(

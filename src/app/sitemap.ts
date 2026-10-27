@@ -60,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...[
       "/past-events",
       ...(DIRECTORY_ENABLED ? [] : ["/past-sponsors"]),
-      ...DEVFEST_EDITIONS.map((event) => `/past-events/${event.id}`),
+      ...DEVFEST_EDITIONS.map((event) => `/past-events/${event.date.slice(0, 4)}`),
     ].map((path) => ({
       url: `${baseUrl}${path}`,
       lastModified: now,

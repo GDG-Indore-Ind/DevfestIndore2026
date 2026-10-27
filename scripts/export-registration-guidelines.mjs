@@ -1,3 +1,4 @@
+import { currentEvent } from './lib/event-view.mjs';
 import { writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { PROJECT_ROOT, readContent, validateContent } from './lib/content.mjs';
@@ -5,13 +6,14 @@ import { PROJECT_ROOT, readContent, validateContent } from './lib/content.mjs';
 const content = readContent();
 const errors = validateContent(content);
 if (errors.length) throw new Error(errors.join('\n'));
-const { event, tickets } = content;
+const event = currentEvent(content);
+const tickets = event.tickets;
 const eventDate = new Intl.DateTimeFormat('en-IN', {
   timeZone: event.timezone, weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-}).format(new Date(event.startsAt));
+}).format(new Date(event.date));
 const checkIn = new Intl.DateTimeFormat('en-IN', {
   timeZone: event.timezone, hour: 'numeric', minute: '2-digit', hour12: true,
-}).format(new Date(event.startsAt)).toUpperCase();
+}).format(new Date(event.date)).toUpperCase();
 const text = `# ${event.name} — Registration guidelines\n\n` +
   `${eventDate} · ${event.venue.fullName}\n\nRegistration opens at ${checkIn} IST.\n\n` +
   `## Before you book\n\n` + tickets.registrationChecklist.map(item => `**${item.title}.** ${item.text}`).join('\n\n') +

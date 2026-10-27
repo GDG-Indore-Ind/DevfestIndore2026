@@ -126,8 +126,6 @@
     "venueLead": "Registration opens at {{registrationTime}}.",
     "pastSponsorsTitle": "Past sponsors",
     "pastSponsorsLink": "View all sponsors",
-    "marqueePauseLabel": "Pause logos",
-    "marqueePlayLabel": "Play logos",
     "photoArchiveLabel": "Photo archive",
     "photoMarqueeLabel": "Community event photographs",
     "photoMarqueePauseLabel": "Pause photos",
@@ -144,7 +142,65 @@
       "mixLabel": "One space. Many possibilities.",
       "buttonLabel": "Exhibit at DevFest",
       "hint": "Tell us what you’re building through the exhibit interest form."
-    }
+    },
+    "themes": [
+      {
+        "id": "space",
+        "label": "Space systems",
+        "icon": "Satellite",
+        "color": "blue",
+        "signal": "From orbit to insight",
+        "title": "Your next input might come from orbit.",
+        "description": "A satellite sends a signal. A developer turns it into something useful. Explore the software between the two: telemetry pipelines, edge computing and working with data that can’t always phone home.",
+        "tags": [
+          "Telemetry",
+          "Earth observation",
+          "Edge computing"
+        ]
+      },
+      {
+        "id": "agents",
+        "label": "AI agents",
+        "icon": "Braces",
+        "color": "red",
+        "signal": "Beyond the chat window",
+        "title": "Give your model a mission. And a way back.",
+        "description": "An agent can call tools, remember context and take action. The interesting part is making it dependable. Explore orchestration, evaluations and the human checkpoints that turn a clever demo into useful software.",
+        "tags": [
+          "Tool use",
+          "Agent evaluation",
+          "Human oversight"
+        ]
+      },
+      {
+        "id": "physical",
+        "label": "Physical AI",
+        "icon": "Bot",
+        "color": "yellow",
+        "signal": "Software, meet gravity",
+        "title": "The real world doesn’t have an undo button.",
+        "description": "When a model moves a machine, latency becomes distance and a wrong answer can become a wrong turn. Explore perception, robotics and the feedback loops that help intelligent systems act in a changing world.",
+        "tags": [
+          "Robotics",
+          "Perception",
+          "Control loops"
+        ]
+      },
+      {
+        "id": "systems",
+        "label": "Cloud & systems",
+        "icon": "Radio",
+        "color": "green",
+        "signal": "Built for the unexpected",
+        "title": "Houston, we planned for this.",
+        "description": "Networks disappear. Traffic spikes. Hardware has other plans. Explore the architecture, data infrastructure and observability that keep systems useful when the happy path ends—on Earth or at the edge.",
+        "tags": [
+          "Scalable data",
+          "Reliability",
+          "Observability"
+        ]
+      }
+    ]
   },
   "tickets": {
     "title": "Tickets",
@@ -158,7 +214,87 @@
     "eventTitle": "Before you come",
     "eventLead": "The day, the venue and what to bring.",
     "ticketsTitle": "Booking & passes",
-    "ticketsLead": "For current pass details, visit Tickets."
+    "ticketsLead": "For current pass details, visit Tickets.",
+    "questions": [
+      {
+        "id": "event-1",
+        "question": "What is GDG DevFest Indore 2026?",
+        "answer": "DevFest is an annual developer conference hosted by Google Developer Groups. The Indore edition brings developers, researchers, students and founders together for technical talks and hands-on learning.",
+        "kind": "event"
+      },
+      {
+        "id": "event-2",
+        "question": "Who can attend DevFest?",
+        "answer": "Developers, researchers, students, tech leads, architects and founders are welcome. Choose a pass that matches your eligibility and the access you need.",
+        "kind": "event"
+      },
+      {
+        "id": "event-3",
+        "question": "When and where is DevFest?",
+        "answer": "{{date}} at {{venue}}. Registration opens at {{registrationTime}}.",
+        "kind": "event",
+        "link": {
+          "href": "/venue",
+          "label": "Venue & directions"
+        }
+      },
+      {
+        "id": "event-4",
+        "question": "Are campus workshops part of the event-day program?",
+        "answer": "Campus workshops are separate events held before DevFest, with their own dates and registration details.",
+        "kind": "event",
+        "link": {
+          "href": "/events#workshops",
+          "label": "Workshops & events"
+        }
+      },
+      {
+        "id": "event-5",
+        "question": "Should I bring a laptop?",
+        "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details. Observer does not include workshop hall access.",
+        "kind": "event"
+      },
+      {
+        "id": "ticket-current",
+        "kind": "tickets",
+        "question": "Which pass should I choose?",
+        "answer": "See pass inclusions and eligibility on Tickets. Check KonfHub for current availability and prices.",
+        "link": {
+          "href": "/tickets",
+          "label": "View tickets"
+        }
+      },
+      {
+        "id": "ticket-entry",
+        "kind": "tickets",
+        "question": "What should I bring for check-in?",
+        "answer": "{{entryPolicy}}",
+        "link": {
+          "href": "/guidelines#eligibility",
+          "label": "Additional pass requirements"
+        }
+      },
+      {
+        "id": "ticket-workshops",
+        "kind": "tickets",
+        "question": "Does my ticket reserve a workshop seat?",
+        "answer": "{{workshopPolicy}}",
+        "link": {
+          "href": "/guidelines#workshops",
+          "label": "Workshop guidelines"
+        }
+      },
+      {
+        "id": "ticket-final-sale",
+        "kind": "tickets",
+        "question": "Can I cancel, refund or transfer my ticket?",
+        "answer": "{{finalSalePolicy}}",
+        "link": {
+          "href": "/guidelines#ticket-policy",
+          "label": "Ticket policy"
+        }
+      }
+    ]
   },
   "workshops": {
     "title": "Workshops & events",
@@ -232,5 +368,87 @@
     "emptyText": "Try a different name or college.",
     "ambassadorSingular": "ambassador",
     "ambassadorPlural": "ambassadors"
+  },
+  "directory": {
+    "enabled": false,
+    "roles": [
+      {
+        "id": "core-team",
+        "label": "Core Team"
+      },
+      {
+        "id": "volunteer",
+        "label": "Volunteers"
+      },
+      {
+        "id": "ambassador",
+        "label": "Ambassadors"
+      },
+      {
+        "id": "speaker",
+        "label": "Speakers"
+      }
+    ],
+    "team": {
+      "title": "DevFest Team",
+      "lead": "Meet the people behind DevFest, across editions.",
+      "undatedLabel": "Edition to confirm",
+      "allRoles": "Everyone",
+      "description": "The people bringing DevFest Indore together."
+    },
+    "talks": {
+      "title": "Talks",
+      "lead": "Explore talks and workshops from DevFest and the wider GDG Indore community.",
+      "resourcesLabel": "Resources",
+      "speakersLabel": "Speakers"
+    },
+    "partners": {
+      "title": "Partners & communities",
+      "lead": "Explore the organizations supporting DevFest and their contributions across editions.",
+      "unknownYearLabel": "Past contributions",
+      "ecosystemLabel": "Community ecosystem"
+    },
+    "filters": {
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search names, roles or topics",
+      "yearLabel": "Year",
+      "allYears": "All editions",
+      "typeLabel": "Contribution",
+      "allTypes": "All contributions",
+      "emptyTitle": "No matching records",
+      "emptyText": "Try another edition or clear your search.",
+      "clearLabel": "Clear filters",
+      "trackLabel": "Track",
+      "allTracks": "All tracks",
+      "rolesLabel": "Team roles",
+      "peopleSingular": "person",
+      "peoplePlural": "people",
+      "talkSingular": "talk",
+      "talkPlural": "talks",
+      "organizationSingular": "organization",
+      "organizationPlural": "organizations",
+      "sponsorsLabel": "Sponsors",
+      "collaboratorsLabel": "Collaborators",
+      "communitiesLabel": "Communities",
+      "mediaLabel": "Media",
+      "eventLabel": "Event",
+      "allEvents": "All events"
+    },
+    "profile": {
+      "historyTitle": "Event contributions",
+      "talksTitle": "Talks",
+      "workshopsTitle": "Campus workshops",
+      "aboutTitle": "About",
+      "linksTitle": "Public profiles",
+      "backTeam": "DevFest Team",
+      "backTalks": "All talks",
+      "backPartners": "Partners & communities",
+      "officialRecordLabel": "Official event record",
+      "sourceLabel": "Source",
+      "fallbackLead": "GDG Indore community",
+      "reviewNotice": "Review preview · Profile details and edition assignments await organizer approval.",
+      "communityTitle": "Other community appearances",
+      "approvedReviewNotice": "Review preview · This profile is approved. Other profiles remain under review."
+    }
   }
 }

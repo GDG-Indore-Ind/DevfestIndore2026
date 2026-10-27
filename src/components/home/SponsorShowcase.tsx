@@ -6,15 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { EventPartner } from "@/content/model";
-import {
-  CONFIRMED_EVENT_PARTNERS,
-  ECOSYSTEM_PARTNERS,
-  getCommunityUrl,
-  HISTORICAL_COMMUNITIES,
-} from "@/content/partners";
-import { HOME_PAGE, PARTNERS_PAGE } from "@/content/pages";
+import { CONFIRMED_EVENT_PARTNERS } from "@/content/partners";
+import { PARTNERS_PAGE } from "@/content/pages";
 import ExternalLink from "@/components/shared/ExternalLink";
-import LogoMarquee from "@/components/home/LogoMarquee";
 import PartnerCarousel from "@/components/home/PartnerCarousel";
 import ContentIcon from "@/components/shared/ContentIcon";
 import styles from "./SponsorShowcase.module.css";
@@ -44,13 +38,7 @@ function PartnerLogo({
   );
 }
 
-export default function SponsorShowcase({
-  showIntro = true,
-  showEcosystem = true,
-}: {
-  showIntro?: boolean;
-  showEcosystem?: boolean;
-}) {
+export default function SponsorShowcase({ showIntro = true }: { showIntro?: boolean }) {
   const featured = CONFIRMED_EVENT_PARTNERS.filter((item) => item.featured);
   const additional = CONFIRMED_EVENT_PARTNERS.filter((item) => !item.featured);
   return (
@@ -59,7 +47,7 @@ export default function SponsorShowcase({
         {!PARTNERS_PAGE.revealed ? (
           <>
             <p className="audience-overline">
-              {EVENT.id} {PARTNERS_PAGE.sectionLabel}
+              {EVENT.year} {PARTNERS_PAGE.sectionLabel}
             </p>
             <div className="partner-reveal">
               <div className="partner-reveal-backdrop" aria-hidden="true">
@@ -87,7 +75,7 @@ export default function SponsorShowcase({
               <div className={`edition-section-heading ${styles.heading}`}>
                 <div>
                   <p className="audience-overline">
-                    {EVENT.id} {PARTNERS_PAGE.sectionLabel}
+                    {EVENT.year} {PARTNERS_PAGE.sectionLabel}
                   </p>
                   <h2 id="partners-title">
                     <ContentIcon name="partners" tone="yellow" heading />
@@ -106,7 +94,7 @@ export default function SponsorShowcase({
               </div>
             ) : (
               <h2 id="partners-title" className="practical-partners-heading">
-                {EVENT.id} {PARTNERS_PAGE.sectionLabel}
+                {EVENT.year} {PARTNERS_PAGE.sectionLabel}
               </h2>
             )}
             <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
@@ -136,23 +124,6 @@ export default function SponsorShowcase({
               </div>
             )}
           </>
-        )}
-        {showEcosystem && (
-          <div className="home-community-marquees">
-            <LogoMarquee
-              label={HOME_PAGE.ecosystemTitle}
-              description={HOME_PAGE.ecosystemLead}
-              items={ECOSYSTEM_PARTNERS.map((item) => ({ ...item, href: getCommunityUrl(item) }))}
-            />
-            <LogoMarquee
-              label={HOME_PAGE.ecosystemHistoryLabel}
-              items={HISTORICAL_COMMUNITIES.map((item) => ({
-                ...item,
-                href: getCommunityUrl(item),
-                detail: item.years.join(" · "),
-              }))}
-            />
-          </div>
         )}
       </div>
     </section>

@@ -1,9 +1,51 @@
-import partnersFile from "../../content/partners.json";
+import organizationsFile from "../../content/organizations.json";
 import type { EventPartner } from "./model";
 import type { Organization } from "./model";
 import { EVENT } from "./event";
-export const ORGANIZATIONS = partnersFile.organizations as Organization[];
-export const ARCHIVE_LOGO_SHEET = partnersFile.archiveLogoSheet;
+type Contribution = {
+  id: string;
+  eventId?: string;
+  scope?: "historical" | "ecosystem";
+  status: "confirmed" | "archived" | "ecosystem";
+  type: "sponsor" | "collaborator" | "community" | "media";
+  title: string;
+  order?: number;
+  source?: string;
+  featured?: "space" | "technology";
+  visible?: boolean;
+};
+type OrganizationRecord = Omit<
+  Organization,
+  "partnerships" | "logoUrl" | "websiteUrl" | "socialUrl"
+> & {
+  logo?: string;
+  website?: string;
+  social?: string;
+  contributions: Contribution[];
+};
+export const ORGANIZATIONS = (organizationsFile.organizations as OrganizationRecord[]).map(
+  ({ logo, website, social, contributions, ...record }) => {
+    const partnerships: Organization["partnerships"] = [];
+    for (const item of contributions) {
+      const editionId = item.eventId ?? item.scope!;
+      const existing = partnerships.find((entry) => entry.editionId === editionId);
+      if (existing) existing.contributions.push({ kind: item.type, role: item.title });
+      else
+        partnerships.push({
+          id: item.id,
+          editionId,
+          publication: item.status,
+          order: item.order,
+          featured: item.featured,
+          visible: item.visible,
+          source: item.source,
+          contributions: [{ kind: item.type, role: item.title }],
+        });
+    }
+    return { ...record, logoUrl: logo ?? "", websiteUrl: website, socialUrl: social, partnerships };
+  },
+);
+export const ARCHIVE_LOGO_SHEET = organizationsFile.archiveLogoSheet;
 const organizations = new Map(ORGANIZATIONS.map((organization) => [organization.id, organization]));
 export function getOrganization(id: string): Organization {
   const organization = organizations.get(id);
@@ -19,7 +61,9 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
           partnership.visible !== false &&
           (editionId === "ecosystem"
             ? partnership.publication === "ecosystem"
-            : partnership.publication !== "ecosystem"),
+            : editionId === EVENT.id
+              ? partnership.publication === "confirmed"
+              : partnership.publication !== "ecosystem"),
       )
       .map((partnership) => ({
         ...organization,
@@ -52,13 +96,15 @@ export const ARCHIVED_COMMUNITIES = ORGANIZATIONS.flatMap((organization) => {
       partnership.publication !== "ecosystem" &&
       partnership.editionId !== EVENT.id &&
       partnership.visible !== false &&
-      /^20\d\d$/.test(partnership.editionId),
+      /^devfest-20\d\d$/.test(partnership.editionId),
   );
   return appearances.length
     ? [
         {
           ...organization,
-          years: [...new Set(appearances.map((item) => item.editionId))].sort().reverse(),
+          years: [...new Set(appearances.map((item) => item.editionId.replace(/^devfest-/, "")))]
+            .sort()
+            .reverse(),
         },
       ]
     : [];

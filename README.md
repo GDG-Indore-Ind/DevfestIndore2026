@@ -15,19 +15,18 @@ Open [the local preview](http://localhost:3000). The development badge is hidden
 
 Read [the content editing guide](content/README.md). All editable public records belong in `content/*.json`; typed views in `src/content/` connect them to pages. JSON Schemas and reference validation run before development and builds.
 
-- `event.json`: event facts, official links and the registration-link switch.
-- `tickets.json`: pass visibility, eligibility, inclusions, prices and policies.
-- `people.json`, `participations.json`, `sessions.json`, `team.json`: identities and edition-specific participation.
-- `partners.json`: organization artwork and confirmed, ecosystem or historical relationships.
-- `pages.json`, `themes.json`, `faqs.json`: page wording and partner reveal control.
-- `events.json`, `workshops.json`, `gallery.json`, `ambassadors.json`: archives, community activities, photographs and the ambassador directory.
+- `event.json`: current and past events, venue, official links, tickets, booking settings and policies.
+- `people.json`, `programme.json`: person profiles and roles; talks and campus workshops reference their speakers.
+- `organizations.json`: organization artwork and confirmed, ecosystem or historical relationships.
+- `pages.json`: page wording, homepage themes, FAQs and directory and partner reveal controls.
+- `gallery.json`: community photographs.
 
 People and organizations are defined once and referenced by stable IDs. Publish only approved records. Historical appearances and community logos never imply current participation.
 
 ## Attendee journeys
 
 - Home introduces the event, Themes, exhibit and partner invitations, communities, past-event photographs and venue.
-- `/tickets` shows explicitly visible passes, their inclusions and confirmed prices. Sold-out passes retain their details without a Register action. Other Register actions scroll to the embedded KonfHub checkout. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `booking.enabled` controls the widget and direct fallback link.
+- `/tickets` shows explicitly visible passes, their inclusions and confirmed prices. Sold-out passes retain their details without a Register action. Other Register actions scroll to the embedded KonfHub checkout. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `event.json` → the current event’s `tickets.booking.enabled` controls the widget and direct fallback link.
 - `/guidelines` contains complete registration and attendance rules. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
 - `/partners` contains contribution options and the official partner form. `pages.partners.revealed` holds collaborator announcements until approved.
 - `/venue` contains the verified photo, address, directions, map and check-in information.
@@ -49,7 +48,7 @@ Where the local Turbopack build cannot run because of process restrictions, use 
 
 See [the contributor guide](docs/contributing.md) for the folder map and stylesheet ownership. Run `npm run format` after source edits; `npm run check` runs the local quality checks. The pull-request workflow also builds the application.
 
-Work on the checked-out branch; ask before creating or switching branches or using a separate worktree. Review the Vercel preview before merging. This checkout has separate GDG organization and Soham remotes; confirm which repository and production branch Vercel tracks before publishing. See [release instructions](docs/releasing.md).
+Work on the checked-out branch; ask before creating or switching branches or using a separate worktree. Review the Vercel preview before merging. Check the configured remotes and confirm which repository and production branch Vercel tracks before publishing. See [release instructions](docs/releasing.md).
 
 ## Project references
 
@@ -57,7 +56,6 @@ Work on the checked-out branch; ask before creating or switching branches or usi
 - [Engineering instructions](AGENTS.md)
 - [Design system](design-system.md)
 - [Information architecture](docs/information-architecture.md)
-- [Content refinement plan](docs/content-culling-plan-2026-10-22.md)
 - [Historical artwork and cleanup](docs/historical-logos-and-cleanup-2026-10-23.md)
 - [KonfHub setup](docs/konfhub-setup.md)
 
@@ -65,4 +63,4 @@ Work on the checked-out branch; ask before creating or switching branches or usi
 
 Local changes are reviewed in Git. Publishing follows the repository’s normal deployment process; a local commit does not deploy the site.
 
-The new directory layout is held behind `content/directory.json` until review is complete. Individually approved profiles can be linked from existing listings before that launch. Review packets are in `docs/profile-review/`; `content/approvals.json` distinguishes existing-public baselines from explicit approvals.
+The new directory layout is held behind `content/pages.json` → `directory.enabled` until review is complete. Individually approved profiles can be linked from existing listings before that launch. Generate local review packets with `npm run content:review`; `content/approvals.json` distinguishes existing-public baselines from explicit approvals.

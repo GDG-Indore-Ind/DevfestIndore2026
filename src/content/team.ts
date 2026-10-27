@@ -1,11 +1,10 @@
-import teamFile from "../../content/team.json";
 import approvals from "../../content/approvals.json";
 import { EVENT } from "./event";
 import { PARTICIPATIONS, participationRoleLabels } from "./participations";
 import type { TeamMember } from "./model";
-import { getPerson } from "./people";
+import { getPerson, LEGACY_TEAM, TEAM_ASSIGNMENTS } from "./people";
 export function getTeam(): TeamMember[] {
-  const legacy = teamFile.members.map((member) => {
+  const legacy = LEGACY_TEAM.map((member) => {
     const person = getPerson(member.personId);
     return {
       id: member.id,
@@ -51,32 +50,31 @@ export function getTeam(): TeamMember[] {
     };
   });
   const assignments = new Map(
-    teamFile.assignments
-      .filter((item) => item.eventId === EVENT.id)
-      .map((item) => [item.personId, item]),
+    TEAM_ASSIGNMENTS.filter((item) => item.eventId === EVENT.id).map((item) => [
+      item.personId,
+      item,
+    ]),
   );
   const existingIds = new Set([...legacy, ...dated].map((member) => member.personId));
-  const added = teamFile.assignments
-    .filter(
-      (item) =>
-        item.eventId === EVENT.id &&
-        !existingIds.has(item.personId) &&
-        approvedIds.has(item.personId),
-    )
-    .map((item) => {
-      const person = getPerson(item.personId);
-      return {
-        id: `${item.eventId}-${item.personId}`,
-        personId: person.id,
-        name: person.name,
-        role: item.responsibilities.join(" · "),
-        team: (item.category === "core-team" ? "Core Team" : "Volunteers") as TeamMember["team"],
-        bio: person.bio ?? "",
-        avatar: person.avatar ?? "",
-        socials: person.socials ?? {},
-        order: 10000,
-      };
-    });
+  const added = TEAM_ASSIGNMENTS.filter(
+    (item) =>
+      item.eventId === EVENT.id &&
+      !existingIds.has(item.personId) &&
+      approvedIds.has(item.personId),
+  ).map((item) => {
+    const person = getPerson(item.personId);
+    return {
+      id: `${item.eventId}-${item.personId}`,
+      personId: person.id,
+      name: person.name,
+      role: item.responsibilities.join(" · "),
+      team: (item.category === "core-team" ? "Core Team" : "Volunteers") as TeamMember["team"],
+      bio: person.bio ?? "",
+      avatar: person.avatar ?? "",
+      socials: person.socials ?? {},
+      order: 10000,
+    };
+  });
   return [...legacy, ...dated, ...added]
     .map((member) => {
       const assignment = assignments.get(member.personId);

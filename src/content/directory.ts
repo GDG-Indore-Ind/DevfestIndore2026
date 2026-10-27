@@ -1,14 +1,15 @@
-import directory from "../../content/directory.json";
+import pages from "../../content/pages.json";
 import approvals from "../../content/approvals.json";
-import eventsFile from "../../content/events.json";
-import teamFile from "../../content/team.json";
-import workshopFile from "../../content/workshops.json";
+import { PAST_EVENTS } from "./event";
+
+import { CAMPUS_WORKSHOPS } from "./programme";
 import { EVENT } from "./event";
-import { PEOPLE, getPerson } from "./people";
+import { PEOPLE, getPerson, LEGACY_TEAM } from "./people";
 import { PARTICIPATIONS } from "./participations";
 import { SESSION_RECORDS } from "./speakers";
 import { ORGANIZATIONS } from "./partners";
 
+const directory = pages.directory;
 export const DIRECTORY_COPY = directory;
 export const DIRECTORY_ENABLED = directory.enabled;
 export const APPROVED_PERSON_IDS: readonly string[] = (
@@ -23,13 +24,13 @@ export const DIRECTORY_EVENTS = [
   {
     id: EVENT.id,
     title: EVENT.name,
-    year: EVENT.id,
+    year: EVENT.year,
     date: EVENT.startsAt.slice(0, 10),
     venue: EVENT.venue.name,
     kind: "DevFest",
     source: EVENT.links.chapter,
   },
-  ...eventsFile.events.map((event) => ({ ...event, year: event.date.slice(0, 4) })),
+  ...PAST_EVENTS.map((event) => ({ ...event, year: event.date.slice(0, 4) })),
 ];
 export const getDirectoryEvent = (id: string) => DIRECTORY_EVENTS.find((event) => event.id === id)!;
 export const DEVFEST_EVENT_IDS = DIRECTORY_EVENTS.filter((event) => event.kind === "DevFest").map(
@@ -53,7 +54,7 @@ export function getTeamDirectory() {
   return PEOPLE.filter((person) => person.kind === "person")
     .flatMap((person) => {
       const history = getPersonHistory(person.id).filter((entry) => entry.event.kind === "DevFest");
-      const legacy = teamFile.members.filter((entry) => entry.personId === person.id);
+      const legacy = LEGACY_TEAM.filter((entry) => entry.personId === person.id);
       return history.length || legacy.length
         ? [{ person, history, legacy, approved: APPROVED_PERSON_IDS.includes(person.id) }]
         : [];
@@ -72,7 +73,7 @@ export function getTalks(scope: "devfest" | "all" = "all") {
     .sort((a, b) => b.event.year.localeCompare(a.event.year) || a.title.localeCompare(b.title));
 }
 export function getPersonWorkshops(id: string) {
-  return workshopFile.workshops.filter((workshop) => workshop.speakerIds.includes(id));
+  return CAMPUS_WORKSHOPS.filter((workshop) => workshop.speakerIds.includes(id));
 }
 export function getPublicOrganizations() {
   return ORGANIZATIONS.filter((organization) =>

@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/android-astronaut-2026.webp",
-        width: 1254,
-        height: 1254,
+        url: "/social-card.png",
+        width: 1200,
+        height: 630,
         alt: EVENT.name,
       },
     ],
@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     title: EVENT.name,
     description: `AI, cloud, modern systems and hands-on labs. ${EVENT_SHORT_DATE}, ${EVENT.venue.fullName}.`,
     creator: "@gdgindore",
+    images: ["/social-card.png"],
   },
   icons: {
     icon: [

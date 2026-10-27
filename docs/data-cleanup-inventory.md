@@ -23,7 +23,7 @@ Private local copies are in `local_storage_private/source-archive-cleanup-2026-1
 
 ## Team reconciliation
 
-Each legacy membership below has a confirmed 2026 assignment in `team.json`; the assignment confirms the current category and responsibilities, not the date of the older membership or the rest of the person's profile. None has a separate 2026 participation record yet. These rows are migration candidates, not newly approved profiles. Review the exact role mapping and profile revision before migrating; preserve the undated legacy context until then.
+Each legacy membership below has a confirmed 2026 assignment in the person's `teamAssignments` in `people.json`; the assignment confirms the current category and responsibilities, not the date of the older membership or the rest of the person's profile. None has a separate 2026 participation record yet. These rows are migration candidates, not newly approved profiles. Review the exact role mapping and profile revision before migrating; preserve the undated legacy context until then.
 
 | Person | 2026 category | Existing confirmed responsibilities | 2026 participation |
 |---|---|---|---|

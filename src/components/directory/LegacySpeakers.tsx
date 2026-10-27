@@ -122,7 +122,8 @@ export default function PastSpeakersPage() {
                     {appearances.map((item) => {
                       const official = DEVFEST_EDITIONS.find(
                         (event) =>
-                          event.id === item.year && event.speakerNames?.includes(item.name),
+                          event.date.slice(0, 4) === item.year &&
+                          event.speakerNames?.includes(item.name),
                       );
                       return (
                         <div key={item.id} className="speaker-appearance">

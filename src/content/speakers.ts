@@ -1,11 +1,11 @@
-import sessionsFile from "../../content/sessions.json";
-import eventsFile from "../../content/events.json";
+import { TALKS } from "./programme";
+import { PAST_EVENTS } from "./event";
 import type { PastSpeaker, SessionRecord } from "./model";
 import { getPerson } from "./people";
 import { EVENT } from "./event";
 import { PARTICIPATIONS } from "./participations";
 
-export const SESSION_RECORDS = sessionsFile.sessions as SessionRecord[];
+export const SESSION_RECORDS = TALKS;
 export function getSessionSpeaker(session: SessionRecord, personId: string) {
   const current = getPerson(personId);
   const snapshot = session.speakerProfiles?.find((item) => item.personId === personId);
@@ -19,7 +19,7 @@ export function getSessionSpeaker(session: SessionRecord, personId: string) {
 }
 export function getArchivedSpeakers(): PastSpeaker[] {
   const editions = new Set(
-    eventsFile.events.filter((event) => event.kind === "DevFest").map((event) => event.id),
+    PAST_EVENTS.filter((event) => event.kind === "DevFest").map((event) => event.id),
   );
   return SESSION_RECORDS.filter(
     (session) => editions.has(session.editionId) && session.editionId !== EVENT.id,
@@ -32,7 +32,7 @@ export function getArchivedSpeakers(): PastSpeaker[] {
         name: person.name,
         role: person.role,
         company: person.company,
-        year: session.editionId,
+        year: session.editionId.replace(/^devfest-/, ""),
         topic: session.title,
         description: session.description,
         bio: person.bio,

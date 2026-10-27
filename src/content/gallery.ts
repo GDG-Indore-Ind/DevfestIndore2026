@@ -1,3 +1,4 @@
 import galleryFile from "../../content/gallery.json";
 import type { GalleryItem } from "./model";
-export const GALLERY_PHOTOS = galleryFile.photos as GalleryItem[];
+export const ALL_PHOTOS = galleryFile.photos;
+export const GALLERY_PHOTOS = ALL_PHOTOS.filter((photo) => photo.showInGallery) as GalleryItem[];

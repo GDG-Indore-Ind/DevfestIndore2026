@@ -1,0 +1,808 @@
+{
+  "$schema": "./schemas/organizations.schema.json",
+  "archiveLogoSheet": "/images/deck_logos/past_sponsors_grid.png",
+  "organizations": [
+    {
+      "id": "space-club-of-india",
+      "name": "Space Club of India",
+      "contributions": [
+        {
+          "id": "space-club-2026",
+          "eventId": "devfest-2026",
+          "status": "confirmed",
+          "order": 0,
+          "featured": "space",
+          "visible": true,
+          "type": "collaborator",
+          "title": "Space collaborator"
+        }
+      ],
+      "logo": "/images/partners/space-club-current.jpg",
+      "website": "https://www.spaceclubofindia.com/",
+      "description": "Connecting students, researchers, founders and space enthusiasts across India. Space Club of India brings space education, scientific curiosity, research and entrepreneurship into one growing community."
+    },
+    {
+      "id": "qualcomm",
+      "name": "Qualcomm",
+      "contributions": [
+        {
+          "id": "qualcomm-2026",
+          "eventId": "devfest-2026",
+          "status": "confirmed",
+          "order": 1,
+          "featured": "technology",
+          "visible": false,
+          "type": "collaborator",
+          "title": "Expo booth & speaker participation"
+        }
+      ],
+      "logo": "/images/partners/qualcomm.png",
+      "website": "https://www.qualcomm.com/",
+      "description": "Bringing intelligence closer to the device. Qualcomm combines compute, connectivity and developer tools to help AI run at the edge, on local hardware and in the physical world.",
+      "topics": [
+        {
+          "title": "Edge AI",
+          "text": "Efficient inference close to sensors and data, with less dependence on a distant cloud."
+        },
+        {
+          "title": "Physical AI",
+          "text": "Perception, reasoning and control for robots and intelligent machines."
+        },
+        {
+          "title": "Local AI",
+          "text": "Tools to optimize, validate and deploy AI models directly on supported devices."
+        }
+      ]
+    },
+    {
+      "id": "google-for-developers",
+      "name": "Google for Developers",
+      "contributions": [
+        {
+          "id": "historical-google-for-developers",
+          "scope": "historical",
+          "status": "archived",
+          "order": 3,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        },
+        {
+          "id": "network-google",
+          "scope": "ecosystem",
+          "status": "ecosystem",
+          "order": 2,
+          "type": "community",
+          "title": "Developer ecosystem"
+        }
+      ],
+      "archiveLogoWindow": [
+        862,
+        185,
+        423,
+        57
+      ],
+      "logo": "/images/partners/google-developers-current.png",
+      "social": "https://www.linkedin.com/showcase/googledevelopers/"
+    },
+    {
+      "id": "women-techmakers-indore",
+      "name": "Women Techmakers Indore",
+      "contributions": [
+        {
+          "id": "2024-women-techmakers-indore",
+          "eventId": "devfest-2024",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 1,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "2023-women-techmakers-indore",
+          "eventId": "devfest-2023",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2023/",
+          "order": 1,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "2022-women-techmakers-indore",
+          "eventId": "devfest-2022",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 2,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "network-wtm",
+          "scope": "ecosystem",
+          "status": "ecosystem",
+          "order": 3,
+          "type": "community",
+          "title": "Community network"
+        }
+      ],
+      "logo": "/images/partners/wtm-indore-current.jpg",
+      "social": "https://www.linkedin.com/company/wtmindore/"
+    },
+    {
+      "id": "gdg-cloud-indore",
+      "name": "GDG Cloud Indore",
+      "contributions": [
+        {
+          "id": "2024-gdg-cloud-indore",
+          "eventId": "devfest-2024",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 2,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "2023-gdg-cloud-indore",
+          "eventId": "devfest-2023",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2023/",
+          "order": 0,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "2022-gdg-cloud-indore",
+          "eventId": "devfest-2022",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 0,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "network-cloud",
+          "scope": "ecosystem",
+          "status": "ecosystem",
+          "order": 4,
+          "type": "community",
+          "title": "Community network"
+        }
+      ],
+      "logo": "/images/partners/gdg-cloud-indore-current.jpg",
+      "social": "https://www.instagram.com/gdgcloudindore/"
+    },
+    {
+      "id": "msi",
+      "name": "MSI",
+      "contributions": [
+        {
+          "id": "historical-msi",
+          "scope": "historical",
+          "status": "archived",
+          "order": 0,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        122,
+        184,
+        158,
+        60
+      ]
+    },
+    {
+      "id": "flutterflow",
+      "name": "FlutterFlow",
+      "contributions": [
+        {
+          "id": "historical-flutterflow",
+          "scope": "historical",
+          "status": "archived",
+          "order": 1,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        },
+        {
+          "id": "2024-flutterflow",
+          "eventId": "devfest-2024",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 4,
+          "type": "community",
+          "title": "Event partner"
+        }
+      ],
+      "archiveLogoWindow": [
+        322,
+        184,
+        275,
+        60
+      ],
+      "logo": "/images/partners/flutterflow-archive.png",
+      "website": "https://www.flutterflow.io/flutterflow-developer-groups"
+    },
+    {
+      "id": "vena",
+      "name": "Vena",
+      "contributions": [
+        {
+          "id": "historical-vena",
+          "scope": "historical",
+          "status": "archived",
+          "order": 2,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        640,
+        182,
+        162,
+        64
+      ]
+    },
+    {
+      "id": "metafic",
+      "name": "Metafic",
+      "contributions": [
+        {
+          "id": "historical-metafic",
+          "scope": "historical",
+          "status": "archived",
+          "order": 4,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        124,
+        275,
+        185,
+        52
+      ]
+    },
+    {
+      "id": "yatrikart",
+      "name": "Yatrikart",
+      "contributions": [
+        {
+          "id": "historical-yatrikart",
+          "scope": "historical",
+          "status": "archived",
+          "order": 5,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        360,
+        277,
+        228,
+        50
+      ]
+    },
+    {
+      "id": "diaspark",
+      "name": "Diaspark",
+      "contributions": [
+        {
+          "id": "historical-diaspark",
+          "scope": "historical",
+          "status": "archived",
+          "order": 6,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        626,
+        272,
+        304,
+        48
+      ]
+    },
+    {
+      "id": "genietalk-ai",
+      "name": "GenieTalk.ai",
+      "contributions": [
+        {
+          "id": "historical-genietalk-ai",
+          "scope": "historical",
+          "status": "archived",
+          "order": 7,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        958,
+        269,
+        215,
+        55
+      ]
+    },
+    {
+      "id": "workie",
+      "name": "Workie",
+      "contributions": [
+        {
+          "id": "historical-workie",
+          "scope": "historical",
+          "status": "archived",
+          "order": 8,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        1187,
+        273,
+        144,
+        51
+      ]
+    },
+    {
+      "id": "siya",
+      "name": "Siya",
+      "contributions": [
+        {
+          "id": "historical-siya",
+          "scope": "historical",
+          "status": "archived",
+          "order": 9,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        130,
+        357,
+        181,
+        55
+      ]
+    },
+    {
+      "id": "kyari",
+      "name": "Kyari",
+      "contributions": [
+        {
+          "id": "historical-kyari",
+          "scope": "historical",
+          "status": "archived",
+          "order": 10,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        366,
+        352,
+        211,
+        66
+      ]
+    },
+    {
+      "id": "protonshub",
+      "name": "Protonshub",
+      "contributions": [
+        {
+          "id": "historical-protonshub",
+          "scope": "historical",
+          "status": "archived",
+          "order": 11,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        637,
+        344,
+        211,
+        45
+      ]
+    },
+    {
+      "id": "aspiringshe",
+      "name": "AspiringShe",
+      "contributions": [
+        {
+          "id": "historical-aspiringshe",
+          "scope": "historical",
+          "status": "archived",
+          "order": 12,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        890,
+        340,
+        170,
+        64
+      ]
+    },
+    {
+      "id": "graffersid",
+      "name": "GraffersID",
+      "contributions": [
+        {
+          "id": "historical-graffersid",
+          "scope": "historical",
+          "status": "archived",
+          "order": 13,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        1114,
+        360,
+        171,
+        47
+      ]
+    },
+    {
+      "id": "indore-institute-of-science-and-technology",
+      "name": "Indore Institute of Science and Technology",
+      "contributions": [
+        {
+          "id": "historical-indore-institute-of-science-and-technology",
+          "scope": "historical",
+          "status": "archived",
+          "order": 14,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        139,
+        444,
+        329,
+        58
+      ]
+    },
+    {
+      "id": "acropolis",
+      "name": "Acropolis",
+      "contributions": [
+        {
+          "id": "historical-acropolis",
+          "scope": "historical",
+          "status": "archived",
+          "order": 15,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        496,
+        448,
+        199,
+        50
+      ]
+    },
+    {
+      "id": "weblisto",
+      "name": "Weblisto",
+      "contributions": [
+        {
+          "id": "historical-weblisto",
+          "scope": "historical",
+          "status": "archived",
+          "order": 16,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        726,
+        437,
+        207,
+        53
+      ]
+    },
+    {
+      "id": "softude",
+      "name": "Softude",
+      "contributions": [
+        {
+          "id": "historical-softude",
+          "scope": "historical",
+          "status": "archived",
+          "order": 17,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        956,
+        434,
+        177,
+        63
+      ]
+    },
+    {
+      "id": "quillbot",
+      "name": "QuillBot",
+      "contributions": [
+        {
+          "id": "historical-quillbot",
+          "scope": "historical",
+          "status": "archived",
+          "order": 18,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        1154,
+        430,
+        193,
+        60
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "contributions": [
+        {
+          "id": "historical-github",
+          "scope": "historical",
+          "status": "archived",
+          "order": 19,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        139,
+        531,
+        112,
+        102
+      ]
+    },
+    {
+      "id": "coding-blocks",
+      "name": "Coding Blocks",
+      "contributions": [
+        {
+          "id": "historical-coding-blocks",
+          "scope": "historical",
+          "status": "archived",
+          "order": 20,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        306,
+        528,
+        188,
+        69
+      ]
+    },
+    {
+      "id": "jetbrains",
+      "name": "JetBrains",
+      "contributions": [
+        {
+          "id": "historical-jetbrains",
+          "scope": "historical",
+          "status": "archived",
+          "order": 21,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        532,
+        518,
+        128,
+        128
+      ]
+    },
+    {
+      "id": "softinator-techlabs",
+      "name": "Softinator TechLabs",
+      "contributions": [
+        {
+          "id": "historical-softinator-techlabs",
+          "scope": "historical",
+          "status": "archived",
+          "order": 22,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        713,
+        510,
+        105,
+        141
+      ]
+    },
+    {
+      "id": "next-coworks",
+      "name": "Next Coworks",
+      "contributions": [
+        {
+          "id": "historical-next-coworks",
+          "scope": "historical",
+          "status": "archived",
+          "order": 23,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        866,
+        528,
+        158,
+        85
+      ]
+    },
+    {
+      "id": "webvillee",
+      "name": "Webvillee",
+      "contributions": [
+        {
+          "id": "historical-webvillee",
+          "scope": "historical",
+          "status": "archived",
+          "order": 24,
+          "source": "/images/deck_logos/past_sponsors_grid.png",
+          "type": "sponsor",
+          "title": "Historical sponsor"
+        }
+      ],
+      "archiveLogoWindow": [
+        1029,
+        535,
+        344,
+        52
+      ]
+    },
+    {
+      "id": "flutterflow-developer-group-indore",
+      "name": "FlutterFlow Developer Group Indore",
+      "contributions": [
+        {
+          "id": "2025-flutterflow-developer-group-indore",
+          "eventId": "devfest-2025",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 0,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "2024-flutterflow-developer-group-indore",
+          "eventId": "devfest-2024",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 3,
+          "type": "community",
+          "title": "Event partner"
+        }
+      ],
+      "logo": "/images/partners/flutterflow-developer-group-indore-archive.png",
+      "website": "https://www.meetup.com/google-cloud-developer-community-indore/"
+    },
+    {
+      "id": "thehackersmeetup",
+      "name": "TheHackersMeetup",
+      "contributions": [
+        {
+          "id": "2025-thehackersmeetup",
+          "eventId": "devfest-2025",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 1,
+          "type": "community",
+          "title": "Event partner"
+        }
+      ],
+      "logo": "/images/partners/thehackersmeetup-archive.png",
+      "website": "https://thehackersmeetup.org/"
+    },
+    {
+      "id": "friendsoffigma",
+      "name": "FriendsOfFigma",
+      "contributions": [
+        {
+          "id": "2025-friendsoffigma",
+          "eventId": "devfest-2025",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
+          "order": 2,
+          "type": "community",
+          "title": "Event partner"
+        }
+      ],
+      "logo": "/images/partners/friendsoffigma-archive.png",
+      "website": "https://friends.figma.com/indore/"
+    },
+    {
+      "id": "tensorflow-user-group-indore",
+      "name": "Machine Learning Indore",
+      "contributions": [
+        {
+          "id": "2024-tensorflow-user-group-indore",
+          "eventId": "devfest-2024",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2024/",
+          "order": 0,
+          "type": "community",
+          "title": "Event partner"
+        },
+        {
+          "id": "network-machine-learning-indore",
+          "scope": "ecosystem",
+          "status": "ecosystem",
+          "order": 5,
+          "type": "community",
+          "title": "Community network"
+        }
+      ],
+      "logo": "/images/partners/machine-learning-indore-current.png",
+      "website": "https://www.commudle.com/communities/machine-learning-indore"
+    },
+    {
+      "id": "gdsc-indore",
+      "name": "GDSC Indore",
+      "contributions": [
+        {
+          "id": "2022-gdsc-indore",
+          "eventId": "devfest-2022",
+          "status": "archived",
+          "source": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/",
+          "order": 1,
+          "type": "community",
+          "title": "Event partner"
+        }
+      ],
+      "logo": "/images/partners/gdsc-indore-archive.png",
+      "website": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2022/"
+    },
+    {
+      "id": "gdg-on-campus-iet-davv",
+      "name": "GDG on Campus IET DAVV",
+      "contributions": [
+        {
+          "id": "network-gdg-on-campus-iet-davv",
+          "scope": "ecosystem",
+          "status": "ecosystem",
+          "order": 6,
+          "type": "community",
+          "title": "Community network"
+        }
+      ],
+      "logo": "/images/partners/gdg-on-campus-iet-davv.svg",
+      "website": "https://gdg.community.dev/gdg-on-campus-institute-of-engineering-and-technology-davv-indore-india/"
+    }
+  ]
+}

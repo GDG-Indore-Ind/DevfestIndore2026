@@ -1,14 +1,14 @@
 import { permanentRedirect } from "next/navigation";
 import { DIRECTORY_ACTIVE } from "@/lib/directoryAccess";
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/pageMetadata";
 import PastOrganizations from "@/components/home/PastOrganizations";
 import CommunityPage from "@/components/layout/CommunityPage";
 import ArchiveNav from "@/components/layout/ArchiveNav";
-export const metadata: Metadata = {
-  title: "Past sponsors",
-  description:
-    "Organizations from the DevFest Indore sponsor archive. Historical support is kept separate from current event partners.",
-};
+export const metadata = pageMetadata(
+  "/past-sponsors",
+  "Past sponsors",
+  "Organizations from the DevFest Indore sponsor archive. Historical support is kept separate from current event partners.",
+);
 export default function PastSponsorsPage() {
   if (DIRECTORY_ACTIVE) permanentRedirect("/partners?year=all&type=sponsor");
   return (

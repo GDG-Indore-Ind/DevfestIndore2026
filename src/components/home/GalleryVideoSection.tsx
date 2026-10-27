@@ -1,4 +1,5 @@
-import directory from "../../../content/directory.json";
+import pages from "../../../content/pages.json";
+const directory = pages.directory;
 import Link from "next/link";
 import ContentAction from "@/components/shared/ContentAction";
 import ContentIcon from "@/components/shared/ContentIcon";
@@ -6,14 +7,14 @@ import PhotoMarquee from "./PhotoMarquee";
 import { DEVFEST_EDITIONS } from "@/content/archive";
 import { HOME_PAGE } from "@/content/pages";
 import { EVENT } from "@/content/event";
-import { HISTORICAL_SPONSORS } from "@/content/partners";
-import LogoMarquee from "@/components/home/LogoMarquee";
 
 const timelineYears = Array.from(
-  { length: Number(EVENT.id) - HOME_PAGE.historySince + 1 },
+  { length: Number(EVENT.year) - HOME_PAGE.historySince + 1 },
   (_, index) => HOME_PAGE.historySince + index,
 );
-const editionsByYear = new Map(DEVFEST_EDITIONS.map((edition) => [Number(edition.id), edition]));
+const editionsByYear = new Map(
+  DEVFEST_EDITIONS.map((edition) => [Number(edition.date.slice(0, 4)), edition]),
+);
 
 export default function GalleryVideoSection() {
   return (
@@ -36,11 +37,11 @@ export default function GalleryVideoSection() {
               return (
                 <li key={year}>
                   {edition ? (
-                    <Link href={`/past-events/${edition.id}`}>
+                    <Link href={`/past-events/${year}`}>
                       {year}
                       <small>{edition.kind}</small>
                     </Link>
-                  ) : year === Number(EVENT.id) ? (
+                  ) : year === Number(EVENT.year) ? (
                     <Link href="/tickets" className="history-current">
                       {year}
                       <small>{HOME_PAGE.historyCurrentLabel}</small>
@@ -61,21 +62,6 @@ export default function GalleryVideoSection() {
           </ol>
         </nav>
         <PhotoMarquee />
-        <div className="history-sponsor-preview">
-          <LogoMarquee
-            label={HOME_PAGE.pastSponsorsTitle}
-            items={HISTORICAL_SPONSORS.slice(0, 6)}
-            action={
-              <ContentAction
-                href={directory.enabled ? "/partners?year=all&type=sponsor" : "/past-sponsors"}
-                icon="partners"
-                tone="yellow"
-              >
-                {HOME_PAGE.pastSponsorsLink}
-              </ContentAction>
-            }
-          />
-        </div>
         <nav className="venue-actions" aria-label="Explore previous editions">
           <ContentAction href="/past-events" icon="history">
             Past events

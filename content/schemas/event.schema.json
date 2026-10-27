@@ -1,232 +1,592 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest event",
-  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
+  "title": "DevFest events",
   "type": "object",
   "additionalProperties": false,
+  "required": [
+    "$schema",
+    "events"
+  ],
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "id": {
-      "type": "string",
-      "pattern": "^[a-z0-9][a-z0-9-]*$"
-    },
-    "name": {
-      "type": "string",
-      "minLength": 1
-    },
-    "organizer": {
-      "type": "string",
-      "minLength": 1
-    },
-    "startsAt": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "timezone": {
-      "type": "string",
-      "minLength": 1
-    },
-    "tagline": {
-      "type": "string",
-      "minLength": 1
-    },
-    "subTagline": {
-      "type": "string",
-      "minLength": 1
-    },
-    "contactEmail": {
-      "type": "string",
-      "format": "email"
-    },
-    "venue": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "minLength": 1
-        },
-        "fullName": {
-          "type": "string",
-          "minLength": 1
-        },
-        "tag": {
-          "type": "string",
-          "minLength": 1
-        },
-        "address": {
-          "type": "string",
-          "minLength": 1
-        },
-        "streetAddress": {
-          "type": "string",
-          "minLength": 1
-        },
-        "city": {
-          "type": "string",
-          "minLength": 1
-        },
-        "region": {
-          "type": "string",
-          "minLength": 1
-        },
-        "postalCode": {
-          "type": "string",
-          "minLength": 1
-        },
-        "country": {
-          "type": "string",
-          "pattern": "^[A-Z]{2}$"
-        },
-        "latitude": {
-          "type": "number",
-          "minimum": -90,
-          "maximum": 90
-        },
-        "longitude": {
-          "type": "number",
-          "minimum": -180,
-          "maximum": 180
-        },
-        "mapUrl": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "photo": {
-          "type": "string",
-          "pattern": "^(https://|/[^/])"
-        }
-      },
-      "required": [
-        "name",
-        "fullName",
-        "tag",
-        "address",
-        "streetAddress",
-        "city",
-        "region",
-        "postalCode",
-        "country",
-        "latitude",
-        "longitude",
-        "mapUrl",
-        "photo"
-      ]
-    },
-    "links": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "website": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "booking": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "cfp": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "linkedin": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "instagram": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "chapter": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "youtube": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "github": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "twitter": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "codeOfConduct": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "partnerApplication": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "exhibitApplication": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        }
-      },
-      "required": [
-        "website",
-        "booking",
-        "cfp",
-        "linkedin",
-        "instagram",
-        "chapter",
-        "youtube",
-        "github",
-        "twitter",
-        "codeOfConduct",
-        "partnerApplication",
-        "exhibitApplication"
-      ]
-    },
-    "booking": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "widgetUrl": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://konfhub\\.com/widget/id/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-        }
-      },
-      "required": [
-        "enabled",
-        "widgetUrl"
-      ]
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "timezone": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tagline": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subTagline": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contactEmail": {
+                "type": "string",
+                "format": "email"
+              },
+              "venue": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "tag": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "address": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "streetAddress": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "city": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "region": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "country": {
+                    "type": "string",
+                    "pattern": "^[A-Z]{2}$"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  "mapUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "photo": {
+                    "type": "string",
+                    "pattern": "^(https://|/[^/])"
+                  }
+                },
+                "required": [
+                  "name",
+                  "fullName",
+                  "tag",
+                  "address",
+                  "streetAddress",
+                  "city",
+                  "region",
+                  "postalCode",
+                  "country",
+                  "latitude",
+                  "longitude",
+                  "mapUrl",
+                  "photo"
+                ]
+              },
+              "links": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "website": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "cfp": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "linkedin": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "instagram": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "chapter": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "youtube": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "github": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "twitter": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "codeOfConduct": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "partnerApplication": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  },
+                  "exhibitApplication": {
+                    "type": "string",
+                    "format": "uri",
+                    "pattern": "^https://"
+                  }
+                },
+                "required": [
+                  "website",
+                  "cfp",
+                  "linkedin",
+                  "instagram",
+                  "chapter",
+                  "youtube",
+                  "github",
+                  "twitter",
+                  "codeOfConduct",
+                  "partnerApplication",
+                  "exhibitApplication"
+                ]
+              },
+              "tickets": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "passes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "enum": [
+                            "liftoff",
+                            "student",
+                            "professional",
+                            "vip",
+                            "last-orbit",
+                            "observer"
+                          ]
+                        },
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "audience": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "visible": {
+                          "description": "Show this pass card on the public tickets page. Register links hand off availability to KonfHub.",
+                          "type": "boolean"
+                        },
+                        "summary": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "allocation": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "price": {
+                          "description": "Approved base price in INR. Omit until confirmed; zero is a real free price.",
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "description": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "eligibility": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "benefits": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "group": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "label": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "detail": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            },
+                            "required": [
+                              "group",
+                              "label"
+                            ]
+                          }
+                        },
+                        "note": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "soldOut": {
+                          "description": "Show a sold-out label instead of a Register action. Confirm against KonfHub before updating.",
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "audience",
+                        "visible",
+                        "summary",
+                        "allocation",
+                        "description",
+                        "eligibility",
+                        "benefits"
+                      ]
+                    }
+                  },
+                  "policies": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9][a-z0-9-]*$"
+                        },
+                        "appliesTo": {
+                          "type": "array",
+                          "minItems": 1,
+                          "uniqueItems": true,
+                          "items": {
+                            "enum": [
+                              "liftoff",
+                              "student",
+                              "professional",
+                              "vip",
+                              "last-orbit",
+                              "observer"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "title",
+                        "text"
+                      ]
+                    }
+                  },
+                  "registrationChecklist": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "text": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "title",
+                        "text"
+                      ]
+                    }
+                  },
+                  "registrationDeclaration": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "registration": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "buttonLabel",
+                      "unavailableText",
+                      "finalSaleText",
+                      "profileReminder",
+                      "termsLabel",
+                      "widgetHeading",
+                      "widgetLead",
+                      "widgetTitle",
+                      "fallbackText",
+                      "fallbackLabel",
+                      "referralText",
+                      "soldOutLabel"
+                    ],
+                    "properties": {
+                      "buttonLabel": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "unavailableText": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "finalSaleText": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "profileReminder": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "termsLabel": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "widgetHeading": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "widgetLead": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "widgetTitle": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "fallbackText": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "fallbackLabel": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "referralText": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "soldOutLabel": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  },
+                  "benefitGroups": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9][a-z0-9-]*$"
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "label"
+                      ]
+                    }
+                  },
+                  "booking": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "widgetUrl": {
+                        "type": "string",
+                        "format": "uri",
+                        "pattern": "^https://konfhub\\.com/widget/id/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "pattern": "^https://"
+                      }
+                    },
+                    "required": [
+                      "enabled",
+                      "widgetUrl",
+                      "url"
+                    ]
+                  }
+                },
+                "required": [
+                  "passes",
+                  "policies",
+                  "registrationChecklist",
+                  "registrationDeclaration",
+                  "registration",
+                  "benefitGroups",
+                  "booking"
+                ]
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "type": {
+                "const": "devfest"
+              },
+              "status": {
+                "const": "current"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "organizer",
+              "date",
+              "timezone",
+              "tagline",
+              "subTagline",
+              "contactEmail",
+              "venue",
+              "links",
+              "tickets",
+              "type",
+              "status"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "venue": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://"
+              },
+              "officialSpeakerIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                }
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "enum": [
+                  "devfest",
+                  "community",
+                  "online"
+                ]
+              },
+              "status": {
+                "const": "past"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "date",
+              "venue",
+              "summary",
+              "source",
+              "officialSpeakerIds",
+              "type",
+              "status"
+            ]
+          }
+        ]
+      }
     }
-  },
-  "required": [
-    "$schema",
-    "id",
-    "name",
-    "organizer",
-    "startsAt",
-    "timezone",
-    "tagline",
-    "subTagline",
-    "contactEmail",
-    "venue",
-    "links",
-    "booking"
-  ]
+  }
 }

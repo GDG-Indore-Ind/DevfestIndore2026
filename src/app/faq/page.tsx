@@ -1,16 +1,16 @@
 import ContentAction from "@/components/shared/ContentAction";
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { FAQ_PAGE as page } from "@/content/pages";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import FaqSection from "@/components/shared/FaqSection";
 
-export const metadata: Metadata = {
-  title: "Common questions",
-  description:
-    "Practical answers about DevFest Indore 2026: pass inclusions, entry, student ID, the venue and ticket policies.",
-};
+export const metadata = pageMetadata(
+  "/faq",
+  "Common questions",
+  "Practical answers about DevFest Indore 2026: pass inclusions, entry, student ID, the venue and ticket policies.",
+);
 
 export default function FaqPage() {
   return (

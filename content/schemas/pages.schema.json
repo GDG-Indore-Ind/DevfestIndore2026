@@ -13,7 +13,8 @@
     "faq",
     "workshops",
     "pastSpeakers",
-    "ambassadors"
+    "ambassadors",
+    "directory"
   ],
   "definitions": {
     "text": {
@@ -304,8 +305,6 @@
         "venueLead",
         "pastSponsorsTitle",
         "pastSponsorsLink",
-        "marqueePauseLabel",
-        "marqueePlayLabel",
         "photoArchiveLabel",
         "photoMarqueeLabel",
         "photoMarqueePauseLabel",
@@ -313,7 +312,8 @@
         "themeSelectorLabel",
         "themeSwipeHint",
         "themeContributionLabel",
-        "exhibits"
+        "exhibits",
+        "themes"
       ],
       "properties": {
         "programmeTitle": {
@@ -384,12 +384,6 @@
         "pastSponsorsLink": {
           "$ref": "#/definitions/text"
         },
-        "marqueePauseLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "marqueePlayLabel": {
-          "$ref": "#/definitions/text"
-        },
         "photoArchiveLabel": {
           "type": "string",
           "minLength": 1
@@ -454,6 +448,69 @@
               "$ref": "#/definitions/text"
             }
           }
+        },
+        "themes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "icon": {
+                "enum": [
+                  "Satellite",
+                  "Braces",
+                  "Bot",
+                  "Radio"
+                ]
+              },
+              "color": {
+                "enum": [
+                  "blue",
+                  "red",
+                  "yellow",
+                  "green"
+                ]
+              },
+              "signal": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label",
+              "icon",
+              "color",
+              "signal",
+              "title",
+              "description",
+              "tags"
+            ]
+          },
+          "minItems": 1
         }
       }
     },
@@ -490,7 +547,8 @@
         "eventTitle",
         "eventLead",
         "ticketsTitle",
-        "ticketsLead"
+        "ticketsLead",
+        "questions"
       ],
       "properties": {
         "title": {
@@ -510,6 +568,57 @@
         },
         "ticketsLead": {
           "$ref": "#/definitions/text"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              "question": {
+                "type": "string",
+                "minLength": 1
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "event",
+                  "tickets"
+                ]
+              },
+              "link": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "href",
+                  "label"
+                ],
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "pattern": "^/[^ ]*$"
+                  },
+                  "label": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            },
+            "required": [
+              "id",
+              "question",
+              "answer",
+              "kind"
+            ]
+          }
         }
       }
     },
@@ -769,6 +878,91 @@
           "$ref": "#/definitions/text"
         }
       }
+    },
+    "directory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "enum": [
+                  "core-team",
+                  "volunteer",
+                  "ambassador",
+                  "speaker"
+                ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "label"
+            ]
+          }
+        },
+        "team": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "talks": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "partners": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "filters": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "profile": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "enabled",
+        "roles",
+        "team",
+        "talks",
+        "partners",
+        "filters",
+        "profile"
+      ]
     }
   }
 }

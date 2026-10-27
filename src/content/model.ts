@@ -79,6 +79,7 @@ export interface WorkshopPhoto {
 }
 export interface WorkshopItem {
   id: string;
+  legacyId?: string;
   college: string;
   speaker: string;
   topic?: string;

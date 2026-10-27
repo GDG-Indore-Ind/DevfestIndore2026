@@ -6,7 +6,7 @@ Prepared 27 October 2026 for the current local working tree. This plan separates
 
 - `content/*.json` is the public content source; schemas and `npm run content:validate` enforce structure, relationships and approval fingerprints.
 - There are 71 people, including 29 ambassador directory memberships; two memberships have no selected LinkedIn profile and are hidden from the directory.
-- `team.json` retains 13 undated legacy memberships and 14 organizer-confirmed assignments. The wider directory is disabled; one general person approval and 28 ambassador-only approvals are recorded.
+- Person records in `people.json` retain 13 undated legacy memberships and 14 organizer-confirmed assignments. The wider directory is disabled; one general person approval and 28 ambassador-only approvals are recorded.
 - Forty unused person email fields were removed from the current content with narrowly scoped, baseline-linked redaction receipts; general approval scopes remain unchanged.
 - The two source session spreadsheets and retired planning JSON containing contact information were removed from the tracked working tree at the organizer's request after verified copies were retained locally in an ignored directory. Existing Git history may still contain them; the workshop reference material remains tracked.
 

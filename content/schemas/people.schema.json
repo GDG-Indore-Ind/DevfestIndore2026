@@ -28,14 +28,14 @@
               "group"
             ]
           },
-          "avatar": {
-            "type": "string",
-            "pattern": "^(https://|/[^/])"
-          },
           "bio": {
             "type": "string"
           },
-          "socials": {
+          "photo": {
+            "type": "string",
+            "pattern": "^(https://|/[^/])"
+          },
+          "links": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -60,11 +60,214 @@
             },
             "required": []
           },
-          "role": {
-            "type": "string"
+          "profession": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "organization": {
+                "type": "string"
+              }
+            },
+            "minProperties": 1
           },
-          "company": {
-            "type": "string"
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "eventId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sourceUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://"
+                },
+                "roles": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "kind": {
+                        "enum": [
+                          "core-team",
+                          "volunteer",
+                          "ambassador",
+                          "speaker"
+                        ]
+                      },
+                      "title": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "responsibilities": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "area": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "level": {
+                              "enum": [
+                                "lead",
+                                "co-lead",
+                                "coordinator",
+                                "team-member",
+                                "volunteer"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "area",
+                            "level"
+                          ]
+                        }
+                      },
+                      "order": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "title",
+                      "order"
+                    ]
+                  }
+                },
+                "displayOrder": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "id",
+                "eventId",
+                "roles",
+                "displayOrder"
+              ]
+            }
+          },
+          "undatedTeam": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9-]*$"
+                },
+                "role": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "team": {
+                  "enum": [
+                    "Core Organizer",
+                    "Design & Experience",
+                    "Tech & Operations",
+                    "Space & Ecosystem",
+                    "Community"
+                  ]
+                },
+                "order": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "bio": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "role",
+                "team",
+                "order"
+              ]
+            }
+          },
+          "teamAssignments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "eventId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "category": {
+                  "enum": [
+                    "core-team",
+                    "volunteer"
+                  ]
+                },
+                "responsibilities": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "displayOrder": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "eventId",
+                "category",
+                "responsibilities",
+                "displayOrder"
+              ]
+            }
+          },
+          "ambassador": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "community",
+              "contactPlatforms",
+              "order"
+            ],
+            "properties": {
+              "community": {
+                "type": "string",
+                "minLength": 1
+              },
+              "contactPlatforms": {
+                "type": "array",
+                "minItems": 0,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "linkedin"
+                  ]
+                }
+              },
+              "order": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
           }
         },
         "required": [

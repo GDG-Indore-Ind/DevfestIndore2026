@@ -91,7 +91,7 @@ export default async function TalkPage({ params }: Props) {
               <Link href={`/talks?year=${talk.event.year}`}>{copy.profile.backTalks}</Link>
             )}
             {talk.event.kind === "DevFest" ? (
-              <Link href={`/past-events/${talk.editionId}`}>{talk.event.title}</Link>
+              <Link href={`/past-events/${talk.event.year}`}>{talk.event.title}</Link>
             ) : (
               <ExternalLink href={talk.sourceUrl || talk.event.source}>
                 {talk.event.title}

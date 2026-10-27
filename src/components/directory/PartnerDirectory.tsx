@@ -13,13 +13,18 @@ export default function PartnerDirectory({
   organizations: ReturnType<typeof getPublicOrganizations>;
   preview: boolean;
 }) {
-  const { values, setFilter, clear } = useDirectoryFilters({ q: "", year: EVENT.id, type: "all" });
+  const { values, setFilter, clear } = useDirectoryFilters({
+    q: "",
+    year: EVENT.year,
+    type: "all",
+  });
   const { q: query, year, type: kind } = values;
   const years = [
     ...new Set(
       organizations
         .flatMap((organization) => organization.partnerships.map((entry) => entry.editionId))
-        .filter((id) => /^20\d\d$/.test(id)),
+        .filter((id) => /^devfest-20\d\d$/.test(id))
+        .map((id) => id.slice(-4)),
     ),
   ]
     .sort()
@@ -29,7 +34,7 @@ export default function PartnerDirectory({
       ...organization,
       matches: organization.partnerships.filter(
         (entry) =>
-          (year === "all" || entry.editionId === year) &&
+          (year === "all" || entry.editionId === `devfest-${year}` || entry.editionId === year) &&
           (kind === "all" || entry.contributions.some((item) => item.kind === kind)),
       ),
     }))
@@ -104,7 +109,7 @@ export default function PartnerDirectory({
                     <>
                       {entry.editionId === "ecosystem"
                         ? copy.partners.ecosystemLabel
-                        : entry.editionId}{" "}
+                        : entry.editionId.replace(/^devfest-/, "")}{" "}
                       ·{" "}
                     </>
                   )}

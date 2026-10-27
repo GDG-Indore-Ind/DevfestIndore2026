@@ -1,5 +1,6 @@
 import Link from "next/link";
-import directory from "../../../content/directory.json";
+import pages from "../../../content/pages.json";
+const directory = pages.directory;
 import { EVENT, EVENT_WEEKDAY_DATE } from "@/content/event";
 import { AMBASSADORS_PAGE, HOME_PAGE } from "@/content/pages";
 import ContentIcon, { type ContentIconName, type IconTone } from "@/components/shared/ContentIcon";

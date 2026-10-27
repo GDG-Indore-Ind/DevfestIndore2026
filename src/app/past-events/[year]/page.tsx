@@ -2,6 +2,7 @@ import { DIRECTORY_ACTIVE } from "@/lib/directoryAccess";
 import { DIRECTORY_COPY } from "@/content/directory";
 import ContentAction from "@/components/shared/ContentAction";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/pageMetadata";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import CommunityPage from "@/components/layout/CommunityPage";
@@ -11,16 +12,17 @@ import { ARCHIVED_SPEAKERS } from "@/content/speakers";
 
 type Props = { params: Promise<{ year: string }> };
 export function generateStaticParams() {
-  return DEVFEST_EDITIONS.map((event) => ({ year: event.id }));
+  return DEVFEST_EDITIONS.map((event) => ({ year: event.date.slice(0, 4) }));
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { year } = await params;
-  const event = DEVFEST_EDITIONS.find((item) => item.id === year);
-  return { title: event?.title ?? "Edition not found", description: event?.summary };
+  const event = DEVFEST_EDITIONS.find((item) => item.date.slice(0, 4) === year);
+  if (!event) return { title: "Edition not found" };
+  return pageMetadata(`/past-events/${year}`, event.title, event.summary);
 }
 export default async function EditionPage({ params }: Props) {
   const { year } = await params;
-  const event = DEVFEST_EDITIONS.find((item) => item.id === year);
+  const event = DEVFEST_EDITIONS.find((item) => item.date.slice(0, 4) === year);
   if (!event) notFound();
   const speakers = [
     ...new Map(

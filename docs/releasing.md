@@ -2,9 +2,9 @@
 
 ## Confirm deployment ownership
 
-This checkout has two remotes: `origin` is the GDG organization repository and `live` is Soham's repository. These are local aliases, not proof of the production connection.
+On 27 October 2026, the organizer confirmed that Vercel is connected to the repository configured as `live`, which pointed to `Karan-S-Mittal/devfest-indore-2026` on GitHub. `origin` pointed to the GDG organization repository. Local aliases can change; check `git remote -v` before releasing.
 
-Before the first release, inspect the Vercel project's Git connection and Production environment branch tracking. Record the connected repository and branch with the organizers. Also confirm that the people responsible for future events have access to the repository and Vercel project. The reported public host is https://devfest2026-iota.vercel.app/; its current connection has not been verified by this cleanup.
+Before release, verify the Vercel project's Production environment branch tracking; the connected branch has not yet been confirmed. Also confirm that the people responsible for future events have access to the repository and Vercel project. The reported Vercel host is https://devfest2026-iota.vercel.app/.
 
 ## Publish a reviewed change
 

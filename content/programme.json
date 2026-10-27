@@ -1,0 +1,721 @@
+{
+  "$schema": "./schemas/programme.schema.json",
+  "entries": [
+    {
+      "type": "talk",
+      "id": "sp-2025-abhishek-doshi",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Power of BuildContext in Flutter",
+      "role": "Google Developer Expert - Dart, Flutter & Firebase",
+      "company": "Tech Lead - Qvin",
+      "description": "BuildContext is at the heart of Flutter’s widget tree, yet its true potential often goes untapped. In this talk, we’ll find out what BuildContext really represents, how it connects widgets to their position in the tree, and the powerful capabilities it unlocks. \r\n\r\nYou’ll learn how to access ancestors and inherited widgets, navigate safely, avoid common pitfalls, and optimize performance. We’ll also explore advanced tricks — including using context to measure a widget’s dimensions and dynamically size another widget — giving you the tools to write cleaner, more adaptable Flutter UIs.",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "Mobile & Flutter",
+      "track": "Mobile",
+      "level": "Intermediate",
+      "speakerIds": [
+        "abhishek-doshi"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-nikhilesh-tayal",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Building AI Agents with self-managing memory",
+      "role": "Founder and CEO",
+      "company": "AI ML etc.",
+      "description": "The challenge with building AI agents is that they do not have a long term persistent memory. \r\nWe have to manage their memory explicitly.  \r\n\r\nThe better way to scale an AI Agentic workflow is to build an AI agent that can self-manage its memory. \r\nThe concept is very similar to the virtual memory of computer systems.  \r\n\r\nWe will also build an AI agent that can write/ edit its own memory.",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "GenAI",
+      "track": "AI",
+      "level": "Intermediate",
+      "speakerIds": [
+        "nikhilesh-tayal"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-ganesh-divekar",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Building Intelligent AI Agents: From RAG Pipelines to Real-World BFSI Use Cases",
+      "role": "Lead AI Engineer",
+      "company": "Bajaj Finserv",
+      "description": "AI agents are rapidly moving from experimental prototypes to production-ready systems. In this session, I’ll take you through the end-to-end lifecycle of building intelligent AI agents — from architecture design to deployment at scale.\r\nWe’ll deep-dive into:\r\nRAG Pipelines with vector databases for domain-specific knowledge.\r\nAgentic Workflows using LangChain/LangGraph for decision-making.\r\nSecure Deployments tailored for BFSI environments (encryption, InfoSec guardrails, compliance).\r\nReal-World Use Cases: BFSI chatbots, customer care automation, financial advisory assistants, and workflow orchestration.\r\nPerformance Optimization: cost-effective infrastructure, latency reduction, and open-source-first approaches.\r\nAttendees will walk away with practical implementation strategies, code-level insights, and a blueprint to build their own AI-powered agents.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "GenAI",
+      "track": "AI",
+      "level": "Intermediate",
+      "speakerIds": [
+        "ganesh-divekar"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-himanshu-jain",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Reinventing Learning: How AI Is Transforming the Future of Education",
+      "role": "Director Engineering",
+      "company": "Academian Inc",
+      "description": "Education is undergoing the biggest transformation since the internet—and AI is at the center of it. In this session, we’ll explore how artificial intelligence is reshaping the way we teach, learn, assess, and create educational experiences. From adaptive learning systems and smart tutoring tools to AI-powered content creation, analytics, and personalized pathways, we’ll break down the technologies driving the next wave of innovation in EdTech.\r\n\r\nAttendees will discover real examples, practical tools, and emerging trends that educators, developers, and institutions need to understand today. We’ll also look at the opportunities, challenges, and ethical questions that come with integrating AI into learning environments.\r\n\r\nBy the end of this talk, participants will walk away with fresh insights, actionable ideas, and a clear picture of how AI is redefining the classroom—and what it means for the future of learning.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "GenAI",
+      "track": "AI",
+      "level": "Intermediate",
+      "speakerIds": [
+        "himanshu-jain"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-divyanshu-bhargava",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Scaling Server-Driven UI with Stac",
+      "role": "Co-Founder",
+      "company": "Stac",
+      "description": "Since the launch of the App Store and Play Store, mobile apps have evolved from static screens to highly dynamic, personalized experiences. Traditionally, the backend drives data while the client controls the UI, but as apps grow, shipping updates and iterating on UIs becomes increasingly complex.\r\n\r\nWhat if the server could define the UI itself? What if you could push new screens, features, or fixes without releasing a new app build?\r\n\r\nServer-Driven UI (SDUI) flips the traditional app architecture: the server generates the UI, and the client simply renders it. This approach enables highly dynamic, personalized apps, faster iteration, and simpler maintenance.\r\n\r\nIn this talk, we’ll explore the principles of SDUI, its benefits for mobile apps, and the practical challenges of building such systems. You’ll also get a hands-on look at Stac, a Flutter SDUI framework that makes it easy to implement server-driven interfaces using Flutter’s declarative UI.\r\n\r\nKey Takeaways:\r\n- What Server-Driven UI is and why it matters\r\n- Benefits of SDUI for developers and users\r\n- How Stac simplifies building SDUI apps in Flutter\r\n- Practical tips and challenges when implementing SDUI\r\n-The future of mobile apps with dynamic UIs",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "Mobile & Flutter",
+      "track": "Mobile",
+      "level": "Intermediate",
+      "speakerIds": [
+        "divyanshu-bhargava"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-ankit-sharma",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Smart Angular Apps with Gemini: Building an AI-Powered Writing Assistant",
+      "role": "Staff Frontend Engineer",
+      "company": "Celonis",
+      "description": "Discover how to build intelligent, AI-enhanced Angular applications using Google’s Gemini API.\r\n\r\nIn this hands-on session, I will walk through creating a real-time grammar checking and content improvement assistant built entirely with Angular and Gemini AI. The app continuously analyzes user input, detects grammar issues, and provides context-aware corrections, all while maintaining performance and responsiveness.\r\n\r\nYou will learn how to integrate the Gemini API into Angular’s reactive ecosystem, use Angular Signals for AI-driven state updates, and apply debouncing and rate-limiting strategies for smooth, efficient API interactions.\r\n\r\nKey Technical Focus Areas:\r\n\r\n- Gemini API Integration: Authentication, request optimization, and structured response handling in Angular services.\r\n- Reactive AI State Management: Using Angular Signals to manage live AI feedback in real time.\r\n- Performance Optimization: Debounced API calls, error handling, and token usage tracking.\r\n- Production Readiness: Handling API limits, caching strategies, and ensuring consistent UX under load.\r\n\r\nLive Demo:\r\n\r\nA production-ready Angular app featuring:\r\n\r\n- Real-time grammar and style suggestions using Gemini API\r\n- Live text analysis and content refinement feedback\r\n- Token usage visualization and performance monitoring\r\n\r\nThis talk is ideal for Angular developers who want to go beyond static UIs and build intelligent, AI-powered experiences using Gemini and Angular’s modern reactive tools.\r\n\r\nGitHub: https://github.com/AnkitSharma-007/angular-gemini-writing-assistant",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "Web",
+      "track": "Web",
+      "level": "Intermediate",
+      "speakerIds": [
+        "ankit-sharma"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-mrinal-jain",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Shaping the Impossible: Production-Ready CustomPainter Techniques",
+      "role": "Flutter Consultant",
+      "company": "American Express",
+      "description": "When we start with Flutter, widgets feel like magic. They cover most of our use cases—until one day the design team comes up with something that just doesn’t fit inside the widget box. That’s when CustomPainter enters the picture.\r\n\r\nIn this talk, I’ll share how CustomPainter gives you complete control over the canvas and allows you to create visuals that are simply not possible with standard widgets. I’ll walk you through how I used it in a real production feature—from drawing and manipulating paths to converting an SVG into custom path data. Along the way, we’ll also touch on some simple vector concepts that make life easier when working with shapes and curves.\r\n\r\nThe goal is not just to show cool graphics, but to teach you how to structure your drawing logic, how to keep performance in mind, and how to break down a complex idea into smaller, manageable pieces. By the end, you’ll feel confident about picking up CustomPainter the next time your app’s design demands something unique.\r\n\r\nI’ll also walk through my experience of implementing CustomPainter in the AMEX Lounge app, where we had to design premium card visuals and dynamic graphics that demanded pixel-perfect accuracy. From breaking down complex drawings into smaller reusable parts, to ensuring smooth performance on high-density screens, you’ll learn what it really takes to use CustomPainter effectively in production.\r\n\r\nThis session is not just about code—it’s about building confidence to pick up CustomPainter when your design vision doesn’t fit inside a widget box.\r\n\r\nKey Takeaways\r\n\r\n- Clear understanding of how CustomPainter works and when it makes sense to use it.\r\n- Step-by-step process of turning SVG paths into Flutter-friendly drawings.\r\n- Easy-to-grasp vector basics that you can apply in your own code.\r\n- Practical tips on breaking complex drawings into smaller, testable parts.\r\n- Ideas and inspiration to go beyond widgets and build interfaces that stand out.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Mobile & Flutter",
+      "track": "Mobile",
+      "level": "Intermediate",
+      "speakerIds": [
+        "mrinal-jain"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-shachita-jain",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "From Coding to Catalyzing: Becoming a Technical Product Manager",
+      "role": "Technical Product Manager",
+      "company": "Kintsugi AI",
+      "description": "Session will cover everything a developer needs to know to transition into a Technical Product Manager. It will also contain the Nitty-Gritties of Technical Product Management, stakeholder communication, integrations, etc. I will walk you through some real examples of how PRDs are made and how TPM functions in any company.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "shachita-jain"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-shashank-saxena",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Operationalizing AI Agents at Scale with the Vertex AI Agent Engine",
+      "role": "Solution Architect",
+      "company": "Ccube Pvt. Ltd.",
+      "description": "Learn how to build, deploy, and scale production-ready AI agents using the Vertex AI Agent Engine. This session covers agent design, tool integration, data access & monitoring. Gain a clear roadmap for turning AI agent prototypes into secure, scalable solutions.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Cloud",
+      "track": "Cloud",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "shashank-saxena"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-rahul-chautel",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Engineering and Product: One Playbook",
+      "role": "Chief Technology Officer",
+      "company": "Luxare by Diaspark",
+      "description": "Product and engineering misalignment rarely comes from people. It comes from the absence of a shared operating model.\r\nIn this talk, I share a practical playbook for aligning product and engineering through shared language, transparent prioritisation, fast alignment rituals and common success metrics. The session is based on real leadership experience and focuses on systems that reduce friction, improve delivery predictability and help teams scale without chaos.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Intermediate",
+      "speakerIds": [
+        "rahul-chautel"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-sunny-ralli",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Building next Billion dollar bootstrapped company",
+      "role": "GROUP MANAGING DIRECTOR",
+      "company": "PRAEDICO GLOBAL RESEARCH",
+      "description": "In this we would be talking about how young startup founders can focus on net profit building companies rather than relying on funding",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Intermediate to Advance",
+      "speakerIds": [
+        "sunny-ralli"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-gautam-billore",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Culture in Tech Entrepreneurship",
+      "role": "Chief Consultant",
+      "company": "Nordic Digital Hub Sweden",
+      "description": "How culture plays an important role in Entrepreneurship in Technology domain.",
+      "spotlightBadge": "Featured Speaker",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Intermediate to Advance",
+      "speakerIds": [
+        "gautam-billore"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-srashti-jain",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Why Angular is the Secret Weapon for High-Performance AI Dashboards",
+      "role": "CEO TechVraksh",
+      "company": "TechVraksh",
+      "description": "We will dive into the Performance Trifecta: Signals for surgical updates, Zoneless architecture for zero overhead, and Deferrable Views for intelligent resource management. Whether you're an Angular expert or a performance-obsessed web developer, you'll learn how to leverage these unique framework features to build AI dashboards that stay at 60fps, even under massive data loads.",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "Web",
+      "track": "Web",
+      "level": "Intermediate",
+      "speakerIds": [
+        "srashti-jain"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2025-harsh-tonde",
+      "eventId": "devfest-2025",
+      "publication": "archived",
+      "title": "Build Your Way",
+      "role": "Enterprise Customer Success Engineer",
+      "company": "FlutterFlow",
+      "description": "Designers, developers, and dreamers — all welcome",
+      "spotlightBadge": "Featured Speaker",
+      "category": "GenAI",
+      "track": "AI",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "harsh-tonde"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-divyanshu-bhargava",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Flutter for Startups: Launch Fast, Scale Faster",
+      "role": "Founder",
+      "company": "BettrDo",
+      "description": "In today’s fast-paced startup ecosystem, the ability to quickly launch a product and scale rapidly is critical for success. Flutter, Google’s UI toolkit, empowers startups to build beautiful, high-performance apps for iOS, Android, web, and desktop from a single codebase—saving both time and resources.\r\n\r\nIn this talk, we’ll explore why Flutter is the ideal framework for startups, focusing on how it accelerates product development while maintaining flexibility and scalability. You’ll learn how to leverage Flutter to build Minimum Viable Products (MVPs) quickly, adapt to market changes, and scale seamlessly as your user base grows.\r\n\r\nThrough real-world examples, I’ll demonstrate how startups can go from idea to market faster, reduce development costs, and future-proof their apps for success. Whether you’re a founder or a developer working at a startup, this session will equip you with the insights and tools needed to launch and grow your product with Flutter.",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Mobile & Flutter",
+      "track": "Mobile",
+      "level": "Intermediate",
+      "profile": {
+        "bio": "Divyanshu Bhargava is a founder of BettrDo. He is a Google Developer Expert in Flutter & Dart and an Organizer of Flutter Abu Dhabi & Dubai. His passion for building apps took him to mobile development, these days you’ll find him talking about Flutter and the future of tech.  He is an open-source enthusiast and an avid tech blogger. When he is not coding you can find him kayaking, reading, traveling, or thinking about coding."
+      },
+      "speakerIds": [
+        "divyanshu-bhargava"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-dhananjay-kumar",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Unraveling JavaScript Prototypes",
+      "role": "Founder",
+      "company": "Nomadcoder",
+      "description": "Prototypes are the backbone of inheritance and objects in JavaScript, yet many developers remain unsure of them. \r\n\r\nThis talk aims to demystify prototypes and explain their essential role in JavaScript's object model. We will explore how the prototype chain works with a diagram, the nuances of inheritance in a prototype-based language, and how prototypes empower JavaScript objects to share properties and methods.\r\nThrough engaging examples and real-world scenarios, we'll explore key concepts like __proto__, the prototype property, constructor functions, and the modern alternative to ES6 classes. \r\n\r\nBy the end, you’ll leave with a clear understanding of how to harness the power of prototypes in your projects, making you a more efficient and confident JavaScript developer.",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Web",
+      "track": "Web",
+      "level": "Intermediate",
+      "speakerIds": [
+        "dhananjay-kumar"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-usha-ramani",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Reimagining Education with AI: Leveraging prompts for engaging learning experiences",
+      "role": "Co-Founder",
+      "company": "GURUJADA",
+      "description": "Reimagining education with AI : leveraging prompts for engaging learning experiences \r\n\r\nIn this session I'll showcase how some AI tools can be leveraged to make content creation, course creation, enhancing learner engagement easy and fun for educators and learners.",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Leadership & Ecosystem",
+      "track": "Others",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "usha-ramani"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-varun-srinivas",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "LLMs and SLMs Everywhere",
+      "role": "CoFounder and Director of Tech",
+      "company": "Coditas",
+      "description": "\"LLMs and SLMs Everywhere\"\r\nThis talk covers deploying Large and Small Language Models (LLMs and SLMs) on edge devices using WebAssembly. Attendees will learn how WebAssembly enables AI models to run efficiently, with minimal latency and enhanced privacy, directly on end-user devices. We'll explore practical strategies for adapting LLMs and SLMs to run at the edge, use cases across industries, and the technical steps needed to achieve lightweight, secure AI deployments across diverse environments.",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Web",
+      "track": "Web",
+      "level": "Beginner",
+      "speakerIds": [
+        "varun-srinivas"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-abhishek-sharma",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Going Serverless with Google Cloud",
+      "role": "Senior Cloud Engineer",
+      "company": "Searce Inc",
+      "description": "I'll talk about below points - \r\n1. What is serverless? \r\n2. Advantages of serverless architecture \r\n3. Different serverless offering in Google Cloud in different domains like Compute, storage, AI/ML, Bigdata Analytics, observability etc. with their use cases \r\n4. Building Modern AI applications in Google Cloud with serverless offerings \r\n5. Best practices of seamless adoption of Serverless based Architecture",
+      "spotlightBadge": "Google Developer Expert",
+      "category": "Cloud",
+      "track": "Cloud",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "abhishek-sharma"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-drijesh-ppatel",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "AI for Cloud Security: Automating Threat Detection and Response with Google Cloud AI",
+      "role": "Engineering Manager",
+      "company": "IBM",
+      "description": "In today’s cloud-driven world, security is a top priority, yet the complexity of modern cloud environments makes it challenging to safeguard against emerging threats. This session explores how AI and machine learning are revolutionizing cloud security by automating threat detection and response, enhancing protection across diverse infrastructures.\r\n\r\nUsing tools like TensorFlow and Google Cloud's Vertex AI, attendees will discover how to build intelligent security systems that identify anomalies in real-time, mitigate risks proactively, and respond to threats at scale. \r\n\r\nThrough real-world examples, this talk will demonstrate how organizations can implement AI for cloud security to improve scalability, minimize manual intervention, and accelerate incident response. Attendees will leave with actionable insights on deploying AI models to enhance their cloud security posture, detect evolving threats, and automate responses within their cloud architecture.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Cloud",
+      "track": "Cloud",
+      "level": "Beginner to Intermediate",
+      "speakerIds": [
+        "drijesh-ppatel"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-ramesh-rajini",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Leverage LinkedIn to Craft a successful Career",
+      "role": "Cloud & AI Coach, NASSCOM Mentor, Senior Principal Consultant, Infosys",
+      "company": "Infosys",
+      "description": "This workshop helps audience to craft a successful career via professional leadership branding and finding that right jobs that suits your requirement.",
+      "spotlightBadge": "Featured Speaker",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Intermediate",
+      "speakerIds": [
+        "ramesh-rajini"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-jitendra-gupta",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Grounding generative AI in enterprise truth for real-world impact",
+      "role": "Manager - Cloud Engineering @KPMG Global Services",
+      "company": "KPMG Global Services",
+      "description": "In general, the most common challenges that come up relate to data quality and management. Like any data or AI system, the success of RAG relies heavily on how well your data is organized and maintained, and how well you understand what it is and how it relates to your overarching objectives and goals.\r\n\r\nIn particular, many companies overlook the importance of data hygiene when they start implementing RAG components. The old computer science adage of “garbage in, garbage out” still holds true in the gen AI era; if your data is incomplete, inconsistent, or inaccurate, the information RAG retrieves will be too. For instance, if you have two pieces of data in your dataset that contain varied information for the same query, you might end up getting a different answer every time that question is asked.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Cloud",
+      "track": "Cloud",
+      "level": "Intermediate",
+      "speakerIds": [
+        "jitendra-gupta"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-soumya-upadhyay",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Entrepreneur - Mindset and challenges",
+      "role": "CEO",
+      "company": "Eternal Infraheight Pvt Ltd",
+      "description": "Will update",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Beginner",
+      "speakerIds": [
+        "soumya-upadhyay"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-sudip-mazumder",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Technology career: Not a choice, anexciting necessity",
+      "role": "Global Chief Digital & Information Officer",
+      "company": "PGP Glass Pvt Ltd (A Blackstone Portfolio Co)",
+      "description": "The speaker will be touch upon how technology unfolded some great progress in human civilization and still have enough to foment excitement amongst the youth to opt for it as a career choice with an ambition to transform the world as a better place.",
+      "spotlightBadge": "Featured Speaker",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Beginner",
+      "speakerIds": [
+        "sudip-mazumder"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-adeen-shukla",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Meet new people with GenAI - Harnessing Firebase Genkit, PostgreSQL, and Vector Search",
+      "role": "-",
+      "company": "Metafic",
+      "description": "Unlock the potential of the latest Firebase innovations: Genkit and Firebase Data Connect! Supercharge your app development process with the seamless integration of relational databases and cutting-edge generative AI capabilities.\r\n\r\nDive into the exciting world of embeddings, vector search, and structured output, making interactions with LLMs as straightforward as working with familiar APIs.\r\n\r\nIn this hands-on session, we’ll create a dynamic networking app using Next.js, complete with personalized user recommendations and AI-generated conversation starters—powered by Genkit and Firebase Data Connect. Learn how to harness your app's data securely and efficiently to craft exceptional AI-driven user experiences!",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Cloud",
+      "track": "Firebase",
+      "level": "Intermediate to Advance",
+      "speakerIds": [
+        "adeen-shukla"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-prasad-seth",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Leveraging Gemini to build innovative JavaScript applications",
+      "role": "Developer Community Manager",
+      "company": "Google",
+      "description": "In this session we will delve into the world of Gemini, Google's cutting edge large language model. Discover how to harness its capabilities to enhance your JavaScript applications.",
+      "spotlightBadge": "Engineering Leader",
+      "category": "Leadership & Ecosystem",
+      "track": "Others",
+      "level": "Intermediate",
+      "speakerIds": [
+        "prasad-seth"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-harsh-tonde",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Build Smarter",
+      "role": "Enterprise Customer Success Engineer",
+      "company": "FlutterFlow",
+      "description": "From Code to Clicks",
+      "spotlightBadge": "Featured Speaker",
+      "category": "Leadership & Ecosystem",
+      "track": "Low Code",
+      "level": "Beginner",
+      "speakerIds": [
+        "harsh-tonde"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-manish-gehlot",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Trend & practice in AI/ML",
+      "role": "North America Consulting head - CRL practice",
+      "company": "Infosys Ltd - USA",
+      "description": "Recent trends, challenges & issues with GenAI & Machine Learning",
+      "spotlightBadge": "Engineering Leader",
+      "category": "GenAI",
+      "track": "Machine Learning",
+      "level": "Expert",
+      "speakerIds": [
+        "manish-gehlot"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "sp-2024-dr-gautam-billore",
+      "eventId": "devfest-2024",
+      "publication": "archived",
+      "title": "Intersection of culture and technology- Lessons from my Journey",
+      "role": "CEO",
+      "company": "Nordic Digital Hub",
+      "description": "Sharing the experiences from my entrepreneurial journey",
+      "spotlightBadge": "Founder & Executive",
+      "category": "Leadership & Ecosystem",
+      "track": "Entrepreneurship, Leadership & Product Management",
+      "level": "Intermediate",
+      "speakerIds": [
+        "dr-gautam-billore"
+      ]
+    },
+    {
+      "type": "talk",
+      "id": "ccd-2025-karan-mcp-toolbox",
+      "eventId": "ccd-2025",
+      "speakerIds": [
+        "karan-mittal"
+      ],
+      "publication": "archived",
+      "title": "MCP Toolbox for Databases - Code Vipassana Workshop",
+      "role": "Solutions Architect & Data Scientist",
+      "company": "",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Data & Systems",
+      "track": "AI",
+      "format": "workshop",
+      "sourceUrl": "https://konfhub.com/ccd-2025-indore"
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-acropolis-2026",
+      "campus": "Acropolis Institute of Technology and Research (AITR)",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-21",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-acropolis-college-exclusive-for-acropolis-college-students-1/",
+      "legacyId": "ws-1",
+      "photoIds": [
+        "workshop-acropolis"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-iet-davv-2026",
+      "campus": "Institute of Engineering & Technology, DAVV (IET DAVV)",
+      "speakerIds": [
+        "mradula-mittal"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-18",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-iet-davv-college-exclusive-for-iet-davv-college-students/",
+      "legacyId": "ws-2",
+      "photoIds": [
+        "workshop-iet-davv"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-prestige-piemr-2026",
+      "campus": "Prestige Institute of Engineering Management & Research (PIEMR)",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-15",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-prestige-college-exclusive-for-prestige-college-students-1/",
+      "legacyId": "ws-3",
+      "photoIds": [
+        "workshop-prestige"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-sage-indore-2026",
+      "campus": "SAGE University Indore",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-23",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-sage-college-exclusive-for-sage-college-students/",
+      "legacyId": "ws-4",
+      "photoIds": [
+        "workshop-sage"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-sri-aurobindo-2026",
+      "campus": "Sri Aurobindo University",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-23",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-aurbindo-college-exclusive-for-aurbindo-college-students/",
+      "legacyId": "ws-5",
+      "photoIds": []
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-ips-academy-2026",
+      "campus": "IPS Academy, Institute of Engineering and Science",
+      "speakerIds": [
+        "priyal-jain"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-24",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-ips-college-exclusive-for-ips-college-students-2/cohost-gdg-indore/",
+      "legacyId": "ws-6",
+      "photoIds": [
+        "workshop-ips-academy"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-sgsits-2026",
+      "campus": "Shri Govindram Seksaria Institute of Technology and Science (SGSITS)",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-24",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-sgsits-college-exclusive-for-sgsits-college-students/cohost-gdg-cloud-indore/",
+      "legacyId": "ws-7",
+      "photoIds": [
+        "workshop-sgsits"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-chameli-devi-2026",
+      "campus": "Chameli Devi Group of Institutions (CDGI)",
+      "speakerIds": [
+        "mradula-mittal"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-09-28",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-cdgi-college-exclusive-for-cdgi-college-students-1/",
+      "legacyId": "ws-8",
+      "photoIds": [
+        "workshop-cdgi"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-iips-davv-2026",
+      "campus": "International Institute of Professional Studies (IIPS DAVV)",
+      "speakerIds": [
+        "shubham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-10-05",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-iips-davv-college-exclusive-for-iips-davv-college-students-1/cohost-gdg-on-campus-iips-international-institute-of-professional-studies-davv-indore-india/",
+      "legacyId": "ws-9",
+      "photoIds": [
+        "workshop-iips-davv"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-medi-caps-2026",
+      "campus": "Medi-Caps University",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-10-05",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-medicaps-college-exclusive-for-medicaps-college-students/",
+      "legacyId": "ws-10",
+      "photoIds": [
+        "workshop-medicaps"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-iist-2026",
+      "campus": "Indore Institute of Science and Technology (IIST)",
+      "speakerIds": [
+        "soham-sharma"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-10-07",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-iist-college-exclusive-for-iist-college-students-1/",
+      "legacyId": "ws-11",
+      "photoIds": [
+        "workshop-iist"
+      ]
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-symbiosis-2026",
+      "campus": "Symbiosis University of Applied Sciences",
+      "speakerIds": [
+        "aarti-jethaniya"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-10-16",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-symbiosis-college-exclusive-for-campus-college-students/cohost-gdg-indore/",
+      "legacyId": "ws-13",
+      "photoIds": []
+    },
+    {
+      "type": "campus-workshop",
+      "id": "campus-lnct-indore-2026",
+      "campus": "Lakshmi Narain College of Technology (LNCT Indore)",
+      "speakerIds": [
+        "mradula-mittal"
+      ],
+      "publication": "archived",
+      "title": "AI & Google Cloud",
+      "date": "2026-10-15",
+      "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-lnct-college-exclusive-for-lnctindore-college-students/cohost-gdg-cloud-indore/",
+      "legacyId": "ws-14",
+      "photoIds": []
+    }
+  ]
+}

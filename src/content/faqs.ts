@@ -1,4 +1,4 @@
-import faqs from "../../content/faqs.json";
+import pages from "../../content/pages.json";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "./event";
 import { TICKET_POLICIES } from "./tickets";
 const policy = (id: string) => TICKET_POLICIES.find((item) => item.id === id)!.text;
@@ -11,7 +11,7 @@ const faqValues: Record<string, string> = {
   workshopPolicy: policy("workshop-access"),
   finalSalePolicy: policy("final-sale"),
 };
-export const FAQS = faqs.questions.map((faq) => ({
+export const FAQS = pages.faq.questions.map((faq) => ({
   ...faq,
   answer: faq.answer.replace(/\{\{(\w+)\}\}/g, (_, key: string) => faqValues[key] ?? ""),
 }));

@@ -12,7 +12,7 @@ Body 16px, secondary directory text 13–14px, overlines 13px, lead 18–26px, s
 
 ## Visual language
 
-One Android astronaut illustration carries the hero alongside a single four-point sparkle and a simple orbital motif in rounded windows. Keep generous white space in light mode and quiet dark surfaces in dark mode. Google blue, red, yellow and green are small signals; the primary hero action is yellow with dark ink and an outlined offset shadow. No star fields, neon glows or custom cursors. Artwork remains static; organizer-requested logo marquees use explicit pause controls. Artwork never implies an official product partnership or announced session. Keep original organization logos on white plates in both themes.
+One Android astronaut illustration carries the hero alongside a single four-point sparkle and a simple orbital motif in rounded windows. Keep generous white space in light mode and quiet dark surfaces in dark mode. Google blue, red, yellow and green are small signals; the primary hero action is yellow with dark ink and an outlined offset shadow. No star fields, neon glows or custom cursors. Artwork remains static; community and sponsor logos use stationary, scrollable rows. Artwork never implies an official product partnership or announced session. Keep original organization logos on white plates in both themes.
 
 Remaining shared refinements live in `src/app/space.css`, imported after engineering.css. Hero artwork, appearance and referral styling live beside their components in CSS Modules. New artwork is `public/images/android-astronaut-2026.webp`, with transparent alpha and an approximately 184 KB payload. The source prompt and generation details are recorded in `docs/space-artwork-2026.md`.
 
@@ -22,7 +22,7 @@ Remaining shared refinements live in `src/app/space.css`, imported after enginee
 - **Topic index:** four native pressed-state buttons form a row on desktop and a two-column grid on mobile. A tinted surface, border and check mark identify the selected theme; Left/Right/Home/End keys also select topics. Each choice reveals a story, orbital graphic and concrete topic tags. Motion is brief and interaction-driven, with a static reduced-motion equivalent. A small speaker CTA follows. Label navigation Themes; agenda and speakers are coming soon. Content changes in a polite live region.
 - **ThemeChoice:** paired Sun/Moon native buttons, each 44px, with explicit accessible light/dark labels and pressed state. The header choice persists locally. Existing default light and saved preferences remain.
 - **Explore:** compact disclosure grouped into Plan your visit, Discover and Past editions. Three columns on desktop; stacked groups with two-column links on mobile, scrollable within the viewport. Close on Escape/outside/navigation/focus leaving; Escape restores trigger focus.
-- **History preview:** a community timeline, captioned photo marquee, past sponsor logos and archive links. Section visibility and order are fixed in checked-in page composition.
+- **History preview:** a community timeline, captioned photo marquee and archive links. Community and past sponsor logos appear after the venue, at the bottom of the homepage.
 - **Compact people:** 72×80 portraits, two-column desktop / one-column mobile rows, all matching speakers in one scrolling list. Group multiple appearances by normalized person name. Biographies and session abstracts stay behind disclosures.
 - **Organizations:** five-column desktop / two-column mobile sponsor logo wall, with all sponsors visible. Event partners follow as a separate compact name wall; source records remain in canonical content; the public archive does not show an artwork/source disclosure. Group repeated names across years within the same relationship.
 - **Workshops:** all session rows visible in a searchable scrolling list, with descriptions in disclosures. Keep dates absent when not supplied. Community event records remain explicitly historical.
@@ -44,10 +44,10 @@ Sessionize owns proposals; KonfHub owns checkout. Preserve eligibility, final-sa
 ## Current implementation details
 
 - Keep Get tickets visible in the shared header; Themes is secondary. Explore groups attendee tasks, community destinations and historical directories.
-- The homepage composes event, programme, partners, community/history and venue. Supporting directories have their own routes.
+- The homepage composes the hero, themes, community/history, current partners, exhibit invitation and venue in that order, followed by community and past sponsor logos. Supporting directories have their own routes.
 - The ticket page renders grouped pass inclusions, visible eligibility, disclosed conditions and one shared reminder/policy area. Register leads to the embedded booking section; all Register links scroll to the widget. A separate direct KonfHub fallback retains saved coupons.
 - One white KonfHub iframe appears below pass details, with terms above and a direct fallback below. Keep the supplied widget URL intact. Its styles live beside `tickets/KonfHubRegistration.tsx`.
-- Community logo marquees retain pause/resume, hover/keyboard pause and a static reduced-motion row. Their styles live beside `home/LogoMarquee.tsx`.
+- Community and sponsor logos use stationary, keyboard-accessible horizontal rows. Their styles live beside `home/LogoRow.tsx`.
 - Keep partner logos on white plates in both themes. Historical sponsor and community records remain separate from current announcements.
 - Workshop directories use verified campus photographs, source links and actual dates. Speaker directories preserve edition context.
 
@@ -65,7 +65,7 @@ Icon accent contrast against the page background (light / dark): blue 6.51 / 10.
 
 ## Exhibit invitation
 
-Home places a single mixed exhibit invitation after Themes and before Sponsors & partners, with its own Exhibits rocket stop and Explore link. Software demos, physical AI, space ideas and other projects share one invitation for developers, makers, startups and companies. The panel uses a static illustration and one “Exhibit at DevFest” interest-form action; it does not announce accepted exhibitors, guaranteed space, pricing or benefits. `event.links.exhibitApplication` owns the form URL; `pages.home.exhibits` owns the invitation copy. Themes styling now lives entirely in `home/ExploreSection.module.css`.
+Home places a single mixed exhibit invitation after Partners and before Venue, with its own Exhibits rocket stop and Explore link. Software demos, physical AI, space ideas and other projects share one invitation for developers, makers, startups and companies. The panel uses a static illustration and one “Exhibit at DevFest” interest-form action; it does not announce accepted exhibitors, guaranteed space, pricing or benefits. The current event's `links.exhibitApplication` owns the form URL; `pages.home.exhibits` owns the invitation copy. Themes styling now lives entirely in `home/ExploreSection.module.css`.
 
 Help and policy links use shared `SupportLinks` with 24px horizontal and 8px vertical gaps, 44px link targets and natural wrapping. Before you book uses plain policy headings and paragraphs, including the LinkedIn reminder; do not turn it into a highlighted panel.
 

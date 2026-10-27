@@ -18,7 +18,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 
 | URL | Purpose |
 |---|---|
-| `/` | Event introduction, themes, exhibit invitation, partners, community history and venue |
+| `/` | Event introduction, themes, community history, current partners, exhibit invitation and venue, followed by community and past sponsor logos |
 | `/tickets` | Visible pass details, policies and KonfHub booking |
 | `/tickets/[former-pass-id]` | Permanent redirect to Tickets, preserving query values |
 | `/guidelines` | Registration, eligibility, check-in, conduct and ticket policies |
@@ -35,7 +35,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/team` | Organizer directory |
 | `/faq` | Event and ticket questions |
 
-The wider people, talks and organization directories remain behind `content/directory.json`'s launch switch. Individually approved general profiles can be published before that launch; ambassador-only approvals do not authorize those pages. Local review mode is development-only. The sitemap reflects the production launch switch and approved general profiles.
+The wider people, talks and organization directories remain behind `content/pages.json` → `directory.enabled`. Individually approved general profiles can be published before that launch; ambassador-only approvals do not authorize those pages. Local review mode is development-only. The sitemap reflects the production launch switch and approved general profiles.
 
 ## Content ownership
 
@@ -43,4 +43,4 @@ Public records live in `content/*.json`, with typed views in `src/content/`. Peo
 
 The ambassador directory references people by ID and stores their community and selected LinkedIn contact. Its hidden entries remain records; they do not render until a usable LinkedIn URL is supplied. Former invitation records are retired. Previously saved referral coupons can still be passed to the direct KonfHub fallback.
 
-Sessionize owns talk proposals. KonfHub owns availability, eligibility enforcement and payment. Event facts and the checkout switch belong in `event.json`; pass details and policies belong in `tickets.json`. Archived sources are reference material and are not imported by the application.
+Sessionize owns talk proposals. KonfHub owns availability, eligibility enforcement and payment. Event facts, checkout settings, pass details and policies belong in `event.json`. Archived sources are reference material and are not imported by the application.

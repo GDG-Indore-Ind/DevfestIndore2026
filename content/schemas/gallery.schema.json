@@ -52,6 +52,9 @@
           "height": {
             "type": "integer",
             "minimum": 1
+          },
+          "showInGallery": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -59,7 +62,8 @@
           "title",
           "category",
           "imageUrl",
-          "caption"
+          "caption",
+          "showInGallery"
         ]
       }
     }

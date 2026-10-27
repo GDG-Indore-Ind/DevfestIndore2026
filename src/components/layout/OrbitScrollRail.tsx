@@ -12,9 +12,9 @@ export interface FlightStop {
 const homeStops = [
   { id: "hero", label: "Launch" },
   { id: "flow", label: "Themes" },
-  { id: "exhibits", label: "Exhibits" },
-  { id: "sponsors", label: "Partners" },
   { id: "archive", label: "Community" },
+  { id: "sponsors", label: "Partners" },
+  { id: "exhibits", label: "Exhibits" },
   { id: "venue", label: "Venue" },
 ] as const;
 

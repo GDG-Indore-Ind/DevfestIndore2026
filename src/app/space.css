@@ -693,9 +693,6 @@
   .workshop-photo-button, .workshop-photo-empty { width: 76px; height: 76px; }
 }
 
-/* Marquees retain original artwork, relationship labels and motion controls. */
-.home-community-marquees { margin-top: 28px; }
-
 .venue-page .space-page-intro .venue-address { display: flex; align-items: flex-start; gap: 12px; font-size: 1rem; margin-top: 16px; }
 .venue-address svg { flex-shrink: 0; margin-top: 3px; }
 .venue-arrival-grid { display: grid; gap: 32px; }
@@ -722,8 +719,6 @@
 .archived-community-link > span { margin-top: 4px; font-size: .8125rem; line-height: 1.4; }
 .archived-community-link > .audience-icon { display: none; }
 .archived-community-link:hover > span { text-decoration: underline; text-underline-offset: 3px; }
-.history-sponsor-preview { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--audience-line); }
-.history-sponsor-preview h3 { margin: 0; font-size: 1.25rem; font-weight: 500; }
 .history-sponsor-logos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .history-sponsor-logos li { min-width: 0; }
 .history-sponsor-logos li > span { display: block; color: var(--audience-muted); font-size: .8125rem; line-height: 1.4; margin-top: 8px; }

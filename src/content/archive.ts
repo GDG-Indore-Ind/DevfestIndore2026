@@ -1,10 +1,10 @@
-import eventsFile from "../../content/events.json";
+import { PAST_EVENTS } from "./event";
 import type { ArchivedEvent } from "./model";
 import type { EventRecord } from "./model";
 import { getPerson } from "./people";
 import { ORGANIZATIONS } from "./partners";
 export function getArchivedEvents(): ArchivedEvent[] {
-  return [...(eventsFile.events as EventRecord[])]
+  return [...(PAST_EVENTS as EventRecord[])]
     .sort((a, b) => b.date.localeCompare(a.date))
     .map(({ officialSpeakerIds, ...event }) => ({
       ...event,

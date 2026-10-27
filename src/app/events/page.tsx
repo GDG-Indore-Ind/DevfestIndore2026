@@ -81,6 +81,7 @@ export default function EventsPage() {
                 <article className="workshop-directory-row" key={item.id} id={item.id}>
                   {photo ? (
                     <button
+                      id={item.legacyId}
                       className="workshop-photo-button"
                       type="button"
                       onClick={() => setSelectedPhoto(photo)}
@@ -96,7 +97,7 @@ export default function EventsPage() {
                       <Expand aria-hidden="true" />
                     </button>
                   ) : (
-                    <div className="workshop-photo-empty" aria-hidden="true">
+                    <div id={item.legacyId} className="workshop-photo-empty" aria-hidden="true">
                       <GraduationCap />
                     </div>
                   )}
