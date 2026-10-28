@@ -106,7 +106,8 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             className="audience-button space-primary-button header-ticket-cta"
             onClick={() => setOpen(false)}
           >
-            Get tickets
+            <span className="ticket-cta-full">Get tickets</span>
+            <span className="ticket-cta-compact">Tickets</span>
           </Link>
 
           <ExploreMenu

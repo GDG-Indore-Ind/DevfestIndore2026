@@ -39,6 +39,7 @@
   overscroll-behavior-inline: contain;
   padding-block: 8px 12px;
   scrollbar-width: thin;
+  touch-action: pan-x pan-y;
 }
 .window:focus-visible {
   outline: 2px solid var(--audience-blue);
@@ -103,6 +104,25 @@
   text-underline-offset: 3px;
 }
 @media (max-width: 480px) {
+  .root {
+    margin-block: 16px;
+  }
+  .group {
+    gap: 12px;
+  }
+  .group li {
+    flex: 0 0 148px;
+    width: 148px;
+  }
+  .root .item {
+    width: 148px;
+    min-height: 104px;
+  }
+  .plate {
+    width: 136px;
+    height: 48px;
+    padding: 4px 8px;
+  }
   .controls {
     margin-left: auto;
     max-width: 100%;

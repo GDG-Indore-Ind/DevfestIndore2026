@@ -21,7 +21,6 @@ export default function ExhibitsSection() {
               <ContentIcon name="exhibits" tone="green" heading />
               {copy.title}
             </h2>
-            <p className={styles.lead}>{copy.lead}</p>
             <p className={styles.body}>{copy.body}</p>
             <ContentAction
               href={EVENT.links.exhibitApplication}

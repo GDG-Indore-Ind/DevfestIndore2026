@@ -34,7 +34,7 @@
 }
 @media (max-width: 480px) {
   :global(.audience-site) .root button {
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
   }
 }

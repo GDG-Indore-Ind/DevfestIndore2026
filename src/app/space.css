@@ -1,6 +1,7 @@
 /* DevFest space identity, scroll flight and featured partner layouts. */
 .audience-header .audience-brand img {
   transform: scale(1.45);
+  transform-origin: left center;
 }
 .space-header-brand {
   display: grid;
@@ -10,6 +11,9 @@
   letter-spacing: -0.025em;
 }
 .space-brand-compact {
+  display: none;
+}
+.ticket-cta-compact {
   display: none;
 }
 .space-header-brand small {
@@ -56,33 +60,64 @@
   margin-left: auto;
 }
 @media (max-width: 760px) {
+  .header-socials {
+    display: none;
+  }
+  .space-brand-full {
+    display: none;
+  }
+  .space-brand-compact {
+    display: inline;
+  }
+  .ticket-cta-full {
+    display: none;
+  }
+  .ticket-cta-compact {
+    display: inline;
+  }
   .explore-header .audience-header-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0 12px;
-    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    padding-block: 6px;
+    gap: 6px;
+  }
+  .explore-header .audience-brand {
+    flex-shrink: 0;
   }
   .header-utilities {
-    grid-column: 2;
-    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
   }
-  .header-socials {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    width: 100%;
-    margin: 8px 0 0;
-    padding-block: 2px;
-    justify-content: center;
-    border-top: 1px solid var(--audience-line);
+  .audience-header .explore-trigger {
+    padding-inline: 8px 10px;
+    font-size: 0.8125rem;
+    gap: 6px;
+  }
+  .audience-header .explore-trigger > svg {
+    display: none;
+  }
+  .audience-header .header-ticket-cta {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+    gap: 6px;
+    box-shadow: 1.5px 2px 0 var(--space-primary-outline);
+  }
+  .audience-header .flight-navigation > a {
+    min-width: 0;
   }
   .audience-header .explore-panel {
-    max-height: calc(100dvh - 156px);
+    max-height: calc(100dvh - 110px);
   }
   .audience-site #main-content > div,
   .audience-site #attendee-policies,
   .audience-site :where(section, h2)[id],
   .audience-site .archive-subsection {
-    scroll-margin-top: 144px;
+    scroll-margin-top: calc(var(--flight-header-height, 96px) + 16px);
   }
 }
 .audience-site .explore-trigger {
@@ -129,42 +164,12 @@
     display: inline;
   }
 }
-@media (max-width: 760px) {
-  .explore-header .audience-header-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-block: 10px;
-    row-gap: 8px;
-  }
-  .explore-header .audience-brand {
-    justify-self: start;
-  }
-  .header-utilities {
-    justify-self: end;
-  }
-  .header-socials {
-    grid-column: 1;
-    width: max-content;
-    flex-wrap: nowrap;
-    margin: 0;
-    padding: 0;
-    justify-content: flex-start;
-    border: 0;
-  }
-  .audience-header .header-ticket-cta {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: end;
-  }
-}
 @media (max-width: 359px) {
-  .header-socials {
-    gap: 0;
-  }
   .audience-header .header-utilities {
     gap: 4px;
   }
   .audience-header .header-ticket-cta {
-    padding-inline: 12px;
+    padding-inline: 10px;
   }
   .audience-header .explore-trigger > svg {
     display: none;
@@ -2332,10 +2337,20 @@
   box-shadow: none;
 }
 .engineering-home
-  :is(.edition-themes, .engineering-history, .event-partners-section, .audience-venue-band) {
+  :is(.edition-themes, .engineering-history, .event-partners-section) {
   min-height: 0;
   padding-block: 44px;
   display: block;
+}
+.engineering-home .audience-venue-band {
+  min-height: 0;
+  padding-block: 84px;
+  display: block;
+}
+@media (max-width: 760px) {
+  .engineering-home .audience-venue-band {
+    padding-block: 60px;
+  }
 }
 .programme-heading {
   grid-template-columns: 1fr;
@@ -2550,7 +2565,7 @@
   flex-direction: column;
   align-items: flex-start;
   min-height: 76px;
-  padding: 18px 8px 4px 0;
+  padding: 18px 6px 4px;
   color: var(--audience-ink);
   text-decoration: none;
   font-size: 1rem;
@@ -2610,7 +2625,15 @@
   color: var(--audience-blue);
 }
 .audience-venue-grid {
-  gap: 28px;
+  gap: 36px;
+}
+.venue-lead {
+  margin: 0 0 18px;
+  color: var(--audience-muted);
+  line-height: 1.65;
+}
+.audience-venue-grid address {
+  margin-block: 18px 28px;
 }
 .venue-photo-wrapper {
   min-width: 0;
@@ -2625,8 +2648,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 14px;
+  margin-top: 28px;
 }
 .venue-actions .audience-button {
   gap: 10px;
@@ -2655,11 +2678,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .audience-venue-grid {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: 36px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 56px;
   }
   .venue-photo-wrapper .audience-venue-photo {
-    height: 430px;
+    height: 400px;
   }
 }
 @media (max-width: 480px) {
@@ -2669,8 +2692,19 @@
   .partner-reveal-message {
     padding-inline: 20px;
   }
+  .venue-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .venue-actions > .audience-button,
+  .venue-actions a {
+    width: 100%;
+    justify-content: center;
+  }
   .venue-photo-wrapper .audience-venue-photo {
-    height: 310px;
+    height: 270px;
   }
 }
 .engineering-home .edition-themes .engineering-topic-index button {

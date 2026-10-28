@@ -208,6 +208,41 @@
     transform: translateX(0);
   }
 }
+@media (max-width: 480px) {
+  .button {
+    min-height: 46px;
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    gap: 8px;
+  }
+  .button > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .scene {
+    min-height: 170px;
+  }
+  .core {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  }
+  .core > svg {
+    width: 34px;
+    height: 34px;
+  }
+  .storyCopy {
+    padding: 20px 16px;
+  }
+  .storyCopy h3 {
+    font-size: 1.25rem;
+    margin: 0 0 8px;
+  }
+  .tags {
+    margin: 14px 0 0;
+    gap: 6px 12px;
+  }
+}
 @media (min-width: 761px) {
   .selector {
     grid-template-columns: repeat(4, minmax(0, 1fr));

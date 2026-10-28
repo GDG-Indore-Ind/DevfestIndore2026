@@ -28,6 +28,7 @@
 .window {
   overflow: hidden;
   padding-bottom: 16px;
+  touch-action: pan-y;
 }
 .track {
   display: flex;
@@ -71,6 +72,14 @@
 @keyframes travel {
   to {
     transform: translateX(-50%);
+  }
+}
+@media (max-width: 480px) {
+  .group li {
+    width: min(80vw, 320px);
+  }
+  .group img {
+    height: 220px;
   }
 }
 @media (min-width: 761px) {

@@ -190,19 +190,20 @@
     height: 128px;
   }
   .spaceCard {
-    grid-template-columns: 50% minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 160px minmax(0, 1fr);
   }
   .spaceCard .logo {
-    padding: var(--layout-space-2);
+    padding: var(--layout-space-4);
   }
   .spaceCard .logo img {
-    height: 160px;
+    height: 128px;
   }
   .copy {
     padding: var(--layout-space-3) var(--layout-space-4) var(--layout-space-6);
   }
   .spaceCard .copy {
-    padding: var(--layout-space-4) var(--layout-space-3);
+    padding: var(--layout-space-3) var(--layout-space-4) var(--layout-space-6);
   }
   .topics {
     grid-template-columns: minmax(0, 1fr);
@@ -223,5 +224,11 @@
   .topics dt,
   .topics dd {
     margin-top: 0;
+  }
+}
+@media (max-width: 480px) {
+  .topics > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
   }
 }
