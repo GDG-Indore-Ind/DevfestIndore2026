@@ -31,7 +31,7 @@
           "status": "confirmed",
           "order": 1,
           "featured": "technology",
-          "visible": false,
+          "visible": true,
           "type": "collaborator",
           "title": "Expo booth & speaker participation"
         }

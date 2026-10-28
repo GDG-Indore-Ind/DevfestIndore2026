@@ -204,7 +204,14 @@
       "scope": "ambassador"
     }
   ],
-  "organizations": [],
+  "organizations": [
+    {
+      "organizationId": "qualcomm",
+      "recordHash": "e1a7829b81a5dfa935e49ca126b6685988a72665d64ba9160421d9a1f5465eaf",
+      "approvedOn": "2026-10-28",
+      "approvalReference": "Organizer requested the Qualcomm 2026 partner tile be made visible in this Codex chat on 28 October 2026."
+    }
+  ],
   "baselines": {
     "people": [
       {

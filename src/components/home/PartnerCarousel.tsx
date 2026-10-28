@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { Cpu } from "lucide-react";
 import type { EventPartner } from "@/content/model";
 import { PARTNERS_PAGE } from "@/content/pages";
 import ContentAction from "@/components/shared/ContentAction";
@@ -12,11 +12,7 @@ const copy = PARTNERS_PAGE.carousel;
 
 export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
   const rail = useRef<HTMLDivElement>(null);
-  const inView = useRef(false);
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(true);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
   const multiple = items.length > 1;
 
   function moveTo(index: number) {
@@ -31,73 +27,9 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
     });
   }
 
-  useEffect(() => {
-    const node = rail.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      inView.current = entry.isIntersecting;
-    });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!multiple || paused || hovered || focused) return;
-    const timer = window.setInterval(() => {
-      if (
-        document.hidden ||
-        !inView.current ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      )
-        return;
-      moveTo((active + 1) % items.length);
-    }, 8000);
-    return () => window.clearInterval(timer);
-  }, [active, multiple, paused, hovered, focused, items.length]);
-
   if (!items.length) return null;
   return (
-    <div
-      className={styles.root}
-      role="region"
-      aria-label={copy.label}
-      onPointerEnter={() => setHovered(true)}
-      onPointerLeave={() => setHovered(false)}
-      onFocusCapture={() => setFocused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
-      }}
-    >
-      {multiple && (
-        <div className={styles.controls}>
-          <button
-            type="button"
-            aria-label={copy.previousLabel}
-            onClick={() => moveTo((active - 1 + items.length) % items.length)}
-          >
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <span className={styles.count}>
-            {active + 1} / {items.length}
-          </span>
-          <button
-            type="button"
-            aria-label={copy.nextLabel}
-            onClick={() => moveTo((active + 1) % items.length)}
-          >
-            <ChevronRight aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className={styles.playback}
-            aria-label={paused ? copy.playLabel : copy.pauseLabel}
-            aria-pressed={!paused}
-            onClick={() => setPaused(!paused)}
-          >
-            {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
-          </button>
-        </div>
-      )}
+    <div className={styles.root} role="region" aria-label={copy.label}>
       <div
         ref={rail}
         className={styles.rail}
@@ -125,7 +57,7 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
         {items.map((item, index) => (
           <article
             key={item.id}
-            className={styles.card}
+            className={`${styles.card} ${item.featured === "space" ? styles.spaceCard : ""}`}
             aria-label={`${item.name} (${index + 1}/${items.length})`}
           >
             <div className={styles.logo}>
@@ -164,6 +96,9 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
                 >
                   {copy.exploreLabel}
                 </ContentAction>
+              )}
+              {item.featured === "technology" && (
+                <Cpu className={styles.chipWatermark} aria-hidden="true" />
               )}
             </div>
           </article>

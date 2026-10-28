@@ -22,7 +22,7 @@ Import components directly from their folders. Keep route-specific code beside i
 
 ## Styling
 
-The root layout loads `globals.css`, `audience.css`, `engineering.css`, then `space.css`. This order preserves the remaining shared cascade. Globals imports `tokens.css`, which is the single owner of root light/dark theme variables. Globals also owns browser defaults, Tailwind, focus and reduced motion; audience owns shared typography/UI; engineering and space contain the remaining shared layouts and refinements. Do not add root theme variables to those refinement sheets.
+The root layout loads `globals.css`, `audience.css`, `engineering.css`, then `space.css`. This order preserves the remaining shared cascade. Globals imports `tokens.css`, which is the single owner of root light/dark theme variables, the shared type scale and the 4px-based layout spacing scale. Globals also owns browser defaults, Tailwind, focus and reduced motion; audience owns shared typography/UI; engineering and space contain the remaining shared layouts and refinements. Do not add root theme variables or duplicate spacing scales to those refinement sheets.
 
 For new isolated components, use a colocated `Component.module.css` with shared CSS variables. The hero, appearance toggle, referral banner, logo marquee and booking widget demonstrate this pattern. When migrating an existing component, move its complete rules, including responsive and reduced-motion variants, and check for selectors in every global sheet. Preserve specificity and cross-component dependencies before removing old selectors. Do not append a fifth override sheet or bulk-delete selectors merely because their class names do not occur literally in JSX.
 

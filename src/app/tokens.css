@@ -4,8 +4,8 @@
   --google-green: #34a853;
   --google-yellow: #f9ab00;
   --google-red: #ea4335;
-  --page-bg: #000000;
-  --text-primary: #ffffff;
+  --page-bg: #10141d;
+  --text-primary: #f1f3f4;
   --event-focus: #8ab4f8;
   --font-sans: "Google Sans", sans-serif;
   --font-display: "Google Sans", sans-serif;
@@ -28,6 +28,14 @@
   --audience-h3: 1.375rem;
   --audience-h2: clamp(1.75rem, 3vw, 2.25rem);
   --audience-h1: clamp(2.75rem, 6vw, 4.5rem);
+  --layout-space-1: 4px;
+  --layout-space-2: 8px;
+  --layout-space-3: 12px;
+  --layout-space-4: 16px;
+  --layout-space-6: 24px;
+  --layout-space-8: 32px;
+  --layout-space-12: 48px;
+  --layout-space-16: 64px;
   --mission-grid: #20212412;
   --mission-orbit: #b8c4d5;
   --mission-blue: #185abc;
@@ -38,6 +46,7 @@
   --engineering-mono: var(--font-sans);
   --space-black: #111214;
   --space-white: #ffffff;
+  --space-primary-outline: var(--space-black);
   --space-blue: #4285f4;
   --space-red: #ea4335;
   --space-yellow: #fbbc04;
@@ -57,10 +66,12 @@
 }
 :root[data-theme="light"] {
   --page-bg: #ffffff;
-  --text-primary: #1a1a1a;
+  --text-primary: #202124;
   --event-focus: #174ea6;
 }
 :root[data-theme="dark"] {
+  --page-bg: #10141d;
+  --text-primary: #f1f3f4;
   --icon-blue: #a8c7fa;
   --icon-green: #91d5a7;
   --icon-red: #f28b82;
@@ -85,4 +96,5 @@
   --space-soft-red: #382426;
   --space-soft-green: #1c3329;
   --space-yellow-ink: #fbbc04;
+  --space-primary-outline: #ffffff;
 }
