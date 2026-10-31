@@ -5,12 +5,9 @@ import Image from "next/image";
 import { Expand, X } from "lucide-react";
 import type { GalleryItem } from "@/content/model";
 import { GALLERY_PHOTOS } from "@/content/gallery";
-import { HOME_PAGE } from "@/content/pages";
-import CommunityPage from "@/components/layout/CommunityPage";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
-import ArchiveNav from "@/components/layout/ArchiveNav";
 
-export default function GalleryPage() {
+export default function PhotoGallery() {
   const items: GalleryItem[] = GALLERY_PHOTOS;
   const [category, setCategory] = useState("All");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
@@ -22,16 +19,7 @@ export default function GalleryPage() {
     dialog.current?.showModal();
   }
   return (
-    <CommunityPage
-      flightStops={[
-        { id: "page-overview", label: "Overview" },
-        { id: "page-directory", label: "Photos" },
-      ]}
-      motif="photos"
-      title={HOME_PAGE.galleryTitle}
-      lead={HOME_PAGE.galleryLead}
-    >
-      <ArchiveNav current="/gallery" />
+    <>
       {categories.length > 2 && (
         <div className="community-filters" role="group" aria-label="Filter photographs">
           {categories.map((item) => (
@@ -84,15 +72,11 @@ export default function GalleryPage() {
               width={selected.width ?? 1600}
               height={selected.height ?? 1067}
               sizes="90vw"
-              unoptimized={
-                !selected.imageUrl.startsWith("/") &&
-                !selected.imageUrl.startsWith("https://res.cloudinary.com/")
-              }
             />
             <figcaption>{selected.caption}</figcaption>
           </figure>
         )}
       </dialog>
-    </CommunityPage>
+    </>
   );
 }
