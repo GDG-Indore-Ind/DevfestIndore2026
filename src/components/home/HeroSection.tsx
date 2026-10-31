@@ -34,7 +34,7 @@ function SpaceArtwork() {
         </div>
       </div>
       <figcaption>
-        <span>{HOME_PAGE.artworkCaption}</span>
+        <span aria-hidden="true" />
         <span className="mission-colors" aria-hidden="true">
           <i />
           <i />
@@ -79,9 +79,9 @@ export default function HeroSection() {
             <Link href="/tickets" className="audience-button space-primary-button">
               Get tickets <ArrowRight className="audience-icon" aria-hidden="true" />
             </Link>
-            <a href="#flow" className="audience-button programme-outline-button">
-              Explore the themes <ArrowRight className="audience-icon" aria-hidden="true" />
-            </a>
+            <Link href="/agenda" className="audience-button programme-outline-button">
+              {HOME_PAGE.agendaLabel} <ArrowRight className="audience-icon" aria-hidden="true" />
+            </Link>
           </div>
         </div>
         <SpaceArtwork />

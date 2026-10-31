@@ -5,7 +5,7 @@
   display: grid;
   overflow: hidden;
   border: 1px solid var(--audience-line);
-  border-radius: 24px;
+  border-radius: var(--corner-24);
   background: var(--audience-bg);
 }
 .copy {
@@ -13,7 +13,7 @@
 }
 .copy h2 {
   margin: 0 0 20px;
-  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-size: var(--text-h2);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -21,19 +21,13 @@
 .lead {
   margin: 0 0 16px;
   color: var(--audience-ink);
-  font-size: 1.125rem;
+  font-size: var(--text-18);
   line-height: 1.5;
 }
 .body {
   margin: 0 0 24px;
   color: var(--audience-muted);
   line-height: 1.65;
-}
-.hint {
-  margin: 16px 0 0;
-  font-size: 0.8125rem;
-  color: var(--audience-muted);
-  line-height: 1.5;
 }
 .illustration {
   display: grid;
@@ -45,7 +39,7 @@
   margin: 16px 0 0;
   text-align: center;
   color: var(--audience-muted);
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 .stage {
   position: relative;
@@ -57,7 +51,7 @@
   position: absolute;
   inset: 25% 0;
   border: 1px solid var(--mission-orbit);
-  border-radius: 50%;
+  border-radius: var(--corner-round);
   transform: rotate(-25deg);
 }
 .screen {
@@ -86,7 +80,7 @@
   place-items: center;
   width: 72px;
   height: 72px;
-  border-radius: 20px;
+  border-radius: var(--corner-24);
   border: 1px solid var(--audience-line);
   background: var(--audience-bg);
 }

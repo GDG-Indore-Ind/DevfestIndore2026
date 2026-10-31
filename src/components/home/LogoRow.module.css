@@ -11,13 +11,13 @@
   margin-bottom: 12px;
 }
 .heading h3 {
-  font-size: 1.125rem;
+  font-size: var(--text-18);
   font-weight: 500;
   line-height: 1.4;
   margin: 0;
 }
 .heading p {
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   line-height: 1.5;
   margin: 4px 0 0;
   color: var(--audience-muted);
@@ -32,7 +32,7 @@
 }
 .controls > a {
   min-height: 44px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 .window {
   overflow-x: auto;
@@ -78,7 +78,7 @@
   padding: 6px 12px;
   background: var(--space-white);
   border: 1px solid var(--audience-line);
-  border-radius: 10px;
+  border-radius: var(--corner-12);
 }
 .plate > :is(img, svg) {
   display: block;
@@ -87,12 +87,12 @@
   object-fit: contain;
 }
 .name {
-  font-size: 0.8125rem;
+  font-size: var(--text-14);
   line-height: 1.4;
   max-width: 23ch;
 }
 .item small {
-  font-size: 0.75rem;
+  font-size: var(--text-14);
   line-height: 1.4;
   color: var(--audience-muted);
 }

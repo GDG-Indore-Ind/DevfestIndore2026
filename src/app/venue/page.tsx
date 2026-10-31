@@ -87,7 +87,7 @@ export default function VenuePage() {
               </div>
               <h3>{page.entryTitle}</h3>
               <p className="audience-body">{page.entrySummary}</p>
-              <ContentAction href="/guidelines#entry" icon="guidelines" tone="blue">
+              <ContentAction href="/faq#entry" icon="guidelines" tone="blue">
                 Registration guidelines
               </ContentAction>
             </div>

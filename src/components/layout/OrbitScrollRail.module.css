@@ -7,7 +7,7 @@
     position: absolute;
     inset: 0 20px auto;
     text-align: center;
-    font-size: 0.6875rem;
+    font-size: var(--text-14);
     line-height: 1.5;
     color: var(--audience-blue);
     pointer-events: none;

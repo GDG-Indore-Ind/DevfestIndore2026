@@ -21,7 +21,7 @@
   grid-template-rows: 184px minmax(0, 1fr);
   min-width: 0;
   border: 1px solid var(--audience-line);
-  border-radius: 24px;
+  border-radius: var(--corner-24);
   overflow: hidden;
   scroll-snap-align: start;
   background: var(--audience-bg);
@@ -102,7 +102,7 @@
   z-index: 1;
 }
 .copy h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--text-h3);
   font-weight: 500;
   line-height: 1.2;
   margin: 8px 0 16px;
@@ -110,12 +110,12 @@
 }
 .copy > p {
   color: var(--audience-muted);
-  font-size: 1rem;
+  font-size: var(--text-16);
   line-height: 1.65;
   margin: 0 0 20px;
 }
 .copy .role {
-  font-size: 0.8125rem;
+  font-size: var(--text-14);
   font-weight: 500;
   color: var(--icon-blue);
   margin: 0;
@@ -137,13 +137,13 @@
 }
 .topics dt {
   color: var(--audience-ink);
-  font-size: 0.9375rem;
+  font-size: var(--text-15);
   font-weight: 500;
 }
 .topics dd {
   color: var(--audience-muted);
   margin: 4px 0 0;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   line-height: 1.5;
 }
 .indicators {
@@ -164,7 +164,7 @@
   width: 12px;
   height: 12px;
   border: 1px solid var(--audience-muted);
-  border-radius: 50%;
+  border-radius: var(--corner-round);
 }
 .indicators button[aria-current="true"] span {
   background: var(--audience-blue);
@@ -230,5 +230,42 @@
   .topics > div {
     grid-template-columns: minmax(0, 1fr);
     gap: 4px;
+  }
+}
+/* Two partners fit side by side on wide screens, so neither hides behind a slide. */
+@media (min-width: 1000px) {
+  .rail[data-pair="true"] {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
+    padding-bottom: 0;
+  }
+  .rail[data-pair="true"] .spaceCard {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 184px minmax(0, 1fr);
+  }
+  .rail[data-pair="true"] .logo img {
+    width: min(100%, 280px);
+  }
+  .rail[data-pair="true"] .spaceCard .logo img {
+    height: 148px;
+  }
+  .rail[data-pair="true"] .spaceCard .copy {
+    align-content: start;
+  }
+  .rail[data-pair="true"] .copy {
+    padding: var(--layout-space-6) var(--layout-space-8) var(--layout-space-8);
+  }
+  .rail[data-pair="true"] .topics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .rail[data-pair="true"] .topics > div + div {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .indicators[data-pair="true"] {
+    display: none;
   }
 }

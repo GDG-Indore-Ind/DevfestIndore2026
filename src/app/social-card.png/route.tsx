@@ -6,7 +6,7 @@ import { EVENT, EVENT_DATE } from "@/content/event";
 export const dynamic = "force-static";
 
 export async function GET() {
-  const logo = await readFile(path.join(process.cwd(), "public/gdglogo-removebg-preview.png"));
+  const logo = await readFile(path.join(process.cwd(), "public/gdg-logo.png"));
   return new ImageResponse(
     <div
       style={{

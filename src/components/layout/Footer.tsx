@@ -1,5 +1,3 @@
-import pages from "../../../content/pages.json";
-const directory = pages.directory;
 import Link from "next/link";
 import { HOME_PAGE } from "@/content/pages";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
@@ -41,10 +39,10 @@ export default function Footer() {
               <ContentIcon name="tickets" /> Attend
             </h2>
             <Link href="/tickets">Tickets</Link>
+            <Link href="/agenda">Agenda</Link>
             <Link href="/#flow">Themes</Link>
             <Link href="/venue">Venue & directions</Link>
-            <Link href="/faq">Common questions</Link>
-            <Link href="/guidelines">Registration guidelines</Link>
+            <Link href="/faq">FAQ</Link>
           </div>
           <div className="edition-footer-group">
             <h2 className={styles.groupHeading}>
@@ -56,21 +54,14 @@ export default function Footer() {
               {HOME_PAGE.exhibits.buttonLabel}
             </ExternalLink>
             <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
-            <Link href="/team">{directory.enabled ? directory.team.title : "Meet the team"}</Link>
+            <Link href="/team">Meet the team</Link>
           </div>
           <div className="edition-footer-group">
             <h2 className={styles.groupHeading}>
               <ContentIcon name="history" tone="red" /> Explore more
             </h2>
             <Link href="/events">Workshops & events</Link>
-            <Link href="/gallery">Photo gallery</Link>
-            <Link href="/past-events">Past events</Link>
-            <Link href={directory.enabled ? "/talks" : "/past-speakers"}>
-              {directory.enabled ? directory.talks.title : "Past speakers"}
-            </Link>
-            <Link href={directory.enabled ? "/partners?year=all&type=sponsor" : "/past-sponsors"}>
-              {directory.enabled ? directory.partners.title : "Past sponsors"}
-            </Link>
+            <Link href="/archive">Archive</Link>
           </div>
         </nav>
         <div className={styles.community}>

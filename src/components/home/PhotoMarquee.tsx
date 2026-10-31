@@ -46,7 +46,7 @@ export default function PhotoMarquee() {
   return (
     <div className={styles.root}>
       <div className={styles.heading}>
-        <ContentAction href="/gallery" icon="gallery" tone="green">
+        <ContentAction href="/archive#photos" icon="gallery" tone="green">
           {HOME_PAGE.photoArchiveLabel}
         </ContentAction>
         <button

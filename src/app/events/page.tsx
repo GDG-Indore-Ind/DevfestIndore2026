@@ -43,7 +43,7 @@ export default function EventsPage() {
             <CalendarDays className="audience-icon" aria-hidden="true" />
             {page.communityTitle}
           </a>
-          <Link href="/past-events">
+          <Link href="/archive">
             {page.archiveLabel}
             <ArrowRight className="audience-icon" aria-hidden="true" />
           </Link>

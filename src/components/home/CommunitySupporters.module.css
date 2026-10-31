@@ -1,3 +1,8 @@
+/* Last section before the footer: the footer band supplies the closing space. */
+.root.root {
+  padding-bottom: var(--layout-space-8);
+}
+
 .rows {
   display: grid;
   gap: 4px;

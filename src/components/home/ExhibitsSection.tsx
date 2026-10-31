@@ -30,7 +30,6 @@ export default function ExhibitsSection() {
             >
               {copy.buttonLabel}
             </ContentAction>
-            <p className={styles.hint}>{copy.hint}</p>
           </div>
           <div className={styles.illustration}>
             <div className={styles.stage} aria-hidden="true">

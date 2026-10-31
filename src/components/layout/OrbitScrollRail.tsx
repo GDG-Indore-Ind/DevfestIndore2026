@@ -9,20 +9,11 @@ export interface FlightStop {
   label: string;
 }
 
-const homeStops = [
-  { id: "hero", label: "Launch" },
-  { id: "flow", label: "Themes" },
-  { id: "archive", label: "Community" },
-  { id: "sponsors", label: "Partners" },
-  { id: "exhibits", label: "Exhibits" },
-  { id: "venue", label: "Venue" },
-] as const;
-
 function OrbitScrollRail({
-  stops = homeStops,
+  stops,
   onNavigate,
 }: {
-  stops?: readonly FlightStop[];
+  stops: readonly FlightStop[];
   onNavigate?: () => void;
 }) {
   const rail = useRef<HTMLDivElement>(null);

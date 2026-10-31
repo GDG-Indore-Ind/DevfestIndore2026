@@ -34,6 +34,7 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
         ref={rail}
         className={styles.rail}
         data-multiple={multiple}
+        data-pair={items.length === 2}
         tabIndex={multiple ? 0 : undefined}
         aria-label={copy.label}
         onKeyDown={(event) => {
@@ -105,7 +106,11 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
         ))}
       </div>
       {multiple && (
-        <div className={styles.indicators} aria-label={copy.positionLabel}>
+        <div
+          className={styles.indicators}
+          data-pair={items.length === 2}
+          aria-label={copy.positionLabel}
+        >
           {items.map((item, index) => (
             <button
               type="button"

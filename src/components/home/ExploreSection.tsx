@@ -69,7 +69,6 @@ export default function ExploreSection() {
           </h2>
           <p>{HOME_PAGE.programmeTagline}</p>
         </div>
-        <p className={styles.swipeHint}>{HOME_PAGE.themeSwipeHint}</p>
         <div className={styles.selectionWindow}>
           <div className={styles.selector} role="group" aria-label={HOME_PAGE.themeSelectorLabel}>
             {TOPICS.map((topic, index) => {
@@ -109,6 +108,9 @@ export default function ExploreSection() {
         </div>
         <div className={styles.contribution}>
           <p>{HOME_PAGE.programmeStatus}</p>
+          <ContentAction href="/agenda" icon="calendar" tone="blue">
+            {HOME_PAGE.agendaLabel}
+          </ContentAction>
           <ContentAction href={EVENT.links.cfp} icon="microphone" tone="red" external>
             {HOME_PAGE.themeContributionLabel}
           </ContentAction>

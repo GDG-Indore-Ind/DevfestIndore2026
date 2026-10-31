@@ -10,7 +10,7 @@
   border-radius: var(--space-control-radius);
   background: var(--audience-bg);
   color: var(--audience-ink);
-  font-size: 0.9375rem;
+  font-size: var(--text-15);
   font-weight: 500;
   line-height: 1.4;
   text-align: center;

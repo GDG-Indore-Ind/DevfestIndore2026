@@ -1,9 +1,8 @@
 import Link from "next/link";
-import pages from "../../../content/pages.json";
-const directory = pages.directory;
 import { EVENT, EVENT_WEEKDAY_DATE } from "@/content/event";
-import { AMBASSADORS_PAGE, HOME_PAGE } from "@/content/pages";
+import { AGENDA_PAGE, AMBASSADORS_PAGE, HOME_PAGE } from "@/content/pages";
 import ContentIcon, { type ContentIconName, type IconTone } from "@/components/shared/ContentIcon";
+import ThemeChoice from "@/components/layout/ThemeChoice";
 import styles from "./ExploreMenu.module.css";
 
 type MenuLink = { href: string; label: string; icon: ContentIconName; anchor?: string };
@@ -23,9 +22,9 @@ export default function ExploreMenu({ id, open, pathname, visibleAnchors, onNavi
       tone: "blue",
       links: [
         { href: "/tickets", label: "Tickets", icon: "tickets" },
+        { href: "/agenda", label: AGENDA_PAGE.title, icon: "microphone" },
         { href: "/venue", label: "Venue & directions", icon: "venue", anchor: "venue" },
-        { href: "/guidelines", label: "Registration guidelines", icon: "guidelines" },
-        { href: "/faq", label: "Common questions", icon: "help" },
+        { href: "/faq", label: "FAQ", icon: "help" },
         { href: "/ambassadors", label: AMBASSADORS_PAGE.navigationLabel, icon: "people" },
       ],
     },
@@ -48,24 +47,7 @@ export default function ExploreMenu({ id, open, pathname, visibleAnchors, onNavi
           anchor: "sponsors",
         },
         { href: "/team", label: "Meet the team", icon: "people" },
-      ],
-    },
-    {
-      label: "Past editions",
-      tone: "red",
-      links: [
-        { href: "/past-events", label: "Past events", icon: "history" },
-        {
-          href: directory.enabled ? "/talks" : "/past-speakers",
-          label: directory.enabled ? directory.talks.title : "Past speakers",
-          icon: "microphone",
-        },
-        {
-          href: directory.enabled ? "/partners?year=all&type=sponsor" : "/past-sponsors",
-          label: directory.enabled ? "Past partners" : "Past sponsors",
-          icon: "partners",
-        },
-        { href: "/gallery", label: "Photo gallery", icon: "gallery" },
+        { href: "/archive", label: "Past editions", icon: "history" },
       ],
     },
   ];
@@ -106,6 +88,10 @@ export default function ExploreMenu({ id, open, pathname, visibleAnchors, onNavi
             </section>
           );
         })}
+      </div>
+      <div className={styles.appearance}>
+        <span>Appearance</span>
+        <ThemeChoice />
       </div>
     </nav>
   );

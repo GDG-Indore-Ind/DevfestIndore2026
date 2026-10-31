@@ -7,12 +7,11 @@ import { usePathname } from "next/navigation";
 import ThemeChoice from "@/components/layout/ThemeChoice";
 import ExploreMenu from "@/components/layout/ExploreMenu";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
-import SocialLinks from "@/components/shared/SocialLinks";
 import OrbitScrollRail, { type FlightStop } from "@/components/layout/OrbitScrollRail";
 
 interface NavbarProps {
   visibleAnchors?: string[];
-  flightStops?: readonly FlightStop[] | true;
+  flightStops?: readonly FlightStop[];
 }
 
 export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
@@ -73,7 +72,7 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
               document.getElementById("hero")?.scrollIntoView({ block: "start" });
             }}
           >
-            <Image src="/gdglogo-removebg-preview.png" alt="" width={36} height={36} />
+            <Image src="/gdg-logo.png" alt="" width={36} height={36} />
             <span className="space-header-brand">
               <span className="space-brand-full">
                 Google Developer Group<small>Indore</small>
@@ -82,12 +81,16 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             </span>
           </Link>
 
-          <SocialLinks primaryOnly className="header-socials" />
           <div className="header-utilities">
+            <Link href="/agenda" className="space-header-programme">
+              Agenda
+            </Link>
             <Link href="/#flow" className="space-header-programme">
               Themes
             </Link>
-            <ThemeChoice />
+            <div className="header-theme">
+              <ThemeChoice />
+            </div>
             <button
               className="explore-trigger"
               type="button"
@@ -118,12 +121,7 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             onNavigate={() => setOpen(false)}
           />
         </div>
-        {flightStops && (
-          <OrbitScrollRail
-            stops={flightStops === true ? undefined : flightStops}
-            onNavigate={() => setOpen(false)}
-          />
-        )}
+        {flightStops && <OrbitScrollRail stops={flightStops} onNavigate={() => setOpen(false)} />}
       </header>
     </>
   );

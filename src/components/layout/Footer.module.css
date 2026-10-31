@@ -2,12 +2,12 @@
   display: grid;
   gap: 2px;
   color: var(--audience-muted);
-  font-size: 0.8125rem;
+  font-size: var(--text-14);
 }
 
 .contact a {
   min-height: 44px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 
 .contact a svg,
@@ -43,14 +43,14 @@
 
 .communityIntro h2 {
   margin: 0 0 4px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   font-weight: 600;
 }
 
 .community > a {
   margin-left: auto;
   min-height: 44px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 
 .socials {
@@ -60,7 +60,7 @@
 .socialLabel {
   margin: 0;
   color: var(--audience-muted);
-  font-size: 0.8125rem;
+  font-size: var(--text-14);
 }
 
 @media (min-width: 960px) {
@@ -96,7 +96,7 @@
 
 .closing a {
   min-height: 44px;
-  font-size: 0.8125rem;
+  font-size: var(--text-14);
 }
 
 .contact a:focus-visible,
