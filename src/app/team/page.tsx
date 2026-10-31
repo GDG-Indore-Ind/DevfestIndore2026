@@ -1,4 +1,4 @@
-import LegacyTeam from "@/components/directory/LegacyTeam";
+import TeamPage from "@/components/team/TeamPage";
 import { pageMetadata } from "@/lib/pageMetadata";
 
 export const metadata = pageMetadata(
@@ -6,6 +6,6 @@ export const metadata = pageMetadata(
   "DevFest Team",
   "Meet the people bringing DevFest Indore together.",
 );
-export default function TeamPage() {
-  return <LegacyTeam />;
+export default function Team() {
+  return <TeamPage />;
 }

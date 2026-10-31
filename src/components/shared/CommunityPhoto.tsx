@@ -3,6 +3,30 @@
 import Image from "next/image";
 import { useState } from "react";
 
+// Ranks and titles would otherwise become initials ("Lt Gen PJS Pannu" → "LG").
+const honorifics = new Set([
+  "dr",
+  "prof",
+  "mr",
+  "mrs",
+  "ms",
+  "lt",
+  "gen",
+  "col",
+  "maj",
+  "capt",
+  "brig",
+]);
+
+function initials(name: string) {
+  const words = name.split(" ").filter(Boolean);
+  const named = words.filter((word) => !honorifics.has(word.replace(/\.$/, "").toLowerCase()));
+  return (named.length ? named : words)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("");
+}
+
 export default function CommunityPhoto({
   src,
   alt,
@@ -29,12 +53,7 @@ export default function CommunityPhoto({
         />
       ) : (
         <span className="community-initials" aria-label={alt}>
-          {alt
-            .split(" ")
-            .filter(Boolean)
-            .slice(0, 2)
-            .map((word) => word[0])
-            .join("")}
+          {initials(alt)}
         </span>
       )}
     </div>

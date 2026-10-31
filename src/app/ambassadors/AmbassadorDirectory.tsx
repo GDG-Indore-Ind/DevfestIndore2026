@@ -1,10 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./page.module.css";
 
-type Ambassador = { id: string; name: string; community: string; linkedin?: string };
+type Ambassador = {
+  id: string;
+  name: string;
+  photo?: string;
+  track: string;
+  community: string;
+  linkedin?: string;
+};
+type Group = { track: string; title: string; lead: string };
 type Copy = {
   searchLabel: string;
   searchPlaceholder: string;
@@ -16,9 +25,11 @@ type Copy = {
 
 export default function AmbassadorDirectory({
   ambassadors,
+  groups,
   copy,
 }: {
   ambassadors: Ambassador[];
+  groups: Group[];
   copy: Copy;
 }) {
   const [query, setQuery] = useState("");
@@ -40,24 +51,38 @@ export default function AmbassadorDirectory({
         {matches.length} {matches.length === 1 ? copy.ambassadorSingular : copy.ambassadorPlural}
       </p>
       {matches.length ? (
-        <div className={styles.directory}>
-          {matches.map(({ id, name, community, linkedin }) => (
-            <article key={id} className={styles.profile} aria-labelledby={`${id}-name`}>
-              <span className={styles.initials} aria-hidden="true">
-                {name
-                  .split(/\s+/)
-                  .slice(0, 2)
-                  .map((word) => word[0])
-                  .join("")}
-              </span>
-              <div>
-                <h3 id={`${id}-name`}>{name}</h3>
-                <p>{community}</p>
-                {linkedin && <ProfileLinks socials={{ linkedin }} />}
+        groups.map(({ track, title, lead }) => {
+          const members = matches.filter((ambassador) => ambassador.track === track);
+          if (!members.length) return null;
+          return (
+            <section key={track} className={styles.group} aria-labelledby={`${track}-title`}>
+              <h3 id={`${track}-title`}>{title}</h3>
+              <p className={styles.groupLead}>{lead}</p>
+              <div className={styles.directory}>
+                {members.map(({ id, name, photo, community, linkedin }) => (
+                  <article key={id} className={styles.profile} aria-labelledby={`${id}-name`}>
+                    {photo ? (
+                      <Image className={styles.photo} src={photo} alt="" width={48} height={48} />
+                    ) : (
+                      <span className={styles.initials} aria-hidden="true">
+                        {name
+                          .split(/\s+/)
+                          .slice(0, 2)
+                          .map((word) => word[0])
+                          .join("")}
+                      </span>
+                    )}
+                    <div>
+                      <h4 id={`${id}-name`}>{name}</h4>
+                      <p>{community}</p>
+                      {linkedin && <ProfileLinks socials={{ linkedin }} name={name} iconOnly />}
+                    </div>
+                  </article>
+                ))}
               </div>
-            </article>
-          ))}
-        </div>
+            </section>
+          );
+        })
       ) : (
         <div className={styles.empty}>
           <h3>{copy.emptyTitle}</h3>

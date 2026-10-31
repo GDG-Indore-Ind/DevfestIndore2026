@@ -17,3 +17,18 @@
 .links svg {
   flex-shrink: 0;
 }
+.links svg:not(:global(.audience-icon)) {
+  width: 19px;
+  height: 19px;
+}
+.iconOnly {
+  margin-top: 4px;
+}
+.iconOnly a {
+  justify-content: center;
+  min-width: 44px;
+  text-decoration: none;
+}
+.iconOnly a > :global(.audience-icon) {
+  display: none;
+}

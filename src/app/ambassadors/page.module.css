@@ -19,7 +19,7 @@
 
 .steps h3 {
   margin: 12px 0;
-  font-size: 1.25rem;
+  font-size: var(--text-20);
 }
 
 .steps p {
@@ -39,6 +39,22 @@
   line-height: 1.6;
 }
 
+.group {
+  margin-top: 40px;
+}
+
+.group h3 {
+  margin: 0;
+  font-size: var(--text-20);
+}
+
+.groupLead {
+  max-width: 65ch;
+  margin: 8px 0 0;
+  color: var(--audience-muted);
+  line-height: 1.6;
+}
+
 .directory {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
@@ -52,12 +68,12 @@
   gap: 16px;
   padding: 24px;
   border: 1px solid var(--audience-line);
-  border-radius: 20px;
+  border-radius: var(--corner-24);
 }
 
-.profile h3 {
+.profile h4 {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: var(--text-18);
 }
 
 .profile p {
@@ -72,10 +88,18 @@
   place-items: center;
   width: 48px;
   height: 48px;
-  border-radius: 16px;
+  border-radius: var(--corner-16);
   background: var(--audience-tint);
   color: var(--audience-blue);
   font-weight: 600;
+}
+
+.photo {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--corner-16);
+  object-fit: cover;
 }
 
 .search {
@@ -83,7 +107,7 @@
   gap: 8px;
   max-width: 400px;
   margin-top: 24px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   font-weight: 500;
 }
 
@@ -91,7 +115,7 @@
   min-height: 48px;
   padding: 10px 14px;
   border: 1px solid var(--audience-line);
-  border-radius: 12px;
+  border-radius: var(--corner-12);
   background: var(--audience-bg);
   color: var(--audience-ink);
   font: inherit;
@@ -100,7 +124,7 @@
 .count,
 .empty p {
   color: var(--audience-muted);
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 
 .count {

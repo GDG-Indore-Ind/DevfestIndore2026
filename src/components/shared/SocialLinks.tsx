@@ -50,35 +50,25 @@ const platforms: { id: Platform; label: string }[] = [
   { id: "github", label: "GitHub" },
 ];
 
-export default function SocialLinks({
-  primaryOnly = false,
-  className = "",
-}: {
-  primaryOnly?: boolean;
-  className?: string;
-}) {
+export default function SocialLinks({ className = "" }: { className?: string }) {
   return (
     <div
       className={`social-links ${className}`}
       role="group"
       aria-label="GDG Indore social channels"
     >
-      {platforms
-        .filter(
-          (platform) => !primaryOnly || ["instagram", "linkedin", "twitter"].includes(platform.id),
-        )
-        .map((platform) => (
-          <a
-            key={platform.id}
-            href={EVENT.links[platform.id]}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={platform.label}
-            aria-label={`GDG Indore on ${platform.label} (opens in a new tab)`}
-          >
-            <SocialIcon platform={platform.id} />
-          </a>
-        ))}
+      {platforms.map((platform) => (
+        <a
+          key={platform.id}
+          href={EVENT.links[platform.id]}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={platform.label}
+          aria-label={`GDG Indore on ${platform.label} (opens in a new tab)`}
+        >
+          <SocialIcon platform={platform.id} />
+        </a>
+      ))}
     </div>
   );
 }

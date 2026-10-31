@@ -21,12 +21,15 @@ export default function AmbassadorsPage() {
             <h2 id="ambassador-directory-title">{page.directoryTitle}</h2>
             <p className={styles.lead}>{page.directoryLead}</p>
             <AmbassadorDirectory
-              ambassadors={AMBASSADOR_DIRECTORY.map(({ person, community, socials }) => ({
+              ambassadors={AMBASSADOR_DIRECTORY.map(({ person, track, community, socials }) => ({
                 id: person.id,
                 name: person.name,
+                photo: person.avatar,
+                track,
                 community,
                 linkedin: socials.linkedin,
               }))}
+              groups={page.groups}
               copy={{
                 searchLabel: page.searchLabel,
                 searchPlaceholder: page.searchPlaceholder,
