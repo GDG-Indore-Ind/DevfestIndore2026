@@ -46,6 +46,8 @@ drive-download*
 !public/gallery/**
 !public/images/team/**
 !public/images/partners/**
+!public/images/press/**
+!public/images/venue-*.jpg
 *.CR2
 
 local_storage_private/
