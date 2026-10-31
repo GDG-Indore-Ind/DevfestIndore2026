@@ -8,14 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "content:validate": "node scripts/validate-content.mjs",
-    "predev": "npm run content:validate",
-    "prebuild": "npm run content:validate",
+    "predev": "npm run images && npm run content:validate",
+    "prebuild": "npm run images && npm run content:validate",
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
     "check": "npm run content:validate && npm run content:test && npm run typecheck && npm run lint && npm run format:check",
     "content:test": "node --test scripts/content-model.test.mjs",
-    "content:review": "node scripts/export-profile-review.mjs"
+    "photos": "node scripts/photos.mjs",
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -33,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "prettier": "3.9.10",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
