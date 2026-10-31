@@ -115,6 +115,7 @@
     "heroDescription": "Technical talks and hands-on labs with the developer community.",
     "venueLead": "Registration opens at {{registrationTime}}.",
     "photoArchiveLabel": "Photo archive",
+    "pressLabel": "All press coverage",
     "photoMarqueeLabel": "Community event photographs",
     "photoMarqueePauseLabel": "Pause photos",
     "photoMarqueePlayLabel": "Play photos",

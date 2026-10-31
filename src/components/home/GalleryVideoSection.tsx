@@ -1,5 +1,6 @@
 import ContentIcon from "@/components/shared/ContentIcon";
 import PhotoMarquee from "./PhotoMarquee";
+import PressStrip from "./PressStrip";
 import { HOME_PAGE } from "@/content/pages";
 
 export default function GalleryVideoSection() {
@@ -14,6 +15,7 @@ export default function GalleryVideoSection() {
           <p className="audience-body">{HOME_PAGE.historyLead}</p>
         </div>
         <PhotoMarquee />
+        <PressStrip />
       </div>
     </section>
   );

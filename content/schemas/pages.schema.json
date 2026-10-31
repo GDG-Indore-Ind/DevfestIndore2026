@@ -303,7 +303,8 @@
         "ticketStrip",
         "exhibits",
         "themes",
-        "agendaLabel"
+        "agendaLabel",
+        "pressLabel"
       ],
       "properties": {
         "programmeTitle": {
@@ -487,6 +488,10 @@
         },
         "agendaLabel": {
           "$ref": "#/definitions/text"
+        },
+        "pressLabel": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },

@@ -23,6 +23,36 @@
       "showInGallery": true
     },
     {
+      "id": "devfest-2025-group-photo-03",
+      "title": "The DevFest Indore 2025 community together",
+      "category": "Community",
+      "imageUrl": "/gallery/devfest-2025-group-photo-03.jpg",
+      "caption": "Attendees, speakers and organizers gathered for a group photograph at DevFest Indore 2025.",
+      "width": 1920,
+      "height": 1280,
+      "showInGallery": true
+    },
+    {
+      "id": "devfest-2025-group-photo-09",
+      "title": "Everyone at DevFest Indore 2025",
+      "category": "Community",
+      "imageUrl": "/gallery/devfest-2025-group-photo-09.jpg",
+      "caption": "The full DevFest Indore 2025 crowd in front of the main stage.",
+      "width": 1920,
+      "height": 1280,
+      "showInGallery": true
+    },
+    {
+      "id": "devfest-2025-stage-group-02",
+      "title": "On stage at DevFest Indore 2025",
+      "category": "Community",
+      "imageUrl": "/gallery/devfest-2025-stage-group-02.jpg",
+      "caption": "Community members on stage at the close of DevFest Indore 2025.",
+      "width": 1920,
+      "height": 1280,
+      "showInGallery": true
+    },
+    {
       "id": "ccd-2025-conversations",
       "title": "Conversations at Cloud Community Days 2025",
       "category": "Community",
