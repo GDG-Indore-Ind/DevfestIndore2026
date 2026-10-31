@@ -17,7 +17,12 @@ type PersonRecord = {
     responsibilities: string[];
     displayOrder: number;
   }[];
-  ambassador?: { community: string; contactPlatforms: string[]; order: number };
+  ambassador?: {
+    track: "professional" | "student";
+    community: string;
+    contactPlatforms: string[];
+    order: number;
+  };
 };
 export const PERSON_RECORDS = peopleFile.people as PersonRecord[];
 export const PEOPLE: Person[] = PERSON_RECORDS.map((person) => ({

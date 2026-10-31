@@ -22,7 +22,7 @@
         "latitude": 22.71013,
         "longitude": 75.9039,
         "mapUrl": "https://maps.google.com/?q=Essentia+Luxury+Hotel+Indore+Pipliyahana",
-        "photo": "/images/essentia-hotel-actual.jpg"
+        "photo": "/images/venue-essentia-hotel.jpg"
       },
       "links": {
         "website": "https://devfest.indore.community",
@@ -85,16 +85,18 @@
             ],
             "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served.",
             "price": 699,
-            "soldOut": false
+            "soldOut": true
           },
           {
             "id": "student",
             "name": "Cadet Pass",
             "audience": "Students only",
-            "visible": false,
+            "visible": true,
             "allocation": 200,
+            "price": 849,
+            "bookingRoute": "ambassador",
             "description": "Full-day access for college and university students.",
-            "eligibility": "Currently enrolled students only. Add your college, degree and graduation year at checkout. Bring your original, active physical student photo ID matching your registration. Limit: 1 ticket per order.",
+            "eligibility": "Currently enrolled students only. Cadet tickets are issued through your campus ambassador or an organizer. Add your college, degree and graduation year at checkout. Bring your original, active physical student photo ID matching your registration. Limit: 1 ticket per order.",
             "benefits": [
               {
                 "group": "access",
@@ -133,8 +135,10 @@
             "id": "professional",
             "name": "Commander Pass",
             "audience": "Working professionals",
-            "visible": false,
+            "visible": true,
             "allocation": 250,
+            "price": 849,
+            "offer": "Buy 6–10 tickets, get 15% off",
             "description": "Full-day access for working professionals.",
             "eligibility": "Working professionals only, including engineers, architects, tech leads, managers and founders. Students must choose Cadet. Register every attendee with their own details.",
             "benefits": [
@@ -168,7 +172,7 @@
                 "label": "Exhibit Lounge"
               }
             ],
-            "note": "Team discounts and a corporate tax invoice are available at checkout. Check KonfHub for the applicable discount.",
+            "note": "The 15% group discount applies automatically at KonfHub checkout when you buy 6–10 tickets. A corporate tax invoice is available at checkout.",
             "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served."
           },
           {
@@ -328,7 +332,8 @@
           "profileReminder": "Add your own LinkedIn URL to your KonfHub profile before booking.",
           "termsLabel": "Read the registration guidelines",
           "widgetHeading": "Book your pass",
-          "widgetLead": "Check available passes and prices, then book on KonfHub.",
+          "widgetLead": "Book Commander passes here on KonfHub. Students get Cadet passes through their campus ambassador.",
+          "closedHeading": "Closed passes",
           "widgetTitle": "Register for GDG Devfest Indore 2026",
           "fallbackText": "Trouble with checkout?",
           "fallbackLabel": "Open KonfHub directly",

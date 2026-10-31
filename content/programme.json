@@ -716,6 +716,22 @@
       "eventUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-hands-on-workshop-lnct-college-exclusive-for-lnctindore-college-students/cohost-gdg-cloud-indore/",
       "legacyId": "ws-14",
       "photoIds": []
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-kartikey-rawat",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "kartikey-rawat"
+      ],
+      "publication": "confirmed",
+      "title": "Building AI at the Edge: Developing Intelligent Applications with Qualcomm AI Stack and On-Device AI",
+      "role": "Senior Engineer, Developer Relations",
+      "company": "Qualcomm",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "Edge AI"
     }
   ]
 }

@@ -4,7 +4,7 @@
     "title": "Registration guidelines",
     "description": "Booking details, photo ID requirements, pass eligibility and ticket policies for DevFest Indore.",
     "lead": "What to know before booking and what to bring on the day.",
-    "navigationLabel": "On this page",
+    "navigationLabel": "Jump to",
     "sections": [
       {
         "id": "before-booking",
@@ -56,7 +56,7 @@
   "partners": {
     "title": "Build this edition with us.",
     "description": "Meet the sponsors and collaborators contributing to DevFest Indore 2026, and explore sponsorship and partnership opportunities.",
-    "lead": "Support, expertise and community. Meet this edition’s collaborators and explore how your organization can help bring DevFest Indore to life.",
+    "lead": "Meet this edition’s collaborators and see how your organization can help.",
     "applicationTitle": "How you can contribute",
     "applicationText": "Interested in sponsoring or partnering with DevFest Indore? Share what you have in mind through the form, and we’ll explore the right fit together.",
     "applicationPoints": [
@@ -106,33 +106,27 @@
   "home": {
     "programmeTitle": "Themes",
     "programmeTagline": "New frontiers.",
-    "programmeStatus": "Agenda & speakers coming soon.",
-    "historySince": 2014,
+    "programmeStatus": "Full agenda coming soon.",
     "historyTitle": "One community. Still building.",
-    "historyLead": "DevFest, workshops and community gatherings, every year since 2014. Explore the people and moments along the way.",
-    "historyRecentLabel": "Our community journey, year by year",
-    "historyOriginLabel": "Our story begins",
-    "historyCurrentLabel": "Join us",
+    "historyLead": "DevFest and community events every year since 2014.",
     "ecosystemTitle": "Communities & ecosystem",
     "ecosystemLead": "The developer communities and networks that connect us.",
-    "ecosystemHistoryLabel": "Communities & networks from previous editions",
-    "galleryTitle": "Our community, in pictures",
-    "galleryLead": "Moments from DevFest, community events and the Pre-DevFest campus workshops. Meet the people and places behind each gathering.",
-    "galleryDescription": "Photographs from DevFest Indore, GDG Cloud Indore community events and Pre-DevFest campus workshops, with accurate event captions.",
     "heroLead": "From intelligent software to systems beyond Earth.",
     "heroDescription": "Technical talks and hands-on labs with the developer community.",
-    "artworkCaption": "Space to think. People to build with.",
-    "historyEyebrow": "Our community",
     "venueLead": "Registration opens at {{registrationTime}}.",
-    "pastSponsorsTitle": "Past sponsors",
-    "pastSponsorsLink": "View all sponsors",
     "photoArchiveLabel": "Photo archive",
     "photoMarqueeLabel": "Community event photographs",
     "photoMarqueePauseLabel": "Pause photos",
     "photoMarqueePlayLabel": "Play photos",
     "themeSelectorLabel": "Explore the themes",
-    "themeSwipeHint": "Choose a theme to explore",
     "themeContributionLabel": "Bring it to the stage",
+    "ticketStrip": {
+      "title": "Pick your pass.",
+      "lead": "One day of sessions, hands-on workshops, lunch and networking on 28 November.",
+      "studentLabel": "Students: get it through your ambassador",
+      "professionalLabel": "Professionals: book now",
+      "allTicketsLabel": "Pass details"
+    },
     "exhibits": {
       "navigationLabel": "Exhibits",
       "eyebrow": "Call for exhibits",
@@ -140,8 +134,7 @@
       "lead": "Software, physical AI, space technology—or something we haven’t imagined yet.",
       "body": "We’re inviting developers, makers, startups and companies to share their interest in exhibiting at DevFest Indore. Bring a live demo, a working prototype or a product you’d love the community to experience.",
       "mixLabel": "One space. Many possibilities.",
-      "buttonLabel": "Exhibit at DevFest",
-      "hint": "Tell us what you’re building through the exhibit interest form."
+      "buttonLabel": "Exhibit at DevFest"
     },
     "themes": [
       {
@@ -200,17 +193,19 @@
           "Observability"
         ]
       }
-    ]
+    ],
+    "agendaLabel": "See the agenda"
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "LiftOff Pass is available through 29 October. Cadet and Commander passes will be available from 4 November. Check KonfHub for current availability and prices.",
+    "lead": "Two passes for 28 November. Students get Cadet through their campus ambassador. Working professionals book Commander below on KonfHub, and buying 6–10 tickets saves 15%.",
     "endedLead": "Check KonfHub below for ticket availability and prices.",
+    "studentButtonLabel": "Get Cadet through your ambassador",
     "ambassadorContactEnabled": false
   },
   "faq": {
-    "title": "Common questions",
-    "lead": "Quick answers about booking and attending DevFest.",
+    "title": "FAQ",
+    "lead": "Quick answers, registration guidelines and ticket policies for DevFest Indore.",
     "eventTitle": "Before you come",
     "eventLead": "The day, the venue and what to bring.",
     "ticketsTitle": "Booking & passes",
@@ -251,17 +246,37 @@
       {
         "id": "event-5",
         "question": "Should I bring a laptop?",
-        "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details. Observer does not include workshop hall access.",
+        "answer": "Bring your laptop and charger if you plan to join a hands-on lab. Setup instructions will be shared with the lab details.",
         "kind": "event"
       },
       {
         "id": "ticket-current",
         "kind": "tickets",
         "question": "Which pass should I choose?",
-        "answer": "See pass inclusions and eligibility on Tickets. Check KonfHub for current availability and prices.",
+        "answer": "Students choose Cadet ({{studentPrice}}), issued through your campus ambassador. Working professionals choose Commander ({{professionalPrice}}), booked on the Tickets page. Both include the same sessions, workshop access, lunch, goodies and lounges.",
         "link": {
           "href": "/tickets",
           "label": "View tickets"
+        }
+      },
+      {
+        "id": "ticket-student",
+        "kind": "tickets",
+        "question": "How do students get tickets?",
+        "answer": "Cadet tickets are issued through your campus ambassador or an organizer. Find your ambassador, ask for your Cadet pass, then complete registration on KonfHub with your college details. Bring your original student photo ID on the day.",
+        "link": {
+          "href": "/ambassadors",
+          "label": "Contact your ambassador"
+        }
+      },
+      {
+        "id": "ticket-group",
+        "kind": "tickets",
+        "question": "Is there a group discount?",
+        "answer": "Yes, for Commander. {{groupOffer}}. The discount applies automatically at KonfHub checkout. Each attendee still needs their own registration details.",
+        "link": {
+          "href": "/tickets#registration",
+          "label": "Book Commander"
         }
       },
       {
@@ -270,7 +285,7 @@
         "question": "What should I bring for check-in?",
         "answer": "{{entryPolicy}}",
         "link": {
-          "href": "/guidelines#eligibility",
+          "href": "/faq#eligibility",
           "label": "Additional pass requirements"
         }
       },
@@ -280,7 +295,7 @@
         "question": "Does my ticket reserve a workshop seat?",
         "answer": "{{workshopPolicy}}",
         "link": {
-          "href": "/guidelines#workshops",
+          "href": "/faq#workshops",
           "label": "Workshop guidelines"
         }
       },
@@ -290,7 +305,7 @@
         "question": "Can I cancel, refund or transfer my ticket?",
         "answer": "{{finalSalePolicy}}",
         "link": {
-          "href": "/guidelines#ticket-policy",
+          "href": "/faq#ticket-policy",
           "label": "Ticket policy"
         }
       }
@@ -298,7 +313,7 @@
   },
   "workshops": {
     "title": "Workshops & events",
-    "lead": "Hands-on learning across Indore’s campuses, with event records and photographs.",
+    "lead": "Hands-on sessions across Indore’s campuses.",
     "workshopTitle": "Campus workshops",
     "workshopLead": "The Pre-DevFest 2026 series. Explore the sessions and people at each campus.",
     "searchLabel": "Find a workshop",
@@ -319,9 +334,19 @@
     "sessionSingular": "session",
     "sessionPlural": "sessions"
   },
+  "archive": {
+    "title": "Archive",
+    "description": "DevFest Indore editions from 2022 to 2025: dates, venues, speakers, sponsors and photographs.",
+    "lead": "Past editions, speakers, sponsors and photos.",
+    "editionsTitle": "Editions",
+    "speakersTitle": "Speakers",
+    "sponsorsTitle": "Sponsors",
+    "photosTitle": "Photos",
+    "pressTitle": "In the news",
+    "pressLead": "Newspaper coverage of past editions and community events. Headlines are summarised in English.",
+    "pressViewLabel": "Read clipping"
+  },
   "pastSpeakers": {
-    "title": "Past speakers",
-    "lead": "People and sessions from previous editions. The 2026 lineup is coming soon.",
     "searchLabel": "Search speakers",
     "searchPlaceholder": "Name, company or topic",
     "editionLabel": "Edition",
@@ -335,33 +360,44 @@
     "sourceLabel": "Official speaker listing",
     "emptyTitle": "No speakers found",
     "emptyText": "Try another name or choose a different edition or track.",
-    "clearLabel": "Clear filters",
-    "provenance": "Profiles and sessions come from the organizer’s speaker archive. Source links open the relevant event page."
+    "clearLabel": "Clear filters"
   },
   "ambassadors": {
     "title": "Contact your ambassador",
     "description": "Connect with the DevFest Indore ambassador programme for campus and community ticket enquiries.",
-    "lead": "Coming with your campus or community? Start with your DevFest ambassador.",
+    "lead": "Students get their Cadet pass through their campus ambassador; working professionals can connect with a GDG Indore organizer. Find yours below.",
     "navigationLabel": "Contact your ambassador",
     "ticketLead": "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
     "stepsTitle": "Connect through your community",
     "steps": [
       {
         "title": "Speak with your ambassador",
-        "text": "Ask your campus or community’s DevFest ambassador about the programme and how to register."
+        "text": "Find your campus or community’s DevFest ambassador below, connect on LinkedIn and ask for your Cadet pass."
       },
       {
         "title": "Check the ticket details",
-        "text": "Review the eligibility and inclusions of the pass offered to you before booking."
+        "text": "Cadet is for currently enrolled students. Keep your original student photo ID ready; you will need it at check-in."
       },
       {
         "title": "Complete registration on KonfHub",
-        "text": "Use the booking instructions shared with you. Your KonfHub confirmation completes your registration."
+        "text": "Use the booking instructions your ambassador shares. Your KonfHub confirmation completes your registration."
       }
     ],
     "ticketsLabel": "Explore current tickets",
     "directoryTitle": "Meet your ambassadors",
     "directoryLead": "Find an ambassador from your campus or community and connect on LinkedIn.",
+    "groups": [
+      {
+        "track": "professional",
+        "title": "Professional ambassadors",
+        "lead": "Working professionals and community members can connect with a GDG Indore organizer for help with their pass."
+      },
+      {
+        "track": "student",
+        "title": "Student ambassadors",
+        "lead": "Students: find the ambassador from your campus and ask for your Cadet pass."
+      }
+    ],
     "searchLabel": "Find an ambassador",
     "searchPlaceholder": "Search by name or college",
     "emptyTitle": "No ambassadors found",
@@ -369,86 +405,65 @@
     "ambassadorSingular": "ambassador",
     "ambassadorPlural": "ambassadors"
   },
-  "directory": {
-    "enabled": false,
-    "roles": [
-      {
-        "id": "core-team",
-        "label": "Core Team"
-      },
-      {
-        "id": "volunteer",
-        "label": "Volunteers"
-      },
-      {
-        "id": "ambassador",
-        "label": "Ambassadors"
-      },
-      {
-        "id": "speaker",
-        "label": "Speakers"
-      }
-    ],
-    "team": {
-      "title": "DevFest Team",
-      "lead": "Meet the people behind DevFest, across editions.",
-      "undatedLabel": "Edition to confirm",
-      "allRoles": "Everyone",
-      "description": "The people bringing DevFest Indore together."
-    },
-    "talks": {
-      "title": "Talks",
-      "lead": "Explore talks and workshops from DevFest and the wider GDG Indore community.",
-      "resourcesLabel": "Resources",
-      "speakersLabel": "Speakers"
-    },
-    "partners": {
-      "title": "Partners & communities",
-      "lead": "Explore the organizations supporting DevFest and their contributions across editions.",
-      "unknownYearLabel": "Past contributions",
-      "ecosystemLabel": "Community ecosystem"
-    },
-    "filters": {
-      "searchLabel": "Search",
-      "searchPlaceholder": "Search names, roles or topics",
-      "yearLabel": "Year",
-      "allYears": "All editions",
-      "typeLabel": "Contribution",
-      "allTypes": "All contributions",
-      "emptyTitle": "No matching records",
-      "emptyText": "Try another edition or clear your search.",
-      "clearLabel": "Clear filters",
-      "trackLabel": "Track",
-      "allTracks": "All tracks",
-      "rolesLabel": "Team roles",
-      "peopleSingular": "person",
-      "peoplePlural": "people",
-      "talkSingular": "talk",
-      "talkPlural": "talks",
-      "organizationSingular": "organization",
-      "organizationPlural": "organizations",
-      "sponsorsLabel": "Sponsors",
-      "collaboratorsLabel": "Collaborators",
-      "communitiesLabel": "Communities",
-      "mediaLabel": "Media",
-      "eventLabel": "Event",
-      "allEvents": "All events"
-    },
-    "profile": {
-      "historyTitle": "Event contributions",
-      "talksTitle": "Talks",
-      "workshopsTitle": "Campus workshops",
-      "aboutTitle": "About",
-      "linksTitle": "Public profiles",
-      "backTeam": "DevFest Team",
-      "backTalks": "All talks",
-      "backPartners": "Partners & communities",
-      "officialRecordLabel": "Official event record",
-      "sourceLabel": "Source",
-      "fallbackLead": "GDG Indore community",
-      "reviewNotice": "Review preview · Profile details and edition assignments await organizer approval.",
-      "communityTitle": "Other community appearances",
-      "approvedReviewNotice": "Review preview · This profile is approved. Other profiles remain under review."
+  "agenda": {
+    "title": "Agenda",
+    "description": "Confirmed speakers and sessions for DevFest Indore 2026. The full schedule for 28 November is coming soon.",
+    "lead": "Confirmed speakers and sessions so far. The full schedule is coming soon.",
+    "speakersTitle": "Speakers",
+    "sessionPending": "Session to be announced",
+    "bioLabel": "About",
+    "more": "More speakers will be announced soon.",
+    "emptyText": "Speakers will be announced soon.",
+    "comingSoon": {
+      "badge": "Coming soon",
+      "title": "The full schedule is on its way",
+      "lead": "The speakers listed above are only part of the day. Timings and session details will be announced here.",
+      "itemsTitle": "Also on 28 November",
+      "pendingLabel": "Details coming soon",
+      "items": [
+        {
+          "id": "workshop-1",
+          "kind": "Workshop",
+          "title": "Workshop 1",
+          "description": "Hands-on session. Seats are first come, first served."
+        },
+        {
+          "id": "workshop-2",
+          "kind": "Workshop",
+          "title": "Workshop 2",
+          "description": "Hands-on session. Seats are first come, first served."
+        },
+        {
+          "id": "community-lounge",
+          "kind": "Lounge",
+          "title": "Community Lounge",
+          "description": "Meet other developers and community groups. Included with every pass."
+        },
+        {
+          "id": "expert-lounge",
+          "kind": "Lounge",
+          "title": "Expert Lounge",
+          "description": "Talk with experts between sessions. Included with every pass."
+        },
+        {
+          "id": "exhibit-lounge",
+          "kind": "Lounge",
+          "title": "Exhibit Lounge",
+          "description": "See what exhibitors are showing. Included with every pass."
+        },
+        {
+          "id": "lunch",
+          "kind": "On the day",
+          "title": "Lunch & refreshments",
+          "description": "Included with every pass."
+        },
+        {
+          "id": "goodies",
+          "kind": "On the day",
+          "title": "DevFest Goodies",
+          "description": "Included with every pass."
+        }
+      ]
     }
   }
 }

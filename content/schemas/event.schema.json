@@ -243,6 +243,18 @@
                           "type": "number",
                           "minimum": 0
                         },
+                        "offer": {
+                          "description": "Short public discount line shown under the price, such as a group discount.",
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "bookingRoute": {
+                          "description": "Where the pass card sends visitors. Omit for the KonfHub widget on this page; ambassador sends them to the ambassador directory.",
+                          "enum": [
+                            "konfhub",
+                            "ambassador"
+                          ]
+                        },
                         "description": {
                           "type": "string",
                           "minLength": 1
@@ -376,6 +388,7 @@
                       "termsLabel",
                       "widgetHeading",
                       "widgetLead",
+                      "closedHeading",
                       "widgetTitle",
                       "fallbackText",
                       "fallbackLabel",
@@ -408,6 +421,10 @@
                         "minLength": 1
                       },
                       "widgetLead": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "closedHeading": {
                         "type": "string",
                         "minLength": 1
                       },

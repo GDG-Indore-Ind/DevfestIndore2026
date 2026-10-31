@@ -244,11 +244,18 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
+              "track",
               "community",
               "contactPlatforms",
               "order"
             ],
             "properties": {
+              "track": {
+                "enum": [
+                  "professional",
+                  "student"
+                ]
+              },
               "community": {
                 "type": "string",
                 "minLength": 1

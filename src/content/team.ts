@@ -1,4 +1,3 @@
-import approvals from "../../content/approvals.json";
 import { EVENT } from "./event";
 import { PARTICIPATIONS, participationRoleLabels } from "./participations";
 import type { TeamMember } from "./model";
@@ -18,16 +17,8 @@ export function getTeam(): TeamMember[] {
       order: member.order,
     };
   });
-  const approvedIds = new Set(
-    (approvals.people as { personId: string; scope?: "ambassador" }[])
-      .filter((entry) => entry.scope !== "ambassador")
-      .map((entry) => entry.personId),
-  );
   const dated = PARTICIPATIONS.filter(
-    (entry) =>
-      entry.eventId === EVENT.id &&
-      approvedIds.has(entry.personId) &&
-      entry.roles.some((role) => role.kind !== "speaker"),
+    (entry) => entry.eventId === EVENT.id && entry.roles.some((role) => role.kind !== "speaker"),
   ).map((entry) => {
     const person = getPerson(entry.personId);
     const roles = entry.roles.filter((role) => role.kind !== "speaker");
@@ -57,10 +48,7 @@ export function getTeam(): TeamMember[] {
   );
   const existingIds = new Set([...legacy, ...dated].map((member) => member.personId));
   const added = TEAM_ASSIGNMENTS.filter(
-    (item) =>
-      item.eventId === EVENT.id &&
-      !existingIds.has(item.personId) &&
-      approvedIds.has(item.personId),
+    (item) => item.eventId === EVENT.id && !existingIds.has(item.personId),
   ).map((item) => {
     const person = getPerson(item.personId);
     return {

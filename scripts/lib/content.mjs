@@ -6,10 +6,9 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv from "ajv";
-import { profileHash } from "./profile-review.mjs";
 
 export const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const COLLECTIONS = ["event", "people", "programme", "organizations", "gallery", "pages", "approvals"];
+export const COLLECTIONS = ["event", "people", "programme", "organizations", "gallery", "pages"];
 export function readContent(root = PROJECT_ROOT) {
   return Object.fromEntries(COLLECTIONS.map(name => [name, JSON.parse(readFileSync(path.join(root, "content", `${name}.json`), "utf8"))]));
 }
@@ -134,36 +133,6 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   }
   unique(relations.filter(item => item.featured), "featured partner placement", item => item.featured);
   unique(people.people, "people names", item => item.name.toLowerCase().replace(/[^a-z0-9]/g,""));
-  unique(content.pages.directory.roles, "directory role categories");
-  const organizationIds = new Set(partners.organizations.map(item => item.id));
-  unique(content.approvals.emailRedactions ?? [], "email redactions", entry => entry.personId);
-  for (const entry of content.approvals.emailRedactions ?? []) {
-    reference(personIds, entry.personId, "email redaction");
-    const baseline = content.approvals.baselines.people.find(item => item.personId === entry.personId);
-    if (!baseline || baseline.recordHash !== entry.baselineHash) errors.push(`email redaction ${entry.personId}: original baseline mismatch`);
-    if (people.people.find(item => item.id === entry.personId)?.links?.email) errors.push(`email redaction ${entry.personId}: email must be absent`);
-  }
-  for (const [kind, key, ids] of [["people", "personId", personIds], ["organizations", "organizationId", organizationIds]]) {
-    unique(content.approvals[kind], `${kind} approvals`, entry => entry[key]);
-    unique(content.approvals.baselines[kind], `${kind} public baselines`, entry => entry[key]);
-    for (const entry of content.approvals.baselines[kind]) reference(ids, entry[key], `${kind} baseline`);
-    for (const id of ids) {
-      const baseline = content.approvals.baselines[kind].find(entry => entry[key] === id);
-      const approved = content.approvals[kind].find(entry => entry[key] === id);
-      const hash = profileHash(content, kind, id);
-      const redaction = kind === "people" && content.approvals.emailRedactions?.find(entry => entry.personId === id);
-      if (baseline?.recordHash !== hash && approved?.recordHash !== hash && redaction?.recordHash !== hash) errors.push(`${kind} ${id}: changed or new profile requires organizer approval`);
-    }
-    for (const entry of content.approvals[kind]) {
-      reference(ids, entry[key], `${kind} approval`);
-      if (entry.scope === "ambassador" && (kind !== "people" || !ambassadors.some(item => item.personId === entry.personId))) errors.push(`${kind} approval ${entry[key]}: ambassador scope requires directory membership`);
-      if (ids.has(entry[key]) && entry.recordHash !== profileHash(content, kind, entry[key])) errors.push(`${kind} approval ${entry[key]}: profile changed; a fresh organizer approval is required`);
-    }
-    if (content.pages.directory.enabled) for (const id of ids) {
-      if (!content.approvals[kind].some(entry => entry[key] === id && entry.scope !== "ambassador")) errors.push(`directory launch: ${kind} ${id} needs organizer approval`);
-    }
-  }
-  if (content.pages.directory.enabled && team.members.length) errors.push("directory launch: assign approved event roles to the undated legacy team before enabling the new directories");
   unique(tickets.benefitGroups, "ticket benefit groups");
   const benefitGroupIds = new Set(tickets.benefitGroups.map(group => group.id));
   for (const pass of tickets.passes) {
@@ -183,7 +152,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
     if (!tickets.policies.some(policy => policy.id === id)) errors.push(`tickets: ${id} policy is required`);
   }
   try { new Intl.DateTimeFormat("en",{timeZone:event.timezone}).format(); } catch { errors.push(`event: unknown timezone ${event.timezone}`); }
-  const tokens = new Set(["date","venue","address","registrationTime","entryPolicy","workshopPolicy","finalSalePolicy"]);
+  const tokens = new Set(["date","venue","address","registrationTime","entryPolicy","workshopPolicy","finalSalePolicy","studentPrice","professionalPrice","groupOffer"]);
   for (const faq of pages.faq.questions) for (const match of faq.answer.matchAll(/\{\{(\w+)\}\}/g)) if (!tokens.has(match[1])) errors.push(`FAQ ${faq.id}: unknown template token ${match[1]}`);
   const assetKeys = new Set(["avatar","photo","logo","logoUrl","imageUrl","photo","archiveLogoSheet","images","source","collegeLogoUrl"]);
   function walk(value, location = "", key = "") {

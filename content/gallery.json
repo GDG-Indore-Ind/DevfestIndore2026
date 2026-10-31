@@ -230,5 +230,119 @@
       "height": 960,
       "showInGallery": true
     }
+  ],
+  "press": [
+    {
+      "id": "devfest-2025-naidunia-ai-and-cultural-intelligence",
+      "title": "Not just AI: human and cultural understanding matter too",
+      "event": "DevFest Indore 2025",
+      "publication": "Nai Dunia",
+      "imageUrl": "/images/press/devfest-2025-naidunia-ai-and-cultural-intelligence.jpg",
+      "width": 1080,
+      "height": 1041
+    },
+    {
+      "id": "devfest-2025-naidunia-ideas-and-innovation",
+      "title": "Ideas and innovation meet technology at DevFest",
+      "event": "DevFest Indore 2025",
+      "publication": "Nai Dunia",
+      "imageUrl": "/images/press/devfest-2025-naidunia-ideas-and-innovation.jpg",
+      "width": 1019,
+      "height": 1600
+    },
+    {
+      "id": "devfest-2025-dainik-bhaskar-autonomous-ai-agents",
+      "title": "600 developers at GDG's DevFest: autonomous AI agents will change how work gets done",
+      "event": "DevFest Indore 2025",
+      "publication": "Dainik Bhaskar",
+      "date": "2025-12-21",
+      "imageUrl": "/images/press/devfest-2025-dainik-bhaskar-autonomous-ai-agents.jpg",
+      "width": 273,
+      "height": 480
+    },
+    {
+      "id": "ai-unplugged-2025-dainik-bhaskar-ai-is-todays-reality",
+      "title": "AI is not science fiction, it is today's reality",
+      "event": "AI Unplugged 2025",
+      "publication": "Dainik Bhaskar",
+      "date": "2025-11-16",
+      "imageUrl": "/images/press/ai-unplugged-2025-dainik-bhaskar-ai-is-todays-reality.jpg",
+      "width": 819,
+      "height": 771
+    },
+    {
+      "id": "ai-unplugged-2025-free-press-journal-ai-is-fast-unfolding-reality",
+      "title": "AI is no longer a concept but fast-unfolding reality: Experts",
+      "event": "AI Unplugged 2025",
+      "publication": "The Free Press Journal",
+      "date": "2025-11-16",
+      "imageUrl": "/images/press/ai-unplugged-2025-free-press-journal-ai-is-fast-unfolding-reality.jpg",
+      "width": 956,
+      "height": 576
+    },
+    {
+      "id": "ai-unplugged-2025-career-paths-photo-feature",
+      "title": "Career paths in AI discussed at AI Unplugged",
+      "event": "AI Unplugged 2025",
+      "imageUrl": "/images/press/ai-unplugged-2025-career-paths-photo-feature.jpg",
+      "width": 861,
+      "height": 1280
+    },
+    {
+      "id": "ccd-2025-khulasa-first-ai-in-everyday-work",
+      "title": "AI is becoming part of everyone's daily work",
+      "event": "Cloud Community Days Indore 2025",
+      "publication": "Khulasa First",
+      "date": "2025-07-14",
+      "imageUrl": "/images/press/ccd-2025-khulasa-first-ai-in-everyday-work.jpg",
+      "width": 1600,
+      "height": 686
+    },
+    {
+      "id": "ccd-2025-naidunia-ai-glasses-and-data-privacy",
+      "title": "AI-powered glasses are on the way: no map needed",
+      "event": "Cloud Community Days Indore 2025",
+      "publication": "Nai Dunia",
+      "imageUrl": "/images/press/ccd-2025-naidunia-ai-glasses-and-data-privacy.jpg",
+      "width": 1092,
+      "height": 1165
+    },
+    {
+      "id": "ccd-2025-grand-event-feature",
+      "title": "Cloud Community Days 2025 brings Indore's tech community together",
+      "event": "Cloud Community Days Indore 2025",
+      "imageUrl": "/images/press/ccd-2025-grand-event-feature.jpg",
+      "width": 1600,
+      "height": 1140
+    },
+    {
+      "id": "devfest-2024-naidunia-tech-platform-for-youth",
+      "title": "Indore's young people and entrepreneurs get a tech platform",
+      "event": "DevFest Indore 2024",
+      "publication": "Nai Dunia",
+      "imageUrl": "/images/press/devfest-2024-naidunia-tech-platform-for-youth.jpg",
+      "width": 704,
+      "height": 1280
+    },
+    {
+      "id": "ccd-2024-free-press-journal-startups-in-cloud",
+      "title": "Best startup in cloud computing future",
+      "event": "Cloud Community Days Indore 2024",
+      "publication": "The Free Press Journal",
+      "date": "2024-09-01",
+      "imageUrl": "/images/press/ccd-2024-free-press-journal-startups-in-cloud.jpg",
+      "width": 1169,
+      "height": 705
+    },
+    {
+      "id": "ccd-2024-patrika-ai-builds-your-startup",
+      "title": "Just one code: AI will build your startup and app",
+      "event": "Cloud Community Days Indore 2024",
+      "publication": "Patrika",
+      "date": "2024-09-01",
+      "imageUrl": "/images/press/ccd-2024-patrika-ai-builds-your-startup.jpg",
+      "width": 867,
+      "height": 1032
+    }
   ]
 }

@@ -1,7 +1,5 @@
 import { currentEvent } from './lib/event-view.mjs';
-import { writeFileSync } from 'node:fs';
-import path from 'node:path';
-import { PROJECT_ROOT, readContent, validateContent } from './lib/content.mjs';
+import { readContent, validateContent } from './lib/content.mjs';
 
 const content = readContent();
 const errors = validateContent(content);
@@ -24,6 +22,4 @@ const text = `# ${event.name} — Registration guidelines\n\n` +
   `\n\n## Registration declaration\n\n${tickets.registrationDeclaration}\n\n` +
   `## Conduct, venue and assistance\n\n[Community code of conduct](${event.links.codeOfConduct})\n\n` +
   `${event.venue.address}\n\nFor registration corrections, accessibility questions or ticket support, contact [${event.contactEmail}](mailto:${event.contactEmail}).\n`;
-const output = path.join(PROJECT_ROOT, 'docs/konfhub-guidelines-ready-to-paste.md');
-writeFileSync(output, text);
-console.log('Exported registration guidelines from canonical event and ticket JSON.');
+process.stdout.write(text);
