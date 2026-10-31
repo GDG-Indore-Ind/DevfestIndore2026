@@ -2,7 +2,7 @@
   padding-block: 24px 40px;
 }
 .heading h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--text-h3);
   line-height: 1.2;
   margin: 0 0 12px;
 }
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   margin: 4px 0 16px;
 }
 .terms a {
@@ -24,7 +24,7 @@
 .referral {
   margin: 0 0 20px;
   color: var(--audience-muted);
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   line-height: 1.6;
 }
 .referral strong {
@@ -62,12 +62,12 @@
 }
 .fallback p {
   color: var(--audience-muted);
-  font-size: 0.875rem;
+  font-size: var(--text-14);
   margin: 0;
 }
 .fallback a {
   min-height: 44px;
-  font-size: 0.875rem;
+  font-size: var(--text-14);
 }
 @media (min-width: 761px) {
   .window iframe {

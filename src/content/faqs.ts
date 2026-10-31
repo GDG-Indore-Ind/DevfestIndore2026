@@ -1,7 +1,9 @@
 import pages from "../../content/pages.json";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "./event";
-import { TICKET_POLICIES } from "./tickets";
+import { TICKET_POLICIES, formatPassPrice, getPublicPass } from "./tickets";
 const policy = (id: string) => TICKET_POLICIES.find((item) => item.id === id)!.text;
+const studentPass = getPublicPass("student");
+const professionalPass = getPublicPass("professional");
 const faqValues: Record<string, string> = {
   date: EVENT_DATE,
   venue: EVENT.venue.name,
@@ -10,6 +12,9 @@ const faqValues: Record<string, string> = {
   entryPolicy: policy("entry-identification"),
   workshopPolicy: policy("workshop-access"),
   finalSalePolicy: policy("final-sale"),
+  studentPrice: formatPassPrice(studentPass),
+  professionalPrice: formatPassPrice(professionalPass),
+  groupOffer: professionalPass.offer ?? "",
 };
 export const FAQS = pages.faq.questions.map((faq) => ({
   ...faq,

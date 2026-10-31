@@ -19,10 +19,14 @@ export interface PublicPass {
   benefits: TicketBenefit[];
   note?: string;
   price?: number;
+  offer?: string;
+  bookingRoute?: "konfhub" | "ambassador";
 }
 // These are views, not a second editable ticket directory.
 export const PUBLIC_PASSES = tickets.passes as PublicPass[];
 export const VISIBLE_PASSES = PUBLIC_PASSES.filter((pass) => pass.visible);
+export const OPEN_PASSES = VISIBLE_PASSES.filter((pass) => !pass.soldOut);
+export const CLOSED_PASSES = VISIBLE_PASSES.filter((pass) => pass.soldOut);
 export const TICKET_BENEFIT_GROUPS = tickets.benefitGroups;
 export const getPublicPass = (id: PublicPassId) => PUBLIC_PASSES.find((pass) => pass.id === id)!;
 export const REGISTRATION_CHECKLIST = tickets.registrationChecklist;

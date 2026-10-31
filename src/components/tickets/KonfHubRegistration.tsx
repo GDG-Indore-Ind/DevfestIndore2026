@@ -28,7 +28,7 @@ export default function KonfHubRegistration() {
           <p className={styles.referral}>{copy.finalSaleText}</p>
         </div>
         <p className={styles.terms}>
-          <Link href="/guidelines" className="audience-text-link">
+          <Link href="/faq#registration-guidelines" className="audience-text-link">
             {copy.termsLabel}
           </Link>
         </p>

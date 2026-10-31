@@ -5,13 +5,13 @@
   gap: 24px;
   padding: 28px;
   border: 1px solid var(--audience-line);
-  border-radius: 24px;
+  border-radius: var(--corner-24);
   background: var(--audience-tint);
 }
 
 .panel h2 {
   margin: 0 0 12px;
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--text-h3);
 }
 
 .panel p {

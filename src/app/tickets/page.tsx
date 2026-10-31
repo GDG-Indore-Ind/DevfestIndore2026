@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CurrentTicketOffer from "@/components/tickets/CurrentTicketOffer";
 import AmbassadorContact from "@/components/tickets/AmbassadorContact";
+import ClosedPasses from "@/components/tickets/ClosedPasses";
 import KonfHubRegistration from "@/components/tickets/KonfHubRegistration";
 import { TICKETS_PAGE as page } from "@/content/pages";
 import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
@@ -30,6 +31,7 @@ export default function TicketsPage() {
         <CurrentTicketOffer />
         {page.ambassadorContactEnabled && <AmbassadorContact />}
         <KonfHubRegistration />
+        <ClosedPasses />
       </main>
       <Footer />
     </div>
