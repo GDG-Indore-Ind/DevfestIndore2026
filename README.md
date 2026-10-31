@@ -16,21 +16,22 @@ Open [the local preview](http://localhost:3000). The development badge is hidden
 Read [the content editing guide](content/README.md). All editable public records belong in `content/*.json`; typed views in `src/content/` connect them to pages. JSON Schemas and reference validation run before development and builds.
 
 - `event.json`: current and past events, venue, official links, tickets, booking settings and policies.
-- `people.json`, `programme.json`: person profiles and roles; talks and campus workshops reference their speakers.
+- `people.json`, `programme.json`: person profiles, photos and roles; talks and campus workshops reference their speakers. Add photos with `npm run photos`.
 - `organizations.json`: organization artwork and confirmed, ecosystem or historical relationships.
-- `pages.json`: page wording, homepage themes, FAQs and directory and partner reveal controls.
+- `pages.json`: page wording, homepage themes, FAQs and the partner reveal switch.
 - `gallery.json`: community photographs.
 
-People and organizations are defined once and referenced by stable IDs. Publish only approved records. Historical appearances and community logos never imply current participation.
+People and organizations are defined once and referenced by stable IDs. Publish only confirmed records. Historical appearances and community logos never imply current participation.
 
 ## Attendee journeys
 
-- Home introduces the event, Themes, exhibit and partner invitations, communities, past-event photographs and venue.
-- `/tickets` shows explicitly visible passes, their inclusions and confirmed prices. Sold-out passes retain their details without a Register action. Other Register actions scroll to the embedded KonfHub checkout. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `event.json` → the current event’s `tickets.booking.enabled` controls the widget and direct fallback link.
-- `/guidelines` contains complete registration and attendance rules. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
+- Home introduces the event, Themes, ticket passes, exhibit and partner invitations, community photographs and venue.
+- `/agenda` lists confirmed speakers and their sessions until the full schedule is published.
+- `/tickets` shows open passes and their inclusions above the embedded KonfHub checkout; sold-out passes sit below it without a Register action. Cadet sends students to `/ambassadors`; Commander registers in the widget. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `event.json` → the current event’s `tickets.booking.enabled` controls the widget and direct fallback link.
+- `/faq` holds the common questions followed by the complete registration guidelines (each guideline section keeps its anchor, such as `/faq#eligibility`); `/guidelines` redirects there. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
 - `/partners` contains contribution options and the official partner form. `pages.partners.revealed` holds collaborator announcements until approved.
 - `/venue` contains the verified photo, address, directions, map and check-in information.
-- `/faq`, `/team`, `/events`, `/gallery`, `/past-events`, `/past-speakers` and `/past-sponsors` provide supporting information and historical records.
+- `/faq`, `/team`, `/events` and `/ambassadors` provide supporting information; `/archive` holds past editions, speakers, sponsors and photographs.
 
 The header keeps Get tickets visible. Section navigation travels along its bottom border. Referrals survive the KonfHub handoff without promising a discount. Sessionize owns talk proposals. There is no custom admin, database or payment flow.
 
@@ -56,11 +57,6 @@ Work on the checked-out branch; ask before creating or switching branches or usi
 - [Engineering instructions](AGENTS.md)
 - [Design system](design-system.md)
 - [Information architecture](docs/information-architecture.md)
-- [Historical artwork and cleanup](docs/historical-logos-and-cleanup-2026-10-23.md)
-- [KonfHub setup](docs/konfhub-setup.md)
-
-`docs/source-archive/` preserves original reference material and is never imported by application code. Earlier design/planning notes are historical context; canonical JSON owns current public facts.
+- [KonfHub setup](docs/konfhub.md)
 
 Local changes are reviewed in Git. Publishing follows the repository’s normal deployment process; a local commit does not deploy the site.
-
-The new directory layout is held behind `content/pages.json` → `directory.enabled` until review is complete. Individually approved profiles can be linked from existing listings before that launch. Generate local review packets with `npm run content:review`; `content/approvals.json` distinguishes existing-public baselines from explicit approvals.

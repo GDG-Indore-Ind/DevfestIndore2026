@@ -5,8 +5,9 @@
 - Next.js 16 App Router, React 19, TypeScript and Tailwind CSS 4. Read the installed Next.js guides before framework changes.
 - Public content lives in `content/*.json`; typed views in `src/content/` supply pages. Read `content/README.md` before editing records.
 - Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. There is no custom admin, proposal backend, database or upload service in this application.
-- Existing local/Cloudinary artwork is rendered through Next Image. Do not add a speaker upload workflow.
-- GTM, GA4 and Meta Pixel are external analytics integrations in the root layout. Do not infer that GTM already owns GA4 configuration without checking the container.
+- Person photos live in `public/images/people/<person-id>.webp` and are added with `npm run photos` (see `content/README.md`); artwork renders through Next Image. Do not add an upload workflow to the application.
+- Vercel Analytics is the only analytics integration. GTM, GA4 and Meta Pixel were removed on 30 October 2026; do not re-add third-party tracking scripts without the owner's approval.
+- Images under `public/images` and `public/gallery` are optimized automatically by `npm run images` before dev and build (see `docs/contributing.md`).
 
 ## Design and file ownership
 
@@ -22,7 +23,7 @@
 - Run `npm run check` and `npm run build` before release. Check affected pages at desktop/mobile widths in both themes.
 - Work on the branch currently checked out. Ask the user before creating or switching to another branch or using a separate worktree; an explicit request for a particular branch or worktree is sufficient authorization.
 - Use pull requests and review the Vercel preview before merging into the configured production branch. Never assume a remote named `live` establishes Vercel's connection.
-- `origin` currently points to the GDG organization repository; `live` points to Soham's repository. Verify the Vercel project's connected repository and branch before publishing. See `docs/releasing.md`.
+- `origin` currently points to the GDG organization repository; `live` points to Karan's repository (`Karan-S-Mittal/devfest-indore-2026`), which the owner controls. Verify the Vercel project's connected repository and branch before publishing. See `docs/releasing.md`.
 - Preserve existing working-tree changes. Do not publish, enable checkout or change public claims as an incidental cleanup.
 
 <!-- BEGIN:nextjs-agent-rules -->
@@ -35,10 +36,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Canonical content ownership — 21 October 2026
+## Canonical content ownership — updated 30 October 2026
 
 All editable public website data belongs in `content/*.json`. Read `content/README.md` before editing records. The JSON Schemas in `content/schemas/` and `scripts/validate-content.mjs` enforce the data model. `src/content/` derives typed views that pages import directly; there is no separate `src/data/` compatibility layer. Never restore inline speaker, sponsor or ticket arrays or regenerate them from spreadsheets.
 
-People and organizations are defined once and referenced by stable IDs. Partnerships describe their real contribution and edition without inferring financial tiers. Only confirmed 2026 participation may be published. Keep tentative/private planning data outside public records. Event facts and the checkout switch live in `content/event.json`; pass facts live in `content/tickets.json`.
+People and organizations are defined once and referenced by stable IDs. Partnerships describe their real contribution and edition without inferring financial tiers. Only confirmed 2026 participation may be published. Keep tentative/private planning data outside public records. Event facts and the checkout switch live in `content/event.json`; pass facts (including each pass's price, offer and booking route) live in the same file under the current event's `tickets`.
 
-Run `npm run content:validate` and TypeScript checks for data/model changes. Content validation runs before dev/build. Spreadsheets and `docs/source-archive/` are reference material and must not be imported by application code.
+Run `npm run content:validate` and TypeScript checks for data/model changes. Content validation runs before dev/build. Application code must not import spreadsheets or archived reference material.
