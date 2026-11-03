@@ -10,6 +10,12 @@ Light: #ffffff background, #202124 ink, #4c5159 secondary, #185abc action with w
 
 Body 16px, secondary directory text 13–14px, overlines 13px, lead 18–26px, section headings 28–36px. Hero name is approximately 64–112px, set left above the compact Hindi city/year lockup. Small diagram labels are graphic annotation, not required event details. Date, venue and purchase action remain ordinary readable HTML.
 
+## Layout rhythm and surfaces
+
+Updated 3 November 2026. Pages share one rhythm from `src/app/tokens.css`: sections use `--section-space` (48px desktop, 32px mobile), dense follow-on blocks use `--section-space-tight` (32px / 24px) and every page intro uses `--intro-space` (32px / 24px). Section headings sit 16px above their content. Components take their padding from these tokens; do not add per-page section or intro overrides.
+
+Cards are reserved for things a visitor acts on: passes and people. Everything else is separated by spacing and 1px `--audience-line` rules. Compact cards use 16px padding (20px for pass cards) and `--corner-16`; artwork and photograph windows keep 24px. Section headings use `--audience-h2` (the `--text-h3` scale), card titles 16–22px, metadata 13–14px muted. Every subpage uses the compact intro: page title at `--text-h1-sm`, a 16px lead and a 72px decorative mark from 761px up.
+
 ## Visual language
 
 One Android astronaut illustration carries the hero alongside a single four-point sparkle and a simple orbital motif in rounded windows. Keep generous white space in light mode and quiet dark surfaces in dark mode. Google blue, red, yellow and green are small signals; primary actions, including every ticket purchase action, are yellow with dark ink and an outlined offset shadow. No star fields, neon glows or custom cursors. Artwork remains static; community and sponsor logos use stationary, scrollable rows. Artwork never implies an official product partnership or announced session. Keep original organization logos on white plates in both themes.
@@ -25,6 +31,8 @@ Remaining shared refinements live in `src/app/space.css`, imported after enginee
 - **History preview:** a captioned photo marquee linking to the Archive. Ecosystem community logos appear after the venue; past sponsors and past communities live on `/archive`.
 - **Agenda:** `/agenda` lists confirmed 2026 speakers as ruled rows: role label, name and title beside the session title (or “Session to be announced”), with the biography behind an About disclosure. A portrait column appears only for speakers with a photo; no initials placeholders. The home page carries no speaker section; the hero’s secondary action, the Themes row, header, Explore and footer link to the agenda.
 - **Archive:** one page with anchored Editions, Speakers, Sponsors and Photos sections.
+- **People cards:** `shared/PersonCard` renders team members and ambassadors identically: 48px photo or initials, name, one muted line (role or college) and icon-only profile links, in a `PersonGrid` of three columns from 1000px, two from 600px and one below. `personalSocials()` in `src/content/people.ts` drops the organizer's own Instagram and LinkedIn, which some team records carry as placeholders.
+- **Ambassadors:** the three access-code steps sit above the directory as a numbered row, so students read how Cadet works before searching. Each card shows LinkedIn and, when the person has their own, Instagram.
 - **Compact people:** 72×80 portraits, two-column desktop / one-column mobile rows, all matching speakers in one scrolling list. Group multiple appearances by normalized person name. Biographies and session abstracts stay behind disclosures.
 - **Organizations:** five-column desktop / two-column mobile sponsor logo wall, with all sponsors visible. Event partners follow as a separate compact name wall; source records remain in canonical content; the public archive does not show an artwork/source disclosure. Group repeated names across years within the same relationship.
 - **Workshops:** all session rows visible in a searchable scrolling list, with descriptions in disclosures. Keep dates absent when not supplied. Community event records remain explicitly historical.
@@ -47,7 +55,7 @@ Sessionize owns proposals; KonfHub owns checkout. Preserve eligibility, final-sa
 
 - Keep Get tickets visible in the shared header; Agenda and Themes are secondary text links. Social channels live in the footer, not the header. Explore groups attendee tasks, community destinations and historical directories.
 - The homepage composes the hero, themes, community/history, current partners, exhibit invitation and venue in that order, followed by community and past sponsor logos. Supporting directories have their own routes.
-- The ticket page renders grouped pass inclusions, visible eligibility, disclosed conditions and one shared reminder/policy area. Register leads to the embedded booking section; all Register links scroll to the widget. A separate direct KonfHub fallback retains saved coupons.
+- The ticket page lists inclusions common to every open pass once, under “Every pass includes” (`tickets/PassInclusions`). Each slim pass card then shows its audience, name and price on one row, any offer, only the inclusions it adds, visible eligibility, disclosed conditions and one yellow action. With a single open pass the card lists everything itself. Sold-out passes appear as ruled rows below the widget. Register leads to the embedded booking section; all Register links scroll to the widget. The booking section keeps the LinkedIn and final-sale reminders and the guidelines link in one ruled row. A separate direct KonfHub fallback retains saved coupons.
 - One white KonfHub iframe appears below pass details, with terms above and a direct fallback below. Keep the supplied widget URL intact. Its styles live beside `tickets/KonfHubRegistration.tsx`.
 - Community and sponsor logos use stationary, keyboard-accessible horizontal rows. Their styles live beside `home/LogoRow.tsx`.
 - Keep partner logos on white plates in both themes. Historical sponsor and community records remain separate from current announcements.

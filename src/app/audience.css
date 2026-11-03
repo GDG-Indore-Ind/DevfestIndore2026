@@ -15,9 +15,9 @@ body { font-family: var(--font-sans); }
 .audience-body { font-size: var(--audience-body); line-height: 1.7; color: var(--audience-muted); max-width: 56ch; }
 .audience-button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 48px; padding: 12px 24px; border-radius: var(--corner-pill); background: var(--audience-blue); color: var(--audience-on-blue); font-size: var(--audience-body); font-weight: 500; line-height: 1.4; text-decoration: none; border: 0; }
 .audience-button:hover { filter: brightness(.94); }
-.audience-section { padding-block: 80px; }
+.audience-section { padding-block: var(--section-space); }
 .audience-section-heading { max-width: 62ch; }
-.audience-section h2 { font-size: var(--audience-h2); font-weight: 500; line-height: 1.2; letter-spacing: -.035em; margin: 0 0 20px; text-wrap: balance; }
+.audience-section h2 { font-size: var(--audience-h2); font-weight: 500; line-height: 1.2; letter-spacing: -.035em; margin: 0 0 16px; text-wrap: balance; }
 .audience-section-heading > p { color: var(--audience-muted); font-size: var(--audience-lead); line-height: 1.65; margin: 0; }
 .audience-ticket-band { background: var(--audience-tint); }
 .audience-section-heading > .audience-caption, .audience-caption { font-size: var(--audience-small); line-height: 1.6; color: var(--audience-muted); }
@@ -27,14 +27,14 @@ body { font-family: var(--font-sans); }
 .audience-venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .audience-venue-grid address { margin-block: 20px 24px; font-style: normal; }
 .audience-venue-photo { width: 100%; height: 300px; border-radius: var(--corner-16); object-fit: cover; }
-.audience-faq-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; }
+.audience-faq-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; }
 .audience-faq-list details { border-top: 1px solid var(--audience-line); }
 .audience-faq-list details:last-child { border-bottom: 1px solid var(--audience-line); }
-.audience-faq-list summary { font-size: var(--audience-body); font-weight: 500; padding: 20px 28px 20px 0; cursor: pointer; position: relative; list-style: none; }
+.audience-faq-list summary { font-size: var(--audience-body); font-weight: 500; padding: 14px 28px 14px 0; cursor: pointer; position: relative; list-style: none; }
 .audience-faq-list summary::-webkit-details-marker { display: none; }
-.audience-faq-list summary::after { content: '+'; position: absolute; right: 0; font-size: var(--audience-h3); font-weight: 400; top: 15px; }
+.audience-faq-list summary::after { content: '+'; position: absolute; right: 0; font-size: var(--audience-h3); font-weight: 400; top: 9px; }
 .audience-faq-list details[open] summary::after { content: '−'; }
-.audience-faq-list details > p { margin: 0 0 24px; color: var(--audience-muted); }
+.audience-faq-list details > p { margin: 0 0 16px; color: var(--audience-muted); }
 .audience-footer { background: var(--audience-tint); color: var(--audience-ink); padding-block: 40px; font-family: var(--font-sans); font-size: var(--audience-small); line-height: 1.6; }
 .audience-footer a { display: inline-flex; align-items: center; gap: 6px; color: var(--audience-muted); text-decoration: underline; text-underline-offset: 4px; }
 .audience-footer .audience-caption { max-width: 90ch; }
@@ -45,7 +45,6 @@ body { font-family: var(--font-sans); }
   .audience-brand { gap: 8px; font-size: var(--audience-body); }
   .audience-brand img { width: 28px; height: 28px; }
   .audience-header nav { gap: 16px; }
-  .audience-section { padding-block: 48px; }
   .audience-venue-grid, .audience-faq-layout { grid-template-columns: 1fr; gap: 28px; }
   .audience-venue-photo { height: auto; max-height: 320px; }
 }
@@ -62,7 +61,7 @@ body { font-family: var(--font-sans); }
 .footer-brand { font-size: var(--audience-h3); font-weight: 500; color: var(--audience-ink); }
 .footer-disclaimer { padding-top: 24px; border-top: 1px solid var(--audience-line); margin-bottom: 0; }
 .audience-site :where(section, h2)[id] { scroll-margin-top: 104px; }
-.community-intro { padding-block: 64px; background: var(--audience-hero-bg); }
+.community-intro { padding-block: var(--intro-space); background: var(--audience-hero-bg); }
 .community-intro h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance; }
 .community-intro .audience-body { font-size: var(--audience-lead); margin: 0; }
 .community-filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
@@ -86,13 +85,12 @@ body { font-family: var(--font-sans); }
 .community-page :where(input, select):focus-visible, .community-photo-open:focus-visible { outline: 3px solid var(--audience-blue); outline-offset: 4px; }
 .community-empty { padding: 48px 0; }
 .community-empty p { color: var(--audience-muted); }
-.community-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 28px; }
+.community-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px; }
 .community-gallery figure { min-width: 0; margin: 0; }
 .community-photo-open { position: relative; display: block; width: 100%; border: 0; padding: 0; cursor: zoom-in; border-radius: var(--corner-24); background: none; text-align: left; }
 .community-gallery .community-photo { aspect-ratio: 3 / 2; }
-.community-gallery .community-photo img { object-fit: contain; }
-.community-gallery figure:nth-child(even) .community-photo { border-top-right-radius: 72px; }
-.community-enlarge { position: absolute; bottom: 16px; right: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--corner-24); background: var(--audience-bg); color: var(--audience-ink); font-size: var(--audience-small); }
+.community-gallery .community-photo img { object-fit: cover; }
+.community-enlarge { position: absolute; bottom: 8px; right: 8px; display: inline-flex; align-items: center; gap: 8px; padding: 6px; border-radius: var(--corner-24); background: var(--audience-bg); color: var(--audience-ink); font-size: var(--audience-small); }
 .community-gallery figcaption { padding: 20px 4px; }
 .community-gallery figcaption p { margin: 0; color: var(--audience-muted); }
 .community-dialog { max-width: min(1100px, 94vw); max-height: 92dvh; border: 1px solid var(--audience-line); padding: 20px; border-radius: var(--corner-24); background: var(--audience-bg); color: var(--audience-ink); margin: auto; }
@@ -106,8 +104,7 @@ body { font-family: var(--font-sans); }
 .community-note p { margin: 0; color: var(--audience-muted); max-width: 60ch; }
 .community-note a { flex-shrink: 0; }
 @media (max-width: 760px) {
-  .community-intro { padding-block: 48px; }
-  .community-gallery { grid-template-columns: 1fr; }
+  .community-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .community-note { flex-direction: column; align-items: start; gap: 20px; padding: 24px; }
 }
 @media (max-width: 520px) {
@@ -133,8 +130,6 @@ body { font-family: var(--font-sans); }
 .explore-trigger[aria-expanded='true'] > svg { transform: rotate(180deg); }
 @keyframes explore-enter { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .community-intro::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, var(--mission-grid) 1px, transparent 1px); background-size: 24px 24px; mask-image: linear-gradient(90deg, transparent 40%, black); }
-.ticket-journey .audience-section { padding-block: 64px; }
-.ticket-journey .audience-section h2 { font-size: var(--text-h2); }
 .community-intro { position: relative; isolation: isolate; overflow: hidden; background: var(--audience-bg); border-bottom: 1px solid var(--audience-line); }
 .community-intro > .audience-wrap { position: relative; }
 .community-intro .audience-overline { letter-spacing: .05em; font-size: var(--text-12); }
@@ -142,7 +137,6 @@ body { font-family: var(--font-sans); }
 .audience-site #main-content > div, .audience-site #attendee-policies, .audience-site :where(section, h2)[id] { scroll-margin-top: 96px; }
 @media (max-width: 760px) {
   .explore-header .audience-header-row { min-height: 64px; }
-  .ticket-journey .audience-section { padding-block: 48px; }
 }
 @media (max-width: 520px) {
   .explore-header .audience-brand { font-size: var(--text-15); gap: 8px; }

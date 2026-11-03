@@ -9,11 +9,7 @@ export default function TicketStrip() {
   const copy = HOME_PAGE.ticketStrip;
   if (!OPEN_PASSES.length) return null;
   return (
-    <section
-      id="home-tickets"
-      className={`audience-section ${styles.root}`}
-      aria-labelledby="home-tickets-title"
-    >
+    <section id="home-tickets" className="audience-section" aria-labelledby="home-tickets-title">
       <div className="audience-wrap">
         <div className={styles.heading}>
           <h2 id="home-tickets-title">{copy.title}</h2>

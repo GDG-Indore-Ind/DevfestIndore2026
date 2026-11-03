@@ -6,11 +6,7 @@ const copy = AGENDA_PAGE.comingSoon;
 
 export default function AgendaComingSoon() {
   return (
-    <section
-      id="coming-soon"
-      className={`audience-section ${styles.root}`}
-      aria-labelledby="coming-soon-title"
-    >
+    <section id="coming-soon" className="audience-section" aria-labelledby="coming-soon-title">
       <div className="audience-wrap">
         <p className={styles.badge}>{copy.badge}</p>
         <h2 id="coming-soon-title">

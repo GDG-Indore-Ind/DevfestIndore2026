@@ -1,34 +1,28 @@
-.root {
-  padding-block: 44px;
-}
 .heading h2 {
-  margin: 0 0 8px;
-  font-size: var(--text-h2);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  margin: 0 0 var(--layout-space-2);
 }
 .heading p {
-  margin: 0 0 24px;
+  margin: 0 0 var(--layout-space-4);
   color: var(--audience-muted);
   line-height: 1.5;
 }
 .passes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin: 0 0 24px;
+  gap: var(--layout-space-4);
+  margin: 0 0 var(--layout-space-4);
   padding: 0;
   list-style: none;
 }
 .pass {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 24px;
+  gap: var(--layout-space-3) var(--layout-space-4);
+  padding: 20px;
   border: 1px solid var(--audience-line);
-  border-radius: var(--corner-24);
+  border-radius: var(--corner-16);
   background: var(--audience-bg);
 }
 .pass h3 {
@@ -37,31 +31,32 @@
   align-items: baseline;
   gap: 4px 12px;
   margin: 0;
-  font-size: var(--text-24);
+  font-size: var(--text-22);
   font-weight: 500;
   line-height: 1.2;
 }
 .pass h3 span {
-  font-size: var(--text-20);
+  font-size: var(--text-22);
   font-weight: 700;
 }
 .audience {
   margin: 0 0 4px;
   color: var(--audience-muted);
-  font-size: var(--audience-small);
+  font-size: var(--text-13);
 }
 .offer {
   display: inline-block;
-  margin: 12px 0 0;
+  margin: var(--layout-space-2) 0 0;
   padding: 4px 12px;
   border-radius: var(--corner-pill);
   background: color-mix(in srgb, var(--audience-blue) 10%, transparent);
   color: var(--audience-blue);
-  font-size: var(--audience-small);
+  font-size: var(--text-13);
   font-weight: 600;
 }
 .pass :global(.audience-button) {
-  align-self: flex-start;
+  flex: 1 1 auto;
+  max-width: max-content;
 }
 @media (max-width: 760px) {
   .passes {

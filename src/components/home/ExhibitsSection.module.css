@@ -1,6 +1,3 @@
-.root {
-  padding-block: 44px;
-}
 .panel {
   display: grid;
   overflow: hidden;

@@ -28,6 +28,20 @@ export const VISIBLE_PASSES = PUBLIC_PASSES.filter((pass) => pass.visible);
 export const OPEN_PASSES = VISIBLE_PASSES.filter((pass) => !pass.soldOut);
 export const CLOSED_PASSES = VISIBLE_PASSES.filter((pass) => pass.soldOut);
 export const TICKET_BENEFIT_GROUPS = tickets.benefitGroups;
+const benefitKey = (benefit: TicketBenefit) => `${benefit.group}/${benefit.label}`;
+/** Benefits every open pass includes, listed once above the pass cards. Empty for a single pass. */
+export const SHARED_BENEFITS =
+  OPEN_PASSES.length > 1
+    ? OPEN_PASSES[0].benefits.filter((benefit) =>
+        OPEN_PASSES.every((pass) =>
+          pass.benefits.some((other) => benefitKey(other) === benefitKey(benefit)),
+        ),
+      )
+    : [];
+const sharedBenefitKeys = new Set(SHARED_BENEFITS.map(benefitKey));
+/** What a pass includes beyond the shared list. */
+export const passExtras = (pass: PublicPass) =>
+  pass.benefits.filter((benefit) => !sharedBenefitKeys.has(benefitKey(benefit)));
 export const getPublicPass = (id: PublicPassId) => PUBLIC_PASSES.find((pass) => pass.id === id)!;
 export const REGISTRATION_CHECKLIST = tickets.registrationChecklist;
 export const TICKET_REGISTRATION = tickets.registration;

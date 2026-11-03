@@ -8,11 +8,7 @@ import styles from "./ExhibitsSection.module.css";
 export default function ExhibitsSection() {
   const copy = HOME_PAGE.exhibits;
   return (
-    <section
-      id="exhibits"
-      className={`audience-section ${styles.root}`}
-      aria-labelledby="exhibits-title"
-    >
+    <section id="exhibits" className="audience-section" aria-labelledby="exhibits-title">
       <div className="audience-wrap">
         <div className={styles.panel}>
           <div className={styles.copy}>

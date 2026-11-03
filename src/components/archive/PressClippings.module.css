@@ -7,8 +7,8 @@
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 28px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 20px 16px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -45,7 +45,7 @@
   font-weight: 600;
 }
 .title {
-  font-size: var(--text-18);
+  font-size: var(--text-16);
   font-weight: 500;
   line-height: 1.35;
 }

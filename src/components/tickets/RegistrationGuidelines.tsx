@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import ExternalLink from "@/components/shared/ExternalLink";
 import { EVENT } from "@/content/event";
 import { GUIDELINES_PAGE as page } from "@/content/pages";
@@ -12,21 +12,21 @@ export default function RegistrationGuidelines() {
       id="registration-guidelines"
       aria-labelledby="registration-guidelines-title"
     >
-      <div className="audience-wrap audience-faq-layout">
+      <div className="audience-wrap">
         <div className="audience-section-heading">
           <h2 id="registration-guidelines-title">{page.title}</h2>
           <p>{page.lead}</p>
-          <nav className={styles.jump} aria-label={page.title}>
-            <p>{page.navigationLabel}</p>
-            {page.sections.map((section) => (
-              <a key={section.id} href={`#${section.id}`}>
-                {section.title}
-                <ArrowRight aria-hidden="true" />
-              </a>
-            ))}
-          </nav>
         </div>
-        <div>
+        <nav className={styles.jump} aria-label={page.title}>
+          <p>{page.navigationLabel}</p>
+          {page.sections.map((section) => (
+            <a key={section.id} href={`#${section.id}`}>
+              {section.title}
+              <ArrowDown aria-hidden="true" />
+            </a>
+          ))}
+        </nav>
+        <div className={styles.sections}>
           {page.sections.map((section) => (
             <section
               key={section.id}

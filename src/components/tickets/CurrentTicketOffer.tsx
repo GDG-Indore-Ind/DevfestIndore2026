@@ -1,6 +1,7 @@
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import { OPEN_PASSES as passes } from "@/content/tickets";
 import PassCard from "@/components/tickets/PassCard";
+import PassInclusions from "@/components/tickets/PassInclusions";
 import PageIntro from "@/components/shared/PageIntro";
 import { TICKETS_PAGE as page } from "@/content/pages";
 import styles from "./CurrentTicketOffer.module.css";
@@ -21,6 +22,7 @@ export default function CurrentTicketOffer() {
         aria-label="Pass details"
       >
         <div className={`audience-wrap ${styles.grid}`}>
+          <PassInclusions />
           {passes.map((pass) => (
             <PassCard key={pass.id} pass={pass} />
           ))}

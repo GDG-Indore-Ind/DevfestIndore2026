@@ -1,5 +1,5 @@
 .root {
-  padding-block: 44px;
+  padding-block: var(--section-space);
 }
 .heading {
   display: grid;

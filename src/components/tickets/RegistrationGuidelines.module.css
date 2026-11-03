@@ -1,61 +1,68 @@
 .jump {
-  display: grid;
-  margin-top: 24px;
-  border-top: 1px solid var(--audience-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-space-2);
+  margin-block: var(--layout-space-4) var(--layout-space-6);
 }
 .jump > p {
-  margin: 16px 0 4px;
+  margin: 0 var(--layout-space-2) 0 0;
   color: var(--audience-muted);
   font-size: var(--text-14);
 }
 .jump a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: var(--layout-space-2);
   min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-pill);
   color: var(--audience-ink);
-  font-size: var(--text-15);
+  font-size: var(--text-14);
   text-decoration: none;
 }
 .jump a:hover {
+  border-color: var(--audience-blue);
   color: var(--audience-blue);
 }
 .jump svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
 }
+.sections {
+  display: grid;
+  column-gap: var(--layout-space-12);
+}
 .section {
-  padding-block: 24px;
+  padding-block: var(--layout-space-4) var(--layout-space-6);
   border-top: 1px solid var(--audience-line);
 }
-.section:last-child {
-  border-bottom: 1px solid var(--audience-line);
-}
 .section h3 {
-  margin: 0 0 16px;
-  font-size: var(--text-22);
+  margin: 0 0 var(--layout-space-3);
+  font-size: var(--text-18);
   font-weight: 500;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 .policy + .policy {
-  margin-top: 20px;
+  margin-top: var(--layout-space-3);
 }
 .policy h4 {
-  margin: 0 0 6px;
-  font-size: var(--text-16);
+  margin: 0 0 2px;
+  font-size: var(--text-15);
   font-weight: 600;
   line-height: 1.4;
 }
 .policy p {
   margin: 0;
   color: var(--audience-muted);
-  line-height: 1.7;
+  font-size: var(--text-15);
+  line-height: 1.6;
   overflow-wrap: anywhere;
 }
 .policy .scope {
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   color: var(--audience-blue);
   font-size: var(--text-13);
   font-weight: 500;
@@ -64,17 +71,11 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  margin-top: 12px;
+  margin-top: var(--layout-space-2);
+  font-size: var(--text-15);
 }
-@media (max-width: 760px) {
-  .jump {
+@media (min-width: 900px) {
+  .sections {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 16px;
-  }
-  .jump > p {
-    grid-column: 1 / -1;
-  }
-  .jump a {
-    font-size: var(--text-14);
   }
 }

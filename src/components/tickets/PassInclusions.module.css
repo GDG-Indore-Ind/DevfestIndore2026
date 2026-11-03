@@ -1,0 +1,12 @@
+.root {
+  grid-column: 1 / -1;
+  padding-block: var(--layout-space-4) var(--layout-space-6);
+  border-bottom: 1px solid var(--audience-line);
+}
+.root h2 {
+  margin: 0 0 var(--layout-space-3);
+  font-size: var(--text-18);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+}

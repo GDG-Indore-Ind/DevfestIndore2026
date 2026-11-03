@@ -26,7 +26,7 @@
   --audience-body: var(--text-16);
   --audience-lead: var(--text-18);
   --audience-h3: var(--text-22);
-  --audience-h2: var(--text-h2);
+  --audience-h2: var(--text-h3);
   --audience-h1: clamp(2.75rem, 6vw, 4.5rem);
   --layout-space-1: 4px;
   --layout-space-2: 8px;
@@ -36,6 +36,10 @@
   --layout-space-8: 32px;
   --layout-space-12: 48px;
   --layout-space-16: 64px;
+  /* Page rhythm: every section and page intro takes its padding from these. */
+  --section-space: 48px;
+  --section-space-tight: 32px;
+  --intro-space: 32px;
   --text-10: 0.625rem;
   --text-11: 0.6875rem;
   --text-12: 0.75rem;
@@ -122,4 +126,11 @@
   --space-soft-green: #1c3329;
   --space-yellow-ink: #fbbc04;
   --space-primary-outline: #ffffff;
+}
+@media (max-width: 760px) {
+  :root {
+    --section-space: 32px;
+    --section-space-tight: 24px;
+    --intro-space: 24px;
+  }
 }

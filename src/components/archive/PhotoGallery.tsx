@@ -40,7 +40,6 @@ export default function PhotoGallery() {
               <CommunityPhoto src={item.imageUrl} alt={item.caption} />
               <span className="community-enlarge">
                 <Expand className="audience-icon" aria-hidden="true" />
-                View photo
               </span>
             </button>
           </figure>

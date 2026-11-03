@@ -463,7 +463,7 @@
   }
 }
 .space-subpage .space-page-intro {
-  padding-block: 40px;
+  padding-block: var(--intro-space);
   background: var(--audience-bg);
 }
 .space-subpage .space-page-intro::before {
@@ -475,15 +475,15 @@
   align-items: center;
 }
 .space-subpage .space-page-intro h1 {
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-size: var(--text-h1-sm);
   font-weight: 600;
   max-width: 23ch;
-  margin: 0 0 18px;
+  margin: 0 0 10px;
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
 .space-subpage .space-page-intro .audience-body {
-  font-size: var(--text-18);
+  font-size: var(--text-16);
   max-width: 55ch;
   margin: 0;
 }
@@ -492,15 +492,15 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: var(--audience-muted);
   font-size: var(--text-14);
 }
 .space-page-mark {
   display: none;
   position: relative;
-  width: 156px;
-  height: 156px;
+  width: 72px;
+  height: 72px;
   border-radius: var(--space-window-radius);
   background: var(--space-panel);
   color: var(--space-panel-ink);
@@ -518,7 +518,7 @@
 }
 .space-mark-core {
   position: absolute;
-  inset: 49px;
+  inset: 22px;
   border: 1px solid currentColor;
   border-radius: var(--corner-round);
   display: grid;
@@ -526,13 +526,13 @@
   background: inherit;
 }
 .space-mark-core > svg {
-  width: 28px;
-  height: 28px;
+  width: 16px;
+  height: 16px;
   stroke-width: 1.4;
 }
 .space-mark-orbit {
   position: absolute;
-  inset: 48px 10px;
+  inset: 22px 5px;
   border: 1px solid currentColor;
   opacity: 0.4;
   border-radius: var(--corner-round);
@@ -540,13 +540,13 @@
 }
 .space-mark-star {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 17px;
-  height: 17px;
+  top: 9px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
 }
 .space-subpage .space-directory-section {
-  padding-block: 40px 64px;
+  padding-block: var(--section-space-tight) var(--section-space);
 }
 .space-subpage .archive-navigation {
   gap: 8px;
@@ -617,9 +617,8 @@
   padding: 24px;
   margin: 40px 0 0;
 }
-.space-subpage .community-gallery .community-photo,
-.space-subpage .community-gallery figure:nth-child(even) .community-photo {
-  border-radius: var(--space-window-radius);
+.space-subpage .community-gallery .community-photo {
+  border-radius: var(--corner-12);
 }
 .space-subpage .community-gallery figcaption h2 {
   font-size: var(--text-18);
@@ -630,7 +629,9 @@
   font-size: var(--text-14);
 }
 .space-subpage .community-enlarge {
-  min-height: 44px;
+  min-height: 32px;
+  min-width: 32px;
+  justify-content: center;
 }
 .space-subpage .audience-faq-list details {
   padding-inline: 16px;
@@ -640,7 +641,7 @@
   background: var(--audience-bg);
 }
 .space-subpage .audience-faq-list summary {
-  min-height: 64px;
+  min-height: 52px;
   padding-right: 32px;
 }
 .space-subpage .audience-faq-list details[open] {
@@ -659,21 +660,15 @@
   flex-wrap: wrap;
 }
 @media (min-width: 761px) {
-  .space-subpage .space-page-intro {
-    padding-block: 56px;
-  }
   .space-page-intro-grid {
-    grid-template-columns: minmax(0, 1fr) 156px;
-    gap: 64px;
+    grid-template-columns: minmax(0, 1fr) 72px;
+    gap: 32px;
   }
   .space-page-mark {
     display: block;
   }
   .space-page-intro-grid.space-intro-with-photo {
     grid-template-columns: 1.1fr 1fr;
-  }
-  .space-subpage .space-directory-section {
-    padding-top: 48px;
   }
 }
 @media (max-width: 760px) {
@@ -683,25 +678,6 @@
   .space-subpage .community-search-row > label {
     min-width: 0;
   }
-}
-.compact-community .space-page-intro {
-  padding-block: 28px;
-}
-.compact-community .space-page-intro-grid {
-  display: block;
-}
-.compact-community .space-page-mark {
-  display: none;
-}
-.compact-community .space-page-intro h1 {
-  font-size: var(--text-h1-sm);
-  margin-bottom: 10px;
-}
-.compact-community .space-page-intro .audience-body {
-  font-size: var(--text-16);
-}
-.compact-community .space-directory-section {
-  padding-block: 24px 40px;
 }
 .compact-community .archive-navigation {
   padding-bottom: 18px;
@@ -786,13 +762,13 @@
 }
 .engineering-home
   :is(.edition-themes, .engineering-history, .event-partners-section, .audience-venue-band) {
-  padding-block: 56px;
+  padding-block: var(--section-space);
   border-bottom: 1px solid var(--audience-line);
 }
 .edition-section-heading {
   display: grid;
   gap: 16px;
-  margin-bottom: 28px;
+  margin-bottom: var(--layout-space-6);
 }
 .edition-section-heading .audience-overline {
   margin-bottom: 10px;
@@ -850,22 +826,6 @@
 .event-partner-wordmark {
   font-size: var(--text-20);
   font-weight: 500;
-}
-.ticket-journey .space-page-intro {
-  padding-block: 32px;
-}
-.ticket-journey .space-page-mark {
-  display: none;
-}
-.ticket-journey .space-page-intro-grid {
-  display: block;
-}
-.ticket-journey .space-page-intro h1 {
-  font-size: var(--text-h1-sm);
-  margin-bottom: 10px;
-}
-.ticket-journey .space-page-intro .audience-body {
-  font-size: var(--text-16);
 }
 .edition-footer {
   padding-block: 32px !important;
@@ -945,13 +905,6 @@
   font-size: var(--text-12);
 }
 @media (min-width: 981px) {
-  .engineering-home
-    :is(.edition-themes, .engineering-history, .event-partners-section, .audience-venue-band) {
-    min-height: 680px;
-    padding-block: 56px;
-    display: grid;
-    align-items: center;
-  }
   .edition-section-heading {
     grid-template-columns: 1fr 1fr;
     gap: 48px;
@@ -962,19 +915,7 @@
   margin-block: 28px;
 }
 
-/* Pass selection: inclusions on the left, release and checkout on the right. */
-.ticket-journey .space-page-intro {
-  padding-block: 44px 16px;
-}
-.ticket-journey .space-page-intro h1 {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  letter-spacing: -0.045em;
-}
-
 /* Practical launch pages: readable policies, partner enquiries and arrival. */
-.practical-page .space-page-intro {
-  padding-bottom: 36px;
-}
 .practical-page .space-page-meta {
   display: flex;
   flex-wrap: wrap;
@@ -1001,7 +942,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 32px;
-  padding-block: 24px 48px;
+  padding-block: var(--layout-space-6) var(--section-space);
 }
 .practical-page .audience-text-link {
   display: inline-flex;
@@ -1043,9 +984,6 @@
 .practical-contributions li:first-child {
   padding-top: 0;
   border-top: 0;
-}
-.practical-map-section {
-  padding-block: 40px;
 }
 .practical-map {
   display: block;
@@ -1098,22 +1036,6 @@
   color: var(--audience-ink);
   border: 1px solid var(--audience-ink);
   box-shadow: none;
-}
-.engineering-home
-  :is(.edition-themes, .engineering-history, .event-partners-section) {
-  min-height: 0;
-  padding-block: 44px;
-  display: block;
-}
-.engineering-home .audience-venue-band {
-  min-height: 0;
-  padding-block: 84px;
-  display: block;
-}
-@media (max-width: 760px) {
-  .engineering-home .audience-venue-band {
-    padding-block: 60px;
-  }
 }
 .partner-reveal {
   position: relative;
@@ -1283,12 +1205,8 @@
 .partner-reveal-message p {
   margin-bottom: 20px;
 }
-.ticket-journey .space-page-intro {
-  padding-block: 28px 20px;
-}
-
 .partners-page .practical-application {
-  padding-block: 32px;
+  padding-block: var(--section-space-tight);
   background: transparent;
   border-block: 1px solid var(--audience-line);
 }
@@ -1495,8 +1413,7 @@
 .speaker-directory .speaker-compact {
   grid-template-columns: 56px minmax(0, 1fr);
   gap: 12px;
-  min-height: 144px;
-  padding-block: 16px;
+  padding-block: 12px;
 }
 .speaker-directory .speaker-compact .community-portrait {
   width: 56px;
@@ -1586,9 +1503,6 @@
 }
 .venue-arrival-grid .practical-map {
   height: 360px;
-}
-.space-faq-page .audience-section {
-  padding-block: 32px;
 }
 .space-faq-page .audience-faq-list details {
   padding-inline: 0;

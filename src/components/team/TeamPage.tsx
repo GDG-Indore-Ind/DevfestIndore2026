@@ -3,28 +3,7 @@
 import { useState } from "react";
 import { TEAM } from "@/content/team";
 import CommunityPage from "@/components/layout/CommunityPage";
-import CommunityPhoto from "@/components/shared/CommunityPhoto";
-import ExternalLink from "@/components/shared/ExternalLink";
-import SocialGlyph from "@/components/shared/SocialGlyph";
-import { CodeXml, Globe, BookOpen } from "lucide-react";
-import styles from "./TeamCards.module.css";
-
-const socialLabels: Record<string, string> = {
-  linkedin: "LinkedIn",
-  instagram: "Instagram",
-  twitter: "X",
-  github: "GitHub",
-  website: "Website",
-  blog: "Blog",
-};
-
-function SocialIcon({ platform }: { platform: string }) {
-  if (platform === "linkedin" || platform === "instagram")
-    return <SocialGlyph platform={platform} />;
-  if (platform === "twitter") return <span aria-hidden="true">𝕏</span>;
-  const Icon = platform === "github" ? CodeXml : platform === "blog" ? BookOpen : Globe;
-  return <Icon aria-hidden="true" />;
-}
+import PersonCard, { PersonGrid } from "@/components/shared/PersonCard";
 
 export default function TeamPage() {
   const [category, setCategory] = useState("All");
@@ -57,43 +36,22 @@ export default function TeamPage() {
           {members.length} {members.length === 1 ? "person" : "people"}
         </span>
       </div>
-      <div className={styles.grid}>
+      <PersonGrid>
         {members.map((member) => (
-          <article className={styles.card} key={member.id}>
-            <CommunityPhoto src={member.avatar} alt={member.name} portrait sizes="64px" />
-            <div>
-              <h2>{member.name}</h2>
-              <p>
-                {member.role
-                  .replace(" & GDG Indore Organizer", "")
-                  .replace("GDG Indore Organizer & ", "")
-                  .replace("GDG Indore Organizer", "Organizer")
-                  .replace("Organizer & ", "")}
-              </p>
-              <div className={styles.socials}>
-                {Object.entries(member.socials)
-                  .filter(
-                    ([key, href]) =>
-                      socialLabels[key] &&
-                      href &&
-                      /^https?:\/\//.test(href) &&
-                      !/^https?:\/\/(?:www\.)?instagram\.com\/gdgindore\/?(?:[?#].*)?$/i.test(href),
-                  )
-                  .map(([key, href]) => (
-                    <ExternalLink
-                      key={key}
-                      href={href!}
-                      aria-label={`${member.name} on ${socialLabels[key]}`}
-                      title={`${member.name} on ${socialLabels[key]}`}
-                    >
-                      <SocialIcon platform={key} />
-                    </ExternalLink>
-                  ))}
-              </div>
-            </div>
-          </article>
+          <PersonCard
+            key={member.id}
+            name={member.name}
+            photo={member.avatar}
+            meta={member.role
+              .replace(" & GDG Indore Organizer", "")
+              .replace("GDG Indore Organizer & ", "")
+              .replace("GDG Indore Organizer", "Organizer")
+              .replace("Organizer & ", "")}
+            socials={member.socials}
+            headingLevel="h2"
+          />
         ))}
-      </div>
+      </PersonGrid>
     </CommunityPage>
   );
 }

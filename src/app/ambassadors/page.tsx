@@ -16,6 +16,19 @@ export default function AmbassadorsPage() {
       <Navbar />
       <main id="main-content">
         <PageIntro title={page.title} lead={page.lead} motif="people" />
+        <section className={styles.stepsSection} aria-labelledby="ambassador-steps-title">
+          <div className="audience-wrap">
+            <h2 id="ambassador-steps-title">{page.stepsTitle}</h2>
+            <ol className={styles.steps}>
+              {page.steps.map((step) => (
+                <li key={step.title}>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
         <section className="audience-section" aria-labelledby="ambassador-directory-title">
           <div className="audience-wrap">
             <h2 id="ambassador-directory-title">{page.directoryTitle}</h2>
@@ -27,7 +40,7 @@ export default function AmbassadorsPage() {
                 photo: person.avatar,
                 track,
                 community,
-                linkedin: socials.linkedin,
+                socials,
               }))}
               groups={page.groups}
               copy={{
@@ -39,20 +52,7 @@ export default function AmbassadorsPage() {
                 ambassadorPlural: page.ambassadorPlural,
               }}
             />
-          </div>
-        </section>
-        <section className="audience-section" aria-labelledby="ambassador-steps-title">
-          <div className="audience-wrap">
-            <h2 id="ambassador-steps-title">{page.stepsTitle}</h2>
-            <ol className={styles.steps}>
-              {page.steps.map((step) => (
-                <li key={step.title}>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </li>
-              ))}
-            </ol>
-            <Link href="/tickets" className="audience-text-link">
+            <Link href="/tickets" className={`audience-text-link ${styles.ticketsLink}`}>
               {page.ticketsLabel}
             </Link>
           </div>

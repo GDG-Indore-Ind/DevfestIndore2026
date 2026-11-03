@@ -1,9 +1,9 @@
 .section {
-  padding-block: 40px 8px;
+  padding-block: var(--section-space-tight) 0;
   scroll-margin-top: 96px;
 }
 .section > h2 {
-  margin: 0 0 24px;
+  margin: 0 0 var(--layout-space-4);
   font-size: var(--text-h3);
   font-weight: 500;
   line-height: 1.25;
@@ -12,7 +12,7 @@
 .editions {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 40px;
+  gap: var(--layout-space-4) var(--layout-space-12);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -21,7 +21,7 @@
   display: grid;
   align-content: start;
   gap: 6px;
-  padding-top: 20px;
+  padding-top: var(--layout-space-4);
   border-top: 1px solid var(--audience-line);
   scroll-margin-top: 96px;
 }

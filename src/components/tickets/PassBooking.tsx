@@ -8,7 +8,7 @@ export default function PassBooking({ name }: { name: string }) {
   return TICKET_REGISTRATION_ENABLED ? (
     <a
       href="#registration"
-      className={`audience-button ${styles.register}`}
+      className={`audience-button space-primary-button ${styles.register}`}
       aria-label={`Register — ${name}`}
     >
       {TICKET_REGISTRATION.buttonLabel}

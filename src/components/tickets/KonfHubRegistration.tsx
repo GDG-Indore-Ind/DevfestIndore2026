@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ReceiptText, ScrollText, UserRoundCheck } from "lucide-react";
 import ExternalLink from "@/components/shared/ExternalLink";
 import { TICKET_REGISTRATION_ENABLED, TICKET_WIDGET_URL } from "@/content/booking";
 import { TICKET_REGISTRATION as copy } from "@/content/tickets";
@@ -13,25 +14,28 @@ export default function KonfHubRegistration() {
 
   if (!TICKET_REGISTRATION_ENABLED) return null;
   return (
-    <section
-      className={`audience-section ${styles.root}`}
-      id="registration"
-      aria-labelledby="registration-title"
-    >
+    <section className="audience-section" id="registration" aria-labelledby="registration-title">
       <div className="audience-wrap">
         <div className={styles.heading}>
           <h2 id="registration-title">{copy.widgetHeading}</h2>
           <p>{copy.widgetLead}</p>
         </div>
-        <div id="attendee-policies" className={styles.policies}>
-          <p className={styles.referral}>{copy.profileReminder}</p>
-          <p className={styles.referral}>{copy.finalSaleText}</p>
-        </div>
-        <p className={styles.terms}>
+        <div id="attendee-policies" className={styles.notes}>
+          <ul>
+            <li>
+              <UserRoundCheck className="audience-icon" aria-hidden="true" />
+              {copy.profileReminder}
+            </li>
+            <li>
+              <ReceiptText className="audience-icon" aria-hidden="true" />
+              {copy.finalSaleText}
+            </li>
+          </ul>
           <Link href="/faq#registration-guidelines" className="audience-text-link">
+            <ScrollText className="audience-icon" aria-hidden="true" />
             {copy.termsLabel}
           </Link>
-        </p>
+        </div>
         {referral.coupon && (
           <p className={styles.referral}>
             <strong>{referral.coupon}</strong> — {copy.referralText}

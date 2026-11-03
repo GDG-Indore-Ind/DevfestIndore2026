@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import ProfileLinks from "@/components/shared/ProfileLinks";
+import PersonCard, { PersonGrid } from "@/components/shared/PersonCard";
 import styles from "./page.module.css";
 
 type Ambassador = {
@@ -11,7 +10,7 @@ type Ambassador = {
   photo?: string;
   track: string;
   community: string;
-  linkedin?: string;
+  socials: { linkedin?: string; instagram?: string };
 };
 type Group = { track: string; title: string; lead: string };
 type Copy = {
@@ -58,28 +57,18 @@ export default function AmbassadorDirectory({
             <section key={track} className={styles.group} aria-labelledby={`${track}-title`}>
               <h3 id={`${track}-title`}>{title}</h3>
               <p className={styles.groupLead}>{lead}</p>
-              <div className={styles.directory}>
-                {members.map(({ id, name, photo, community, linkedin }) => (
-                  <article key={id} className={styles.profile} aria-labelledby={`${id}-name`}>
-                    {photo ? (
-                      <Image className={styles.photo} src={photo} alt="" width={48} height={48} />
-                    ) : (
-                      <span className={styles.initials} aria-hidden="true">
-                        {name
-                          .split(/\s+/)
-                          .slice(0, 2)
-                          .map((word) => word[0])
-                          .join("")}
-                      </span>
-                    )}
-                    <div>
-                      <h4 id={`${id}-name`}>{name}</h4>
-                      <p>{community}</p>
-                      {linkedin && <ProfileLinks socials={{ linkedin }} name={name} iconOnly />}
-                    </div>
-                  </article>
+              <PersonGrid>
+                {members.map(({ id, name, photo, community, socials }) => (
+                  <PersonCard
+                    key={id}
+                    name={name}
+                    photo={photo}
+                    meta={community}
+                    socials={socials}
+                    headingLevel="h4"
+                  />
                 ))}
-              </div>
+              </PersonGrid>
             </section>
           );
         })

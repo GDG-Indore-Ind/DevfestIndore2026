@@ -22,15 +22,17 @@ export default function ProfileLinks({
   socials,
   name,
   iconOnly = false,
+  className = "",
 }: {
   socials?: Socials;
+  className?: string;
   /** With `iconOnly`, names the person in each link's accessible label. */
   name?: string;
   /** Show the brand symbol alone instead of the platform name. */
   iconOnly?: boolean;
 }) {
   return (
-    <div className={`${styles.links} ${iconOnly ? styles.iconOnly : ""}`}>
+    <div className={`${styles.links} ${iconOnly ? styles.iconOnly : ""} ${className}`}>
       {Object.entries(socials ?? {})
         .filter(([key, href]) => key in labels && href && /^https?:\/\//.test(href))
         .map(([key, href]) => {
