@@ -287,7 +287,7 @@
       "kind": "person",
       "title": "Chief Consultant",
       "organization": "Nordic Digital Hub Sweden",
-      "bio": "Management Consultant, at  Växjö,  Sweden, for last 13 years\nConsulting organizations for change management and business development strategies, especially for implementing market entry projects in culturally distant markets.\nSenior Manager, Punjab National Bank, HO, New Delhi,  10 years\n Vice President Nozomi InfoTech Pvt. Ltd, Tokyo, Japan  7 yrs",
+      "bio": "Management Consultant, at Växjö, Sweden, for last 13 years\nConsulting organizations for change management and business development strategies, especially for implementing market entry projects in culturally distant markets.\nSenior Manager, Punjab National Bank, HO, New Delhi, 10 years\nVice President Nozomi InfoTech Pvt. Ltd, Tokyo, Japan 7 yrs",
       "photo": "/images/people/gautam-billore.webp",
       "events": [
         {
@@ -444,13 +444,14 @@
       "kind": "person",
       "title": "Senior Cloud Engineer",
       "organization": "Searce Inc",
-      "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\n\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.\n\nLinkedIn - https://www.linkedin.com/in/acloudpotato/\nMedium Profile - https://acloudpotato.medium.com/\nYoutube Channel - https://www.youtube.com/@guysinthecloud\nGithub - https://github.com/acloudpotato",
+      "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\n\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.",
       "photo": "/images/people/abhishek-sharma.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/acloudpotato/",
         "twitter": "https://x.com/acloudpotato",
         "blog": "https://acloudpotato.medium.com/",
-        "website": "https://www.searce.com/"
+        "website": "https://www.searce.com/",
+        "github": "https://github.com/acloudpotato"
       },
       "events": [
         {
@@ -494,11 +495,11 @@
       "kind": "person",
       "title": "Cloud & AI Coach, NASSCOM Mentor, Senior Principal Consultant, Infosys",
       "organization": "Infosys",
-      "bio": "International Award Winning Author,  NASSCOM Mentor Women Techmaker Ambassador, Women Changemaker enabling Millions to Create their Success Stories.",
+      "bio": "International award-winning author, NASSCOM Mentor, Women Techmakers Ambassador and Women Changemaker enabling millions to create their success stories.",
       "photo": "/images/people/ramesh-rajini.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/rameshrajini",
-        "blog": "Https://Rameshrajini.medium.com"
+        "blog": "https://rameshrajini.medium.com"
       },
       "events": [
         {
@@ -542,7 +543,7 @@
       "kind": "person",
       "title": "CEO",
       "organization": "Eternal Infraheight Pvt Ltd",
-      "bio": "For the past 15 years, I've worn many hats in the dynamic world of civil engineering. From the intricacies of the RMC industry to the broader landscape of building materials, I've gained invaluable experience that has shaped me into the entrepreneur I am today.\n\nThis journey hasn't just been about bricks and mortar. It's been about mastering business operating systems, ensuring quality control and assurance, fostering strategic business development, and building high-performing teams through training and motivation.\n\nAs a motivational speaker, I'm passionate about addressing the current challenges faced by young civil engineers and budding professionals. Sharing my experiences and insights with the next generation is incredibly rewarding. For this I have been awarded National Level DB Women Pride Award 2017.  🥇\n\nHaving collaborated with renowned corporates, I've had the privilege of working on diverse projects and learning from industry leaders. These experiences have instilled in me a deep understanding of the industry and the drive to make a positive impact.\n\n Looking ahead, I'm excited to continue:\n\nInnovating within the civil engineering space.\nMentoring future generations of engineers.\nCollaborating with inspiring individuals and organizations.\nIf you're a civil engineer, entrepreneur, or simply interested in the construction industry, I'd love to connect!",
+      "bio": "For the past 15 years, I've worn many hats in the dynamic world of civil engineering. From the intricacies of the RMC industry to the broader landscape of building materials, I've gained invaluable experience that has shaped me into the entrepreneur I am today.\n\nThis journey hasn't just been about bricks and mortar. It's been about mastering business operating systems, ensuring quality control and assurance, fostering strategic business development, and building high-performing teams through training and motivation.\n\nAs a motivational speaker, I'm passionate about addressing the current challenges faced by young civil engineers and budding professionals. Sharing my experiences and insights with the next generation is incredibly rewarding. For this I have been awarded National Level DB Women Pride Award 2017. 🥇\n\nHaving collaborated with renowned corporates, I've had the privilege of working on diverse projects and learning from industry leaders. These experiences have instilled in me a deep understanding of the industry and the drive to make a positive impact.\n\nLooking ahead, I'm excited to continue:\n\nInnovating within the civil engineering space.\nMentoring future generations of engineers.\nCollaborating with inspiring individuals and organizations.\nIf you're a civil engineer, entrepreneur, or simply interested in the construction industry, I'd love to connect!",
       "photo": "/images/people/soumya-upadhyay.webp",
       "events": [
         {
@@ -581,9 +582,7 @@
       "id": "adeen-shukla",
       "name": "Adeen Shukla",
       "kind": "person",
-      "title": "-",
       "organization": "Metafic",
-      "bio": "-",
       "photo": "/images/people/adeen-shukla.webp",
       "links": {
         "linkedin": "https://linkedin.com/in/adeen-s",
@@ -629,7 +628,7 @@
       "kind": "person",
       "title": "North America Consulting head - CRL practice",
       "organization": "Infosys Ltd - USA",
-      "bio": "Manish Gehlot , IIT Bombay Alumni and MBA from university of St. Thomas Minnesota, US, currently working as chief strategist for a socio-climate mass forestation startup Medius Earth, working as Oracle supply chain management consulting head for Infosys consulting North America, have worked with Oracle USA. IBM, Accenture and CP wholesales and hold upper management positions.\n\nFor last 14 years he is working passionately on water conservation, rainwater harvesting and storage. He loves working with youth across the globe to motivate their inner potential.\nHe also supports two family social impact startup - Asmakam Life University on lifeskills vertical and Cotfoo- connecting thru food",
+      "bio": "Manish Gehlot, IIT Bombay Alumni and MBA from university of St. Thomas Minnesota, US, currently working as chief strategist for a socio-climate mass forestation startup Medius Earth, working as Oracle supply chain management consulting head for Infosys consulting North America, have worked with Oracle USA. IBM, Accenture and CP wholesales and hold upper management positions.\n\nFor last 14 years he is working passionately on water conservation, rainwater harvesting and storage. He loves working with youth across the globe to motivate their inner potential.\nHe also supports two family social impact startup - Asmakam Life University on lifeskills vertical and Cotfoo- connecting thru food",
       "photo": "/images/people/manish-gehlot.webp",
       "events": [
         {
@@ -1192,7 +1191,8 @@
             }
           ]
         }
-      ]
+      ],
+      "photo": "/images/people/divya-sharma.webp"
     },
     {
       "id": "siddharth-soni",
@@ -1350,7 +1350,8 @@
             }
           ]
         }
-      ]
+      ],
+      "photo": "/images/people/aditya-bhardwaj.webp"
     },
     {
       "id": "madhav-ratnawat",
@@ -1510,6 +1511,206 @@
             {
               "kind": "speaker",
               "order": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anubhav-singh",
+      "name": "Anubhav Singh",
+      "kind": "person",
+      "title": "Co-founder, CTO",
+      "organization": "Dynopii Inc.",
+      "events": [
+        {
+          "eventId": "ccd-2022",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anmol-krishan-sachdeva",
+      "name": "Anmol Krishan Sachdeva",
+      "kind": "person",
+      "title": "Hybrid Cloud Architect",
+      "organization": "Google",
+      "events": [
+        {
+          "eventId": "ccd-2022",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dharmesh-vaya",
+      "name": "Dharmesh Vaya",
+      "kind": "person",
+      "title": "Senior Enterprise Architect",
+      "events": [
+        {
+          "eventId": "ccd-2022",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 3
+            }
+          ]
+        }
+      ],
+      "organization": "VMware"
+    },
+    {
+      "id": "devendra-rathore",
+      "name": "Devendra Rathore",
+      "kind": "person",
+      "title": "Solution Architect",
+      "organization": "LinkedIn",
+      "events": [
+        {
+          "eventId": "ccd-2022",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mustufa-batterywala",
+      "name": "Mustufa Batterywala",
+      "kind": "person",
+      "title": "Director of Technology",
+      "organization": "Klera",
+      "events": [
+        {
+          "eventId": "ccd-2022",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romin-irani",
+      "name": "Romin Irani",
+      "kind": "person",
+      "title": "Developer Advocate",
+      "organization": "Google Cloud",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "title": "Keynote speaker",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vijaykumar-jangamashetti",
+      "name": "Vijaykumar Jangamashetti",
+      "kind": "person",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bhavesh-bhatt",
+      "name": "Bhavesh Bhatt",
+      "kind": "person",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mahesh-gupta",
+      "name": "Mahesh Gupta",
+      "kind": "person",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r-surahutomo-aziz-pradana",
+      "name": "R Surahutomo Aziz Pradana",
+      "kind": "person",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vaibhav-malpani",
+      "name": "Vaibhav Malpani",
+      "kind": "person",
+      "events": [
+        {
+          "eventId": "ccd-2023",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 6
             }
           ]
         }

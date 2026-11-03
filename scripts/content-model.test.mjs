@@ -115,3 +115,32 @@ test('CCD speaking participation cannot stand in for DevFest participation in th
   talk.eventId='devfest-2025';
   assert(errors(data).some(error=>error.includes('devfest-2025/karan-mittal')));
 });
+test('photos and press must point at an event that exists', () => {
+  const data=fixture();
+  data.gallery.photos.find(item=>item.eventId).eventId='devfest-1999';
+  data.gallery.press[0].eventId='ccd-1999';
+  const found=errors(data);
+  assert(found.some(error=>error.includes('photo') && error.includes('unknown reference devfest-1999')));
+  assert(found.some(error=>error.includes('press') && error.includes('unknown reference ccd-1999')));
+});
+test('every Cloud Community Days edition from 2022 to 2025 is recorded', () => {
+  const ids=original.event.events.filter(item=>item.series==='ccd').map(item=>item.id);
+  assert.deepEqual(ids.sort(), ['ccd-2022','ccd-2023','ccd-2024','ccd-2025']);
+});
+test('reported event figures must be consistent', () => {
+  const data=fixture();
+  const edition=data.event.events.find(item=>item.id==='ccd-2022');
+  edition.stats.students+=1;
+  assert(errors(data).some(error=>error.includes('professionals and students must add up to attendees')));
+  edition.stats.students-=1;
+  edition.stats.attendees=edition.stats.registrations+1;
+  assert(errors(data).some(error=>error.includes('attendees cannot exceed registrations')));
+});
+test('an event cover must be a photograph taken at that event', () => {
+  const data=fixture();
+  const edition=data.event.events.find(item=>item.id==='ccd-2022');
+  edition.cover='devfest-2024-community';
+  assert(errors(data).some(error=>error.includes('was not taken at this event')));
+  edition.cover='no-such-photo';
+  assert(errors(data).some(error=>error.includes('unknown cover photo no-such-photo')));
+});

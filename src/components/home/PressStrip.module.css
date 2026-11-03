@@ -16,18 +16,33 @@
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px 20px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+@media (min-width: 560px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1000px) {
+  .list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 .card {
   display: grid;
   align-content: start;
-  gap: 6px;
+  gap: 8px;
   color: inherit;
   text-decoration: none;
 }

@@ -61,7 +61,20 @@ People without a photo show their initials.
 
 ## Add a newspaper clipping
 
-Save the image as `public/images/press/<event>-<publication>-<short-headline>.jpg` (e.g. `ccd-2025-khulasa-first-ai-in-everyday-work.jpg`), then add a record to `gallery.json` → `press` with an English summary of the headline as `title`, the `event`, the `publication` and `date` when the clipping shows them, plus the image's `width` and `height`. The `/archive` page lists them under “In the news”.
+Save the image as `public/images/press/<event>-<publication>-<short-headline>.jpg` (e.g. `ccd-2025-khulasa-first-ai-in-everyday-work.jpg`), then add a record to `gallery.json` → `press` with an English summary of the headline as `title`, the `eventId` (an id from `event.json`), the `publication` and `date` when the clipping shows them, plus the image's `width` and `height`. The `/archive` page lists them under “In the news”.
+
+## Record a past edition
+
+Past editions are records in `event.json` with `status: "past"`. Record only what you can source; every field after the first five is optional.
+
+- `id`, `name`, `date`, `venue.name`, `summary` and `source` (the official GDG event page) are required. `officialSpeakerIds` can be empty.
+- `series` groups editions of one event: `devfest` or `ccd` (Cloud Community Days). Both series are listed on `/archive`.
+- `theme` only when the organizers stated one.
+- `stats` holds figures from the organizers' event report: `registrations`, `rsvps`, `attendees`, `speakers`, `sessions`, `sponsors`, `professionals`, `students`. Leave out any figure that was not recorded. Set `approximate: true` when the report rounds ("600+"). Validation rejects attendees above registrations and professionals plus students that differ from attendees.
+- `recordingUrl` is the full public recording.
+- Sponsorship decks hold prices, tiers and private contact details. Never copy those here; take only event figures and facts.
+
+Tag every photo and clipping with the event it belongs to: `eventId` in `gallery.json` (optional on a photo whose event is unknown, required on a clipping). Validation fails on an id that does not exist, so add the event record first.
 
 ## Add a talk
 

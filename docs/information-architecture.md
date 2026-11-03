@@ -28,7 +28,8 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/invite/[slug]` | Retired invitation URLs redirect to `/ambassadors`, preserving query values |
 | `/events` | Campus workshops and community event records |
 | `/workshops` | Permanent redirect to `/events#workshops` |
-| `/archive` | Past editions, speakers, sponsors and photographs (anchors `#editions`, `#speakers`, `#sponsors`, `#photos`) |
+| `/archive` | Past editions as image cards, plus photographs and press (anchors `#editions`, `#photos`, `#press`) |
+| `/archive/<event-id>` | One past edition: summary, reported figures, speakers with their talks, photographs, press and partner communities |
 | `/past-events`, `/past-speakers`, `/past-sponsors`, `/gallery`, `/talks`, `/people/[id]`, `/organizations/[id]` | Permanent redirects to `/archive`, `/team` or `/partners` |
 | `/team` | Organizer directory |
 | `/faq` | Event and ticket questions, then the full registration guidelines (eligibility, check-in, workshops, ticket policy, conduct) |

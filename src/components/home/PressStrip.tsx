@@ -14,9 +14,14 @@ export default function PressStrip() {
     <div className={styles.root}>
       <div className={styles.heading}>
         <h3 id="home-press-title">{ARCHIVE_PAGE.pressTitle}</h3>
-        <ContentAction href="/archive#press" icon="history" tone="blue">
-          {HOME_PAGE.pressLabel}
-        </ContentAction>
+        <div className={styles.actions}>
+          <ContentAction href="/archive#press" icon="history" tone="blue">
+            {HOME_PAGE.pressLabel}
+          </ContentAction>
+          <ContentAction href="/archive#photos" icon="gallery" tone="green">
+            {HOME_PAGE.photoArchiveLabel}
+          </ContentAction>
+        </div>
       </div>
       <ul className={styles.list} aria-labelledby="home-press-title">
         {items.map((item) => (

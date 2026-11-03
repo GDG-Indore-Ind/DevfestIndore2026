@@ -75,44 +75,8 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
       })),
   ).sort((a, b) => a.order - b.order);
 }
-export function getHistoricalSponsors() {
-  return ORGANIZATIONS.flatMap((organization) =>
-    organization.partnerships
-      .filter(
-        (partnership) =>
-          partnership.editionId === "historical" &&
-          partnership.contributions.some((item) => item.kind === "sponsor") &&
-          partnership.publication === "archived",
-      )
-      .map((partnership) => ({ ...organization, order: partnership.order ?? 9999 })),
-  ).sort((a, b) => a.order - b.order);
-}
 export const CONFIRMED_EVENT_PARTNERS = getEventPartners();
 export const ECOSYSTEM_PARTNERS = getEventPartners("ecosystem");
-export const ARCHIVED_COMMUNITIES = ORGANIZATIONS.flatMap((organization) => {
-  const appearances = organization.partnerships.filter(
-    (partnership) =>
-      partnership.contributions.some((item) => item.kind === "community") &&
-      partnership.publication !== "ecosystem" &&
-      partnership.editionId !== EVENT.id &&
-      partnership.visible !== false &&
-      /^devfest-20\d\d$/.test(partnership.editionId),
-  );
-  return appearances.length
-    ? [
-        {
-          ...organization,
-          years: [...new Set(appearances.map((item) => item.editionId.replace(/^devfest-/, "")))]
-            .sort()
-            .reverse(),
-        },
-      ]
-    : [];
-});
-export const HISTORICAL_COMMUNITIES = ARCHIVED_COMMUNITIES.filter(
-  (organization) => !organization.partnerships.some((item) => item.editionId === "ecosystem"),
-);
-export const HISTORICAL_SPONSORS = getHistoricalSponsors();
 export function getCommunityUrl(
   organization: Pick<Organization, "websiteUrl" | "socialUrl">,
 ): string | undefined {

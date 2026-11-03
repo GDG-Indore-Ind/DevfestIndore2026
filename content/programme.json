@@ -418,7 +418,7 @@
       "eventId": "devfest-2024",
       "publication": "archived",
       "title": "Meet new people with GenAI - Harnessing Firebase Genkit, PostgreSQL, and Vector Search",
-      "role": "-",
+      "role": "",
       "company": "Metafic",
       "description": "Unlock the potential of the latest Firebase innovations: Genkit and Firebase Data Connect! Supercharge your app development process with the seamless integration of relational databases and cutting-edge generative AI capabilities.\r\n\r\nDive into the exciting world of embeddings, vector search, and structured output, making interactions with LLMs as straightforward as working with familiar APIs.\r\n\r\nIn this hands-on session, we’ll create a dynamic networking app using Next.js, complete with personalized user recommendations and AI-generated conversation starters—powered by Genkit and Firebase Data Connect. Learn how to harness your app's data securely and efficiently to craft exceptional AI-driven user experiences!",
       "spotlightBadge": "Engineering Leader",
@@ -732,6 +732,91 @@
       "spotlightBadge": "",
       "category": "GenAI",
       "track": "Edge AI"
+    },
+    {
+      "type": "talk",
+      "id": "sp-ccd-2022-anubhav-singh",
+      "eventId": "ccd-2022",
+      "speakerIds": [
+        "anubhav-singh"
+      ],
+      "publication": "archived",
+      "title": "Let’s Design a High Availability ML Heavy Cloud Solution Architecture",
+      "role": "Co-founder, CTO",
+      "company": "Dynopii Inc.",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Cloud",
+      "format": "talk",
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
+    },
+    {
+      "type": "talk",
+      "id": "sp-ccd-2022-anmol-krishan-sachdeva",
+      "eventId": "ccd-2022",
+      "speakerIds": [
+        "anmol-krishan-sachdeva"
+      ],
+      "publication": "archived",
+      "title": "Seamless API Lifecycle Management Using Google Apigee",
+      "role": "Hybrid Cloud Architect",
+      "company": "Google",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Cloud",
+      "format": "talk",
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
+    },
+    {
+      "type": "talk",
+      "id": "sp-ccd-2022-dharmesh-vaya",
+      "eventId": "ccd-2022",
+      "speakerIds": [
+        "dharmesh-vaya"
+      ],
+      "publication": "archived",
+      "title": "Multi-Tenancy in GKE",
+      "role": "Senior Enterprise Architect",
+      "company": "VMware",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Cloud",
+      "format": "talk",
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
+    },
+    {
+      "type": "talk",
+      "id": "sp-ccd-2022-devendra-rathore",
+      "eventId": "ccd-2022",
+      "speakerIds": [
+        "devendra-rathore"
+      ],
+      "publication": "archived",
+      "title": "Scaling Up Blockchain, NFT, NFC with Google Cloud",
+      "role": "Solution Architect",
+      "company": "LinkedIn",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Cloud",
+      "format": "talk",
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
+    },
+    {
+      "type": "talk",
+      "id": "sp-ccd-2022-mustufa-batterywala",
+      "eventId": "ccd-2022",
+      "speakerIds": [
+        "mustufa-batterywala"
+      ],
+      "publication": "archived",
+      "title": "Cloud Cost Optimization",
+      "role": "Director of Technology",
+      "company": "Klera",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "Cloud",
+      "format": "talk",
+      "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
     }
   ]
 }

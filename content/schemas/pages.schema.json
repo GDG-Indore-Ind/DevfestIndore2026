@@ -13,7 +13,6 @@
     "faq",
     "workshops",
     "archive",
-    "pastSpeakers",
     "ambassadors",
     "agenda"
   ],
@@ -295,9 +294,6 @@
         "heroDescription",
         "venueLead",
         "photoArchiveLabel",
-        "photoMarqueeLabel",
-        "photoMarqueePauseLabel",
-        "photoMarqueePlayLabel",
         "themeSelectorLabel",
         "themeContributionLabel",
         "ticketStrip",
@@ -338,18 +334,6 @@
           "$ref": "#/definitions/text"
         },
         "photoArchiveLabel": {
-          "type": "string",
-          "minLength": 1
-        },
-        "photoMarqueeLabel": {
-          "type": "string",
-          "minLength": 1
-        },
-        "photoMarqueePauseLabel": {
-          "type": "string",
-          "minLength": 1
-        },
-        "photoMarqueePlayLabel": {
           "type": "string",
           "minLength": 1
         },
@@ -711,8 +695,15 @@
         "description",
         "lead",
         "editionsTitle",
+        "recordLabel",
+        "recordingLabel",
+        "themeLabel",
+        "statsLabel",
+        "statLabels",
+        "editionBackLabel",
+        "otherEditionsTitle",
+        "partnersTitle",
         "speakersTitle",
-        "sponsorsTitle",
         "photosTitle",
         "pressTitle",
         "pressLead",
@@ -731,10 +722,68 @@
         "editionsTitle": {
           "$ref": "#/definitions/text"
         },
-        "speakersTitle": {
+        "recordLabel": {
           "$ref": "#/definitions/text"
         },
-        "sponsorsTitle": {
+        "recordingLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "themeLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "statsLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "statLabels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "registrations",
+            "rsvps",
+            "attendees",
+            "speakers",
+            "sessions",
+            "sponsors",
+            "professionals",
+            "students"
+          ],
+          "properties": {
+            "registrations": {
+              "$ref": "#/definitions/text"
+            },
+            "rsvps": {
+              "$ref": "#/definitions/text"
+            },
+            "attendees": {
+              "$ref": "#/definitions/text"
+            },
+            "speakers": {
+              "$ref": "#/definitions/text"
+            },
+            "sessions": {
+              "$ref": "#/definitions/text"
+            },
+            "sponsors": {
+              "$ref": "#/definitions/text"
+            },
+            "professionals": {
+              "$ref": "#/definitions/text"
+            },
+            "students": {
+              "$ref": "#/definitions/text"
+            }
+          }
+        },
+        "editionBackLabel": {
+          "$ref": "#/definitions/text"
+        },
+        "otherEditionsTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "partnersTitle": {
+          "$ref": "#/definitions/text"
+        },
+        "speakersTitle": {
           "$ref": "#/definitions/text"
         },
         "photosTitle": {
@@ -747,70 +796,6 @@
           "$ref": "#/definitions/text"
         },
         "pressViewLabel": {
-          "$ref": "#/definitions/text"
-        }
-      }
-    },
-    "pastSpeakers": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "searchLabel",
-        "searchPlaceholder",
-        "editionLabel",
-        "trackLabel",
-        "allEditions",
-        "allTracks",
-        "speakerSingular",
-        "speakerPlural",
-        "sessionLabel",
-        "sessionsLabel",
-        "sourceLabel",
-        "emptyTitle",
-        "emptyText",
-        "clearLabel"
-      ],
-      "properties": {
-        "searchLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "searchPlaceholder": {
-          "$ref": "#/definitions/text"
-        },
-        "editionLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "trackLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "allEditions": {
-          "$ref": "#/definitions/text"
-        },
-        "allTracks": {
-          "$ref": "#/definitions/text"
-        },
-        "speakerSingular": {
-          "$ref": "#/definitions/text"
-        },
-        "speakerPlural": {
-          "$ref": "#/definitions/text"
-        },
-        "sessionLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "sessionsLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "sourceLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyText": {
-          "$ref": "#/definitions/text"
-        },
-        "clearLabel": {
           "$ref": "#/definitions/text"
         }
       }

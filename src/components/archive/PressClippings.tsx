@@ -19,7 +19,16 @@ function source(item: PressClipping) {
   return [item.publication, published].filter(Boolean).join(" · ");
 }
 
-export default function PressClippings() {
+export default function PressClippings({
+  eventId,
+  showLead = true,
+}: {
+  eventId?: string;
+  showLead?: boolean;
+}) {
+  const items = eventId
+    ? PRESS_CLIPPINGS.filter((clipping) => clipping.eventId === eventId)
+    : PRESS_CLIPPINGS;
   const [selected, setSelected] = useState<PressClipping | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   function open(item: PressClipping) {
@@ -28,9 +37,9 @@ export default function PressClippings() {
   }
   return (
     <>
-      <p className={styles.lead}>{copy.pressLead}</p>
+      {showLead && <p className={styles.lead}>{copy.pressLead}</p>}
       <ul className={styles.grid}>
-        {PRESS_CLIPPINGS.map((item) => (
+        {items.map((item) => (
           <li key={item.id}>
             <button
               type="button"

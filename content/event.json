@@ -376,7 +376,13 @@
       ],
       "name": "DevFest Indore 2025",
       "type": "devfest",
-      "status": "past"
+      "status": "past",
+      "series": "devfest",
+      "cover": "archive-group-1",
+      "stats": {
+        "attendees": 600,
+        "approximate": true
+      }
     },
     {
       "id": "devfest-2024",
@@ -389,7 +395,10 @@
       "officialSpeakerIds": [],
       "name": "DevFest Indore 2024",
       "type": "devfest",
-      "status": "past"
+      "status": "past",
+      "series": "devfest",
+      "cover": "devfest-2024-community",
+      "theme": "Responsible AI"
     },
     {
       "id": "devfest-2023",
@@ -402,7 +411,9 @@
       "officialSpeakerIds": [],
       "name": "DevFest Indore 2023",
       "type": "devfest",
-      "status": "past"
+      "status": "past",
+      "series": "devfest",
+      "cover": "devfest-2023-photo-wall"
     },
     {
       "id": "devfest-2022",
@@ -415,7 +426,8 @@
       "officialSpeakerIds": [],
       "name": "DevFest Indore 2022",
       "type": "devfest",
-      "status": "past"
+      "status": "past",
+      "series": "devfest"
     },
     {
       "id": "ai-unplugged-2025",
@@ -460,6 +472,87 @@
       ],
       "name": "Cloud Community Days Indore 2025",
       "type": "community",
+      "status": "past",
+      "series": "ccd",
+      "cover": "ccd-2025-conversations"
+    },
+    {
+      "id": "ccd-2024",
+      "date": "2024-08-31",
+      "venue": {
+        "name": "Sayaji Hotel Indore"
+      },
+      "summary": "A one-day GDG Cloud Indore event of talks, workshops, demos and networking on Google Cloud and AI.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2024",
+      "officialSpeakerIds": [],
+      "name": "Cloud Community Days Indore 2024",
+      "type": "community",
+      "series": "ccd",
+      "cover": "ccd-2024-volunteer",
+      "status": "past"
+    },
+    {
+      "id": "ccd-2023",
+      "date": "2023-05-20",
+      "venue": {
+        "name": "Sayaji Hotel Indore"
+      },
+      "summary": "A one-day GDG Cloud Indore event with six sessions from experts, including Google Developer Experts, and networking for the cloud community.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-google-cloud-community-day-indore-2023",
+      "officialSpeakerIds": [
+        "romin-irani",
+        "vijaykumar-jangamashetti",
+        "bhavesh-bhatt",
+        "mahesh-gupta",
+        "r-surahutomo-aziz-pradana",
+        "vaibhav-malpani"
+      ],
+      "name": "Cloud Community Days Indore 2023",
+      "type": "community",
+      "series": "ccd",
+      "cover": "ccd-2023-audience",
+      "stats": {
+        "registrations": 2937,
+        "rsvps": 480,
+        "attendees": 320,
+        "speakers": 6,
+        "sessions": 6,
+        "sponsors": 7,
+        "professionals": 171,
+        "students": 149
+      },
+      "recordingUrl": "https://www.youtube.com/watch?v=JNXMPV2k3G8",
+      "status": "past"
+    },
+    {
+      "id": "ccd-2022",
+      "date": "2022-09-10",
+      "venue": {
+        "name": "Sayaji Hotel Indore"
+      },
+      "summary": "Five sessions on Google Cloud, from API management and GKE multi-tenancy to cost optimization, with networking for cloud developers at all levels.",
+      "source": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022",
+      "officialSpeakerIds": [
+        "anubhav-singh",
+        "anmol-krishan-sachdeva",
+        "dharmesh-vaya",
+        "devendra-rathore",
+        "mustufa-batterywala"
+      ],
+      "name": "Cloud Community Days Indore 2022",
+      "type": "community",
+      "series": "ccd",
+      "cover": "ccd-2022-audience",
+      "stats": {
+        "registrations": 781,
+        "rsvps": 320,
+        "attendees": 325,
+        "speakers": 5,
+        "sessions": 5,
+        "professionals": 125,
+        "students": 200
+      },
+      "recordingUrl": "https://www.youtube.com/watch?v=_aWn5xqd0eg",
       "status": "past"
     }
   ]

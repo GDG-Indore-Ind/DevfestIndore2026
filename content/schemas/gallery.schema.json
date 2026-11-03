@@ -32,6 +32,11 @@
               "Pre-DevFest Workshops"
             ]
           },
+          "eventId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "description": "The event the photograph was taken at. Leave out when it is not known."
+          },
           "imageUrl": {
             "type": "string",
             "pattern": "^(https://|/[^/])"
@@ -82,9 +87,10 @@
             "minLength": 1,
             "description": "English summary of the headline."
           },
-          "event": {
+          "eventId": {
             "type": "string",
-            "minLength": 1
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "description": "The event the coverage is about."
           },
           "publication": {
             "type": "string",
@@ -110,7 +116,7 @@
         "required": [
           "id",
           "title",
-          "event",
+          "eventId",
           "imageUrl",
           "width",
           "height"

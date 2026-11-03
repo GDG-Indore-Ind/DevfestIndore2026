@@ -18,17 +18,6 @@
 .archive-navigation a:hover { color: var(--audience-blue); }
 .archive-subsection { margin-block: 40px; scroll-margin-top: 96px; }
 .archive-subsection > h2 { font-size: var(--text-24); }
-.speaker-compact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-block: 12px 28px; align-items: start; }
-.speaker-compact { display: grid; grid-template-columns: 72px 1fr; align-items: start; gap: 20px; min-width: 0; padding-block: 24px; border-top: 1px solid var(--audience-line); }
-.speaker-compact .community-portrait { width: 72px; height: 80px; aspect-ratio: auto; border-radius: var(--corner-4); background: var(--engineering-paper); }
-.speaker-compact .community-initials { font-size: var(--text-20); }
-.speaker-compact :where(h2, h3) { font-size: var(--text-18); font-weight: 500; line-height: 1.35; letter-spacing: -.02em; margin: 0 0 6px; }
-.speaker-compact > div > p { margin: 0 0 6px; color: var(--audience-muted); font-size: var(--text-13); overflow-wrap: anywhere; }
-.speaker-compact > div { min-width: 0; }
-.speaker-compact .community-details { margin: 8px 0 0; }
-.speaker-compact .community-details summary { display: list-item; min-height: 44px; align-content: center; }
-.speaker-appearance { border-top: 1px solid var(--audience-line); padding-top: 16px; }
-.speaker-appearance + .speaker-appearance { margin-top: 20px; }
 .community-event-list > article { display: grid; grid-template-columns: 24px 1fr auto; gap: 24px; padding-block: 28px; border-bottom: 1px solid var(--audience-line); }
 .community-event-list > article > svg { width: 24px; height: 24px; margin-top: 8px; color: var(--audience-blue); stroke-width: 1.5; }
 .community-event-list h3 { font-size: var(--text-20); font-weight: 500; margin: 0 0 8px; line-height: 1.4; }
@@ -40,8 +29,6 @@
 @media (max-width: 760px) {
   .header-utilities { gap: 8px; }
   .explore-header .audience-header-row { min-height: 72px; gap: 12px; }
-  .speaker-compact-grid { grid-template-columns: 1fr; }
-  .speaker-compact { gap: 16px; padding-block: 20px; }
   .community-event-list > article { grid-template-columns: 24px 1fr; gap: 16px; }
   .community-event-list > article > a { grid-column: 2; justify-self: start; }
   .archive-navigation { gap: 4px 20px; margin-bottom: 28px; }
@@ -51,7 +38,6 @@
   .audience-header .audience-brand img { width: 28px; height: 28px; }
   .explore-trigger { padding-inline: 10px; gap: 8px; }
 }
-.speaker-appearance > .audience-external-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
 :root:has(.audience-site) { scrollbar-color: var(--engineering-rule) var(--audience-bg); }
 :root:has(.audience-site) ::-webkit-scrollbar-track { background: var(--audience-bg); }
 :root:has(.audience-site) ::-webkit-scrollbar-thumb { background: var(--engineering-rule); border-radius: var(--corner-4); }

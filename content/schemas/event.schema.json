@@ -575,6 +575,81 @@
                   "pattern": "^[a-z0-9][a-z0-9-]*$"
                 }
               },
+              "series": {
+                "enum": [
+                  "devfest",
+                  "ccd"
+                ],
+                "description": "Groups editions of the same event: DevFest Indore or Cloud Community Days."
+              },
+              "cover": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]*$",
+                "description": "Id of a photograph in gallery.json taken at this event, shown on the archive card. Leave out when there is no photograph yet."
+              },
+              "theme": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The edition's central theme, only where the organizers stated one."
+              },
+              "stats": {
+                "type": "object",
+                "additionalProperties": false,
+                "description": "Figures reported by the organizers in their event report. Leave out any figure that was not recorded.",
+                "properties": {
+                  "registrations": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "People who registered."
+                  },
+                  "rsvps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "People who confirmed attendance."
+                  },
+                  "attendees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "People who attended or checked in."
+                  },
+                  "speakers": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of speakers."
+                  },
+                  "sessions": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of sessions."
+                  },
+                  "sponsors": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of sponsors."
+                  },
+                  "professionals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Attendees who were working professionals."
+                  },
+                  "students": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Attendees who were students."
+                  },
+                  "approximate": {
+                    "type": "boolean",
+                    "description": "True when the organizers rounded the figures, such as '600+'."
+                  }
+                },
+                "required": []
+              },
+              "recordingUrl": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://",
+                "description": "Full public recording of the event."
+              },
               "name": {
                 "type": "string",
                 "minLength": 1

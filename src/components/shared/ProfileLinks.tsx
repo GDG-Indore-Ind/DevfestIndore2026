@@ -23,8 +23,11 @@ export default function ProfileLinks({
   name,
   iconOnly = false,
   className = "",
+  platforms,
 }: {
   socials?: Socials;
+  /** Limit the links to these platforms. */
+  platforms?: (keyof Socials)[];
   className?: string;
   /** With `iconOnly`, names the person in each link's accessible label. */
   name?: string;
@@ -34,7 +37,13 @@ export default function ProfileLinks({
   return (
     <div className={`${styles.links} ${iconOnly ? styles.iconOnly : ""} ${className}`}>
       {Object.entries(socials ?? {})
-        .filter(([key, href]) => key in labels && href && /^https?:\/\//.test(href))
+        .filter(
+          ([key, href]) =>
+            key in labels &&
+            (!platforms || platforms.includes(key as keyof Socials)) &&
+            href &&
+            /^https?:\/\//.test(href),
+        )
         .map(([key, href]) => {
           const glyph =
             key === "linkedin" || key === "instagram" ? (
@@ -42,7 +51,10 @@ export default function ProfileLinks({
             ) : (
               (() => {
                 const Icon = icons[key as keyof typeof icons];
-                return <Icon className="audience-icon" aria-hidden="true" />;
+                // The icon-only rule hides `.audience-icon`, which would hide this symbol too.
+                return (
+                  <Icon className={iconOnly ? undefined : "audience-icon"} aria-hidden="true" />
+                );
               })()
             );
           const label = name ? `${name} on ${labels[key]}` : labels[key];

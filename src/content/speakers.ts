@@ -1,6 +1,5 @@
 import { TALKS } from "./programme";
-import { PAST_EVENTS } from "./event";
-import type { PastSpeaker, SessionRecord } from "./model";
+import type { SessionRecord } from "./model";
 import { getPerson } from "./people";
 import { EVENT } from "./event";
 import { PARTICIPATIONS } from "./participations";
@@ -17,37 +16,7 @@ export function getSessionSpeaker(session: SessionRecord, personId: string) {
     company: snapshot?.company ?? (firstSpeaker ? session.company : current.company) ?? "",
   };
 }
-export function getArchivedSpeakers(): PastSpeaker[] {
-  const editions = new Set(
-    PAST_EVENTS.filter((event) => event.kind === "DevFest").map((event) => event.id),
-  );
-  return SESSION_RECORDS.filter(
-    (session) => editions.has(session.editionId) && session.editionId !== EVENT.id,
-  ).flatMap((session) =>
-    session.speakerIds.map((personId) => {
-      const person = getSessionSpeaker(session, personId);
-      return {
-        id: session.id,
-        personId,
-        name: person.name,
-        role: person.role,
-        company: person.company,
-        year: session.editionId.replace(/^devfest-/, ""),
-        topic: session.title,
-        description: session.description,
-        bio: person.bio,
-        avatar: person.avatar ?? "",
-        spotlightBadge: session.spotlightBadge,
-        category: session.category,
-        track: session.track,
-        level: session.level,
-        socials: person.socials,
-      };
-    }),
-  );
-}
 export const CURRENT_SPEAKERS = PARTICIPATIONS.filter(
   (item) => item.eventId === EVENT.id && item.roles.some((role) => role.kind === "speaker"),
 ).map((item) => ({ ...getPerson(item.personId), participationId: item.id }));
 export const CURRENT_SESSIONS = SESSION_RECORDS.filter((session) => session.editionId === EVENT.id);
-export const ARCHIVED_SPEAKERS = getArchivedSpeakers();

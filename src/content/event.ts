@@ -1,4 +1,5 @@
 import eventFile from "../../content/event.json";
+import type { EventStats } from "./model";
 const current = eventFile.events.find((event) => event.status === "current");
 if (!current || !current.tickets)
   throw new Error("A current event is required. Run npm run content:validate.");
@@ -21,6 +22,11 @@ export const PAST_EVENTS = eventFile.events
     kind: ({ devfest: "DevFest", community: "Community event", online: "Online session" } as const)[
       event.type as "devfest" | "community" | "online"
     ],
+    series: event.series as "devfest" | "ccd" | undefined,
+    coverId: event.cover,
+    theme: event.theme,
+    stats: event.stats as EventStats | undefined,
+    recordingUrl: event.recordingUrl,
     summary: event.summary!,
     source: event.source!,
     publication: "archived" as const,

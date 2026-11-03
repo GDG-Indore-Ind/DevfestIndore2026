@@ -9,30 +9,27 @@ export interface TeamMember {
   order?: number;
   socials: Socials;
 }
-export interface PastSpeaker {
-  id: string;
-  personId: string;
-  name: string;
-  role: string;
-  company: string;
-  year: string;
-  topic: string;
-  description?: string;
-  bio?: string;
-  avatar: string;
-  spotlightBadge: string;
-  category:
-    | "GenAI"
-    | "Cloud"
-    | "Mobile & Flutter"
-    | "Web"
-    | "Leadership & Ecosystem"
-    | "Space Technology"
-    | "Physical AI & Robotics"
-    | "Data & Systems";
-  track?: string;
-  level?: string;
-  socials?: Socials;
+export type SessionCategory =
+  | "GenAI"
+  | "Cloud"
+  | "Mobile & Flutter"
+  | "Web"
+  | "Leadership & Ecosystem"
+  | "Space Technology"
+  | "Physical AI & Robotics"
+  | "Data & Systems";
+/** Figures the organizers reported for an edition; each is left out when it was not recorded. */
+export interface EventStats {
+  registrations?: number;
+  rsvps?: number;
+  attendees?: number;
+  speakers?: number;
+  sessions?: number;
+  sponsors?: number;
+  professionals?: number;
+  students?: number;
+  /** True when the figures were rounded, such as "600+". */
+  approximate?: boolean;
 }
 export interface ArchivedEvent {
   id: string;
@@ -41,10 +38,15 @@ export interface ArchivedEvent {
   displayDate: string;
   venue: string;
   kind: "DevFest" | "Community event" | "Online session";
+  series?: "devfest" | "ccd";
+  /** Cover photograph for the archive card, resolved from the event's `cover` id. */
+  coverImage?: { src: string; alt: string };
+  theme?: string;
+  stats?: EventStats;
+  recordingUrl?: string;
   summary: string;
   source: string;
   partners: string[];
-  speakerNames?: string[];
 }
 export interface EventPartner {
   id: string;
@@ -82,6 +84,8 @@ export interface GalleryItem {
   title: string;
   category:
     "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
+  /** The event the photograph was taken at, when known. */
+  eventId?: string;
   imageUrl: string;
   caption: string;
   source?: string;
@@ -147,7 +151,7 @@ export interface SessionRecord {
   company: string;
   description: string;
   spotlightBadge: string;
-  category: PastSpeaker["category"];
+  category: SessionCategory;
   track?: string;
   level?: string;
   profile?: Partial<Pick<Person, "avatar" | "bio" | "socials">>;
@@ -174,8 +178,10 @@ export interface Organization extends Omit<EventPartner, "role" | "featured"> {
 }
 export interface EventRecord extends Omit<
   ArchivedEvent,
-  "partners" | "speakerNames" | "displayDate"
+  "partners" | "displayDate" | "coverImage"
 > {
   publication: "archived";
   officialSpeakerIds: string[];
+  /** Id of a gallery photograph taken at this event. */
+  coverId?: string;
 }

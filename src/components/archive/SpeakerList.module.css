@@ -1,0 +1,49 @@
+.list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--audience-line);
+  list-style: none;
+}
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr) 96px;
+  align-items: center;
+  gap: 4px var(--layout-space-6);
+  padding-block: var(--layout-space-4);
+  border-bottom: 1px solid var(--audience-line);
+}
+.row h3 {
+  margin: 0;
+  font-size: var(--text-18);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.talks {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--audience-muted);
+  font-size: var(--audience-small);
+  line-height: 1.5;
+}
+.year {
+  margin-inline-start: var(--layout-space-2);
+  white-space: nowrap;
+}
+.row .links {
+  gap: 0 4px;
+  margin: 0;
+  min-width: 44px;
+  justify-content: flex-end;
+}
+@media (max-width: 760px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .talks {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}

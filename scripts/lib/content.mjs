@@ -104,6 +104,19 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   for (const item of events.events) {
     for (const id of item.officialSpeakerIds) reference(personIds,id,`event ${item.id}`);
   }
+  for (const item of content.event.events.filter(event => event.stats)) {
+    const { registrations, rsvps, attendees, professionals, students } = item.stats;
+    if (registrations != null && rsvps != null && rsvps > registrations) errors.push(`event ${item.id}: RSVPs cannot exceed registrations`);
+    if (registrations != null && attendees != null && attendees > registrations) errors.push(`event ${item.id}: attendees cannot exceed registrations`);
+    if (attendees != null && professionals != null && students != null && professionals + students !== attendees) errors.push(`event ${item.id}: professionals and students must add up to attendees`);
+  }
+  for (const item of content.event.events.filter(event => event.cover)) {
+    const photo = gallery.photos.find(entry => entry.id === item.cover);
+    if (!photo) errors.push(`event ${item.id}: unknown cover photo ${item.cover}`);
+    else if (photo.eventId !== item.id) errors.push(`event ${item.id}: cover photo ${item.cover} was not taken at this event`);
+  }
+  for (const photo of gallery.photos) if (photo.eventId) reference(eventIds, photo.eventId, `photo ${photo.id}`);
+  for (const clipping of gallery.press) reference(eventIds, clipping.eventId, `press ${clipping.id}`);
   for (const organization of partners.organizations) {
     unique(organization.partnerships, `organization ${organization.id} relationship`, item => item.editionId);
     if (organization.partnerships.some(item => item.contributions.some(contribution => contribution.kind === "community")) && !organization.websiteUrl && !organization.socialUrl) errors.push(`organization ${organization.id}: communities require a public website or social URL`);
