@@ -2,6 +2,7 @@
   "name": "devfest-indore",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +15,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"src/**/*.module.css\" src/app/tokens.css",
     "check": "npm run content:validate && npm run content:test && npm run typecheck && npm run lint && npm run format:check",
-    "content:test": "node --test scripts/content-model.test.mjs",
+    "content:test": "node --test scripts/content-model.test.mjs scripts/content-schema.test.mjs",
     "photos": "node scripts/photos.mjs",
     "images": "node scripts/optimize-images.mjs"
   },
@@ -36,6 +37,7 @@
     "prettier": "3.9.10",
     "sharp": "^0.35.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "zod": "^4.6.7"
   }
 }
