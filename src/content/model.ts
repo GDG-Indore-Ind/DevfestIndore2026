@@ -3,15 +3,7 @@ export interface TeamMember {
   personId: string;
   name: string;
   role: string;
-  team:
-    | "Core Organizer"
-    | "Design & Experience"
-    | "Tech & Operations"
-    | "Space & Ecosystem"
-    | "Community"
-    | "Volunteers"
-    | "Ambassadors"
-    | "Core Team";
+  team: "Core Team" | "Volunteers";
   bio: string;
   avatar: string;
   order?: number;
@@ -65,10 +57,6 @@ export interface EventPartner {
   logoShape?: "square" | "wide" | "wide-large";
   featured?: "space" | "technology";
   description?: string;
-  topics?: readonly {
-    title: string;
-    text: string;
-  }[];
 }
 export interface WorkshopPhoto {
   imageUrl: string;
@@ -121,13 +109,20 @@ export interface Person {
 export type TeamRoleKind = "core-team" | "volunteer" | "ambassador" | "speaker";
 export type Responsibility = {
   area: string;
-  level: "lead" | "co-lead" | "coordinator" | "team-member" | "volunteer";
+  level?: "lead" | "co-lead" | "coordinator" | "team-member" | "volunteer";
 };
+/** What a person did at one event. Fields beyond `kind` depend on the kind. */
 export interface ParticipationRole {
   kind: TeamRoleKind;
-  title: string;
-  order: number;
+  /** Overrides the default label for the kind, e.g. "Keynote speaker". */
+  title?: string;
+  /** Sorts within this kind at the event; lowest first. */
+  order?: number;
+  /** core-team and volunteer roles. */
   responsibilities?: Responsibility[];
+  /** ambassador roles. */
+  track?: "professional" | "student";
+  community?: string;
 }
 export interface Participation {
   id: string;

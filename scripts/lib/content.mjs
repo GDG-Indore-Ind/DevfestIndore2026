@@ -1,7 +1,7 @@
 import { organizationView } from './organization-view.mjs';
 import { currentEvent, pastEvents } from './event-view.mjs';
 import { talks, workshops as workshopRecords } from './programme-view.mjs';
-import { participationRecords, legacyTeamRecords, teamAssignmentRecords, ambassadorRecords } from './people-view.mjs';
+import { participationRecords, ambassadorRecords } from './people-view.mjs';
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,13 +32,12 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   if (content.event.events.filter(item => item.status === "current").length !== 1) return ["events: exactly one current event is required"];
   const tickets = event.tickets;
   const participations = { participations: participationRecords(people.people) };
-  const team = { members: legacyTeamRecords(people.people), assignments: teamAssignmentRecords(people.people) };
   const ambassadors = ambassadorRecords(people.people);
   function unique(items, label, key = item => item.id) {
     const seen = new Set();
     for (const item of items) { const value = key(item); if (seen.has(value)) errors.push(`${label}: duplicate ${value}`); seen.add(value); }
   }
-  for (const [name, items] of [["people",people.people],["participations",participations.participations],["sessions",sessions.sessions],["team",team.members],["organizations",partners.organizations],["events",events.events],["workshops",workshops.workshops],["gallery",gallery.photos],["passes",tickets.passes],["themes",pages.home.themes],["FAQs",pages.faq.questions]]) unique(items,name);
+  for (const [name, items] of [["people",people.people],["participations",participations.participations],["sessions",sessions.sessions],["organizations",partners.organizations],["events",events.events],["workshops",workshops.workshops],["gallery",gallery.photos],["passes",tickets.passes],["themes",pages.home.themes],["FAQs",pages.faq.questions]]) unique(items,name);
   unique(content.programme.entries, "programme entries");
   unique(content.programme.entries.flatMap(item => [item.id, ...(item.legacyId ? [item.legacyId] : [])]), "programme IDs and old links", id => id);
   unique([event, ...events.events], "event registry");
@@ -83,17 +82,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
       reference(speakerParticipation,`${item.editionId}/${personId}`,`session ${item.id} speaker participation`);
     }
   }
-  for (const item of team.members) reference(personIds,item.personId,`team ${item.id}`);
-  unique(team.assignments ?? [], "team assignments", item => `${item.eventId}/${item.personId}`);
-  for (const item of team.assignments ?? []) { reference(personIds,item.personId,`team assignment ${item.personId}`); reference(eventIds,item.eventId,`team assignment ${item.personId}`); }
-  unique(ambassadors, "ambassador directory", item => item.personId);
-  for (const item of ambassadors) {
-    reference(personIds, item.personId, "ambassador directory");
-    const person = people.people.find(person => person.id === item.personId);
-    for (const platform of item.contactPlatforms) {
-      if (!person?.links?.[platform]) errors.push(`ambassador directory ${item.personId}: missing ${platform} profile`);
-    }
-  }
+  unique(ambassadors, "ambassador directory", item => `${item.eventId}/${item.personId}`);
   const workshopImages = new Map();
   const photosById = new Map(gallery.photos.map(photo => [photo.id, photo]));
   for (const item of content.programme.entries.filter(entry => entry.type === "campus-workshop")) {

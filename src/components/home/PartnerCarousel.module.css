@@ -30,24 +30,86 @@
   grid-template-columns: 50% minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
 }
+.card {
+  --brand: #3253dc;
+  --brand-deep: #1b2f9e;
+}
+.card[data-brand="space"] {
+  --brand: #3d6fe0;
+  --brand-deep: #0b1b3a;
+}
+.card[data-brand="technology"] {
+  --brand: #3253dc;
+  --brand-deep: #14226e;
+}
 .logo {
+  position: relative;
   display: grid;
   place-items: center;
-  background: var(--space-white);
-  padding: var(--layout-space-4);
   min-height: 184px;
+  padding: var(--layout-space-4);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--brand-deep), var(--brand));
 }
-.logo img {
+/* Space Club: night sky with a faint orbit ring and scattered stars. */
+.card[data-brand="space"] .logo {
+  background-image:
+    radial-gradient(circle at 18% 22%, #fff 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 78% 16%, #fff 0 1px, transparent 1.6px),
+    radial-gradient(circle at 88% 70%, #fff 0 1.4px, transparent 2px),
+    radial-gradient(circle at 12% 80%, #fff 0 1px, transparent 1.6px),
+    radial-gradient(circle at 60% 90%, #fff 0 1px, transparent 1.6px),
+    linear-gradient(160deg, var(--brand-deep), #17358a 70%, var(--brand));
+}
+.card[data-brand="space"] .logo::before {
+  content: "";
+  position: absolute;
+  inset: -30% -20%;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 50%;
+  transform: rotate(-18deg) scaleY(0.42);
+  pointer-events: none;
+}
+/* Qualcomm: calm blue with a fine circuit grid. */
+.card[data-brand="technology"] .logo {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(135deg, var(--brand-deep), var(--brand));
+  background-size:
+    28px 28px,
+    28px 28px,
+    auto;
+}
+.plate {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 420px);
+  padding: 20px 28px;
+  border-radius: var(--corner-24);
+  background: var(--space-white);
+  box-shadow: 0 10px 28px rgb(5 12 40 / 0.35);
+}
+.plate img {
   display: block;
-  width: min(100%, 560px);
-  height: 148px;
+  width: 100%;
+  height: 96px;
   object-fit: contain;
 }
 .spaceCard .logo {
   min-height: 0;
 }
-.spaceCard .logo img {
-  height: 280px;
+.spaceCard .plate {
+  width: auto;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+/* Source artwork is 200px wide, so keep it at roughly native size to stay crisp. */
+.spaceCard .plate img {
+  width: 200px;
+  height: 200px;
 }
 .copy {
   display: grid;
@@ -87,11 +149,11 @@
 }
 .chipWatermark {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  right: var(--layout-space-4);
+  bottom: var(--layout-space-6);
   z-index: 0;
-  width: 196px;
-  height: 196px;
+  width: 48px;
+  height: 48px;
   color: var(--icon-blue);
   opacity: 0.1;
   stroke-width: 1;
@@ -119,32 +181,6 @@
   font-weight: 500;
   color: var(--icon-blue);
   margin: 0;
-}
-.topics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  border-top: 1px solid var(--audience-line);
-  padding-top: 20px;
-  margin: 24px 0;
-}
-.topics > div {
-  min-width: 0;
-}
-.topics > div + div {
-  border-left: 1px solid var(--audience-line);
-  padding-left: 20px;
-}
-.topics dt {
-  color: var(--audience-ink);
-  font-size: var(--text-15);
-  font-weight: 500;
-}
-.topics dd {
-  color: var(--audience-muted);
-  margin: 4px 0 0;
-  font-size: var(--text-14);
-  line-height: 1.5;
 }
 .indicators {
   display: flex;
@@ -184,10 +220,11 @@
     grid-template-rows: 160px minmax(0, 1fr);
   }
   .logo {
+    min-height: 0;
     padding: var(--layout-space-4);
   }
-  .logo img {
-    height: 128px;
+  .plate img {
+    height: 72px;
   }
   .spaceCard {
     grid-template-columns: minmax(0, 1fr);
@@ -196,40 +233,15 @@
   .spaceCard .logo {
     padding: var(--layout-space-4);
   }
-  .spaceCard .logo img {
-    height: 128px;
+  .spaceCard .plate img {
+    width: 120px;
+    height: 120px;
   }
   .copy {
     padding: var(--layout-space-3) var(--layout-space-4) var(--layout-space-6);
   }
   .spaceCard .copy {
     padding: var(--layout-space-3) var(--layout-space-4) var(--layout-space-6);
-  }
-  .topics {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding-top: 0;
-  }
-  .topics > div {
-    display: grid;
-    grid-template-columns: minmax(90px, 0.35fr) minmax(0, 1fr);
-    gap: 12px;
-    border-top: 1px solid var(--audience-line);
-    padding-top: 12px;
-  }
-  .topics > div + div {
-    border-left: 0;
-    padding-left: 0;
-  }
-  .topics dt,
-  .topics dd {
-    margin-top: 0;
-  }
-}
-@media (max-width: 480px) {
-  .topics > div {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4px;
   }
 }
 /* Two partners fit side by side on wide screens, so neither hides behind a slide. */
@@ -245,11 +257,12 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 184px minmax(0, 1fr);
   }
-  .rail[data-pair="true"] .logo img {
-    width: min(100%, 280px);
+  .rail[data-pair="true"] .plate img {
+    height: 80px;
   }
-  .rail[data-pair="true"] .spaceCard .logo img {
-    height: 148px;
+  .rail[data-pair="true"] .spaceCard .plate img {
+    width: 150px;
+    height: 150px;
   }
   .rail[data-pair="true"] .spaceCard .copy {
     align-content: start;
@@ -257,13 +270,9 @@
   .rail[data-pair="true"] .copy {
     padding: var(--layout-space-6) var(--layout-space-8) var(--layout-space-8);
   }
-  .rail[data-pair="true"] .topics {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
-  .rail[data-pair="true"] .topics > div + div {
-    border-left: 0;
-    padding-left: 0;
+  .rail[data-pair="true"] .chipWatermark {
+    right: var(--layout-space-8);
+    bottom: var(--layout-space-8);
   }
   .indicators[data-pair="true"] {
     display: none;

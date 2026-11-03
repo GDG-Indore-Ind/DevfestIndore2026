@@ -5,7 +5,9 @@
       "id": "abhishek-doshi",
       "name": "Abhishek Doshi",
       "kind": "person",
-      "bio": "Google Developer Expert - Dart, Flutter & Firebase\r\nhttps://abhishekdoshi.dev",
+      "title": "Tech Lead",
+      "organization": "Qvin",
+      "bio": "Google Developer Expert for Dart, Flutter and Firebase.",
       "photo": "/images/people/abhishek-doshi.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/abhishekdoshi26/",
@@ -13,23 +15,15 @@
         "blog": "https://abhishekdoshi26.medium.com/",
         "website": "https://abhishekdoshi.dev"
       },
-      "profession": {
-        "title": "Google Developer Expert - Dart, Flutter & Firebase",
-        "organization": "Tech Lead - Qvin"
-      },
       "events": [
         {
-          "id": "2025-abhishek-doshi",
           "eventId": "devfest-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "displayOrder": 0
+          ]
         }
       ]
     },
@@ -37,30 +31,24 @@
       "id": "nikhilesh-tayal",
       "name": "Nikhilesh Tayal",
       "kind": "person",
-      "bio": "Nikhilesh is an entrepreneur, teacher and tech nerd\r\nHe is an IIT Kharagpur alumnus. He is also a Google Developer Expert in AI and has over 15,000 followers on LinkedIn.\r\nCurrently, he runs \"AI ML etc.\" - an AI-enabled educational platform for senior IT professionals to learn AI. He is an instructor at LinkedIn Learning as well\r\nRecently, he was felicitated by the Chief Minister of Rajasthan for his contribution to education.",
+      "title": "Founder and CEO",
+      "organization": "AI ML etc.",
+      "bio": "Nikhilesh is an entrepreneur, teacher and tech nerd\nHe is an IIT Kharagpur alumnus. He is also a Google Developer Expert in AI and has over 15,000 followers on LinkedIn.\nCurrently, he runs \"AI ML etc.\" - an AI-enabled educational platform for senior IT professionals to learn AI. He is an instructor at LinkedIn Learning as well\nRecently, he was felicitated by the Chief Minister of Rajasthan for his contribution to education.",
       "photo": "/images/people/nikhilesh-tayal.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/nikhileshtayal/",
         "blog": "https://www.aimletc.com/blogs",
         "website": "https://www.aimletc.com/"
       },
-      "profession": {
-        "title": "Founder and CEO",
-        "organization": "AI ML etc."
-      },
       "events": [
         {
-          "id": "2025-nikhilesh-tayal",
           "eventId": "devfest-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "displayOrder": 1
+          ]
         }
       ]
     },
@@ -68,7 +56,9 @@
       "id": "ganesh-divekar",
       "name": "Ganesh Divekar",
       "kind": "person",
-      "bio": "I am Ganesh Divekar, currently leading AI/ML initiatives at Bajaj Technology Services. With over 10 years of experience, I bring a unique blend of expertise across AI/ML, Generative AI, Data Science, Cloud, Databases, Frontend, Backend, and Enterprise Architecture.\r\n\r\nMy technical journey spans:\r\nAI/ML & Data Science – Predictive analytics, NLP-driven automation, recommender systems, time-series forecasting, deep learning (TensorFlow, PyTorch), and advanced LLM ecosystems (GPT-4, GPT-4o, Mistral, Llama, LangChain, LangGraph, MCP).\r\nRAG & Knowledge Systems – FAISS, Qdrant, Pinecone, Azure AI Search, LlamaIndex.\r\nCloud Platforms – AWS, Azure, GCP with Kubernetes, Docker, Terraform, and microservices architecture.\r\nDatabases & Data Engineering – DynamoDB, Cosmos DB, PostgreSQL, Hive, Redis, Kafka, scalable pipelines.\r\nBackend Engineering – Java, Kotlin, GoLang, Spring Boot, FastAPI, Node.js with clean architecture principles.\r\nFrontend Engineering – React, Flutter, Next.js, building cross-platform applications with strong UX focus.\r\nSecurity & Compliance – Nginx, TLS 1.3, IAM/RBAC, AES-GCM encryption, enterprise-grade InfoSec guardrails.\r\nI’ve implemented real-time predictive analytics, AI-powered chatbots, voice AI assistants, financial advisory systems, KYC/document verification platforms, and workflow automation solutions that have transformed enterprise operations and customer experiences.\r\nBeyond my professional work, I am an active speaker, mentor, and community contributor, sharing insights on AI, Data Science, and Full-Stack Innovation at global conferences, developer communities, and universities. My passion is to harness AI and engineering for transformative automation, performance optimization, and intelligent user interactions.",
+      "title": "Lead AI Engineer",
+      "organization": "Bajaj Finserv",
+      "bio": "I am Ganesh Divekar, currently leading AI/ML initiatives at Bajaj Technology Services. With over 10 years of experience, I bring a unique blend of expertise across AI/ML, Generative AI, Data Science, Cloud, Databases, Frontend, Backend, and Enterprise Architecture.\n\nMy technical journey spans:\nAI/ML & Data Science – Predictive analytics, NLP-driven automation, recommender systems, time-series forecasting, deep learning (TensorFlow, PyTorch), and advanced LLM ecosystems (GPT-4, GPT-4o, Mistral, Llama, LangChain, LangGraph, MCP).\nRAG & Knowledge Systems – FAISS, Qdrant, Pinecone, Azure AI Search, LlamaIndex.\nCloud Platforms – AWS, Azure, GCP with Kubernetes, Docker, Terraform, and microservices architecture.\nDatabases & Data Engineering – DynamoDB, Cosmos DB, PostgreSQL, Hive, Redis, Kafka, scalable pipelines.\nBackend Engineering – Java, Kotlin, GoLang, Spring Boot, FastAPI, Node.js with clean architecture principles.\nFrontend Engineering – React, Flutter, Next.js, building cross-platform applications with strong UX focus.\nSecurity & Compliance – Nginx, TLS 1.3, IAM/RBAC, AES-GCM encryption, enterprise-grade InfoSec guardrails.\nI’ve implemented real-time predictive analytics, AI-powered chatbots, voice AI assistants, financial advisory systems, KYC/document verification platforms, and workflow automation solutions that have transformed enterprise operations and customer experiences.\nBeyond my professional work, I am an active speaker, mentor, and community contributor, sharing insights on AI, Data Science, and Full-Stack Innovation at global conferences, developer communities, and universities. My passion is to harness AI and engineering for transformative automation, performance optimization, and intelligent user interactions.",
       "photo": "/images/people/ganesh-divekar.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/ganesh-divekar-96a72bb7",
@@ -76,23 +66,15 @@
         "blog": "https://ganeshajdivekar.medium.com/",
         "website": "https://www.linkedin.com/in/ganesh-divekar-96a72bb7/"
       },
-      "profession": {
-        "title": "Lead AI Engineer",
-        "organization": "Bajaj Finserv"
-      },
       "events": [
         {
-          "id": "2025-ganesh-divekar",
           "eventId": "devfest-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "displayOrder": 2
+          ]
         }
       ]
     },
@@ -100,28 +82,22 @@
       "id": "himanshu-jain",
       "name": "Himanshu Jain",
       "kind": "person",
-      "bio": "Himanshu Jain is the Engineering Director at Academian, where he leads AI strategy, platform engineering, and global service delivery. With more than 18 years of experience across AI & Automation, Cloud, and Software Engineering, he has established Global Capability Centers in India and Colombia, set up AI Centers of Excellence, and scaled engineering operations for global impact.\r\n\r\nAt Academian, Himanshu drives the company’s AI Accelerator Platform leveraging Generative AI, Agentic AI, and multi-component orchestration to build intelligent and scalable EdTech solutions. He leads strategic initiatives including AWS partnership programs, pre-sales solutioning, and AI product innovation.\r\n\r\nPreviously, he held senior leadership roles at Salient Process India Private Limited, Tata Elxsi Limited, and Infosys Technologies Limited. A frequent speaker and jury member at national tech events, Himanshu is passionate about shaping the future of enterprise AI.",
+      "title": "Director Engineering",
+      "organization": "Academian Inc",
+      "bio": "Himanshu Jain is the Engineering Director at Academian, where he leads AI strategy, platform engineering, and global service delivery. With more than 18 years of experience across AI & Automation, Cloud, and Software Engineering, he has established Global Capability Centers in India and Colombia, set up AI Centers of Excellence, and scaled engineering operations for global impact.\n\nAt Academian, Himanshu drives the company’s AI Accelerator Platform leveraging Generative AI, Agentic AI, and multi-component orchestration to build intelligent and scalable EdTech solutions. He leads strategic initiatives including AWS partnership programs, pre-sales solutioning, and AI product innovation.\n\nPreviously, he held senior leadership roles at Salient Process India Private Limited, Tata Elxsi Limited, and Infosys Technologies Limited. A frequent speaker and jury member at national tech events, Himanshu is passionate about shaping the future of enterprise AI.",
       "photo": "/images/people/himanshu-jain.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/himanshu-jain-learner/"
       },
-      "profession": {
-        "title": "Director Engineering",
-        "organization": "Academian Inc"
-      },
       "events": [
         {
-          "id": "2025-himanshu-jain",
           "eventId": "devfest-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "displayOrder": 3
+          ]
         }
       ]
     },
@@ -129,6 +105,8 @@
       "id": "divyanshu-bhargava",
       "name": "Divyanshu Bhargava",
       "kind": "person",
+      "title": "Co-Founder",
+      "organization": "Stac",
       "bio": "Divyanshu Bhargava is a Co-Founder of Stac. He is a Google Developer Expert in Flutter & Dart and an Organizer of Flutter Abu Dhabi & Dubai. His passion for building apps took him to mobile development. These days, you’ll find him talking about Flutter and the future of tech. He is an open-source enthusiast and an avid tech blogger. When he is not coding, you can find him kayaking, reading, traveling, or thinking about coding.",
       "photo": "/images/people/divyanshu-bhargava.webp",
       "links": {
@@ -137,35 +115,23 @@
         "blog": "https://divyanshu.dev/",
         "website": "https://stac.dev/"
       },
-      "profession": {
-        "title": "Co-Founder",
-        "organization": "Stac"
-      },
       "events": [
         {
-          "id": "2025-divyanshu-bhargava",
           "eventId": "devfest-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-devfest-indore-2025/cohost-gdg-indore/",
-          "displayOrder": 4
+          ]
         },
         {
-          "id": "2024-divyanshu-bhargava",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 14
+          ]
         }
       ]
     },
@@ -173,7 +139,9 @@
       "id": "ankit-sharma",
       "name": "Ankit Sharma",
       "kind": "person",
-      "bio": "As a Staff Frontend Engineer at Celonis, I design, develop, and maintain robust web applications using Angular, TypeScript, and NgRx. My expertise extends to ASP.NET, SQL Server, and C#, enabling me to build and consume web APIs, manage data efficiently, and deliver scalable solutions. I thrive on solving complex problems and creating high-quality applications that meet client and user needs.\r\n\r\nPassionate about giving back to the tech community, I’m honored to be a Google Developer Expert (Angular) and a Microsoft MVP (Developer Technologies). I’ve authored two books—Blazor Quick Start Guide and Learn C# Programming—and regularly contribute articles to platforms like Medium and freeCodeCamp. As a frequent speaker at conferences, webinars, and tech events, I enjoy sharing insights on web development, Angular, .NET, and Blazor.\r\n\r\nAlways eager to learn and grow, I aim to inspire and empower fellow developers through knowledge-sharing and continuous innovation.",
+      "title": "Staff Frontend Engineer",
+      "organization": "Celonis",
+      "bio": "As a Staff Frontend Engineer at Celonis, I design, develop, and maintain robust web applications using Angular, TypeScript, and NgRx. My expertise extends to ASP.NET, SQL Server, and C#, enabling me to build and consume web APIs, manage data efficiently, and deliver scalable solutions. I thrive on solving complex problems and creating high-quality applications that meet client and user needs.\n\nPassionate about giving back to the tech community, I’m honored to be a Google Developer Expert (Angular) and a Microsoft MVP (Developer Technologies). I’ve authored two books—Blazor Quick Start Guide and Learn C# Programming—and regularly contribute articles to platforms like Medium and freeCodeCamp. As a frequent speaker at conferences, webinars, and tech events, I enjoy sharing insights on web development, Angular, .NET, and Blazor.\n\nAlways eager to learn and grow, I aim to inspire and empower fellow developers through knowledge-sharing and continuous innovation.",
       "photo": "/images/people/ankit-sharma.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/ankitsharma-007/",
@@ -181,22 +149,14 @@
         "blog": "https://www.syncfusion.com/blogs/author/ankit-sharma",
         "website": "https://www.celonis.com/"
       },
-      "profession": {
-        "title": "Staff Frontend Engineer",
-        "organization": "Celonis"
-      },
       "events": [
         {
-          "id": "2025-ankit-sharma",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 5
+          ]
         }
       ]
     },
@@ -204,6 +164,8 @@
       "id": "mrinal-jain",
       "name": "Mrinal Jain",
       "kind": "person",
+      "title": "Flutter Consultant",
+      "organization": "American Express",
       "bio": "Mrinal Jain is an Engineering Manager at STAGE OTT with 7+ years of experience building scalable full-stack and Flutter applications. A recognized tech speaker and Meta Community Lead, he has led impactful developer communities and shared insights at major tech events. Known as the Introvert Influencer, Mrinal combines deep technical expertise with community-first leadership to empower developers and scale product success.",
       "photo": "/images/people/mrinal-jain.webp",
       "links": {
@@ -212,22 +174,14 @@
         "blog": "https://mrinaljain.com/",
         "website": "https://mrinaljain.com"
       },
-      "profession": {
-        "title": "Flutter Consultant",
-        "organization": "American Express"
-      },
       "events": [
         {
-          "id": "2025-mrinal-jain",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 6
+          ]
         }
       ]
     },
@@ -235,6 +189,8 @@
       "id": "shachita-jain",
       "name": "Shachita Jain",
       "kind": "person",
+      "title": "Technical Product Manager",
+      "organization": "Kintsugi AI",
       "bio": "Former developer turned TPM, passionate about turning ambiguity into clarity, aligning diverse teams, and shipping products that matter. (Contact me to get more details)",
       "photo": "/images/people/shachita-jain.webp",
       "links": {
@@ -242,22 +198,14 @@
         "twitter": "https://x.com/ShachitaJain",
         "website": "https://trykintsugi.com/"
       },
-      "profession": {
-        "title": "Technical Product Manager",
-        "organization": "Kintsugi AI"
-      },
       "events": [
         {
-          "id": "2025-shachita-jain",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 7
+          ]
         }
       ]
     },
@@ -265,6 +213,8 @@
       "id": "shashank-saxena",
       "name": "Shashank Saxena",
       "kind": "person",
+      "title": "Solution Architect",
+      "organization": "Ccube Pvt. Ltd.",
       "bio": "Full Stack Developer with expertise in modern web architectures, decentralized applications (dApps), and emerging Agentic AI systems.",
       "photo": "/images/people/shashank-saxena.webp",
       "links": {
@@ -272,22 +222,14 @@
         "blog": "https://medium.com/@shashank-saxena",
         "website": "https://www.ccube.com/"
       },
-      "profession": {
-        "title": "Solution Architect",
-        "organization": "Ccube Pvt. Ltd."
-      },
       "events": [
         {
-          "id": "2025-shashank-saxena",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 8
+          ]
         }
       ]
     },
@@ -295,6 +237,8 @@
       "id": "rahul-chautel",
       "name": "Rahul Chautel",
       "kind": "person",
+      "title": "Chief Technology Officer",
+      "organization": "Luxare by Diaspark",
       "bio": "Rahul Chautel is a technology leader who enjoys working at the intersection of engineering, product, and people. He has experience building and scaling enterprise platforms across Retail, ERP, and Repair domains, and is passionate about helping teams move from delivery-focused execution to product-led thinking. Rahul actively mentors engineers and leaders on Agile practices, system design, and building sustainable engineering cultures, and enjoys sharing practical lessons from real-world transformations with the tech community.",
       "photo": "/images/people/rahul-chautel.webp",
       "links": {
@@ -303,22 +247,14 @@
         "blog": "https://rahulchautel.medium.com/",
         "website": "https://www.luxare.com/"
       },
-      "profession": {
-        "title": "Chief Technology Officer",
-        "organization": "Luxare by Diaspark"
-      },
       "events": [
         {
-          "id": "2025-rahul-chautel",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 9
+          ]
         }
       ]
     },
@@ -326,28 +262,22 @@
       "id": "sunny-ralli",
       "name": "Sunny Ralli",
       "kind": "person",
-      "bio": "Sunny Ralli is an Indian financial research analyst and entrepreneur with more than 15 years of experience in research, trading, and financial markets.\r\nHe serves as the Group Managing Director of Praedico Global Research Private Limited, a company focused on AI-driven solutions in finance. His vision is to position India as a global hub for AI in the financial sector.",
+      "title": "GROUP MANAGING DIRECTOR",
+      "organization": "PRAEDICO GLOBAL RESEARCH",
+      "bio": "Sunny Ralli is an Indian financial research analyst and entrepreneur with more than 15 years of experience in research, trading, and financial markets.\nHe serves as the Group Managing Director of Praedico Global Research Private Limited, a company focused on AI-driven solutions in finance. His vision is to position India as a global hub for AI in the financial sector.",
       "photo": "/images/people/sunny-ralli.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/research-analyst-sunny-ralli-53583859/?originalSubdomain=in",
         "website": "https://kisanmunafa.com/"
       },
-      "profession": {
-        "title": "GROUP MANAGING DIRECTOR",
-        "organization": "PRAEDICO GLOBAL RESEARCH"
-      },
       "events": [
         {
-          "id": "2025-sunny-ralli",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 10
+          ]
         }
       ]
     },
@@ -355,25 +285,18 @@
       "id": "gautam-billore",
       "name": "Gautam Billore",
       "kind": "person",
-      "bio": "Management Consultant, at  Växjö,  Sweden, for last 13 years                           \r\nConsulting organizations for change management and business development strategies, especially for implementing market entry projects in culturally distant markets.\r\nSenior Manager, Punjab National Bank, HO, New Delhi,  10 years\r\n Vice President Nozomi InfoTech Pvt. Ltd, Tokyo, Japan  7 yrs",
+      "title": "Chief Consultant",
+      "organization": "Nordic Digital Hub Sweden",
+      "bio": "Management Consultant, at  Växjö,  Sweden, for last 13 years\nConsulting organizations for change management and business development strategies, especially for implementing market entry projects in culturally distant markets.\nSenior Manager, Punjab National Bank, HO, New Delhi,  10 years\n Vice President Nozomi InfoTech Pvt. Ltd, Tokyo, Japan  7 yrs",
       "photo": "/images/people/gautam-billore.webp",
-      "links": {},
-      "profession": {
-        "title": "Chief Consultant",
-        "organization": "Nordic Digital Hub Sweden"
-      },
       "events": [
         {
-          "id": "2025-gautam-billore",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 11
+          ]
         }
       ]
     },
@@ -381,29 +304,23 @@
       "id": "srashti-jain",
       "name": "Srashti Jain",
       "kind": "person",
-      "bio": "Google Developer Expert for Angular\r\n\r\nTechnology professional with 10+ years of experience in web and mobile application development\r\n\r\nStrong expertise in Angular, modern frontend architectures, and full-stack development\r\n\r\nPassionate about clean architecture, performance optimization, and developer experience\r\n\r\nActive contributor to the tech community through mentoring, knowledge sharing, and public speaking\r\n\r\nSpeaker on Angular best practices, scalable frontend systems, real-world engineering challenges, and developer career growth",
+      "title": "CEO TechVraksh",
+      "organization": "TechVraksh",
+      "bio": "Google Developer Expert for Angular\n\nTechnology professional with 10+ years of experience in web and mobile application development\n\nStrong expertise in Angular, modern frontend architectures, and full-stack development\n\nPassionate about clean architecture, performance optimization, and developer experience\n\nActive contributor to the tech community through mentoring, knowledge sharing, and public speaking\n\nSpeaker on Angular best practices, scalable frontend systems, real-world engineering challenges, and developer career growth",
       "photo": "/images/people/srashti-jain.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/srashtisj/",
         "twitter": "https://twitter.com/srashtisj",
         "website": "https://techvraksh.com/"
       },
-      "profession": {
-        "title": "CEO TechVraksh",
-        "organization": "TechVraksh"
-      },
       "events": [
         {
-          "id": "2025-srashti-jain",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 12
+          ]
         }
       ]
     },
@@ -411,6 +328,8 @@
       "id": "harsh-tonde",
       "name": "Harsh Tonde",
       "kind": "person",
+      "title": "Enterprise Customer Success Engineer",
+      "organization": "FlutterFlow",
       "bio": "I’m Harsh Tonde, an Enterprise Customer Success Engineer at FlutterFlow, where I’ve been working for the past 4 years. I help clients quickly build scalable applications using FlutterFlow. My work focuses on reducing the time to market for app development, delivering high-value, modern digital experiences, and helping teams maximize innovation while minimizing development effort.",
       "photo": "/images/people/harsh-tonde.webp",
       "links": {
@@ -418,34 +337,22 @@
         "twitter": "https://x.com/TondeHarsh",
         "website": "https://flutterflow.io/"
       },
-      "profession": {
-        "title": "Enterprise Customer Success Engineer",
-        "organization": "FlutterFlow"
-      },
       "events": [
         {
-          "id": "2025-harsh-tonde",
           "eventId": "devfest-2025",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 13
+          ]
         },
         {
-          "id": "2024-harsh-tonde",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 26
+          ]
         }
       ]
     },
@@ -453,7 +360,9 @@
       "id": "dhananjay-kumar",
       "name": "Dhananjay Kumar",
       "kind": "person",
-      "bio": "Dhananjay Kumar is the founder of NomadCoder, where he helps people become job-ready developers. \r\n\r\nHe also consults for big companies, has written a book on Angular, and speaks at international developer conferences. He runs one of India’s largest developer communities and organizes ng-India, a premier Angular conference.\r\n\r\nDhananjay is working on his second Angular book and training for a 10K run. You can reach out to him for training, evangelism, and consulting.",
+      "title": "Founder",
+      "organization": "Nomadcoder",
+      "bio": "Dhananjay Kumar is the founder of NomadCoder, where he helps people become job-ready developers.\n\nHe also consults for big companies, has written a book on Angular, and speaks at international developer conferences. He runs one of India’s largest developer communities and organizes ng-India, a premier Angular conference.\n\nDhananjay is working on his second Angular book and training for a 10K run. You can reach out to him for training, evangelism, and consulting.",
       "photo": "/images/people/dhananjay-kumar.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/dhananjaykumar07/",
@@ -461,35 +370,23 @@
         "blog": "https://debugmode.net/",
         "website": "https://nomadcoder.ai/home"
       },
-      "profession": {
-        "title": "Founder",
-        "organization": "Nomadcoder"
-      },
       "events": [
         {
-          "id": "2024-dhananjay-kumar",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 15
+          ]
         },
         {
-          "id": "ai-unplugged-2025-dhananjay-kumar",
           "eventId": "ai-unplugged-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-ai-unplugged-a-prelude-to-devfest-2025/cohost-gdg-on-campus-ips-academy-indore-india/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-indore-presents-ai-unplugged-a-prelude-to-devfest-2025/cohost-gdg-on-campus-ips-academy-indore-india/",
-          "displayOrder": 29
+          ]
         }
       ]
     },
@@ -497,6 +394,8 @@
       "id": "usha-ramani",
       "name": "Usha Ramani",
       "kind": "person",
+      "title": "Co-Founder",
+      "organization": "GURUJADA",
       "bio": "Usha is a ed-tech entrepreneur passionate about bringing efficiency to teaching learning experiences using AI. Being an ex prof herself, she loves experimenting with AI tools and sharing her learnings with the teaching community. She's also a community leader leading the GDG and WTM communities of Google in Visakhapatnam since the last 6 years. Usha loves to mentor early stage students and professionals and loves podcasting.",
       "photo": "/images/people/usha-ramani.webp",
       "links": {
@@ -504,22 +403,14 @@
         "blog": "https://medium.com/@usharamani/about",
         "website": "https://gurujada.com"
       },
-      "profession": {
-        "title": "Co-Founder",
-        "organization": "GURUJADA"
-      },
       "events": [
         {
-          "id": "2024-usha-ramani",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 16
+          ]
         }
       ]
     },
@@ -527,29 +418,23 @@
       "id": "varun-srinivas",
       "name": "Varun Srinivas",
       "kind": "person",
-      "bio": "A software craftsman by both passion and profession, I have 10 years of development and entrepreneurial experience. Currently, I function as a Director of Technology at Coditas where I manage and learn from an amazing team of developers and advocate my belief in good quality code.\r\n\r\nI started my career as a PHP developer and co-founded SudoSaints Infotech Pvt. Ltd. in 2012, which was an offshore software development startup, based in Pune. As the CTO, I helped 200+ startups and companies worldwide, in developing various mobile and web applications.\r\n\r\nSudoSaints was acquired by Coditas in 2015, and we joined their team. We now provide end-to-end quality services to organizations of all scales around the globe. Within 7 years, Coditas has become a team of 700+ proficient engineers and designers and still growing.",
+      "title": "CoFounder and Director of Tech",
+      "organization": "Coditas",
+      "bio": "A software craftsman by both passion and profession, I have 10 years of development and entrepreneurial experience. Currently, I function as a Director of Technology at Coditas where I manage and learn from an amazing team of developers and advocate my belief in good quality code.\n\nI started my career as a PHP developer and co-founded SudoSaints Infotech Pvt. Ltd. in 2012, which was an offshore software development startup, based in Pune. As the CTO, I helped 200+ startups and companies worldwide, in developing various mobile and web applications.\n\nSudoSaints was acquired by Coditas in 2015, and we joined their team. We now provide end-to-end quality services to organizations of all scales around the globe. Within 7 years, Coditas has become a team of 700+ proficient engineers and designers and still growing.",
       "photo": "/images/people/varun-srinivas.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/varun1505/",
         "twitter": "https://twitter.com/varun1505",
         "website": "https://coditas.com"
       },
-      "profession": {
-        "title": "CoFounder and Director of Tech",
-        "organization": "Coditas"
-      },
       "events": [
         {
-          "id": "2024-varun-srinivas",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 17
+          ]
         }
       ]
     },
@@ -557,7 +442,9 @@
       "id": "abhishek-sharma",
       "name": "Abhishek Sharma",
       "kind": "person",
-      "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\r\n\r\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.\r\n\r\nLinkedIn - https://www.linkedin.com/in/acloudpotato/\r\nMedium Profile - https://acloudpotato.medium.com/\r\nYoutube Channel - https://www.youtube.com/@guysinthecloud\r\nGithub - https://github.com/acloudpotato",
+      "title": "Senior Cloud Engineer",
+      "organization": "Searce Inc",
+      "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\n\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.\n\nLinkedIn - https://www.linkedin.com/in/acloudpotato/\nMedium Profile - https://acloudpotato.medium.com/\nYoutube Channel - https://www.youtube.com/@guysinthecloud\nGithub - https://github.com/acloudpotato",
       "photo": "/images/people/abhishek-sharma.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/acloudpotato/",
@@ -565,22 +452,14 @@
         "blog": "https://acloudpotato.medium.com/",
         "website": "https://www.searce.com/"
       },
-      "profession": {
-        "title": "Senior Cloud Engineer",
-        "organization": "Searce Inc"
-      },
       "events": [
         {
-          "id": "2024-abhishek-sharma",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 18
+          ]
         }
       ]
     },
@@ -588,7 +467,9 @@
       "id": "drijesh-ppatel",
       "name": "Drijesh Ppatel",
       "kind": "person",
-      "bio": "Meet Drijesh PPatel, a dynamic figure in the world of technology, renowned for his adept leadership and unwavering commitment to innovation. \r\n\r\nFrom his early days as a Technical Lead to his current role as an Engineering Manager at IBM, Drijesh has consistently demonstrated his prowess across various domains, with a particular focus on AI, Agile Project Management, Cloud Technologies, and Cyber Security. His career boasts a plethora of achievements, including spearheading groundbreaking initiatives within the BFSI, Healthcare, and Insurance sectors, earning him accolades such as being named among the \"40 under 40\", \"20 Influential Personalities of India\", \"100 Future Leaders\", and \"Rising Tech-Expert 2024\" to name a few.\r\n\r\nDrijesh's leadership extends beyond the confines of the corporate world; he is also an avid photographer and a dedicated mentor, embodying a holistic approach to life. He has been a speaker at more than 300 events and mentored 700+ individuals to attain their desirable goals. With a relentless drive for excellence and a passion for fostering growth, Drijesh PPatel stands as a beacon of inspiration for aspiring leaders and technology enthusiasts alike.",
+      "title": "Engineering Manager",
+      "organization": "IBM",
+      "bio": "Meet Drijesh PPatel, a dynamic figure in the world of technology, renowned for his adept leadership and unwavering commitment to innovation.\n\nFrom his early days as a Technical Lead to his current role as an Engineering Manager at IBM, Drijesh has consistently demonstrated his prowess across various domains, with a particular focus on AI, Agile Project Management, Cloud Technologies, and Cyber Security. His career boasts a plethora of achievements, including spearheading groundbreaking initiatives within the BFSI, Healthcare, and Insurance sectors, earning him accolades such as being named among the \"40 under 40\", \"20 Influential Personalities of India\", \"100 Future Leaders\", and \"Rising Tech-Expert 2024\" to name a few.\n\nDrijesh's leadership extends beyond the confines of the corporate world; he is also an avid photographer and a dedicated mentor, embodying a holistic approach to life. He has been a speaker at more than 300 events and mentored 700+ individuals to attain their desirable goals. With a relentless drive for excellence and a passion for fostering growth, Drijesh PPatel stands as a beacon of inspiration for aspiring leaders and technology enthusiasts alike.",
       "photo": "/images/people/drijesh-ppatel.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/drijesh/",
@@ -596,22 +477,14 @@
         "blog": "https://drijesh-ppatel.carrd.co/",
         "website": "https://drijessh.carrd.co/"
       },
-      "profession": {
-        "title": "Engineering Manager",
-        "organization": "IBM"
-      },
       "events": [
         {
-          "id": "2024-drijesh-ppatel",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 19
+          ]
         }
       ]
     },
@@ -619,28 +492,22 @@
       "id": "ramesh-rajini",
       "name": "Ramesh Rajini",
       "kind": "person",
+      "title": "Cloud & AI Coach, NASSCOM Mentor, Senior Principal Consultant, Infosys",
+      "organization": "Infosys",
       "bio": "International Award Winning Author,  NASSCOM Mentor Women Techmaker Ambassador, Women Changemaker enabling Millions to Create their Success Stories.",
       "photo": "/images/people/ramesh-rajini.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/rameshrajini",
         "blog": "Https://Rameshrajini.medium.com"
       },
-      "profession": {
-        "title": "Cloud & AI Coach, NASSCOM Mentor, Senior Principal Consultant, Infosys",
-        "organization": "Infosys"
-      },
       "events": [
         {
-          "id": "2024-ramesh-rajini",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 20
+          ]
         }
       ]
     },
@@ -648,6 +515,8 @@
       "id": "jitendra-gupta",
       "name": "Jitendra Gupta",
       "kind": "person",
+      "title": "Manager - Cloud Engineering @KPMG Global Services",
+      "organization": "KPMG Global Services",
       "bio": "Jitendra Gupta is 12 years experienced IT professional with expertise in information security, Kubernetes, and cloud computing. As a sought-after speaker, with a proven track record of implementing security best practices in cloud environments, Jitendra is dedicated to empowering fellow IT professionals with actionable takeaways to safeguard their applications, data and infrastructure on Google Cloud.",
       "photo": "/images/people/jitendra-gupta.webp",
       "links": {
@@ -656,22 +525,14 @@
         "blog": "https://medium.com/@jitu028",
         "website": "https://www.epam.com"
       },
-      "profession": {
-        "title": "Manager - Cloud Engineering @KPMG Global Services",
-        "organization": "KPMG Global Services"
-      },
       "events": [
         {
-          "id": "2024-jitendra-gupta",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 21
+          ]
         }
       ]
     },
@@ -679,25 +540,18 @@
       "id": "soumya-upadhyay",
       "name": "Soumya Upadhyay",
       "kind": "person",
-      "bio": "For the past 15 years, I've worn many hats in the dynamic world of civil engineering. From the intricacies of the RMC industry to the broader landscape of building materials, I've gained invaluable experience that has shaped me into the entrepreneur I am today.\r\n\r\nThis journey hasn't just been about bricks and mortar. It's been about mastering business operating systems, ensuring quality control and assurance, fostering strategic business development, and building high-performing teams through training and motivation.\r\n\r\nAs a motivational speaker, I'm passionate about addressing the current challenges faced by young civil engineers and budding professionals. Sharing my experiences and insights with the next generation is incredibly rewarding. For this I have been awarded National Level DB Women Pride Award 2017.  🥇 \r\n\r\nHaving collaborated with renowned corporates, I've had the privilege of working on diverse projects and learning from industry leaders. These experiences have instilled in me a deep understanding of the industry and the drive to make a positive impact.\r\n\r\n Looking ahead, I'm excited to continue:\r\n\r\nInnovating within the civil engineering space.\r\nMentoring future generations of engineers.\r\nCollaborating with inspiring individuals and organizations.\r\nIf you're a civil engineer, entrepreneur, or simply interested in the construction industry, I'd love to connect!",
+      "title": "CEO",
+      "organization": "Eternal Infraheight Pvt Ltd",
+      "bio": "For the past 15 years, I've worn many hats in the dynamic world of civil engineering. From the intricacies of the RMC industry to the broader landscape of building materials, I've gained invaluable experience that has shaped me into the entrepreneur I am today.\n\nThis journey hasn't just been about bricks and mortar. It's been about mastering business operating systems, ensuring quality control and assurance, fostering strategic business development, and building high-performing teams through training and motivation.\n\nAs a motivational speaker, I'm passionate about addressing the current challenges faced by young civil engineers and budding professionals. Sharing my experiences and insights with the next generation is incredibly rewarding. For this I have been awarded National Level DB Women Pride Award 2017.  🥇\n\nHaving collaborated with renowned corporates, I've had the privilege of working on diverse projects and learning from industry leaders. These experiences have instilled in me a deep understanding of the industry and the drive to make a positive impact.\n\n Looking ahead, I'm excited to continue:\n\nInnovating within the civil engineering space.\nMentoring future generations of engineers.\nCollaborating with inspiring individuals and organizations.\nIf you're a civil engineer, entrepreneur, or simply interested in the construction industry, I'd love to connect!",
       "photo": "/images/people/soumya-upadhyay.webp",
-      "links": {},
-      "profession": {
-        "title": "CEO",
-        "organization": "Eternal Infraheight Pvt Ltd"
-      },
       "events": [
         {
-          "id": "2024-soumya-upadhyay",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 22
+          ]
         }
       ]
     },
@@ -705,27 +559,21 @@
       "id": "sudip-mazumder",
       "name": "Sudip Mazumder",
       "kind": "person",
-      "bio": "Sudip Mazumder, Global Chief Digital & Information Officer of PGP Glass Pvt Lt, erstwhile Piramal Glass, now a Blackstone portfolio company, manufacturer of high-quality premium Glass containers for Fashion, Food & Beverages and Pharma products. 17 of the top global 20 fashion brands are PGP’s customers.\r\nSudip has 30+ years of global experience in IT, Digital and AI. He has been in the forefront of IT and Digital led transformations which helped companies to change their value delivery model in multiple industries and companies. Sudip believes in innovation, capability building for the future and promotes generating future leadership.\r\nIn the past, Sudip worked in various organizations L&T, TCS, Cognizant and Lloyds Banking Group. He was educated in Bengal Engineering College under Calcutta University, IIT Bombay, University of Michigan, Ross Business School. Sudip is an adjunct Professor of Manipal Institute of Technology.\r\nSudip is A TEDx speaker, also spoke at the Oracle Open World and International seminars. Sudip visits top Institutes in India regularly to share experiences to fill the gap between academics and Industry.",
+      "title": "Global Chief Digital & Information Officer",
+      "organization": "PGP Glass Pvt Ltd (A Blackstone Portfolio Co)",
+      "bio": "Sudip Mazumder, Global Chief Digital & Information Officer of PGP Glass Pvt Lt, erstwhile Piramal Glass, now a Blackstone portfolio company, manufacturer of high-quality premium Glass containers for Fashion, Food & Beverages and Pharma products. 17 of the top global 20 fashion brands are PGP’s customers.\nSudip has 30+ years of global experience in IT, Digital and AI. He has been in the forefront of IT and Digital led transformations which helped companies to change their value delivery model in multiple industries and companies. Sudip believes in innovation, capability building for the future and promotes generating future leadership.\nIn the past, Sudip worked in various organizations L&T, TCS, Cognizant and Lloyds Banking Group. He was educated in Bengal Engineering College under Calcutta University, IIT Bombay, University of Michigan, Ross Business School. Sudip is an adjunct Professor of Manipal Institute of Technology.\nSudip is A TEDx speaker, also spoke at the Oracle Open World and International seminars. Sudip visits top Institutes in India regularly to share experiences to fill the gap between academics and Industry.",
       "photo": "/images/people/sudip-mazumder.webp",
       "links": {
         "website": "https://www.pgpfirst.com/"
       },
-      "profession": {
-        "title": "Global Chief Digital & Information Officer",
-        "organization": "PGP Glass Pvt Ltd (A Blackstone Portfolio Co)"
-      },
       "events": [
         {
-          "id": "2024-sudip-mazumder",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 23
+          ]
         }
       ]
     },
@@ -733,6 +581,8 @@
       "id": "adeen-shukla",
       "name": "Adeen Shukla",
       "kind": "person",
+      "title": "-",
+      "organization": "Metafic",
       "bio": "-",
       "photo": "/images/people/adeen-shukla.webp",
       "links": {
@@ -740,22 +590,14 @@
         "blog": "https://adeen.me/blog",
         "website": "https://metafic.co"
       },
-      "profession": {
-        "title": "-",
-        "organization": "Metafic"
-      },
       "events": [
         {
-          "id": "2024-adeen-shukla",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 24
+          ]
         }
       ]
     },
@@ -763,27 +605,21 @@
       "id": "prasad-seth",
       "name": "Prasad Seth",
       "kind": "person",
-      "bio": "Prasad is a Developer Community Manager at Google for Developers. \r\n\r\nHe leads multiple programs at Google for Developers: \r\n\r\n1. ML Community in more than 30 cities of India\r\n2. Indie Games Group India\r\n3. Community Partnerships\r\n\r\nPrasad has experience of 9 years in building community and software for multiple IT companies. \r\n\r\nIn his previous experiences he has worked with the DevRel team of Slack/Salesforce, EdTech Startups and has been a software developer at FreshWorks. In the past, Prasad has also been a founder himself. \r\n\r\nIn his free time he likes to contribute to open source projects.",
+      "title": "Developer Community Manager",
+      "organization": "Google",
+      "bio": "Prasad is a Developer Community Manager at Google for Developers.\n\nHe leads multiple programs at Google for Developers:\n\n1. ML Community in more than 30 cities of India\n2. Indie Games Group India\n3. Community Partnerships\n\nPrasad has experience of 9 years in building community and software for multiple IT companies.\n\nIn his previous experiences he has worked with the DevRel team of Slack/Salesforce, EdTech Startups and has been a software developer at FreshWorks. In the past, Prasad has also been a founder himself.\n\nIn his free time he likes to contribute to open source projects.",
       "photo": "/images/people/prasad-seth.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/prasad-seth-672404b4"
       },
-      "profession": {
-        "title": "Developer Community Manager",
-        "organization": "Google"
-      },
       "events": [
         {
-          "id": "2024-prasad-seth",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 25
+          ]
         }
       ]
     },
@@ -791,25 +627,18 @@
       "id": "manish-gehlot",
       "name": "Manish Gehlot",
       "kind": "person",
-      "bio": "Manish Gehlot , IIT Bombay Alumni and MBA from university of St. Thomas Minnesota, US, currently working as chief strategist for a socio-climate mass forestation startup Medius Earth, working as Oracle supply chain management consulting head for Infosys consulting North America, have worked with Oracle USA. IBM, Accenture and CP wholesales and hold upper management positions. \r\n\r\nFor last 14 years he is working passionately on water conservation, rainwater harvesting and storage. He loves working with youth across the globe to motivate their inner potential. \r\nHe also supports two family social impact startup - Asmakam Life University on lifeskills vertical and Cotfoo- connecting thru food",
+      "title": "North America Consulting head - CRL practice",
+      "organization": "Infosys Ltd - USA",
+      "bio": "Manish Gehlot , IIT Bombay Alumni and MBA from university of St. Thomas Minnesota, US, currently working as chief strategist for a socio-climate mass forestation startup Medius Earth, working as Oracle supply chain management consulting head for Infosys consulting North America, have worked with Oracle USA. IBM, Accenture and CP wholesales and hold upper management positions.\n\nFor last 14 years he is working passionately on water conservation, rainwater harvesting and storage. He loves working with youth across the globe to motivate their inner potential.\nHe also supports two family social impact startup - Asmakam Life University on lifeskills vertical and Cotfoo- connecting thru food",
       "photo": "/images/people/manish-gehlot.webp",
-      "links": {},
-      "profession": {
-        "title": "North America Consulting head - CRL practice",
-        "organization": "Infosys Ltd - USA"
-      },
       "events": [
         {
-          "id": "2024-manish-gehlot",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 27
+          ]
         }
       ]
     },
@@ -817,25 +646,18 @@
       "id": "dr-gautam-billore",
       "name": "Dr Gautam Billore",
       "kind": "person",
+      "title": "CEO",
+      "organization": "Nordic Digital Hub",
       "bio": "Dr Gautam Billore is an university teacher, an Entrepreneur and a Management Consultant. Having done his PhD in International business has worked as a Senior Manager in Punjab National Bank, CBI, Nozomi Infotech Tokyo Japan, PowerGreen AB Sweden, Scaleban USA, and now Chief Consultant and CEO of Nordic Digital Hub Sweden.",
       "photo": "/images/people/dr-gautam-billore.webp",
-      "links": {},
-      "profession": {
-        "title": "CEO",
-        "organization": "Nordic Digital Hub"
-      },
       "events": [
         {
-          "id": "2024-dr-gautam-billore",
           "eventId": "devfest-2024",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "displayOrder": 28
+          ]
         }
       ]
     },
@@ -849,23 +671,25 @@
         "linkedin": "https://www.linkedin.com/in/tpal94",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-tushar-pal",
-          "role": "Community Lead & GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 10
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Event Lead",
-            "Community & Outreach Lead"
-          ],
-          "displayOrder": 0
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Event",
+                  "level": "lead"
+                },
+                {
+                  "area": "Community & Outreach",
+                  "level": "lead"
+                }
+              ],
+              "order": 1
+            }
+          ]
         }
       ]
     },
@@ -879,22 +703,21 @@
         "linkedin": "https://www.linkedin.com/in/akash-gangrade",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-akash-gangrade",
-          "role": "Organizer & Tech Architecture Lead",
-          "team": "Core Organizer",
-          "order": 20
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Partnerships & Sponsorships Lead"
-          ],
-          "displayOrder": 3
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Partnerships & Sponsorships",
+                  "level": "lead"
+                }
+              ],
+              "order": 2
+            }
+          ]
         }
       ]
     },
@@ -902,37 +725,28 @@
       "id": "karan-mittal",
       "name": "Karan Mittal",
       "kind": "person",
+      "title": "CTO",
+      "organization": "Dextar.co",
       "photo": "/images/people/karan-mittal.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/karansmittal/",
         "instagram": "https://www.instagram.com/karansmittal/"
       },
-      "profession": {
-        "title": "CTO",
-        "organization": "Dextar.co"
-      },
       "events": [
         {
-          "id": "cloud-bytes-2025-karan-mittal",
           "eventId": "cloud-bytes-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-bytes-your-ccd-2025-intro/cohost-gdg-on-campus-shri-vaishnav-vidyapeeth-vishwavidyalaya-indore-india/",
           "roles": [
             {
-              "kind": "speaker",
-              "title": "Speaker",
-              "order": 0
+              "kind": "speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-bytes-your-ccd-2025-intro/cohost-gdg-on-campus-shri-vaishnav-vidyapeeth-vishwavidyalaya-indore-india/",
-          "displayOrder": 30
+          ]
         },
         {
-          "id": "2026-karan-mittal",
           "eventId": "devfest-2026",
           "roles": [
             {
               "kind": "core-team",
-              "title": "Organizer",
-              "order": 30,
               "responsibilities": [
                 {
                   "area": "Programme & Speakers",
@@ -942,49 +756,28 @@
                   "area": "Technology & Production",
                   "level": "lead"
                 }
-              ]
+              ],
+              "order": 3
             },
             {
               "kind": "ambassador",
-              "title": "Ambassador",
-              "order": 31
+              "track": "professional",
+              "community": "GDG Indore",
+              "order": 1
             }
-          ],
-          "displayOrder": 31
+          ]
         },
         {
-          "id": "ccd-2025-karan-mittal",
           "eventId": "ccd-2025",
+          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-2025-indore/cohost-gdg-cloud-indore/",
           "roles": [
             {
               "kind": "speaker",
-              "title": "Workshop speaker",
-              "order": 0
+              "title": "Workshop speaker"
             }
-          ],
-          "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-2025-indore/cohost-gdg-cloud-indore/",
-          "displayOrder": 32
+          ]
         }
-      ],
-      "teamAssignments": [
-        {
-          "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Programme & Speakers Lead",
-            "Technology & Production Lead"
-          ],
-          "displayOrder": 1
-        }
-      ],
-      "ambassador": {
-        "track": "professional",
-        "community": "GDG Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 0
-      }
+      ]
     },
     {
       "id": "darshan-kusumakar",
@@ -996,22 +789,21 @@
         "linkedin": "https://www.linkedin.com/in/xyresic-darshan",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-darshan-kusumakar",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 40
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Operations & Venue Lead"
-          ],
-          "displayOrder": 2
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Operations & Venue",
+                  "level": "lead"
+                }
+              ],
+              "order": 4
+            }
+          ]
         }
       ]
     },
@@ -1025,22 +817,21 @@
         "linkedin": "https://linkedin.com/in/priyaljain919",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-priyal-jain",
-          "role": "GDG Indore Organizer & Ecosystem Lead",
-          "team": "Core Organizer",
-          "order": 50
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Marketing & Communications Lead"
-          ],
-          "displayOrder": 4
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Marketing & Communications",
+                  "level": "lead"
+                }
+              ],
+              "order": 5
+            }
+          ]
         }
       ]
     },
@@ -1054,22 +845,21 @@
         "linkedin": "https://www.linkedin.com/in/iamyashjain",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-yash-jain",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 60
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Marketing & Communications Co-Lead"
-          ],
-          "displayOrder": 9
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Marketing & Communications",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 8
+            }
+          ]
         }
       ]
     },
@@ -1083,22 +873,21 @@
         "linkedin": "https://www.linkedin.com/in/manan-chimnani/",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-manan-chimnani",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 70
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Design & Creative Co-Lead"
-          ],
-          "displayOrder": 8
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Design & Creative",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 9
+            }
+          ]
         }
       ]
     },
@@ -1112,32 +901,23 @@
         "linkedin": "https://www.linkedin.com/in/vikasratnawat/",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-vikas-ratnawat",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 80
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Marketing & Communications Co-Lead"
-          ],
-          "displayOrder": 11
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Marketing & Communications",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 10
+            }
+          ]
         }
-      ],
-      "ambassador": {
-        "track": "professional",
-        "community": "GDG Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 0
-      }
+      ]
     },
     {
       "id": "shubham-sharma",
@@ -1149,22 +929,21 @@
         "linkedin": "https://www.linkedin.com/in/shubham-sharma-8889893109",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-shubham-sharma",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 90
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Community & Outreach Co-Lead"
-          ],
-          "displayOrder": 12
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Community & Outreach",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 11
+            }
+          ]
         }
       ]
     },
@@ -1178,22 +957,21 @@
         "linkedin": "https://www.linkedin.com/in/kunal-singh-a066a22a0",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-kunal-singh",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 100
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Community & Outreach Co-Lead"
-          ],
-          "displayOrder": 13
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Community & Outreach",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 12
+            }
+          ]
         }
       ]
     },
@@ -1207,23 +985,31 @@
         "linkedin": "https://www.linkedin.com/in/tanmayjain2911/",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-tanmay-jain",
-          "role": "GDG Indore Organizer",
-          "team": "Core Organizer",
-          "order": 110
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "volunteer",
-          "responsibilities": [
-            "Marketing & Communications Co-Lead",
-            "Technology & Production Co-Lead"
-          ],
-          "displayOrder": 10
+          "roles": [
+            {
+              "kind": "volunteer",
+              "responsibilities": [
+                {
+                  "area": "Marketing & Communications",
+                  "level": "co-lead"
+                },
+                {
+                  "area": "Technology & Production",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 13
+            },
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Institute of Engineering & Technology, DAVV",
+              "order": 31
+            }
+          ]
         }
       ]
     },
@@ -1235,24 +1021,23 @@
       "photo": "/images/people/mradula-mittal.webp",
       "links": {
         "linkedin": "https://www.linkedin.com/in/mradula-mittal/",
-        "instagram": "https://www.instagram.com/gdgindore/"
+        "instagram": "https://www.instagram.com/mittal_mansi_/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-mradula-mittal",
-          "role": "Community Evangelist & Outreach",
-          "team": "Community",
-          "order": 120
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Design & Creative Lead"
-          ],
-          "displayOrder": 5
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Design & Creative",
+                  "level": "lead"
+                }
+              ],
+              "order": 6
+            }
+          ]
         }
       ]
     },
@@ -1266,24 +1051,28 @@
         "linkedin": "https://www.linkedin.com/in/aarti-jethaniya-4308211b0/",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-aarti-jethaniya",
-          "role": "Core Organizer",
-          "team": "Core Organizer",
-          "order": 130
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "Pre-DevFest events",
-            "Design & Creative Co-Lead",
-            "Technology & Production Co-Lead"
-          ],
-          "displayOrder": 7
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Pre-DevFest events"
+                },
+                {
+                  "area": "Design & Creative",
+                  "level": "co-lead"
+                },
+                {
+                  "area": "Technology & Production",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 14
+            }
+          ]
         }
       ]
     },
@@ -1297,23 +1086,25 @@
         "linkedin": "https://www.linkedin.com/in/meenal-saxena-42035114b/",
         "instagram": "https://www.instagram.com/gdgindore/"
       },
-      "undatedTeam": [
-        {
-          "id": "tm-meenal-saxena",
-          "role": "Design & Experience Lead",
-          "team": "Design & Experience",
-          "order": 140
-        }
-      ],
-      "teamAssignments": [
+      "events": [
         {
           "eventId": "devfest-2026",
-          "category": "core-team",
-          "responsibilities": [
-            "People & Volunteer Coordination Lead",
-            "Programme & Speakers Co-Lead"
-          ],
-          "displayOrder": 6
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "People & Volunteer Coordination",
+                  "level": "lead"
+                },
+                {
+                  "area": "Programme & Speakers",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 7
+            }
+          ]
         }
       ]
     },
@@ -1334,110 +1125,74 @@
       "links": {
         "linkedin": "https://www.linkedin.com/in/ashi-mahule-2356a638a/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "IPS Academy Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 1
-      }
-    },
-    {
-      "id": "shivansh-bhatt",
-      "name": "Shivansh Bhatt",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/shivansh-bhatt-377724423/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "IPS Academy Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 2
-      }
-    },
-    {
-      "id": "yash-chouhan",
-      "name": "Yash Chouhan",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/yash-chouhan-935973383/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "IPS Academy Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 3
-      }
-    },
-    {
-      "id": "anmol-narela",
-      "name": "Anmol Narela",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/anmol-narela-07a571426/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "IPS Academy Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 4
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "IPS Academy Indore",
+              "order": 3
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/ashi-mahule.webp"
     },
     {
       "id": "shrija-tripathi",
       "name": "Shrija Tripathi",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/shrija-tripathi-33b923332/"
+        "linkedin": "https://www.linkedin.com/in/shrija-tripathi-33b923332/",
+        "instagram": "https://www.instagram.com/shri_tri_/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Chameli Devi Group of Institutions",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 5
-      }
-    },
-    {
-      "id": "vasu-garg",
-      "name": "Vasu Garg",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/vasu-garg-320624249/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Indore Institute of Science and Technology",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 6
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Chameli Devi Group of Institutions",
+              "order": 7
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/shrija-tripathi.webp"
     },
     {
       "id": "divya-sharma",
       "name": "Divya Sharma",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/divya-sharma-179589423/"
+        "linkedin": "https://www.linkedin.com/in/divya-sharma-179589423/",
+        "instagram": "https://www.instagram.com/divyassharma9/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "International Institute of Professional Studies, DAVV",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 7
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "volunteer",
+              "responsibilities": [
+                {
+                  "area": "Volunteer"
+                }
+              ],
+              "order": 16
+            },
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "International Institute of Professional Studies, DAVV",
+              "order": 9
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "siddharth-soni",
@@ -1446,346 +1201,298 @@
       "links": {
         "linkedin": "https://www.linkedin.com/in/siddharth-soni-387841328/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "SAGE University Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 8
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "SAGE University Indore",
+              "order": 10
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "chaitanya-swaroop-vishwakarma",
       "name": "Chaitanya Swaroop Vishwakarma",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/chaitanyswaroopvishwakarma/"
+        "linkedin": "https://www.linkedin.com/in/chaitanyswaroopvishwakarma/",
+        "instagram": "https://www.instagram.com/yours.chaitany/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Medicaps University",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 9
-      }
-    },
-    {
-      "id": "abhinandan-dhakad",
-      "name": "Abhinandan Dhakad",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/abhinandan-dhakad-306785327/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "LNCT Bhopal, Indore Campus",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 10
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Medicaps University",
+              "order": 11
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/chaitanya-swaroop-vishwakarma.webp"
     },
     {
       "id": "prathak-soni",
       "name": "Prathak Soni",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/prathak-soni08/"
+        "linkedin": "https://www.linkedin.com/in/prathak-soni08/",
+        "instagram": "https://www.instagram.com/prathaksoni08/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Govt. Holkar Science College Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 11
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Govt. Holkar Science College Indore",
+              "order": 13
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/prathak-soni.webp"
     },
     {
       "id": "ansh-shrivastava",
       "name": "Ansh Shrivastava",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/ansh-shrivastava-bab282335/"
+        "linkedin": "https://www.linkedin.com/in/ansh-shrivastava-bab282335/",
+        "instagram": "https://www.instagram.com/_anshshrivastava/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Medicaps University",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 12
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Medicaps University",
+              "order": 14
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/ansh-shrivastava.webp"
     },
     {
       "id": "aditya-barche",
       "name": "Aditya Barche",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/aditya-barche-0b208b399/"
+        "linkedin": "https://www.linkedin.com/in/aditya-barche-0b208b399/",
+        "instagram": "https://www.instagram.com/aditya_11.04/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Malwa Institute of Science and Technology",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 13
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Malwa Institute of Science and Technology",
+              "order": 15
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/aditya-barche.webp"
     },
     {
       "id": "akshat-mittal",
       "name": "Akshat Mittal",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/akshat-mittal-061637411/"
+        "linkedin": "https://www.linkedin.com/in/akshat-mittal-061637411/",
+        "instagram": "https://www.instagram.com/akshat_agrawal/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Malwa Institute of Science and Technology",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 14
-      }
-    },
-    {
-      "id": "kanak-chouhan",
-      "name": "Kanak Chouhan",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/kanak-chouhan-aa2859311/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Devi Ahilya Vishwavidyalaya (DAVV), Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 15
-      }
-    },
-    {
-      "id": "tanish-tiwari",
-      "name": "Tanish Tiwari",
-      "kind": "person",
-      "ambassador": {
-        "track": "student",
-        "community": "Symbiosis University of Applied Sciences",
-        "contactPlatforms": [],
-        "order": 16
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Malwa Institute of Science and Technology",
+              "order": 16
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/akshat-mittal.webp"
     },
     {
       "id": "aditya-bhardwaj",
       "name": "Aditya Bhardwaj",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/aditya-anand-bhardwaj-2a896233a/"
+        "linkedin": "https://www.linkedin.com/in/aditya-anand-bhardwaj-2a896233a/",
+        "instagram": "https://www.instagram.com/aadityaanandbhardwaj/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Symbiosis University of Applied Sciences",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 17
-      }
-    },
-    {
-      "id": "aditya-shah",
-      "name": "Aditya Shah",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/aditya-shah-33042227b/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Acropolis Institute of Technology and Research",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 18
-      }
-    },
-    {
-      "id": "faisal-khan",
-      "name": "Faisal Khan",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/faisal-khan-a464363a2/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Rajasthan Technical University, Kota",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 19
-      }
-    },
-    {
-      "id": "divish-k",
-      "name": "Divish K",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/divish-k/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Jain University",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 20
-      }
-    },
-    {
-      "id": "kaveska-j-s",
-      "name": "Kaveska J S",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/kaveska-js/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Jain University",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 21
-      }
-    },
-    {
-      "id": "stuti-patel",
-      "name": "Stuti Patel",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/stuti-patel1703/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Avantika University",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 22
-      }
-    },
-    {
-      "id": "gulajapu-veera-nithin",
-      "name": "Gulajapu Veera Nithin",
-      "kind": "person",
-      "ambassador": {
-        "track": "student",
-        "community": "Pydah College of Engineering",
-        "contactPlatforms": [],
-        "order": 23
-      }
-    },
-    {
-      "id": "divy-pratap-singh-gaharwar",
-      "name": "Divy Pratap Singh Gaharwar",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/divy-pratap-singh-g-8b124438b/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Acropolis Institute of Technology and Research",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 24
-      }
-    },
-    {
-      "id": "arunav-paliwal",
-      "name": "Arunav Paliwal",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/arunav-paliwal/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Acropolis Institute of Technology and Research",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 25
-      }
-    },
-    {
-      "id": "kaashyap-sharma",
-      "name": "Kaashyap Sharma",
-      "kind": "person",
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/kaashyap-sharma-79540436b/"
-      },
-      "ambassador": {
-        "track": "student",
-        "community": "Acropolis Institute of Technology and Research",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 26
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Symbiosis University of Applied Sciences",
+              "order": 19
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "madhav-ratnawat",
       "name": "Madhav Ratnawat",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/madhav-ratnawat-187270305/"
+        "linkedin": "https://www.linkedin.com/in/madhav-ratnawat-187270305/",
+        "instagram": "https://www.instagram.com/mysterious_mady/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Indore Institute of Science and Technology",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 27
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Indore Institute of Science and Technology",
+              "order": 29
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/madhav-ratnawat.webp"
     },
     {
-      "id": "anandi-bardia",
-      "name": "Anandi Bardia",
+      "id": "shourya-mehta",
+      "name": "Shourya Mehta",
       "kind": "person",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/anandibardia/"
+        "linkedin": "https://www.linkedin.com/in/shouryamehta/",
+        "instagram": "https://www.instagram.com/rawshourya/"
       },
-      "ambassador": {
-        "track": "student",
-        "community": "Narsee Monjee Institute of Management Studies, Indore",
-        "contactPlatforms": [
-          "linkedin"
-        ],
-        "order": 28
-      }
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Symbiosis University of Applied Sciences",
+              "order": 32
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/shourya-mehta.webp"
+    },
+    {
+      "id": "gauranshi-porwal",
+      "name": "Gauranshi Porwal",
+      "kind": "person",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/gauranshi-porwal-809149414/",
+        "instagram": "https://www.instagram.com/gauranshi_porwal/"
+      },
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Shri Vaishnav Vidyapeeth Vishwavidyalaya",
+              "order": 33
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/gauranshi-porwal.webp"
+    },
+    {
+      "id": "ishaan-agrawal",
+      "name": "Ishaan Agrawal",
+      "kind": "person",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/ishaan-agrawal-7836743a5/",
+        "instagram": "https://www.instagram.com/__ishaan007/"
+      },
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Acropolis Institute of Technology and Research",
+              "order": 34
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/ishaan-agrawal.webp"
+    },
+    {
+      "id": "jay-panchal",
+      "name": "Jay Panchal",
+      "kind": "person",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/jay-panchal-964147352/"
+      },
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "core-team",
+              "responsibilities": [
+                {
+                  "area": "Media & Photography",
+                  "level": "co-lead"
+                }
+              ],
+              "order": 15
+            },
+            {
+              "kind": "ambassador",
+              "track": "student",
+              "community": "Medicaps University",
+              "order": 35
+            }
+          ]
+        }
+      ],
+      "photo": "/images/people/jay-panchal.webp"
     },
     {
       "id": "lt-gen-pjs-pannu",
       "name": "Lt Gen PJS Pannu",
       "kind": "person",
+      "title": "Founder",
+      "organization": "Space Club of India",
       "bio": "A decorated three-star general of the Indian Army and former Deputy Chief of the Integrated Defence Staff, Lt Gen PJS Pannu has spent a lifetime at the intersection of national security, aerospace and strategic affairs. He founded Space Club of India to channel that experience into a civilian movement, building an inclusive, future-facing platform that prepares India’s youth for the space-led century ahead.",
-      "profession": {
-        "title": "Founder",
-        "organization": "Space Club of India"
-      },
       "events": [
         {
-          "id": "2026-lt-gen-pjs-pannu",
           "eventId": "devfest-2026",
           "roles": [
             {
               "kind": "speaker",
               "title": "Keynote speaker",
-              "order": 0
+              "order": 1
             }
-          ],
-          "displayOrder": 33
+          ]
         }
       ]
     },
@@ -1793,23 +1500,18 @@
       "id": "kartikey-rawat",
       "name": "Kartikey Rawat",
       "kind": "person",
+      "title": "Senior Engineer, Developer Relations",
+      "organization": "Qualcomm",
       "bio": "A Senior Engineer in Developer Relations at Qualcomm and Google Developer Expert, Kartikey works on On-Device AI, Edge AI and intelligent applications.",
-      "profession": {
-        "title": "Senior Engineer, Developer Relations",
-        "organization": "Qualcomm"
-      },
       "events": [
         {
-          "id": "2026-kartikey-rawat",
           "eventId": "devfest-2026",
           "roles": [
             {
               "kind": "speaker",
-              "title": "Speaker",
-              "order": 1
+              "order": 2
             }
-          ],
-          "displayOrder": 34
+          ]
         }
       ]
     }

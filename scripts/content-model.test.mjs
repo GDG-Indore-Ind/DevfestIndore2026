@@ -52,22 +52,38 @@ test('page content retains validation for themes and FAQs', () => {
   data.pages.faq.questions[0].answer='Unknown {{invalidToken}}';
   assert(errors(data).some(error=>error.includes('unknown template token')));
 });
-test('ambassador contact selection rejects unsupported platforms', () => {
+test('each role kind carries only its own fields', () => {
   const data=fixture();
-  const person=data.people.people.find(item=>item.ambassador);
-  person.ambassador.contactPlatforms=['instagram'];
-  assert(errors(data).some(error=>error.includes('contactPlatforms')));
+  const roleOf=(kind)=>data.people.people.flatMap(person=>person.events??[]).flatMap(entry=>entry.roles).find(role=>role.kind===kind);
+  const ambassador=roleOf('ambassador');
+  const {track}=ambassador; delete ambassador.track;
+  assert(errors(data).some(error=>error.includes('people.json')));
+  ambassador.track=track;
+  const team=roleOf('core-team');
+  const {responsibilities}=team; delete team.responsibilities;
+  assert(errors(data).some(error=>error.includes('people.json')));
+  team.responsibilities=responsibilities; team.track='student';
+  assert(errors(data).some(error=>error.includes('people.json')));
+  delete team.track;
+  roleOf('speaker').community='GDG Indore';
+  assert(errors(data).some(error=>error.includes('people.json')));
+});
+test('old per-person blocks are no longer accepted', () => {
+  for (const field of ['ambassador','teamAssignments','undatedTeam','profession']) {
+    const data=fixture(); data.people.people[0][field]={};
+    assert(errors(data).some(error=>error.includes(field)), field);
+  }
 });
 test('one person may have multiple roles at the same event', () => {
   const data=fixture(); const person=data.people.people.find(item=>item.events?.length);
-  person.events[0].roles.push({kind:'volunteer',title:'Volunteer',order:1});
+  person.events[0].roles.push({kind:'volunteer',responsibilities:[{area:'Registration',level:'volunteer'}]});
   assert.deepEqual(errors(data), []);
   person.events.push(structuredClone(person.events[0]));
   assert(errors(data).some(error=>error.includes('person event: duplicate')));
 });
 test('responsibilities support multiple areas and reject duplicate areas on one role', () => {
   const data=fixture();
-  const role=data.people.people.find(item=>item.id==='karan-mittal').events.find(item=>item.id==='2026-karan-mittal').roles[0];
+  const role=data.people.people.find(item=>item.id==='karan-mittal').events.find(item=>item.eventId==='devfest-2026').roles[0];
   assert.equal(role.responsibilities.length, 2);
   assert.deepEqual(errors(data), []);
   role.responsibilities.push({area:'programme & speakers',level:'co-lead'});

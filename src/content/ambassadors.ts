@@ -1,28 +1,41 @@
-import { getPerson, PERSON_RECORDS } from "./people";
-import type { Socials } from "./model";
+import { EVENT } from "./event";
+import { getPerson, personalSocials } from "./people";
+import { byRoleOrder, PARTICIPATIONS } from "./participations";
 
-export const AMBASSADOR_DIRECTORY = PERSON_RECORDS.flatMap((person) =>
-  person.ambassador ? [{ ...person.ambassador, personId: person.id }] : [],
+const isLinkedInProfile = (value?: string) => {
+  try {
+    const url = new URL(value ?? "");
+    return (
+      url.protocol === "https:" &&
+      ["linkedin.com", "www.linkedin.com"].includes(url.hostname) &&
+      /^\/in\/[^/]+\/?$/.test(url.pathname)
+    );
+  } catch {
+    return false;
+  }
+};
+
+/** Current ambassadors with a public LinkedIn profile; anyone without one stays hidden. */
+export const AMBASSADOR_DIRECTORY = PARTICIPATIONS.flatMap((entry) =>
+  entry.eventId !== EVENT.id
+    ? []
+    : entry.roles.flatMap((role) =>
+        role.kind === "ambassador"
+          ? [
+              {
+                personId: entry.personId,
+                track: role.track!,
+                community: role.community!,
+                order: role.order,
+              },
+            ]
+          : [],
+      ),
 )
-  .sort((a, b) => a.order - b.order)
+  .sort(byRoleOrder)
   .map((entry) => {
     const person = getPerson(entry.personId);
-    const socials = Object.fromEntries(
-      entry.contactPlatforms
-        .map((platform) => [platform, person.socials?.[platform as keyof Socials]])
-        .filter(([, url]) => Boolean(url)),
-    ) as Socials;
-    return { ...entry, person, socials };
+    const { linkedin, instagram } = personalSocials(person.socials);
+    return { ...entry, person, socials: { linkedin, instagram } };
   })
-  .filter(({ socials }) => {
-    try {
-      const url = new URL(socials.linkedin ?? "");
-      return (
-        url.protocol === "https:" &&
-        ["linkedin.com", "www.linkedin.com"].includes(url.hostname) &&
-        /^\/in\/[^/]+\/?$/.test(url.pathname)
-      );
-    } catch {
-      return false;
-    }
-  });
+  .filter(({ socials }) => isLinkedInProfile(socials.linkedin));

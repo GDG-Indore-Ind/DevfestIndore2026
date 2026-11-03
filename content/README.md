@@ -5,7 +5,7 @@ Edit the JSON files in this folder. The site reads them directly; run `npm run d
 | File | What you manage |
 | --- | --- |
 | `event.json` | Current event facts, venue, links, tickets and policies; past and community events |
-| `people.json` | Every person: photo, bio, links, event roles, team and ambassador details |
+| `people.json` | Every person: photo, bio, links, and their roles (speaker, team, ambassador) per event |
 | `programme.json` | Talks and campus workshops, referring to people by ID |
 | `organizations.json` | Organizations, logos and what each contributed to which event |
 | `gallery.json` | Photos and captions, and newspaper clippings (`press`) |
@@ -22,28 +22,32 @@ Each file has a `$schema`, so editors that understand JSON Schema suggest fields
 
 ## Add a person and their photo
 
-1. Add a record to `people.json`:
+1. Add a record to `people.json`. A person holds who they are (name, `title`, `organization`, `bio`, `photo`, `links`) and, under `events`, one entry per event with their roles there:
 
 ```json
 {
   "id": "kartikey-rawat",
   "name": "Kartikey Rawat",
   "kind": "person",
+  "title": "Senior Engineer",
+  "organization": "Qualcomm",
   "bio": "One or two sentences.",
-  "profession": { "title": "Senior Engineer", "organization": "Qualcomm" },
   "links": { "linkedin": "https://www.linkedin.com/in/…" },
   "events": [
-    {
-      "id": "2026-kartikey-rawat",
-      "eventId": "devfest-2026",
-      "roles": [{ "kind": "speaker", "title": "Speaker", "order": 1 }],
-      "displayOrder": 34
-    }
+    { "eventId": "devfest-2026", "roles": [{ "kind": "speaker", "order": 2 }] }
   ]
 }
 ```
 
-Role kinds are `core-team`, `volunteer`, `ambassador` and `speaker`; `order` sorts within the event and `displayOrder` keeps the overall ordering. Team members also have `teamAssignments` (category and responsibilities) for their card on `/team`. Ambassadors have an `ambassador` block (`track`, `community`, `contactPlatforms`, `order`) and a public LinkedIn URL.
+Role fields depend on `kind` (the schema rejects anything else):
+
+| `kind` | Needs | Notes |
+| --- | --- | --- |
+| `speaker` | nothing | `title` overrides the label, e.g. `"Keynote speaker"`. Add `sourceUrl` on the event entry for past editions. |
+| `core-team`, `volunteer` | `responsibilities` | A list of `{ "area": "Design & Creative", "level": "co-lead" }`. `level` is optional (`lead`, `co-lead`, `coordinator`, `team-member`, `volunteer`). Shown on `/team`. |
+| `ambassador` | `track`, `community` | `track` is `professional` or `student`. Shown on `/ambassadors` once the person has a public LinkedIn URL. |
+
+`order` is optional on any role and means one thing: position among roles of the same kind at that event, lowest first. Roles without one follow, in file order. Event entries have no id and no global order; the record id is derived as `<eventId>/<person-id>`. Keep `bio` plain text with a blank line between paragraphs and put profile URLs under `links`.
 
 2. Save the photo as `photos-inbox/<person-id>.jpg` (or `.png`, `.heic`) and run:
 
@@ -74,6 +78,7 @@ Find the organization in `organizations.json` first and reuse its ID. Add one `c
 Passes live in `event.json` → current event → `tickets.passes`.
 
 - `visible` shows a pass card; `soldOut: true` moves it to the closed section below the KonfHub widget with no Register button.
+- Keep listing every benefit on every pass. The tickets page works out which benefits all open passes share and shows them once under `pages.json` → `tickets.includedTitle`; each card then lists only what it adds.
 - `bookingRoute: "ambassador"` (Cadet) sends the card to `/ambassadors` instead of the widget. `offer` is a short discount line under the price (Commander: 6–10 tickets, 15% off, applied at KonfHub checkout).
 - `price` is in INR; leave it out while unconfirmed.
 - Stable pass ids: `liftoff`, `student` (Cadet), `professional` (Commander), `vip`, `last-orbit`, `observer`. Rename display names freely, never the ids.
@@ -87,7 +92,7 @@ The exhibit invitation copy is `pages.json` → `home.exhibits`; its form URL is
 
 ## Ambassadors
 
-`/ambassadors` is the Cadet booking route: one shared, searchable directory, grouped by `track` (`professional` or `student`) in the order of `pages.json` → `ambassadors.groups`. Each person's card shows only a public LinkedIn link; people without a usable LinkedIn URL stay hidden. Do not put phone numbers or other private contact details in these files.
+`/ambassadors` is the Cadet booking route: one shared, searchable directory, grouped by `track` (`professional` or `student`) in the order of `pages.json` → `ambassadors.groups`. Ambassadors are people with an `ambassador` role at the current event (see above). Each card shows the person's LinkedIn and, when they have a personal one, Instagram (the GDG Indore account never appears on a card); people without a usable LinkedIn URL stay hidden. Ambassadors are the people given ambassador codes for the current event; remove anyone who no longer holds one. Do not put phone numbers or other private contact details in these files.
 
 ## Check and publish
 

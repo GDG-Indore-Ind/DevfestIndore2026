@@ -1,28 +1,17 @@
 import peopleFile from "../../content/people.json";
+import { EVENT } from "./event";
 import type { Participation, Person, Socials } from "./model";
 
 type PersonRecord = {
   id: string;
   name: string;
   kind: "person" | "group";
-  photo?: string;
+  title?: string;
+  organization?: string;
   bio?: string;
+  photo?: string;
   links?: Socials;
-  profession?: { title?: string; organization?: string };
-  events?: (Omit<Participation, "personId"> & { displayOrder: number })[];
-  undatedTeam?: { id: string; role: string; team: string; order: number; bio?: string }[];
-  teamAssignments?: {
-    eventId: string;
-    category: string;
-    responsibilities: string[];
-    displayOrder: number;
-  }[];
-  ambassador?: {
-    track: "professional" | "student";
-    community: string;
-    contactPlatforms: string[];
-    order: number;
-  };
+  events?: Omit<Participation, "id" | "personId">[];
 };
 export const PERSON_RECORDS = peopleFile.people as PersonRecord[];
 export const PEOPLE: Person[] = PERSON_RECORDS.map((person) => ({
@@ -31,8 +20,8 @@ export const PEOPLE: Person[] = PERSON_RECORDS.map((person) => ({
   kind: person.kind,
   avatar: person.photo,
   bio: person.bio,
-  role: person.profession?.title,
-  company: person.profession?.organization,
+  role: person.title,
+  company: person.organization,
   socials: person.links,
 }));
 const people = new Map(PEOPLE.map((person) => [person.id, person]));
@@ -41,9 +30,19 @@ export function getPerson(id: string): Person {
   if (!person) throw new Error(`Unknown person ${id}. Run npm run content:validate.`);
   return person;
 }
-export const LEGACY_TEAM = PERSON_RECORDS.flatMap((person) =>
-  (person.undatedTeam ?? []).map((entry) => ({ ...entry, personId: person.id })),
-).sort((a, b) => a.order - b.order);
-export const TEAM_ASSIGNMENTS = PERSON_RECORDS.flatMap((person) =>
-  (person.teamAssignments ?? []).map((entry) => ({ ...entry, personId: person.id })),
-).sort((a, b) => a.displayOrder - b.displayOrder);
+
+const profileKey = (href: string) => {
+  try {
+    const url = new URL(href);
+    return `${url.hostname.replace(/^www\./, "")}${url.pathname.replace(/\/+$/, "")}`.toLowerCase();
+  } catch {
+    return href;
+  }
+};
+const ORGANIZER_PROFILES = new Set([EVENT.links.instagram, EVENT.links.linkedin].map(profileKey));
+/** Profile links without the organizer's own accounts, which some team records use as placeholders. */
+export function personalSocials(socials: Socials = {}): Socials {
+  return Object.fromEntries(
+    Object.entries(socials).filter(([, href]) => href && !ORGANIZER_PROFILES.has(profileKey(href))),
+  );
+}

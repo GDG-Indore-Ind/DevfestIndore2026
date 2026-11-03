@@ -1,6 +1,6 @@
 import { EVENT } from "@/content/event";
 import { AGENDA_PAGE as copy } from "@/content/pages";
-import { PARTICIPATIONS } from "@/content/participations";
+import { byRoleOrder, PARTICIPATIONS, roleTitle } from "@/content/participations";
 import { getPerson } from "@/content/people";
 import { CURRENT_SESSIONS } from "@/content/speakers";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
@@ -13,12 +13,12 @@ const speakers = PARTICIPATIONS.flatMap((entry) => {
   return [
     {
       person: getPerson(entry.personId),
-      label: role.title,
+      label: roleTitle(role),
       order: role.order,
       sessions: CURRENT_SESSIONS.filter((session) => session.speakerIds.includes(entry.personId)),
     },
   ];
-}).sort((a, b) => a.order - b.order);
+}).sort(byRoleOrder);
 
 export default function AgendaSpeakers() {
   return (

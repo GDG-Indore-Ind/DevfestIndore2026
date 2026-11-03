@@ -59,35 +59,29 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
           <article
             key={item.id}
             className={`${styles.card} ${item.featured === "space" ? styles.spaceCard : ""}`}
+            data-brand={item.featured}
             aria-label={`${item.name} (${index + 1}/${items.length})`}
           >
             <div className={styles.logo}>
-              {item.logoUrl ? (
-                <Image
-                  src={item.logoUrl}
-                  alt={item.name}
-                  width={640}
-                  height={400}
-                  sizes="(max-width: 760px) 80vw, 460px"
-                />
-              ) : (
-                <span>{item.name}</span>
-              )}
+              {/* Brand backdrop frames the original logo, which stays unaltered on a white plate. */}
+              <div className={styles.plate}>
+                {item.logoUrl ? (
+                  <Image
+                    src={item.logoUrl}
+                    alt={item.name}
+                    width={640}
+                    height={400}
+                    sizes="(max-width: 760px) 80vw, 460px"
+                  />
+                ) : (
+                  <span>{item.name}</span>
+                )}
+              </div>
             </div>
             <div className={styles.copy}>
               <p className={styles.role}>{item.role}</p>
               <h3>{item.name}</h3>
               <p>{item.description}</p>
-              {item.topics && (
-                <dl className={styles.topics}>
-                  {item.topics.map((topic) => (
-                    <div key={topic.title}>
-                      <dt>{topic.title}</dt>
-                      <dd>{topic.text}</dd>
-                    </div>
-                  ))}
-                </dl>
-              )}
               {item.websiteUrl && (
                 <ContentAction
                   href={item.websiteUrl}

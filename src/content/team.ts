@@ -1,93 +1,27 @@
 import { EVENT } from "./event";
-import { PARTICIPATIONS, participationRoleLabels } from "./participations";
+import { byRoleOrder, PARTICIPATIONS, participationRoleLabels } from "./participations";
 import type { TeamMember } from "./model";
-import { getPerson, LEGACY_TEAM, TEAM_ASSIGNMENTS } from "./people";
+import { getPerson, personalSocials } from "./people";
+
+/** The current event's organisers and volunteers, in the order set by each role's `order`. */
 export function getTeam(): TeamMember[] {
-  const legacy = LEGACY_TEAM.map((member) => {
-    const person = getPerson(member.personId);
-    return {
-      id: member.id,
-      personId: person.id,
-      name: person.name,
-      role: member.role,
-      team: member.team as TeamMember["team"],
-      bio: "bio" in member ? String(member.bio) : (person.bio ?? ""),
-      avatar: person.avatar ?? "",
-      socials: person.socials ?? {},
-      order: member.order,
-    };
-  });
-  const dated = PARTICIPATIONS.filter(
-    (entry) => entry.eventId === EVENT.id && entry.roles.some((role) => role.kind !== "speaker"),
-  ).map((entry) => {
+  return PARTICIPATIONS.flatMap((entry) => {
+    const role = entry.roles.find((item) => item.kind === "core-team" || item.kind === "volunteer");
+    if (entry.eventId !== EVENT.id || !role) return [];
     const person = getPerson(entry.personId);
-    const roles = entry.roles.filter((role) => role.kind !== "speaker");
-    const group =
-      roles[0].kind === "core-team"
-        ? "Core Organizer"
-        : roles[0].kind === "volunteer"
-          ? "Volunteers"
-          : "Ambassadors";
-    return {
-      id: entry.id,
-      personId: person.id,
-      name: person.name,
-      role: roles.flatMap(participationRoleLabels).join(" · "),
-      team: group as TeamMember["team"],
-      bio: person.bio ?? "",
-      avatar: person.avatar ?? "",
-      socials: person.socials ?? {},
-      order: Math.min(...roles.map((role) => role.order)),
-    };
-  });
-  const assignments = new Map(
-    TEAM_ASSIGNMENTS.filter((item) => item.eventId === EVENT.id).map((item) => [
-      item.personId,
-      item,
-    ]),
-  );
-  const existingIds = new Set([...legacy, ...dated].map((member) => member.personId));
-  const added = TEAM_ASSIGNMENTS.filter(
-    (item) => item.eventId === EVENT.id && !existingIds.has(item.personId),
-  ).map((item) => {
-    const person = getPerson(item.personId);
-    return {
-      id: `${item.eventId}-${item.personId}`,
-      personId: person.id,
-      name: person.name,
-      role: item.responsibilities.join(" · "),
-      team: (item.category === "core-team" ? "Core Team" : "Volunteers") as TeamMember["team"],
-      bio: person.bio ?? "",
-      avatar: person.avatar ?? "",
-      socials: person.socials ?? {},
-      order: 10000,
-    };
-  });
-  return [...legacy, ...dated, ...added]
-    .map((member) => {
-      const assignment = assignments.get(member.personId);
-      return assignment
-        ? {
-            ...member,
-            team:
-              assignment.category === "core-team"
-                ? ("Core Team" as const)
-                : ("Volunteers" as const),
-            role: assignment.responsibilities.join(" · "),
-          }
-        : {
-            ...member,
-            team: member.team === "Core Organizer" ? ("Core Team" as const) : member.team,
-          };
-    })
-    .sort((a, b) => {
-      const rank = (personId: string) => {
-        const roles = assignments.get(personId)?.responsibilities ?? [];
-        if (roles.some((role) => /\bLead$/.test(role) && !/\bCo-Lead$/.test(role))) return 0;
-        if (roles.some((role) => /\bCo-Lead$/.test(role))) return 1;
-        return 2;
-      };
-      return rank(a.personId) - rank(b.personId) || a.order - b.order;
-    });
+    return [
+      {
+        id: entry.id,
+        personId: person.id,
+        name: person.name,
+        role: participationRoleLabels(role).join(" · "),
+        team: role.kind === "core-team" ? ("Core Team" as const) : ("Volunteers" as const),
+        bio: person.bio ?? "",
+        avatar: person.avatar ?? "",
+        socials: personalSocials(person.socials),
+        order: role.order,
+      },
+    ];
+  }).sort(byRoleOrder);
 }
 export const TEAM = getTeam();

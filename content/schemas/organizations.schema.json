@@ -37,27 +37,6 @@
             "type": "string",
             "minLength": 1
           },
-          "topics": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "text": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "required": [
-                "title",
-                "text"
-              ]
-            }
-          },
           "archiveLogoWindow": {
             "type": "array",
             "items": {

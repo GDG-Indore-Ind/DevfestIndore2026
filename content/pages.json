@@ -124,7 +124,7 @@
     "ticketStrip": {
       "title": "Pick your pass.",
       "lead": "One day of sessions, hands-on workshops, lunch and networking on 28 November.",
-      "studentLabel": "Students: get it through your ambassador",
+      "studentLabel": "Students: get your access code from an ambassador",
       "professionalLabel": "Professionals: book now",
       "allTicketsLabel": "Pass details"
     },
@@ -199,9 +199,10 @@
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "Two passes for 28 November. Students get Cadet through their campus ambassador. Working professionals book Commander below on KonfHub, and buying 6–10 tickets saves 15%.",
+    "lead": "Two passes for 28 November. Students book Cadet with an access code from their campus ambassador. Working professionals book Commander below on KonfHub, and buying 6–10 tickets saves 15%.",
     "endedLead": "Check KonfHub below for ticket availability and prices.",
-    "studentButtonLabel": "Get Cadet through your ambassador",
+    "includedTitle": "Every pass includes",
+    "studentButtonLabel": "Get access code from your ambassador",
     "ambassadorContactEnabled": false
   },
   "faq": {
@@ -254,7 +255,7 @@
         "id": "ticket-current",
         "kind": "tickets",
         "question": "Which pass should I choose?",
-        "answer": "Students choose Cadet ({{studentPrice}}), issued through your campus ambassador. Working professionals choose Commander ({{professionalPrice}}), booked on the Tickets page. Both include the same sessions, workshop access, lunch, goodies and lounges.",
+        "answer": "Students choose Cadet ({{studentPrice}}), booked with an access code from your campus ambassador. Working professionals choose Commander ({{professionalPrice}}), booked on the Tickets page. Both include the same sessions, workshop access, lunch, goodies and lounges.",
         "link": {
           "href": "/tickets",
           "label": "View tickets"
@@ -264,7 +265,7 @@
         "id": "ticket-student",
         "kind": "tickets",
         "question": "How do students get tickets?",
-        "answer": "Cadet tickets are issued through your campus ambassador or an organizer. Find your ambassador, ask for your Cadet pass, then complete registration on KonfHub with your college details. Bring your original student photo ID on the day.",
+        "answer": "Get a Cadet access code from your campus ambassador or an organizer, then enter it on KonfHub to book Cadet with your college details. Bring your original student photo ID on the day.",
         "link": {
           "href": "/ambassadors",
           "label": "Contact your ambassador"
@@ -365,15 +366,15 @@
   },
   "ambassadors": {
     "title": "Contact your ambassador",
-    "description": "Connect with the DevFest Indore ambassador programme for campus and community ticket enquiries.",
-    "lead": "Students get their Cadet pass through their campus ambassador; working professionals can connect with a GDG Indore organizer. Find yours below.",
+    "description": "Get your Cadet access code from a DevFest Indore campus ambassador, then book on KonfHub.",
+    "lead": "Students book Cadet with an access code from their campus ambassador; working professionals can connect with a GDG Indore organizer. Find yours below.",
     "navigationLabel": "Contact your ambassador",
     "ticketLead": "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
     "stepsTitle": "Connect through your community",
     "steps": [
       {
-        "title": "Speak with your ambassador",
-        "text": "Find your campus or community’s DevFest ambassador below, connect on LinkedIn and ask for your Cadet pass."
+        "title": "Get your access code",
+        "text": "Find your campus ambassador below, connect on LinkedIn or Instagram and ask for your Cadet access code."
       },
       {
         "title": "Check the ticket details",
@@ -381,12 +382,12 @@
       },
       {
         "title": "Complete registration on KonfHub",
-        "text": "Use the booking instructions your ambassador shares. Your KonfHub confirmation completes your registration."
+        "text": "Enter your access code on KonfHub to unlock Cadet and complete checkout. Your KonfHub confirmation completes your registration."
       }
     ],
     "ticketsLabel": "Explore current tickets",
     "directoryTitle": "Meet your ambassadors",
-    "directoryLead": "Find an ambassador from your campus or community and connect on LinkedIn.",
+    "directoryLead": "Find an ambassador from your campus or community and connect on LinkedIn or Instagram.",
     "groups": [
       {
         "track": "professional",
@@ -396,7 +397,7 @@
       {
         "track": "student",
         "title": "Student ambassadors",
-        "lead": "Students: find the ambassador from your campus and ask for your Cadet pass."
+        "lead": "Students: find the ambassador from your campus and ask for your Cadet access code."
       }
     ],
     "searchLabel": "Find an ambassador",

@@ -33,26 +33,12 @@
           "featured": "technology",
           "visible": true,
           "type": "collaborator",
-          "title": "Expo booth & speaker participation"
+          "title": "Physical AI partner"
         }
       ],
       "logo": "/images/partners/qualcomm.png",
       "website": "https://www.qualcomm.com/",
-      "description": "Bringing intelligence closer to the device. Qualcomm combines compute, connectivity and developer tools to help AI run at the edge, on local hardware and in the physical world.",
-      "topics": [
-        {
-          "title": "Edge AI",
-          "text": "Efficient inference close to sensors and data, with less dependence on a distant cloud."
-        },
-        {
-          "title": "Physical AI",
-          "text": "Perception, reasoning and control for robots and intelligent machines."
-        },
-        {
-          "title": "Local AI",
-          "text": "Tools to optimize, validate and deploy AI models directly on supported devices."
-        }
-      ]
+      "description": "Bringing intelligence closer to the device. Qualcomm combines compute, connectivity and developer tools to help AI run at the edge, on local hardware and in the physical world."
     },
     {
       "id": "google-for-developers",
