@@ -15,7 +15,7 @@ import {
   Ticket,
   Users,
 } from "lucide-react";
-import styles from "./ContentAction.module.css";
+import styles from "./ContentIcon.module.css";
 
 const icons = {
   calendar: CalendarDays,

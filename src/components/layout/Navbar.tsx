@@ -8,6 +8,7 @@ import ThemeChoice from "@/components/layout/ThemeChoice";
 import ExploreMenu from "@/components/layout/ExploreMenu";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
 import OrbitScrollRail, { type FlightStop } from "@/components/layout/OrbitScrollRail";
+import styles from "./Navbar.module.css";
 
 interface NavbarProps {
   visibleAnchors?: string[];
@@ -47,16 +48,16 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
       </a>
       <ReferralBanner />
       <header
-        className="audience-header explore-header"
+        className={`audience-header explore-header ${styles.root} ${styles.exploreHeader}`}
         ref={header}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
         }}
       >
-        <div className="audience-wrap audience-header-row">
+        <div className={`audience-wrap audience-header-row ${styles.row}`}>
           <Link
             href="/#hero"
-            className="audience-brand"
+            className={`audience-brand ${styles.brand}`}
             aria-label="DevFest Indore home"
             onClick={(event) => {
               setOpen(false);
@@ -73,26 +74,26 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             }}
           >
             <Image src="/gdg-logo.png" alt="" width={36} height={36} />
-            <span className="space-header-brand">
-              <span className="space-brand-full">
+            <span className={`space-header-brand ${styles.brandName}`}>
+              <span className={`space-brand-full ${styles.brandFull}`}>
                 Google Developer Group<small>Indore</small>
               </span>
-              <span className="space-brand-compact">GDG Indore</span>
+              <span className={`space-brand-compact ${styles.brandCompact}`}>GDG Indore</span>
             </span>
           </Link>
 
-          <div className="header-utilities">
-            <Link href="/agenda" className="space-header-programme">
+          <div className={`header-utilities ${styles.utilities}`}>
+            <Link href="/agenda" className={`space-header-programme ${styles.programme}`}>
               Agenda
             </Link>
-            <Link href="/#flow" className="space-header-programme">
+            <Link href="/#flow" className={`space-header-programme ${styles.programme}`}>
               Themes
             </Link>
-            <div className="header-theme">
+            <div className={`header-theme ${styles.theme}`}>
               <ThemeChoice />
             </div>
             <button
-              className="explore-trigger"
+              className={`explore-trigger ${styles.trigger}`}
               type="button"
               ref={trigger}
               aria-expanded={open}
@@ -106,11 +107,11 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
           </div>
           <Link
             href="/tickets"
-            className="audience-button space-primary-button header-ticket-cta"
+            className={`audience-button space-primary-button header-ticket-cta ${styles.ticket}`}
             onClick={() => setOpen(false)}
           >
-            <span className="ticket-cta-full">Get tickets</span>
-            <span className="ticket-cta-compact">Tickets</span>
+            <span className={`ticket-cta-full ${styles.ticketFull}`}>Get tickets</span>
+            <span className={`ticket-cta-compact ${styles.ticketCompact}`}>Tickets</span>
           </Link>
 
           <ExploreMenu
@@ -121,7 +122,9 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             onNavigate={() => setOpen(false)}
           />
         </div>
-        {flightStops && <OrbitScrollRail stops={flightStops} onNavigate={() => setOpen(false)} />}
+        {flightStops && flightStops.length >= 4 && (
+          <OrbitScrollRail stops={flightStops} onNavigate={() => setOpen(false)} />
+        )}
       </header>
     </>
   );

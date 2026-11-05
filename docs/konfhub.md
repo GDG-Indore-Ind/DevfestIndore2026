@@ -61,3 +61,7 @@ The organizer made the event public/unhidden and requested a large red Register 
 
 Read-only inspection found the event page publicly accessible, with the LinkedIn reminder and updated general final-sale/entry policies. Liftoff is listed at ₹699, but both KonfHub purchase controls still say Coming Soon. The website button therefore opens the event page without asserting immediate purchase availability. No purchase was attempted, no KonfHub settings were changed, and no new price was entered into the local records.
 
+
+## Current discount and check-in setup
+
+Ambassador codes give 5% off Cadet and Commander. Enter them in Discount / Access Code. Commander orders of 6–10 tickets receive 15% off automatically; attendees need not share a company. Discounts cannot combine. Under 6 tickets the code is better; for 6–10 the bulk discount is better. Check-in starts at 9:00 AM. Cadet attendees need a government photo ID and original student ID.

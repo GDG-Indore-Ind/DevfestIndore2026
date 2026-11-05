@@ -1,33 +1,13 @@
 import organizationsFile from "../../content/organizations.json";
 import type { EventPartner } from "./model";
 import type { Organization } from "./model";
+import type { Organization as OrganizationRecord } from "./schema/current/organizations";
 import { EVENT } from "./event";
-type Contribution = {
-  id: string;
-  eventId?: string;
-  scope?: "historical" | "ecosystem";
-  status: "confirmed" | "archived" | "ecosystem";
-  type: "sponsor" | "collaborator" | "community" | "media";
-  title: string;
-  order?: number;
-  source?: string;
-  featured?: "space" | "technology";
-  visible?: boolean;
-};
-type OrganizationRecord = Omit<
-  Organization,
-  "partnerships" | "logoUrl" | "websiteUrl" | "socialUrl"
-> & {
-  logo?: string;
-  website?: string;
-  social?: string;
-  contributions: Contribution[];
-};
 export const ORGANIZATIONS = (organizationsFile.organizations as OrganizationRecord[]).map(
   ({ logo, website, social, contributions, ...record }) => {
     const partnerships: Organization["partnerships"] = [];
     for (const item of contributions) {
-      const editionId = item.eventId ?? item.scope!;
+      const editionId = "eventId" in item ? item.eventId : item.scope;
       const existing = partnerships.find((entry) => entry.editionId === editionId);
       if (existing) existing.contributions.push({ kind: item.type, role: item.title });
       else

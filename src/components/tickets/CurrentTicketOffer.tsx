@@ -22,13 +22,16 @@ export default function CurrentTicketOffer() {
         aria-label="Pass details"
       >
         <div className={`audience-wrap ${styles.grid}`}>
-          <PassInclusions />
           {passes.map((pass) => (
             <PassCard key={pass.id} pass={pass} />
           ))}
           {!passes.length && <p role="status">{page.endedLead}</p>}
         </div>
       </section>
+      <div className="audience-wrap">
+        <p>One discount per order. For 6–10 tickets, the bulk discount is the better deal.</p>
+        <PassInclusions />
+      </div>
     </>
   );
 }

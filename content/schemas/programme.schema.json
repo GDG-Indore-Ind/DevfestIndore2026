@@ -1,12 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest programme",
   "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "$schema",
-    "entries"
-  ],
   "properties": {
     "$schema": {
       "type": "string"
@@ -14,10 +8,9 @@
     "entries": {
       "type": "array",
       "items": {
-        "oneOf": [
+        "anyOf": [
           {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "string",
@@ -28,6 +21,7 @@
                 "pattern": "^[a-z0-9][a-z0-9-]*$"
               },
               "publication": {
+                "type": "string",
                 "enum": [
                   "confirmed",
                   "archived"
@@ -50,6 +44,7 @@
                 "type": "string"
               },
               "category": {
+                "type": "string",
                 "enum": [
                   "GenAI",
                   "Cloud",
@@ -69,18 +64,16 @@
               },
               "profile": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "avatar": {
                     "type": "string",
-                    "pattern": "^(https://|/[^/])"
+                    "pattern": "^(https:\\/\\/|\\/[^\\/])"
                   },
                   "bio": {
                     "type": "string"
                   },
                   "socials": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "linkedin": {
                         "type": "string"
@@ -104,10 +97,10 @@
                         "type": "string"
                       }
                     },
-                    "required": []
+                    "additionalProperties": false
                   }
                 },
-                "required": []
+                "additionalProperties": false
               },
               "time": {
                 "type": "string"
@@ -123,19 +116,18 @@
                 }
               },
               "speakerIds": {
-                "type": "array",
                 "minItems": 1,
-                "uniqueItems": true,
+                "type": "array",
                 "items": {
                   "type": "string",
                   "pattern": "^[a-z0-9][a-z0-9-]*$"
-                }
+                },
+                "uniqueItems": true
               },
               "resources": {
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "label": {
                       "type": "string",
@@ -143,21 +135,21 @@
                     },
                     "url": {
                       "type": "string",
-                      "format": "uri",
-                      "pattern": "^https://"
+                      "pattern": "^https:\\/\\/",
+                      "format": "uri"
                     }
                   },
                   "required": [
                     "label",
                     "url"
-                  ]
+                  ],
+                  "additionalProperties": false
                 }
               },
               "speakerProfiles": {
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "personId": {
                       "type": "string",
@@ -171,18 +163,16 @@
                     },
                     "profile": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "avatar": {
                           "type": "string",
-                          "pattern": "^(https://|/[^/])"
+                          "pattern": "^(https:\\/\\/|\\/[^\\/])"
                         },
                         "bio": {
                           "type": "string"
                         },
                         "socials": {
                           "type": "object",
-                          "additionalProperties": false,
                           "properties": {
                             "linkedin": {
                               "type": "string"
@@ -206,18 +196,20 @@
                               "type": "string"
                             }
                           },
-                          "required": []
+                          "additionalProperties": false
                         }
                       },
-                      "required": []
+                      "additionalProperties": false
                     }
                   },
                   "required": [
                     "personId"
-                  ]
+                  ],
+                  "additionalProperties": false
                 }
               },
               "format": {
+                "type": "string",
                 "enum": [
                   "talk",
                   "keynote",
@@ -227,10 +219,11 @@
               },
               "sourceUrl": {
                 "type": "string",
-                "format": "uri",
-                "pattern": "^https://"
+                "pattern": "^https:\\/\\/",
+                "format": "uri"
               },
               "type": {
+                "type": "string",
                 "const": "talk"
               }
             },
@@ -246,24 +239,11 @@
               "category",
               "speakerIds",
               "type"
-            ]
+            ],
+            "additionalProperties": false
           },
           {
             "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "id",
-              "campus",
-              "speakerIds",
-              "publication",
-              "photoIds",
-              "type"
-            ],
-            "dependencies": {
-              "date": [
-                "eventUrl"
-              ]
-            },
             "properties": {
               "id": {
                 "type": "string",
@@ -274,15 +254,16 @@
                 "minLength": 1
               },
               "speakerIds": {
-                "type": "array",
                 "minItems": 1,
-                "uniqueItems": true,
+                "type": "array",
                 "items": {
                   "type": "string",
                   "pattern": "^[a-z0-9][a-z0-9-]*$"
-                }
+                },
+                "uniqueItems": true
               },
               "publication": {
+                "type": "string",
                 "enum": [
                   "archived",
                   "confirmed"
@@ -298,10 +279,11 @@
               },
               "eventUrl": {
                 "type": "string",
-                "format": "uri",
-                "pattern": "^https://gdg\\.community\\.dev/events/details/[^?#]+/?$"
+                "pattern": "^https:\\/\\/gdg\\.community\\.dev\\/events\\/details\\/[^?#]+\\/?$",
+                "format": "uri"
               },
               "type": {
+                "type": "string",
                 "const": "campus-workshop"
               },
               "legacyId": {
@@ -310,16 +292,37 @@
               },
               "photoIds": {
                 "type": "array",
-                "uniqueItems": true,
                 "items": {
                   "type": "string",
                   "pattern": "^[a-z0-9][a-z0-9-]*$"
-                }
+                },
+                "uniqueItems": true
               }
+            },
+            "required": [
+              "id",
+              "campus",
+              "speakerIds",
+              "publication",
+              "type",
+              "photoIds"
+            ],
+            "additionalProperties": false,
+            "dependencies": {
+              "date": [
+                "eventUrl"
+              ]
             }
           }
         ]
       }
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "title": "DevFest programme",
+  "description": "Generated from the Zod schema for content/programme.json; do not edit."
 }

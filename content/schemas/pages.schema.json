@@ -1,89 +1,38 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Public page copy",
   "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "$schema",
-    "guidelines",
-    "partners",
-    "venue",
-    "home",
-    "tickets",
-    "faq",
-    "workshops",
-    "archive",
-    "ambassadors",
-    "agenda"
-  ],
-  "definitions": {
-    "text": {
-      "type": "string",
-      "minLength": 1
-    },
-    "intro": {
-      "type": "object",
-      "required": [
-        "title",
-        "description",
-        "lead"
-      ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        }
-      }
-    }
-  },
   "properties": {
     "$schema": {
       "type": "string"
     },
     "guidelines": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/intro"
-        }
-      ],
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "navigationLabel",
-        "sections"
-      ],
       "properties": {
         "title": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "description": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "lead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "navigationLabel": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "sections": {
-          "type": "array",
           "minItems": 6,
           "maxItems": 6,
+          "type": "array",
           "items": {
             "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "id",
-              "title",
-              "policyIds"
-            ],
             "properties": {
               "id": {
+                "type": "string",
                 "enum": [
                   "before-booking",
                   "entry",
@@ -94,35 +43,169 @@
                 ]
               },
               "title": {
-                "$ref": "#/definitions/text"
+                "type": "string",
+                "minLength": 1
               },
               "policyIds": {
-                "type": "array",
                 "minItems": 1,
-                "uniqueItems": true,
+                "type": "array",
                 "items": {
-                  "$ref": "#/definitions/text"
-                }
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
               }
-            }
+            },
+            "required": [
+              "id",
+              "title",
+              "policyIds"
+            ],
+            "additionalProperties": false
           }
         }
-      }
+      },
+      "required": [
+        "title",
+        "description",
+        "lead",
+        "navigationLabel",
+        "sections"
+      ],
+      "additionalProperties": false
     },
     "partners": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/intro"
-        }
-      ],
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicationTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicationText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicationButton": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archiveLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicationPoints": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "revealed": {
+          "type": "boolean"
+        },
+        "revealTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revealText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revealButton": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revealLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revealDescription": {
+          "type": "string",
+          "minLength": 1
+        },
+        "carousel": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "previousLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "nextLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "playLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pauseLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "positionLabel": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "label",
+            "previousLabel",
+            "nextLabel",
+            "playLabel",
+            "pauseLabel",
+            "positionLabel"
+          ],
+          "additionalProperties": false
+        },
+        "sectionLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sponsorshipText": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "required": [
+        "title",
+        "description",
+        "lead",
         "applicationTitle",
         "applicationText",
-        "applicationPoints",
         "applicationButton",
         "archiveLabel",
+        "applicationPoints",
         "revealed",
         "revealTitle",
         "revealText",
@@ -133,219 +216,143 @@
         "sectionLabel",
         "sponsorshipText"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "applicationTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "applicationText": {
-          "$ref": "#/definitions/text"
-        },
-        "applicationButton": {
-          "$ref": "#/definitions/text"
-        },
-        "archiveLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "applicationPoints": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "title",
-              "text"
-            ],
-            "properties": {
-              "title": {
-                "$ref": "#/definitions/text"
-              },
-              "text": {
-                "$ref": "#/definitions/text"
-              }
-            }
-          }
-        },
-        "revealed": {
-          "type": "boolean"
-        },
-        "revealTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "revealText": {
-          "$ref": "#/definitions/text"
-        },
-        "revealButton": {
-          "$ref": "#/definitions/text"
-        },
-        "revealLead": {
-          "$ref": "#/definitions/text"
-        },
-        "revealDescription": {
-          "$ref": "#/definitions/text"
-        },
-        "carousel": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "label",
-            "previousLabel",
-            "nextLabel",
-            "playLabel",
-            "pauseLabel",
-            "positionLabel",
-            "exploreLabel"
-          ],
-          "properties": {
-            "label": {
-              "$ref": "#/definitions/text"
-            },
-            "previousLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "nextLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "playLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "pauseLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "positionLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "exploreLabel": {
-              "$ref": "#/definitions/text"
-            }
-          }
-        },
-        "sectionLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "sponsorshipText": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "additionalProperties": false
     },
     "venue": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/intro"
-        }
-      ],
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "arrivalTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registrationLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entryTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entrySummary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "required": [
+        "title",
+        "description",
+        "lead",
         "mapTitle",
         "arrivalTitle",
         "registrationLabel",
         "entryTitle",
         "entrySummary"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "mapTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "arrivalTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "registrationLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "entryTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "entrySummary": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "additionalProperties": false
     },
     "home": {
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "programmeTitle",
-        "programmeTagline",
-        "programmeStatus",
-        "historyTitle",
-        "historyLead",
-        "ecosystemTitle",
-        "ecosystemLead",
-        "heroLead",
-        "heroDescription",
-        "venueLead",
-        "photoArchiveLabel",
-        "themeSelectorLabel",
-        "themeContributionLabel",
-        "ticketStrip",
-        "exhibits",
-        "themes",
-        "agendaLabel",
-        "pressLabel"
-      ],
       "properties": {
         "programmeTitle": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "programmeTagline": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "programmeStatus": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "historyTitle": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "historyLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "ecosystemTitle": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "ecosystemLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "heroLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "heroDescription": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "venueLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "photoArchiveLabel": {
           "type": "string",
           "minLength": 1
         },
         "themeSelectorLabel": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "themeContributionLabel": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "exhibits": {
           "type": "object",
-          "additionalProperties": false,
+          "properties": {
+            "navigationLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "eyebrow": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lead": {
+              "type": "string",
+              "minLength": 1
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mixLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "buttonLabel": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
           "required": [
             "navigationLabel",
             "eyebrow",
@@ -355,33 +362,32 @@
             "mixLabel",
             "buttonLabel"
           ],
-          "properties": {
-            "navigationLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "eyebrow": {
-              "$ref": "#/definitions/text"
-            },
-            "title": {
-              "$ref": "#/definitions/text"
-            },
-            "lead": {
-              "$ref": "#/definitions/text"
-            },
-            "body": {
-              "$ref": "#/definitions/text"
-            },
-            "mixLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "buttonLabel": {
-              "$ref": "#/definitions/text"
-            }
-          }
+          "additionalProperties": false
         },
         "ticketStrip": {
           "type": "object",
-          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lead": {
+              "type": "string",
+              "minLength": 1
+            },
+            "studentLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "professionalLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allTicketsLabel": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
           "required": [
             "title",
             "lead",
@@ -389,29 +395,13 @@
             "professionalLabel",
             "allTicketsLabel"
           ],
-          "properties": {
-            "title": {
-              "$ref": "#/definitions/text"
-            },
-            "lead": {
-              "$ref": "#/definitions/text"
-            },
-            "studentLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "professionalLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "allTicketsLabel": {
-              "$ref": "#/definitions/text"
-            }
-          }
+          "additionalProperties": false
         },
         "themes": {
+          "minItems": 1,
           "type": "array",
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "string",
@@ -422,6 +412,7 @@
                 "minLength": 1
               },
               "icon": {
+                "type": "string",
                 "enum": [
                   "Satellite",
                   "Braces",
@@ -430,6 +421,7 @@
                 ]
               },
               "color": {
+                "type": "string",
                 "enum": [
                   "blue",
                   "red",
@@ -466,22 +458,68 @@
               "title",
               "description",
               "tags"
-            ]
-          },
-          "minItems": 1
+            ],
+            "additionalProperties": false
+          }
         },
         "agendaLabel": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "pressLabel": {
           "type": "string",
           "minLength": 1
         }
-      }
+      },
+      "required": [
+        "programmeTitle",
+        "programmeTagline",
+        "programmeStatus",
+        "historyTitle",
+        "historyLead",
+        "ecosystemTitle",
+        "ecosystemLead",
+        "heroLead",
+        "heroDescription",
+        "venueLead",
+        "photoArchiveLabel",
+        "themeSelectorLabel",
+        "themeContributionLabel",
+        "exhibits",
+        "ticketStrip",
+        "themes",
+        "agendaLabel",
+        "pressLabel"
+      ],
+      "additionalProperties": false
     },
     "tickets": {
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "endedLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "includedTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "studentButtonLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ambassadorContactEnabled": {
+          "type": "boolean"
+        }
+      },
       "required": [
         "title",
         "lead",
@@ -490,63 +528,39 @@
         "studentButtonLabel",
         "ambassadorContactEnabled"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "endedLead": {
-          "$ref": "#/definitions/text"
-        },
-        "includedTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "studentButtonLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "ambassadorContactEnabled": {
-          "type": "boolean"
-        }
-      }
+      "additionalProperties": false
     },
     "faq": {
       "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "title",
-        "lead",
-        "eventTitle",
-        "eventLead",
-        "ticketsTitle",
-        "ticketsLead",
-        "questions"
-      ],
       "properties": {
         "title": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "lead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "eventTitle": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "eventLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "ticketsTitle": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "ticketsLead": {
-          "$ref": "#/definitions/text"
+          "type": "string",
+          "minLength": 1
         },
         "questions": {
           "type": "array",
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "string",
@@ -558,9 +572,11 @@
               },
               "answer": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "^(?:[^*]|\\*\\*[^*]+\\*\\*)+$"
               },
               "kind": {
+                "type": "string",
                 "enum": [
                   "event",
                   "tickets"
@@ -568,21 +584,21 @@
               },
               "link": {
                 "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "href",
-                  "label"
-                ],
                 "properties": {
                   "href": {
                     "type": "string",
-                    "pattern": "^/[^ ]*$"
+                    "pattern": "^\\/[^ ]*$"
                   },
                   "label": {
                     "type": "string",
                     "minLength": 1
                   }
-                }
+                },
+                "required": [
+                  "href",
+                  "label"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [
@@ -590,14 +606,110 @@
               "question",
               "answer",
               "kind"
-            ]
+            ],
+            "additionalProperties": false
           }
         }
-      }
+      },
+      "required": [
+        "title",
+        "lead",
+        "eventTitle",
+        "eventLead",
+        "ticketsTitle",
+        "ticketsLead",
+        "questions"
+      ],
+      "additionalProperties": false
     },
     "workshops": {
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workshopTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workshopLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clearLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eventLinkLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photoLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photoCloseLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "undatedLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communityTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "communityLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archiveLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessionSingular": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessionPlural": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "required": [
         "title",
         "lead",
@@ -621,75 +733,124 @@
         "sessionSingular",
         "sessionPlural"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "workshopTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "workshopLead": {
-          "$ref": "#/definitions/text"
-        },
-        "searchLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "searchPlaceholder": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyText": {
-          "$ref": "#/definitions/text"
-        },
-        "clearLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "eventLinkLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "photoLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "photoCloseLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "undatedLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "communityTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "communityLead": {
-          "$ref": "#/definitions/text"
-        },
-        "archiveLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "ticketTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "ticketLead": {
-          "$ref": "#/definitions/text"
-        },
-        "ticketLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "sessionSingular": {
-          "$ref": "#/definitions/text"
-        },
-        "sessionPlural": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "additionalProperties": false
     },
     "archive": {
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "editionsTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recordLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recordingLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "themeLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statsLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statLabels": {
+          "type": "object",
+          "properties": {
+            "registrations": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rsvps": {
+              "type": "string",
+              "minLength": 1
+            },
+            "attendees": {
+              "type": "string",
+              "minLength": 1
+            },
+            "speakers": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sessions": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sponsors": {
+              "type": "string",
+              "minLength": 1
+            },
+            "professionals": {
+              "type": "string",
+              "minLength": 1
+            },
+            "students": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "registrations",
+            "rsvps",
+            "attendees",
+            "speakers",
+            "sessions",
+            "sponsors",
+            "professionals",
+            "students"
+          ],
+          "additionalProperties": false
+        },
+        "editionBackLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "otherEditionsTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "partnersTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speakersTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "photosTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pressTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pressLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pressViewLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "required": [
         "title",
         "description",
@@ -709,100 +870,95 @@
         "pressLead",
         "pressViewLabel"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "editionsTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "recordLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "recordingLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "themeLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "statsLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "statLabels": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "registrations",
-            "rsvps",
-            "attendees",
-            "speakers",
-            "sessions",
-            "sponsors",
-            "professionals",
-            "students"
-          ],
-          "properties": {
-            "registrations": {
-              "$ref": "#/definitions/text"
-            },
-            "rsvps": {
-              "$ref": "#/definitions/text"
-            },
-            "attendees": {
-              "$ref": "#/definitions/text"
-            },
-            "speakers": {
-              "$ref": "#/definitions/text"
-            },
-            "sessions": {
-              "$ref": "#/definitions/text"
-            },
-            "sponsors": {
-              "$ref": "#/definitions/text"
-            },
-            "professionals": {
-              "$ref": "#/definitions/text"
-            },
-            "students": {
-              "$ref": "#/definitions/text"
-            }
-          }
-        },
-        "editionBackLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "otherEditionsTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "partnersTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "speakersTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "photosTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "pressTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "pressLead": {
-          "$ref": "#/definitions/text"
-        },
-        "pressViewLabel": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "additionalProperties": false
     },
     "ambassadors": {
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "navigationLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stepsTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketsLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^(?:[^*]|\\*\\*[^*]+\\*\\*)+$"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "directoryTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "directoryLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ambassadorSingular": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ambassadorPlural": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "required": [
         "title",
         "description",
@@ -814,7 +970,6 @@
         "steps",
         "directoryTitle",
         "directoryLead",
-        "groups",
         "searchLabel",
         "searchPlaceholder",
         "emptyTitle",
@@ -822,104 +977,110 @@
         "ambassadorSingular",
         "ambassadorPlural"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "navigationLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "ticketLead": {
-          "$ref": "#/definitions/text"
-        },
-        "stepsTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "ticketsLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "steps": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "title",
-              "text"
-            ],
-            "properties": {
-              "title": {
-                "$ref": "#/definitions/text"
-              },
-              "text": {
-                "$ref": "#/definitions/text"
-              }
-            }
-          }
-        },
-        "directoryTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "directoryLead": {
-          "$ref": "#/definitions/text"
-        },
-        "groups": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "track",
-              "title",
-              "lead"
-            ],
-            "properties": {
-              "track": {
-                "enum": [
-                  "professional",
-                  "student"
-                ]
-              },
-              "title": {
-                "$ref": "#/definitions/text"
-              },
-              "lead": {
-                "$ref": "#/definitions/text"
-              }
-            }
-          }
-        },
-        "searchLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "searchPlaceholder": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyText": {
-          "$ref": "#/definitions/text"
-        },
-        "ambassadorSingular": {
-          "$ref": "#/definitions/text"
-        },
-        "ambassadorPlural": {
-          "$ref": "#/definitions/text"
-        }
-      }
+      "additionalProperties": false
     },
     "agenda": {
       "type": "object",
-      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speakersTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessionPending": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bioLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "more": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comingSoon": {
+          "type": "object",
+          "properties": {
+            "badge": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lead": {
+              "type": "string",
+              "minLength": 1
+            },
+            "itemsTitle": {
+              "type": "string",
+              "minLength": 1
+            },
+            "pendingLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "items": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]*$"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "description": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "kind",
+                  "title",
+                  "description"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "badge",
+            "title",
+            "lead",
+            "itemsTitle",
+            "pendingLabel",
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      },
       "required": [
         "title",
         "description",
@@ -931,90 +1092,23 @@
         "emptyText",
         "comingSoon"
       ],
-      "properties": {
-        "title": {
-          "$ref": "#/definitions/text"
-        },
-        "description": {
-          "$ref": "#/definitions/text"
-        },
-        "lead": {
-          "$ref": "#/definitions/text"
-        },
-        "speakersTitle": {
-          "$ref": "#/definitions/text"
-        },
-        "sessionPending": {
-          "$ref": "#/definitions/text"
-        },
-        "bioLabel": {
-          "$ref": "#/definitions/text"
-        },
-        "more": {
-          "$ref": "#/definitions/text"
-        },
-        "emptyText": {
-          "$ref": "#/definitions/text"
-        },
-        "comingSoon": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "badge",
-            "title",
-            "lead",
-            "itemsTitle",
-            "pendingLabel",
-            "items"
-          ],
-          "properties": {
-            "badge": {
-              "$ref": "#/definitions/text"
-            },
-            "title": {
-              "$ref": "#/definitions/text"
-            },
-            "lead": {
-              "$ref": "#/definitions/text"
-            },
-            "itemsTitle": {
-              "$ref": "#/definitions/text"
-            },
-            "pendingLabel": {
-              "$ref": "#/definitions/text"
-            },
-            "items": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "id",
-                  "kind",
-                  "title",
-                  "description"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "pattern": "^[a-z0-9][a-z0-9-]*$"
-                  },
-                  "kind": {
-                    "$ref": "#/definitions/text"
-                  },
-                  "title": {
-                    "$ref": "#/definitions/text"
-                  },
-                  "description": {
-                    "$ref": "#/definitions/text"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      "additionalProperties": false
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "guidelines",
+    "partners",
+    "venue",
+    "home",
+    "tickets",
+    "faq",
+    "workshops",
+    "archive",
+    "ambassadors",
+    "agenda"
+  ],
+  "additionalProperties": false,
+  "title": "DevFest pages",
+  "description": "Generated from the Zod schema for content/pages.json; do not edit."
 }

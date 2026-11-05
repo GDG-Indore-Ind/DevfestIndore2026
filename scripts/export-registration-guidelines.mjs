@@ -13,10 +13,10 @@ const checkIn = new Intl.DateTimeFormat('en-IN', {
   timeZone: event.timezone, hour: 'numeric', minute: '2-digit', hour12: true,
 }).format(new Date(event.date)).toUpperCase();
 const text = `# ${event.name} — Registration guidelines\n\n` +
-  `${eventDate} · ${event.venue.fullName}\n\nRegistration opens at ${checkIn} IST.\n\n` +
+  `${eventDate} · ${event.venue.fullName}\n\nCheck-in starts at ${checkIn}.\n\n` +
   `## Before you book\n\n` + tickets.registrationChecklist.map(item => `**${item.title}.** ${item.text}`).join('\n\n') +
   `\n\n## Choose the right pass\n\n` +
-  tickets.passes.map(pass => `### ${pass.name}\n\n${pass.description}\n\n${pass.eligibility}\n\n**Included:** ${pass.benefits.map(benefit => `${benefit.label}${benefit.detail ? ` (${benefit.detail})` : ''}`).join('; ')}.${pass.note ? `\n\n${pass.note}` : ''}`).join('\n\n') +
+  tickets.passes.map(pass => `### ${pass.name}\n\n${pass.description}\n\n${pass.eligibility.map(item => `- ${item}`).join('\n')}\n\n**Included:** ${pass.benefits.map(benefit => `${benefit.label}${benefit.detail ? ` (${benefit.detail})` : ''}`).join('; ')}.${pass.note ? `\n\n${pass.note}` : ''}`).join('\n\n') +
   `\n\n## Registration and attendance policies\n\n` +
   tickets.policies.map((policy, index) => `### ${index + 1}. ${policy.title}\n\n${policy.text}`).join('\n\n') +
   `\n\n## Registration declaration\n\n${tickets.registrationDeclaration}\n\n` +

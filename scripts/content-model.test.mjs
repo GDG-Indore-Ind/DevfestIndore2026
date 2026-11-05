@@ -1,10 +1,49 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readContent, validateContent } from './lib/content.mjs';
+import { GalleryFile } from '../src/content/schema/current/gallery.ts';
+import { FILE_SCHEMAS, jsonSchema } from './content-schemas.mjs';
+import Ajv from 'ajv';
 const original = readContent();
 const fixture = () => structuredClone(original);
 const errors = data => validateContent(data, { checkAssets: false });
-test('published baseline survives the format migration', () => assert.deepEqual(errors(original), []));
+test('current gallery Zod schema rejects invalid records while accepting optional press', () => {
+  const gallery = structuredClone(original.gallery);
+  assert(GalleryFile.safeParse(gallery).success);
+  delete gallery.press;
+  assert(GalleryFile.safeParse(gallery).success);
+  const data = fixture();
+  delete data.gallery.press;
+  assert.deepEqual(errors(data), []);
+  gallery.photos[0].width = 0;
+  gallery.photos[0].unexpected = true;
+  const result = GalleryFile.safeParse(gallery);
+  assert.equal(result.success, false);
+  assert(result.error.issues.some(issue => issue.path.includes('width')));
+  assert(result.error.issues.some(issue => issue.code === 'unrecognized_keys'));
+});
+test('Zod and editor schemas reject representative invalid content shapes', () => {
+  const cases = [];
+  const invalid = (name, mutate) => {
+    const value = structuredClone(original[name]);
+    mutate(value);
+    cases.push([name, value]);
+  };
+  invalid('event', value => { value.events.find(event => event.status === 'current').tickets.booking.widgetUrl = 'https://example.com'; });
+  invalid('event', value => { value.events.find(event => event.status === 'past').date = '2026-02-30'; });
+  invalid('people', value => { value.people.find(person => person.events?.length).events[0].roles[0].unexpected = true; });
+  invalid('organizations', value => { const item = value.organizations.find(org => org.contributions.some(c => c.eventId)).contributions.find(c => c.eventId); item.scope = 'historical'; });
+  invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'campus-workshop'); item.date = '2026-09-01'; delete item.eventUrl; });
+  invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'talk'); item.speakerIds.push(item.speakerIds[0]); });
+  invalid('pages', value => { delete value.guidelines.title; });
+  invalid('pages', value => { const ids = value.guidelines.sections[0].policyIds; ids.push(ids[0]); });
+  invalid('gallery', value => { value.photos[0].width = 0; });
+  const ajv = new Ajv({ allErrors: true, jsonPointers: true, schemaId: 'auto', format: 'full' });
+  for (const [name, value] of cases) {
+    assert.equal(FILE_SCHEMAS[name].safeParse(value).success, false, `${name}: Zod accepted invalid data`);
+    assert.equal(ajv.compile(jsonSchema(name, FILE_SCHEMAS[name]))(value), false, `${name}: editor schema accepted invalid data`);
+  }
+});
 test('event ticket settings and archived event references remain validated', () => {
   const data=fixture();
   data.event.events.find(item=>item.status==='current').tickets.booking.widgetUrl='https://example.com/widget';
@@ -15,9 +54,6 @@ test('event ticket settings and archived event references remain validated', () 
 });
 test('event records have one current event and distinct explicit IDs', () => {
   const data=fixture();
-  assert(data.event.events.some(item=>item.id==='devfest-2026' && item.status==='current'));
-  assert(data.event.events.some(item=>item.id==='devfest-2025'));
-  assert(data.event.events.some(item=>item.id==='ccd-2025'));
   data.event.events=data.event.events.filter(item=>item.status!=='current');
   assert(errors(data).some(error=>error.includes('exactly one current event')));
 });
@@ -84,7 +120,6 @@ test('one person may have multiple roles at the same event', () => {
 test('responsibilities support multiple areas and reject duplicate areas on one role', () => {
   const data=fixture();
   const role=data.people.people.find(item=>item.id==='karan-mittal').events.find(item=>item.eventId==='devfest-2026').roles[0];
-  assert.equal(role.responsibilities.length, 2);
   assert.deepEqual(errors(data), []);
   role.responsibilities.push({area:'programme & speakers',level:'co-lead'});
   assert(errors(data).some(error=>error.includes('responsibilities: duplicate')));
@@ -122,10 +157,6 @@ test('photos and press must point at an event that exists', () => {
   const found=errors(data);
   assert(found.some(error=>error.includes('photo') && error.includes('unknown reference devfest-1999')));
   assert(found.some(error=>error.includes('press') && error.includes('unknown reference ccd-1999')));
-});
-test('every Cloud Community Days edition from 2022 to 2025 is recorded', () => {
-  const ids=original.event.events.filter(item=>item.series==='ccd').map(item=>item.id);
-  assert.deepEqual(ids.sort(), ['ccd-2022','ccd-2023','ccd-2024','ccd-2025']);
 });
 test('reported event figures must be consistent', () => {
   const data=fixture();

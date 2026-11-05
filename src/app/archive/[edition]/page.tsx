@@ -1,3 +1,4 @@
+import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CommunityPage from "@/components/layout/CommunityPage";
@@ -51,14 +52,14 @@ export default async function EditionPage({ params }: { params: Promise<{ editio
       title={event.title}
       lead={`${event.displayDate} · ${event.venue}`}
     >
-      <nav className="archive-navigation" aria-label={event.title}>
+      <PageSectionNavigation label={event.title}>
         <Link href="/archive#editions">{page.editionBackLabel}</Link>
         {sections.map(({ id, title }) => (
           <a key={id} href={`#${id}`}>
             {title}
           </a>
         ))}
-      </nav>
+      </PageSectionNavigation>
       <section className={styles.section} aria-label={event.title}>
         <div className={styles.overview}>
           {event.theme && (

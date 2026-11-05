@@ -2,7 +2,6 @@ import { Bot, Braces, Monitor, Satellite, Sparkles } from "lucide-react";
 import { EVENT } from "@/content/event";
 import { HOME_PAGE } from "@/content/pages";
 import ContentAction from "@/components/shared/ContentAction";
-import ContentIcon from "@/components/shared/ContentIcon";
 import styles from "./ExhibitsSection.module.css";
 
 export default function ExhibitsSection() {
@@ -13,10 +12,7 @@ export default function ExhibitsSection() {
         <div className={styles.panel}>
           <div className={styles.copy}>
             <p className="audience-overline">{copy.eyebrow}</p>
-            <h2 id="exhibits-title">
-              <ContentIcon name="exhibits" tone="green" heading />
-              {copy.title}
-            </h2>
+            <h2 id="exhibits-title">{copy.title}</h2>
             <p className={styles.body}>{copy.body}</p>
             <ContentAction
               href={EVENT.links.exhibitApplication}

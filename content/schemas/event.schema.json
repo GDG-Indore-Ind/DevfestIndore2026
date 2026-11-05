@@ -1,24 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest events",
   "type": "object",
-  "additionalProperties": false,
-  "required": [
-    "$schema",
-    "events"
-  ],
   "properties": {
     "$schema": {
       "type": "string"
     },
     "events": {
-      "type": "array",
       "minItems": 1,
+      "type": "array",
       "items": {
-        "oneOf": [
+        "anyOf": [
           {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "string",
@@ -50,7 +43,6 @@
               },
               "venue": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "name": {
                     "type": "string",
@@ -100,12 +92,12 @@
                   },
                   "mapUrl": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "photo": {
                     "type": "string",
-                    "pattern": "^(https://|/[^/])"
+                    "pattern": "^(https:\\/\\/|\\/[^\\/])"
                   }
                 },
                 "required": [
@@ -122,66 +114,66 @@
                   "longitude",
                   "mapUrl",
                   "photo"
-                ]
+                ],
+                "additionalProperties": false
               },
               "links": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "website": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "cfp": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "linkedin": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "instagram": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "chapter": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "youtube": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "github": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "twitter": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "codeOfConduct": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "partnerApplication": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   },
                   "exhibitApplication": {
                     "type": "string",
-                    "format": "uri",
-                    "pattern": "^https://"
+                    "pattern": "^https:\\/\\/",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -196,19 +188,19 @@
                   "codeOfConduct",
                   "partnerApplication",
                   "exhibitApplication"
-                ]
+                ],
+                "additionalProperties": false
               },
               "tickets": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "passes": {
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "id": {
+                          "type": "string",
                           "enum": [
                             "liftoff",
                             "student",
@@ -227,8 +219,8 @@
                           "minLength": 1
                         },
                         "visible": {
-                          "description": "Show this pass card on the public tickets page. Register links hand off availability to KonfHub.",
-                          "type": "boolean"
+                          "type": "boolean",
+                          "description": "Show this pass card on the public tickets page. Register links hand off availability to KonfHub."
                         },
                         "summary": {
                           "type": "string",
@@ -243,13 +235,18 @@
                           "type": "number",
                           "minimum": 0
                         },
-                        "offer": {
+                        "offers": {
                           "description": "Short public discount line shown under the price, such as a group discount.",
-                          "type": "string",
-                          "minLength": 1
+                          "minItems": 1,
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          }
                         },
                         "bookingRoute": {
-                          "description": "Where the pass card sends visitors. Omit for the KonfHub widget on this page; ambassador sends them to the ambassador directory.",
+                          "description": "Where the pass card sends visitors. Omit for the KonfHub widget; ambassador sends them to the ambassador directory.",
+                          "type": "string",
                           "enum": [
                             "konfhub",
                             "ambassador"
@@ -260,14 +257,18 @@
                           "minLength": 1
                         },
                         "eligibility": {
-                          "type": "string",
-                          "minLength": 1
+                          "minItems": 1,
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "pattern": "^(?:[^*]|\\*\\*[^*]+\\*\\*)+$"
+                          }
                         },
                         "benefits": {
                           "type": "array",
                           "items": {
                             "type": "object",
-                            "additionalProperties": false,
                             "properties": {
                               "group": {
                                 "type": "string",
@@ -285,7 +286,8 @@
                             "required": [
                               "group",
                               "label"
-                            ]
+                            ],
+                            "additionalProperties": false
                           }
                         },
                         "note": {
@@ -307,14 +309,14 @@
                         "description",
                         "eligibility",
                         "benefits"
-                      ]
+                      ],
+                      "additionalProperties": false
                     }
                   },
                   "policies": {
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "title": {
                           "type": "string",
@@ -322,17 +324,18 @@
                         },
                         "text": {
                           "type": "string",
-                          "minLength": 1
+                          "minLength": 1,
+                          "pattern": "^(?:[^*]|\\*\\*[^*]+\\*\\*)+$"
                         },
                         "id": {
                           "type": "string",
                           "pattern": "^[a-z0-9][a-z0-9-]*$"
                         },
                         "appliesTo": {
-                          "type": "array",
                           "minItems": 1,
-                          "uniqueItems": true,
+                          "type": "array",
                           "items": {
+                            "type": "string",
                             "enum": [
                               "liftoff",
                               "student",
@@ -341,22 +344,23 @@
                               "last-orbit",
                               "observer"
                             ]
-                          }
+                          },
+                          "uniqueItems": true
                         }
                       },
                       "required": [
-                        "id",
                         "title",
-                        "text"
-                      ]
+                        "text",
+                        "id"
+                      ],
+                      "additionalProperties": false
                     }
                   },
                   "registrationChecklist": {
-                    "type": "array",
                     "minItems": 1,
+                    "type": "array",
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "title": {
                           "type": "string",
@@ -370,7 +374,8 @@
                       "required": [
                         "title",
                         "text"
-                      ]
+                      ],
+                      "additionalProperties": false
                     }
                   },
                   "registrationDeclaration": {
@@ -379,22 +384,6 @@
                   },
                   "registration": {
                     "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                      "buttonLabel",
-                      "unavailableText",
-                      "finalSaleText",
-                      "profileReminder",
-                      "termsLabel",
-                      "widgetHeading",
-                      "widgetLead",
-                      "closedHeading",
-                      "widgetTitle",
-                      "fallbackText",
-                      "fallbackLabel",
-                      "referralText",
-                      "soldOutLabel"
-                    ],
                     "properties": {
                       "buttonLabel": {
                         "type": "string",
@@ -448,14 +437,29 @@
                         "type": "string",
                         "minLength": 1
                       }
-                    }
+                    },
+                    "required": [
+                      "buttonLabel",
+                      "unavailableText",
+                      "finalSaleText",
+                      "profileReminder",
+                      "termsLabel",
+                      "widgetHeading",
+                      "widgetLead",
+                      "closedHeading",
+                      "widgetTitle",
+                      "fallbackText",
+                      "fallbackLabel",
+                      "referralText",
+                      "soldOutLabel"
+                    ],
+                    "additionalProperties": false
                   },
                   "benefitGroups": {
-                    "type": "array",
                     "minItems": 1,
+                    "type": "array",
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "id": {
                           "type": "string",
@@ -469,32 +473,33 @@
                       "required": [
                         "id",
                         "label"
-                      ]
+                      ],
+                      "additionalProperties": false
                     }
                   },
                   "booking": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "enabled": {
                         "type": "boolean"
                       },
                       "widgetUrl": {
                         "type": "string",
-                        "format": "uri",
-                        "pattern": "^https://konfhub\\.com/widget/id/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                        "pattern": "^https:\\/\\/konfhub\\.com\\/widget\\/id\\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "format": "uri"
                       },
                       "url": {
                         "type": "string",
-                        "format": "uri",
-                        "pattern": "^https://"
+                        "pattern": "^https:\\/\\/",
+                        "format": "uri"
                       }
                     },
                     "required": [
                       "enabled",
                       "widgetUrl",
                       "url"
-                    ]
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -505,16 +510,19 @@
                   "registration",
                   "benefitGroups",
                   "booking"
-                ]
+                ],
+                "additionalProperties": false
               },
               "date": {
                 "type": "string",
                 "format": "date-time"
               },
               "type": {
+                "type": "string",
                 "const": "devfest"
               },
               "status": {
+                "type": "string",
                 "const": "current"
               }
             },
@@ -522,7 +530,6 @@
               "id",
               "name",
               "organizer",
-              "date",
               "timezone",
               "tagline",
               "subTagline",
@@ -530,13 +537,14 @@
               "venue",
               "links",
               "tickets",
+              "date",
               "type",
               "status"
-            ]
+            ],
+            "additionalProperties": false
           },
           {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "id": {
                 "type": "string",
@@ -548,16 +556,16 @@
               },
               "venue": {
                 "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "name"
-                ],
                 "properties": {
                   "name": {
                     "type": "string",
                     "minLength": 1
                   }
-                }
+                },
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false
               },
               "summary": {
                 "type": "string",
@@ -565,8 +573,8 @@
               },
               "source": {
                 "type": "string",
-                "format": "uri",
-                "pattern": "^https://"
+                "pattern": "^https:\\/\\/",
+                "format": "uri"
               },
               "officialSpeakerIds": {
                 "type": "array",
@@ -576,85 +584,77 @@
                 }
               },
               "series": {
+                "description": "Groups editions of the same event: DevFest Indore or Cloud Community Days.",
+                "type": "string",
                 "enum": [
                   "devfest",
                   "ccd"
-                ],
-                "description": "Groups editions of the same event: DevFest Indore or Cloud Community Days."
+                ]
               },
               "cover": {
+                "description": "Id of a photograph in gallery.json taken at this event, shown on the archive card. Leave out when there is no photograph yet.",
                 "type": "string",
-                "pattern": "^[a-z0-9][a-z0-9-]*$",
-                "description": "Id of a photograph in gallery.json taken at this event, shown on the archive card. Leave out when there is no photograph yet."
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
               },
               "theme": {
+                "description": "The edition's central theme, only where the organizers stated one.",
                 "type": "string",
-                "minLength": 1,
-                "description": "The edition's central theme, only where the organizers stated one."
+                "minLength": 1
               },
               "stats": {
-                "type": "object",
-                "additionalProperties": false,
                 "description": "Figures reported by the organizers in their event report. Leave out any figure that was not recorded.",
+                "type": "object",
                 "properties": {
                   "registrations": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "People who registered."
+                    "minimum": 0
                   },
                   "rsvps": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "People who confirmed attendance."
+                    "minimum": 0
                   },
                   "attendees": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "People who attended or checked in."
+                    "minimum": 0
                   },
                   "speakers": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "Number of speakers."
+                    "minimum": 0
                   },
                   "sessions": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "Number of sessions."
+                    "minimum": 0
                   },
                   "sponsors": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "Number of sponsors."
+                    "minimum": 0
                   },
                   "professionals": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "Attendees who were working professionals."
+                    "minimum": 0
                   },
                   "students": {
                     "type": "integer",
-                    "minimum": 0,
-                    "description": "Attendees who were students."
+                    "minimum": 0
                   },
                   "approximate": {
-                    "type": "boolean",
-                    "description": "True when the organizers rounded the figures, such as '600+'."
+                    "description": "True when the organizers rounded the figures, such as '600+'.",
+                    "type": "boolean"
                   }
                 },
-                "required": []
+                "additionalProperties": false
               },
               "recordingUrl": {
                 "type": "string",
-                "format": "uri",
-                "pattern": "^https://",
-                "description": "Full public recording of the event."
+                "pattern": "^https:\\/\\/",
+                "format": "uri"
               },
               "name": {
                 "type": "string",
                 "minLength": 1
               },
               "type": {
+                "type": "string",
                 "enum": [
                   "devfest",
                   "community",
@@ -662,23 +662,32 @@
                 ]
               },
               "status": {
+                "type": "string",
                 "const": "past"
               }
             },
             "required": [
               "id",
-              "name",
               "date",
               "venue",
               "summary",
               "source",
               "officialSpeakerIds",
+              "name",
               "type",
               "status"
-            ]
+            ],
+            "additionalProperties": false
           }
         ]
       }
     }
-  }
+  },
+  "required": [
+    "$schema",
+    "events"
+  ],
+  "additionalProperties": false,
+  "title": "DevFest event",
+  "description": "Generated from the Zod schema for content/event.json; do not edit."
 }

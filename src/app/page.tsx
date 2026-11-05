@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: `${EVENT.name} | ${EVENT_SHORT_DATE}`,
-    description: `Space technology, AI agents and the systems we build. Join talks, hands-on labs and the GDG Indore community on ${EVENT_SHORT_DATE}.`,
+    description: `${EVENT.name}, ${EVENT_SHORT_DATE} at ${EVENT.venue.name}: from intelligent software to systems in deep space.`,
     url: "/",
     siteName: EVENT.name,
     locale: "en_IN",

@@ -8,9 +8,9 @@ import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className="audience-footer culled-footer edition-footer">
+    <footer className={`audience-footer culled-footer edition-footer ${styles.root}`}>
       <div className="audience-wrap">
-        <div className="edition-footer-top">
+        <div className={`edition-footer-top ${styles.top}`}>
           <div>
             <p className="footer-brand">
               See you in the next orbit.
@@ -31,10 +31,10 @@ export default function Footer() {
           </div>
         </div>
         <nav
-          className={`edition-footer-links ${styles.navigation}`}
+          className={`edition-footer-links ${styles.links} ${styles.navigation}`}
           aria-label="Explore DevFest Indore"
         >
-          <div className="edition-footer-group" id="tickets">
+          <div className={`edition-footer-group ${styles.group}`} id="tickets">
             <h2 className={styles.groupHeading}>
               <ContentIcon name="tickets" /> Attend
             </h2>
@@ -44,7 +44,7 @@ export default function Footer() {
             <Link href="/venue">Venue & directions</Link>
             <Link href="/faq">FAQ</Link>
           </div>
-          <div className="edition-footer-group">
+          <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>
               <ContentIcon name="partners" tone="green" /> Get involved
             </h2>
@@ -56,7 +56,7 @@ export default function Footer() {
             <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
             <Link href="/team">Meet the team</Link>
           </div>
-          <div className="edition-footer-group">
+          <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>
               <ContentIcon name="history" tone="red" /> Explore more
             </h2>
@@ -77,7 +77,7 @@ export default function Footer() {
         <div className={styles.closing}>
           <p className="audience-caption footer-disclaimer">
             An independent event organized by GDG Indore. Community activities and opinions do not
-            represent Google Inc.
+            represent Google LLC.
           </p>
           <ExternalLink href={EVENT.links.codeOfConduct}>Code of conduct</ExternalLink>
         </div>

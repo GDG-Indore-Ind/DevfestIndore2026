@@ -1,27 +1,21 @@
 import ContentAction from "@/components/shared/ContentAction";
-import { Clock3, MapPin, Navigation } from "lucide-react";
+import { Clock3, MapPin } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
-import ExternalLink from "@/components/shared/ExternalLink";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "@/content/event";
 import { VENUE_PAGE as page } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
+import styles from "./page.module.css";
 
 export const metadata = pageMetadata("/venue", "Venue & directions", page.description);
 
 export default function VenuePage() {
   const map = `https://maps.google.com/maps?q=${EVENT.venue.latitude},${EVENT.venue.longitude}&z=16&output=embed`;
   return (
-    <div className="audience-site space-subpage practical-page venue-page">
-      <Navbar
-        flightStops={[
-          { id: "page-overview", label: "The venue" },
-          { id: "venue-map", label: "Map" },
-          { id: "arrival", label: "Check-in" },
-        ]}
-      />
+    <div className={`audience-site space-subpage practical-page venue-page ${styles.root}`}>
+      <Navbar />
       <main id="main-content">
         <div id="venue">
           <PageIntro
@@ -47,13 +41,9 @@ export default function VenuePage() {
               <span>{EVENT.venue.address}</span>
             </address>
             <div className="venue-actions">
-              <ExternalLink
-                href={EVENT.venue.mapUrl}
-                className="audience-button venue-directions-btn"
-              >
-                <Navigation className="audience-icon" aria-hidden="true" />
+              <ContentAction href={EVENT.venue.mapUrl} icon="venue" tone="blue" external>
                 Get directions
-              </ExternalLink>
+              </ContentAction>
             </div>
           </PageIntro>
         </div>
@@ -62,7 +52,7 @@ export default function VenuePage() {
           id="venue-map"
           aria-labelledby="venue-map-title"
         >
-          <div className="audience-wrap venue-arrival-grid">
+          <div className={`audience-wrap venue-arrival-grid ${styles.arrivalGrid}`}>
             <div>
               <h2 id="venue-map-title">{page.mapTitle}</h2>
               <iframe

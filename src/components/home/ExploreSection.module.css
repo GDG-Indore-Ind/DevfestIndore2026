@@ -15,9 +15,10 @@
 }
 .heading > p {
   margin: 0;
-  font-size: clamp(1.75rem, 4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: -0.045em;
+  font-size: var(--text-18);
+  font-weight: 400;
+  color: var(--audience-muted);
+  letter-spacing: 0;
   line-height: 1.1;
 }
 .selectionWindow {
@@ -63,7 +64,7 @@
   border-radius: var(--space-control-radius);
   background: var(--audience-bg);
   color: var(--audience-ink);
-  font-size: var(--text-15);
+  font-size: var(--text-16);
   font-weight: 500;
   line-height: 1.4;
   cursor: pointer;
@@ -163,7 +164,7 @@
 .storyCopy > p {
   margin: 0;
   color: var(--audience-muted);
-  font-size: var(--text-15);
+  font-size: var(--text-16);
   line-height: 1.65;
 }
 .tags {
@@ -230,7 +231,7 @@
     padding: 20px 16px;
   }
   .storyCopy h3 {
-    font-size: var(--text-20);
+    font-size: var(--text-22);
     margin: 0 0 8px;
   }
   .tags {

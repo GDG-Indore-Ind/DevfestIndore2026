@@ -1,3 +1,4 @@
+import StrongText from "@/components/shared/StrongText";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -23,7 +24,9 @@ export default function AmbassadorsPage() {
               {page.steps.map((step) => (
                 <li key={step.title}>
                   <h3>{step.title}</h3>
-                  <p>{step.text}</p>
+                  <p>
+                    <StrongText text={step.text} />
+                  </p>
                 </li>
               ))}
             </ol>
@@ -42,7 +45,6 @@ export default function AmbassadorsPage() {
                 community,
                 socials,
               }))}
-              groups={page.groups}
               copy={{
                 searchLabel: page.searchLabel,
                 searchPlaceholder: page.searchPlaceholder,

@@ -1,15 +1,16 @@
 import { getEventPartners, getCommunityUrl } from "@/content/partners";
 import ExternalLink from "@/components/shared/ExternalLink";
 import OrganizationLogo from "@/components/shared/OrganizationLogo";
+import styles from "./EditionPartners.module.css";
 
 export default function EditionPartners({ eventId }: { eventId: string }) {
   return (
-    <ul className="compact-sponsor-grid archived-community-grid">
+    <ul className={`${styles.grid} ${styles.archivedGrid}`}>
       {getEventPartners(eventId).map((partner) => {
         const href = getCommunityUrl(partner);
         const content = (
           <>
-            <div className="compact-sponsor-logo">
+            <div className={styles.logo}>
               <OrganizationLogo organization={partner} />
             </div>
             <span>{partner.name}</span>
@@ -19,7 +20,7 @@ export default function EditionPartners({ eventId }: { eventId: string }) {
         return (
           <li key={partner.id}>
             {href ? (
-              <ExternalLink href={href} className="archived-community-link">
+              <ExternalLink href={href} className={styles.link}>
                 {content}
               </ExternalLink>
             ) : (

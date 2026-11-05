@@ -89,7 +89,7 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
                   tone={item.featured === "space" ? "blue" : "green"}
                   external
                 >
-                  {copy.exploreLabel}
+                  Visit {item.name}
                 </ContentAction>
               )}
               {item.featured === "technology" && (

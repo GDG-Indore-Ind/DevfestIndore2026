@@ -1,3 +1,4 @@
+import StrongText from "@/components/shared/StrongText";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FAQS } from "@/content/faqs";
@@ -24,7 +25,9 @@ export default function FaqSection({ kind = "event" }: { kind?: FaqKind }) {
             <details key={faq.id}>
               <summary>{faq.question}</summary>
               <div>
-                <p>{faq.answer}</p>
+                <p>
+                  <StrongText text={faq.answer} />
+                </p>
                 {faq.link && (
                   <Link href={faq.link.href} className="audience-text-link">
                     {faq.link.label}

@@ -12,7 +12,6 @@ type Ambassador = {
   community: string;
   socials: { linkedin?: string; instagram?: string };
 };
-type Group = { track: string; title: string; lead: string };
 type Copy = {
   searchLabel: string;
   searchPlaceholder: string;
@@ -24,11 +23,9 @@ type Copy = {
 
 export default function AmbassadorDirectory({
   ambassadors,
-  groups,
   copy,
 }: {
   ambassadors: Ambassador[];
-  groups: Group[];
   copy: Copy;
 }) {
   const [query, setQuery] = useState("");
@@ -50,28 +47,18 @@ export default function AmbassadorDirectory({
         {matches.length} {matches.length === 1 ? copy.ambassadorSingular : copy.ambassadorPlural}
       </p>
       {matches.length ? (
-        groups.map(({ track, title, lead }) => {
-          const members = matches.filter((ambassador) => ambassador.track === track);
-          if (!members.length) return null;
-          return (
-            <section key={track} className={styles.group} aria-labelledby={`${track}-title`}>
-              <h3 id={`${track}-title`}>{title}</h3>
-              <p className={styles.groupLead}>{lead}</p>
-              <PersonGrid>
-                {members.map(({ id, name, photo, community, socials }) => (
-                  <PersonCard
-                    key={id}
-                    name={name}
-                    photo={photo}
-                    meta={community}
-                    socials={socials}
-                    headingLevel="h4"
-                  />
-                ))}
-              </PersonGrid>
-            </section>
-          );
-        })
+        <PersonGrid>
+          {matches.map(({ id, name, photo, community, socials }) => (
+            <PersonCard
+              key={id}
+              name={name}
+              photo={photo}
+              meta={community}
+              socials={socials}
+              headingLevel="h3"
+            />
+          ))}
+        </PersonGrid>
       ) : (
         <div className={styles.empty}>
           <h3>{copy.emptyTitle}</h3>

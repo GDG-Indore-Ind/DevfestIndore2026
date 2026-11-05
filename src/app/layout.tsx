@@ -9,7 +9,10 @@ import "./space.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#10141d" },
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -21,7 +24,7 @@ export const metadata: Metadata = {
     default: `${EVENT.name} | ${EVENT_SHORT_DATE} | GDG Indore`,
     template: `%s | ${EVENT.name}`,
   },
-  description: `Join GDG Indore on ${EVENT_SHORT_DATE} at ${EVENT.venue.name} for space technology, AI agents, cloud architecture, hands-on labs and community networking.`,
+  description: `${EVENT.name}, ${EVENT_SHORT_DATE} at ${EVENT.venue.name}: from intelligent software to systems in deep space.`,
   keywords: [
     "DevFest Indore",
     "GDG Indore",
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
   creator: EVENT.organizer,
   openGraph: {
     title: `${EVENT.name} | ${EVENT_SHORT_DATE}`,
-    description: `Space technology, AI agents and the systems we build. Join talks, hands-on labs and the GDG Indore community on ${EVENT_SHORT_DATE}.`,
+    description: `${EVENT.name}, ${EVENT_SHORT_DATE} at ${EVENT.venue.name}: from intelligent software to systems in deep space.`,
     siteName: EVENT.name,
     locale: "en_IN",
     type: "website",
@@ -52,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: EVENT.name,
-    description: `AI, cloud, modern systems and hands-on labs. ${EVENT_SHORT_DATE}, ${EVENT.venue.fullName}.`,
+    description: `${EVENT.name}, ${EVENT_SHORT_DATE} at ${EVENT.venue.name}: from intelligent software to systems in deep space.`,
     creator: "@GDG_Indore",
     images: ["/social-card.png"],
   },

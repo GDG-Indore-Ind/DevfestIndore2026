@@ -1,18 +1,7 @@
 import peopleFile from "../../content/people.json";
 import { EVENT } from "./event";
-import type { Participation, Person, Socials } from "./model";
-
-type PersonRecord = {
-  id: string;
-  name: string;
-  kind: "person" | "group";
-  title?: string;
-  organization?: string;
-  bio?: string;
-  photo?: string;
-  links?: Socials;
-  events?: Omit<Participation, "id" | "personId">[];
-};
+import type { Person, Socials } from "./model";
+import type { Person as PersonRecord } from "./schema/current/people";
 export const PERSON_RECORDS = peopleFile.people as PersonRecord[];
 export const PEOPLE: Person[] = PERSON_RECORDS.map((person) => ({
   id: person.id,

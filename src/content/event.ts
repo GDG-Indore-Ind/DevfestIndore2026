@@ -43,4 +43,4 @@ export const EVENT_DATE = format({
 });
 export const EVENT_SHORT_DATE = format({ day: "numeric", month: "long" });
 export const EVENT_WEEKDAY_DATE = format({ weekday: "long", day: "numeric", month: "long" });
-export const REGISTRATION_TIME = `${format({ hour: "numeric", minute: "2-digit", hour12: true }).toUpperCase()} IST`;
+export const REGISTRATION_TIME = `${format({ hour: "numeric", minute: "2-digit", hour12: true }).toUpperCase()}`;

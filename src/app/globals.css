@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
+@font-face {
+  font-family: "Google Sans Indic";
+  src: url("./fonts/google-sans-devanagari-subset.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0907, U+0902, U+0926, U+094C, U+0930, U+20B9;
+}
+
 /* Shared browser defaults, theme surfaces, keyboard focus and reduced motion. */
 html {
   color-scheme: dark;
@@ -39,11 +48,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--audience-blue);
 }
-:where(a, button, input, select, textarea):focus-visible {
+:where(a, button, summary, input, select, textarea):focus-visible {
   outline: 3px solid var(--event-focus);
-  outline-offset: 4px;
+  outline-offset: 5px;
 }
 @media (prefers-reduced-motion: reduce) {
   html, html[data-scroll-behavior="smooth"] { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.audience-site main h2 { font-size: var(--text-32); font-weight: 600; }

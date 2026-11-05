@@ -4,11 +4,6 @@ import Footer from "@/components/layout/Footer";
 import PageIntro, { type PageMotif } from "@/components/shared/PageIntro";
 import { type FlightStop } from "@/components/layout/OrbitScrollRail";
 
-const directoryStops = [
-  { id: "page-overview", label: "Overview" },
-  { id: "page-directory", label: "Explore" },
-];
-
 export default function CommunityPage({
   title,
   lead,
@@ -16,7 +11,7 @@ export default function CommunityPage({
   art,
   motif,
   compact = false,
-  flightStops = directoryStops,
+  flightStops,
 }: {
   title: string;
   lead: string;

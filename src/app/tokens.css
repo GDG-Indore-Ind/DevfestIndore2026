@@ -2,12 +2,12 @@
 :root {
   --google-blue: #4285f4;
   --google-green: #34a853;
-  --google-yellow: #f9ab00;
+  --google-yellow: #fbbc04;
   --google-red: #ea4335;
   --page-bg: #10141d;
   --text-primary: #f1f3f4;
   --event-focus: #8ab4f8;
-  --font-sans: var(--font-google-sans), sans-serif;
+  --font-sans: "Google Sans Indic", var(--font-google-sans), sans-serif;
   --font-display: var(--font-sans);
   --icon-blue: #185abc;
   --icon-green: #146c36;
@@ -40,22 +40,15 @@
   --section-space: 48px;
   --section-space-tight: 32px;
   --intro-space: 32px;
-  --text-10: 0.625rem;
-  --text-11: 0.6875rem;
   --text-12: 0.75rem;
-  --text-13: 0.8125rem;
   --text-14: 0.875rem;
-  --text-15: 0.9375rem;
   --text-16: 1rem;
   --text-18: 1.125rem;
-  --text-20: 1.25rem;
   --text-22: 1.375rem;
-  --text-24: 1.5rem;
-  --text-28: 1.75rem;
   --text-32: 2rem;
-  --text-h4: clamp(1.375rem, 2vw, 1.75rem);
-  --text-h3: clamp(1.5rem, 3vw, 2rem);
-  --text-h2: clamp(1.75rem, 3vw, 2.25rem);
+  --text-h4: var(--text-22);
+  --text-h3: var(--text-32);
+  --text-h2: var(--text-32);
   --text-h1-sm: clamp(2rem, 4vw, 2.75rem);
   --corner-4: 4px;
   --corner-8: 8px;
@@ -78,7 +71,6 @@
   --space-primary-outline: var(--space-black);
   --space-blue: #4285f4;
   --space-red: #ea4335;
-  --space-yellow: #fbbc04;
   --space-green: #34a853;
   --space-panel: #e9efff;
   --space-panel-ink: #14264c;

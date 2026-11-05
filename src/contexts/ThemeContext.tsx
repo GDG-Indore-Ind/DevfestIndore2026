@@ -16,6 +16,13 @@ const ThemeContext = createContext<ThemeContextValue>({
   isDark: false,
 });
 
+function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+    meta.content = theme === "dark" ? "#10141d" : "#ffffff";
+  });
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, updateTheme] = useState<Theme>("light");
   useEffect(() => {
@@ -26,13 +33,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       /* Appearance still works without storage. */
     }
     const resolved = saved === "dark" ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", resolved);
+    applyTheme(resolved);
     const frame = requestAnimationFrame(() => updateTheme(resolved));
     return () => cancelAnimationFrame(frame);
   }, []);
   function setTheme(next: Theme) {
     updateTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
+    applyTheme(next);
     try {
       localStorage.setItem("devfest-theme", next);
     } catch {

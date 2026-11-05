@@ -8,12 +8,7 @@ import PageIntro from "@/components/shared/PageIntro";
 export default function NotFound() {
   return (
     <div className="audience-site space-subpage">
-      <Navbar
-        flightStops={[
-          { id: "page-overview", label: "Overview" },
-          { id: "recovery", label: "Find your way" },
-        ]}
-      />
+      <Navbar />
       <main id="main-content">
         <PageIntro
           title="A little off orbit."

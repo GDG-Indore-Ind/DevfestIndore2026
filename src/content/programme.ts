@@ -1,20 +1,11 @@
 import data from "../../content/programme.json";
 import type { SessionRecord } from "./model";
+import type { ProgrammeFile } from "./schema/current/programme";
 import { ALL_PHOTOS } from "./gallery";
 
-type TalkEntry = Omit<SessionRecord, "editionId"> & { type: "talk"; eventId: string };
-type CampusWorkshopEntry = {
-  type: "campus-workshop";
-  id: string;
-  legacyId?: string;
-  campus: string;
-  title?: string;
-  speakerIds: string[];
-  publication: "archived" | "confirmed";
-  date?: string;
-  eventUrl?: string;
-  photoIds: string[];
-};
+type ProgrammeEntry = ProgrammeFile["entries"][number];
+type TalkEntry = Extract<ProgrammeEntry, { type: "talk" }>;
+type CampusWorkshopEntry = Extract<ProgrammeEntry, { type: "campus-workshop" }>;
 const entries = data.entries as (TalkEntry | CampusWorkshopEntry)[];
 export const TALKS: SessionRecord[] = entries
   .filter((entry): entry is TalkEntry => entry.type === "talk")

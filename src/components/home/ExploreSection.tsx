@@ -4,7 +4,6 @@ import { EVENT } from "@/content/event";
 import { useState, type KeyboardEvent } from "react";
 import { Bot, Braces, Check, Radio, Satellite } from "lucide-react";
 import ContentAction from "@/components/shared/ContentAction";
-import ContentIcon from "@/components/shared/ContentIcon";
 import { THEMES } from "@/content/themes";
 import { HOME_PAGE } from "@/content/pages";
 import styles from "./ExploreSection.module.css";
@@ -63,10 +62,7 @@ export default function ExploreSection() {
     <section className={`audience-section ${styles.root}`} id="flow" aria-labelledby="flow-title">
       <div className="audience-wrap">
         <div className={styles.heading}>
-          <h2 id="flow-title">
-            <ContentIcon name="themes" tone="yellow" heading />
-            {HOME_PAGE.programmeTitle}
-          </h2>
+          <h2 id="flow-title">{HOME_PAGE.programmeTitle}</h2>
           <p>{HOME_PAGE.programmeTagline}</p>
         </div>
         <div className={styles.selectionWindow}>

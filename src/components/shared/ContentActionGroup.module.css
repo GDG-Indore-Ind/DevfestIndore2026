@@ -1,0 +1,11 @@
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  padding-block: var(--layout-space-6) var(--section-space);
+}
+
+.compact {
+  padding-bottom: 8px;
+}

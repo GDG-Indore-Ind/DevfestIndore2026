@@ -38,7 +38,6 @@ body { font-family: var(--font-sans); }
 .audience-footer { background: var(--audience-tint); color: var(--audience-ink); padding-block: 40px; font-family: var(--font-sans); font-size: var(--audience-small); line-height: 1.6; }
 .audience-footer a { display: inline-flex; align-items: center; gap: 6px; color: var(--audience-muted); text-decoration: underline; text-underline-offset: 4px; }
 .audience-footer .audience-caption { max-width: 90ch; }
-.audience-site :where(a, button, summary):focus-visible, .audience-footer button:focus-visible, .audience-header a:focus-visible { outline: 3px solid var(--audience-blue); outline-offset: 5px; }
 @media (max-width: 760px) {
   .audience-wrap { width: calc(100% - 40px); }
   .audience-header-row { min-height: 72px; gap: 16px; }
@@ -62,7 +61,7 @@ body { font-family: var(--font-sans); }
 .footer-disclaimer { padding-top: 24px; border-top: 1px solid var(--audience-line); margin-bottom: 0; }
 .audience-site :where(section, h2)[id] { scroll-margin-top: 104px; }
 .community-intro { padding-block: var(--intro-space); background: var(--audience-hero-bg); }
-.community-intro h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance; }
+.community-intro h1 { font-size: var(--text-h1-sm); font-weight: 500; line-height: 1.12; letter-spacing: -.045em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance; }
 .community-intro .audience-body { font-size: var(--audience-lead); margin: 0; }
 .community-filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
 .community-filters button, .community-empty button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border-radius: var(--corner-24); border: 1px solid var(--audience-line); padding: 8px 18px; font: inherit; font-size: var(--audience-small); background: var(--audience-bg); color: var(--audience-ink); cursor: pointer; }
@@ -128,18 +127,17 @@ body { font-family: var(--font-sans); }
 .explore-trigger-dot { width: 6px; height: 6px; border-radius: var(--corner-round); background: var(--audience-blue); }
 .explore-trigger > svg { width: 16px; height: 16px; transition: transform 180ms ease; }
 .explore-trigger[aria-expanded='true'] > svg { transform: rotate(180deg); }
-@keyframes explore-enter { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .community-intro::before { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle, var(--mission-grid) 1px, transparent 1px); background-size: 24px 24px; mask-image: linear-gradient(90deg, transparent 40%, black); }
 .community-intro { position: relative; isolation: isolate; overflow: hidden; background: var(--audience-bg); border-bottom: 1px solid var(--audience-line); }
 .community-intro > .audience-wrap { position: relative; }
-.community-intro .audience-overline { letter-spacing: .05em; font-size: var(--text-12); }
+.community-intro .audience-overline { letter-spacing: .05em; font-size: var(--text-14); }
 .audience-footer { padding-top: 0; }
 .audience-site #main-content > div, .audience-site #attendee-policies, .audience-site :where(section, h2)[id] { scroll-margin-top: 96px; }
 @media (max-width: 760px) {
   .explore-header .audience-header-row { min-height: 64px; }
 }
 @media (max-width: 520px) {
-  .explore-header .audience-brand { font-size: var(--text-15); gap: 8px; }
+  .explore-header .audience-brand { font-size: var(--text-16); gap: 8px; }
   .explore-header .audience-brand img { width: 26px; height: 26px; }
   .explore-trigger { padding-inline: 12px; gap: 8px; }
   .audience-site #main-content > div, .audience-site #attendee-policies, .audience-site :where(section, h2)[id] { scroll-margin-top: 88px; }
@@ -149,9 +147,9 @@ body { font-family: var(--font-sans); }
 }
 .explore-section-eyebrow {
   display: inline-block;
-  font-size: var(--text-13);
+  font-size: var(--text-14);
   font-weight: 600;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.08em;
   color: var(--audience-blue);
   margin-bottom: 14px;
@@ -187,4 +185,4 @@ body { font-family: var(--font-sans); }
   font-weight: 500;
 }
 .culled-footer { padding-top: 40px; }
-.culled-footer .footer-brand { font-size: var(--text-24); }
+.culled-footer .footer-brand { font-size: var(--text-22); }

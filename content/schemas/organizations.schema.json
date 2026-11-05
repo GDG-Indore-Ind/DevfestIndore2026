@@ -1,22 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest organizations",
-  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
     },
     "archiveLogoSheet": {
       "type": "string",
-      "pattern": "^(https://|/[^/])"
+      "pattern": "^(https:\\/\\/|\\/[^/])"
     },
     "organizations": {
       "type": "array",
       "items": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
@@ -27,6 +23,7 @@
             "minLength": 1
           },
           "logoShape": {
+            "type": "string",
             "enum": [
               "square",
               "wide",
@@ -39,111 +36,170 @@
           },
           "archiveLogoWindow": {
             "type": "array",
-            "items": {
-              "type": "integer",
-              "minimum": 0
-            },
+            "items": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "integer",
+                "minimum": 0
+              }
+            ],
+            "additionalItems": false,
             "minItems": 4,
             "maxItems": 4
           },
           "logo": {
             "type": "string",
-            "pattern": "^(https://|/[^/])"
+            "pattern": "^(https:\\/\\/|\\/[^/])"
           },
           "website": {
             "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
+            "pattern": "^https:\\/\\/",
+            "format": "uri"
           },
           "social": {
             "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
+            "pattern": "^https:\\/\\/",
+            "format": "uri"
           },
           "contributions": {
             "type": "array",
             "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "pattern": "^[a-z0-9][a-z0-9-]*$"
-                },
-                "order": {
-                  "type": "integer",
-                  "minimum": 0
-                },
-                "source": {
-                  "type": "string",
-                  "pattern": "^(https://|/[^/])"
-                },
-                "featured": {
-                  "enum": [
-                    "space",
-                    "technology"
-                  ]
-                },
-                "visible": {
-                  "type": "boolean",
-                  "description": "Whether this confirmed partnership is publicly revealed. Defaults to true."
-                },
-                "eventId": {
-                  "type": "string",
-                  "pattern": "^[a-z0-9][a-z0-9-]*$"
-                },
-                "scope": {
-                  "enum": [
-                    "historical",
-                    "ecosystem"
-                  ]
-                },
-                "status": {
-                  "enum": [
-                    "confirmed",
-                    "archived",
-                    "ecosystem"
-                  ]
-                },
-                "type": {
-                  "enum": [
-                    "sponsor",
-                    "collaborator",
-                    "community",
-                    "media"
-                  ]
-                },
-                "title": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              },
-              "required": [
-                "id",
-                "status",
-                "type",
-                "title"
-              ],
-              "oneOf": [
+              "anyOf": [
                 {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]*$"
+                    },
+                    "order": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "source": {
+                      "type": "string",
+                      "pattern": "^(https:\\/\\/|\\/[^/])"
+                    },
+                    "featured": {
+                      "type": "string",
+                      "enum": [
+                        "space",
+                        "technology"
+                      ]
+                    },
+                    "visible": {
+                      "description": "Whether this confirmed partnership is publicly revealed. Defaults to true.",
+                      "type": "boolean"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "confirmed",
+                        "archived",
+                        "ecosystem"
+                      ]
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "sponsor",
+                        "collaborator",
+                        "community",
+                        "media"
+                      ]
+                    },
+                    "title": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "eventId": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]*$"
+                    }
+                  },
                   "required": [
+                    "id",
+                    "status",
+                    "type",
+                    "title",
                     "eventId"
                   ],
-                  "not": {
-                    "required": [
-                      "scope"
-                    ]
-                  }
+                  "additionalProperties": false
                 },
                 {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9-]*$"
+                    },
+                    "order": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "source": {
+                      "type": "string",
+                      "pattern": "^(https:\\/\\/|\\/[^/])"
+                    },
+                    "featured": {
+                      "type": "string",
+                      "enum": [
+                        "space",
+                        "technology"
+                      ]
+                    },
+                    "visible": {
+                      "description": "Whether this confirmed partnership is publicly revealed. Defaults to true.",
+                      "type": "boolean"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "confirmed",
+                        "archived",
+                        "ecosystem"
+                      ]
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "sponsor",
+                        "collaborator",
+                        "community",
+                        "media"
+                      ]
+                    },
+                    "title": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "scope": {
+                      "type": "string",
+                      "enum": [
+                        "historical",
+                        "ecosystem"
+                      ]
+                    }
+                  },
                   "required": [
+                    "id",
+                    "status",
+                    "type",
+                    "title",
                     "scope"
                   ],
-                  "not": {
-                    "required": [
-                      "eventId"
-                    ]
-                  }
+                  "additionalProperties": false
                 }
               ]
             }
@@ -153,7 +209,8 @@
           "id",
           "name",
           "contributions"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
@@ -161,5 +218,8 @@
     "$schema",
     "archiveLogoSheet",
     "organizations"
-  ]
+  ],
+  "additionalProperties": false,
+  "title": "DevFest organizations",
+  "description": "Generated from the Zod schema for content/organizations.json; do not edit."
 }

@@ -9,7 +9,11 @@ export default function TicketStrip() {
   const copy = HOME_PAGE.ticketStrip;
   if (!OPEN_PASSES.length) return null;
   return (
-    <section id="home-tickets" className="audience-section" aria-labelledby="home-tickets-title">
+    <section
+      id="home-tickets"
+      className={`audience-section ${styles.root}`}
+      aria-labelledby="home-tickets-title"
+    >
       <div className="audience-wrap">
         <div className={styles.heading}>
           <h2 id="home-tickets-title">{copy.title}</h2>
@@ -25,7 +29,11 @@ export default function TicketStrip() {
                   <h3>
                     {pass.name} <span>{formatPassPrice(pass)}</span>
                   </h3>
-                  {pass.offer && <p className={styles.offer}>{pass.offer}</p>}
+                  {pass.offers?.map((offer) => (
+                    <p key={offer} className={styles.offer}>
+                      {offer}
+                    </p>
+                  ))}
                 </div>
                 <Link
                   href={student ? "/ambassadors" : "/tickets#registration"}

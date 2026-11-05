@@ -1,0 +1,179 @@
+.root .brand img {
+  transform: scale(1.45);
+  transform-origin: left center;
+}
+.brandName {
+  display: grid;
+  font-size: var(--text-16);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+.brandCompact {
+  display: none;
+}
+.ticketCompact {
+  display: none;
+}
+.brandName small {
+  display: block;
+  font-size: var(--text-12);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-top: 3px;
+}
+.root .programme {
+  display: none;
+  font-size: var(--text-14);
+  min-height: 44px;
+  align-items: center;
+}
+.utilities {
+  margin-left: auto;
+}
+.theme {
+  display: contents;
+}
+@media (max-width: 760px) {
+  .theme {
+    display: none;
+  }
+  .brandFull {
+    display: none;
+  }
+  .brandCompact {
+    display: inline;
+  }
+  .ticketFull {
+    display: none;
+  }
+  .ticketCompact {
+    display: inline;
+  }
+  .exploreHeader .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    padding-block: 6px;
+    gap: 6px;
+  }
+  .exploreHeader .brand {
+    flex-shrink: 0;
+  }
+  .utilities {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .root .trigger {
+    padding-inline: 8px 10px;
+    font-size: var(--text-14);
+    gap: 6px;
+  }
+  .root .trigger > svg {
+    display: none;
+  }
+  .root .ticket {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: var(--text-14);
+    gap: 6px;
+    box-shadow: 1.5px 2px 0 var(--space-primary-outline);
+  }
+}
+:global(.audience-site) .trigger {
+  border-radius: var(--space-control-radius);
+}
+.root .ticket {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: var(--text-14);
+  white-space: nowrap;
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .root .utilities .programme {
+    display: none;
+  }
+}
+@media (min-width: 761px) and (max-width: 980px) {
+  .brandFull {
+    display: none;
+  }
+  .brandCompact {
+    display: inline;
+  }
+}
+@media (max-width: 359px) {
+  .root .utilities {
+    gap: 4px;
+  }
+  .root .ticket {
+    padding-inline: 10px;
+  }
+  .root .trigger > svg {
+    display: none;
+  }
+}
+@media (min-width: 761px) {
+  .root .programme {
+    display: inline-flex;
+  }
+}
+@media (max-width: 480px) {
+  .root .brandName {
+    font-size: var(--text-14);
+  }
+  .brandFull {
+    display: none;
+  }
+  .brandCompact {
+    display: inline;
+  }
+  .root .brandName small {
+    font-size: var(--text-12);
+  }
+  .root .brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .utilities {
+    gap: 8px;
+  }
+  .root .trigger {
+    padding-inline: 10px;
+  }
+}
+@media (min-width: 360px) and (max-width: 420px) {
+  .exploreHeader .row {
+    gap: 6px;
+  }
+  .root .brand {
+    gap: 6px;
+    min-width: 0;
+  }
+  .root .brandName {
+    font-size: var(--text-14);
+  }
+  .root .brand img {
+    width: 26px;
+    height: 26px;
+  }
+  .utilities {
+    gap: 4px;
+  }
+  .root .trigger {
+    padding-inline: 8px;
+  }
+  .root .ticket {
+    padding-inline: 12px;
+  }
+}
+
+@media (max-width: 359px) {
+  .brandCompact {
+    display: none;
+  }
+}

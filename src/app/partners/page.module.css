@@ -1,0 +1,71 @@
+.contributions h3 {
+  font-size: var(--text-18);
+  line-height: 1.4;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.contributions p {
+  color: var(--audience-muted);
+  margin: 0;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.root :global(.event-partners-section) {
+  padding-top: 12px;
+  min-height: auto;
+}
+.application {
+  background: var(--engineering-paper);
+}
+.split {
+  display: grid;
+  gap: 36px;
+}
+.application :global(.audience-button) {
+  margin-block: 16px;
+}
+.application :global(.audience-caption) a {
+  color: var(--audience-blue);
+  overflow-wrap: anywhere;
+}
+.contributions {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.contributions li {
+  padding-block: 24px;
+  border-top: 1px solid var(--audience-line);
+}
+.contributions li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+}
+.root .application {
+  padding-block: var(--section-space-tight);
+  background: transparent;
+  border-block: 1px solid var(--audience-line);
+}
+.contributions {
+  margin-top: 24px;
+}
+.contributions li {
+  padding-block: 16px;
+}
+.action {
+  align-self: center;
+}
+.action :global(.audience-body) {
+  margin: 0;
+}
+.action :global(.audience-caption) a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

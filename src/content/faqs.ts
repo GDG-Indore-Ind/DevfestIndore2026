@@ -14,7 +14,7 @@ const faqValues: Record<string, string> = {
   finalSalePolicy: policy("final-sale"),
   studentPrice: formatPassPrice(studentPass),
   professionalPrice: formatPassPrice(professionalPass),
-  groupOffer: professionalPass.offer ?? "",
+  groupOffer: professionalPass.offers?.[1] ?? "",
 };
 export const FAQS = pages.faq.questions.map((faq) => ({
   ...faq,

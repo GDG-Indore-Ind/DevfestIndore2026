@@ -6,7 +6,7 @@ Current implementation, 30 October 2026. This structure has not been validated w
 
 Visitors need to understand the event, find a pass, prepare for arrival and explore the community. Get tickets stays prominent in the header; Themes links to the homepage topic selector. Explore groups destinations by task:
 
-- **Plan your visit:** Tickets, Agenda, Venue & directions, FAQ (including the registration guidelines) and Contact your ambassador.
+- **Plan your visit:** Tickets, Agenda, Venue & directions, FAQ (including the registration guidelines) and Get an ambassador code.
 - **Discover:** Themes, Exhibits, Workshops & events, Partners & collaborators and Meet the team.
 
 The disclosure uses descriptive labels and decorative icons, closes on navigation, outside click, Escape or focus leaving the header, and scrolls within the viewport when necessary. Anchor destinations are shown only when their homepage sections are visible.
@@ -30,7 +30,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/workshops` | Permanent redirect to `/events#workshops` |
 | `/archive` | Past editions as image cards, plus photographs and press (anchors `#editions`, `#photos`, `#press`) |
 | `/archive/<event-id>` | One past edition: summary, reported figures, speakers with their talks, photographs, press and partner communities |
-| `/past-events`, `/past-speakers`, `/past-sponsors`, `/gallery`, `/talks`, `/people/[id]`, `/organizations/[id]` | Permanent redirects to `/archive`, `/team` or `/partners` |
+| `/past-events`, `/past-speakers`, `/past-sponsors`, `/gallery`, `/talks`, `/people/[id]`, `/organizations/[id]` | Permanent redirects to `/archive`, `/team` or `/partners`; known DevFest years under `/past-events/<year>` go directly to their edition |
 | `/team` | Organizer directory |
 | `/faq` | Event and ticket questions, then the full registration guidelines (eligibility, check-in, workshops, ticket policy, conduct) |
 
@@ -41,3 +41,5 @@ Public records live in `content/*.json`, with typed views in `src/content/`. Peo
 The ambassador directory references people by ID and stores their community and selected LinkedIn contact. Its hidden entries remain records; they do not render until a usable LinkedIn URL is supplied. Former invitation records are retired. Previously saved referral coupons can still be passed to the direct KonfHub fallback.
 
 Sessionize owns talk proposals. KonfHub owns availability, eligibility enforcement and payment. Event facts, checkout settings, pass details and policies belong in `event.json`. Archived sources are reference material and are not imported by the application.
+
+The archive groups editions, photographs and press into separate sections; photo and press previews expand with native disclosures. The ambassador directory is shared by students and professionals. Progress rails appear only on pages with at least four section stops.

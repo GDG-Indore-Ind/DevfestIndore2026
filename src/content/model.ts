@@ -79,19 +79,7 @@ export interface WorkshopItem {
   publication: "archived" | "confirmed";
   photos: WorkshopPhoto[];
 }
-export interface GalleryItem {
-  id: string;
-  title: string;
-  category:
-    "Space" | "AI & Robotics" | "Keynotes" | "Showcase" | "Community" | "Pre-DevFest Workshops";
-  /** The event the photograph was taken at, when known. */
-  eventId?: string;
-  imageUrl: string;
-  caption: string;
-  source?: string;
-  width?: number;
-  height?: number;
-}
+export type GalleryItem = import("./schema/current/gallery").GalleryPhoto;
 export interface Socials {
   linkedin?: string;
   twitter?: string;

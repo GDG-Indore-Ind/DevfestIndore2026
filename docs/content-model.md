@@ -1,6 +1,6 @@
-# Content model (proposal)
+# Historical content model proposal
 
-Status: step 1 done (3 November 2026). The Zod schemas exist in `src/content/schema/`; no content has moved yet, so the site still reads the old files.
+This is a historical proposal, not the live model or a migration plan. The current architecture keeps six canonical files in `content/*.json`; their Zod schemas live in `src/content/schema/current/` and generate the editor schemas. See [the content guide](../content/README.md) for the current model. The earlier event-folder prototype was retired after the current-file schemas were implemented.
 
 ## Principles
 
@@ -141,7 +141,7 @@ public/images/
   "id": "devfest-2026",
   "name": "DevFest Indore 2026",
   "series": "devfest",
-  "startDate": "2026-11-28T08:30:00+05:30",
+  "startDate": "2026-11-28T09:00:00+05:30",
   "endDate": "2026-11-28T18:00:00+05:30",
   "timezone": "Asia/Kolkata",
   "eventStatus": "scheduled",
@@ -272,7 +272,7 @@ Sub-event IDs are unique across all events, so a photo can point at one with `ab
       "availability": "in-stock",
       "inventoryLevel": 200,
       "eligibleCustomerType": "Students only",
-      "eligibility": "Currently enrolled students only. …",
+      "eligibility": ["Currently enrolled students only", "…"],
       "description": "Full-day access for college and university students.",
       "bookingRoute": "ambassador",
       "listed": true,

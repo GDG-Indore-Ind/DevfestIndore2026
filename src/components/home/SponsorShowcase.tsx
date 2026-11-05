@@ -1,16 +1,15 @@
 "use client";
 
+import ContentAction from "@/components/shared/ContentAction";
+
 import { EVENT } from "@/content/event";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { EventPartner } from "@/content/model";
 import { CONFIRMED_EVENT_PARTNERS } from "@/content/partners";
 import { PARTNERS_PAGE } from "@/content/pages";
 import ExternalLink from "@/components/shared/ExternalLink";
 import PartnerCarousel from "@/components/home/PartnerCarousel";
-import ContentIcon from "@/components/shared/ContentIcon";
 import styles from "./SponsorShowcase.module.css";
 
 function PartnerLogo({
@@ -34,7 +33,7 @@ function PartnerLogo({
       onError={() => setFailed(true)}
     />
   ) : (
-    <span className="event-partner-wordmark">{item.name}</span>
+    <span className={styles.wordmark}>{item.name}</span>
   );
 }
 
@@ -49,23 +48,25 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
             <p className="audience-overline">
               {EVENT.year} {PARTNERS_PAGE.sectionLabel}
             </p>
-            <div className="partner-reveal">
-              <div className="partner-reveal-backdrop" aria-hidden="true">
+            <div className={styles.reveal}>
+              <div className={styles.revealBackdrop} aria-hidden="true">
                 <span />
                 <span />
               </div>
-              <div className="partner-reveal-message">
-                <span className="partner-reveal-spark" aria-hidden="true">
+              <div className={styles.revealMessage}>
+                <span className={styles.revealSpark} aria-hidden="true">
                   ✦
                 </span>
                 <h2 id="partners-title">{PARTNERS_PAGE.revealTitle}</h2>
                 <p>{PARTNERS_PAGE.revealText}</p>
-                <ExternalLink
+                <ContentAction
                   href={EVENT.links.partnerApplication}
-                  className="audience-button space-primary-button"
+                  icon="partners"
+                  tone="green"
+                  external
                 >
                   {PARTNERS_PAGE.revealButton}
-                </ExternalLink>
+                </ContentAction>
               </div>
             </div>
           </>
@@ -78,19 +79,14 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
                     {EVENT.year} {PARTNERS_PAGE.sectionLabel}
                   </p>
                   <h2 id="partners-title">
-                    <ContentIcon name="partners" tone="yellow" heading />
                     Great missions take
                     <br />
                     more than one crew.
                   </h2>
                 </div>
-                <Link
-                  href="/partners#partner-application"
-                  className="audience-button space-primary-button"
-                >
+                <ContentAction href="/partners#partner-application" icon="partners" tone="green">
                   {PARTNERS_PAGE.revealButton}
-                  <ArrowRight className="audience-icon" aria-hidden="true" />
-                </Link>
+                </ContentAction>
               </div>
             ) : (
               <h2 id="partners-title" className="practical-partners-heading">
@@ -100,14 +96,14 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
             <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
             <PartnerCarousel items={featured} />
             {!!additional.length && (
-              <div className="additional-partners">
+              <div className={styles.additional}>
                 <div className="event-partner-heading">
                   <h3>More partners & supporters</h3>
                 </div>
-                <ul className="supporter-logo-grid" aria-label="More 2026 partners">
+                <ul className={styles.supporterGrid} aria-label="More 2026 partners">
                   {additional.map((item) => (
                     <li key={item.id}>
-                      <div className="event-partner-logo">
+                      <div className={styles.logo}>
                         {item.websiteUrl ? (
                           <ExternalLink href={item.websiteUrl}>
                             <PartnerLogo item={item} />

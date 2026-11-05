@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import ContentAction from "@/components/shared/ContentAction";
+import ContentActionGroup from "@/components/shared/ContentActionGroup";
 import AgendaSpeakers from "@/components/agenda/AgendaSpeakers";
 import AgendaComingSoon from "@/components/agenda/AgendaComingSoon";
 
@@ -13,13 +14,7 @@ export const metadata = pageMetadata("/agenda", page.title, page.description);
 export default function AgendaPage() {
   return (
     <div className="audience-site space-subpage">
-      <Navbar
-        flightStops={[
-          { id: "page-overview", label: "Overview" },
-          { id: "speakers", label: page.speakersTitle },
-          { id: "coming-soon", label: page.comingSoon.badge },
-        ]}
-      />
+      <Navbar />
       <main id="main-content">
         <PageIntro
           title={page.title}
@@ -29,7 +24,7 @@ export default function AgendaPage() {
         />
         <AgendaSpeakers />
         <AgendaComingSoon />
-        <div className="audience-wrap practical-next-links">
+        <ContentActionGroup>
           <ContentAction href="/tickets" icon="tickets" tone="blue">
             Get tickets
           </ContentAction>
@@ -39,7 +34,7 @@ export default function AgendaPage() {
           <ContentAction href={EVENT.links.cfp} icon="microphone" tone="red" external>
             {HOME_PAGE.themeContributionLabel}
           </ContentAction>
-        </div>
+        </ContentActionGroup>
       </main>
       <Footer />
     </div>

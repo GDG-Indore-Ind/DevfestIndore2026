@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest people",
-  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
@@ -12,7 +9,6 @@
       "type": "array",
       "items": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
@@ -23,32 +19,32 @@
             "minLength": 1
           },
           "kind": {
+            "type": "string",
             "enum": [
               "person",
               "group"
             ]
           },
           "title": {
+            "description": "Current job title, e.g. Senior Engineer.",
             "type": "string",
-            "minLength": 1,
-            "description": "Current job title, e.g. Senior Engineer."
+            "minLength": 1
           },
           "organization": {
+            "description": "Current employer or community, e.g. Qualcomm.",
             "type": "string",
-            "minLength": 1,
-            "description": "Current employer or community, e.g. Qualcomm."
+            "minLength": 1
           },
           "bio": {
-            "type": "string",
-            "description": "Plain text; use a blank line between paragraphs. Put profile URLs under links."
+            "description": "Plain text; use a blank line between paragraphs. Put profile URLs under links.",
+            "type": "string"
           },
           "photo": {
             "type": "string",
-            "pattern": "^(https://|/[^/])"
+            "pattern": "^(https:\\/\\/|\\/[^/])"
           },
           "links": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "linkedin": {
                 "type": "string"
@@ -69,14 +65,13 @@
                 "type": "string"
               }
             },
-            "required": []
+            "additionalProperties": false
           },
           "events": {
-            "type": "array",
             "description": "One entry per event this person took part in, naming their roles there.",
+            "type": "array",
             "items": {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "eventId": {
                   "type": "string",
@@ -84,21 +79,180 @@
                 },
                 "sourceUrl": {
                   "type": "string",
-                  "format": "uri",
-                  "pattern": "^https://"
+                  "pattern": "^https:\\/\\/",
+                  "format": "uri"
                 },
                 "roles": {
-                  "type": "array",
                   "minItems": 1,
+                  "type": "array",
                   "items": {
-                    "$ref": "#/definitions/role"
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "description": "Overrides the default role label, e.g. Keynote speaker.",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "order": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "kind": {
+                            "type": "string",
+                            "const": "speaker"
+                          }
+                        },
+                        "required": [
+                          "kind"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "description": "Overrides the default role label, e.g. Keynote speaker.",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "order": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "kind": {
+                            "type": "string",
+                            "const": "core-team"
+                          },
+                          "responsibilities": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "area": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "level": {
+                                  "type": "string",
+                                  "enum": [
+                                    "lead",
+                                    "co-lead",
+                                    "coordinator",
+                                    "team-member",
+                                    "volunteer"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "area"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "responsibilities"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "description": "Overrides the default role label, e.g. Keynote speaker.",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "order": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "kind": {
+                            "type": "string",
+                            "const": "volunteer"
+                          },
+                          "responsibilities": {
+                            "minItems": 1,
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "area": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "level": {
+                                  "type": "string",
+                                  "enum": [
+                                    "lead",
+                                    "co-lead",
+                                    "coordinator",
+                                    "team-member",
+                                    "volunteer"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "area"
+                              ],
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "responsibilities"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "description": "Overrides the default role label, e.g. Keynote speaker.",
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "order": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "kind": {
+                            "type": "string",
+                            "const": "ambassador"
+                          },
+                          "track": {
+                            "type": "string",
+                            "enum": [
+                              "professional",
+                              "student"
+                            ]
+                          },
+                          "community": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "track",
+                          "community"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
                   }
                 }
               },
               "required": [
                 "eventId",
                 "roles"
-              ]
+              ],
+              "additionalProperties": false
             }
           }
         },
@@ -106,7 +260,8 @@
           "id",
           "name",
           "kind"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
@@ -114,161 +269,7 @@
     "$schema",
     "people"
   ],
-  "definitions": {
-    "role": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "What a person did at one event. Speaker needs nothing more; team roles list responsibilities; ambassadors give a track and community. order is optional and sorts within this role kind at the event (lowest first, ties keep file order).",
-      "properties": {
-        "kind": {
-          "enum": [
-            "speaker",
-            "core-team",
-            "volunteer",
-            "ambassador"
-          ]
-        },
-        "title": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Overrides the default label, e.g. Keynote speaker."
-        },
-        "order": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "responsibilities": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "area": {
-                "type": "string",
-                "minLength": 1
-              },
-              "level": {
-                "enum": [
-                  "lead",
-                  "co-lead",
-                  "coordinator",
-                  "team-member",
-                  "volunteer"
-                ]
-              }
-            },
-            "required": [
-              "area"
-            ]
-          }
-        },
-        "track": {
-          "enum": [
-            "professional",
-            "student"
-          ]
-        },
-        "community": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "kind"
-      ],
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "kind": {
-                "enum": [
-                  "core-team",
-                  "volunteer"
-                ]
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          },
-          "then": {
-            "required": [
-              "responsibilities"
-            ],
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "track"
-                  ]
-                },
-                {
-                  "required": [
-                    "community"
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "kind": {
-                "const": "ambassador"
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          },
-          "then": {
-            "required": [
-              "track",
-              "community"
-            ],
-            "not": {
-              "required": [
-                "responsibilities"
-              ]
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "kind": {
-                "const": "speaker"
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          },
-          "then": {
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "responsibilities"
-                  ]
-                },
-                {
-                  "required": [
-                    "track"
-                  ]
-                },
-                {
-                  "required": [
-                    "community"
-                  ]
-                }
-              ]
-            }
-          }
-        }
-      ]
-    }
-  }
+  "additionalProperties": false,
+  "title": "DevFest people",
+  "description": "Generated from the Zod schema for content/people.json; do not edit."
 }

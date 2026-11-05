@@ -5,7 +5,7 @@ import { participationRecords, ambassadorRecords } from './people-view.mjs';
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import Ajv from "ajv";
+import { FILE_SCHEMAS } from "../content-schemas.mjs";
 
 export const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 export const COLLECTIONS = ["event", "people", "programme", "organizations", "gallery", "pages"];
@@ -13,14 +13,27 @@ export function readContent(root = PROJECT_ROOT) {
   return Object.fromEntries(COLLECTIONS.map(name => [name, JSON.parse(readFileSync(path.join(root, "content", `${name}.json`), "utf8"))]));
 }
 
+function shapeErrors(name, issues, prefix = []) {
+  return issues.flatMap(issue => {
+    const location = [...prefix, ...issue.path];
+    if (issue.code === "invalid_union" && issue.errors.length) {
+      // The closest variant usually gives the editor a more useful field path
+      // than a generic "Invalid input" at the enclosing object.
+      const closest = issue.errors.reduce((best, branch) => branch.length < best.length ? branch : best);
+      if (closest.length) return shapeErrors(name, closest, location);
+    }
+    return [`${name}.json/${location.join("/")}: ${issue.message}`];
+  });
+}
+
 /** Validate public records without changing files, fetching URLs or executing content. */
 export function validateContent(content, { root = PROJECT_ROOT, checkAssets = true } = {}) {
   const errors = [];
-  const ajv = new Ajv({ allErrors: true, jsonPointers: true, schemaId: "auto", format: "full" });
   for (const name of COLLECTIONS) {
-    const schema = JSON.parse(readFileSync(path.join(root, "content/schemas", `${name}.schema.json`), "utf8"));
-    const validate = ajv.compile(schema);
-    if (!validate(content[name])) errors.push(...validate.errors.map(error => `${name}.json${error.dataPath || "/"}: ${error.message}${error.params.additionalProperty ? ` (${error.params.additionalProperty})` : ""}`));
+    const result = FILE_SCHEMAS[name].safeParse(content[name]);
+    if (!result.success) {
+      errors.push(...shapeErrors(name, result.error.issues));
+    }
   }
   if (errors.length) return errors;
   const { people, gallery, pages } = content;
@@ -116,7 +129,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
     else if (photo.eventId !== item.id) errors.push(`event ${item.id}: cover photo ${item.cover} was not taken at this event`);
   }
   for (const photo of gallery.photos) if (photo.eventId) reference(eventIds, photo.eventId, `photo ${photo.id}`);
-  for (const clipping of gallery.press) reference(eventIds, clipping.eventId, `press ${clipping.id}`);
+  for (const clipping of gallery.press ?? []) reference(eventIds, clipping.eventId, `press ${clipping.id}`);
   for (const organization of partners.organizations) {
     unique(organization.partnerships, `organization ${organization.id} relationship`, item => item.editionId);
     if (organization.partnerships.some(item => item.contributions.some(contribution => contribution.kind === "community")) && !organization.websiteUrl && !organization.socialUrl) errors.push(`organization ${organization.id}: communities require a public website or social URL`);

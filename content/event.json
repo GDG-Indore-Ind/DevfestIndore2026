@@ -51,7 +51,10 @@
             "visible": false,
             "allocation": 70,
             "description": "Full-day access for developers and community members.",
-            "eligibility": "Open to everyone. Up to 2 tickets per order, with separate details for each attendee.",
+            "eligibility": [
+              "Open to everyone",
+              "Up to 2 tickets per order, with separate details for each attendee"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -96,7 +99,12 @@
             "price": 849,
             "bookingRoute": "ambassador",
             "description": "Full-day access for college and university students.",
-            "eligibility": "Currently enrolled students only. Cadet tickets are issued through your campus ambassador or an organizer. Add your college, degree and graduation year at checkout. Bring your original, active physical student photo ID matching your registration. Limit: 1 ticket per order.",
+            "eligibility": [
+              "Currently enrolled students only",
+              "Add your college, degree and graduation year at checkout",
+              "1 ticket per order",
+              "Bring your **government photo ID** and **original student ID** to check-in"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -128,8 +136,11 @@
                 "label": "Exhibit Lounge"
               }
             ],
-            "note": "Without valid student ID, entry may be denied without refund or an upgrade fee may apply. Professionals booking Cadet may face cancellation or need to pay for a Commander upgrade.",
-            "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served. Student ID required."
+            "note": "Without valid proof, entry may be denied without refund or an upgrade fee may apply. Professionals booking Cadet may face cancellation or need to pay for a Commander upgrade.",
+            "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served. Government photo ID and original student ID required.",
+            "offers": [
+              "5% off with your ambassador code"
+            ]
           },
           {
             "id": "professional",
@@ -138,9 +149,12 @@
             "visible": true,
             "allocation": 250,
             "price": 849,
-            "offer": "Buy 6–10 tickets, get 15% off",
             "description": "Full-day access for working professionals.",
-            "eligibility": "Working professionals only, including engineers, architects, tech leads, managers and founders. Students must choose Cadet. Register every attendee with their own details.",
+            "eligibility": [
+              "Working professionals only, including engineers, architects, tech leads, managers and founders",
+              "Students must choose Cadet",
+              "Register every attendee with their own details"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -172,8 +186,12 @@
                 "label": "Exhibit Lounge"
               }
             ],
-            "note": "The 15% group discount applies automatically at KonfHub checkout when you buy 6–10 tickets. A corporate tax invoice is available at checkout.",
-            "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served."
+            "note": "Enter an ambassador code in the Discount / Access Code field for 5% off, or get 15% off 6–10 tickets automatically. Discounts cannot be combined.",
+            "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served.",
+            "offers": [
+              "5% off with an ambassador code",
+              "15% off 6–10 tickets"
+            ]
           },
           {
             "id": "vip",
@@ -182,7 +200,10 @@
             "visible": false,
             "allocation": 20,
             "description": "Additional access for invited founders, technical leaders and ecosystem partners.",
-            "eligibility": "After booking Cadet or Commander, express interest in Flight Deck. Invitations are limited; booking a standard pass does not guarantee VIP access.",
+            "eligibility": [
+              "After booking Cadet or Commander, express interest in Flight Deck",
+              "Invitations are limited; booking a standard pass does not guarantee VIP access"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -229,7 +250,9 @@
             "visible": false,
             "allocation": 100,
             "description": "Late registration, subject to venue capacity.",
-            "eligibility": "Open to everyone, subject to final venue capacity.",
+            "eligibility": [
+              "Open to everyone, subject to final venue capacity"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -250,7 +273,9 @@
             "visible": false,
             "allocation": 100,
             "description": "Keynotes and open technical sessions only.",
-            "eligibility": "Open to community walk-ins and session-only attendees.",
+            "eligibility": [
+              "Open to community walk-ins and session-only attendees"
+            ],
             "benefits": [
               {
                 "group": "access",
@@ -283,8 +308,8 @@
           },
           {
             "id": "cadet-id",
-            "title": "Cadet: student ID required",
-            "text": "Cadet is for currently enrolled college and university students. Bring your original, active physical student photo ID matching your registration, alongside your government photo ID. Without valid proof, entry may be denied without refund or an upgrade fee may apply. Professionals booking Cadet may face cancellation or need to pay for a Commander upgrade.",
+            "title": "Cadet: two IDs required",
+            "text": "Cadet is for currently enrolled college and university students. Bring your **government photo ID** and **original student ID** matching your registration. Without valid proof, entry may be denied without refund or an upgrade fee may apply. Professionals booking Cadet may face cancellation or need to pay for a Commander upgrade.",
             "appliesTo": [
               "student"
             ]
@@ -326,13 +351,13 @@
         ],
         "registrationDeclaration": "I confirm that my attendee details and pass eligibility are accurate. I agree to the registration guidelines and code of conduct. Tickets cannot be cancelled, transferred, resold, rescheduled or refunded.",
         "registration": {
-          "buttonLabel": "Register",
+          "buttonLabel": "Book Commander",
           "unavailableText": "The registration link will be available here.",
           "finalSaleText": "All purchases are final. No refunds or transfers.",
           "profileReminder": "Add your own LinkedIn URL to your KonfHub profile before booking.",
           "termsLabel": "Read the registration guidelines",
           "widgetHeading": "Book your pass",
-          "widgetLead": "Book Commander passes here on KonfHub. Students book Cadet with an access code from their campus ambassador.",
+          "widgetLead": "Students book Cadet with an ambassador code. Professionals can book Commander directly. Enter a code in the Discount / Access Code field on KonfHub.",
           "closedHeading": "Closed passes",
           "widgetTitle": "Register for GDG Devfest Indore 2026",
           "fallbackText": "Trouble with checkout?",
@@ -355,7 +380,7 @@
           }
         ]
       },
-      "date": "2026-11-28T08:30:00+05:30",
+      "date": "2026-11-28T09:00:00+05:30",
       "type": "devfest",
       "status": "current"
     },

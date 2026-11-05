@@ -11,10 +11,6 @@ export default function TeamPage() {
   const members = TEAM.filter((member) => category === "All" || member.team === category);
   return (
     <CommunityPage
-      flightStops={[
-        { id: "page-overview", label: "Overview" },
-        { id: "page-directory", label: "The team" },
-      ]}
       compact
       title="DevFest Team"
       lead="Meet the people bringing DevFest Indore together."

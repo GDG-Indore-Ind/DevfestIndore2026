@@ -1,0 +1,96 @@
+:global(.space-subpage) .intro {
+  padding-block: var(--intro-space);
+  background: var(--audience-bg);
+}
+:global(.space-subpage) .intro::before {
+  display: none;
+}
+.grid {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+:global(.space-subpage) .intro h1 {
+  font-size: var(--text-h1-sm);
+  font-weight: 600;
+  max-width: 23ch;
+  margin: 0 0 10px;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+:global(.space-subpage) .intro :global(.audience-body) {
+  font-size: var(--text-16);
+  max-width: 55ch;
+  margin: 0;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin-bottom: 12px;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+.mark {
+  display: none;
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--space-window-radius);
+  background: var(--space-panel);
+  color: var(--space-panel-ink);
+  overflow: hidden;
+}
+.tickets,
+.guide {
+  background: var(--space-warm);
+  color: var(--space-warm-ink);
+}
+.people,
+.partners {
+  background: var(--space-soft-green);
+  color: var(--audience-ink);
+}
+.core {
+  position: absolute;
+  inset: 22px;
+  border: 1px solid currentColor;
+  border-radius: var(--corner-round);
+  display: grid;
+  place-items: center;
+  background: inherit;
+}
+.core > svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.4;
+}
+.orbit {
+  position: absolute;
+  inset: 22px 5px;
+  border: 1px solid currentColor;
+  opacity: 0.4;
+  border-radius: var(--corner-round);
+  transform: rotate(-35deg);
+}
+.star {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+}
+
+@media (min-width: 761px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 72px;
+    gap: 32px;
+  }
+  .mark {
+    display: block;
+  }
+  .grid.withPhoto {
+    grid-template-columns: 1.1fr 1fr;
+  }
+}

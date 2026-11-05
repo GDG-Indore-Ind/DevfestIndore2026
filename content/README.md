@@ -13,6 +13,8 @@ Edit the JSON files in this folder. The site reads them directly; run `npm run d
 
 Each file has a `$schema`, so editors that understand JSON Schema suggest fields and flag mistakes. Typed views in `src/content/` turn these records into what pages render; edit the JSON, not the views.
 
+Zod schemas in `src/content/schema/current/` describe these six files. `npm run content:validate` checks their shapes and cross-file rules. The editor JSON Schemas are generated: after changing a Zod schema, run `npm run content:schemas`; `npm run content:schemas:check` checks that they are current. Do not edit generated schemas by hand.
+
 ## Rules
 
 - IDs are stable. Change a name or logo on its existing record and every page updates. Person ids are kebab-case names, e.g. `kartikey-rawat`.
@@ -92,7 +94,7 @@ Passes live in `event.json` → current event → `tickets.passes`.
 
 - `visible` shows a pass card; `soldOut: true` moves it to the closed section below the KonfHub widget with no Register button.
 - Keep listing every benefit on every pass. The tickets page works out which benefits all open passes share and shows them once under `pages.json` → `tickets.includedTitle`; each card then lists only what it adds.
-- `bookingRoute: "ambassador"` (Cadet) sends the card to `/ambassadors` instead of the widget. `offer` is a short discount line under the price (Commander: 6–10 tickets, 15% off, applied at KonfHub checkout).
+- `bookingRoute: "ambassador"` (Cadet) sends the card to `/ambassadors` instead of the widget. `offers` is an array of short discount lines shown under the price. `eligibility` is an array of short lines shown as a list on the pass card. Use paired `**` markers for bold ID terms in supported eligibility, policy, FAQ and ambassador-step text.
 - `price` is in INR; leave it out while unconfirmed.
 - Stable pass ids: `liftoff`, `student` (Cadet), `professional` (Commander), `vip`, `last-orbit`, `observer`. Rename display names freely, never the ids.
 - KonfHub owns live inventory, pricing and payment, so keep `soldOut` and visibility in step with it by hand. `tickets.booking.enabled` turns the widget and direct link on or off.
@@ -105,7 +107,7 @@ The exhibit invitation copy is `pages.json` → `home.exhibits`; its form URL is
 
 ## Ambassadors
 
-`/ambassadors` is the Cadet booking route: one shared, searchable directory, grouped by `track` (`professional` or `student`) in the order of `pages.json` → `ambassadors.groups`. Ambassadors are people with an `ambassador` role at the current event (see above). Each card shows the person's LinkedIn and, when they have a personal one, Instagram (the GDG Indore account never appears on a card); people without a usable LinkedIn URL stay hidden. Ambassadors are the people given ambassador codes for the current event; remove anyone who no longer holds one. Do not put phone numbers or other private contact details in these files.
+`/ambassadors` is the Cadet booking route: one shared, searchable directory for students and professionals. Ambassadors are people with an `ambassador` role at the current event (see above). Each card shows the person's LinkedIn and, when they have a personal one, Instagram (the GDG Indore account never appears on a card); people without a usable LinkedIn URL stay hidden. Ambassadors are the people given ambassador codes for the current event; remove anyone who no longer holds one. Do not put phone numbers or other private contact details in these files.
 
 ## Check and publish
 

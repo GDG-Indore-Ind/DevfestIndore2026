@@ -16,3 +16,141 @@
   font-size: var(--text-16);
   line-height: 1.6;
 }
+
+.logo {
+  min-height: 86px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--corner-12);
+  background: var(--space-white);
+  color: var(--space-black);
+}
+.logo > a {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo > a > :global(.audience-icon) {
+  display: none;
+}
+.logo img {
+  max-width: 100%;
+  width: auto;
+  height: 50px;
+  object-fit: contain;
+}
+.wordmark {
+  font-size: var(--text-22);
+  font-weight: 500;
+}
+.additional {
+  margin-block: 28px;
+}
+.reveal {
+  position: relative;
+  isolation: isolate;
+  min-height: 330px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-24);
+  overflow: hidden;
+  background: var(--engineering-paper);
+}
+.revealBackdrop {
+  position: absolute;
+  inset: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 20px;
+  z-index: -1;
+  opacity: 0.5;
+  filter: blur(5px);
+}
+.revealBackdrop > span {
+  position: relative;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-24);
+  background: var(--space-panel);
+}
+.revealBackdrop > span:last-child {
+  background: var(--space-soft-green);
+}
+.revealBackdrop > span::before {
+  content: "";
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border: 2px solid var(--audience-line);
+  border-radius: var(--corner-round);
+  left: calc(50% - 43px);
+  top: 38px;
+}
+.revealMessage {
+  text-align: center;
+  max-width: 580px;
+  padding: 32px 24px;
+}
+.revealSpark {
+  display: block;
+  font-size: var(--text-32);
+  line-height: 1;
+  color: var(--audience-blue);
+  margin-bottom: 16px;
+}
+.revealMessage p {
+  color: var(--audience-muted);
+  font-size: var(--text-16);
+  line-height: 1.65;
+  margin: 0 0 24px;
+}
+.supporterGrid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+}
+.supporterGrid > li {
+  padding-block: 20px;
+}
+.supporterGrid h3 {
+  margin: 12px 0 4px;
+  font-size: var(--text-16);
+}
+.supporterGrid p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+@media (min-width: 761px) {
+  .supporterGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 28px;
+  }
+}
+@media (max-width: 480px) {
+  .revealMessage {
+    padding-inline: 20px;
+  }
+}
+.reveal {
+  min-height: 0;
+}
+.revealMessage {
+  padding-block: 32px;
+}
+.revealMessage h2 {
+  margin: 0 0 12px;
+  font-size: var(--text-32);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+.revealMessage p {
+  margin-bottom: 20px;
+}

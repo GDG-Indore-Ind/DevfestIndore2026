@@ -14,10 +14,7 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
       <div className="audience-wrap audience-venue-grid">
         <div className="audience-section-heading">
           <p className="explore-section-eyebrow">Getting here</p>
-          <h2 id="venue-title">
-            <ContentIcon name="venue" tone="red" heading />
-            See you at Essentia.
-          </h2>
+          <h2 id="venue-title">See you at Essentia.</h2>
           <p className="venue-lead">
             {HOME_PAGE.venueLead.replace("{{registrationTime}}", REGISTRATION_TIME)}
           </p>

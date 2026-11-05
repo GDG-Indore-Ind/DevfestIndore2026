@@ -4,7 +4,6 @@ import { byRoleOrder, PARTICIPATIONS, roleTitle } from "@/content/participations
 import { getPerson } from "@/content/people";
 import { CURRENT_SESSIONS } from "@/content/speakers";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
-import ContentIcon from "@/components/shared/ContentIcon";
 import styles from "./AgendaSpeakers.module.css";
 
 const speakers = PARTICIPATIONS.flatMap((entry) => {
@@ -28,10 +27,7 @@ export default function AgendaSpeakers() {
       aria-labelledby="speakers-title"
     >
       <div className="audience-wrap">
-        <h2 id="speakers-title">
-          <ContentIcon name="microphone" tone="red" heading />
-          {copy.speakersTitle}
-        </h2>
+        <h2 id="speakers-title">{copy.speakersTitle}</h2>
         {speakers.length ? (
           <ul className={styles.list}>
             {speakers.map(({ person, label, sessions }) => (

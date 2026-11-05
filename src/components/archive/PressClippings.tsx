@@ -22,13 +22,17 @@ function source(item: PressClipping) {
 export default function PressClippings({
   eventId,
   showLead = true,
+  offset = 0,
+  limit,
 }: {
   eventId?: string;
   showLead?: boolean;
+  offset?: number;
+  limit?: number;
 }) {
-  const items = eventId
-    ? PRESS_CLIPPINGS.filter((clipping) => clipping.eventId === eventId)
-    : PRESS_CLIPPINGS;
+  const items = (
+    eventId ? PRESS_CLIPPINGS.filter((clipping) => clipping.eventId === eventId) : PRESS_CLIPPINGS
+  ).slice(offset, limit === undefined ? undefined : offset + limit);
   const [selected, setSelected] = useState<PressClipping | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   function open(item: PressClipping) {

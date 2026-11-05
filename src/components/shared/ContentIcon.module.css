@@ -1,0 +1,24 @@
+.icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.blue {
+  color: var(--icon-blue);
+}
+.green {
+  color: var(--icon-green);
+}
+.red {
+  color: var(--icon-red);
+}
+.yellow {
+  color: var(--icon-yellow);
+}
+.headingIcon {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  vertical-align: -3px;
+}

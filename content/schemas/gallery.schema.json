@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "DevFest gallery",
-  "description": "Authoritative public website content. Do not store private contact details or tentative announcements.",
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
@@ -12,7 +9,6 @@
       "type": "array",
       "items": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
@@ -23,6 +19,7 @@
             "minLength": 1
           },
           "category": {
+            "type": "string",
             "enum": [
               "Space",
               "AI & Robotics",
@@ -33,13 +30,13 @@
             ]
           },
           "eventId": {
+            "description": "The event the photograph was taken at. Leave out when it is not known.",
             "type": "string",
-            "pattern": "^[a-z0-9][a-z0-9-]*$",
-            "description": "The event the photograph was taken at. Leave out when it is not known."
+            "pattern": "^[a-z0-9][a-z0-9-]*$"
           },
           "imageUrl": {
             "type": "string",
-            "pattern": "^(https://|/[^/])"
+            "pattern": "^(https:\\/\\/|\\/[^/])"
           },
           "caption": {
             "type": "string",
@@ -47,8 +44,8 @@
           },
           "source": {
             "type": "string",
-            "format": "uri",
-            "pattern": "^https://"
+            "pattern": "^https:\\/\\/",
+            "format": "uri"
           },
           "width": {
             "type": "integer",
@@ -69,14 +66,14 @@
           "imageUrl",
           "caption",
           "showInGallery"
-        ]
+        ],
+        "additionalProperties": false
       }
     },
     "press": {
       "type": "array",
       "items": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "id": {
             "type": "string",
@@ -102,7 +99,7 @@
           },
           "imageUrl": {
             "type": "string",
-            "pattern": "^/[^/]"
+            "pattern": "^\\/[^/]"
           },
           "width": {
             "type": "integer",
@@ -120,12 +117,16 @@
           "imageUrl",
           "width",
           "height"
-        ]
+        ],
+        "additionalProperties": false
       }
     }
   },
   "required": [
     "$schema",
     "photos"
-  ]
+  ],
+  "additionalProperties": false,
+  "title": "DevFest gallery",
+  "description": "Generated from the Zod schema for content/gallery.json; do not edit."
 }

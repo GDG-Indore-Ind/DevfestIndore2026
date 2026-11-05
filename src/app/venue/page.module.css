@@ -1,0 +1,38 @@
+.root :global(.space-page-intro) :global(.venue-address) {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: var(--text-16);
+  margin-top: 16px;
+}
+.arrivalGrid {
+  display: grid;
+  gap: 32px;
+}
+.arrivalGrid h2 {
+  font-size: var(--text-h3);
+  margin: 0 0 20px;
+  line-height: 1.2;
+}
+.arrivalGrid :global(.practical-arrival) {
+  background: transparent;
+}
+.arrivalGrid :global(.practical-checkin) {
+  margin-block: 0 24px;
+}
+.arrivalGrid :global(.practical-map) {
+  height: 360px;
+}
+@media (min-width: 761px) {
+  .root :global(.space-page-intro-grid):global(.space-intro-with-photo) {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 36px;
+  }
+  .arrivalGrid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 48px;
+  }
+  .arrivalGrid :global(.practical-map) {
+    height: 420px;
+  }
+}

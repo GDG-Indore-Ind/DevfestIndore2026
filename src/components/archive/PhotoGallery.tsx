@@ -7,10 +7,18 @@ import type { GalleryItem } from "@/content/model";
 import { GALLERY_PHOTOS } from "@/content/gallery";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
 
-export default function PhotoGallery({ eventId }: { eventId?: string }) {
-  const items: GalleryItem[] = eventId
-    ? GALLERY_PHOTOS.filter((photo) => photo.eventId === eventId)
-    : GALLERY_PHOTOS;
+export default function PhotoGallery({
+  eventId,
+  offset = 0,
+  limit,
+}: {
+  eventId?: string;
+  offset?: number;
+  limit?: number;
+}) {
+  const items: GalleryItem[] = (
+    eventId ? GALLERY_PHOTOS.filter((photo) => photo.eventId === eventId) : GALLERY_PHOTOS
+  ).slice(offset, limit === undefined ? undefined : offset + limit);
   const [category, setCategory] = useState("All");
   const [selected, setSelected] = useState<GalleryItem | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);

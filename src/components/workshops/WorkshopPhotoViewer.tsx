@@ -5,6 +5,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import type { WorkshopPhoto } from "@/content/model";
 import { WORKSHOPS_PAGE } from "@/content/pages";
+import styles from "./WorkshopPhotoViewer.module.css";
 
 export default function WorkshopPhotoViewer({
   photo,
@@ -20,7 +21,7 @@ export default function WorkshopPhotoViewer({
   return (
     <dialog
       ref={dialog}
-      className="community-dialog workshop-photo-dialog"
+      className={`community-dialog ${styles.dialog}`}
       aria-label={photo?.caption ?? WORKSHOPS_PAGE.photoLabel}
       onClose={onClose}
       onClick={(event) => {

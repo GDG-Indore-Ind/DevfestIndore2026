@@ -1,3 +1,4 @@
+import StrongText from "@/components/shared/StrongText";
 import { ArrowDown } from "lucide-react";
 import ExternalLink from "@/components/shared/ExternalLink";
 import { EVENT } from "@/content/event";
@@ -52,7 +53,9 @@ export default function RegistrationGuidelines() {
                       </p>
                     )}
                     <h4>{policy.title}</h4>
-                    <p>{policy.text}</p>
+                    <p>
+                      <StrongText text={policy.text} />
+                    </p>
                   </article>
                 );
               })}

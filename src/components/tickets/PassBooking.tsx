@@ -9,7 +9,7 @@ export default function PassBooking({ name }: { name: string }) {
     <a
       href="#registration"
       className={`audience-button space-primary-button ${styles.register}`}
-      aria-label={`Register — ${name}`}
+      aria-label={`Book ${name}`}
     >
       {TICKET_REGISTRATION.buttonLabel}
       <ArrowDown className="audience-icon" aria-hidden="true" />

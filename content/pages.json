@@ -87,8 +87,7 @@
       "nextLabel": "Next partner",
       "playLabel": "Play partner slideshow",
       "pauseLabel": "Pause partner slideshow",
-      "positionLabel": "Choose a partner",
-      "exploreLabel": "Explore partner"
+      "positionLabel": "Choose a partner"
     },
     "sectionLabel": "Sponsors & partners",
     "sponsorshipText": "Help bring this edition to life. Sponsor DevFest Indore and support the developer community behind it."
@@ -99,7 +98,7 @@
     "lead": "Find Essentia Luxury Hotel and prepare for check-in.",
     "mapTitle": "Find the venue",
     "arrivalTitle": "Arrive ready for check-in.",
-    "registrationLabel": "Registration opens",
+    "registrationLabel": "Check-in starts at",
     "entryTitle": "Bring your ticket and ID",
     "entrySummary": "Bring your QR ticket and an original physical government-issued photo ID matching your registration. Check any additional requirements for your pass."
   },
@@ -113,7 +112,7 @@
     "ecosystemLead": "The developer communities and networks that connect us.",
     "heroLead": "From intelligent software to systems in deep space.",
     "heroDescription": "Technical talks and hands-on labs with the developer community.",
-    "venueLead": "Registration opens at {{registrationTime}}.",
+    "venueLead": "Check-in starts at {{registrationTime}}.",
     "photoArchiveLabel": "Photo archive",
     "pressLabel": "All press coverage",
     "themeSelectorLabel": "Explore the themes",
@@ -121,8 +120,8 @@
     "ticketStrip": {
       "title": "Pick your pass.",
       "lead": "One day of sessions, hands-on workshops, lunch and networking on 28 November.",
-      "studentLabel": "Students: get your access code from an ambassador",
-      "professionalLabel": "Professionals: book now",
+      "studentLabel": "Get Cadet code",
+      "professionalLabel": "Book Commander",
       "allTicketsLabel": "Pass details"
     },
     "exhibits": {
@@ -196,10 +195,10 @@
   },
   "tickets": {
     "title": "Tickets",
-    "lead": "Two passes for 28 November. Students book Cadet with an access code from their campus ambassador. Working professionals book Commander below on KonfHub, and buying 6–10 tickets saves 15%.",
+    "lead": "Are you a student? Choose Cadet with an ambassador code. Working professionals can book Commander directly.",
     "endedLead": "Check KonfHub below for ticket availability and prices.",
     "includedTitle": "Every pass includes",
-    "studentButtonLabel": "Get access code from your ambassador",
+    "studentButtonLabel": "Get Cadet code",
     "ambassadorContactEnabled": false
   },
   "faq": {
@@ -225,7 +224,7 @@
       {
         "id": "event-3",
         "question": "When and where is DevFest?",
-        "answer": "{{date}} at {{venue}}. Registration opens at {{registrationTime}}.",
+        "answer": "{{date}} at {{venue}}. Check-in starts at {{registrationTime}}.",
         "kind": "event",
         "link": {
           "href": "/venue",
@@ -234,7 +233,7 @@
       },
       {
         "id": "event-4",
-        "question": "Are campus workshops part of the event-day program?",
+        "question": "Are campus workshops part of the event-day programme?",
         "answer": "Campus workshops are separate events held before DevFest, with their own dates and registration details.",
         "kind": "event",
         "link": {
@@ -252,27 +251,27 @@
         "id": "ticket-current",
         "kind": "tickets",
         "question": "Which pass should I choose?",
-        "answer": "Students choose Cadet ({{studentPrice}}), booked with an access code from your campus ambassador. Working professionals choose Commander ({{professionalPrice}}), booked on the Tickets page. Both include the same sessions, workshop access, lunch, goodies and lounges.",
+        "answer": "Students choose Cadet ({{studentPrice}}) with an ambassador code. Working professionals choose Commander ({{professionalPrice}}) and can book directly. Both include the same sessions, workshop access, lunch, goodies and lounges.",
         "link": {
           "href": "/tickets",
-          "label": "View tickets"
+          "label": "Get tickets"
         }
       },
       {
         "id": "ticket-student",
         "kind": "tickets",
         "question": "How do students get tickets?",
-        "answer": "Get a Cadet access code from your campus ambassador or an organizer, then enter it on KonfHub to book Cadet with your college details. Bring your original student photo ID on the day.",
+        "answer": "Ask any listed ambassador for a code, then enter it in the Discount / Access Code field on KonfHub to book Cadet. Bring your **government photo ID** and **original student ID** to check-in.",
         "link": {
           "href": "/ambassadors",
-          "label": "Contact your ambassador"
+          "label": "Get an ambassador code"
         }
       },
       {
         "id": "ticket-group",
         "kind": "tickets",
-        "question": "Is there a group discount?",
-        "answer": "Yes, for Commander. {{groupOffer}}. The discount applies automatically at KonfHub checkout. Each attendee still needs their own registration details.",
+        "question": "Are there any discounts?",
+        "answer": "An ambassador code gives students and professionals 5% off. Ask any listed ambassador and enter it in the Discount / Access Code field on KonfHub. Commander also offers {{groupOffer}}, applied automatically. Discounts cannot combine; under 6 tickets the ambassador code is best, and for 6–10 tickets the bulk discount is better.",
         "link": {
           "href": "/tickets#registration",
           "label": "Book Commander"
@@ -358,45 +357,33 @@
     "speakersTitle": "Speakers",
     "photosTitle": "Photos",
     "pressTitle": "In the news",
-    "pressLead": "Newspaper coverage of past editions and community events. Headlines are summarised in English.",
+    "pressLead": "Newspaper coverage of past editions and community events. Headlines are summarized in English.",
     "pressViewLabel": "Read clipping"
   },
   "ambassadors": {
-    "title": "Contact your ambassador",
-    "description": "Get your Cadet access code from a DevFest Indore campus ambassador, then book on KonfHub.",
-    "lead": "Students book Cadet with an access code from their campus ambassador; working professionals can connect with a GDG Indore organizer. Find yours below.",
-    "navigationLabel": "Contact your ambassador",
+    "title": "Get an ambassador code",
+    "description": "Ask any listed DevFest Indore ambassador for a code for Cadet or Commander.",
+    "lead": "Students and professionals can ask any listed ambassador for a code. Students need one to book Cadet; professionals can use one for 5% off Commander.",
+    "navigationLabel": "Get an ambassador code",
     "ticketLead": "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
-    "stepsTitle": "Connect through your community",
+    "stepsTitle": "Get your code",
     "steps": [
       {
-        "title": "Get your access code",
-        "text": "Find your campus ambassador below, connect on LinkedIn or Instagram and ask for your Cadet access code."
+        "title": "Ask an ambassador",
+        "text": "Connect with any listed ambassador and ask for a code."
       },
       {
-        "title": "Check the ticket details",
-        "text": "Cadet is for currently enrolled students. Keep your original student photo ID ready; you will need it at check-in."
+        "title": "Choose your pass",
+        "text": "Students choose Cadet and bring their **government photo ID** and **original student ID** to check-in. Professionals can choose Commander."
       },
       {
-        "title": "Complete registration on KonfHub",
-        "text": "Enter your access code on KonfHub to unlock Cadet and complete checkout. Your KonfHub confirmation completes your registration."
+        "title": "Book on KonfHub",
+        "text": "Enter the code in the Discount / Access Code field for 5% off. For 6–10 Commander tickets, the automatic 15% bulk discount is better; discounts cannot combine."
       }
     ],
-    "ticketsLabel": "Explore current tickets",
+    "ticketsLabel": "Get tickets",
     "directoryTitle": "Meet your ambassadors",
-    "directoryLead": "Find an ambassador from your campus or community and connect on LinkedIn or Instagram.",
-    "groups": [
-      {
-        "track": "professional",
-        "title": "Professional ambassadors",
-        "lead": "Working professionals and community members can connect with a GDG Indore organizer for help with their pass."
-      },
-      {
-        "track": "student",
-        "title": "Student ambassadors",
-        "lead": "Students: find the ambassador from your campus and ask for your Cadet access code."
-      }
-    ],
+    "directoryLead": "Find any ambassador and connect on LinkedIn or Instagram.",
     "searchLabel": "Find an ambassador",
     "searchPlaceholder": "Search by name or college",
     "emptyTitle": "No ambassadors found",
@@ -421,16 +408,10 @@
       "pendingLabel": "Details coming soon",
       "items": [
         {
-          "id": "workshop-1",
+          "id": "workshops",
           "kind": "Workshop",
-          "title": "Workshop 1",
-          "description": "Hands-on session. Seats are first come, first served."
-        },
-        {
-          "id": "workshop-2",
-          "kind": "Workshop",
-          "title": "Workshop 2",
-          "description": "Hands-on session. Seats are first come, first served."
+          "title": "Hands-on workshops",
+          "description": "Hands-on sessions. Seats are first come, first served."
         },
         {
           "id": "community-lounge",

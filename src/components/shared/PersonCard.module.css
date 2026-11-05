@@ -22,7 +22,7 @@
   font-size: var(--text-16);
   font-weight: 600;
 }
-.body :is(h2, h3, h4) {
+.card .body :is(h2, h3, h4) {
   margin: 0;
   font-size: var(--text-16);
   font-weight: 600;

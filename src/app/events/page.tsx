@@ -1,5 +1,6 @@
 "use client";
 
+import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +12,7 @@ import type { WorkshopPhoto } from "@/content/model";
 import CommunityPage from "@/components/layout/CommunityPage";
 import ExternalLink from "@/components/shared/ExternalLink";
 import WorkshopPhotoViewer from "@/components/workshops/WorkshopPhotoViewer";
+import styles from "./page.module.css";
 
 export default function EventsPage() {
   const [query, setQuery] = useState("");
@@ -22,19 +24,9 @@ export default function EventsPage() {
       .includes(query.trim().toLowerCase()),
   );
   return (
-    <CommunityPage
-      compact
-      motif="events"
-      flightStops={[
-        { id: "page-overview", label: "Overview" },
-        { id: "workshops", label: page.workshopTitle },
-        { id: "community-events", label: page.communityTitle },
-      ]}
-      title={page.title}
-      lead={page.lead}
-    >
-      <div className="workshop-directory-page">
-        <nav className="archive-navigation" aria-label="On this page">
+    <CommunityPage compact motif="events" title={page.title} lead={page.lead}>
+      <div className={styles.workshopDirectoryPage}>
+        <PageSectionNavigation label="On this page">
           <a href="#workshops">
             <GraduationCap className="audience-icon" aria-hidden="true" />
             {page.workshopTitle}
@@ -47,13 +39,13 @@ export default function EventsPage() {
             {page.archiveLabel}
             <ArrowRight className="audience-icon" aria-hidden="true" />
           </Link>
-        </nav>
+        </PageSectionNavigation>
         <section
-          className="archive-subsection workshop-directory-section"
+          className="archive-subsection"
           id="workshops"
           aria-labelledby="workshop-directory-title"
         >
-          <div className="directory-heading">
+          <div className={styles.directoryHeading}>
             <div>
               <h2 id="workshop-directory-title">{page.workshopTitle}</h2>
               <p>{page.workshopLead}</p>
@@ -71,18 +63,18 @@ export default function EventsPage() {
               />
             </label>
           </div>
-          <p className="audience-caption directory-result-count" role="status">
+          <p className={`audience-caption ${styles.directoryResultCount}`} role="status">
             {filtered.length} {filtered.length === 1 ? page.sessionSingular : page.sessionPlural}
           </p>
-          <div className="workshop-directory-grid">
+          <div className={styles.workshopDirectoryGrid}>
             {filtered.map((item) => {
               const photo = item.photos[0];
               return (
-                <article className="workshop-directory-row" key={item.id} id={item.id}>
+                <article className={styles.workshopDirectoryRow} key={item.id} id={item.id}>
                   {photo ? (
                     <button
                       id={item.legacyId}
-                      className="workshop-photo-button"
+                      className={styles.workshopPhotoButton}
                       type="button"
                       onClick={() => setSelectedPhoto(photo)}
                       aria-label={`${page.photoLabel}: ${item.college}`}
@@ -97,12 +89,16 @@ export default function EventsPage() {
                       <Expand aria-hidden="true" />
                     </button>
                   ) : (
-                    <div id={item.legacyId} className="workshop-photo-empty" aria-hidden="true">
+                    <div
+                      id={item.legacyId}
+                      className={styles.workshopPhotoEmpty}
+                      aria-hidden="true"
+                    >
                       <GraduationCap />
                     </div>
                   )}
-                  <div className="workshop-row-copy">
-                    <p className="workshop-row-date">
+                  <div className={styles.workshopRowCopy}>
+                    <p className={styles.workshopRowDate}>
                       {item.date ? (
                         <time dateTime={item.date}>{item.displayDate}</time>
                       ) : (
@@ -111,7 +107,7 @@ export default function EventsPage() {
                       {item.topic && <span>{item.topic}</span>}
                     </p>
                     <h3>{item.college}</h3>
-                    <div className="workshop-row-bottom">
+                    <div className={styles.workshopRowBottom}>
                       <p>{item.speaker}</p>
                       {item.eventUrl && (
                         <ExternalLink href={item.eventUrl}>{page.eventLinkLabel}</ExternalLink>
@@ -133,11 +129,11 @@ export default function EventsPage() {
           )}
         </section>
         <section
-          className="archive-subsection compact-community-events"
+          className={`archive-subsection ${styles.compactCommunityEvents}`}
           id="community-events"
           aria-labelledby="community-events-title"
         >
-          <div className="directory-heading">
+          <div className={styles.directoryHeading}>
             <div>
               <h2 id="community-events-title">{page.communityTitle}</h2>
               <p>{page.communityLead}</p>

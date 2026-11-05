@@ -50,21 +50,21 @@
 }
 .policy h4 {
   margin: 0 0 2px;
-  font-size: var(--text-15);
+  font-size: var(--text-16);
   font-weight: 600;
   line-height: 1.4;
 }
 .policy p {
   margin: 0;
   color: var(--audience-muted);
-  font-size: var(--text-15);
+  font-size: var(--text-16);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 .policy .scope {
   margin-bottom: 2px;
   color: var(--audience-blue);
-  font-size: var(--text-13);
+  font-size: var(--text-14);
   font-weight: 500;
 }
 .section :global(.audience-text-link) {
@@ -72,7 +72,7 @@
   align-items: center;
   min-height: 44px;
   margin-top: var(--layout-space-2);
-  font-size: var(--text-15);
+  font-size: var(--text-16);
 }
 @media (min-width: 900px) {
   .sections {

@@ -1,5 +1,5 @@
 .root {
-  padding-block: 0 var(--section-space-tight);
+  padding-block: var(--section-space-tight);
 }
 .grid {
   display: grid;
@@ -24,7 +24,7 @@
 }
 .audience {
   margin: 0 0 calc(-1 * var(--layout-space-2));
-  font-size: var(--text-13);
+  font-size: var(--text-14);
   color: var(--audience-muted);
 }
 .title {
@@ -34,7 +34,7 @@
   justify-content: space-between;
   gap: 4px 16px;
 }
-.title h2 {
+.card .title h2 {
   margin: 0;
   font-size: var(--text-22);
   font-weight: 500;
@@ -54,12 +54,16 @@
   border-radius: var(--corner-pill);
   background: color-mix(in srgb, var(--audience-blue) 10%, transparent);
   color: var(--audience-blue);
-  font-size: var(--text-13);
+  font-size: var(--text-14);
   font-weight: 600;
   line-height: 1.4;
 }
 .eligibility {
+  display: grid;
+  gap: var(--layout-space-1);
   margin: 0;
+  padding-left: 18px;
+  list-style: disc;
   font-size: var(--text-14);
   line-height: 1.55;
   color: var(--audience-muted);
@@ -126,7 +130,7 @@
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-pill);
   color: var(--audience-ink);
-  font-size: var(--text-13);
+  font-size: var(--text-14);
   font-weight: 600;
 }
 @media (max-width: 600px) {

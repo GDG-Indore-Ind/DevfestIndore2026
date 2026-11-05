@@ -71,7 +71,7 @@ function OrbitScrollRail({
       const headerHeight = header?.getBoundingClientRect().height ?? 80;
       element!.style.setProperty(
         "--flight-distance",
-        `${element!.querySelector(".flight-path")?.getBoundingClientRect().width ?? 0}px`,
+        `${element!.querySelector(`.${styles.flightPath}`)?.getBoundingClientRect().width ?? 0}px`,
       );
       site?.style.setProperty("--flight-header-height", `${headerHeight}px`);
       const offset = headerHeight + 16;
@@ -121,14 +121,14 @@ function OrbitScrollRail({
       <span ref={caption} className={styles.current} aria-hidden="true">
         {stops[0].label}
       </span>
-      <nav className="flight-navigation" aria-label="Explore the page">
-        <div className="flight-path" aria-hidden="true">
-          <span className="flight-path-line" />
-          <span className="flight-path-travelled" />
-          <span className="flight-craft-travel">
-            <span className="flight-craft">
+      <nav className={styles.flightNavigation} aria-label="Explore the page">
+        <div className={styles.flightPath} aria-hidden="true">
+          <span className={styles.flightPathLine} />
+          <span className={styles.flightPathTravelled} />
+          <span className={styles.flightCraftTravel}>
+            <span className={styles.flightCraft}>
               <Rocket />
-              <span className="flight-flame" />
+              <span className={styles.flightFlame} />
             </span>
           </span>
         </div>
@@ -140,22 +140,22 @@ function OrbitScrollRail({
             aria-label={stop.label}
             onClick={index === 0 ? returnToTop : onNavigate}
           >
-            <span className="flight-stop-dot" aria-hidden="true" />
-            <span className="flight-stop-label">{stop.label}</span>
+            <span className={styles.flightStopDot} aria-hidden="true" />
+            <span className={styles.flightStopLabel}>{stop.label}</span>
           </a>
         ))}
         <a
           href={`#${stops[0].id}`}
-          className="flight-destination"
+          className={styles.flightDestination}
           aria-label="Back to launch — return to top"
           onClick={returnToTop}
         >
-          <span className="flight-planet" aria-hidden="true">
+          <span className={styles.flightPlanet} aria-hidden="true">
             <span />
           </span>
-          <span className="flight-stop-label">
-            <span className="flight-arriving-label">Touchdown</span>
-            <span className="flight-arrived-label">Back to top ↑</span>
+          <span className={styles.flightStopLabel}>
+            <span className={styles.flightArrivingLabel}>Touchdown</span>
+            <span className={styles.flightArrivedLabel}>Back to top ↑</span>
           </span>
         </a>
       </nav>

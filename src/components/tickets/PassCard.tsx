@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StrongText from "@/components/shared/StrongText";
 import { ArrowRight } from "lucide-react";
 import { formatPassPrice, passExtras, type PublicPass } from "@/content/tickets";
 import { TICKETS_PAGE } from "@/content/pages";
@@ -15,9 +16,19 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
         <h2 id={`pass-${pass.id}`}>{pass.name}</h2>
         {pass.price !== undefined && <p className={styles.price}>{formatPassPrice(pass)}</p>}
       </div>
-      {pass.offer && <p className={styles.offer}>{pass.offer}</p>}
+      {pass.offers?.map((offer) => (
+        <p key={offer} className={styles.offer}>
+          {offer}
+        </p>
+      ))}
       {extras.length > 0 && <BenefitGroups benefits={extras} />}
-      <p className={styles.eligibility}>{pass.eligibility}</p>
+      <ul className={styles.eligibility}>
+        {pass.eligibility.map((item) => (
+          <li key={item}>
+            <StrongText text={item} />
+          </li>
+        ))}
+      </ul>
       {pass.note && (
         <details className={styles.details}>
           <summary>
@@ -36,7 +47,13 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
           <ArrowRight className="audience-icon" aria-hidden="true" />
         </Link>
       ) : (
-        <PassBooking name={pass.name} />
+        <>
+          {" "}
+          <PassBooking name={pass.name} />
+          <Link href="/ambassadors" className="audience-text-link">
+            Get an ambassador code
+          </Link>{" "}
+        </>
       )}
     </article>
   );
