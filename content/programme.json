@@ -725,10 +725,10 @@
         "kartikey-rawat"
       ],
       "publication": "confirmed",
-      "title": "Building AI at the Edge: Developing Intelligent Applications with Qualcomm AI Stack and On-Device AI",
+      "title": "On-Device AI using LiteRT and Qualcomm AI Hub",
       "role": "Senior Engineer, Developer Relations",
       "company": "Qualcomm",
-      "description": "",
+      "description": "Explore on-device AI, why it matters, quantization, and the Qualcomm AI Hub workflow with LiteRT.",
       "spotlightBadge": "",
       "category": "GenAI",
       "track": "Edge AI"
@@ -817,6 +817,22 @@
       "category": "Cloud",
       "format": "talk",
       "sourceUrl": "https://gdg.community.dev/events/details/google-gdg-cloud-indore-presents-cloud-community-days-indore-2022"
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-abhishek-sharma",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "abhishek-sharma"
+      ],
+      "publication": "confirmed",
+      "title": "The Production Agent Blueprint: Harness Engineering with Gemini Enterprise",
+      "role": "Senior Cloud Engineer",
+      "company": "Searce Inc",
+      "description": "Learn how to move multi-agent prototypes into reliable, secure production using Google Cloud Agent Platform. Explore ADK orchestration, managed Agent Engine runtimes, secure MCP integrations, and CI/CD with continuous evaluation and guardrails.",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "AI Agents"
     }
   ]
 }

@@ -24,6 +24,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/guidelines` | Permanent redirect to `/faq`; section anchors such as `#eligibility` carry over |
 | `/venue` | Venue details, directions, map and check-in |
 | `/partners` | Current collaborators and partnership opportunities |
+| `/space-club` | Space Club of India in Indore coming-soon page, linked from its partner card |
 | `/ambassadors` | Searchable ambassador contact directory; only profiles with a usable LinkedIn URL are displayed |
 | `/invite/[slug]` | Retired invitation URLs redirect to `/ambassadors`, preserving query values |
 | `/events` | Campus workshops and community event records |

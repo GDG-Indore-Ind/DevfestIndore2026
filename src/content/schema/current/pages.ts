@@ -269,6 +269,14 @@ export const PagesFile = z.strictObject({
   archive: archiveSchema,
   ambassadors: ambassadorsSchema,
   agenda: agendaSchema,
+  spaceClub: z.strictObject({
+    title: text,
+    description: text,
+    lead: text,
+    heading: text,
+    body: text,
+    linkLabel: text,
+  }),
 });
 
 export type PagesFile = z.infer<typeof PagesFile>;

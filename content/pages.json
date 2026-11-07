@@ -403,7 +403,7 @@
     "comingSoon": {
       "badge": "Coming soon",
       "title": "The full schedule is on its way",
-      "lead": "The speakers listed above are only part of the day. Timings and session details will be announced here.",
+      "lead": "The speakers listed above are only part of the day. The full schedule and more session details will be announced here.",
       "itemsTitle": "Also on 28 November",
       "pendingLabel": "Details coming soon",
       "items": [
@@ -445,5 +445,13 @@
         }
       ]
     }
+  },
+  "spaceClub": {
+    "title": "Space Club of India in Indore",
+    "description": "Something exciting is coming to Indore with Space Club of India.",
+    "lead": "Something exciting is coming to Indore with Space Club of India.",
+    "heading": "Coming soon",
+    "body": "Join us at DevFest Indore for the reveal. More details, including how to join, will be shared here after the event.",
+    "linkLabel": "Space Club of India in Indore"
   }
 }

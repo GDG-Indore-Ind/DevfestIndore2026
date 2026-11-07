@@ -1093,6 +1093,44 @@
         "comingSoon"
       ],
       "additionalProperties": false
+    },
+    "spaceClub": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "heading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        },
+        "linkLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "lead",
+        "heading",
+        "body",
+        "linkLabel"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [
@@ -1106,7 +1144,8 @@
     "workshops",
     "archive",
     "ambassadors",
-    "agenda"
+    "agenda",
+    "spaceClub"
   ],
   "additionalProperties": false,
   "title": "DevFest pages",

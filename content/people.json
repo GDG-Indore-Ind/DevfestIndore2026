@@ -451,7 +451,8 @@
         "twitter": "https://x.com/acloudpotato",
         "blog": "https://acloudpotato.medium.com/",
         "website": "https://www.searce.com/",
-        "github": "https://github.com/acloudpotato"
+        "github": "https://github.com/acloudpotato",
+        "instagram": "https://www.instagram.com/acloudpotato/"
       },
       "events": [
         {
@@ -459,6 +460,15 @@
           "roles": [
             {
               "kind": "speaker"
+            }
+          ]
+        },
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 3
             }
           ]
         }
@@ -1313,7 +1323,7 @@
       "kind": "person",
       "links": {
         "linkedin": "https://www.linkedin.com/in/akshat-mittal-061637411/",
-        "instagram": "https://www.instagram.com/akshat_agrawal/"
+        "instagram": "https://www.instagram.com/_akshat__agrawal/"
       },
       "events": [
         {
@@ -1495,7 +1505,11 @@
             }
           ]
         }
-      ]
+      ],
+      "photo": "/images/people/lt-gen-pjs-pannu.webp",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/lt-gen-pjs-pannu-bb693680/"
+      }
     },
     {
       "id": "kartikey-rawat",
@@ -1514,7 +1528,15 @@
             }
           ]
         }
-      ]
+      ],
+      "photo": "/images/people/kartikey-rawat.webp",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/carrycooldude/",
+        "instagram": "https://www.instagram.com/carrycooldude/",
+        "twitter": "https://twitter.com/carrycooldude",
+        "github": "https://github.com/carrycooldude",
+        "blog": "https://medium.com/@carrycooldude"
+      }
     },
     {
       "id": "anubhav-singh",

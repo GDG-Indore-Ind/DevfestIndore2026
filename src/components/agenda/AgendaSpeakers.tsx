@@ -1,9 +1,10 @@
 import { EVENT } from "@/content/event";
 import { AGENDA_PAGE as copy } from "@/content/pages";
 import { byRoleOrder, PARTICIPATIONS, roleTitle } from "@/content/participations";
-import { getPerson } from "@/content/people";
+import { getPerson, personalSocials } from "@/content/people";
 import { CURRENT_SESSIONS } from "@/content/speakers";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
+import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./AgendaSpeakers.module.css";
 
 const speakers = PARTICIPATIONS.flatMap((entry) => {
@@ -44,13 +45,22 @@ export default function AgendaSpeakers() {
                   <p className={styles.role}>
                     {[person.role, person.company].filter(Boolean).join(", ")}
                   </p>
+                  <ProfileLinks
+                    socials={personalSocials(person.socials)}
+                    name={person.name}
+                    iconOnly
+                    className={styles.links}
+                  />
                 </div>
                 <div className={styles.sessions}>
                   {sessions.length ? (
                     sessions.map((session) => (
-                      <p key={session.id} className={styles.session}>
-                        {session.title}
-                      </p>
+                      <div key={session.id}>
+                        <p className={styles.session}>{session.title}</p>
+                        {session.description && (
+                          <p className={styles.description}>{session.description}</p>
+                        )}
+                      </div>
                     ))
                   ) : (
                     <p className={styles.pending}>{copy.sessionPending}</p>

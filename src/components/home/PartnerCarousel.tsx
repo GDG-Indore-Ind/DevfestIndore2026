@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { Cpu } from "lucide-react";
 import type { EventPartner } from "@/content/model";
-import { PARTNERS_PAGE } from "@/content/pages";
+import { PARTNERS_PAGE, SPACE_CLUB_PAGE } from "@/content/pages";
 import ContentAction from "@/components/shared/ContentAction";
 import styles from "./PartnerCarousel.module.css";
 
@@ -82,6 +82,11 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
               <p className={styles.role}>{item.role}</p>
               <h3>{item.name}</h3>
               <p>{item.description}</p>
+              {item.id === "space-club-2026" && (
+                <ContentAction href="/space-club" icon="rocket" tone="blue">
+                  {SPACE_CLUB_PAGE.linkLabel}
+                </ContentAction>
+              )}
               {item.websiteUrl && (
                 <ContentAction
                   href={item.websiteUrl}

@@ -49,6 +49,16 @@
   font-size: var(--audience-small);
   line-height: 1.5;
 }
+.links {
+  gap: 0 4px;
+  margin: 4px 0 0 -12px;
+}
+.links a {
+  color: var(--audience-muted);
+}
+.links a:hover {
+  color: var(--audience-blue);
+}
 .sessions {
   display: grid;
   gap: 8px;
@@ -66,7 +76,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--audience-blue);
+  color: var(--audience-muted);
   font-size: var(--audience-small);
   font-weight: 500;
   cursor: pointer;
@@ -76,6 +86,14 @@
   color: var(--audience-muted);
   font-size: var(--audience-small);
   line-height: 1.6;
+}
+.description {
+  margin-top: 8px !important;
+  max-width: 68ch;
+  color: var(--audience-muted);
+  font-size: var(--audience-small);
+  line-height: 1.6;
+  white-space: pre-line;
 }
 .more {
   margin: 16px 0 0;
