@@ -25,3 +25,8 @@ export function getTeam(): TeamMember[] {
   }).sort(byRoleOrder);
 }
 export const TEAM = getTeam();
+
+export const TEAM_PAGE = {
+  title: "DevFest Team",
+  lead: "Meet the people bringing DevFest Indore together.",
+} as const;

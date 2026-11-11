@@ -442,7 +442,7 @@
       "id": "abhishek-sharma",
       "name": "Abhishek Sharma",
       "kind": "person",
-      "title": "Senior Cloud Engineer",
+      "title": "FDE Lead & AI Architect",
       "organization": "Searce Inc",
       "bio": "A Senior Cloud & DevOps Engineer, Google Developer Expert(GCP) & Google Cloud Champions Innovator(Hybrid/Multi-Cloud), Cloud Advisor & Mentor, Public Speaker & Content Creator\n\nAbhishek has a proven track record of driving digital transformation. He specializes in architecting and implementing scalable cloud solutions on Google Cloud, leveraging his expertise in DevOps, observability, and cloud security tools such as Docker, Kubernetes, Terraform, ArgoCD, Prometheus, Mimir, Tempo, Grafana, Checkov, Kyverno, Prisma Cloud, and Gitlab CI. Abhishek optimizes development pipelines, strengthens SRE practices, and ensures robust security standards to empower organizations to achieve their goals. His innovative solutions and thought leadership have earned him recognition as a leading expert in the cloud community.",
       "photo": "/images/people/abhishek-sharma.webp",
@@ -1537,6 +1537,97 @@
         "github": "https://github.com/carrycooldude",
         "blog": "https://medium.com/@carrycooldude"
       }
+    },
+    {
+      "id": "pratik-kale",
+      "name": "Pratik Kale",
+      "kind": "person",
+      "title": "Software Engineer",
+      "organization": "Impulsive Web",
+      "bio": "A software engineer at Impulsive Web and organizer of GDG Cloud Pune. Pratik is an active community contributor and public speaker who hosts The Root Access, a tech podcast, and often talks about web, cloud computing and AI.",
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 4
+            }
+          ]
+        }
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/pratikkalein/",
+        "twitter": "https://twitter.com/pratikkalein",
+        "instagram": "https://instagram.com/pratikkale.in",
+        "website": "https://pratikkale.in"
+      },
+      "photo": "/images/people/pratik-kale.webp"
+    },
+    {
+      "id": "akash-kamerkar",
+      "name": "Akash Kamerkar",
+      "kind": "person",
+      "title": "Data Scientist",
+      "organization": "ABB",
+      "bio": "A data scientist at ABB and a data science educator with over four years of experience in AI/ML model development and MLOps. Akash works with Python, machine learning and neural networks, mentors students through edtech platforms, and won the ABB Global hackathon.",
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 5
+            }
+          ]
+        }
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/akash-kamerkar-datascientist/"
+      },
+      "photo": "/images/people/akash-kamerkar.webp"
+    },
+    {
+      "id": "vinayak-gavariya",
+      "name": "Vinayak Gavariya",
+      "kind": "person",
+      "title": "AI Engineer",
+      "organization": "Sarvam AI",
+      "bio": "An AI engineer at Sarvam AI who works on generative AI and large language models. Vinayak holds a Master of Technology in AI & Data Science, has built AI-powered applications and APIs, and has delivered workshops on generative AI and retrieval-augmented generation.",
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 6
+            }
+          ]
+        }
+      ],
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/vinayakgavariya",
+        "twitter": "https://twitter.com/vinayakgavariya",
+        "instagram": "https://instagram.com/vinayakgavariya"
+      },
+      "photo": "/images/people/vinayak-gavariya.webp"
+    },
+    {
+      "id": "salman-faris",
+      "name": "Salman Faris",
+      "kind": "person",
+      "organization": "Qualcomm",
+      "events": [
+        {
+          "eventId": "devfest-2026",
+          "roles": [
+            {
+              "kind": "speaker",
+              "order": 7
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "anubhav-singh",

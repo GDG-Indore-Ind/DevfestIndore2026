@@ -3,7 +3,9 @@ import CommunityPage from "@/components/layout/CommunityPage";
 import ArchiveEditions from "@/components/archive/ArchiveEditions";
 import PhotoGallery from "@/components/archive/PhotoGallery";
 import PressClippings from "@/components/archive/PressClippings";
-import { ARCHIVE_PAGE as page } from "@/content/pages";
+import CampusWorkshops from "@/components/archive/CampusWorkshops";
+import CommunityEvents from "@/components/archive/CommunityEvents";
+import { ARCHIVE_PAGE as page, WORKSHOPS_PAGE as workshops } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
 import styles from "@/components/archive/Archive.module.css";
 
@@ -11,6 +13,8 @@ export const metadata = pageMetadata("/archive", page.title, page.description);
 
 const sections = [
   { id: "editions", title: page.editionsTitle },
+  { id: "workshops", title: workshops.workshopTitle },
+  { id: "community-events", title: workshops.communityTitle },
   { id: "photos", title: page.photosTitle },
   { id: "press", title: page.pressTitle },
 ] as const;
@@ -37,6 +41,18 @@ export default function ArchivePage() {
       <section className={styles.section} id="editions" aria-labelledby="editions-title">
         <h2 id="editions-title">{page.editionsTitle}</h2>
         <ArchiveEditions />
+      </section>
+      <section className={styles.section} id="workshops" aria-labelledby="workshops-title">
+        <h2 id="workshops-title">{workshops.workshopTitle}</h2>
+        <CampusWorkshops />
+      </section>
+      <section
+        className={styles.section}
+        id="community-events"
+        aria-labelledby="community-events-title"
+      >
+        <h2 id="community-events-title">{workshops.communityTitle}</h2>
+        <CommunityEvents />
       </section>
       <section className={styles.section} id="photos" aria-labelledby="photos-title">
         <h2 id="photos-title">{page.photosTitle}</h2>

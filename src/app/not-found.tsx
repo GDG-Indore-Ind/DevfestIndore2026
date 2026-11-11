@@ -12,7 +12,7 @@ export default function NotFound() {
       <main id="main-content">
         <PageIntro
           title="A little off orbit."
-          lead="That page isn’t here. Let’s get you back to DevFest."
+          lead="That page isn’t here."
           motif="guide"
           meta="404 · Page not found"
         />

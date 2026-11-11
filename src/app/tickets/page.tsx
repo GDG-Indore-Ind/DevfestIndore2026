@@ -1,3 +1,5 @@
+import ContentAction from "@/components/shared/ContentAction";
+import ContentActionGroup from "@/components/shared/ContentActionGroup";
 import { pageMetadata } from "@/lib/pageMetadata";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -22,6 +24,17 @@ export default function TicketsPage() {
         {page.ambassadorContactEnabled && <AmbassadorContact />}
         <KonfHubRegistration />
         <ClosedPasses />
+        <ContentActionGroup>
+          <ContentAction href="/agenda" icon="microphone" tone="blue">
+            See the agenda
+          </ContentAction>
+          <ContentAction href="/agenda/workshops" icon="calendar" tone="yellow">
+            Workshops
+          </ContentAction>
+          <ContentAction href="/venue" icon="venue" tone="green">
+            Venue & directions
+          </ContentAction>
+        </ContentActionGroup>
       </main>
       <Footer />
     </div>

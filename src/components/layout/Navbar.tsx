@@ -11,11 +11,10 @@ import OrbitScrollRail, { type FlightStop } from "@/components/layout/OrbitScrol
 import styles from "./Navbar.module.css";
 
 interface NavbarProps {
-  visibleAnchors?: string[];
   flightStops?: readonly FlightStop[];
 }
 
-export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
+export default function Navbar({ flightStops }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -118,7 +117,6 @@ export default function Navbar({ visibleAnchors, flightStops }: NavbarProps) {
             id={panelId}
             open={open}
             pathname={pathname}
-            visibleAnchors={visibleAnchors}
             onNavigate={() => setOpen(false)}
           />
         </div>

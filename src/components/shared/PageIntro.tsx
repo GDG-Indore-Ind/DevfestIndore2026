@@ -41,6 +41,7 @@ export default function PageIntro({
   art,
   motif = "orbit",
   meta,
+  trail,
   titleId,
   children,
 }: {
@@ -49,6 +50,8 @@ export default function PageIntro({
   art?: ReactNode;
   motif?: PageMotif;
   meta?: ReactNode;
+  /** Breadcrumbs for nested pages. */
+  trail?: ReactNode;
   titleId?: string;
   children?: ReactNode;
 }) {
@@ -58,6 +61,7 @@ export default function PageIntro({
         className={`audience-wrap space-page-intro-grid ${styles.grid} ${art ? `space-intro-with-photo ${styles.withPhoto}` : ""}`}
       >
         <div>
+          {trail}
           {meta && <div className={`space-page-meta ${styles.meta}`}>{meta}</div>}
           <h1 id={titleId}>{title}</h1>
           <p className="audience-body">{lead}</p>

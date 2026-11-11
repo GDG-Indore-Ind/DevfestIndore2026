@@ -1,0 +1,29 @@
+.root :global(.community-event-list) {
+  display: grid;
+  gap: 0 28px;
+}
+.root :global(.community-event-list) > article {
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 16px;
+  border-top: 1px solid var(--audience-line);
+  border-bottom: 0;
+}
+.root :global(.community-event-list) h3 {
+  font-size: var(--text-16);
+}
+.root :global(.community-event-list) p {
+  font-size: var(--text-14);
+}
+.root :global(.community-event-list) a {
+  min-height: 44px;
+  color: var(--audience-blue);
+  font-size: var(--text-14);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (min-width: 761px) {
+  .root :global(.community-event-list) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

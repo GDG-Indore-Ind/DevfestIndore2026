@@ -69,11 +69,9 @@ const partnersSchema = z.strictObject({
 const venueSchema = z.strictObject({
   title: text,
   description: text,
-  lead: text,
   mapTitle: text,
   arrivalTitle: text,
   registrationLabel: text,
-  entryTitle: text,
   entrySummary: text,
 });
 const homeSchema = z.strictObject({
@@ -96,8 +94,18 @@ const homeSchema = z.strictObject({
     title: text,
     lead: text,
     body: text,
-    mixLabel: text,
     buttonLabel: text,
+    confirmedLabel: text,
+    confirmedLink: text,
+    confirmed: z
+      .array(
+        z.strictObject({
+          id: z.string().regex(new RegExp("^[a-z0-9][a-z0-9-]*$")),
+          title: text,
+          detail: text,
+        }),
+      )
+      .min(1),
   }),
   ticketStrip: z.strictObject({
     title: text,
@@ -154,8 +162,6 @@ const faqSchema = z.strictObject({
   ),
 });
 const workshopsSchema = z.strictObject({
-  title: text,
-  lead: text,
   workshopTitle: text,
   workshopLead: text,
   searchLabel: text,
@@ -168,16 +174,12 @@ const workshopsSchema = z.strictObject({
   photoCloseLabel: text,
   undatedLabel: text,
   communityTitle: text,
-  communityLead: text,
-  archiveLabel: text,
-  ticketTitle: text,
-  ticketLead: text,
-  ticketLabel: text,
   sessionSingular: text,
   sessionPlural: text,
 });
 const archiveSchema = z.strictObject({
   title: text,
+  navigationLabel: text,
   description: text,
   lead: text,
   editionsTitle: text,
@@ -233,28 +235,43 @@ const agendaSchema = z.strictObject({
   title: text,
   description: text,
   lead: text,
-  speakersTitle: text,
+  meta: text,
   sessionPending: text,
+  speakerPending: text,
+  organizerLabel: text,
   bioLabel: text,
-  more: text,
   emptyText: text,
-  comingSoon: z.strictObject({
-    badge: text,
+  tabsLabel: text,
+  tabs: z.strictObject({ schedule: text, workshops: text, speakers: text, exhibits: text }),
+  formatLabels: z.strictObject({ keynote: text, workshop: text, session: text, exhibit: text }),
+  durationLabel: text,
+  groups: z.array(z.strictObject({ track: text, title: text, lead: text })).min(1),
+  otherGroupTitle: text,
+  timetable: z.strictObject({
     title: text,
-    lead: text,
-    itemsTitle: text,
-    pendingLabel: text,
-    items: z
-      .array(
-        z.strictObject({
-          id: z.string().regex(new RegExp("^[a-z0-9][a-z0-9-]*$")),
-          kind: text,
-          title: text,
-          description: text,
-        }),
-      )
-      .min(1),
+    body: text,
+    workshopsLabel: text,
+    ticketsLabel: text,
   }),
+});
+const navigationSchema = z.strictObject({ breadcrumbLabel: text, homeLabel: text });
+const eventPageSchema = z.strictObject({
+  title: text,
+  description: text,
+  lead: text,
+  emptyText: text,
+});
+const eventWorkshopsSchema = z.strictObject({
+  title: text,
+  description: text,
+  lead: text,
+  listTitle: text,
+  emptyText: text,
+  pastTitle: text,
+  pastLead: text,
+  pastLabel: text,
+  agendaLabel: text,
+  ticketLabel: text,
 });
 
 export const PagesFile = z.strictObject({
@@ -266,13 +283,14 @@ export const PagesFile = z.strictObject({
   tickets: ticketsSchema,
   faq: faqSchema,
   workshops: workshopsSchema,
+  eventWorkshops: eventWorkshopsSchema,
+  eventSpeakers: eventPageSchema,
+  eventExhibits: eventPageSchema,
+  navigation: navigationSchema,
   archive: archiveSchema,
   ambassadors: ambassadorsSchema,
   agenda: agendaSchema,
   spaceClub: z.strictObject({
-    title: text,
-    description: text,
-    lead: text,
     heading: text,
     body: text,
     linkLabel: text,

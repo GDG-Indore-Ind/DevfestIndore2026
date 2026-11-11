@@ -10,7 +10,7 @@
           "id": "space-club-2026",
           "eventId": "devfest-2026",
           "status": "confirmed",
-          "order": 0,
+          "order": 1,
           "featured": "space",
           "visible": true,
           "type": "collaborator",
@@ -29,7 +29,7 @@
           "id": "qualcomm-2026",
           "eventId": "devfest-2026",
           "status": "confirmed",
-          "order": 1,
+          "order": 2,
           "featured": "technology",
           "visible": true,
           "type": "collaborator",
@@ -444,7 +444,20 @@
     {
       "id": "indore-institute-of-science-and-technology",
       "name": "Indore Institute of Science and Technology",
+      "description": "Engineering college in Indore, affiliated to RGPV (Bhopal) and approved by AICTE. Hosted a Pre-DevFest campus workshop in October 2026.",
+      "logo": "/images/partners/iist-current.png",
+      "website": "https://iist.indoreinstitute.com/",
       "contributions": [
+        {
+          "id": "iist-2026",
+          "eventId": "devfest-2026",
+          "status": "confirmed",
+          "order": 0,
+          "featured": "campus",
+          "visible": true,
+          "type": "collaborator",
+          "title": "Platinum partner"
+        },
         {
           "id": "historical-indore-institute-of-science-and-technology",
           "scope": "historical",

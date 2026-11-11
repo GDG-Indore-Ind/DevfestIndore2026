@@ -229,10 +229,6 @@
           "type": "string",
           "minLength": 1
         },
-        "lead": {
-          "type": "string",
-          "minLength": 1
-        },
         "mapTitle": {
           "type": "string",
           "minLength": 1
@@ -245,10 +241,6 @@
           "type": "string",
           "minLength": 1
         },
-        "entryTitle": {
-          "type": "string",
-          "minLength": 1
-        },
         "entrySummary": {
           "type": "string",
           "minLength": 1
@@ -257,11 +249,9 @@
       "required": [
         "title",
         "description",
-        "lead",
         "mapTitle",
         "arrivalTitle",
         "registrationLabel",
-        "entryTitle",
         "entrySummary"
       ],
       "additionalProperties": false
@@ -344,13 +334,44 @@
               "type": "string",
               "minLength": 1
             },
-            "mixLabel": {
-              "type": "string",
-              "minLength": 1
-            },
             "buttonLabel": {
               "type": "string",
               "minLength": 1
+            },
+            "confirmedLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "confirmedLink": {
+              "type": "string",
+              "minLength": 1
+            },
+            "confirmed": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9-]*$"
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "detail": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "id",
+                  "title",
+                  "detail"
+                ],
+                "additionalProperties": false
+              }
             }
           },
           "required": [
@@ -359,8 +380,10 @@
             "title",
             "lead",
             "body",
-            "mixLabel",
-            "buttonLabel"
+            "buttonLabel",
+            "confirmedLabel",
+            "confirmedLink",
+            "confirmed"
           ],
           "additionalProperties": false
         },
@@ -625,14 +648,6 @@
     "workshops": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lead": {
-          "type": "string",
-          "minLength": 1
-        },
         "workshopTitle": {
           "type": "string",
           "minLength": 1
@@ -681,26 +696,6 @@
           "type": "string",
           "minLength": 1
         },
-        "communityLead": {
-          "type": "string",
-          "minLength": 1
-        },
-        "archiveLabel": {
-          "type": "string",
-          "minLength": 1
-        },
-        "ticketTitle": {
-          "type": "string",
-          "minLength": 1
-        },
-        "ticketLead": {
-          "type": "string",
-          "minLength": 1
-        },
-        "ticketLabel": {
-          "type": "string",
-          "minLength": 1
-        },
         "sessionSingular": {
           "type": "string",
           "minLength": 1
@@ -711,8 +706,6 @@
         }
       },
       "required": [
-        "title",
-        "lead",
         "workshopTitle",
         "workshopLead",
         "searchLabel",
@@ -725,13 +718,140 @@
         "photoCloseLabel",
         "undatedLabel",
         "communityTitle",
-        "communityLead",
-        "archiveLabel",
-        "ticketTitle",
-        "ticketLead",
-        "ticketLabel",
         "sessionSingular",
         "sessionPlural"
+      ],
+      "additionalProperties": false
+    },
+    "eventWorkshops": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "listTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pastTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pastLead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pastLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agendaLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticketLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "lead",
+        "listTitle",
+        "emptyText",
+        "pastTitle",
+        "pastLead",
+        "pastLabel",
+        "agendaLabel",
+        "ticketLabel"
+      ],
+      "additionalProperties": false
+    },
+    "eventSpeakers": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "lead",
+        "emptyText"
+      ],
+      "additionalProperties": false
+    },
+    "eventExhibits": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "lead",
+        "emptyText"
+      ],
+      "additionalProperties": false
+    },
+    "navigation": {
+      "type": "object",
+      "properties": {
+        "breadcrumbLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homeLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "breadcrumbLabel",
+        "homeLabel"
       ],
       "additionalProperties": false
     },
@@ -739,6 +859,10 @@
       "type": "object",
       "properties": {
         "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "navigationLabel": {
           "type": "string",
           "minLength": 1
         },
@@ -853,6 +977,7 @@
       },
       "required": [
         "title",
+        "navigationLabel",
         "description",
         "lead",
         "editionsTitle",
@@ -994,7 +1119,7 @@
           "type": "string",
           "minLength": 1
         },
-        "speakersTitle": {
+        "meta": {
           "type": "string",
           "minLength": 1
         },
@@ -1002,11 +1127,15 @@
           "type": "string",
           "minLength": 1
         },
-        "bioLabel": {
+        "speakerPending": {
           "type": "string",
           "minLength": 1
         },
-        "more": {
+        "organizerLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bioLabel": {
           "type": "string",
           "minLength": 1
         },
@@ -1014,69 +1143,126 @@
           "type": "string",
           "minLength": 1
         },
-        "comingSoon": {
+        "tabsLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tabs": {
           "type": "object",
           "properties": {
-            "badge": {
+            "schedule": {
               "type": "string",
               "minLength": 1
             },
+            "workshops": {
+              "type": "string",
+              "minLength": 1
+            },
+            "speakers": {
+              "type": "string",
+              "minLength": 1
+            },
+            "exhibits": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "schedule",
+            "workshops",
+            "speakers",
+            "exhibits"
+          ],
+          "additionalProperties": false
+        },
+        "formatLabels": {
+          "type": "object",
+          "properties": {
+            "keynote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "workshop": {
+              "type": "string",
+              "minLength": 1
+            },
+            "session": {
+              "type": "string",
+              "minLength": 1
+            },
+            "exhibit": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "keynote",
+            "workshop",
+            "session",
+            "exhibit"
+          ],
+          "additionalProperties": false
+        },
+        "durationLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "groups": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "track": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lead": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "track",
+              "title",
+              "lead"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "otherGroupTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timetable": {
+          "type": "object",
+          "properties": {
             "title": {
               "type": "string",
               "minLength": 1
             },
-            "lead": {
+            "body": {
               "type": "string",
               "minLength": 1
             },
-            "itemsTitle": {
+            "workshopsLabel": {
               "type": "string",
               "minLength": 1
             },
-            "pendingLabel": {
+            "ticketsLabel": {
               "type": "string",
               "minLength": 1
-            },
-            "items": {
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "pattern": "^[a-z0-9][a-z0-9-]*$"
-                  },
-                  "kind": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "title": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "description": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                },
-                "required": [
-                  "id",
-                  "kind",
-                  "title",
-                  "description"
-                ],
-                "additionalProperties": false
-              }
             }
           },
           "required": [
-            "badge",
             "title",
-            "lead",
-            "itemsTitle",
-            "pendingLabel",
-            "items"
+            "body",
+            "workshopsLabel",
+            "ticketsLabel"
           ],
           "additionalProperties": false
         }
@@ -1085,30 +1271,25 @@
         "title",
         "description",
         "lead",
-        "speakersTitle",
+        "meta",
         "sessionPending",
+        "speakerPending",
+        "organizerLabel",
         "bioLabel",
-        "more",
         "emptyText",
-        "comingSoon"
+        "tabsLabel",
+        "tabs",
+        "formatLabels",
+        "durationLabel",
+        "groups",
+        "otherGroupTitle",
+        "timetable"
       ],
       "additionalProperties": false
     },
     "spaceClub": {
       "type": "object",
       "properties": {
-        "title": {
-          "type": "string",
-          "minLength": 1
-        },
-        "description": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lead": {
-          "type": "string",
-          "minLength": 1
-        },
         "heading": {
           "type": "string",
           "minLength": 1
@@ -1123,9 +1304,6 @@
         }
       },
       "required": [
-        "title",
-        "description",
-        "lead",
         "heading",
         "body",
         "linkLabel"
@@ -1142,6 +1320,10 @@
     "tickets",
     "faq",
     "workshops",
+    "eventWorkshops",
+    "eventSpeakers",
+    "eventExhibits",
+    "navigation",
     "archive",
     "ambassadors",
     "agenda",

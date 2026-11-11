@@ -83,7 +83,7 @@ export default function PartnerCarousel({ items }: { items: EventPartner[] }) {
               <h3>{item.name}</h3>
               <p>{item.description}</p>
               {item.id === "space-club-2026" && (
-                <ContentAction href="/space-club" icon="rocket" tone="blue">
+                <ContentAction href="/partners#space-club" icon="rocket" tone="blue">
                   {SPACE_CLUB_PAGE.linkLabel}
                 </ContentAction>
               )}

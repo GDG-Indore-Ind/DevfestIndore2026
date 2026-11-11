@@ -35,6 +35,8 @@ test('Zod and editor schemas reject representative invalid content shapes', () =
   invalid('organizations', value => { const item = value.organizations.find(org => org.contributions.some(c => c.eventId)).contributions.find(c => c.eventId); item.scope = 'historical'; });
   invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'campus-workshop'); item.date = '2026-09-01'; delete item.eventUrl; });
   invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'talk'); item.speakerIds.push(item.speakerIds[0]); });
+  invalid('programme', value => { value.entries.find(entry => entry.type === 'activity').organizationIds = []; });
+  invalid('programme', value => { value.entries.find(entry => entry.type === 'activity').format = 'talk'; });
   invalid('pages', value => { delete value.guidelines.title; });
   invalid('pages', value => { const ids = value.guidelines.sections[0].policyIds; ids.push(ids[0]); });
   invalid('gallery', value => { value.photos[0].width = 0; });
@@ -64,6 +66,26 @@ test('programme entries have valid types and unique IDs across the list', () => 
   assert(errors(data).some(error=>error.includes('programme entries: duplicate')));
   workshop.type='unknown';
   assert(errors(data).some(error=>error.includes('programme.json')));
+});
+test('activities reference real organizations and events', () => {
+  const data=fixture();
+  const activity=data.programme.entries.find(item=>item.type==='activity');
+  assert(activity, 'the programme has at least one activity');
+  activity.organizationIds=['missing-organization'];
+  assert(errors(data).some(error=>error.includes(`activity ${activity.id} organization: unknown reference missing-organization`)));
+  activity.organizationIds=original.programme.entries.find(item=>item.id===activity.id).organizationIds;
+  activity.eventId='missing-event';
+  assert(errors(data).some(error=>error.includes(`activity ${activity.id}: unknown reference missing-event`)));
+});
+test('activity speakers must be speakers at the same event', () => {
+  const data=fixture();
+  const activity=data.programme.entries.find(item=>item.type==='activity' && item.speakerIds?.length);
+  assert(activity, 'an activity has a named facilitator');
+  const person=data.people.people.find(item=>item.id===activity.speakerIds[0]);
+  person.events=person.events.filter(item=>item.eventId!==activity.eventId);
+  assert(errors(data).some(error=>error.includes(`activity ${activity.id} speaker participation`)));
+  activity.speakerIds=['missing-person'];
+  assert(errors(data).some(error=>error.includes(`activity ${activity.id}: unknown reference missing-person`)));
 });
 test('old workshop links cannot collide with another programme ID', () => {
   const data=fixture();

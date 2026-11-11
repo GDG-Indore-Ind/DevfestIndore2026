@@ -12,6 +12,7 @@ export default function CommunityPage({
   motif,
   compact = false,
   flightStops,
+  trail,
 }: {
   title: string;
   lead: string;
@@ -20,6 +21,7 @@ export default function CommunityPage({
   motif?: PageMotif;
   compact?: boolean;
   flightStops?: readonly FlightStop[];
+  trail?: ReactNode;
 }) {
   return (
     <div
@@ -27,7 +29,7 @@ export default function CommunityPage({
     >
       <Navbar flightStops={flightStops} />
       <main id="main-content">
-        <PageIntro title={title} lead={lead} art={art} motif={motif} />
+        <PageIntro title={title} lead={lead} art={art} motif={motif} trail={trail} />
         <section className="audience-section space-directory-section" id="page-directory">
           <div className="audience-wrap">{children}</div>
         </section>

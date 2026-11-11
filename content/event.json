@@ -136,7 +136,6 @@
                 "label": "Exhibit Lounge"
               }
             ],
-            "note": "Without valid proof, entry may be denied without refund or an upgrade fee may apply. Professionals booking Cadet may face cancellation or need to pay for a Commander upgrade.",
             "summary": "Sessions, workshops, lunch and refreshments, DevFest Goodies, and Community, Expert and Exhibit Lounge access. Workshop seats are first come, first served. Government photo ID and original student ID required.",
             "offers": [
               "5% off with your ambassador code"
@@ -357,7 +356,7 @@
           "profileReminder": "Add your own LinkedIn URL to your KonfHub profile before booking.",
           "termsLabel": "Read the registration guidelines",
           "widgetHeading": "Book your pass",
-          "widgetLead": "Students book Cadet with an ambassador code. Professionals can book Commander directly. Enter a code in the Discount / Access Code field on KonfHub.",
+          "widgetLead": "Enter your ambassador code in the Discount / Access Code field on KonfHub.",
           "closedHeading": "Closed passes",
           "widgetTitle": "Register for GDG Devfest Indore 2026",
           "fallbackText": "Trouble with checkout?",

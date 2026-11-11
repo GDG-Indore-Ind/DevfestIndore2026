@@ -31,7 +31,7 @@ People and organizations are defined once and referenced by stable IDs. Publish 
 - `/faq` holds the common questions followed by the complete registration guidelines (each guideline section keeps its anchor, such as `/faq#eligibility`); `/guidelines` redirects there. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
 - `/partners` contains contribution options and the official partner form. `pages.partners.revealed` holds collaborator announcements until approved.
 - `/venue` contains the verified photo, address, directions, map and check-in information.
-- `/faq`, `/team`, `/events` and `/ambassadors` provide supporting information; `/archive` holds past editions, speakers, sponsors and photographs.
+- `/agenda` (with `/agenda/workshops`, `/agenda/speakers` and `/agenda/exhibits`), `/faq`, `/team` and `/ambassadors` provide supporting information; `/archive` holds past editions, speakers, sponsors, campus workshops and photographs.
 
 The header keeps Get tickets visible. Section navigation travels along its bottom border. Referrals survive the KonfHub handoff without promising a discount. Sessionize owns talk proposals. There is no custom admin, database or payment flow.
 

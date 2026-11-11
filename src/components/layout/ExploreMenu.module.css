@@ -20,20 +20,18 @@
 :global(.audience-header) .panel[hidden] {
   display: none;
 }
-.heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--audience-line);
-  color: var(--audience-muted);
-  font-size: var(--text-14);
-}
 .groups {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   padding-top: 20px;
+}
+.group:first-child {
+  grid-column: 1 / -1;
+}
+.group:first-child .links {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0 20px;
 }
 .group h2 {
   margin: 0 0 8px;
@@ -79,6 +77,13 @@
   }
   .heading {
     font-size: var(--text-14);
+  }
+  .group:first-child {
+    grid-column: auto;
+  }
+  .group:first-child .links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 12px;
   }
   .groups {
     grid-template-columns: 1fr;

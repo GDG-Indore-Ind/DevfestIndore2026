@@ -1,30 +1,23 @@
-/* Compact, source-linked campus and speaker directories. */
+/* Compact, source-linked campus workshop directory. */
 .directoryHeading {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
   gap: 20px;
   margin-bottom: 12px;
 }
-.directoryHeading h2 {
-  font-size: var(--text-22);
-  margin: 0;
-}
-.directoryHeading p {
+.directoryHeading > p {
   margin: 6px 0 0;
   font-size: var(--text-14);
   line-height: 1.5;
   color: var(--audience-muted);
 }
-.workshopDirectoryPage :global(.archive-subsection) {
-  margin-block: 24px 36px;
-}
-.workshopDirectoryPage :global(.workshop-search) {
+.directory :global(.workshop-search) {
   width: min(100%, 340px);
   margin: 0;
 }
-.workshopDirectoryPage :global(.workshop-search) input {
+.directory :global(.workshop-search) input {
   font-size: var(--text-16);
   min-height: 44px;
   border-radius: var(--corner-12);
@@ -125,42 +118,13 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.compactCommunityEvents :global(.community-event-list) {
-  display: grid;
-  gap: 0 28px;
-}
-.compactCommunityEvents :global(.community-event-list) > article {
-  grid-template-columns: 20px minmax(0, 1fr);
-  gap: 12px;
-  padding-block: 16px;
-  border-top: 1px solid var(--audience-line);
-  border-bottom: 0;
-}
-.compactCommunityEvents :global(.community-event-list) h3 {
-  font-size: var(--text-16);
-}
-.compactCommunityEvents :global(.community-event-list) p {
-  font-size: var(--text-14);
-}
-.compactCommunityEvents :global(.community-event-list) a {
-  min-height: 44px;
-  color: var(--audience-blue);
-  font-size: var(--text-14);
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-@media (min-width: 761px) {
-  .compactCommunityEvents :global(.community-event-list) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 @media (min-width: 980px) {
   .workshopDirectoryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 480px) {
-  .workshopDirectoryPage :global(.workshop-search) {
+  .directory :global(.workshop-search) {
     width: 100%;
   }
   .workshopDirectoryRow {

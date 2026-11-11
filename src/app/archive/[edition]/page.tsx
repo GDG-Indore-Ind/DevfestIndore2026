@@ -2,6 +2,7 @@ import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CommunityPage from "@/components/layout/CommunityPage";
+import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import EditionPartners from "@/components/archive/EditionPartners";
 import EditionSpeakers from "@/components/archive/EditionSpeakers";
 import EditionLinks from "@/components/archive/EditionLinks";
@@ -51,6 +52,11 @@ export default async function EditionPage({ params }: { params: Promise<{ editio
       motif="events"
       title={event.title}
       lead={`${event.displayDate} · ${event.venue}`}
+      trail={
+        <Breadcrumbs
+          items={[{ label: page.navigationLabel, href: "/archive" }, { label: event.title }]}
+        />
+      }
     >
       <PageSectionNavigation label={event.title}>
         <Link href="/archive#editions">{page.editionBackLabel}</Link>

@@ -57,7 +57,7 @@ export interface EventPartner {
   websiteUrl?: string;
   socialUrl?: string;
   logoShape?: "square" | "wide" | "wide-large";
-  featured?: "space" | "technology";
+  featured?: "campus" | "space" | "technology";
   description?: string;
 }
 export interface WorkshopPhoto {
@@ -148,7 +148,23 @@ export interface SessionRecord {
   tags?: string[];
   resources?: { label: string; url: string }[];
   format?: "talk" | "keynote" | "panel" | "workshop";
+  durationMinutes?: number;
   sourceUrl?: string;
+}
+/** A workshop or exhibit run by an organization rather than a named speaker. */
+export interface ActivityRecord {
+  id: string;
+  editionId: string;
+  publication: "confirmed" | "archived";
+  format: "workshop" | "exhibit";
+  title: string;
+  description: string;
+  track?: string;
+  time?: string;
+  hall?: string;
+  durationMinutes?: number;
+  organizationIds: string[];
+  speakerIds?: string[];
 }
 export interface Partnership {
   visible?: boolean;

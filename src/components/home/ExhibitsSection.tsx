@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Bot, Braces, Monitor, Satellite, Sparkles } from "lucide-react";
 import { EVENT } from "@/content/event";
 import { HOME_PAGE } from "@/content/pages";
@@ -14,6 +15,20 @@ export default function ExhibitsSection() {
             <p className="audience-overline">{copy.eyebrow}</p>
             <h2 id="exhibits-title">{copy.title}</h2>
             <p className={styles.body}>{copy.body}</p>
+            <div className={styles.confirmed}>
+              <h3>{copy.confirmedLabel}</h3>
+              <ul>
+                {copy.confirmed.map((item) => (
+                  <li key={item.id}>
+                    <span>{item.title}</span>
+                    <span className={styles.detail}>{item.detail}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href="/agenda/exhibits" className={styles.more}>
+                {copy.confirmedLink}
+              </Link>
+            </div>
             <ContentAction
               href={EVENT.links.exhibitApplication}
               icon="exhibits"
@@ -39,7 +54,6 @@ export default function ExhibitsSection() {
               <Sparkles className={styles.spark} />
               <span className={styles.baseline} />
             </div>
-            <p>{copy.mixLabel}</p>
           </div>
         </div>
       </div>

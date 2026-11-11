@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TEAM } from "@/content/team";
+import { TEAM, TEAM_PAGE } from "@/content/team";
 import CommunityPage from "@/components/layout/CommunityPage";
 import PersonCard, { PersonGrid } from "@/components/shared/PersonCard";
 
@@ -10,11 +10,7 @@ export default function TeamPage() {
   const categories = ["All", ...new Set(TEAM.map((member) => member.team))];
   const members = TEAM.filter((member) => category === "All" || member.team === category);
   return (
-    <CommunityPage
-      compact
-      title="DevFest Team"
-      lead="Meet the people bringing DevFest Indore together."
-    >
+    <CommunityPage compact title={TEAM_PAGE.title} lead={TEAM_PAGE.lead}>
       <div className="compact-directory-toolbar">
         <div className="community-filters" role="group" aria-label="Filter team">
           {categories.map((item) => (

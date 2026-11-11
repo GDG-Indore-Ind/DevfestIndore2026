@@ -29,7 +29,6 @@ export default function CurrentTicketOffer() {
         </div>
       </section>
       <div className="audience-wrap">
-        <p>One discount per order. For 6–10 tickets, the bulk discount is the better deal.</p>
         <PassInclusions />
       </div>
     </>

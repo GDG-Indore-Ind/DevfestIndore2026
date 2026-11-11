@@ -25,8 +25,6 @@ export const metadata: Metadata = {
   },
 };
 
-const visibleAnchors = ["hero", "flow", "archive", "sponsors", "exhibits", "venue"];
-
 // Rail stops follow the page order; the ticket strip only appears while passes are open.
 const flightStops = [
   { id: "hero", label: "Launch" },
@@ -41,7 +39,7 @@ const flightStops = [
 export default function Home() {
   return (
     <div className="audience-site engineering-home">
-      <Navbar visibleAnchors={visibleAnchors} flightStops={flightStops} />
+      <Navbar flightStops={flightStops} />
       <main id="main-content">
         <div id="hero">
           <HeroSection />

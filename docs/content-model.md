@@ -246,7 +246,7 @@ Sub-event IDs are unique across all events, so a photo can point at one with `ab
   "type": "collaborator",
   "featured": "technology",
   "announced": true,
-  "order": 1
+  "order": 2
 }
 ```
 

@@ -95,6 +95,15 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
       reference(speakerParticipation,`${item.editionId}/${personId}`,`session ${item.id} speaker participation`);
     }
   }
+  const organizationIds = new Set(content.organizations.organizations.map(organization => organization.id));
+  for (const item of content.programme.entries.filter(entry => entry.type === "activity")) {
+    reference(eventIds, item.eventId, `activity ${item.id}`);
+    for (const id of item.organizationIds) reference(organizationIds, id, `activity ${item.id} organization`);
+    for (const personId of item.speakerIds ?? []) {
+      reference(personIds, personId, `activity ${item.id}`);
+      reference(speakerParticipation, `${item.eventId}/${personId}`, `activity ${item.id} speaker participation`);
+    }
+  }
   unique(ambassadors, "ambassador directory", item => `${item.eventId}/${item.personId}`);
   const workshopImages = new Map();
   const photosById = new Map(gallery.photos.map(photo => [photo.id, photo]));

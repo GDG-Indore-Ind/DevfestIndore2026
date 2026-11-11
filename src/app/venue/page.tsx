@@ -1,4 +1,5 @@
 import ContentAction from "@/components/shared/ContentAction";
+import ContentActionGroup from "@/components/shared/ContentActionGroup";
 import { Clock3, MapPin } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
@@ -75,14 +76,21 @@ export default function VenuePage() {
                   </strong>
                 </div>
               </div>
-              <h3>{page.entryTitle}</h3>
               <p className="audience-body">{page.entrySummary}</p>
               <ContentAction href="/faq#entry" icon="guidelines" tone="blue">
-                Registration guidelines
+                Pass requirements
               </ContentAction>
             </div>
           </div>
         </section>
+        <ContentActionGroup>
+          <ContentAction href="/tickets" icon="tickets" tone="blue">
+            Get tickets
+          </ContentAction>
+          <ContentAction href="/agenda" icon="microphone" tone="yellow">
+            See the agenda
+          </ContentAction>
+        </ContentActionGroup>
       </main>
       <Footer />
     </div>

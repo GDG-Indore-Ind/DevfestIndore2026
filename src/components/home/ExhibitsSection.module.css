@@ -26,6 +26,45 @@
   color: var(--audience-muted);
   line-height: 1.65;
 }
+.confirmed {
+  margin: 0 0 24px;
+}
+.confirmed h3 {
+  margin: 0 0 8px;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+.confirmed ul {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--audience-line);
+  list-style: none;
+}
+.confirmed li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--audience-line);
+  font-weight: 500;
+}
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--audience-blue);
+  font-size: var(--text-14);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.detail {
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  font-weight: 400;
+}
 .illustration {
   display: grid;
   align-content: center;

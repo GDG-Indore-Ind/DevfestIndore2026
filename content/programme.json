@@ -725,13 +725,14 @@
         "kartikey-rawat"
       ],
       "publication": "confirmed",
-      "title": "On-Device AI using LiteRT and Qualcomm AI Hub",
+      "title": "Building AI at the Edge: Developing Intelligent Application with Qualcomm AI Stack and On-Device AI",
       "role": "Senior Engineer, Developer Relations",
       "company": "Qualcomm",
-      "description": "Explore on-device AI, why it matters, quantization, and the Qualcomm AI Hub workflow with LiteRT.",
+      "description": "",
       "spotlightBadge": "",
       "category": "GenAI",
-      "track": "Edge AI"
+      "track": "Edge, open models & Physical AI",
+      "format": "talk"
     },
     {
       "type": "talk",
@@ -827,12 +828,126 @@
       ],
       "publication": "confirmed",
       "title": "The Production Agent Blueprint: Harness Engineering with Gemini Enterprise",
-      "role": "Senior Cloud Engineer",
+      "role": "FDE Lead & AI Architect",
       "company": "Searce Inc",
       "description": "Learn how to move multi-agent prototypes into reliable, secure production using Google Cloud Agent Platform. Explore ADK orchestration, managed Agent Engine runtimes, secure MCP integrations, and CI/CD with continuous evaluation and guardrails.",
       "spotlightBadge": "",
       "category": "GenAI",
-      "track": "AI Agents"
+      "track": "AI & Autonomous Agents",
+      "format": "talk",
+      "durationMinutes": 30
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-pratik-kale",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "pratik-kale"
+      ],
+      "publication": "confirmed",
+      "title": "Empower ADK agents with tools",
+      "role": "Software Engineer",
+      "company": "Impulsive Web",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "AI & Autonomous Agents",
+      "format": "workshop"
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-akash-kamerkar-workshop",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "akash-kamerkar"
+      ],
+      "publication": "confirmed",
+      "title": "Agents shouldn’t grade their own homework: Google ADK, MCP, and independent code verification",
+      "role": "Data Scientist",
+      "company": "ABB",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "AI & Autonomous Agents",
+      "format": "workshop"
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-akash-kamerkar-talk",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "akash-kamerkar"
+      ],
+      "publication": "confirmed",
+      "title": "Trust, but verify: guardrails for AI-written code with Google Antigravity and SonarQube",
+      "role": "Data Scientist",
+      "company": "ABB",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "AI & Autonomous Agents",
+      "format": "talk",
+      "durationMinutes": 30
+    },
+    {
+      "type": "talk",
+      "id": "devfest-2026-vinayak-gavariya",
+      "eventId": "devfest-2026",
+      "speakerIds": [
+        "vinayak-gavariya"
+      ],
+      "publication": "confirmed",
+      "title": "From Open Weights to Production: Running Gemma 4 in Real Apps",
+      "role": "AI Engineer",
+      "company": "Sarvam AI",
+      "description": "",
+      "spotlightBadge": "",
+      "category": "GenAI",
+      "track": "Edge, open models & Physical AI",
+      "format": "talk",
+      "durationMinutes": 30
+    },
+    {
+      "type": "activity",
+      "id": "devfest-2026-qualcomm-physical-ai-workshop",
+      "eventId": "devfest-2026",
+      "publication": "confirmed",
+      "format": "workshop",
+      "title": "Physical AI workshop with Qualcomm",
+      "description": "Facilitator: Salman Faris, Kochi.",
+      "track": "Edge, open models & Physical AI",
+      "organizationIds": [
+        "qualcomm"
+      ],
+      "speakerIds": [
+        "salman-faris"
+      ]
+    },
+    {
+      "type": "activity",
+      "id": "devfest-2026-qualcomm-arduino-demos",
+      "eventId": "devfest-2026",
+      "publication": "confirmed",
+      "format": "exhibit",
+      "title": "Qualcomm × Arduino demo area",
+      "description": "Arduino-based demos in the Exhibit Lounge. Details to follow.",
+      "track": "Edge, open models & Physical AI",
+      "organizationIds": [
+        "qualcomm"
+      ]
+    },
+    {
+      "type": "activity",
+      "id": "devfest-2026-space-club-exhibit",
+      "eventId": "devfest-2026",
+      "publication": "confirmed",
+      "format": "exhibit",
+      "title": "Space Club of India exhibit",
+      "description": "Details at the event.",
+      "track": "Space",
+      "organizationIds": [
+        "space-club-of-india"
+      ]
     }
   ]
 }

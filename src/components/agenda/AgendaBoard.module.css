@@ -1,0 +1,36 @@
+.group + .group {
+  padding-top: var(--section-space);
+}
+.groupHeading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-bottom: 8px;
+}
+.groupHeading h2 {
+  margin: 0;
+  font-size: var(--text-h2);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+.groupHeading p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+.list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--audience-line);
+  list-style: none;
+}
+@media (max-width: 760px) {
+  .group + .group {
+    padding-top: var(--section-space);
+  }
+  .groupHeading h2 {
+    font-size: var(--text-22);
+  }
+}

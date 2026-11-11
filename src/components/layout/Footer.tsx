@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HOME_PAGE } from "@/content/pages";
+import { ARCHIVE_PAGE, HOME_PAGE } from "@/content/pages";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -34,14 +34,17 @@ export default function Footer() {
           className={`edition-footer-links ${styles.links} ${styles.navigation}`}
           aria-label="Explore DevFest Indore"
         >
-          <div className={`edition-footer-group ${styles.group}`} id="tickets">
+          <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>
               <ContentIcon name="tickets" /> Attend
             </h2>
             <Link href="/tickets">Tickets</Link>
             <Link href="/agenda">Agenda</Link>
+            <Link href="/agenda/workshops">Workshops</Link>
+            <Link href="/agenda/speakers">Speakers</Link>
             <Link href="/#flow">Themes</Link>
             <Link href="/venue">Venue & directions</Link>
+            <Link href="/ambassadors">Ambassador codes</Link>
             <Link href="/faq">FAQ</Link>
           </div>
           <div className={`edition-footer-group ${styles.group}`}>
@@ -54,14 +57,13 @@ export default function Footer() {
               {HOME_PAGE.exhibits.buttonLabel}
             </ExternalLink>
             <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
-            <Link href="/team">Meet the team</Link>
           </div>
           <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>
               <ContentIcon name="history" tone="red" /> Explore more
             </h2>
-            <Link href="/events">Workshops & events</Link>
-            <Link href="/archive">Archive</Link>
+            <Link href="/team">Meet the team</Link>
+            <Link href="/archive">{ARCHIVE_PAGE.navigationLabel}</Link>
           </div>
         </nav>
         <div className={styles.community}>

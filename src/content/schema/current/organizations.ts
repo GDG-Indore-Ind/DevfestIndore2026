@@ -12,7 +12,7 @@ const contributionFields = {
     .min(0)
     .optional(),
   source: imageOrHttps.optional(),
-  featured: z.enum(["space", "technology"]).optional(),
+  featured: z.enum(["campus", "space", "technology"]).optional(),
   visible: z
     .boolean()
     .optional()

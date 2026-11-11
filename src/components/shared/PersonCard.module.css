@@ -29,6 +29,17 @@
   line-height: 1.3;
   letter-spacing: 0;
 }
+.card .body :is(h2, h3, h4) a {
+  display: inline-block;
+  padding-block: 2px;
+  color: inherit;
+  text-decoration: none;
+}
+.card .body :is(h2, h3, h4) a:hover {
+  color: var(--audience-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .body p {
   margin: 4px 0 0;
   color: var(--audience-muted);

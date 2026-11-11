@@ -42,6 +42,10 @@
   --brand: #3253dc;
   --brand-deep: #14226e;
 }
+.card[data-brand="campus"] {
+  --brand: #2a5db0;
+  --brand-deep: #14295c;
+}
 .logo {
   position: relative;
   display: grid;
@@ -80,6 +84,16 @@
     28px 28px,
     28px 28px,
     auto;
+}
+/* IIST: navy campus blue with a warm arc echoing the logo's gold. */
+.card[data-brand="campus"] .logo::before {
+  content: "";
+  position: absolute;
+  inset: auto -15% -75% 35%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(251 185 52 / 0.45);
+  border-radius: 50%;
+  pointer-events: none;
 }
 .plate {
   position: relative;

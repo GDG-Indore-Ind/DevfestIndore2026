@@ -98,6 +98,7 @@ export const ProgrammeFile = z
             )
             .optional(),
           format: z.enum(["talk", "keynote", "panel", "workshop"]).optional(),
+          durationMinutes: z.number().int().positive().optional(),
           sourceUrl: z
             .string()
             .refine(isUri, "Invalid URI")
@@ -105,6 +106,31 @@ export const ProgrammeFile = z
             .regex(/^https:\/\//)
             .optional(),
           type: z.literal("talk"),
+        }),
+        // A workshop or exhibit run by an organization instead of a named speaker.
+        z.strictObject({
+          id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
+          eventId: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
+          publication: z.enum(["confirmed", "archived"]),
+          format: z.enum(["workshop", "exhibit"]),
+          title: z.string().min(1),
+          description: z.string(),
+          track: z.string().optional(),
+          time: z.string().optional(),
+          hall: z.string().optional(),
+          durationMinutes: z.number().int().positive().optional(),
+          organizationIds: z
+            .array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/))
+            .min(1)
+            .refine((items) => new Set(items).size === items.length, "Must contain unique values")
+            .meta({ uniqueItems: true }),
+          speakerIds: z
+            .array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/))
+            .min(1)
+            .refine((items) => new Set(items).size === items.length, "Must contain unique values")
+            .meta({ uniqueItems: true })
+            .optional(),
+          type: z.literal("activity"),
         }),
         z
           .strictObject({

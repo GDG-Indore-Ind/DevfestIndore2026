@@ -1,4 +1,4 @@
-import { TALKS } from "./programme";
+import { ACTIVITIES, TALKS } from "./programme";
 import type { SessionRecord } from "./model";
 import { getPerson } from "./people";
 import { EVENT } from "./event";
@@ -20,3 +20,6 @@ export const CURRENT_SPEAKERS = PARTICIPATIONS.filter(
   (item) => item.eventId === EVENT.id && item.roles.some((role) => role.kind === "speaker"),
 ).map((item) => ({ ...getPerson(item.personId), participationId: item.id }));
 export const CURRENT_SESSIONS = SESSION_RECORDS.filter((session) => session.editionId === EVENT.id);
+export const CURRENT_ACTIVITIES = ACTIVITIES.filter(
+  (activity) => activity.editionId === EVENT.id && activity.publication === "confirmed",
+);
