@@ -1539,32 +1539,6 @@
       }
     },
     {
-      "id": "pratik-kale",
-      "name": "Pratik Kale",
-      "kind": "person",
-      "title": "Software Engineer",
-      "organization": "Impulsive Web",
-      "bio": "A software engineer at Impulsive Web and organizer of GDG Cloud Pune. Pratik is an active community contributor and public speaker who hosts The Root Access, a tech podcast, and often talks about web, cloud computing and AI.",
-      "events": [
-        {
-          "eventId": "devfest-2026",
-          "roles": [
-            {
-              "kind": "speaker",
-              "order": 4
-            }
-          ]
-        }
-      ],
-      "links": {
-        "linkedin": "https://www.linkedin.com/in/pratikkalein/",
-        "twitter": "https://twitter.com/pratikkalein",
-        "instagram": "https://instagram.com/pratikkale.in",
-        "website": "https://pratikkale.in"
-      },
-      "photo": "/images/people/pratik-kale.webp"
-    },
-    {
       "id": "akash-kamerkar",
       "name": "Akash Kamerkar",
       "kind": "person",

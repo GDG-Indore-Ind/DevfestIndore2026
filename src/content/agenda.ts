@@ -6,7 +6,7 @@ import { byRoleOrder, PARTICIPATIONS, roleTitle } from "./participations";
 import { getPerson, personalSocials } from "./people";
 import { CURRENT_ACTIVITIES, CURRENT_SESSIONS, getSessionSpeaker } from "./speakers";
 
-export type AgendaFormat = "keynote" | "workshop" | "session" | "exhibit";
+export type AgendaFormat = "keynote" | "panel" | "address" | "session" | "workshop" | "exhibit";
 
 export interface AgendaPerson {
   id: string;
@@ -26,15 +26,20 @@ export interface AgendaItem {
   track?: string;
   time?: string;
   hall?: string;
+  /** Running order within the hall. */
+  slot?: number;
   durationMinutes?: number;
   people: AgendaPerson[];
   organizations: string[];
+  /** Logo of the first presenting organization, for rows without a speaker photo. */
+  logo?: string;
   order: number;
 }
-export interface AgendaGroup {
+export interface AgendaStage {
   id: string;
   title: string;
   lead?: string;
+  numbered: boolean;
   items: AgendaItem[];
 }
 
@@ -61,7 +66,7 @@ const toPerson = (id: string, sessionId?: string): AgendaPerson => {
   };
 };
 const formatOf = (format?: string): AgendaFormat =>
-  format === "workshop" ? "workshop" : format === "keynote" ? "keynote" : "session";
+  format === "workshop" || format === "keynote" || format === "panel" ? format : "session";
 
 const sessionItems: AgendaItem[] = CURRENT_SESSIONS.filter(
   (session) => session.publication === "confirmed",
@@ -73,6 +78,7 @@ const sessionItems: AgendaItem[] = CURRENT_SESSIONS.filter(
   track: session.track,
   time: session.time,
   hall: session.hall,
+  slot: session.slot,
   durationMinutes: session.durationMinutes,
   people: session.speakerIds.map((id) => toPerson(id, session.id)),
   organizations: [],
@@ -82,7 +88,8 @@ const withSession = new Set([
   ...CURRENT_SESSIONS.flatMap((session) => session.speakerIds),
   ...CURRENT_ACTIVITIES.flatMap((activity) => activity.speakerIds ?? []),
 ]);
-/** Confirmed speakers whose session title is not announced yet. */
+const FIRST_STAGE = AGENDA_PAGE.stages[0].hall;
+/** Confirmed speakers whose session title is not announced yet, on the first stage by speaker order. */
 const pendingItems: AgendaItem[] = [...speakerRoles.entries()]
   .filter(([id]) => !withSession.has(id))
   .map(([id, role]) => ({
@@ -90,6 +97,8 @@ const pendingItems: AgendaItem[] = [...speakerRoles.entries()]
     format: roleTitle(role) === KEYNOTE_LABEL ? "keynote" : "session",
     title: null,
     description: "",
+    hall: FIRST_STAGE,
+    slot: role.order,
     people: [toPerson(id)],
     organizations: [],
     order: role.order ?? LAST,
@@ -102,40 +111,43 @@ const activityItems: AgendaItem[] = CURRENT_ACTIVITIES.map((activity, index) => 
   track: activity.track,
   time: activity.time,
   hall: activity.hall,
+  slot: activity.slot,
   durationMinutes: activity.durationMinutes,
   people: (activity.speakerIds ?? []).map((id) => toPerson(id)),
-  organizations: activity.organizationIds.map((id) => getOrganization(id).name),
+  organizations: (activity.organizationIds ?? []).map((id) => getOrganization(id).name),
+  logo: activity.organizationIds?.[0] && getOrganization(activity.organizationIds[0]).logoUrl,
   order: LAST - CURRENT_ACTIVITIES.length + index,
 }));
 
-/** Time first when the schedule exists, then the speaker order from people.json. */
-const byTimeThenOrder = (a: AgendaItem, b: AgendaItem) =>
-  (a.time ?? "~").localeCompare(b.time ?? "~") || byRoleOrder(a, b);
+/** Time first once the schedule exists, then running order, then speaker order from people.json. */
+const byRunningOrder = (a: AgendaItem, b: AgendaItem) =>
+  (a.time ?? "~").localeCompare(b.time ?? "~") ||
+  (a.slot ?? LAST) - (b.slot ?? LAST) ||
+  byRoleOrder(a, b);
 
 export const AGENDA_ITEMS: AgendaItem[] = [...sessionItems, ...pendingItems, ...activityItems].sort(
-  byTimeThenOrder,
+  byRunningOrder,
 );
 
-/** The keynote leads. Everything else is grouped by track, in the order set in pages.json. */
-export function agendaGroups(items: AgendaItem[]): AgendaGroup[] {
-  const keynotes = items.filter((item) => item.format === "keynote");
-  const rest = items.filter((item) => item.format !== "keynote");
-  const known = new Set<string>(AGENDA_PAGE.groups.map((group) => group.track));
-  const groups: AgendaGroup[] = [
-    { id: "keynote", title: AGENDA_PAGE.formatLabels.keynote, items: keynotes },
-    ...AGENDA_PAGE.groups.map((group) => ({
-      id: group.track,
-      title: group.title,
-      lead: group.lead,
-      items: rest.filter((item) => item.track === group.track),
+/** One group per hall, in the order set in pages.json; anything without a known hall goes last. */
+export function agendaStages(items: AgendaItem[]): AgendaStage[] {
+  const known = new Set<string>(AGENDA_PAGE.stages.map((stage) => stage.hall));
+  const stages: AgendaStage[] = [
+    ...AGENDA_PAGE.stages.map((stage) => ({
+      id: stage.hall.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      title: stage.title,
+      lead: stage.lead,
+      numbered: stage.numbered,
+      items: items.filter((item) => item.hall === stage.hall),
     })),
     {
       id: "other",
       title: AGENDA_PAGE.otherGroupTitle,
-      items: rest.filter((item) => !item.track || !known.has(item.track)),
+      numbered: false,
+      items: items.filter((item) => !item.hall || !known.has(item.hall)),
     },
   ];
-  return groups.filter((group) => group.items.length);
+  return stages.filter((stage) => stage.items.length);
 }
 
 /** Each confirmed speaker once, in speaker order, with the first agenda row to jump to. */

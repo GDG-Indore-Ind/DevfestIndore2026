@@ -88,6 +88,13 @@ const homeSchema = z.strictObject({
   photoArchiveLabel: z.string().min(1),
   themeSelectorLabel: text,
   themeContributionLabel: text,
+  agendaPreview: z.strictObject({
+    title: text,
+    lead: text,
+    workshopsLabel: text.describe("{{count}} is replaced with the number of workshops."),
+    exhibitsLabel: text.describe("{{count}} is replaced with the number of exhibits."),
+    agendaLabel: text,
+  }),
   exhibits: z.strictObject({
     navigationLabel: text,
     eyebrow: text,
@@ -243,16 +250,28 @@ const agendaSchema = z.strictObject({
   emptyText: text,
   tabsLabel: text,
   tabs: z.strictObject({ schedule: text, workshops: text, speakers: text, exhibits: text }),
-  formatLabels: z.strictObject({ keynote: text, workshop: text, session: text, exhibit: text }),
-  durationLabel: text,
-  groups: z.array(z.strictObject({ track: text, title: text, lead: text })).min(1),
-  otherGroupTitle: text,
-  timetable: z.strictObject({
-    title: text,
-    body: text,
-    workshopsLabel: text,
-    ticketsLabel: text,
+  formatLabels: z.strictObject({
+    keynote: text,
+    panel: text,
+    address: text,
+    session: text,
+    workshop: text,
+    exhibit: text,
   }),
+  durationLabel: text,
+  stages: z
+    .array(
+      z.strictObject({
+        hall: text.describe("Matches the hall field on programme entries."),
+        title: text,
+        lead: text,
+        numbered: z.boolean().describe("Show the running order number when no time is set."),
+      }),
+    )
+    .min(1)
+    .describe("Halls in the order the agenda shows them; the first holds unplaced speakers."),
+  otherGroupTitle: text,
+  slotLabel: text,
 });
 const navigationSchema = z.strictObject({ breadcrumbLabel: text, homeLabel: text });
 const eventPageSchema = z.strictObject({

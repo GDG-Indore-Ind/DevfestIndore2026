@@ -108,6 +108,12 @@
               "hall": {
                 "type": "string"
               },
+              "slot": {
+                "description": "Order within its hall on the day, lowest first.",
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
               "tags": {
                 "type": "array",
                 "items": {
@@ -269,7 +275,9 @@
                 "type": "string",
                 "enum": [
                   "workshop",
-                  "exhibit"
+                  "exhibit",
+                  "panel",
+                  "address"
                 ]
               },
               "title": {
@@ -287,6 +295,12 @@
               },
               "hall": {
                 "type": "string"
+              },
+              "slot": {
+                "description": "Order within its hall on the day, lowest first.",
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
               },
               "durationMinutes": {
                 "type": "integer",
@@ -323,7 +337,6 @@
               "format",
               "title",
               "description",
-              "organizationIds",
               "type"
             ],
             "additionalProperties": false

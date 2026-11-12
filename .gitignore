@@ -56,5 +56,8 @@ local_storage_private/
 DevFest 2026 Indore _ Sponsorship Deck (1).pdf
 *-firebase-adminsdk-*.json
 
+# per-machine Claude Code settings
+/.claude/settings.local.json
+
 # raw photos waiting for `npm run photos`
 /photos-inbox/

@@ -6,25 +6,56 @@ import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./AgendaSession.module.css";
 
 const tones: Record<AgendaFormat, ChipTone> = {
-  workshop: "blue",
-  session: "green",
   keynote: "yellow",
+  panel: "yellow",
+  address: "neutral",
+  session: "green",
+  workshop: "blue",
   exhibit: "red",
 };
 
-/** One ruled row: what it is, what it is called, and who is giving it. */
-export default function AgendaSession({ item }: { item: AgendaItem }) {
+/**
+ * One ruled row: when or in what order, what it is, and who is giving it.
+ * `position` is the running-order number shown until a time is set; `showHall` is off when a
+ * heading already names the hall; `compact` keeps one column for side-by-side halls.
+ */
+export default function AgendaSession({
+  item,
+  position,
+  showHall = true,
+  compact = false,
+}: {
+  item: AgendaItem;
+  position?: number;
+  showHall?: boolean;
+  compact?: boolean;
+}) {
   const featured = item.format === "keynote";
-  const hasRail = Boolean(item.time || item.hall);
+  const hall = showHall ? item.hall : undefined;
+  const order = !item.time && position ? String(position).padStart(2, "0") : undefined;
+  const hasRail = Boolean(item.time || hall || order);
   return (
     <li
       id={item.id}
-      className={`${styles.row} ${hasRail ? styles.withRail : ""} ${featured ? styles.featured : ""}`}
+      className={[
+        styles.row,
+        hasRail && styles.withRail,
+        featured && styles.featured,
+        compact && styles.compact,
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       {hasRail && (
         <p className={styles.rail}>
           {item.time && <time>{item.time}</time>}
-          {item.hall && <span>{item.hall}</span>}
+          {order && (
+            <span className={styles.order}>
+              <span className={styles.hidden}>{copy.slotLabel} </span>
+              {order}
+            </span>
+          )}
+          {hall && <span>{hall}</span>}
         </p>
       )}
       <div className={styles.main}>
@@ -35,6 +66,7 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
               {item.durationMinutes} {copy.durationLabel}
             </Chip>
           )}
+          {item.track && <Chip>{item.track}</Chip>}
         </p>
         <h3 className={`${styles.title} ${item.title ? "" : styles.pending}`}>
           {item.title ?? copy.sessionPending}

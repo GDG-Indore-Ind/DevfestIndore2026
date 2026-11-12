@@ -80,7 +80,9 @@ Tag every photo and clipping with the event it belongs to: `eventId` in `gallery
 
 ## Add a talk
 
-Add an entry to `programme.json` with `type: "talk"`, a stable `id`, `eventId`, `speakerIds` and `publication: "confirmed"` (use `"archived"` for past editions). Every speaker needs a `speaker` role for that exact event in `people.json`. A confirmed speaker can exist before their talk title does; `/agenda` shows them with “Session to be announced”. Agenda page copy lives under `agenda` in `pages.json`. Sessionize owns proposals.
+Add an entry to `programme.json` with `type: "talk"`, a stable `id`, `eventId`, `speakerIds` and `publication: "confirmed"` (use `"archived"` for past editions). Every speaker needs a `speaker` role for that exact event in `people.json`. A confirmed speaker can exist before their talk title does; `/agenda` shows them with “Session to be announced” on the first hall, by their speaker `order`. Agenda page copy lives under `agenda` in `pages.json`. Sessionize owns proposals.
+
+`/agenda` is laid out by hall. Set `hall` to one of the `agenda.stages[].hall` names in `pages.json` (`Main stage`, `Hall 1`, `Hall 2`, `Exhibit Lounge`) and `slot` to its running order in that hall; add `time` once the timetable is final and it takes over from the order number. Entries without a known hall appear under “More to be announced”. A panel, an address or an organization-run workshop or exhibit is a `type: "activity"` with `format` `panel`, `address`, `workshop` or `exhibit`; name speakers only once they are confirmed.
 
 Campus workshops use the same list with `type: "campus-workshop"`, `campus`, a verified `date`, an exact GDG event URL and `photoIds`. Add each photo once to `gallery.json` (local `/images/workshops/*.webp`, dimensions, source URL), then reference its id.
 

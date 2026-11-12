@@ -98,7 +98,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   const organizationIds = new Set(content.organizations.organizations.map(organization => organization.id));
   for (const item of content.programme.entries.filter(entry => entry.type === "activity")) {
     reference(eventIds, item.eventId, `activity ${item.id}`);
-    for (const id of item.organizationIds) reference(organizationIds, id, `activity ${item.id} organization`);
+    for (const id of item.organizationIds ?? []) reference(organizationIds, id, `activity ${item.id} organization`);
     for (const personId of item.speakerIds ?? []) {
       reference(personIds, personId, `activity ${item.id}`);
       reference(speakerParticipation, `${item.eventId}/${personId}`, `activity ${item.id} speaker participation`);

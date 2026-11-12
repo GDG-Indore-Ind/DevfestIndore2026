@@ -1,0 +1,121 @@
+.root {
+  padding-block: var(--section-space);
+}
+.heading {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.heading h2 {
+  margin: 0;
+  font-size: var(--text-h2);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.heading p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-16);
+}
+.list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--audience-line);
+  list-style: none;
+}
+.list li {
+  border-bottom: 1px solid var(--audience-line);
+}
+.row {
+  display: grid;
+  grid-template-columns: 40px 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  padding-block: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+.row:hover .title {
+  color: var(--audience-blue);
+}
+.row:focus-visible {
+  outline: 2px solid var(--audience-blue);
+  outline-offset: 2px;
+}
+.order {
+  color: var(--audience-muted);
+  font-size: var(--text-18);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--corner-round);
+  background: var(--audience-tint);
+  object-fit: cover;
+}
+.logo {
+  padding: 6px;
+  border: 1px solid var(--audience-line);
+  background: #fff;
+  object-fit: contain;
+}
+.icon {
+  display: grid;
+  place-items: center;
+  color: var(--icon-blue);
+}
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+.text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.format {
+  color: var(--audience-muted);
+  font-size: var(--text-12);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.title {
+  font-size: var(--text-16);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.who {
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+}
+.footer p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+@media (min-width: 900px) {
+  .row {
+    grid-template-columns: 56px 48px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+  .title {
+    font-size: var(--text-18);
+  }
+}

@@ -145,25 +145,27 @@ export interface SessionRecord {
   profile?: Partial<Pick<Person, "avatar" | "bio" | "socials">>;
   time?: string;
   hall?: string;
+  slot?: number;
   tags?: string[];
   resources?: { label: string; url: string }[];
   format?: "talk" | "keynote" | "panel" | "workshop";
   durationMinutes?: number;
   sourceUrl?: string;
 }
-/** A workshop or exhibit run by an organization rather than a named speaker. */
+/** A workshop, exhibit, panel or address that is not a single speaker's talk. */
 export interface ActivityRecord {
   id: string;
   editionId: string;
   publication: "confirmed" | "archived";
-  format: "workshop" | "exhibit";
+  format: "workshop" | "exhibit" | "panel" | "address";
   title: string;
   description: string;
   track?: string;
   time?: string;
   hall?: string;
+  slot?: number;
   durationMinutes?: number;
-  organizationIds: string[];
+  organizationIds?: string[];
   speakerIds?: string[];
 }
 export interface Partnership {

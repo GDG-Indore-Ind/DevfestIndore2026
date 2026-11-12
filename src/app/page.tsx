@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/home/HeroSection";
 import ExhibitsSection from "@/components/home/ExhibitsSection";
 import ExploreSection from "@/components/home/ExploreSection";
+import AgendaPreview from "@/components/home/AgendaPreview";
 import GalleryVideoSection from "@/components/home/GalleryVideoSection";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import TicketStrip from "@/components/home/TicketStrip";
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 const flightStops = [
   { id: "hero", label: "Launch" },
   { id: "flow", label: "Themes" },
+  { id: "agenda-preview", label: "Agenda" },
   { id: "archive", label: "Community" },
   { id: "sponsors", label: "Partners" },
   ...(OPEN_PASSES.length ? [{ id: "home-tickets", label: "Passes" }] : []),
@@ -44,9 +46,8 @@ export default function Home() {
         <div id="hero">
           <HeroSection />
         </div>
-        <div>
-          <ExploreSection />
-        </div>
+        <ExploreSection />
+        <AgendaPreview />
         <div id="archive">
           <GalleryVideoSection />
         </div>
@@ -55,9 +56,7 @@ export default function Home() {
         </div>
         <TicketStrip />
         <ExhibitsSection />
-        <div>
-          <VenueSection />
-        </div>
+        <VenueSection />
         <CommunitySupporters />
       </main>
       <Footer />

@@ -50,6 +50,12 @@ export const ProgrammeFile = z
             .optional(),
           time: z.string().optional(),
           hall: z.string().optional(),
+          slot: z
+            .number()
+            .int()
+            .positive()
+            .optional()
+            .describe("Order within its hall on the day, lowest first."),
           tags: z.array(z.string().min(1)).optional(),
           speakerIds: z
             .array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/))
@@ -107,23 +113,30 @@ export const ProgrammeFile = z
             .optional(),
           type: z.literal("talk"),
         }),
-        // A workshop or exhibit run by an organization instead of a named speaker.
+        // A workshop, exhibit, panel or address that is not a single speaker's talk.
         z.strictObject({
           id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
           eventId: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
           publication: z.enum(["confirmed", "archived"]),
-          format: z.enum(["workshop", "exhibit"]),
+          format: z.enum(["workshop", "exhibit", "panel", "address"]),
           title: z.string().min(1),
           description: z.string(),
           track: z.string().optional(),
           time: z.string().optional(),
           hall: z.string().optional(),
+          slot: z
+            .number()
+            .int()
+            .positive()
+            .optional()
+            .describe("Order within its hall on the day, lowest first."),
           durationMinutes: z.number().int().positive().optional(),
           organizationIds: z
             .array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/))
             .min(1)
             .refine((items) => new Set(items).size === items.length, "Must contain unique values")
-            .meta({ uniqueItems: true }),
+            .meta({ uniqueItems: true })
+            .optional(),
           speakerIds: z
             .array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/))
             .min(1)

@@ -732,7 +732,9 @@
       "spotlightBadge": "",
       "category": "GenAI",
       "track": "Edge, open models & Physical AI",
-      "format": "talk"
+      "format": "talk",
+      "hall": "Main stage",
+      "slot": 5
     },
     {
       "type": "talk",
@@ -835,24 +837,9 @@
       "category": "GenAI",
       "track": "AI & Autonomous Agents",
       "format": "talk",
-      "durationMinutes": 30
-    },
-    {
-      "type": "talk",
-      "id": "devfest-2026-pratik-kale",
-      "eventId": "devfest-2026",
-      "speakerIds": [
-        "pratik-kale"
-      ],
-      "publication": "confirmed",
-      "title": "Empower ADK agents with tools",
-      "role": "Software Engineer",
-      "company": "Impulsive Web",
-      "description": "",
-      "spotlightBadge": "",
-      "category": "GenAI",
-      "track": "AI & Autonomous Agents",
-      "format": "workshop"
+      "durationMinutes": 30,
+      "hall": "Main stage",
+      "slot": 6
     },
     {
       "type": "talk",
@@ -869,7 +856,9 @@
       "spotlightBadge": "",
       "category": "GenAI",
       "track": "AI & Autonomous Agents",
-      "format": "workshop"
+      "format": "workshop",
+      "hall": "Hall 1",
+      "slot": 2
     },
     {
       "type": "talk",
@@ -887,7 +876,9 @@
       "category": "GenAI",
       "track": "AI & Autonomous Agents",
       "format": "talk",
-      "durationMinutes": 30
+      "durationMinutes": 30,
+      "hall": "Main stage",
+      "slot": 7
     },
     {
       "type": "talk",
@@ -905,7 +896,34 @@
       "category": "GenAI",
       "track": "Edge, open models & Physical AI",
       "format": "talk",
-      "durationMinutes": 30
+      "durationMinutes": 30,
+      "hall": "Main stage",
+      "slot": 8
+    },
+    {
+      "type": "activity",
+      "id": "devfest-2026-panel-discussion",
+      "eventId": "devfest-2026",
+      "publication": "confirmed",
+      "format": "panel",
+      "title": "Panel discussion",
+      "description": "Panelists to be announced.",
+      "hall": "Main stage",
+      "slot": 2
+    },
+    {
+      "type": "activity",
+      "id": "devfest-2026-iist-address",
+      "eventId": "devfest-2026",
+      "publication": "confirmed",
+      "format": "address",
+      "title": "Address from IIST",
+      "description": "Indore Institute of Science and Technology, our Platinum partner.",
+      "hall": "Main stage",
+      "slot": 3,
+      "organizationIds": [
+        "indore-institute-of-science-and-technology"
+      ]
     },
     {
       "type": "activity",
@@ -921,7 +939,9 @@
       ],
       "speakerIds": [
         "salman-faris"
-      ]
+      ],
+      "hall": "Hall 1",
+      "slot": 1
     },
     {
       "type": "activity",
@@ -934,7 +954,9 @@
       "track": "Edge, open models & Physical AI",
       "organizationIds": [
         "qualcomm"
-      ]
+      ],
+      "hall": "Exhibit Lounge",
+      "slot": 1
     },
     {
       "type": "activity",
@@ -947,7 +969,9 @@
       "track": "Space",
       "organizationIds": [
         "space-club-of-india"
-      ]
+      ],
+      "hall": "Exhibit Lounge",
+      "slot": 2
     }
   ]
 }

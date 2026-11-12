@@ -3,6 +3,8 @@ import { HOME_PAGE } from "@/content/pages";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./HeroSection.module.css";
+import ContentIcon from "@/components/shared/ContentIcon";
 
 function SpaceArtwork() {
   return (
@@ -45,9 +47,6 @@ function SpaceArtwork() {
     </figure>
   );
 }
-
-import styles from "./HeroSection.module.css";
-import ContentIcon from "@/components/shared/ContentIcon";
 
 export default function HeroSection() {
   return (

@@ -311,6 +311,41 @@
           "type": "string",
           "minLength": 1
         },
+        "agendaPreview": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lead": {
+              "type": "string",
+              "minLength": 1
+            },
+            "workshopsLabel": {
+              "type": "string",
+              "minLength": 1,
+              "description": "{{count}} is replaced with the number of workshops."
+            },
+            "exhibitsLabel": {
+              "type": "string",
+              "minLength": 1,
+              "description": "{{count}} is replaced with the number of exhibits."
+            },
+            "agendaLabel": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "title",
+            "lead",
+            "workshopsLabel",
+            "exhibitsLabel",
+            "agendaLabel"
+          ],
+          "additionalProperties": false
+        },
         "exhibits": {
           "type": "object",
           "properties": {
@@ -508,6 +543,7 @@
         "photoArchiveLabel",
         "themeSelectorLabel",
         "themeContributionLabel",
+        "agendaPreview",
         "exhibits",
         "ticketStrip",
         "themes",
@@ -1182,11 +1218,19 @@
               "type": "string",
               "minLength": 1
             },
-            "workshop": {
+            "panel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "address": {
               "type": "string",
               "minLength": 1
             },
             "session": {
+              "type": "string",
+              "minLength": 1
+            },
+            "workshop": {
               "type": "string",
               "minLength": 1
             },
@@ -1197,8 +1241,10 @@
           },
           "required": [
             "keynote",
-            "workshop",
+            "panel",
+            "address",
             "session",
+            "workshop",
             "exhibit"
           ],
           "additionalProperties": false
@@ -1207,15 +1253,16 @@
           "type": "string",
           "minLength": 1
         },
-        "groups": {
+        "stages": {
           "minItems": 1,
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "track": {
+              "hall": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "description": "Matches the hall field on programme entries."
               },
               "title": {
                 "type": "string",
@@ -1224,47 +1271,29 @@
               "lead": {
                 "type": "string",
                 "minLength": 1
+              },
+              "numbered": {
+                "type": "boolean",
+                "description": "Show the running order number when no time is set."
               }
             },
             "required": [
-              "track",
+              "hall",
               "title",
-              "lead"
+              "lead",
+              "numbered"
             ],
             "additionalProperties": false
-          }
+          },
+          "description": "Halls in the order the agenda shows them; the first holds unplaced speakers."
         },
         "otherGroupTitle": {
           "type": "string",
           "minLength": 1
         },
-        "timetable": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string",
-              "minLength": 1
-            },
-            "body": {
-              "type": "string",
-              "minLength": 1
-            },
-            "workshopsLabel": {
-              "type": "string",
-              "minLength": 1
-            },
-            "ticketsLabel": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "required": [
-            "title",
-            "body",
-            "workshopsLabel",
-            "ticketsLabel"
-          ],
-          "additionalProperties": false
+        "slotLabel": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -1281,9 +1310,9 @@
         "tabs",
         "formatLabels",
         "durationLabel",
-        "groups",
+        "stages",
         "otherGroupTitle",
-        "timetable"
+        "slotLabel"
       ],
       "additionalProperties": false
     },
