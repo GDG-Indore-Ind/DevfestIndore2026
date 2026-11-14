@@ -1,0 +1,45 @@
+{
+  "source": "Canonical content/*.json before SQLite migration",
+  "records": {
+    "eventPeople": 54,
+    "eventPersonRoles": 51,
+    "events": 24,
+    "media": 55,
+    "organizations": 36,
+    "partnerships": 46,
+    "passInclusionSets": 4,
+    "passes": 6,
+    "people": 73,
+    "rooms": 4,
+    "sessionOrganizations": 4,
+    "sessionPeople": 54,
+    "sessions": 58
+  },
+  "transformations": [
+    "73 person identities and one collective; the collective is now an organization.",
+    "13 campus workshops are independent events with sessions; no parent affiliation was invented.",
+    "Speaker participation is derived from presenter assignments; announcement metadata is preserved.",
+    "Each authored role is one row; a presenter with no other role has no participation row.",
+    "Historical/session-specific profiles are preserved on presenter assignments.",
+    "Identical pass inclusions share one set; every original entitlement is preserved.",
+    "Registration sections own policy wording; editorial copy and switches live in TypeScript.",
+    "Exhibit homepage highlights belong to their sessions, so removing an exhibit removes its highlight."
+  ],
+  "verification": {
+    "sourceDatasets": [
+      "event",
+      "people",
+      "programme",
+      "organizations",
+      "gallery",
+      "pages"
+    ],
+    "method": "Full publication comparison, including every authored identity and role, not just record counts.",
+    "normalisedDefaults": [
+      "Talk format defaults to talk",
+      "Omitted sold-out/visibility flags retain their defaults",
+      "Policy order follows registration document sections"
+    ],
+    "passed": true
+  }
+}

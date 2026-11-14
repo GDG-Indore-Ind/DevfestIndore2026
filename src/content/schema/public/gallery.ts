@@ -1,8 +1,7 @@
 import { z } from "zod";
 import { dateOnly, dimension, httpsUrl, id, localImagePath, text } from "./common.ts";
 
-// These schemas describe the current content/gallery.json, not the separate
-// event-folder prototype in the parent directory.
+// Browser-safe photo and press projection contracts.
 export const GalleryPhoto = z.strictObject({
   id,
   title: text,
@@ -37,7 +36,7 @@ export const PressClipping = z.strictObject({
 });
 
 export const GalleryFile = z.strictObject({
-  $schema: z.string(),
+  $schema: z.string().optional(),
   photos: z.array(GalleryPhoto),
   press: z.array(PressClipping).optional(),
 });

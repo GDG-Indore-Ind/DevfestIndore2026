@@ -1,7 +1,7 @@
-import organizationsFile from "../../content/organizations.json";
+import organizationsFile from "./generated/organizations.json";
 import type { EventPartner } from "./model";
 import type { Organization } from "./model";
-import type { Organization as OrganizationRecord } from "./schema/current/organizations";
+import type { Organization as OrganizationRecord } from "./schema/public/organizations";
 import { EVENT } from "./event";
 export const ORGANIZATIONS = (organizationsFile.organizations as OrganizationRecord[]).map(
   ({ logo, website, social, contributions, ...record }) => {

@@ -1,4 +1,4 @@
-import pages from "../../content/pages.json";
+import pages from "./generated/pages.json";
 export interface Theme {
   id: string;
   label: string;

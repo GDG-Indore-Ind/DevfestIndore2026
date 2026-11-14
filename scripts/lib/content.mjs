@@ -2,15 +2,20 @@ import { organizationView } from './organization-view.mjs';
 import { currentEvent, pastEvents } from './event-view.mjs';
 import { talks, workshops as workshopRecords } from './programme-view.mjs';
 import { participationRecords, ambassadorRecords } from './people-view.mjs';
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { FILE_SCHEMAS } from "../content-schemas.mjs";
+import { FILE_SCHEMAS } from "./public-contract.mjs";
+import { FAQ_TOKENS } from "../../src/content/faq-template.ts";
+
+import { openDatabase } from "./database.ts";
+import { projectContent } from "./project-content.mjs";
 
 export const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 export const COLLECTIONS = ["event", "people", "programme", "organizations", "gallery", "pages"];
-export function readContent(root = PROJECT_ROOT) {
-  return Object.fromEntries(COLLECTIONS.map(name => [name, JSON.parse(readFileSync(path.join(root, "content", `${name}.json`), "utf8"))]));
+export function readContent() {
+  const { db, sqlite } = openDatabase();
+  try { return sqlite.transaction(() => projectContent(db))(); } finally { sqlite.close(); }
 }
 
 function shapeErrors(name, issues, prefix = []) {
@@ -56,7 +61,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   unique([event, ...events.events], "event registry");
   unique(participations.participations, "person event", item => `${item.eventId}/${item.personId}`);
   const personIds = new Set(people.people.map(person => person.id));
-    const eventIds = new Set([event.id, ...events.events.map(item => item.id)]);
+  const eventIds = new Set([event.id, ...events.events.map(item => item.id), ...content.programme.entries.filter(item => item.type === 'campus-workshop').map(item => item.id)]);
   const speakerParticipation = new Set(participations.participations.filter(item => item.roles.some(role => role.kind === "speaker")).map(item => `${item.eventId}/${item.personId}`));
   for (const organization of content.organizations.organizations) {
     unique(organization.contributions, `organization ${organization.id} contribution IDs`);
@@ -98,6 +103,8 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   const organizationIds = new Set(content.organizations.organizations.map(organization => organization.id));
   for (const item of content.programme.entries.filter(entry => entry.type === "activity")) {
     reference(eventIds, item.eventId, `activity ${item.id}`);
+    unique(item.speakerProfiles ?? [], `activity ${item.id} speaker profiles`, profile => profile.personId);
+    for (const profile of item.speakerProfiles ?? []) reference(new Set(item.speakerIds ?? []), profile.personId, `activity ${item.id} profile`);
     for (const id of item.organizationIds ?? []) reference(organizationIds, id, `activity ${item.id} organization`);
     for (const personId of item.speakerIds ?? []) {
       reference(personIds, personId, `activity ${item.id}`);
@@ -176,8 +183,8 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
     if (!tickets.policies.some(policy => policy.id === id)) errors.push(`tickets: ${id} policy is required`);
   }
   try { new Intl.DateTimeFormat("en",{timeZone:event.timezone}).format(); } catch { errors.push(`event: unknown timezone ${event.timezone}`); }
-  const tokens = new Set(["date","venue","address","registrationTime","entryPolicy","workshopPolicy","finalSalePolicy","studentPrice","professionalPrice","groupOffer"]);
-  for (const faq of pages.faq.questions) for (const match of faq.answer.matchAll(/\{\{(\w+)\}\}/g)) if (!tokens.has(match[1])) errors.push(`FAQ ${faq.id}: unknown template token ${match[1]}`);
+  const tokens = new Set(FAQ_TOKENS);
+  for (const faq of pages.faq.questions) for (const match of faq.answer.matchAll(/\{\{([^{}]+)\}\}/g)) if (!tokens.has(match[1])) errors.push(`FAQ ${faq.id}: unknown template token ${match[1]}`);
   const assetKeys = new Set(["avatar","photo","logo","logoUrl","imageUrl","photo","archiveLogoSheet","images","source","collegeLogoUrl"]);
   function walk(value, location = "", key = "") {
     if (typeof value === "string" && assetKeys.has(key) && value.startsWith("/")) {

@@ -1,14 +1,14 @@
 import { EVENT } from "./event";
 import { byRoleOrder, PARTICIPATIONS, participationRoleLabels } from "./participations";
 import type { TeamMember } from "./model";
-import { getPerson, personalSocials } from "./people";
+import { getEventPerson, personalSocials } from "./people";
 
 /** The current event's organisers and volunteers, in the order set by each role's `order`. */
 export function getTeam(): TeamMember[] {
   return PARTICIPATIONS.flatMap((entry) => {
     const role = entry.roles.find((item) => item.kind === "core-team" || item.kind === "volunteer");
     if (entry.eventId !== EVENT.id || !role) return [];
-    const person = getPerson(entry.personId);
+    const person = getEventPerson(entry.personId, entry.eventId);
     return [
       {
         id: entry.id,

@@ -1,7 +1,7 @@
-import peopleFile from "../../content/people.json";
+import peopleFile from "./generated/people.json";
 import { EVENT } from "./event";
 import type { Person, Socials } from "./model";
-import type { Person as PersonRecord } from "./schema/current/people";
+import type { Person as PersonRecord } from "./schema/public/people";
 export const PERSON_RECORDS = peopleFile.people as PersonRecord[];
 export const PEOPLE: Person[] = PERSON_RECORDS.map((person) => ({
   id: person.id,
@@ -18,6 +18,14 @@ export function getPerson(id: string): Person {
   const person = people.get(id);
   if (!person) throw new Error(`Unknown person ${id}. Run npm run content:validate.`);
   return person;
+}
+
+/** Approved event-specific details take precedence over a person's current profile. */
+export function getEventPerson(id: string, eventId: string): Person {
+  const profile = PERSON_RECORDS.find((person) => person.id === id)?.events?.find(
+    (entry) => entry.eventId === eventId,
+  )?.profile;
+  return { ...getPerson(id), ...profile };
 }
 
 const profileKey = (href: string) => {

@@ -1,0 +1,1683 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "2b6239c3-3b78-4d50-ab83-b3a3c8f8c586",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "event_people": {
+      "name": "event_people",
+      "columns": {
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "profile": {
+          "name": "profile",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "official_speaker_order": {
+          "name": "official_speaker_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "event_people_event_id_events_id_fk": {
+          "name": "event_people_event_id_events_id_fk",
+          "tableFrom": "event_people",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "event_people_person_id_people_id_fk": {
+          "name": "event_people_person_id_people_id_fk",
+          "tableFrom": "event_people",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "event_people_event_id_person_id_pk": {
+          "columns": [
+            "event_id",
+            "person_id"
+          ],
+          "name": "event_people_event_id_person_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "event_people_profile_json": {
+          "name": "event_people_profile_json",
+          "value": "\"event_people\".\"profile\" IS NULL OR json_valid(\"event_people\".\"profile\")"
+        },
+        "event_people_official_speaker_order": {
+          "name": "event_people_official_speaker_order",
+          "value": "\"event_people\".\"official_speaker_order\" IS NULL OR \"event_people\".\"official_speaker_order\" >= 0"
+        }
+      }
+    },
+    "event_person_roles": {
+      "name": "event_person_roles",
+      "columns": {
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "listing_order": {
+          "name": "listing_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "responsibilities": {
+          "name": "responsibilities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "track": {
+          "name": "track",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "community": {
+          "name": "community",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "event_person_roles_event_id_person_id_event_people_event_id_person_id_fk": {
+          "name": "event_person_roles_event_id_person_id_event_people_event_id_person_id_fk",
+          "tableFrom": "event_person_roles",
+          "tableTo": "event_people",
+          "columnsFrom": [
+            "event_id",
+            "person_id"
+          ],
+          "columnsTo": [
+            "event_id",
+            "person_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "event_person_roles_event_id_person_id_kind_pk": {
+          "columns": [
+            "event_id",
+            "person_id",
+            "kind"
+          ],
+          "name": "event_person_roles_event_id_person_id_kind_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "event_person_roles_kind": {
+          "name": "event_person_roles_kind",
+          "value": "\"event_person_roles\".\"kind\" IN ('speaker', 'core-team', 'volunteer', 'ambassador')"
+        },
+        "event_person_roles_listing_order": {
+          "name": "event_person_roles_listing_order",
+          "value": "\"event_person_roles\".\"listing_order\" IS NULL OR \"event_person_roles\".\"listing_order\" >= 1"
+        },
+        "event_person_roles_title": {
+          "name": "event_person_roles_title",
+          "value": "\"event_person_roles\".\"title\" IS NULL OR trim(\"event_person_roles\".\"title\") <> ''"
+        },
+        "event_person_roles_responsibilities": {
+          "name": "event_person_roles_responsibilities",
+          "value": "(\"event_person_roles\".\"kind\" IN ('core-team', 'volunteer')) = (\"event_person_roles\".\"responsibilities\" IS NOT NULL) AND (\"event_person_roles\".\"responsibilities\" IS NULL OR (json_valid(\"event_person_roles\".\"responsibilities\") AND json_type(\"event_person_roles\".\"responsibilities\") = 'array' AND json_array_length(\"event_person_roles\".\"responsibilities\") > 0))"
+        },
+        "event_person_roles_ambassador": {
+          "name": "event_person_roles_ambassador",
+          "value": "(\"event_person_roles\".\"kind\" = 'ambassador') = (\"event_person_roles\".\"track\" IS NOT NULL) AND (\"event_person_roles\".\"kind\" = 'ambassador') = (\"event_person_roles\".\"community\" IS NOT NULL) AND (\"event_person_roles\".\"track\" IS NULL OR \"event_person_roles\".\"track\" IN ('student', 'professional')) AND (\"event_person_roles\".\"community\" IS NULL OR trim(\"event_person_roles\".\"community\") <> '')"
+        }
+      }
+    },
+    "events": {
+      "name": "events",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'conference'"
+        },
+        "series": {
+          "name": "series",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "attendance_mode": {
+          "name": "attendance_mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'in-person'"
+        },
+        "parent_event_id": {
+          "name": "parent_event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "venue": {
+          "name": "venue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "organizer": {
+          "name": "organizer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tagline": {
+          "name": "tagline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sub_tagline": {
+          "name": "sub_tagline",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "contact_email": {
+          "name": "contact_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "theme": {
+          "name": "theme",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "links": {
+          "name": "links",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "recording_url": {
+          "name": "recording_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reported_stats": {
+          "name": "reported_stats",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cover_media_id": {
+          "name": "cover_media_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "registration_policies": {
+          "name": "registration_policies",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "registration_checklist": {
+          "name": "registration_checklist",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "registration_declaration": {
+          "name": "registration_declaration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "booking_url": {
+          "name": "booking_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "booking_widget_url": {
+          "name": "booking_widget_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "booking_enabled": {
+          "name": "booking_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "legacy_workshop_id": {
+          "name": "legacy_workshop_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "events_legacy_workshop_id_unique": {
+          "name": "events_legacy_workshop_id_unique",
+          "columns": [
+            "legacy_workshop_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "events_parent_event_id_events_id_fk": {
+          "name": "events_parent_event_id_events_id_fk",
+          "tableFrom": "events",
+          "tableTo": "events",
+          "columnsFrom": [
+            "parent_event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "events_cover_media_id_media_id_fk": {
+          "name": "events_cover_media_id_media_id_fk",
+          "tableFrom": "events",
+          "tableTo": "media",
+          "columnsFrom": [
+            "cover_media_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "events_kind": {
+          "name": "events_kind",
+          "value": "\"events\".\"kind\" IN ('conference', 'campus-workshop')"
+        },
+        "events_attendance_mode": {
+          "name": "events_attendance_mode",
+          "value": "\"events\".\"attendance_mode\" IN ('in-person', 'online')"
+        },
+        "events_one_start": {
+          "name": "events_one_start",
+          "value": "(\"events\".\"starts_at\" IS NULL) <> (\"events\".\"start_date\" IS NULL)"
+        },
+        "events_start_date_format": {
+          "name": "events_start_date_format",
+          "value": "\"events\".\"start_date\" IS NULL OR \"events\".\"start_date\" GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'"
+        },
+        "events_starts_at_format": {
+          "name": "events_starts_at_format",
+          "value": "\"events\".\"starts_at\" IS NULL OR \"events\".\"starts_at\" GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]*'"
+        },
+        "events_not_own_parent": {
+          "name": "events_not_own_parent",
+          "value": "\"events\".\"parent_event_id\" IS NULL OR \"events\".\"parent_event_id\" <> \"events\".\"id\""
+        },
+        "venue_json": {
+          "name": "venue_json",
+          "value": "\"events\".\"venue\" IS NULL OR json_valid(\"events\".\"venue\")"
+        },
+        "links_json": {
+          "name": "links_json",
+          "value": "\"events\".\"links\" IS NULL OR json_valid(\"events\".\"links\")"
+        },
+        "reported_stats_json": {
+          "name": "reported_stats_json",
+          "value": "\"events\".\"reported_stats\" IS NULL OR json_valid(\"events\".\"reported_stats\")"
+        },
+        "registration_policies_json": {
+          "name": "registration_policies_json",
+          "value": "\"events\".\"registration_policies\" IS NULL OR json_valid(\"events\".\"registration_policies\")"
+        },
+        "registration_checklist_json": {
+          "name": "registration_checklist_json",
+          "value": "\"events\".\"registration_checklist\" IS NULL OR json_valid(\"events\".\"registration_checklist\")"
+        }
+      }
+    },
+    "media": {
+      "name": "media",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "path": {
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "caption": {
+          "name": "caption",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "publication": {
+          "name": "publication",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "published_date": {
+          "name": "published_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "show_in_gallery": {
+          "name": "show_in_gallery",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "media_event_id_events_id_fk": {
+          "name": "media_event_id_events_id_fk",
+          "tableFrom": "media",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "media_session_id_sessions_id_fk": {
+          "name": "media_session_id_sessions_id_fk",
+          "tableFrom": "media",
+          "tableTo": "sessions",
+          "columnsFrom": [
+            "session_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "media_kind": {
+          "name": "media_kind",
+          "value": "\"media\".\"kind\" IN ('photo', 'press')"
+        },
+        "media_width": {
+          "name": "media_width",
+          "value": "\"media\".\"width\" IS NULL OR \"media\".\"width\" > 0"
+        },
+        "media_height": {
+          "name": "media_height",
+          "value": "\"media\".\"height\" IS NULL OR \"media\".\"height\" > 0"
+        }
+      }
+    },
+    "organizations": {
+      "name": "organizations",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'organization'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "logo_path": {
+          "name": "logo_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "logo_shape": {
+          "name": "logo_shape",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "logo_crop": {
+          "name": "logo_crop",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "website_url": {
+          "name": "website_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "social_url": {
+          "name": "social_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "organizations_logo_crop_json": {
+          "name": "organizations_logo_crop_json",
+          "value": "\"organizations\".\"logo_crop\" IS NULL OR json_valid(\"organizations\".\"logo_crop\")"
+        }
+      }
+    },
+    "partnerships": {
+      "name": "partnerships",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contribution_type": {
+          "name": "contribution_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "is_published": {
+          "name": "is_published",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": true
+        },
+        "featured": {
+          "name": "featured",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "record_order": {
+          "name": "record_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "partnerships_organization_id_organizations_id_fk": {
+          "name": "partnerships_organization_id_organizations_id_fk",
+          "tableFrom": "partnerships",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "partnerships_event_id_events_id_fk": {
+          "name": "partnerships_event_id_events_id_fk",
+          "tableFrom": "partnerships",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "partnership_scope": {
+          "name": "partnership_scope",
+          "value": "(\"partnerships\".\"scope\" = 'event' AND \"partnerships\".\"event_id\" IS NOT NULL) OR (\"partnerships\".\"scope\" IN ('historical', 'ecosystem') AND \"partnerships\".\"event_id\" IS NULL)"
+        },
+        "partnership_featured": {
+          "name": "partnership_featured",
+          "value": "\"partnerships\".\"featured\" IS NULL OR \"partnerships\".\"featured\" IN ('campus', 'space', 'technology')"
+        },
+        "partnership_type": {
+          "name": "partnership_type",
+          "value": "\"partnerships\".\"contribution_type\" IN ('sponsor', 'collaborator', 'community', 'media')"
+        }
+      }
+    },
+    "pass_inclusion_sets": {
+      "name": "pass_inclusion_sets",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "benefits": {
+          "name": "benefits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "pass_inclusion_sets_id_event_id_unique": {
+          "name": "pass_inclusion_sets_id_event_id_unique",
+          "columns": [
+            "id",
+            "event_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "pass_inclusion_sets_event_id_events_id_fk": {
+          "name": "pass_inclusion_sets_event_id_events_id_fk",
+          "tableFrom": "pass_inclusion_sets",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "pass_benefits_json": {
+          "name": "pass_benefits_json",
+          "value": "json_valid(\"pass_inclusion_sets\".\"benefits\") AND json_type(\"pass_inclusion_sets\".\"benefits\") = 'array'"
+        }
+      }
+    },
+    "passes": {
+      "name": "passes",
+      "columns": {
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "audience": {
+          "name": "audience",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "price_minor": {
+          "name": "price_minor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "currency_code": {
+          "name": "currency_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'INR'"
+        },
+        "allocation": {
+          "name": "allocation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "eligibility": {
+          "name": "eligibility",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "inclusion_set_id": {
+          "name": "inclusion_set_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "offers": {
+          "name": "offers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "booking_route": {
+          "name": "booking_route",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "is_published": {
+          "name": "is_published",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "is_sold_out": {
+          "name": "is_sold_out",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "passes_event_id_events_id_fk": {
+          "name": "passes_event_id_events_id_fk",
+          "tableFrom": "passes",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "passes_inclusion_set_id_event_id_pass_inclusion_sets_id_event_id_fk": {
+          "name": "passes_inclusion_set_id_event_id_pass_inclusion_sets_id_event_id_fk",
+          "tableFrom": "passes",
+          "tableTo": "pass_inclusion_sets",
+          "columnsFrom": [
+            "inclusion_set_id",
+            "event_id"
+          ],
+          "columnsTo": [
+            "id",
+            "event_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "passes_event_id_code_pk": {
+          "columns": [
+            "event_id",
+            "code"
+          ],
+          "name": "passes_event_id_code_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "pass_price": {
+          "name": "pass_price",
+          "value": "\"passes\".\"price_minor\" IS NULL OR (\"passes\".\"price_minor\" >= 0 AND typeof(\"passes\".\"price_minor\") = 'integer')"
+        },
+        "pass_allocation": {
+          "name": "pass_allocation",
+          "value": "\"passes\".\"allocation\" >= 0"
+        },
+        "pass_currency": {
+          "name": "pass_currency",
+          "value": "\"passes\".\"currency_code\" = 'INR'"
+        },
+        "pass_booking_route": {
+          "name": "pass_booking_route",
+          "value": "\"passes\".\"booking_route\" IS NULL OR \"passes\".\"booking_route\" IN ('konfhub', 'ambassador')"
+        },
+        "pass_eligibility_json": {
+          "name": "pass_eligibility_json",
+          "value": "json_valid(\"passes\".\"eligibility\") AND json_type(\"passes\".\"eligibility\") = 'array'"
+        },
+        "pass_offers_json": {
+          "name": "pass_offers_json",
+          "value": "\"passes\".\"offers\" IS NULL OR json_valid(\"passes\".\"offers\")"
+        }
+      }
+    },
+    "people": {
+      "name": "people",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "job_title": {
+          "name": "job_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "company": {
+          "name": "company",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "photo_path": {
+          "name": "photo_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "links": {
+          "name": "links",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "people_links_json": {
+          "name": "people_links_json",
+          "value": "\"people\".\"links\" IS NULL OR json_valid(\"people\".\"links\")"
+        }
+      }
+    },
+    "rooms": {
+      "name": "rooms",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "numbered": {
+          "name": "numbered",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "rooms_event_id_name_unique": {
+          "name": "rooms_event_id_name_unique",
+          "columns": [
+            "event_id",
+            "name"
+          ],
+          "isUnique": true
+        },
+        "rooms_id_event_id_unique": {
+          "name": "rooms_id_event_id_unique",
+          "columns": [
+            "id",
+            "event_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "rooms_event_id_events_id_fk": {
+          "name": "rooms_event_id_events_id_fk",
+          "tableFrom": "rooms",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "session_organizations": {
+      "name": "session_organizations",
+      "columns": {
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_organizations_session_id_sessions_id_fk": {
+          "name": "session_organizations_session_id_sessions_id_fk",
+          "tableFrom": "session_organizations",
+          "tableTo": "sessions",
+          "columnsFrom": [
+            "session_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "session_organizations_organization_id_organizations_id_fk": {
+          "name": "session_organizations_organization_id_organizations_id_fk",
+          "tableFrom": "session_organizations",
+          "tableTo": "organizations",
+          "columnsFrom": [
+            "organization_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "session_organizations_session_id_organization_id_pk": {
+          "columns": [
+            "session_id",
+            "organization_id"
+          ],
+          "name": "session_organizations_session_id_organization_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "session_people": {
+      "name": "session_people",
+      "columns": {
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "person_id": {
+          "name": "person_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "profile": {
+          "name": "profile",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_people_session_id_sessions_id_fk": {
+          "name": "session_people_session_id_sessions_id_fk",
+          "tableFrom": "session_people",
+          "tableTo": "sessions",
+          "columnsFrom": [
+            "session_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "session_people_person_id_people_id_fk": {
+          "name": "session_people_person_id_people_id_fk",
+          "tableFrom": "session_people",
+          "tableTo": "people",
+          "columnsFrom": [
+            "person_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "session_people_session_id_person_id_pk": {
+          "columns": [
+            "session_id",
+            "person_id"
+          ],
+          "name": "session_people_session_id_person_id_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "session_people_profile_json": {
+          "name": "session_people_profile_json",
+          "value": "\"session_people\".\"profile\" IS NULL OR json_valid(\"session_people\".\"profile\")"
+        }
+      }
+    },
+    "sessions": {
+      "name": "sessions",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "format": {
+          "name": "format",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "room_id": {
+          "name": "room_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "start_time": {
+          "name": "start_time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "duration_minutes": {
+          "name": "duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "running_order": {
+          "name": "running_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "track": {
+          "name": "track",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "level": {
+          "name": "level",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "resources": {
+          "name": "resources",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "spotlight_badge": {
+          "name": "spotlight_badge",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "promotion": {
+          "name": "promotion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "source_url": {
+          "name": "source_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "display_order": {
+          "name": "display_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sessions_event_id_events_id_fk": {
+          "name": "sessions_event_id_events_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "events",
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "sessions_room_id_event_id_rooms_id_event_id_fk": {
+          "name": "sessions_room_id_event_id_rooms_id_event_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "rooms",
+          "columnsFrom": [
+            "room_id",
+            "event_id"
+          ],
+          "columnsTo": [
+            "id",
+            "event_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "session_format": {
+          "name": "session_format",
+          "value": "\"sessions\".\"format\" IN ('talk', 'keynote', 'panel', 'workshop', 'exhibit', 'address')"
+        },
+        "session_duration": {
+          "name": "session_duration",
+          "value": "\"sessions\".\"duration_minutes\" IS NULL OR \"sessions\".\"duration_minutes\" > 0"
+        },
+        "session_start_time": {
+          "name": "session_start_time",
+          "value": "\"sessions\".\"start_time\" IS NULL OR \"sessions\".\"start_time\" GLOB '[01][0-9]:[0-5][0-9]' OR \"sessions\".\"start_time\" GLOB '2[0-3]:[0-5][0-9]'"
+        },
+        "session_title_not_blank": {
+          "name": "session_title_not_blank",
+          "value": "\"sessions\".\"title\" IS NULL OR trim(\"sessions\".\"title\") <> ''"
+        },
+        "session_description_not_blank": {
+          "name": "session_description_not_blank",
+          "value": "\"sessions\".\"description\" IS NULL OR trim(\"sessions\".\"description\") <> ''"
+        },
+        "session_category_not_blank": {
+          "name": "session_category_not_blank",
+          "value": "\"sessions\".\"category\" IS NULL OR trim(\"sessions\".\"category\") <> ''"
+        },
+        "session_track_not_blank": {
+          "name": "session_track_not_blank",
+          "value": "\"sessions\".\"track\" IS NULL OR trim(\"sessions\".\"track\") <> ''"
+        },
+        "session_level_not_blank": {
+          "name": "session_level_not_blank",
+          "value": "\"sessions\".\"level\" IS NULL OR trim(\"sessions\".\"level\") <> ''"
+        },
+        "session_spotlight_badge_not_blank": {
+          "name": "session_spotlight_badge_not_blank",
+          "value": "\"sessions\".\"spotlight_badge\" IS NULL OR trim(\"sessions\".\"spotlight_badge\") <> ''"
+        },
+        "session_tags_json": {
+          "name": "session_tags_json",
+          "value": "\"sessions\".\"tags\" IS NULL OR json_valid(\"sessions\".\"tags\")"
+        },
+        "session_resources_json": {
+          "name": "session_resources_json",
+          "value": "\"sessions\".\"resources\" IS NULL OR json_valid(\"sessions\".\"resources\")"
+        },
+        "session_promotion_json": {
+          "name": "session_promotion_json",
+          "value": "\"sessions\".\"promotion\" IS NULL OR json_valid(\"sessions\".\"promotion\")"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

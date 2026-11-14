@@ -1,5 +1,5 @@
 import { EVENT_TICKETS as tickets } from "./event";
-import type { EventFile } from "./schema/current/event";
+import type { EventFile } from "./schema/public/event";
 
 type CurrentTickets = Extract<EventFile["events"][number], { status: "current" }>["tickets"];
 export type PublicPass = CurrentTickets["passes"][number];

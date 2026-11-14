@@ -1,9 +1,11 @@
-import pages from "../../content/pages.json";
+import pages from "./generated/pages.json";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "./event";
-import { formatPassPrice, getPublicPass } from "./tickets";
+import { formatPassPrice, getPublicPass, TICKET_POLICIES } from "./tickets";
+import { faqPolicyValues, renderFaqAnswer, type FaqValues } from "./faq-template";
 const studentPass = getPublicPass("student");
 const professionalPass = getPublicPass("professional");
-const faqValues: Record<string, string> = {
+const faqValues: FaqValues = {
+  ...faqPolicyValues(TICKET_POLICIES),
   date: EVENT_DATE,
   venue: EVENT.venue.name,
   address: EVENT.venue.address,
@@ -14,5 +16,5 @@ const faqValues: Record<string, string> = {
 };
 export const FAQS = pages.faq.questions.map((faq) => ({
   ...faq,
-  answer: faq.answer.replace(/\{\{(\w+)\}\}/g, (_, key: string) => faqValues[key] ?? ""),
+  answer: renderFaqAnswer(faq.answer, faqValues),
 }));

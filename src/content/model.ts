@@ -79,7 +79,7 @@ export interface WorkshopItem {
   publication: "archived" | "confirmed";
   photos: WorkshopPhoto[];
 }
-export type GalleryItem = import("./schema/current/gallery").GalleryPhoto;
+export type GalleryItem = import("./schema/public/gallery").GalleryPhoto;
 export interface Socials {
   linkedin?: string;
   twitter?: string;
@@ -139,7 +139,7 @@ export interface SessionRecord {
   company: string;
   description: string;
   spotlightBadge: string;
-  category: SessionCategory;
+  category?: SessionCategory;
   track?: string;
   level?: string;
   profile?: Partial<Pick<Person, "avatar" | "bio" | "socials">>;
@@ -152,12 +152,12 @@ export interface SessionRecord {
   durationMinutes?: number;
   sourceUrl?: string;
 }
-/** A workshop, exhibit, panel or address that is not a single speaker's talk. */
+/** An organization-led or schedule-only item, using the same domain session metadata. */
 export interface ActivityRecord {
   id: string;
   editionId: string;
   publication: "confirmed" | "archived";
-  format: "workshop" | "exhibit" | "panel" | "address";
+  format: "talk" | "keynote" | "workshop" | "exhibit" | "panel" | "address";
   title: string;
   description: string;
   track?: string;
@@ -167,6 +167,13 @@ export interface ActivityRecord {
   durationMinutes?: number;
   organizationIds?: string[];
   speakerIds?: string[];
+  speakerProfiles?: SessionRecord["speakerProfiles"];
+  category?: SessionCategory;
+  level?: string;
+  tags?: string[];
+  resources?: SessionRecord["resources"];
+  sourceUrl?: string;
+  spotlightBadge?: string;
 }
 export interface Partnership {
   visible?: boolean;

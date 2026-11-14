@@ -1,5 +1,5 @@
 import { EVENT } from "./event";
-import { getPerson, personalSocials } from "./people";
+import { getEventPerson, personalSocials } from "./people";
 import { byRoleOrder, PARTICIPATIONS } from "./participations";
 
 const isLinkedInProfile = (value?: string) => {
@@ -34,7 +34,7 @@ export const AMBASSADOR_DIRECTORY = PARTICIPATIONS.flatMap((entry) =>
 )
   .sort(byRoleOrder)
   .map((entry) => {
-    const person = getPerson(entry.personId);
+    const person = getEventPerson(entry.personId, EVENT.id);
     const { linkedin, instagram } = personalSocials(person.socials);
     return { ...entry, person, socials: { linkedin, instagram } };
   })

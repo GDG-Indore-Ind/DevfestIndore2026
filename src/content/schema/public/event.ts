@@ -1,18 +1,43 @@
 import { z } from "zod";
-import { isDate, isDateTime, isEmail, isUri } from "./common.ts";
+import { isDate, isDateTime, isEmail, isUri, httpsUrl, id } from "./common.ts";
 
 const emphasisText = z
   .string()
   .min(1)
   .regex(/^(?:[^*]|\*\*[^*]+\*\*)+$/, "Use paired ** markers for emphasis");
 
-// Zod contract for the canonical content/schemas/event.schema.json model.
+// These facts belong to the event, whether featured now or shown in the archive.
+const count = z.number().int().nonnegative();
+const eventMetadata = {
+  summary: z.string().min(1).optional(),
+  source: httpsUrl.optional(),
+  series: z.enum(["devfest", "ccd"]).optional(),
+  cover: id.optional(),
+  theme: z.string().min(1).optional(),
+  stats: z
+    .strictObject({
+      registrations: count.optional(),
+      rsvps: count.optional(),
+      attendees: count.optional(),
+      speakers: count.optional(),
+      sessions: count.optional(),
+      sponsors: count.optional(),
+      professionals: count.optional(),
+      students: count.optional(),
+      approximate: z.boolean().optional(),
+    })
+    .optional(),
+  recordingUrl: httpsUrl.optional(),
+};
+
+// Public event projection contract; editable records live in SQLite.
 export const EventFile = z.strictObject({
-  $schema: z.string(),
+  $schema: z.string().optional(),
   events: z
     .array(
       z.union([
         z.strictObject({
+          ...eventMetadata,
           id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
           name: z.string().min(1),
           organizer: z.string().min(1),
@@ -217,6 +242,7 @@ export const EventFile = z.strictObject({
           status: z.literal("current"),
         }),
         z.strictObject({
+          ...eventMetadata,
           id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/),
           date: z.string().refine(isDate, "Invalid date").meta({ format: "date" }),
           venue: z.strictObject({ name: z.string().min(1) }),
@@ -227,87 +253,6 @@ export const EventFile = z.strictObject({
             .meta({ format: "uri" })
             .regex(/^https:\/\//),
           officialSpeakerIds: z.array(z.string().regex(/^[a-z0-9][a-z0-9-]*$/)),
-          series: z
-            .enum(["devfest", "ccd"])
-            .optional()
-            .describe("Groups editions of the same event: DevFest Indore or Cloud Community Days."),
-          cover: z
-            .string()
-            .regex(/^[a-z0-9][a-z0-9-]*$/)
-            .optional()
-            .describe(
-              "Id of a photograph in gallery.json taken at this event, shown on the archive card. Leave out when there is no photograph yet.",
-            ),
-          theme: z
-            .string()
-            .min(1)
-            .optional()
-            .describe("The edition's central theme, only where the organizers stated one."),
-          stats: z
-            .strictObject({
-              registrations: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              rsvps: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              attendees: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              speakers: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              sessions: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              sponsors: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              professionals: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              students: z
-                .number()
-                .refine(Number.isInteger, "Expected an integer")
-                .meta({ type: "integer" })
-                .min(0)
-                .optional(),
-              approximate: z
-                .boolean()
-                .optional()
-                .describe("True when the organizers rounded the figures, such as '600+'."),
-            })
-            .optional()
-            .describe(
-              "Figures reported by the organizers in their event report. Leave out any figure that was not recorded.",
-            ),
-          recordingUrl: z
-            .string()
-            .refine(isUri, "Invalid URI")
-            .meta({ format: "uri" })
-            .regex(/^https:\/\//)
-            .optional(),
           name: z.string().min(1),
           type: z.enum(["devfest", "community", "online"]),
           status: z.literal("past"),

@@ -1,6 +1,6 @@
-import data from "../../content/programme.json";
+import data from "./generated/programme.json";
 import type { ActivityRecord, SessionRecord } from "./model";
-import type { ProgrammeFile } from "./schema/current/programme";
+import type { ProgrammeFile } from "./schema/public/programme";
 import { ALL_PHOTOS } from "./gallery";
 
 type ProgrammeEntry = ProgrammeFile["entries"][number];

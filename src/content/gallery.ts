@@ -1,7 +1,7 @@
-import eventFile from "../../content/event.json";
-import galleryFile from "../../content/gallery.json";
+import eventFile from "./generated/event.json";
+import galleryFile from "./generated/gallery.json";
 import type { GalleryItem } from "./model";
-import type { PressClipping as PressRecord } from "./schema/current/gallery";
+import type { PressClipping as PressRecord } from "./schema/public/gallery";
 export const ALL_PHOTOS = galleryFile.photos;
 export const GALLERY_PHOTOS = ALL_PHOTOS.filter((photo) => photo.showInGallery) as GalleryItem[];
 

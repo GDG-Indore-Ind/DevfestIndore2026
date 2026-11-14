@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readContent, validateContent } from './lib/content.mjs';
-import { GalleryFile } from '../src/content/schema/current/gallery.ts';
-import { FILE_SCHEMAS, jsonSchema } from './content-schemas.mjs';
+import { GalleryFile } from '../src/content/schema/public/gallery.ts';
+import { FILE_SCHEMAS, jsonSchema } from './lib/public-contract.mjs';
 import Ajv from 'ajv';
 const original = readContent();
 const fixture = () => structuredClone(original);
@@ -22,7 +22,7 @@ test('current gallery Zod schema rejects invalid records while accepting optiona
   assert(result.error.issues.some(issue => issue.path.includes('width')));
   assert(result.error.issues.some(issue => issue.code === 'unrecognized_keys'));
 });
-test('Zod and editor schemas reject representative invalid content shapes', () => {
+test('Zod and portable JSON schemas reject representative invalid content shapes', () => {
   const cases = [];
   const invalid = (name, mutate) => {
     const value = structuredClone(original[name]);
@@ -36,14 +36,14 @@ test('Zod and editor schemas reject representative invalid content shapes', () =
   invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'campus-workshop'); item.date = '2026-09-01'; delete item.eventUrl; });
   invalid('programme', value => { const item = value.entries.find(entry => entry.type === 'talk'); item.speakerIds.push(item.speakerIds[0]); });
   invalid('programme', value => { value.entries.find(entry => entry.type === 'activity').organizationIds = []; });
-  invalid('programme', value => { value.entries.find(entry => entry.type === 'activity').format = 'talk'; });
+  invalid('programme', value => { value.entries.find(entry => entry.type === 'activity').format = 'invalid-format'; });
   invalid('pages', value => { delete value.guidelines.title; });
   invalid('pages', value => { const ids = value.guidelines.sections[0].policyIds; ids.push(ids[0]); });
   invalid('gallery', value => { value.photos[0].width = 0; });
   const ajv = new Ajv({ allErrors: true, jsonPointers: true, schemaId: 'auto', format: 'full' });
   for (const [name, value] of cases) {
     assert.equal(FILE_SCHEMAS[name].safeParse(value).success, false, `${name}: Zod accepted invalid data`);
-    assert.equal(ajv.compile(jsonSchema(name, FILE_SCHEMAS[name]))(value), false, `${name}: editor schema accepted invalid data`);
+    assert.equal(ajv.compile(jsonSchema(name, FILE_SCHEMAS[name]))(value), false, `${name}: JSON schema accepted invalid data`);
   }
 });
 test('event ticket settings and archived event references remain validated', () => {

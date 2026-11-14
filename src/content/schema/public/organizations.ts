@@ -47,7 +47,7 @@ export const Organization = z.strictObject({
 });
 
 export const OrganizationsFile = z.strictObject({
-  $schema: z.string(),
+  $schema: z.string().optional(),
   archiveLogoSheet: imageOrHttps,
   organizations: z.array(Organization),
 });

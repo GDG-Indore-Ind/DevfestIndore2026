@@ -3,25 +3,30 @@
 //   npm run photos                 process everything in photos-inbox/ (files named <person-id>.jpg|png|heic)
 //   npm run photos -- --localize   download remote photos and re-encode local ones into public/images/people/
 //
-// Output is public/images/people/<person-id>.webp and the person's `photo` field in content/people.json.
+// Output is public/images/people/<person-id>.webp and people.photo_path in SQLite.
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { PROJECT_ROOT } from "./lib/content.mjs";
+import { readContent } from "./lib/content.mjs";
+import { openDatabase } from "./lib/database.ts";
+import { exportSql, EXPORT_PATH } from "./database.mjs";
+import { generateContent } from "./generate-content.mjs";
+import { people as peopleTable } from "../src/db/schema.ts";
+import { SITE } from "../src/content/site.ts";
+import { eq } from "drizzle-orm";
 
 const SIZE = 480;
 const INBOX = path.join(PROJECT_ROOT, "photos-inbox");
 const OUT_DIR = path.join(PROJECT_ROOT, "public/images/people");
-const PEOPLE_FILE = path.join(PROJECT_ROOT, "content/people.json");
 const IMAGE_EXT = /\.(jpe?g|png|webp|heic|heif)$/i;
 const OUT_PREFIX = "/images/people/";
 
-const peopleFile = JSON.parse(readFileSync(PEOPLE_FILE, "utf8"));
-const people = new Map(peopleFile.people.map((person) => [person.id, person]));
-const currentEventId = JSON.parse(readFileSync(path.join(PROJECT_ROOT, "content/event.json"), "utf8")).events.find(
-  (event) => event.status === "current",
-).id;
+const peopleFile = readContent().people;
+const people = new Map(peopleFile.people.filter(person => person.kind === "person").map((person) => [person.id, person]));
+const currentEventId = SITE.eventId;
+const { db, sqlite } = openDatabase(undefined, false);
 
 mkdirSync(OUT_DIR, { recursive: true });
 
@@ -47,6 +52,7 @@ function toJpegIfHeic(file) {
 }
 
 function setPhoto(personId, url) {
+  db.update(peopleTable).set({ photoPath: url }).where(eq(peopleTable.id, personId)).run();
   people.get(personId).photo = url;
 }
 
@@ -64,7 +70,7 @@ async function processInbox() {
   for (const name of files) {
     const personId = path.parse(name).name.toLowerCase();
     if (!people.has(personId)) {
-      summary.push(`skipped  ${name}: no person with id "${personId}" in content/people.json`);
+      summary.push(`skipped  ${name}: no person with id "${personId}" in the database`);
       continue;
     }
     const source = path.join(INBOX, name);
@@ -104,7 +110,9 @@ async function localize() {
 if (process.argv.includes("--localize")) await localize();
 else await processInbox();
 
-writeFileSync(PEOPLE_FILE, `${JSON.stringify(peopleFile, null, 2)}\n`);
+writeFileSync(EXPORT_PATH, exportSql(sqlite));
+sqlite.close();
+generateContent();
 for (const line of summary) console.log(line);
 
 const missing = peopleFile.people.filter(

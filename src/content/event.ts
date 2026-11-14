@@ -1,5 +1,7 @@
-import eventFile from "../../content/event.json";
+import data from "./generated/event.json";
 import type { EventStats } from "./model";
+import type { EventFile } from "./schema/public/event";
+const eventFile = data as EventFile;
 const current = eventFile.events.find((event) => event.status === "current");
 if (!current || !current.tickets)
   throw new Error("A current event is required. Run npm run content:validate.");

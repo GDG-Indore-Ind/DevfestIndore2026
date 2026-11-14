@@ -54,6 +54,15 @@ const personEvent = z.strictObject({
   eventId: text,
   sourceUrl: httpsUrl.optional(),
   roles: z.array(PersonRole).min(1),
+  profile: z
+    .strictObject({
+      role: z.string().optional(),
+      company: z.string().optional(),
+      avatar: photo.optional(),
+      bio: z.string().optional(),
+      socials: links.optional(),
+    })
+    .optional(),
 });
 
 export const Person = z.strictObject({
@@ -75,7 +84,7 @@ export const Person = z.strictObject({
 });
 
 export const PeopleFile = z.strictObject({
-  $schema: z.string(),
+  $schema: z.string().optional(),
   people: z.array(Person),
 });
 

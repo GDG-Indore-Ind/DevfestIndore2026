@@ -1,4 +1,4 @@
-import pages from "../../content/pages.json";
+import pages from "./generated/pages.json";
 
 export const GUIDELINES_PAGE = pages.guidelines;
 export const PARTNERS_PAGE = pages.partners;

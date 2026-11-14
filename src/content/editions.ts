@@ -2,19 +2,20 @@ import { ARCHIVED_EVENTS } from "./archive";
 import { GALLERY_PHOTOS, PRESS_CLIPPINGS } from "./gallery";
 import { getEventPartners } from "./partners";
 import { byRoleOrder, PARTICIPATIONS } from "./participations";
-import { getPerson } from "./people";
+import { getEventPerson } from "./people";
 import { getSessionSpeaker, SESSION_RECORDS } from "./speakers";
+import { ACTIVITIES } from "./programme";
 
 export function getEditionSpeakers(eventId: string) {
   return PARTICIPATIONS.flatMap((entry) => {
     const role = entry.roles.find((item) => item.kind === "speaker");
     if (entry.eventId !== eventId || !role) return [];
-    const sessions = SESSION_RECORDS.filter(
-      (session) => session.editionId === eventId && session.speakerIds.includes(entry.personId),
+    const sessions = [...SESSION_RECORDS, ...ACTIVITIES].filter(
+      (session) => session.editionId === eventId && session.speakerIds?.includes(entry.personId),
     );
     const person = sessions.length
       ? getSessionSpeaker(sessions[0], entry.personId)
-      : getPerson(entry.personId);
+      : getEventPerson(entry.personId, eventId);
     return [{ person, label: role.title, order: role.order, sessions }];
   }).sort(byRoleOrder);
 }
