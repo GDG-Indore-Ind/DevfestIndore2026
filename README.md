@@ -1,8 +1,10 @@
 # DevFest Indore 2026
 
-The attendee website for GDG DevFest Indore 2026. Built with Next.js App Router, React and checked-in JSON content.
+The attendee website for GDG DevFest Indore 2026. Built with Next.js App Router, React and checked-in SQLite content, published as static pages.
 
 ## Run locally
+
+Use Node.js 24 or newer.
 
 ```sh
 npm install
@@ -13,21 +15,19 @@ Open [the local preview](http://localhost:3000). The development badge is hidden
 
 ## Edit content
 
-Read [the content editing guide](content/README.md). All editable public records belong in `content/*.json`; typed views in `src/content/` connect them to pages. JSON Schemas and reference validation run before development and builds.
+Read [the content editing guide](content/README.md). Public event facts live in **`content/devfest.sqlite`**, edited with `npm run db:studio`. The build validates SQLite and generates browser-safe content views; no database service is deployed.
 
-- `event.json`: current and past events, venue, official links, tickets, booking settings and policies.
-- `people.json`, `programme.json`: person profiles, photos and roles; talks and campus workshops reference their speakers. Add photos with `npm run photos`.
-- `organizations.json`: organization artwork and confirmed, ecosystem or historical relationships.
-- `pages.json`: page wording, homepage themes, FAQs and the partner reveal switch.
-- `gallery.json`: community photographs.
-
-People and organizations are defined once and referenced by stable IDs. Publish only confirmed records. Historical appearances and community logos never imply current participation.
+- `src/db/schema.ts` and its migrations define the relational model.
+- `content/database.sql` is the generated, reviewable export. After editing the database, run `npm run db:export` and commit both files.
+- `src/content/copy.ts` owns page prose, FAQs and interface text; `src/content/site.ts` owns website selection and presentation switches.
+- Add person photos with `npm run photos`. Development automatically refreshes its content snapshot after database edits.
+- `npm run db:restore -- --output /tmp/devfest-restored.sqlite` verifies recovery without overwriting your database.
 
 ## Attendee journeys
 
 - Home introduces the event, Themes, ticket passes, exhibit and partner invitations, community photographs and venue.
 - `/agenda` lists confirmed speakers and their sessions until the full schedule is published.
-- `/tickets` shows open passes and their inclusions above the embedded KonfHub checkout; sold-out passes sit below it without a Register action. Cadet sends students to `/ambassadors`; Commander registers in the widget. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `event.json` → the current event’s `tickets.booking.enabled` controls the widget and direct fallback link.
+- `/tickets` shows open passes and their inclusions above the embedded KonfHub checkout; sold-out passes sit below it without a Register action. Cadet sends students to `/ambassadors`; Commander registers in the widget. KonfHub owns live inventory, pricing and payment; there is no local release calendar. `events.booking_enabled` in SQLite controls the widget and direct fallback link.
 - `/faq` holds the common questions followed by the complete registration guidelines (each guideline section keeps its anchor, such as `/faq#eligibility`); `/guidelines` redirects there. Short reminders stay beside Register, including the LinkedIn profile reminder and final-sale notice.
 - `/partners` contains contribution options and the official partner form. `pages.partners.revealed` holds collaborator announcements until approved.
 - `/venue` contains the verified photo, address, directions, map and check-in information.

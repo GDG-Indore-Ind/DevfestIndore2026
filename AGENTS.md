@@ -3,8 +3,8 @@
 ## Current architecture
 
 - Next.js 16 App Router, React 19, TypeScript and Tailwind CSS 4. Read the installed Next.js guides before framework changes.
-- Public content lives in `content/*.json`; typed views in `src/content/` supply pages. Read `content/README.md` before editing records.
-- Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. There is no custom admin, proposal backend, database or upload service in this application.
+- Public event facts live in `content/devfest.sqlite`; the build generates static publication views consumed by `src/content/`. Page copy lives in `src/content/copy.ts`. Read `content/README.md` before editing records.
+- Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. SQLite is local build/editor storage; there is no deployed database service, custom admin, proposal backend or upload service.
 - Person photos live in `public/images/people/<person-id>.webp` and are added with `npm run photos` (see `content/README.md`); artwork renders through Next Image. Do not add an upload workflow to the application.
 - Vercel Analytics is the only analytics integration. GTM, GA4 and Meta Pixel were removed on 30 October 2026; do not re-add third-party tracking scripts without the owner's approval.
 - Images under `public/images` and `public/gallery` are optimized automatically by `npm run images` before dev and build (see `docs/contributing.md`).
@@ -36,10 +36,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Canonical content ownership — updated 30 October 2026
+## Canonical content ownership — updated 14 November 2026
 
-All editable public website data belongs in `content/*.json`. Read `content/README.md` before editing records. The JSON Schemas in `content/schemas/` and `scripts/validate-content.mjs` enforce the data model. `src/content/` derives typed views that pages import directly; there is no separate `src/data/` compatibility layer. Never restore inline speaker, sponsor or ticket arrays or regenerate them from spreadsheets.
+Edit domain records in `content/devfest.sqlite`, normally through `npm run db:studio`. SQLite tables, foreign keys and migrations are defined in `src/db/`. After edits, run `npm run db:export` to refresh the generated `content/database.sql` for review and recovery. Commit the database and export together. Never hand-edit the export or generated publication files.
 
-People and organizations are defined once and referenced by stable IDs. Partnerships describe their real contribution and edition without inferring financial tiers. Only confirmed 2026 participation may be published. Keep tentative/private planning data outside public records. Event facts and the checkout switch live in `content/event.json`; pass facts (including each pass's price, offer and booking route) live in the same file under the current event's `tickets`.
+People and organizations are defined once. Sessions reference presenters through junction tables; presenter assignments imply speaking participation, so a duplicate event speaker role is not required. `event_people` owns a person's presence at an event (optional event profile, source and official roster position); `event_person_roles` holds one row per non-programme role or speaker announcement, with its listing order. Only confirmed information belongs in this public-content database. Never put private codes, contact lists or tentative planning into it.
 
-Run `npm run content:validate` and TypeScript checks for data/model changes. Content validation runs before dev/build. Application code must not import spreadsheets or archived reference material.
+Page prose, FAQs and interface wording live in `src/content/copy.ts`; website selection and presentation switches live in `src/content/site.ts`. Registration policies are one event-owned document. Passes reference shared inclusion sets without losing restricted-pass differences. Historical editions use the same tables; do not invent dates or infer financial sponsorship tiers.
+
+`npm run content:generate` validates SQLite and writes ignored browser-safe snapshots under `src/content/generated/`. Application components must not import database drivers or script-side loaders. Development watches content edits; production rebuilds are required to publish changes. Run `npm run check` and `npm run build` before release. Schema changes require a reviewed migration and a restore/migration test.

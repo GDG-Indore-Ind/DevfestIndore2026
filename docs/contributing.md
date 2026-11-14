@@ -6,7 +6,10 @@ Start with the [README](../README.md). The [content guide](../content/README.md)
 
 | Change | Location |
 | --- | --- |
-| Public facts, copy, people, passes and partners | `content/*.json` |
+| Public event facts, people, passes and partnerships | `content/devfest.sqlite` (`npm run db:studio`) |
+| Editorial copy, FAQs and interface wording | `src/content/copy.ts` |
+| Website selection and presentation switches | `src/content/site.ts` |
+| Database schema and migrations | `src/db/` |
 | Relationships, derived labels and typed content views | `src/content/` |
 | Page composition, route metadata and redirects | `src/app/`, `next.config.ts` |
 | Header, footer, theme choice and page shell | `src/components/layout/` |
@@ -32,7 +35,7 @@ For new isolated components, use a colocated `Component.module.css` with shared 
 
 Keep static sections as Server Components. Client components are for state, effects, event handlers and browser APIs. Pass server-rendered content through children where appropriate rather than marking a whole page as client rendered.
 
-Run `npm run format` after source edits. It formats application TypeScript, component CSS Modules and the shared token sheet, leaving canonical JSON and historical reference documents untouched. Existing global CSS remains outside this initial formatting scope so semantic migrations stay reviewable.
+Run `npm run format` after source edits. It formats application TypeScript, component CSS Modules and the shared token sheet, leaving the database, its SQL export and historical reference documents untouched. Existing global CSS remains outside this initial formatting scope so semantic migrations stay reviewable.
 
 Saved referral subscriptions live in `src/hooks/useReferral.ts`; booking components use this hook rather than maintaining their own storage listeners. Its server snapshot has no coupon, so hydration remains consistent.
 
@@ -47,10 +50,18 @@ npm run check
 npm run build
 ```
 
-`check` validates content, checks that editor schemas match the Zod definitions, generates Next.js route types, checks TypeScript, lints and checks formatting. After editing a Zod schema, run `npm run content:schemas` to regenerate the editor files. CI also builds the production application. Review changed routes on a Vercel preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking and sold-out states, direct-link coupons and the iframe fallback without making a purchase.
+`check` verifies database integrity, foreign keys and the SQL export, generates and validates public content, runs content/database tests, generates Next.js route types, checks TypeScript, lints and checks formatting. After schema changes, run `npm run db:generate`, review the SQL migration, run `npm run db:migrate`, then `npm run db:export`. Test migrations against a restored copy before applying them to the editable database. CI also builds the production application. Review changed routes on a Vercel preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking and sold-out states, direct-link coupons and the iframe fallback without making a purchase.
 
 See [release instructions](releasing.md) for deployment ownership and review.
 
 ## Content tests
 
 `npm run content:test` covers the content relationships and is part of `npm run check`. Add people and photos as described in the [content guide](../content/README.md).
+
+## SQLite publication boundary
+
+`scripts/lib/database.ts` opens SQLite with foreign keys enabled. `scripts/lib/project-content.mjs` derives the publication views. `npm run content:generate` validates these views and writes ignored files under `src/content/generated/`; application modules import only these ordinary static files. Database code must never be imported by application components. Builds are offline with respect to event content.
+
+The six generated collections preserve the existing page contracts; they are not editable records or independent sources. Zod contracts under `src/content/schema/public/` validate the public output, not an editor schema for retired JSON files. `copy.ts` is code-owned editorial content, so ordinary English labels do not each need a schema field.
+
+`npm run dev` watches SQLite, its WAL, editorial copy and site configuration. Valid changes refresh the generated files and trigger Next's normal refresh; invalid changes leave the previous snapshot in place and report validation errors. A production build always validates again and fails on invalid content.

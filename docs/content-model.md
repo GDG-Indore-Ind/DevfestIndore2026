@@ -1,370 +1,86 @@
-# Historical content model proposal
+# Event content model
 
-This is a historical proposal, not the live model or a migration plan. The current architecture keeps six canonical files in `content/*.json`; their Zod schemas live in `src/content/schema/current/` and generate the editor schemas. See [the content guide](../content/README.md) for the current model. The earlier event-folder prototype was retired after the current-file schemas were implemented.
+SQLite is the single editable source of approved public event information. The website is a publication of that information; registration, proposals and payments remain external responsibilities.
 
-## Principles
+## Records and ownership
 
-1. **schema.org vocabulary.** A field uses the schema.org property name when one exists (`startDate`, `location`, `performer`, `jobTitle`, `sameAs`, `contentUrl`, `headline`). Source files stay plain JSON: no `@context` or `@type`, and nested schema.org objects are flattened to IDs or strings. The site generates JSON-LD from these records. A field with no schema.org match keeps a short plain name (`track`, `order`, `featured`).
-2. **One home per fact.** A record is written once. A relationship lives on the record that points outward, as an ID. People and organizations never list their events. Events never list their speakers.
-3. **The folder is the event.** Everything that happened at one event lives in `content/events/<event-id>/`. Records there carry no `eventId`, because the folder already says it.
-4. **Shared things are shared.** People, organizations, photographs and press clippings exist across years, so they live at the top level. A shared record ties itself to an event with `about: "<event-id>"`.
-5. **Zod is the single definition.** The schemas in `src/content/schema/` produce the TypeScript types, the build-time validation and, through `z.toJSONSchema()`, the JSON Schemas in `content/schemas/` that editors use for autocomplete. Nobody edits the JSON Schemas by hand.
-6. **Facts are not repeated as flags.** "Current" is `site.json → currentEvent`. "Archived" means the event is in the past. Only confirmed information goes into these files, so there is no `publication` field.
+| Table | Grain / key | Owned facts |
+| --- | --- | --- |
+| `events` | One event occurrence; `id` | Dates, venue, series, official links, reported figures, registration policy document and booking handoff |
+| `people` | One person; `id` | Current name, job title, employer, bio, photo and links |
+| `event_people` | One person at one event; `(event_id, person_id)` | Event profile, historical source and official roster position |
+| `event_person_roles` | One role a person holds at an event; `(event_id, person_id, kind)` | Role kind, label, listing order, responsibilities or ambassador track/community |
+| `rooms` | One space at one event; `id` | Name, description and presentation order |
+| `sessions` | One programme item at one event; `id` | Format, title, abstract, room, timing, topics, resources and optional promotion copy |
+| `session_people` | One presenter assignment; `(session_id, person_id)` | Presenter order and optional appearance-specific profile |
+| `session_organizations` | One organization presenting a session; `(session_id, organization_id)` | Presenting organization and order |
+| `organizations` | One organization or collective; `id` | Name, description, artwork and public links |
+| `partnerships` | One specific contribution; `id` | Organization, event/scope, contribution description, publication and display metadata |
+| `passes` | One admission offer at an event; `(event_id, code)` | Price, eligibility, booking route, published/sold-out snapshot, offers and inclusion-set reference |
+| `pass_inclusion_sets` | One reusable entitlement list at an event; `id` | Exact ordered benefits; shared only where entitlements are identical |
+| `media` | One published photograph/clipping; `id` | Asset path, caption, dimensions, event/session, publication date and attribution |
 
-## Layout
+Sessions use a common model for talks, workshops, exhibits, panels, keynotes and addresses. Campus workshops are events with independent venues/dates and a session. A parent event is optional, never inferred. No separate archive table exists; previous editions remain event records, and preserved edition websites can still be published independently.
 
-```
-content/
-  site.json                     Organization + WebSite: GDG Indore, links, currentEvent, feature switches
-  people.json                   Person[]
-  organizations.json            Organization[]
-  photos.json                   ImageObject[]   (about → event or sub-event id)
-  press.json                    NewsArticle[]   (about → event id)
-  copy/                         page text only, one file per page: home.json, tickets.json, faq.json, …
-  events/
-    devfest-2026/
-      event.json                Event
-      sessions.json             Event[]  talks, keynotes, panels
-      workshops.json            Event[]  campus workshops before the main day
-      team.json                 organizers and volunteers
-      ambassadors.json          campus and professional ambassadors
-      partners.json             organizations and what they contributed
-      tickets.json              Offer[] + policies + booking
-      faq.json                  Question[]
-      themes.json               programme themes
-    devfest-2025/
-      event.json
-      sessions.json
-      partners.json
-    ccd-2025/
-      event.json
-      sessions.json
-    ai-unplugged-2025/
-      event.json
-    …
-  schemas/                      generated from Zod; do not edit
-```
+There are no generic content/entity tables, private planning records, event-user accounts, orders, issued tickets, payment records, workflow engines or upload services.
 
-An event folder holds only the files it needs. A past event can be a single `event.json`. Starting next year means copying the current folder and clearing what does not carry over.
+## Relationships and small documents
 
-Assets follow the same split under `public/images/`:
+Foreign keys connect entities. A session's room and a pass's inclusion set must belong to the same event. Presenter/organization links are unique, and deleting a session removes its links without deleting identities. Referenced people cannot be deleted accidentally. Event covers and workshop media retain their own protected references.
 
-```
-public/images/
-  people/<person-id>.webp
-  organizations/<organization-id>.(svg|webp|png)
-  photos/<event-id>/<name>.webp
-  press/<event-id>-<publication>-<headline>.jpg
-  events/<event-id>/…          venue photo, event artwork
-```
+Small owned values remain JSON columns: social links, venue details, responsibility lists, resources, eligibility prose, inclusion lists, statistics and the registration policy document. These do not need separate tables and identities. Roles are the exception: they are rows in `event_person_roles`, whose checks tie each kind to its own details and whose rows are removed with their `event_people` parent. JSON syntax is constrained in SQLite; public shape/business checks run before publication.
 
-## People: JSON, not SQLite
+A presenter assignment implies a speaker at that event. An `event_person_roles` speaker row is optional for announcement labels/order or a speaker whose session is not known. It is never a required duplicate of an assignment. Historical `official_speaker_order` preserves a sourced roster without a second speaker ID array.
 
-`people.json` stays a single JSON file.
+Person identity stays current. Event profiles override current details, and session profiles override event details. Historical job titles/employers imported from sessions remain intentional snapshots. Collective presenters belong to organizations; the compatibility publication view can render them with the existing group profile presentation.
 
-- Next.js imports it at build time with no database driver, and Vercel builds need nothing extra.
-- Changes show up as readable diffs in pull requests. A SQLite file is binary, so a reviewer cannot see what changed.
-- The `$schema` line gives autocomplete and inline errors in VS Code. SQLite has no equivalent without extra tooling.
-- About 70 records loads instantly. SQLite becomes worth considering at thousands of records or when non-developers need a table editor, and moving to it then is mechanical.
+## Naming and precision
 
-## Records
+SQL uses plural `snake_case` table names and `snake_case` columns; TypeScript uses `camelCase`. IDs remain stable existing strings. Pass codes are scoped to events. `display_order` is display order, `running_order` is programme order, and presenter order belongs to the assignment.
 
-### `site.json`
+Event timestamps (`starts_at`) retain their offset. `start_date` supports date-only evidence, and `timezone` identifies the event's display zone. Session `start_time` is event-local 24-hour `HH:MM`, enforced by a check because the agenda sorts on it. Each event has exactly one of `starts_at` and `start_date`. Unknown session text is NULL, never an empty string. Unknown dates/times remain NULL; zero is never used as an unknown price. Money is integer minor units with explicit currency, currently INR.
 
-```json
-{
-  "$schema": "./schemas/site.schema.json",
-  "name": "Google Developer Group Indore",
-  "url": "https://devfest.indore.community",
-  "email": "gdgindore@gmail.com",
-  "logo": "/images/organizations/gdg-indore.svg",
-  "sameAs": [
-    "https://gdg.community.dev/gdg-indore/",
-    "https://www.linkedin.com/company/gdg-indore/",
-    "https://www.instagram.com/gdgindore/",
-    "https://youtube.com/@GDGIndore",
-    "https://github.com/GDG-Indore",
-    "https://x.com/GDG_Indore"
-  ],
-  "codeOfConduct": "https://developers.google.com/community-guidelines",
-  "currentEvent": "devfest-2026",
-  "ecosystem": ["google-for-developers", "…"],
-  "historicalSponsors": ["…"],
-  "features": {
-    "partnersRevealed": true,
-    "ambassadorContact": false
-  }
-}
-```
+The database contains approved facts. Publication switches are distinct from event selection; the featured event is selected in `src/content/site.ts`, rather than repeated as mutable `current` flags. The public adapters derive the older `current`/`past` and `confirmed`/`archived` presentation values. These are not extra authored states.
 
-`historicalSponsors` holds the 25 sponsors from the old logo sheet, whose year is unknown. Each logo is cut out into its own file in `public/images/organizations/`, which removes `archiveLogoSheet` and `archiveLogoWindow`.
+## Publication boundary
 
-### `people.json` (Person)
+1. `scripts/lib/database.ts` opens the database read-only for publication, with foreign keys enabled. Writable connections are limited to editor/import/migration/photo tooling.
+2. `scripts/lib/project-content.mjs` reads typed tables and derives the six public collections expected by the existing page views.
+3. `scripts/lib/content.mjs` checks shapes, assets, references, policies, public links, FAQ substitutions and historical report consistency. Zod under `src/content/schema/public/` describes these output contracts, not the canonical database.
+4. `scripts/generate-content.mjs` writes ignored `src/content/generated/*.json` files only after validation. Components import these snapshots and never SQLite or its driver.
+5. Next.js prerenders the site. There is no content API, database network dependency or deployed write path. Production changes require a rebuild.
 
-```json
-{
-  "id": "kartikey-rawat",
-  "name": "Kartikey Rawat",
-  "jobTitle": "Senior Engineer",
-  "worksFor": "Qualcomm",
-  "description": "One or two sentences.",
-  "image": "/images/people/kartikey-rawat.webp",
-  "hasCredential": ["Google Developer Expert"],
-  "sameAs": ["https://www.linkedin.com/in/…", "https://github.com/…"]
-}
-```
+The six generated collections are compatibility publication contracts, not six sources to edit. Keeping those contracts avoids a page rewrite and preserves approved content while canonical ownership changes underneath.
 
-- `sameAs` is a list of profile URLs. The site recognises LinkedIn, X, GitHub, Instagram and so on from the domain, so there is no fixed set of link keys.
-- `hasCredential` holds recognitions of the person, such as "Google Developer Expert", which used to be repeated on each talk as `spotlightBadge`. Editorial labels stay on the talk as the performer's `badge`.
-- `worksFor` is a plain name. Most employers are not partners and do not need an organization record.
-- There is no `kind: "group"`. `gdg-technical-team` becomes an organization, and sessions can name an organization as performer.
+Publication reads and SQL exports use a single read transaction. Concurrent editing must not combine an old relationship table with newer session or identity rows in one artifact.
 
-### `organizations.json` (Organization)
+## Independence of facts
 
-```json
-{
-  "id": "qualcomm",
-  "name": "Qualcomm",
-  "description": "…",
-  "logo": "/images/organizations/qualcomm.png",
-  "logoShape": "wide",
-  "url": "https://www.qualcomm.com/",
-  "sameAs": ["https://www.linkedin.com/company/qualcomm/"]
-}
-```
+- Topic/category is descriptive metadata. It never decides whether a session keeps its organizations, presenters, resources or appearance profiles. `talk`/`activity` are presentation adapters over the same `sessions` table, selected from format and presenter relationships.
+- Source reference, summary, series, theme, reported figures, cover and recording belong to an event. Selecting that event for the main website does not remove these facts from its public contract.
+- Organization-led items use the same current → event → appearance profile precedence as speaker-led items. Their category, resources, source URL and profile overrides remain available in the public programme.
+- Archive speaker listings follow presenter assignments across both speaker-led and organization-led items, including workshops and panels.
+- FAQ placeholders share one vocabulary between validation and rendering. Policy placeholders read `registration_policies`; unresolved placeholders fail instead of becoming empty text.
 
-### `events/<id>/event.json` (Event)
+`src/content/copy.ts` owns editorial prose, FAQs, theme descriptions and UI labels. `src/content/site.ts` owns featured-event selection and presentation switches. Neither is a database-shaped CMS. Event-dependent prose uses the existing canonical fact substitutions. Exhibit highlights are session-owned so a second list cannot independently claim an exhibit is confirmed.
 
-```json
-{
-  "$schema": "../../schemas/event.schema.json",
-  "id": "devfest-2026",
-  "name": "DevFest Indore 2026",
-  "series": "devfest",
-  "startDate": "2026-11-28T09:00:00+05:30",
-  "endDate": "2026-11-28T18:00:00+05:30",
-  "timezone": "Asia/Kolkata",
-  "eventStatus": "scheduled",
-  "eventAttendanceMode": "offline",
-  "tagline": "A day for developers, by developers",
-  "description": "Applied AI, cloud, modern systems and physical AI",
-  "location": {
-    "name": "Essentia Luxury Hotel Indore",
-    "address": {
-      "streetAddress": "Near World Cup Square, Pipliyahana, Ring Road",
-      "addressLocality": "Indore",
-      "addressRegion": "Madhya Pradesh",
-      "postalCode": "452016",
-      "addressCountry": "IN"
-    },
-    "geo": { "latitude": 22.71013, "longitude": 75.9039 },
-    "hasMap": "https://maps.google.com/?q=…",
-    "image": "/images/events/devfest-2026/venue.jpg"
-  },
-  "url": "https://gdg.community.dev/events/details/…",
-  "links": {
-    "callForProposals": "https://sessionize.com/devfest-indore-2026/",
-    "partnerApplication": "https://forms.gle/…",
-    "exhibitApplication": "https://forms.gle/…"
-  }
-}
-```
+## Provenance, review and recovery
 
-- `id` must equal the folder name; validation checks this.
-- `series` is `devfest` or `community` and replaces `type`. An online session such as Cloud Bytes is `community` with `eventAttendanceMode: "online"`.
-- `eventStatus` uses schema.org's values (`scheduled`, `cancelled`, `postponed`, `rescheduled`). Past or current comes from the date and `site.json`.
-- Past events fill in only what is known, for example `name`, `startDate`, `location.name`, `description`, `url`.
+| Information | Source / trace |
+| --- | --- |
+| Proposal handling | Sessionize; approved publication records are curated locally |
+| Live ticket availability/payment | KonfHub; website flags are deliberate publication snapshots |
+| Historical event details and figures | Event `source_url` and `reported_stats`, retaining approximation |
+| Historical appearances | Event participation source and appearance-specific profile |
+| Partnerships | Contribution `source_url`, explicit scope, no guessed year/tier |
+| Photos and press | Media attribution, publication and date fields |
+| Content changes | Git versions of the SQLite file and deterministic SQL export |
+| JSON migration | `content/migration-report.json`, including full publication comparison |
 
-### `sessions.json` and `workshops.json` (Event, as sub-events)
+`content/database.sql` is generated data-only SQL, ordered deterministically by table/key. Review it alongside the binary database change. `npm run db:check` checks SQLite integrity, foreign keys and export parity. Recovery applies versioned schema migrations and then this export into a new database. Existing files are never overwritten.
 
-```json
-{
-  "id": "devfest-2026-kartikey-rawat",
-  "name": "Building AI at the Edge: …",
-  "format": "talk",
-  "description": "…",
-  "performer": [
-    { "person": "kartikey-rawat", "jobTitle": "Senior Engineer, Developer Relations", "badge": "Engineering Leader" }
-  ],
-  "track": "Edge AI",
-  "keywords": ["GenAI"],
-  "educationalLevel": "intermediate",
-  "startDate": "2026-11-28T11:00:00+05:30",
-  "location": "Hall A"
-}
-```
+The one-time `scripts/migrate-json-to-sqlite.mjs --source <directory> --output <new-file>` importer accepts the six former JSON sources recovered from Git. Normal development/builds do not use them. It verifies complete publication equivalence, accounting only for explicit default flags, default talk format and policy grouping order. Every original identity and authored role is checked.
 
-- `performer` entries name either a `person` or an `organization`. `jobTitle` and `worksFor` on a performer are optional, used only when the title shown for that talk differs from the person record. `badge` is an optional editorial label for that talk, such as "Engineering Leader", "Founder & Executive" or "Featured Speaker".
-- A session without `name` appears on the agenda as "Session to be announced", so a confirmed speaker can be listed before their title is known.
-- Speakers are whoever performs in `sessions.json`. There is no separate speaker role and no `officialSpeakerIds`.
-- `format` is `talk`, `keynote`, `panel` or `workshop`. `keywords` replaces `category`.
+## Scope for later changes
 
-Campus workshops use the same shape with a campus `location` and their GDG event `url`:
-
-```json
-{
-  "id": "campus-acropolis-2026",
-  "name": "AI & Google Cloud",
-  "format": "workshop",
-  "startDate": "2026-09-21",
-  "location": { "name": "Acropolis Institute of Technology and Research (AITR)" },
-  "performer": [{ "person": "soham-sharma" }],
-  "url": "https://gdg.community.dev/events/details/…"
-}
-```
-
-Sub-event IDs are unique across all events, so a photo can point at one with `about`. Old `legacyId` links (`ws-1` …) move to `redirects()` in `next.config.ts`.
-
-### `team.json`
-
-```json
-{
-  "person": "tushar-pal",
-  "group": "core-team",
-  "order": 1,
-  "responsibilities": [
-    { "area": "Event", "level": "lead" },
-    { "area": "Community & Outreach", "level": "lead" }
-  ]
-}
-```
-
-`group` is `core-team` or `volunteers`. `order` sorts within the group; entries without one follow in file order.
-
-### `ambassadors.json`
-
-```json
-{ "person": "karan-mittal", "track": "professional", "community": "…" }
-```
-
-### `partners.json`
-
-```json
-{
-  "organization": "qualcomm",
-  "roleName": "Physical AI partner",
-  "type": "collaborator",
-  "featured": "technology",
-  "announced": true,
-  "order": 2
-}
-```
-
-- `type` is `sponsor`, `collaborator`, `community` or `media`. Use `sponsor` only for an agreed sponsorship.
-- An organization appears once per event with one `type`. No current partner contributes in two ways; if one ever does, `type` can become a list.
-- `announced: false` holds back a confirmed partner. `site.json → features.partnersRevealed` switches the whole section.
-
-### `tickets.json` (Offer)
-
-```json
-{
-  "booking": {
-    "enabled": true,
-    "url": "https://konfhub.com/gdg-devfest-indore-2026",
-    "widgetUrl": "https://konfhub.com/widget/id/…"
-  },
-  "offers": [
-    {
-      "id": "student",
-      "name": "Cadet Pass",
-      "price": 849,
-      "priceCurrency": "INR",
-      "availability": "in-stock",
-      "inventoryLevel": 200,
-      "eligibleCustomerType": "Students only",
-      "eligibility": ["Currently enrolled students only", "…"],
-      "description": "Full-day access for college and university students.",
-      "bookingRoute": "ambassador",
-      "listed": true,
-      "benefits": [{ "group": "access", "label": "Workshop access", "detail": "First come, first served" }],
-      "note": "…"
-    }
-  ],
-  "benefitGroups": [{ "id": "access", "label": "Event access" }],
-  "policies": [{ "id": "final-sale", "title": "All sales are final", "text": "…" }],
-  "guidelines": [{ "id": "before-booking", "title": "Before you book", "policies": ["accurate-details"] }],
-  "registrationChecklist": [{ "title": "Add your LinkedIn URL", "text": "…" }],
-  "registrationDeclaration": "…"
-}
-```
-
-- `availability` is `in-stock`, `sold-out` or `pre-order`. It replaces `soldOut`.
-- `listed: false` hides a pass card; it replaces `visible`.
-- Button and heading text from `tickets.registration` moves to `copy/tickets.json`.
-
-### `faq.json` and `themes.json`
-
-```json
-{ "id": "what-is-devfest", "question": "What is GDG DevFest Indore 2026?", "answer": "…", "topic": "event" }
-```
-
-Themes keep their current shape. Both are per event, because the questions and themes change each year.
-
-### `photos.json` (ImageObject)
-
-```json
-{
-  "id": "devfest-2025-community",
-  "name": "Together at DevFest Indore",
-  "caption": "The DevFest Indore community on stage at the 2025 edition.",
-  "contentUrl": "/images/photos/devfest-2025/community.webp",
-  "width": 1400,
-  "height": 933,
-  "about": "devfest-2025",
-  "keywords": ["community"],
-  "featured": true,
-  "isBasedOn": "https://…"
-}
-```
-
-- `about` points at an event or a sub-event such as `campus-acropolis-2026`. That replaces the workshop's `photoIds` list.
-- `keywords` replaces `category`. `featured` replaces `showInGallery`.
-
-### `press.json` (NewsArticle)
-
-```json
-{
-  "id": "devfest-2025-naidunia-ai-and-cultural-intelligence",
-  "headline": "Not just AI: human and cultural understanding matter too",
-  "publisher": "Nai Dunia",
-  "datePublished": "2025-12-21",
-  "inLanguage": "hi",
-  "about": "devfest-2025",
-  "image": {
-    "contentUrl": "/images/press/devfest-2025-naidunia-ai-and-cultural-intelligence.jpg",
-    "width": 1080,
-    "height": 1041
-  }
-}
-```
-
-`about` replaces the free-text `event: "DevFest Indore 2025"`. The file wraps the list as `{ "articles": [...] }`.
-
-### `copy/*.json`
-
-Page text only: headings, leads, button and accessibility labels. No switches, no lists of records. One file per page keeps each small. Text that names the year reads it from the current event rather than hard-coding it.
-
-## What validation still checks in code
-
-Zod covers shapes, enums and the speaker/team/ambassador variants. A short cross-reference pass in `superRefine` checks:
-
-- every `person`, `organization` and `about` ID exists;
-- each event folder name equals its `id`, and `site.json → currentEvent` names a folder;
-- IDs are unique within their collection, and sub-event IDs are unique across events;
-- an organization appears at most once in an event's `partners.json`, and only one partner per `featured` slot;
-- every ticket policy appears in exactly one guideline section, and the required policies exist;
-- asset paths exist under `public/`, and FAQ template tokens are known.
-
-Everything else in today's `validateContent` exists to reconcile duplicated fields and goes away with them.
-
-## Migration order
-
-1. ✅ Add Zod and write the schemas in `src/content/schema/`, with `scripts/content-schemas.mjs` to write `content/schemas/`. Its output replaces the old hand-written schemas as each collection moves, so it is not wired into npm scripts yet.
-2. Move people and organizations (shared records), then split roles into each event's `team.json` and `ambassadors.json`.
-3. Create the event folders, and move sessions, workshops, partners, tickets, FAQs and themes into them.
-4. Move photos and press into the top-level files, and reorganise `public/images/`.
-5. Split `pages.json` into `site.json → features` and `copy/`.
-6. Replace `src/content/*` views and `scripts/lib/*` adapters with loaders that read the new files, and update pages to the new field names.
-7. Rewrite `content/README.md` for editors, then run `npm run check` and `npm run build`.
-
-Each step ends with the site building and `npm run check` passing.
+A hosted database can replace the local connection without changing the publication boundary. Moving to PostgreSQL requires dialect-specific DDL/type migration and a tested data import; using Drizzle does not make that automatic. A specialized editor can group related writes into one transaction. Repeated session occurrences or separate draft/published schedules should be introduced only when those workflows are actually needed.

@@ -40,7 +40,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 
 ## Content ownership
 
-Public records live in `content/*.json`, with typed views in `src/content/`. People and organizations have stable IDs; participations connect people to exact events and roles. Historical affiliation and source information retain their event context. `content/README.md` documents editing, schemas and validation.
+Public event records live in `content/devfest.sqlite`. The build derives validated static views for `src/content/`; page prose and interface text live in `src/content/copy.ts`. People and organizations have stable IDs. Presenter links determine speaking participation; event involvement retains team/ambassador roles, announcements and historical profiles. See `content/README.md` for editing and `docs/content-model.md` for the model.
 
 The ambassador directory references people by ID and stores their community and selected LinkedIn contact. Its hidden entries remain records; they do not render until a usable LinkedIn URL is supplied. Former invitation records are retired. Previously saved referral coupons can still be passed to the direct KonfHub fallback.
 
