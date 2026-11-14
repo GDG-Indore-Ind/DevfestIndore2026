@@ -1,19 +1,20 @@
-import Image from "next/image";
+import type { CSSProperties } from "react";
 import Link from "next/link";
-import { Mic, Users } from "lucide-react";
-import { AGENDA_ITEMS, agendaStages } from "@/content/agenda";
+import { AGENDA_ITEMS, AGENDA_SPEAKERS } from "@/content/agenda";
 import { AGENDA_PAGE, HOME_PAGE } from "@/content/pages";
+import CommunityPhoto from "@/components/shared/CommunityPhoto";
 import ContentAction from "@/components/shared/ContentAction";
 import styles from "./AgendaPreview.module.css";
 
 const copy = HOME_PAGE.agendaPreview;
-const MAIN_STAGE_ROWS = 8;
+const MAX_SPEAKERS = 9;
 
-/** The first main-stage slots, with counts for workshops and exhibits, linking to /agenda. */
+/** Confirmed speakers with their session, then workshop and exhibit counts, linking to /agenda. */
 export default function AgendaPreview() {
-  const [main] = agendaStages(AGENDA_ITEMS);
-  if (!main) return null;
-  const rows = main.items.slice(0, MAIN_STAGE_ROWS);
+  const speakers = AGENDA_SPEAKERS.slice(0, MAX_SPEAKERS);
+  if (!speakers.length) return null;
+  // Up to six speakers share one desktop row; larger line-ups wrap in fours.
+  const columns = speakers.length <= 6 ? Math.max(4, speakers.length) : 4;
   const workshops = AGENDA_ITEMS.filter((item) => item.format === "workshop").length;
   const exhibits = AGENDA_ITEMS.filter((item) => item.format === "exhibit").length;
   const counts = [
@@ -31,40 +32,33 @@ export default function AgendaPreview() {
           <h2 id="agenda-preview-title">{copy.title}</h2>
           <p>{copy.lead}</p>
         </div>
-        <ol className={styles.list}>
-          {rows.map((item, index) => {
-            const person = item.people[0];
-            const who = person?.name ?? item.organizations[0];
+        <ul className={styles.grid} style={{ "--columns": columns } as CSSProperties}>
+          {speakers.map((speaker) => {
+            const item = AGENDA_ITEMS.find((entry) => entry.id === speaker.itemId)!;
+            const work = [speaker.role, speaker.company].filter(Boolean).join(", ");
             return (
-              <li key={item.id}>
-                <Link href={`/agenda#${item.id}`} className={styles.row}>
-                  <span className={styles.order}>
-                    {item.time ?? String(index + 1).padStart(2, "0")}
-                  </span>
-                  {person?.avatar || item.logo ? (
-                    <Image
-                      className={`${styles.avatar} ${person?.avatar ? "" : styles.logo}`}
-                      src={(person?.avatar || item.logo)!}
+              <li key={speaker.id}>
+                <Link href={`/agenda#${item.id}`} className={styles.card}>
+                  <span className={styles.photo}>
+                    <CommunityPhoto
+                      src={speaker.avatar || undefined}
                       alt=""
-                      width={96}
-                      height={96}
-                      sizes="44px"
+                      initialsFor={speaker.name}
+                      portrait
+                      sizes="(max-width: 599px) 45vw, (max-width: 999px) 30vw, 270px"
                     />
-                  ) : (
-                    <span className={`${styles.avatar} ${styles.icon}`} aria-hidden="true">
-                      {item.format === "panel" ? <Users /> : <Mic />}
-                    </span>
-                  )}
-                  <span className={styles.text}>
+                  </span>
+                  <span className={styles.name}>{speaker.name}</span>
+                  {work && <span className={styles.work}>{work}</span>}
+                  <span className={styles.session}>
                     <span className={styles.format}>{AGENDA_PAGE.formatLabels[item.format]}</span>
-                    <span className={styles.title}>{item.title ?? AGENDA_PAGE.sessionPending}</span>
-                    {who && <span className={styles.who}>{who}</span>}
+                    {item.title && <span className={styles.title}>{item.title}</span>}
                   </span>
                 </Link>
               </li>
             );
           })}
-        </ol>
+        </ul>
         <div className={styles.footer}>
           {counts.length > 0 && <p>{counts.join(" · ")}</p>}
           <ContentAction href="/agenda" icon="calendar" tone="blue">

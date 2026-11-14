@@ -46,6 +46,7 @@ export default function Footer() {
             <Link href="/venue">Venue & directions</Link>
             <Link href="/ambassadors">Ambassador codes</Link>
             <Link href="/faq">FAQ</Link>
+            <Link href="/badge">Make your badge</Link>
           </div>
           <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>

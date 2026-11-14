@@ -1,5 +1,62 @@
 // Editorial content and interface wording. Event facts come from SQLite.
 export const PAGE_COPY = {
+  badge: {
+    title: "Make your DevFest badge",
+    description:
+      "Make your own DevFest Indore badge. Choose a theme, add your name and share your orbit.",
+    lead: "Add your name, pick a theme and tell people you’re going. Your orbit is drawn from your name.",
+    teaserTitle: "Make your DevFest badge",
+    teaserLead: "Add your name, get an orbit of your own and post it on LinkedIn or Instagram.",
+    teaserAction: "Make my badge",
+    detailsTitle: "Your details",
+    nameLabel: "Your name",
+    namePlaceholder: "What should we call you?",
+    affiliationLabel: "Role or college (optional)",
+    affiliationPlaceholder: "Developer, designer, student…",
+    photoLabel: "Photo (optional)",
+    photoHint: "JPEG, PNG or WebP, up to 12 MB. Cropped to a circle.",
+    photoPrivacy:
+      "Your photo and details stay in this browser. Nothing is uploaded or saved when you leave.",
+    photoRemove: "Remove photo",
+    themeLabel: "Choose your theme",
+    previewLabel: "Your badge preview",
+    previewHint: "Same name, same orbit. Try a different theme to find your colour.",
+    previewName: "Your name",
+    attending: "I’m going to",
+    download: "Download PNG",
+    linkedin: "Post on LinkedIn",
+    instagram: "Share to Instagram",
+    shareHint: "Your phone will ask which app to use. Some apps need the caption pasted in.",
+    shareUnavailable:
+      "On a computer these save the image and copy the caption, ready to attach to your post.",
+    posted: {
+      linkedin: {
+        copied: "Badge saved and caption copied. Attach the image to your LinkedIn post.",
+        saved: "Badge saved. Attach the image to your LinkedIn post.",
+      },
+      instagram: {
+        copied: "Badge saved and caption copied. Add the image from your gallery in Instagram.",
+        saved: "Badge saved. Add the image from your gallery in Instagram.",
+      },
+    },
+    captionLabel: "Your caption",
+    caption:
+      "I’m going to {{event}} on {{date}} in {{city}}! See you in orbit. #DevFestIndore #DevFest #GDGIndore",
+    copy: "Copy caption",
+    copySuccess: "Caption copied.",
+    copyError: "Select the caption below and copy it manually.",
+    nameRequired: "Add your name to download or share your badge.",
+    preparing: "Drawing your orbit…",
+    photoLoading: "Preparing your photo…",
+    photoError: "We couldn’t read that photo. Try a JPEG, PNG or WebP image.",
+    photoSizeError: "Choose a photo smaller than 12 MB.",
+    renderError: "We couldn’t draw your badge. Try another photo or reload the page.",
+    downloadSuccess: "Your PNG is ready. Check your downloads.",
+    shareSuccess: "Image handed to your share app.",
+    shareError: "Sharing didn’t complete. You can download the PNG instead.",
+    ticketNote: "This is a social badge. You’ll still need a ticket to attend.",
+    ticketAction: "Find your pass",
+  },
   guidelines: {
     title: "Registration guidelines",
     description:
@@ -68,6 +125,9 @@ export const PAGE_COPY = {
     ecosystemLead: "Communities and networks that connect us.",
     heroLead: "From intelligent software to systems in deep space.",
     heroDescription: "Technical talks and hands-on labs with the developer community.",
+    heroCheckIn: "check-in from {{registrationTime}}",
+    heroPrice: "Passes {{price}}",
+    heroPriceFrom: "Passes from {{price}}",
     venueLead: "Check-in starts at {{registrationTime}}.",
     photoArchiveLabel: "Photo archive",
     pressLabel: "All press coverage",
@@ -138,8 +198,8 @@ export const PAGE_COPY = {
     ],
     agendaLabel: "See the agenda",
     agendaPreview: {
-      title: "On the main stage",
-      lead: "Running order so far. Times will be added once final.",
+      title: "Meet the speakers",
+      lead: "Confirmed so far. More to be announced.",
       workshopsLabel: "{{count}} hands-on workshops",
       exhibitsLabel: "{{count}} exhibits",
       agendaLabel: "See the full agenda",

@@ -32,11 +32,14 @@ export default function CommunityPhoto({
   alt,
   portrait = false,
   sizes = "(max-width: 620px) 90vw, (max-width: 980px) 45vw, 350px",
+  initialsFor,
 }: {
   src?: string;
   alt: string;
   portrait?: boolean;
   sizes?: string;
+  /** Name for the initials fallback when the photo is decorative (`alt=""`) beside a visible name. */
+  initialsFor?: string;
 }) {
   const [failed, setFailed] = useState(false);
   const canOptimize = src?.startsWith("/") || src?.startsWith("https://res.cloudinary.com/");
@@ -52,8 +55,12 @@ export default function CommunityPhoto({
           onError={() => setFailed(true)}
         />
       ) : (
-        <span className="community-initials" aria-label={alt}>
-          {initials(alt)}
+        <span
+          className="community-initials"
+          aria-label={alt || undefined}
+          aria-hidden={alt ? undefined : true}
+        >
+          {initials(initialsFor ?? alt)}
         </span>
       )}
     </div>

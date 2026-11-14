@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     entry("", "weekly", 1.0),
     entry("/tickets", "weekly", 0.9),
+    entry("/badge", "weekly", 0.8),
     entry("/agenda", "weekly", 0.9),
     ...["/agenda/workshops", "/agenda/speakers", "/agenda/exhibits"].map((path) =>
       entry(path, "weekly", 0.8),

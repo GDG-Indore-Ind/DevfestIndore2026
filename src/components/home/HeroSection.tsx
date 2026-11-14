@@ -1,4 +1,5 @@
-import { EVENT, EVENT_DATE } from "@/content/event";
+import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "@/content/event";
+import { OPEN_PASSES, formatPassPrice } from "@/content/tickets";
 import { HOME_PAGE } from "@/content/pages";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -48,7 +49,19 @@ function SpaceArtwork() {
   );
 }
 
+/** Lowest confirmed open price; "from" only when open passes differ. Hidden when none is priced. */
+function passPrice() {
+  const prices = OPEN_PASSES.flatMap((pass) => (pass.price === undefined ? [] : [pass.price]));
+  if (!prices.length) return null;
+  const lowest = Math.min(...prices);
+  const copy = prices.some((price) => price !== lowest)
+    ? HOME_PAGE.heroPriceFrom
+    : HOME_PAGE.heroPrice;
+  return copy.replace("{{price}}", formatPassPrice({ price: lowest }));
+}
+
 export default function HeroSection() {
+  const price = passPrice();
   return (
     <section className={styles.root} aria-labelledby="event-title">
       <div className={"audience-wrap" + " " + styles.grid}>
@@ -65,7 +78,13 @@ export default function HeroSection() {
           <div className={styles.facts}>
             <p>
               <ContentIcon name="calendar" tone="blue" />
-              <time dateTime={EVENT.startsAt}>{EVENT_DATE}</time>
+              <span>
+                <time dateTime={EVENT.startsAt}>{EVENT_DATE}</time>
+                {", "}
+                <span className={styles.nowrap}>
+                  {HOME_PAGE.heroCheckIn.replace("{{registrationTime}}", REGISTRATION_TIME)}
+                </span>
+              </span>
             </p>
             <p>
               <ContentIcon name="venue" tone="red" />
@@ -73,6 +92,12 @@ export default function HeroSection() {
                 {EVENT.venue.name}, {EVENT.venue.city}
               </span>
             </p>
+            {price && (
+              <p>
+                <ContentIcon name="tickets" tone="yellow" />
+                <span>{price}</span>
+              </p>
+            )}
           </div>
           <div className={styles.actions}>
             <Link href="/tickets" className="audience-button space-primary-button">

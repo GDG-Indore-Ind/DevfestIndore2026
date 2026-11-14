@@ -30,6 +30,7 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       tone: "blue",
       links: [
         { href: "/tickets", label: "Tickets", icon: "tickets" },
+        { href: "/badge", label: "Make your badge", icon: "themes" },
         { href: "/venue", label: "Venue & directions", icon: "venue" },
         { href: "/faq", label: "FAQ", icon: "help" },
         { href: "/ambassadors", label: AMBASSADORS_PAGE.navigationLabel, icon: "people" },
