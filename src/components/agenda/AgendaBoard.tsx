@@ -36,7 +36,7 @@ export default function AgendaBoard({ stages }: { stages: AgendaStage[] }) {
       {stages.map((stage) => {
         if (paired && stage === halls[0])
           return (
-            <div key="halls" className={styles.pair}>
+            <div key="halls" id="workshops" className={styles.pair}>
               {halls.map((hall) => (
                 <Stage key={hall.id} stage={hall} compact />
               ))}

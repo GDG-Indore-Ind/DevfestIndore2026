@@ -99,19 +99,33 @@ export function drawBadge(canvas: HTMLCanvasElement, options: BadgeDrawing) {
 
   // The orbit and planet positions come from the name, so a person always gets the same badge.
   const random = randomFromName(options.name);
-  const art = { x: 540, y: 690, radius: 340 };
+  // A photo is 60% of the badge's width (648px), so the artwork shifts to give it room.
+  const art = { x: 540, y: options.photo ? 709 : 690, radius: 340 };
   ctx.save();
   ctx.beginPath();
-  ctx.rect(0, 420, width, 560);
+  if (options.photo) ctx.rect(0, 376, width, 666);
+  else ctx.rect(0, 420, width, 560);
   ctx.clip();
   ctx.translate(art.x, art.y);
   ctx.scale(art.radius, art.radius);
+  // A photo gets a larger centre, so the orbits start further out to stay clear of it.
+  const centre = options.photo ? (width * 0.3) / art.radius : 0.3;
+  const firstOrbit = options.photo ? 1.08 : 0.5;
+  const orbitGap = options.photo ? 0.1 : 0.22;
   const tilt = -0.7 + random() * 0.45;
   const colors = [palette.accent, "#4285f4", "#ea4335", "#fbbc04", "#34a853"];
   for (let i = 0; i < 5; i++) {
-    const radius = 0.5 + i * 0.22;
+    const radius = firstOrbit + i * orbitGap;
     const flatten = 0.46 + random() * 0.2;
-    const angle = random() * Math.PI * 2;
+    let angle = random() * Math.PI * 2;
+    // Planets keep off the centre: step each one along its orbit until it is clear.
+    for (
+      let step = 0;
+      step < 24 &&
+      Math.hypot(Math.cos(angle) * radius, Math.sin(angle) * radius * flatten) < centre + 0.1;
+      step++
+    )
+      angle += Math.PI / 12;
     const rotation = tilt + i * 0.14;
     ctx.save();
     ctx.rotate(rotation);
@@ -143,13 +157,16 @@ export function drawBadge(canvas: HTMLCanvasElement, options: BadgeDrawing) {
   }
   ctx.globalAlpha = 1;
   ctx.beginPath();
-  ctx.arc(0, 0, 0.3, 0, Math.PI * 2);
+  ctx.arc(0, 0, centre, 0, Math.PI * 2);
   ctx.fillStyle = palette.accent;
   ctx.fill();
   if (options.photo) {
+    // The accent circle shows as a ring around the photo.
     ctx.save();
+    ctx.beginPath();
+    ctx.arc(0, 0, centre - 0.022, 0, Math.PI * 2);
     ctx.clip();
-    ctx.drawImage(options.photo, -0.3, -0.3, 0.6, 0.6);
+    ctx.drawImage(options.photo, -centre, -centre, centre * 2, centre * 2);
     ctx.restore();
   } else {
     // A small four-point star at the centre, rather than an empty photo slot.
@@ -171,18 +188,18 @@ export function drawBadge(canvas: HTMLCanvasElement, options: BadgeDrawing) {
     ctx.drawImage(options.logo, 85, 150, 330, 200, margin, 62, 99, 60);
     lockupX += 99 + 18;
   }
-  label(options.organizer, lockupX, 62, 30, "#202124", 500, width - margin - lockupX);
-  label(options.chapter, lockupX, 100, 24, "#3c4043", 400, width - margin - lockupX);
+  label(options.organizer, lockupX, 62, 30, "#202124", 500, width - margin - lockupX - 400);
+  label(options.chapter, lockupX, 100, 24, "#3c4043", 400, width - margin - lockupX - 400);
 
   label(options.attending, margin, 178, 32, palette.ink, 500);
   label(options.eventName, margin, 226, 76, "#202124", 700);
   label(`${options.date}  ·  ${options.venue}, ${options.city}`, margin, 326, 30);
 
-  const identityY = 1000;
+  const identityY = options.photo ? 1058 : 1000;
   const identityWidth = width - margin * 2;
-  let nameSize = 72;
+  let nameSize = options.photo ? 60 : 72;
   font(nameSize, 600);
-  if (ctx.measureText(options.name).width > identityWidth * 1.8) nameSize = 56;
+  if (ctx.measureText(options.name).width > identityWidth * 1.8) nameSize = options.photo ? 50 : 56;
   font(nameSize, 600);
   const lines = nameLines(ctx, options.name, identityWidth);
   lines.forEach((line, index) =>
@@ -196,18 +213,19 @@ export function drawBadge(canvas: HTMLCanvasElement, options: BadgeDrawing) {
       identityWidth,
     ),
   );
-  const affiliationY = identityY + lines.length * nameSize * 1.16 + 12;
+  const affiliationY = identityY + lines.length * nameSize * 1.16 + 10;
   if (options.affiliation)
-    label(options.affiliation, margin, affiliationY, 30, "#3c4043", 400, identityWidth);
+    label(options.affiliation, margin, affiliationY, 28, "#3c4043", 400, identityWidth);
 
-  const themeY = 1220;
+  // The theme sits top right, level with the lockup, leaving the lower half to the person.
   font(26, 500);
-  const themeWidth = Math.min(ctx.measureText(options.theme).width + 44, width - margin * 2);
+  const themeWidth = Math.min(ctx.measureText(options.theme).width + 44, 380);
+  const themeX = width - margin - themeWidth;
   ctx.fillStyle = palette.ink;
   ctx.beginPath();
-  ctx.roundRect(margin, themeY, themeWidth, 50, 25);
+  ctx.roundRect(themeX, 66, themeWidth, 50, 25);
   ctx.fill();
-  label(options.theme, margin + 22, themeY + 10, 26, "#ffffff", 500, themeWidth - 44);
+  label(options.theme, themeX + 22, 76, 26, "#ffffff", 500, themeWidth - 44);
 
   const footerY = 1300;
   const stripeWidth = 28;

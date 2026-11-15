@@ -164,3 +164,9 @@
     min-height: 300px;
   }
 }
+/* The illustration is decorative; on phones the invitation ends at its action. */
+@media (max-width: 760px) {
+  .illustration {
+    display: none;
+  }
+}

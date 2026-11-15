@@ -83,41 +83,34 @@ export default function AgendaSession({
           <ul className={styles.people}>
             {item.people.map((person) => (
               <li key={person.id} className={styles.person}>
-                {person.avatar && (
-                  <Image
-                    className={styles.avatar}
-                    src={person.avatar}
-                    alt=""
-                    width={96}
-                    height={96}
-                    sizes="56px"
+                <div className={styles.personHeader}>
+                  {person.avatar && (
+                    <Image
+                      className={styles.avatar}
+                      src={person.avatar}
+                      alt=""
+                      width={96}
+                      height={96}
+                      sizes="56px"
+                    />
+                  )}
+                  <div className={styles.personMeta}>
+                    <p className={styles.name}>{person.name}</p>
+                    <p className={styles.role}>
+                      {[person.role, person.company].filter(Boolean).join(", ")}
+                    </p>
+                  </div>
+                  <ProfileLinks
+                    socials={person.socials}
+                    name={person.name}
+                    iconOnly
+                    className={styles.links}
                   />
-                )}
-                <div>
-                  <p className={styles.name}>{person.name}</p>
-                  <p className={styles.role}>
-                    {[person.role, person.company].filter(Boolean).join(", ")}
-                  </p>
                 </div>
-                <ProfileLinks
-                  socials={person.socials}
-                  name={person.name}
-                  iconOnly
-                  className={styles.links}
-                />
+                {person.bio && <p className={styles.bioText}>{person.bio}</p>}
               </li>
             ))}
           </ul>
-          {item.people
-            .filter((person) => person.bio)
-            .map((person) => (
-              <details key={person.id} className={styles.bio}>
-                <summary>
-                  {copy.bioLabel} {person.name}
-                </summary>
-                <p>{person.bio}</p>
-              </details>
-            ))}
         </div>
       )}
     </li>

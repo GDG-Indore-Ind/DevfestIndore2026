@@ -95,6 +95,27 @@
   color: var(--audience-muted);
   font-size: var(--text-14);
 }
+/* On phones the speakers are one swipeable row; the third card peeks to show there are more. */
+@media (max-width: 599px) {
+  .grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 44%;
+    gap: 16px;
+    padding: 4px 4px 12px;
+    margin-inline: -4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4px;
+  }
+  .grid > li {
+    scroll-snap-align: start;
+  }
+  .card:focus-visible {
+    outline-offset: 2px;
+  }
+}
 @media (min-width: 600px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));

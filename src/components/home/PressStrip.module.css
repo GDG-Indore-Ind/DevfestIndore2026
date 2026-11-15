@@ -81,3 +81,22 @@
   outline-offset: 4px;
   border-radius: var(--corner-16);
 }
+/* On phones four stacked clippings ran to two screens; they become one swipeable row. */
+@media (max-width: 559px) {
+  .list {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    gap: 16px;
+    padding-bottom: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+  }
+  .list > li {
+    scroll-snap-align: start;
+  }
+  .card:focus-visible {
+    outline-offset: -2px;
+  }
+}

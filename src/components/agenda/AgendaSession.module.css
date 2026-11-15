@@ -1,8 +1,8 @@
 .row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 16px 48px;
-  padding-block: 24px;
+  gap: 16px 40px;
+  padding-block: 20px;
   border-bottom: 1px solid var(--audience-line);
   scroll-margin-top: 96px;
 }
@@ -11,13 +11,13 @@
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   }
   .withRail {
-    grid-template-columns: 112px minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-columns: 96px minmax(0, 1.2fr) minmax(0, 1fr);
   }
   .row.compact {
     grid-template-columns: minmax(0, 1fr);
   }
   .withRail.compact {
-    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-columns: 48px minmax(0, 1fr);
   }
   .withRail.compact .aside {
     grid-column: 2;
@@ -90,40 +90,52 @@
 }
 .people {
   display: grid;
-  gap: 12px;
-  margin: 0 0 4px;
+  gap: 16px;
+  margin: 0;
   padding: 0;
   list-style: none;
+  width: 100%;
 }
 .person {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+.personHeader {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 4px 12px;
+  gap: 12px;
+}
+.personMeta {
+  min-width: 0;
+  flex: 1;
 }
 .avatar {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--corner-round);
   object-fit: cover;
+  flex-shrink: 0;
 }
 .featured .avatar {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
 }
 .name {
   margin: 0;
-  font-size: var(--text-16);
+  font-size: var(--text-15, 0.9375rem);
   font-weight: 500;
+  line-height: 1.3;
 }
 .role {
   margin: 2px 0 0;
   color: var(--audience-muted);
-  font-size: var(--text-14);
-  line-height: 1.4;
+  font-size: var(--text-13, 0.8125rem);
+  line-height: 1.35;
 }
 .links {
   gap: 0 4px;
+  margin-left: auto;
 }
 .links a {
   color: var(--audience-muted);
@@ -131,21 +143,15 @@
 .links a:hover {
   color: var(--audience-blue);
 }
-.bio summary {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
+.bioText {
+  margin: 0;
   color: var(--audience-muted);
-  font-size: var(--text-14);
-  font-weight: 500;
-  cursor: pointer;
-}
-.bio p {
-  max-width: 68ch;
-  margin: 0 0 8px;
-  color: var(--audience-muted);
-  font-size: var(--text-14);
-  line-height: 1.6;
+  font-size: var(--text-13, 0.8125rem);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 @media (max-width: 760px) {
   .row {

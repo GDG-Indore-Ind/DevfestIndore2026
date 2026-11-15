@@ -61,6 +61,9 @@
   font-size: var(--text-14);
   line-height: 1.55;
 }
+.hint + .hint {
+  margin-top: 8px;
+}
 .hint:empty {
   display: none;
 }
@@ -148,10 +151,14 @@
   display: block;
   width: auto;
   height: auto;
+  aspect-ratio: 4 / 5;
   max-height: 560px;
   max-width: 100%;
   background: #e8f0fe;
   box-shadow: 0 8px 24px #00000012;
+}
+.placeholder {
+  width: 448px;
 }
 .preview figcaption {
   display: grid;
@@ -198,6 +205,14 @@
   background: linear-gradient(45deg, #f58529, #dd2a7b 50%, #8134af 80%, #515bd4);
   border-color: transparent;
   color: #fff;
+}
+.actions .x {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+:global([data-theme="dark"]) .actions .x {
+  border-color: var(--audience-line);
 }
 .actions button:disabled {
   opacity: 0.5;
@@ -256,5 +271,19 @@
   }
   .canvas {
     max-height: 340px;
+  }
+  .placeholder {
+    width: 272px;
+  }
+  /* Full-width actions are easier to hit with a thumb. */
+  .actions {
+    display: grid;
+  }
+  .actions button {
+    min-height: 48px;
+  }
+  /* Below 16px, iOS zooms the page when a field takes focus. */
+  .caption {
+    font-size: var(--text-16, 1rem);
   }
 }

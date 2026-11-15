@@ -23,7 +23,7 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/agenda/speakers` | Grid of confirmed speakers, each linking to their agenda row |
 | `/agenda/exhibits` | Confirmed exhibits and the invitation to exhibit |
 | `/tickets` | Open passes, KonfHub booking and closed passes below it |
-| `/badge` | Badge maker: name, optional role and photo, and a theme produce one 1080 × 1350 PNG drawn in the browser, with download, LinkedIn and Instagram actions and a caption. Nothing is uploaded |
+| `/badge` | Badge maker: name, optional role and photo, and a theme produce one 1080 × 1350 PNG drawn in the browser, with download, LinkedIn, Instagram and X actions and a caption. Nothing is uploaded |
 | `/tickets/[former-pass-id]` | Permanent redirect to Tickets, preserving query values |
 | `/guidelines` | Permanent redirect to `/faq`; section anchors such as `#eligibility` carry over |
 | `/venue` | Venue details, directions, map and check-in |

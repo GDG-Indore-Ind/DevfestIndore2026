@@ -17,31 +17,42 @@ export const PAGE_COPY = {
     photoHint: "JPEG, PNG or WebP, up to 12 MB. Cropped to a circle.",
     photoPrivacy:
       "Your photo and details stay in this browser. Nothing is uploaded or saved when you leave.",
+    conduct:
+      "Use your own name and a photo of yourself. A badge carries the DevFest and GDG Indore names, so keep it free of offensive, sexual or misleading content.",
+    conductLink: "Community guidelines",
     photoRemove: "Remove photo",
     themeLabel: "Choose your theme",
     previewLabel: "Your badge preview",
-    previewHint: "Same name, same orbit. Try a different theme to find your colour.",
+    previewHint:
+      "Same name, same orbit. Press and hold the image to save it if a download doesn’t start.",
     previewName: "Your name",
     attending: "I’m going to",
     download: "Download PNG",
     linkedin: "Post on LinkedIn",
     instagram: "Share to Instagram",
-    shareHint: "Your phone will ask which app to use. Some apps need the caption pasted in.",
+    x: "Post on X",
+    shareHint:
+      "Your phone will ask which app to use and hand it your badge. Some apps need the caption pasted in.",
     shareUnavailable:
-      "On a computer these save the image and copy the caption, ready to attach to your post.",
+      "Each button opens that site in a new tab, saves your badge and copies the caption. Attach the image and post.",
     posted: {
       linkedin: {
-        copied: "Badge saved and caption copied. Attach the image to your LinkedIn post.",
-        saved: "Badge saved. Attach the image to your LinkedIn post.",
+        copied: "LinkedIn is open with your caption. Attach the badge we just saved and post.",
+        saved: "LinkedIn is open with your caption. Attach the badge we just saved and post.",
       },
       instagram: {
-        copied: "Badge saved and caption copied. Add the image from your gallery in Instagram.",
-        saved: "Badge saved. Add the image from your gallery in Instagram.",
+        copied:
+          "Instagram is open. Choose Create, add the badge we just saved and paste the caption.",
+        saved: "Instagram is open. Choose Create and add the badge we just saved.",
+      },
+      x: {
+        copied: "X is open with your caption. Attach the badge we just saved and post.",
+        saved: "X is open with your caption. Attach the badge we just saved and post.",
       },
     },
     captionLabel: "Your caption",
     caption:
-      "I’m going to {{event}} on {{date}} in {{city}}! See you in orbit. #DevFestIndore #DevFest #GDGIndore",
+      "I’m going to {{event}} on {{date}} in {{city}}! See you in orbit. {{url}}\n\nMake your own badge: {{badgeUrl}}\n\n#DevFestIndore #DevFest #GDGIndore",
     copy: "Copy caption",
     copySuccess: "Caption copied.",
     copyError: "Select the caption below and copy it manually.",

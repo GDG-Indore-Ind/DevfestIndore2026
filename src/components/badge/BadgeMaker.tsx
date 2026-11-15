@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { Check, Copy, Download } from "lucide-react";
 import { PAGE_COPY } from "@/content/copy";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ContentAction from "@/components/shared/ContentAction";
+import ExternalLink from "@/components/shared/ExternalLink";
 import SocialGlyph from "@/components/shared/SocialGlyph";
 import { BADGE_SIZE, cleanBadgeText, drawBadge, type BadgeColor } from "./drawBadge";
 import styles from "./BadgeMaker.module.css";
@@ -15,9 +17,17 @@ const date = `${EVENT_SHORT_DATE} ${EVENT.year}`;
 const caption = copy.caption
   .replace("{{event}}", EVENT.name)
   .replace("{{date}}", date)
-  .replace("{{city}}", EVENT.venue.city);
-// LinkedIn's composer accepts post text but not an image, so the PNG is downloaded alongside.
-const linkedInComposer = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(caption)}`;
+  .replace("{{city}}", EVENT.venue.city)
+  .replace("{{url}}", EVENT.links.website)
+  .replace("{{badgeUrl}}", new URL("/badge", EVENT.links.website).href);
+// Each button opens that platform's own composer. LinkedIn and X accept the post text in the
+// link; none of them accepts an image from a website, so the PNG is saved for attaching.
+const composers = {
+  linkedin: `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(caption)}`,
+  x: `https://x.com/intent/post?text=${encodeURIComponent(caption)}`,
+  instagram: "https://www.instagram.com/",
+};
+type Platform = keyof typeof composers;
 
 type DrawingRequest = {
   name: string;
@@ -26,7 +36,7 @@ type DrawingRequest = {
   photo: HTMLCanvasElement | null;
   logo: HTMLImageElement | null;
 };
-type PreparedBadge = { request: DrawingRequest; file: File; canShare: boolean };
+type PreparedBadge = { request: DrawingRequest; file: File; url: string; canShare: boolean };
 
 export default function BadgeMaker() {
   const [name, setName] = useState("");
@@ -40,7 +50,6 @@ export default function BadgeMaker() {
   const [renderError, setRenderError] = useState<DrawingRequest | null>(null);
   const [message, setMessage] = useState("");
   const [sharing, setSharing] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const photoRequest = useRef(0);
   const theme = themes.find((theme) => theme.id === themeId)!;
   const request = useMemo(
@@ -59,7 +68,7 @@ export default function BadgeMaker() {
 
   useEffect(() => {
     let cancelled = false;
-    const image = new Image();
+    const image = new window.Image();
     // Without the mark the badge still carries the chapter name as text.
     image.onload = () => {
       if (!cancelled) setLogo(image);
@@ -104,13 +113,6 @@ export default function BadgeMaker() {
           ),
         );
         if (cancelled) return;
-        const preview = canvasRef.current;
-        if (!preview) return;
-        preview.width = canvas.width;
-        preview.height = canvas.height;
-        const context = preview.getContext("2d");
-        if (!context) throw new Error("Canvas is unavailable");
-        context.drawImage(canvas, 0, 0);
         // The file is ready before the click, preserving mobile share-sheet activation.
         const file = new File([blob], `devfest-indore-${EVENT.year}-badge.png`, {
           type: "image/png",
@@ -121,7 +123,7 @@ export default function BadgeMaker() {
         } catch {
           /* Download remains available. */
         }
-        setPrepared({ request, file, canShare });
+        setPrepared({ request, file, url: URL.createObjectURL(file), canShare });
       } catch {
         if (!cancelled) setRenderError(request);
       }
@@ -138,6 +140,11 @@ export default function BadgeMaker() {
     },
     [],
   );
+
+  useEffect(() => {
+    if (!prepared) return;
+    return () => URL.revokeObjectURL(prepared.url);
+  }, [prepared]);
 
   async function choosePhoto(file: File | undefined) {
     if (!file) return;
@@ -156,7 +163,7 @@ export default function BadgeMaker() {
     setPhotoLoading(true);
     const url = URL.createObjectURL(file);
     try {
-      const image = new Image();
+      const image = new window.Image();
       image.src = url;
       await image.decode();
       if (id !== photoRequest.current) return;
@@ -203,9 +210,9 @@ export default function BadgeMaker() {
     setMessage(copy.downloadSuccess);
   }
 
-  // Phones hand the image to the chosen app. Elsewhere no site can post an image for you,
-  // so the badge is saved, the caption copied, and LinkedIn's composer opened.
-  async function post(platform: "linkedin" | "instagram") {
+  // Phones hand the image and caption to the chosen app. Elsewhere the platform's composer
+  // opens in a new tab, the badge is saved and the caption copied.
+  async function post(platform: Platform) {
     if (!ready || !current || sharing) return;
     setMessage("");
     if (current.canShare) {
@@ -221,7 +228,8 @@ export default function BadgeMaker() {
       }
       return;
     }
-    if (platform === "linkedin") window.open(linkedInComposer, "_blank", "noopener,noreferrer");
+    // Opened first, while the click still counts as the user's action, so it is not blocked.
+    window.open(composers[platform], "_blank", "noopener,noreferrer");
     save(current.file);
     let copied = true;
     try {
@@ -248,16 +256,23 @@ export default function BadgeMaker() {
     <section className={`audience-wrap ${styles.layout}`} aria-label={copy.detailsTitle}>
       <figure className={styles.preview} aria-busy={!current && !failed}>
         <div className={styles.canvasStage}>
-          <canvas
-            ref={canvasRef}
-            className={styles.canvas}
-            width={BADGE_SIZE.width}
-            height={BADGE_SIZE.height}
-            role="img"
-            aria-label={`${request.name || copy.previewName} · ${copy.attending} ${EVENT.name} · ${date} · ${EVENT.venue.city} · ${theme.label}`}
-          >
-            {copy.previewLabel}
-          </canvas>
+          {/* An image, not a canvas, so a long press saves it where downloads are blocked. */}
+          {prepared ? (
+            <Image
+              className={styles.canvas}
+              src={prepared.url}
+              width={BADGE_SIZE.width}
+              height={BADGE_SIZE.height}
+              unoptimized
+              alt={`${prepared.request.name || copy.previewName} · ${copy.attending} ${EVENT.name} · ${date} · ${EVENT.venue.city} · ${prepared.request.theme.label}`}
+            />
+          ) : (
+            <div
+              className={`${styles.canvas} ${styles.placeholder}`}
+              role="img"
+              aria-label={copy.previewLabel}
+            />
+          )}
         </div>
         <figcaption>
           {copy.previewHint}{" "}
@@ -273,6 +288,8 @@ export default function BadgeMaker() {
           <input
             id="badge-name"
             autoComplete="off"
+            autoCapitalize="words"
+            enterKeyHint="done"
             maxLength={64}
             placeholder={copy.namePlaceholder}
             value={name}
@@ -355,6 +372,12 @@ export default function BadgeMaker() {
         <p id="badge-privacy" className={styles.hint}>
           {copy.photoPrivacy}
         </p>
+        <p className={styles.hint}>
+          {copy.conduct}{" "}
+          <ExternalLink href={EVENT.links.codeOfConduct} className="audience-text-link">
+            {copy.conductLink}
+          </ExternalLink>
+        </p>
       </div>
       <div className={styles.share}>
         <div className={styles.actions}>
@@ -381,6 +404,16 @@ export default function BadgeMaker() {
           >
             <SocialGlyph platform="instagram" />
             {copy.instagram}
+          </button>
+          <button
+            type="button"
+            className={styles.x}
+            onClick={() => void post("x")}
+            disabled={!ready || sharing}
+            aria-describedby="badge-share-hint"
+          >
+            <SocialGlyph platform="x" />
+            {copy.x}
           </button>
         </div>
         <p id="badge-export-status" className={styles.hint} role="status">
