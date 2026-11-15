@@ -50,7 +50,9 @@ export default function Navbar({ flightStops }: NavbarProps) {
         className={`audience-header explore-header ${styles.root} ${styles.exploreHeader}`}
         ref={header}
         onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+          if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
+            setOpen(false);
+          }
         }}
       >
         <div className={`audience-wrap audience-header-row ${styles.row}`}>
@@ -85,7 +87,27 @@ export default function Navbar({ flightStops }: NavbarProps) {
             <Link href="/agenda" className={`space-header-programme ${styles.programme}`}>
               Agenda
             </Link>
-            <Link href="/#flow" className={`space-header-programme ${styles.programme}`}>
+            <Link
+              href="/#flow"
+              className={`space-header-programme ${styles.programme}`}
+              onClick={(event) => {
+                setOpen(false);
+                if (
+                  pathname !== "/" ||
+                  event.button !== 0 ||
+                  event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey
+                )
+                  return;
+                event.preventDefault();
+                document
+                  .getElementById("flow")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.history.pushState(null, "", "/#flow");
+              }}
+            >
               Themes
             </Link>
             <div className={`header-theme ${styles.theme}`}>

@@ -2,7 +2,7 @@
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
-  z-index: 5;
+  z-index: 20;
   width: min(560px, calc(100vw - 40px));
   max-height: calc(100dvh - 108px);
   overflow-y: auto;
@@ -24,14 +24,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
-  padding-top: 20px;
-}
-.group:first-child {
-  grid-column: 1 / -1;
-}
-.group:first-child .links {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0 20px;
+  padding-top: 12px;
 }
 .group h2 {
   margin: 0 0 8px;
@@ -72,35 +65,33 @@
 }
 @media (max-width: 760px) {
   .panel {
-    max-height: calc(100dvh - 156px);
-    padding: 18px;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: calc(100dvh - 84px);
+    padding: 16px;
   }
   .heading {
     font-size: var(--text-14);
   }
-  .group:first-child {
-    grid-column: auto;
-  }
-  .group:first-child .links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 12px;
-  }
   .groups {
     grid-template-columns: 1fr;
-    gap: 18px;
-    padding-top: 16px;
+    gap: 16px;
+    padding-top: 12px;
   }
   .group + .group {
     border-top: 1px solid var(--audience-line);
-    padding-top: 16px;
+    padding-top: 14px;
   }
   .links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 12px;
+    gap: 2px 12px;
   }
   :global(.audience-header) .panel .links a {
     margin-inline: 0;
-    padding: 8px 4px;
+    padding: 8px 6px;
+    font-size: var(--text-13, 0.8125rem);
   }
 }
 .appearance {

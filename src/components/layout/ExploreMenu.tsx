@@ -16,19 +16,10 @@ type Props = {
 export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
   const groups: { label: string; tone: IconTone; links: MenuLink[] }[] = [
     {
-      label: AGENDA_PAGE.title,
-      tone: "blue",
-      links: [
-        { href: "/agenda", label: AGENDA_PAGE.tabs.schedule, icon: "microphone", exact: true },
-        { href: "/agenda/workshops", label: AGENDA_PAGE.tabs.workshops, icon: "calendar" },
-        { href: "/agenda/speakers", label: AGENDA_PAGE.tabs.speakers, icon: "people" },
-        { href: "/agenda/exhibits", label: AGENDA_PAGE.tabs.exhibits, icon: "exhibits" },
-      ],
-    },
-    {
       label: "Plan your visit",
       tone: "blue",
       links: [
+        { href: "/agenda", label: AGENDA_PAGE.title, icon: "microphone" },
         { href: "/tickets", label: "Tickets", icon: "tickets" },
         { href: "/badge", label: "Make your badge", icon: "themes" },
         { href: "/venue", label: "Venue & directions", icon: "venue" },
@@ -47,36 +38,56 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       ],
     },
   ];
+
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    onNavigate();
+    if (href.startsWith("/#") && pathname === "/") {
+      event.preventDefault();
+      const targetId = href.slice(2);
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", href);
+      }
+    } else if (href.startsWith(`${pathname}#`)) {
+      event.preventDefault();
+      const targetId = href.split("#")[1];
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.history.pushState(null, "", href);
+      }
+    }
+  };
+
   return (
     <nav className={styles.panel} id={id} aria-label="Explore DevFest" hidden={!open}>
       <div className={styles.groups}>
-        {groups.map((group) => {
-          return (
-            <section key={group.label} aria-label={group.label} className={styles.group}>
-              <h2>{group.label}</h2>
-              <div className={styles.links}>
-                {group.links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={onNavigate}
-                    aria-current={
-                      !link.href.includes("?") &&
-                      !link.href.includes("#") &&
-                      (pathname === link.href ||
-                        (!link.exact && pathname.startsWith(`${link.href}/`)))
-                        ? "page"
-                        : undefined
-                    }
-                  >
-                    <ContentIcon name={link.icon} tone={group.tone} />
-                    <span>{link.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        {groups.map((group) => (
+          <section key={group.label} aria-label={group.label} className={styles.group}>
+            <h2>{group.label}</h2>
+            <div className={styles.links}>
+              {group.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
+                  aria-current={
+                    !link.href.includes("?") &&
+                    !link.href.includes("#") &&
+                    (pathname === link.href ||
+                      (!link.exact && pathname.startsWith(`${link.href}/`)))
+                      ? "page"
+                      : undefined
+                  }
+                >
+                  <ContentIcon name={link.icon} tone={group.tone} />
+                  <span>{link.label}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
       <div className={styles.appearance}>
         <span>Appearance</span>
