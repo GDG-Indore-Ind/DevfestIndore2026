@@ -63,7 +63,7 @@ export default function Footer() {
             <h2 className={styles.groupHeading}>
               <ContentIcon name="history" tone="red" /> Explore more
             </h2>
-            <Link href="/team">Meet the team</Link>
+            <Link href="/team">Team</Link>
             <Link href="/archive">{ARCHIVE_PAGE.navigationLabel}</Link>
           </div>
         </nav>

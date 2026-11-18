@@ -20,3 +20,13 @@ export const PRESS_CLIPPINGS: PressClipping[] = (galleryFile.press ?? []).map((c
   ...clipping,
   event: eventNames.get(clipping.eventId) ?? clipping.eventId,
 }));
+
+/** Short tag for tiny captions: "DevFest 2025", "Cloud Community Days 2024". */
+export function eventTag(eventId: string | undefined): string | undefined {
+  const event = eventFile.events.find((item) => item.id === eventId);
+  if (!event) return undefined;
+  return `${event.name
+    .replace(/\s*Indore\s*/, " ")
+    .replace(/\s+/g, " ")
+    .trim()}${event.name.includes(event.date.slice(0, 4)) || event.name.startsWith("Cloud Bytes") ? "" : ` ${event.date.slice(0, 4)}`}`;
+}

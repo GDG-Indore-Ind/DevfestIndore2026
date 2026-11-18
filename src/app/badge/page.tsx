@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
+import MissionCta from "@/components/badge/MissionCta";
 import BadgeMaker from "@/components/badge/BadgeMaker";
 import { PAGE_COPY } from "@/content/copy";
 import { EVENT_DATE } from "@/content/event";
@@ -15,6 +16,7 @@ export default function BadgePage() {
       <Navbar />
       <main id="main-content">
         <PageIntro title={copy.title} lead={copy.lead} meta={<span>{EVENT_DATE}</span>} />
+        <MissionCta />
         <BadgeMaker />
       </main>
       <Footer />

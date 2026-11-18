@@ -81,6 +81,7 @@ export interface WorkshopItem {
 }
 export type GalleryItem = import("./schema/public/gallery").GalleryPhoto;
 export interface Socials {
+  sessionize?: string;
   linkedin?: string;
   twitter?: string;
   github?: string;

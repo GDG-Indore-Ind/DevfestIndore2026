@@ -5,12 +5,14 @@ import ExternalLink from "@/components/shared/ExternalLink";
 import SocialGlyph from "@/components/shared/SocialGlyph";
 
 const icons = {
+  sessionize: Globe,
   github: CodeXml,
   twitter: MessageCircle,
   website: Globe,
   blog: BookOpen,
 };
 const labels: Record<string, string> = {
+  sessionize: "Sessionize",
   linkedin: "LinkedIn",
   github: "GitHub",
   twitter: "X",

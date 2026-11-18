@@ -75,7 +75,7 @@ export default function PartnersPage() {
             {page.archiveLabel}
           </ContentAction>
           <ContentAction href="/team" icon="people" tone="green">
-            Meet the team
+            Team
           </ContentAction>
         </ContentActionGroup>
       </main>

@@ -1,21 +1,16 @@
-import { Orbit } from "lucide-react";
-import ContentAction from "@/components/shared/ContentAction";
+import Link from "next/link";
 import { PAGE_COPY } from "@/content/copy";
-import styles from "./BadgeTeaser.module.css";
 
 export default function BadgeTeaser() {
   const copy = PAGE_COPY.badge;
   return (
     <section className="audience-section" aria-labelledby="badge-teaser-title">
-      <div className={`audience-wrap ${styles.row}`}>
-        <Orbit className={styles.orbit} aria-hidden="true" strokeWidth={1} />
-        <div className={styles.copy}>
-          <h2 id="badge-teaser-title">{copy.teaserTitle}</h2>
-          <p>{copy.teaserLead}</p>
-        </div>
-        <ContentAction href="/badge" icon="themes" tone="green">
+      <div className="audience-wrap">
+        <h2 id="badge-teaser-title">Attendee badge</h2>
+        <p>{copy.teaserLead}</p>
+        <Link href="/badge" className="audience-button space-primary-button">
           {copy.teaserAction}
-        </ContentAction>
+        </Link>
       </div>
     </section>
   );

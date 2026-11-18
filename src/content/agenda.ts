@@ -1,5 +1,5 @@
 import { EVENT } from "./event";
-import type { Socials } from "./model";
+import type { SessionRecord, Socials } from "./model";
 import { getOrganization } from "./partners";
 import { AGENDA_PAGE } from "./pages";
 import { byRoleOrder, PARTICIPATIONS, roleTitle } from "./participations";
@@ -23,6 +23,7 @@ export interface AgendaItem {
   /** Null until the speaker's session title is confirmed. */
   title: string | null;
   description: string;
+  resources?: SessionRecord["resources"];
   track?: string;
   time?: string;
   hall?: string;
@@ -35,14 +36,6 @@ export interface AgendaItem {
   logo?: string;
   order: number;
 }
-export interface AgendaStage {
-  id: string;
-  title: string;
-  lead?: string;
-  numbered: boolean;
-  items: AgendaItem[];
-}
-
 const KEYNOTE_LABEL = "Keynote speaker";
 const LAST = Number.MAX_SAFE_INTEGER;
 
@@ -83,6 +76,7 @@ const sessionItems: AgendaItem[] = CURRENT_SESSIONS.filter(
   format: formatOf(session.format),
   title: session.title,
   description: session.description,
+  resources: session.resources,
   track: session.track,
   time: session.time,
   hall: session.hall,
@@ -116,6 +110,7 @@ const activityItems: AgendaItem[] = CURRENT_ACTIVITIES.map((activity, index) => 
   format: formatOf(activity.format),
   title: activity.title,
   description: activity.description,
+  resources: activity.resources,
   track: activity.track,
   time: activity.time,
   hall: activity.hall,
@@ -137,26 +132,11 @@ export const AGENDA_ITEMS: AgendaItem[] = [...sessionItems, ...pendingItems, ...
   byRunningOrder,
 );
 
-/** One group per event room; anything without a known room goes last. */
-export function agendaStages(items: AgendaItem[]): AgendaStage[] {
-  const known = new Set<string>(AGENDA_PAGE.stages.map((stage) => stage.hall));
-  const stages: AgendaStage[] = [
-    ...AGENDA_PAGE.stages.map((stage) => ({
-      id: stage.hall.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-      title: stage.title,
-      lead: stage.lead,
-      numbered: stage.numbered,
-      items: items.filter((item) => item.hall === stage.hall),
-    })),
-    {
-      id: "other",
-      title: AGENDA_PAGE.otherGroupTitle,
-      numbered: false,
-      items: items.filter((item) => !item.hall || !known.has(item.hall)),
-    },
-  ];
-  return stages.filter((stage) => stage.items.length);
-}
+export const AGENDA_SECTIONS = [
+  { id: "sessions", title: "Sessions" },
+  { id: "workshops", title: "Workshops" },
+  { id: "activities", title: "Activities" },
+] as const;
 
 /** Each confirmed speaker once, in speaker order, with the first agenda row to jump to. */
 export const AGENDA_SPEAKERS: (AgendaPerson & { itemId: string })[] = [...speakerRoles.entries()]

@@ -148,7 +148,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
   for (const clipping of gallery.press ?? []) reference(eventIds, clipping.eventId, `press ${clipping.id}`);
   for (const organization of partners.organizations) {
     unique(organization.partnerships, `organization ${organization.id} relationship`, item => item.editionId);
-    if (organization.partnerships.some(item => item.contributions.some(contribution => contribution.kind === "community")) && !organization.websiteUrl && !organization.socialUrl) errors.push(`organization ${organization.id}: communities require a public website or social URL`);
+    if (organization.partnerships.some(item => item.editionId !== "ecosystem" && item.contributions.some(contribution => contribution.kind === "community")) && !organization.websiteUrl && !organization.socialUrl) errors.push(`organization ${organization.id}: communities require a public website or social URL`);
     for (const item of organization.partnerships) {
       unique(item.contributions, `partnership ${item.id} contribution`, contribution => contribution.kind);
       reference(new Set([...eventIds,"historical","ecosystem"]),item.editionId,`partnership ${item.id}`);
@@ -156,7 +156,7 @@ export function validateContent(content, { root = PROJECT_ROOT, checkAssets = tr
         if (item.publication !== "ecosystem") errors.push(`partnership ${item.id}: ecosystem is not a confirmed event sponsor`);
       } else publication(item, `partnership ${item.id}`);
       if (item.publication === "confirmed" && (!organization.logoUrl || !organization.websiteUrl)) errors.push(`organization ${organization.id}: confirmed partners require a logo and website`);
-      if (item.publication === "ecosystem" && (!organization.logoUrl || (!organization.websiteUrl && !organization.socialUrl))) errors.push(`organization ${organization.id}: ecosystem logos require a logo and community URL`);
+      if (item.publication === "ecosystem" && !organization.logoUrl) errors.push(`organization ${organization.id}: ecosystem logos require a logo`);
       if (item.editionId === "historical" && !organization.archiveLogoWindow) errors.push(`organization ${organization.id}: logo-sheet sponsors require archiveLogoWindow`);
       if (item.contributions.some(contribution => contribution.kind === "community") && item.publication === "archived" && !organization.logoUrl && !organization.archiveLogoWindow) errors.push(`organization ${organization.id}: archived communities require logo artwork`);
       if (item.featured && (item.publication !== "confirmed" || item.editionId !== event.id)) errors.push(`partnership ${item.id}: only confirmed current partners can be featured`);

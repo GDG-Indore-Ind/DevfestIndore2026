@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { AgendaFormat, AgendaItem } from "@/content/agenda";
 import { AGENDA_PAGE as copy } from "@/content/pages";
 import Chip, { type ChipTone } from "@/components/shared/Chip";
+import ExternalLink from "@/components/shared/ExternalLink";
 import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./AgendaSession.module.css";
 
@@ -24,19 +25,20 @@ export default function AgendaSession({
   position,
   showHall = true,
   compact = false,
+  overview = false,
 }: {
   item: AgendaItem;
   position?: number;
   showHall?: boolean;
   compact?: boolean;
+  overview?: boolean;
 }) {
   const featured = item.format === "keynote";
   const hall = showHall ? item.hall : undefined;
   const order = !item.time && position ? String(position).padStart(2, "0") : undefined;
   const hasRail = Boolean(item.time || hall || order);
-  return (
-    <li
-      id={item.id}
+  const details = (
+    <div
       className={[
         styles.row,
         hasRail && styles.withRail,
@@ -72,6 +74,15 @@ export default function AgendaSession({
           {item.title ?? copy.sessionPending}
         </h3>
         {item.description && <p className={styles.description}>{item.description}</p>}
+        {item.resources?.length ? (
+          <ul>
+            {item.resources.map((resource) => (
+              <li key={resource.url}>
+                <ExternalLink href={resource.url}>{resource.label}</ExternalLink>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         {item.organizations.length > 0 && (
           <p className={styles.presenter}>
             {copy.organizerLabel} {item.organizations.join(", ")}
@@ -113,6 +124,29 @@ export default function AgendaSession({
           </ul>
         </div>
       )}
+    </div>
+  );
+  if (!overview) return <li id={item.id}>{details}</li>;
+  const meta = [
+    item.format === "keynote" ? copy.formatLabels.keynote : undefined,
+    ...item.people.map((person) => person.name),
+    item.time,
+    hall,
+    item.durationMinutes ? `${item.durationMinutes} ${copy.durationLabel}` : undefined,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  return (
+    <li id={item.id} className={styles.overview}>
+      <details>
+        <summary>
+          <span>
+            <strong>{item.title ?? copy.sessionPending}</strong>
+            {meta && <small>{meta}</small>}
+          </span>
+        </summary>
+        {details}
+      </details>
     </li>
   );
 }

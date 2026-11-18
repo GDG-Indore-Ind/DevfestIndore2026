@@ -1,3 +1,4 @@
+import GalleryStrip from "./GalleryStrip";
 import PressStrip from "./PressStrip";
 import { HOME_PAGE } from "@/content/pages";
 
@@ -10,6 +11,7 @@ export default function GalleryVideoSection() {
           <p className="audience-body">{HOME_PAGE.historyLead}</p>
         </div>
         <PressStrip />
+        <GalleryStrip />
       </div>
     </section>
   );

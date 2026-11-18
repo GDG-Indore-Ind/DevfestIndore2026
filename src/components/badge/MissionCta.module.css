@@ -1,0 +1,53 @@
+.cta {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 16px 20px;
+  border: 1px solid color-mix(in srgb, var(--audience-blue) 35%, var(--audience-line));
+  border-radius: var(--corner-16);
+  background: color-mix(in srgb, var(--audience-blue) 8%, var(--audience-bg));
+  color: var(--audience-ink);
+  text-decoration: none;
+}
+.cta strong {
+  display: block;
+  font-size: var(--text-16);
+  font-weight: 600;
+}
+.cta > span:first-child > span {
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  line-height: 1.5;
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--audience-blue);
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+.action svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 200ms ease;
+}
+.cta:hover .action svg {
+  transform: translateX(3px);
+}
+.cta:focus-visible {
+  outline: 2px solid var(--audience-blue);
+  outline-offset: 3px;
+}
+@media (min-width: 761px) {
+  .cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .action svg {
+    transition: none;
+  }
+}

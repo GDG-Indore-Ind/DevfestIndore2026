@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Sparkles } from "lucide-react";
+import { SITE } from "@/content/site";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -47,7 +48,8 @@ export default function Navbar({ flightStops }: NavbarProps) {
       </a>
       <ReferralBanner />
       <header
-        className={`audience-header explore-header ${styles.root} ${styles.exploreHeader}`}
+        className={`audience-header explore-header ${styles.root} ${styles.exploreHeader} ${open ? `${styles.open} open` : ""}`}
+        data-open={open ? "true" : undefined}
         ref={header}
         onBlur={(event) => {
           if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) {
@@ -88,28 +90,17 @@ export default function Navbar({ flightStops }: NavbarProps) {
               Agenda
             </Link>
             <Link
-              href="/#flow"
-              className={`space-header-programme ${styles.programme}`}
-              onClick={(event) => {
-                setOpen(false);
-                if (
-                  pathname !== "/" ||
-                  event.button !== 0 ||
-                  event.metaKey ||
-                  event.ctrlKey ||
-                  event.shiftKey ||
-                  event.altKey
-                )
-                  return;
-                event.preventDefault();
-                document
-                  .getElementById("flow")
-                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                window.history.pushState(null, "", "/#flow");
-              }}
+              href="/badge"
+              className={`space-header-programme ${styles.programme} ${styles.badgeLink}`}
             >
-              Themes
+              <Sparkles className="audience-icon" aria-hidden="true" />
+              Badge
             </Link>
+            {SITE.missionsEnabled && (
+              <Link href="/missions" className={`space-header-programme ${styles.programme}`}>
+                Missions
+              </Link>
+            )}
             <div className={`header-theme ${styles.theme}`}>
               <ThemeChoice />
             </div>

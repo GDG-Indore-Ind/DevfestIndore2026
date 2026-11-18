@@ -1,11 +1,142 @@
 .root {
+  position: relative;
   padding-top: 24px;
   background: var(--audience-bg);
   padding-bottom: 32px;
+  overflow: hidden;
 }
 .grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 28px;
+}
+.spectrumBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--google-blue) 0%,
+    var(--google-red) 33%,
+    var(--google-yellow) 66%,
+    var(--google-green) 100%
+  );
+  opacity: 0.9;
+  z-index: 2;
+}
+.ambientLighting {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.glowOrb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+.glowBlue {
+  top: -10%;
+  right: -5%;
+  width: min(520px, 65vw);
+  height: min(520px, 65vw);
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.22) 0%, rgba(66, 133, 244, 0) 70%);
+  animation: floatOrbA 16s ease-in-out infinite alternate;
+}
+.glowRed {
+  top: 10%;
+  left: -10%;
+  width: min(400px, 50vw);
+  height: min(400px, 50vw);
+  background: radial-gradient(circle, rgba(234, 67, 53, 0.16) 0%, rgba(234, 67, 53, 0) 70%);
+  animation: floatOrbB 19s ease-in-out infinite alternate;
+}
+.glowYellow {
+  bottom: -5%;
+  left: 15%;
+  width: min(440px, 55vw);
+  height: min(440px, 55vw);
+  background: radial-gradient(circle, rgba(251, 188, 4, 0.2) 0%, rgba(251, 188, 4, 0) 70%);
+  animation: floatOrbC 17s ease-in-out infinite alternate;
+}
+.glowGreen {
+  bottom: 5%;
+  right: 18%;
+  width: min(360px, 45vw);
+  height: min(360px, 45vw);
+  background: radial-gradient(circle, rgba(52, 168, 83, 0.16) 0%, rgba(52, 168, 83, 0) 70%);
+  animation: floatOrbD 21s ease-in-out infinite alternate;
+}
+:global(html[data-theme="dark"]) .glowBlue {
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.35) 0%, rgba(66, 133, 244, 0) 70%);
+}
+:global(html[data-theme="dark"]) .glowRed {
+  background: radial-gradient(circle, rgba(234, 67, 53, 0.25) 0%, rgba(234, 67, 53, 0) 70%);
+}
+:global(html[data-theme="dark"]) .glowYellow {
+  background: radial-gradient(circle, rgba(251, 188, 4, 0.28) 0%, rgba(251, 188, 4, 0) 70%);
+}
+:global(html[data-theme="dark"]) .glowGreen {
+  background: radial-gradient(circle, rgba(52, 168, 83, 0.24) 0%, rgba(52, 168, 83, 0) 70%);
+}
+@keyframes floatOrbA {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-20px, 25px, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(15px, -15px, 0) scale(0.95);
+  }
+}
+@keyframes floatOrbB {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(25px, -20px, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-15px, 20px, 0) scale(0.96);
+  }
+}
+@keyframes floatOrbC {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-20px, -20px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(20px, 15px, 0) scale(0.97);
+  }
+}
+@keyframes floatOrbD {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(20px, -25px, 0) scale(1.07);
+  }
+  100% {
+    transform: translate3d(-15px, 10px, 0) scale(0.95);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glowBlue,
+  .glowRed,
+  .glowYellow,
+  .glowGreen {
+    animation: none;
+  }
 }
 .root h1 {
   font-family: var(--font-display);

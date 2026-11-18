@@ -1,0 +1,117 @@
+.steps {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.steps li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  column-gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+}
+.number {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--audience-blue) 12%, transparent);
+  color: var(--audience-blue);
+  font-weight: 600;
+}
+.steps h3,
+.cards h3 {
+  margin: 0;
+  font-size: var(--text-16);
+  font-weight: 500;
+}
+.steps p,
+.cards p {
+  margin: 4px 0 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  line-height: 1.5;
+}
+.example {
+  margin: 20px 0 0;
+  padding: 16px 20px;
+  border-left: 3px solid var(--audience-blue);
+  background: var(--audience-tint);
+  border-radius: 0 var(--corner-16) var(--corner-16) 0;
+  font-size: var(--text-16);
+  line-height: 1.5;
+}
+.submit {
+  margin-top: 20px;
+}
+.submit p {
+  margin: 0;
+  color: var(--audience-muted);
+}
+.split {
+  display: grid;
+  gap: 32px;
+}
+.lead {
+  margin: 8px 0 0;
+  color: var(--audience-muted);
+}
+.cards {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cards li {
+  padding: 14px 16px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+}
+.note {
+  margin: 12px 0 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+.dates {
+  margin-top: 28px;
+}
+.timeline {
+  margin: 12px 0 0;
+}
+.timeline div {
+  display: flex;
+  gap: 16px;
+  padding-block: 10px;
+  border-top: 1px solid var(--audience-line);
+  font-size: var(--text-14);
+}
+.timeline dt {
+  flex: 0 0 140px;
+  font-weight: 600;
+}
+.timeline dd {
+  margin: 0;
+  color: var(--audience-muted);
+}
+@media (min-width: 761px) {
+  .steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .steps li {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+  }
+  .number {
+    grid-row: auto;
+  }
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+  }
+}

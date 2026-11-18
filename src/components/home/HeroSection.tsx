@@ -66,6 +66,13 @@ export default function HeroSection() {
   const price = passPrice();
   return (
     <section className={styles.root} aria-labelledby="event-title">
+      <div className={styles.ambientLighting} aria-hidden="true">
+        <div className={`${styles.glowOrb} ${styles.glowBlue}`} />
+        <div className={`${styles.glowOrb} ${styles.glowRed}`} />
+        <div className={`${styles.glowOrb} ${styles.glowYellow}`} />
+        <div className={`${styles.glowOrb} ${styles.glowGreen}`} />
+      </div>
+      <div className={styles.spectrumBar} aria-hidden="true" />
       <div className={"audience-wrap" + " " + styles.grid}>
         <div className={styles.copy}>
           <h1 id="event-title" aria-label={EVENT.name}>

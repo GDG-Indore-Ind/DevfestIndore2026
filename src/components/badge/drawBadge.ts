@@ -1,252 +1,255 @@
-// One 4:5 image: it fits Instagram, LinkedIn and WhatsApp without cropping the name.
 export const BADGE_SIZE = { width: 1080, height: 1350 } as const;
+/** The cropped photo is square; the badge shows it in a circle. */
+export const BADGE_PHOTO_SIZE = 900;
 
-export type BadgeColor = "blue" | "red" | "yellow" | "green";
-
-const palettes = {
-  blue: { paper: "#e8f0fe", accent: "#4285f4", ink: "#174ea6" },
-  red: { paper: "#fce8e6", accent: "#ea4335", ink: "#a50e0e" },
-  yellow: { paper: "#fef7e0", accent: "#fbbc04", ink: "#714c00" },
-  green: { paper: "#e6f4ea", accent: "#34a853", ink: "#0d652d" },
-};
-
-export type BadgeDrawing = {
+type BadgeDrawing = {
+  mission: string;
   name: string;
-  affiliation: string;
-  color: BadgeColor;
-  theme: string;
-  photo: HTMLCanvasElement | null;
-  /** The GDG mark from `public/gdg-logo.png`; the lockup falls back to text without it. */
-  logo: HTMLImageElement | null;
-  fontFamily: string;
+  headline: string;
+  organisation: string;
   eventName: string;
-  date: string;
-  city: string;
-  venue: string;
-  organizer: string;
-  chapter: string;
-  website: string;
-  attending: string;
+  fontFamily: string;
+  photo: HTMLCanvasElement | null;
+  logo: HTMLImageElement | null;
 };
 
 export function cleanBadgeText(text: string) {
   return text
     .normalize("NFKC")
-    .replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, "")
+    .replace(/[\u0000-\u001f\u007f-\u009f‪-‮⁦-⁩]/g, "")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-// A name is a drawing seed, never an identifier or proof of registration.
-function randomFromName(name: string) {
-  let seed = 2166136261;
-  for (const character of cleanBadgeText(name).toLocaleLowerCase("en")) {
-    seed = Math.imul(seed ^ character.codePointAt(0)!, 16777619);
-  }
-  return () => {
-    seed += 0x6d2b79f5;
-    let value = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    value ^= value + Math.imul(value ^ (value >>> 7), 61 | value);
-    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
-  };
+const google = { blue: "#4285f4", red: "#ea4335", yellow: "#fbbc04", green: "#34a853" };
+const ink = "#202124";
+const muted = "#5f6368";
+const line = "#dadce0";
+const tint = "#e8f0fe";
+
+/** Shrinks the font until the text fits the width, then draws it centred. */
+function fitText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  y: number,
+  weight: number,
+  start: number,
+  min: number,
+  maxWidth: number,
+  family: string,
+) {
+  let size = start;
+  do {
+    ctx.font = `${weight} ${size}px ${family}`;
+    if (ctx.measureText(text).width <= maxWidth) break;
+    size -= 2;
+  } while (size > min);
+  ctx.fillText(text, 540, y, maxWidth);
 }
 
-function fitText(ctx: CanvasRenderingContext2D, text: string, width: number) {
-  if (ctx.measureText(text).width <= width) return text;
-  const characters = Array.from(text);
-  while (characters.length && ctx.measureText(`${characters.join("")}…`).width > width)
-    characters.pop();
-  return `${characters.join("")}…`;
-}
-
-function nameLines(ctx: CanvasRenderingContext2D, text: string, width: number) {
+function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, lines: number) {
   const words = text.split(" ");
-  let first = "";
-  while (words.length && ctx.measureText(`${first} ${words[0]}`.trim()).width <= width) {
-    first = `${first} ${words.shift()}`.trim();
+  const rows: string[] = [];
+  let row = "";
+  for (const word of words) {
+    const next = row ? `${row} ${word}` : word;
+    if (ctx.measureText(next).width <= maxWidth || !row) row = next;
+    else {
+      rows.push(row);
+      row = word;
+    }
   }
-  if (!first) return [fitText(ctx, text, width)];
-  return words.length ? [first, fitText(ctx, words.join(" "), width)] : [first];
+  if (row) rows.push(row);
+  return rows.slice(0, lines);
 }
 
-export function drawBadge(canvas: HTMLCanvasElement, options: BadgeDrawing) {
+export function drawBadge(canvas: HTMLCanvasElement, badge: BadgeDrawing) {
   const { width, height } = BADGE_SIZE;
   canvas.width = width;
   canvas.height = height;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas is unavailable");
-  const palette = palettes[options.color];
-  const margin = 76;
-  const font = (size: number, weight = 400) => {
-    ctx.font = `${weight} ${size}px ${options.fontFamily}`;
-  };
-  const label = (
-    text: string,
-    x: number,
-    y: number,
-    size: number,
-    color = "#202124",
-    weight = 400,
-    maxWidth = width - margin * 2,
-  ) => {
-    font(size, weight);
-    ctx.fillStyle = color;
-    ctx.fillText(fitText(ctx, text, maxWidth), x, y);
-  };
-  ctx.fillStyle = palette.paper;
-  ctx.fillRect(0, 0, width, height);
-  ctx.textBaseline = "top";
+  const family = badge.fontFamily;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
 
-  // The orbit and planet positions come from the name, so a person always gets the same badge.
-  const random = randomFromName(options.name);
-  // A photo is 60% of the badge's width (648px), so the artwork shifts to give it room.
-  const art = { x: 540, y: options.photo ? 709 : 690, radius: 340 };
+  // A white ID card on a quiet grey ground.
+  ctx.fillStyle = "#f1f3f4";
+  ctx.fillRect(0, 0, width, height);
+  ctx.save();
+  ctx.shadowColor = "#00000022";
+  ctx.shadowBlur = 28;
+  ctx.shadowOffsetY = 8;
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.roundRect(30, 30, 1020, 1290, 56);
+  ctx.fill();
+  ctx.restore();
   ctx.save();
   ctx.beginPath();
-  if (options.photo) ctx.rect(0, 376, width, 666);
-  else ctx.rect(0, 420, width, 560);
+  ctx.roundRect(30, 30, 1020, 1290, 56);
   ctx.clip();
-  ctx.translate(art.x, art.y);
-  ctx.scale(art.radius, art.radius);
-  // A photo gets a larger centre, so the orbits start further out to stay clear of it.
-  const centre = options.photo ? (width * 0.3) / art.radius : 0.3;
-  const firstOrbit = options.photo ? 1.08 : 0.5;
-  const orbitGap = options.photo ? 0.1 : 0.22;
-  const tilt = -0.7 + random() * 0.45;
-  const colors = [palette.accent, "#4285f4", "#ea4335", "#fbbc04", "#34a853"];
-  for (let i = 0; i < 5; i++) {
-    const radius = firstOrbit + i * orbitGap;
-    const flatten = 0.46 + random() * 0.2;
-    let angle = random() * Math.PI * 2;
-    // Planets keep off the centre: step each one along its orbit until it is clear.
-    for (
-      let step = 0;
-      step < 24 &&
-      Math.hypot(Math.cos(angle) * radius, Math.sin(angle) * radius * flatten) < centre + 0.1;
-      step++
-    )
-      angle += Math.PI / 12;
-    const rotation = tilt + i * 0.14;
-    ctx.save();
-    ctx.rotate(rotation);
-    ctx.beginPath();
-    ctx.ellipse(0, 0, radius, radius * flatten, 0, 0, Math.PI * 2);
-    ctx.strokeStyle = "#202124";
-    ctx.globalAlpha = 0.32;
-    ctx.lineWidth = 1.8 / art.radius;
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.beginPath();
-    ctx.arc(
-      Math.cos(angle) * radius,
-      Math.sin(angle) * radius * flatten,
-      0.035 + random() * 0.035,
-      0,
-      Math.PI * 2,
-    );
-    ctx.fillStyle = colors[i];
-    ctx.fill();
-    ctx.restore();
-  }
-  for (let i = 0; i < 14; i++) {
-    const x = (random() - 0.5) * 2.5;
-    const y = (random() - 0.5) * 1.8;
-    ctx.fillStyle = palette.ink;
-    ctx.globalAlpha = 0.45;
-    ctx.fillRect(x, y, 0.006, 0.006);
-  }
-  ctx.globalAlpha = 1;
+
+  // Lanyard slot and the four-colour top edge.
+  ctx.fillStyle = "#e8eaed";
   ctx.beginPath();
-  ctx.arc(0, 0, centre, 0, Math.PI * 2);
-  ctx.fillStyle = palette.accent;
+  ctx.roundRect(450, 66, 180, 34, 17);
   ctx.fill();
-  if (options.photo) {
-    // The accent circle shows as a ring around the photo.
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(0, 0, centre - 0.022, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.drawImage(options.photo, -centre, -centre, centre * 2, centre * 2);
-    ctx.restore();
+  [google.blue, google.red, google.yellow, google.green].forEach((color, index) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(30 + index * 255, 30, 255, 10);
+  });
+
+  // Lockup: chapter mark, divider, event name.
+  if (badge.logo) {
+    const logoWidth = 360;
+    ctx.drawImage(
+      badge.logo,
+      80,
+      138,
+      logoWidth,
+      (logoWidth * badge.logo.height) / badge.logo.width,
+    );
   } else {
-    // A small four-point star at the centre, rather than an empty photo slot.
-    ctx.beginPath();
-    ctx.moveTo(0, -0.13);
-    ctx.quadraticCurveTo(0, 0, 0.13, 0);
-    ctx.quadraticCurveTo(0, 0, 0, 0.13);
-    ctx.quadraticCurveTo(0, 0, -0.13, 0);
-    ctx.quadraticCurveTo(0, 0, 0, -0.13);
-    ctx.fillStyle = "#202124";
-    ctx.fill();
+    ctx.fillStyle = ink;
+    ctx.font = `600 32px ${family}`;
+    ctx.fillText("Google Developer Groups Indore", 80, 180);
+  }
+  ctx.fillStyle = line;
+  ctx.fillRect(478, 132, 3, 92);
+  const year = badge.eventName.match(/\b\d{4}\b/)?.[0] ?? "";
+  const title = badge.eventName.replace(year, "").trim();
+  ctx.fillStyle = ink;
+  ctx.font = `700 52px ${family}`;
+  ctx.fillText(title, 508, 172, 480);
+  ctx.font = `700 52px ${family}`;
+  let x = 508;
+  [google.blue, google.red, google.yellow, google.green].forEach((color, index) => {
+    const digit = year[index] ?? "";
+    ctx.fillStyle = color;
+    ctx.fillText(digit, x, 226);
+    x += ctx.measureText(digit).width;
+  });
+
+  // Rajwada-style palace silhouette, soft and behind the photo.
+  ctx.save();
+  ctx.translate(30, 770);
+  ctx.scale(1.7, 1.7);
+  ctx.fillStyle = tint;
+  ctx.fillRect(0, -26, 260, 26);
+  for (let tier = 0; tier < 4; tier++) {
+    const tx = 28 + tier * 15;
+    const ty = -52 - tier * 23;
+    const tw = 166 - tier * 30;
+    ctx.fillStyle = tint;
+    ctx.fillRect(tx, ty, tw, 29);
+    ctx.fillRect(tx - 5, ty, tw + 10, 4);
+    ctx.fillStyle = "#ffffff";
+    for (let wx = tx + 11; wx < tx + tw - 8; wx += 20) {
+      ctx.beginPath();
+      ctx.arc(wx, ty + 14, 4, Math.PI, 2 * Math.PI);
+      ctx.lineTo(wx + 4, ty + 21);
+      ctx.lineTo(wx - 4, ty + 21);
+      ctx.fill();
+    }
   }
   ctx.restore();
 
-  // Chapter lockup, as in the site header: the GDG mark, then the organiser and chapter names.
-  let lockupX = margin;
-  if (options.logo) {
-    // The mark sits inside transparent padding in the 500px source file.
-    ctx.drawImage(options.logo, 85, 150, 330, 200, margin, 62, 99, 60);
-    lockupX += 99 + 18;
-  }
-  label(options.organizer, lockupX, 62, 30, "#202124", 500, width - margin - lockupX - 400);
-  label(options.chapter, lockupX, 100, 24, "#3c4043", 400, width - margin - lockupX - 400);
-
-  label(options.attending, margin, 178, 32, palette.ink, 500);
-  label(options.eventName, margin, 226, 76, "#202124", 700);
-  label(`${options.date}  ·  ${options.venue}, ${options.city}`, margin, 326, 30);
-
-  const identityY = options.photo ? 1058 : 1000;
-  const identityWidth = width - margin * 2;
-  let nameSize = options.photo ? 60 : 72;
-  font(nameSize, 600);
-  if (ctx.measureText(options.name).width > identityWidth * 1.8) nameSize = options.photo ? 50 : 56;
-  font(nameSize, 600);
-  const lines = nameLines(ctx, options.name, identityWidth);
-  lines.forEach((line, index) =>
-    label(
-      line,
-      margin,
-      identityY + index * nameSize * 1.16,
-      nameSize,
-      "#202124",
-      600,
-      identityWidth,
-    ),
-  );
-  const affiliationY = identityY + lines.length * nameSize * 1.16 + 10;
-  if (options.affiliation)
-    label(options.affiliation, margin, affiliationY, 28, "#3c4043", 400, identityWidth);
-
-  // The theme sits top right, level with the lockup, leaving the lower half to the person.
-  font(26, 500);
-  const themeWidth = Math.min(ctx.measureText(options.theme).width + 44, 380);
-  const themeX = width - margin - themeWidth;
-  ctx.fillStyle = palette.ink;
-  ctx.beginPath();
-  ctx.roundRect(themeX, 66, themeWidth, 50, 25);
-  ctx.fill();
-  label(options.theme, themeX + 22, 76, 26, "#ffffff", 500, themeWidth - 44);
-
-  const footerY = 1300;
-  const stripeWidth = 28;
-  ctx.strokeStyle = "#202124";
-  ctx.globalAlpha = 0.2;
-  ctx.beginPath();
-  ctx.moveTo(margin, footerY - 22);
-  ctx.lineTo(width - margin, footerY - 22);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-  label(
-    options.website,
-    margin,
-    footerY - 2,
-    26,
-    "#202124",
-    500,
-    width - margin * 2 - stripeWidth * 4 - 24,
-  );
-  ["#4285f4", "#ea4335", "#fbbc04", "#34a853"].forEach((color, index) => {
-    ctx.fillStyle = color;
-    ctx.fillRect(width - margin - (4 - index) * stripeWidth, footerY + 4, stripeWidth, 12);
+  // Photo in a four-colour ring.
+  const cx = 540;
+  const cy = 520;
+  const radius = 200;
+  ctx.lineWidth = 16;
+  [google.blue, google.red, google.yellow, google.green].forEach((color, index) => {
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.arc(
+      cx,
+      cy,
+      radius + 18,
+      (index * Math.PI) / 2 - Math.PI / 2 + 0.04,
+      ((index + 1) * Math.PI) / 2 - Math.PI / 2 - 0.04,
+    );
+    ctx.stroke();
   });
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.clip();
+  if (badge.photo) {
+    ctx.drawImage(badge.photo, cx - radius, cy - radius, radius * 2, radius * 2);
+  } else {
+    ctx.fillStyle = tint;
+    ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
+    const words = badge.name.split(" ");
+    const initials = [words[0], ...(words.length > 1 ? words.slice(-1) : [])]
+      .map((word) => Array.from(word)[0])
+      .join("")
+      .toLocaleUpperCase();
+    ctx.fillStyle = google.blue;
+    ctx.font = `600 170px ${family}`;
+    ctx.textAlign = "center";
+    ctx.fillText(initials, cx, cy + 60, 300);
+    ctx.textAlign = "left";
+  }
+  ctx.restore();
+
+  // Attendee pill between hairlines.
+  ctx.fillStyle = line;
+  ctx.fillRect(84, 814, 250, 3);
+  ctx.fillRect(746, 814, 250, 3);
+  ctx.fillStyle = google.blue;
+  ctx.beginPath();
+  ctx.roundRect(370, 776, 340, 76, 38);
+  ctx.fill();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = `600 36px ${family}`;
+  ctx.textAlign = "center";
+  ctx.fillText("ATTENDEE", 540, 826);
+
+  // Name, optional headline and organisation chip.
+  ctx.fillStyle = ink;
+  fitText(ctx, badge.name, 938, 700, 78, 40, 920, family);
+  let nextY = 938;
+  if (badge.headline) {
+    ctx.fillStyle = muted;
+    nextY += 56;
+    fitText(ctx, badge.headline, nextY, 500, 40, 28, 880, family);
+  }
+  ctx.fillStyle = ink;
+  const place = badge.organisation ? `${badge.organisation} · Indore` : "Indore";
+  ctx.font = `500 32px ${family}`;
+  const chipWidth = Math.min(ctx.measureText(place).width + 72, 920);
+  const chipY = nextY + 34;
+  ctx.strokeStyle = line;
+  ctx.lineWidth = 3;
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.roundRect(540 - chipWidth / 2, chipY, chipWidth, 64, 32);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = ink;
+  ctx.fillText(place, 540, chipY + 43, chipWidth - 48);
+
+  // The attendee's mission.
+  const boxY = chipY + 94;
+  ctx.fillStyle = tint;
+  ctx.beginPath();
+  ctx.roundRect(84, boxY, 912, 130, 28);
+  ctx.fill();
+  ctx.fillStyle = google.blue;
+  ctx.font = `600 22px ${family}`;
+  ctx.fillText("MY MISSION", 540, boxY + 36);
+  ctx.fillStyle = ink;
+  ctx.font = `500 34px ${family}`;
+  const rows = wrap(ctx, badge.mission, 840, 2);
+  rows.forEach((row, index) => {
+    ctx.fillText(row, 540, boxY + 80 + index * 42 - (rows.length > 1 ? 8 : 0), 840);
+  });
+
+  // Footer.
+  ctx.fillStyle = muted;
+  ctx.font = `500 26px ${family}`;
+  ctx.fillText(`${badge.eventName} · Powered by GDG Indore`, 540, 1288, 900);
+  ctx.restore();
 }

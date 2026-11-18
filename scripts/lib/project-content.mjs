@@ -14,7 +14,7 @@ export function projectContent(db) {
   const eventRows = ordered(tables.events);
   const personRows = ordered(tables.people);
   const organizationRows = ordered(tables.organizations);
-  const sessionRows = ordered(tables.sessions);
+  const sessionRows = ordered(tables.sessions).filter((row) => !SITE.hiddenSessionIds.includes(row.id));
   const sessionById = new Map(sessionRows.map((row) => [row.id, row]));
   const roomRows = ordered(tables.rooms);
   const personById = new Map(personRows.map((row) => [row.id, row]));

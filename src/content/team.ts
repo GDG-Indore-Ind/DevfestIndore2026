@@ -27,6 +27,6 @@ export function getTeam(): TeamMember[] {
 export const TEAM = getTeam();
 
 export const TEAM_PAGE = {
-  title: "DevFest Team",
+  title: "Team",
   lead: "Meet the people bringing DevFest Indore together.",
 } as const;

@@ -1,20 +1,19 @@
 // Editorial content and interface wording. Event facts come from SQLite.
 export const PAGE_COPY = {
   badge: {
-    title: "Make your DevFest badge",
-    description:
-      "Make your own DevFest Indore badge. Choose a theme, add your name and share your orbit.",
-    lead: "Add your name, pick a theme and tell people you’re going. Your orbit is drawn from your name.",
-    teaserTitle: "Make your DevFest badge",
-    teaserLead: "Add your name, get an orbit of your own and post it on LinkedIn or Instagram.",
-    teaserAction: "Make my badge",
+    title: "Create your badge",
+    description: "Create and share your DevFest Indore attendee badge.",
+    lead: "Add your name and a photo, then share your badge.",
+    teaserTitle: "Create your badge",
+    teaserLead: "Make a square attendee badge with your name and photo.",
+    teaserAction: "Create your badge",
     detailsTitle: "Your details",
     nameLabel: "Your name",
     namePlaceholder: "What should we call you?",
     affiliationLabel: "Role or college (optional)",
     affiliationPlaceholder: "Developer, designer, student…",
     photoLabel: "Photo (optional)",
-    photoHint: "JPEG, PNG or WebP, up to 12 MB. Cropped to a circle.",
+    photoHint: "JPEG, PNG or WebP, up to 12 MB.",
     photoPrivacy:
       "Your photo and details stay in this browser. Nothing is uploaded or saved when you leave.",
     conduct:
@@ -23,11 +22,10 @@ export const PAGE_COPY = {
     photoRemove: "Remove photo",
     themeLabel: "Choose your theme",
     previewLabel: "Your badge preview",
-    previewHint:
-      "Same name, same orbit. Press and hold the image to save it if a download doesn’t start.",
+    previewHint: "",
     previewName: "Your name",
-    attending: "I’m going to",
-    download: "Download PNG",
+    attending: "I’m attending",
+    download: "Download badge",
     linkedin: "Post on LinkedIn",
     instagram: "Share to Instagram",
     x: "Post on X",
@@ -52,12 +50,12 @@ export const PAGE_COPY = {
     },
     captionLabel: "Your caption",
     caption:
-      "I’m going to {{event}} on {{date}} in {{city}}! See you in orbit. {{url}}\n\nMake your own badge: {{badgeUrl}}\n\n#DevFestIndore #DevFest #GDGIndore",
+      "I’m attending {{event}} on {{date}} in {{city}}!\n\nCreate your badge: {{badgeUrl}}\n\n#DevFestIndore #DevFest #GDGIndore",
     copy: "Copy caption",
     copySuccess: "Caption copied.",
     copyError: "Select the caption below and copy it manually.",
     nameRequired: "Add your name to download or share your badge.",
-    preparing: "Drawing your orbit…",
+    preparing: "Preparing your badge…",
     photoLoading: "Preparing your photo…",
     photoError: "We couldn’t read that photo. Try a JPEG, PNG or WebP image.",
     photoSizeError: "Choose a photo smaller than 12 MB.",
@@ -420,8 +418,9 @@ export const PAGE_COPY = {
   agenda: {
     title: "Agenda",
     description:
-      "Keynote, panel, talks, workshops and exhibits at DevFest Indore 2026 on 28 November, in running order.",
-    lead: "The day at a glance. Times will be added once final.",
+      "Keynote, talks, workshops and exhibits at DevFest Indore 2026 on 28 November, in running order.",
+    lead: "Explore the sessions, workshops and activities at DevFest Indore.",
+    activities: ["Lunch", "Community Lounge", "Expert Lounge", "Photo booths"],
     sessionPending: "Session to be announced",
     bioLabel: "About",
     emptyText: "Speakers will be announced soon.",
@@ -478,7 +477,7 @@ export const PAGE_COPY = {
   eventExhibits: {
     title: "Exhibits",
     description:
-      "Confirmed exhibits at DevFest Indore 2026, including Qualcomm × Arduino demos and Space Club of India.",
+      "Confirmed exhibits at DevFest Indore 2026, including Space Club of India and a surprise exhibit.",
     lead: "Confirmed exhibits so far.",
     emptyText: "Exhibits will be announced soon.",
   },
@@ -514,3 +513,92 @@ export const BENEFIT_GROUPS = [
     label: "Lounge access",
   },
 ];
+
+/** "Pick Your Mission" campaign. Dates and rewards stay unannounced until the stage slot is confirmed. */
+export const MISSIONS_COPY = {
+  title: "Pick your mission",
+  description:
+    "You have one day at DevFest Indore. Post your mission on LinkedIn, X or Instagram, tag GDG Indore and get featured.",
+  lead: "You have one day at DevFest Indore. What’s your mission?",
+  hashtag: "#DevFestIndoreMission",
+  stepsTitle: "How to enter",
+  steps: [
+    {
+      title: "Hold a pass",
+      text: "Any confirmed Commander or Cadet pass counts, whichever code you used.",
+    },
+    {
+      title: "Pick one thing",
+      text: "Choose a session, workshop or exhibit from the agenda.",
+    },
+    {
+      title: "Write one line",
+      text: "Say what you want to learn, build or try. One line is enough.",
+    },
+    {
+      title: "Post it",
+      text: "Share it on LinkedIn, X or Instagram, tag GDG Indore and add the hashtag. Your badge is optional.",
+    },
+    {
+      title: "Submit the link",
+      text: "Send your post link once, before entries close.",
+    },
+  ],
+  example:
+    "I want to see what happens when I interrupt a Gemini voice agent halfway through a tool call.",
+  judgingTitle: "How entries are judged",
+  judgingLead:
+    "These are the only criteria. We pick the three best entries on each platform. Reaction counts are taken once, when entries close, and we publish how the winners were picked after the event.",
+  judging: [
+    {
+      title: "Reactions",
+      text: "Likes, reactions and comments on your post when entries close, counted the way each platform shows them. Counted per post, not per follower.",
+    },
+    {
+      title: "Post quality",
+      text: "Your mission is specific, tied to a real session, and says what you want to learn, build or try.",
+    },
+    {
+      title: "Community rules",
+      text: "Original, on topic and respectful. Engagement pods, bought reactions and spam tagging disqualify an entry.",
+    },
+  ],
+  rewardsTitle: "What you get",
+  rewards: [
+    {
+      title: "Everyone who posts",
+      text: "A mission mark on your badge and your name on the mission wall.",
+    },
+    {
+      title: "The Mission Crew",
+      text: "Nine winners, three from each platform. You join us on stage together, receive a Mission Patch, get a group photo with the crew, and have your socials shared with everyone. A surprise follows after the event.",
+    },
+    {
+      title: "Most impactful mission",
+      text: "One crew member, chosen by the organizers for the mission with the most impact, also receives a Flight Deck pass.",
+    },
+  ],
+  rewardsNote: "Everything above is what we are offering. Nothing is promised beyond DevFest.",
+  timelineTitle: "Dates",
+  timeline: [
+    { when: "20 Nov", what: "Campaign opens" },
+    { when: "26 Nov, 8 PM IST", what: "Entries close and reactions are counted" },
+    { when: "27 Nov", what: "Winners confirmed privately" },
+    { when: "28 Nov", what: "The Mission Crew joins us on stage" },
+  ],
+  submitLabel: "Submit your post link",
+  submitPending: "The submission link opens when the campaign launches.",
+  agendaLabel: "Browse the agenda",
+  badgeLabel: "Create your badge",
+  badgeCta: {
+    title: "Posting your mission?",
+    text: "Add your mission to your badge, share it on LinkedIn, X or Instagram, then submit your post link to be considered for the Mission Crew.",
+    label: "See how to enter",
+  },
+  homeStrip: {
+    title: "Make your badge. Pick your mission.",
+    text: "Create your attendee badge, add your mission and post it. Nine winners join us on stage as the Mission Crew.",
+    badgeLabel: "Create your badge",
+    missionLabel: "How to enter",
+  },
+};

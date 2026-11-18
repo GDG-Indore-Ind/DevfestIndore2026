@@ -88,6 +88,24 @@
 :global(.audience-site) .trigger {
   border-radius: var(--space-control-radius);
 }
+.root .trigger,
+.root .ticket,
+.root .programme {
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease;
+}
+.root .trigger:hover {
+  transform: translateY(-1.5px);
+}
+.root .trigger:active {
+  transform: translateY(0.5px) scale(0.98);
+}
+.root .programme:hover {
+  transform: translateY(-1px);
+}
 .root .ticket {
   flex-shrink: 0;
   min-height: 44px;
@@ -178,4 +196,20 @@
   .brandCompact {
     display: none;
   }
+}
+
+.root .badgeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-inline: 12px;
+  border: 1px solid color-mix(in srgb, var(--audience-blue) 40%, var(--audience-line));
+  border-radius: var(--corner-pill);
+  background: color-mix(in srgb, var(--audience-blue) 10%, transparent);
+  color: var(--audience-blue);
+  font-weight: 600;
+}
+.root .badgeLink svg {
+  width: 16px;
+  height: 16px;
 }

@@ -18,15 +18,16 @@ export default function PressStrip() {
           <ContentAction href="/archive#press" icon="history" tone="blue">
             {HOME_PAGE.pressLabel}
           </ContentAction>
-          <ContentAction href="/archive#photos" icon="gallery" tone="green">
-            {HOME_PAGE.photoArchiveLabel}
-          </ContentAction>
         </div>
       </div>
       <ul className={styles.list} aria-labelledby="home-press-title">
         {items.map((item) => (
           <li key={item.id}>
-            <Link href="/archive#press" className={styles.card}>
+            <Link
+              href="/archive#press"
+              className={styles.card}
+              aria-label={`${item.event}: ${item.title}`}
+            >
               <span className={styles.thumb}>
                 <Image
                   src={item.imageUrl}
@@ -36,8 +37,6 @@ export default function PressStrip() {
                 />
               </span>
               <span className={styles.event}>{item.event}</span>
-              <span className={styles.title}>{item.title}</span>
-              {item.publication && <span className={styles.source}>{item.publication}</span>}
             </Link>
           </li>
         ))}

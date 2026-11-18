@@ -209,7 +209,7 @@ test("FAQ policy placeholders follow the canonical registration document", (cont
 
 test("exhibit highlights follow sessions and cannot remain after session deletion", (context) => {
   const { db } = fixture(context);
-  const id = `${SITE.eventId}-qualcomm-arduino-demos`;
+  const id = `${SITE.eventId}-surprise-exhibit`;
   const session = db.select().from(t.sessions).where(eq(t.sessions.id, id)).get();
   assert(
     projectContent(db).pages.home.exhibits.confirmed.some(

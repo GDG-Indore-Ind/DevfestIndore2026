@@ -3,7 +3,10 @@ import { useId } from "react";
 import { ARCHIVE_LOGO_SHEET } from "@/content/partners";
 import type { Organization } from "@/content/model";
 
-type LogoOrganization = Pick<Organization, "id" | "name" | "logoUrl" | "archiveLogoWindow">;
+type LogoOrganization = Pick<
+  Organization,
+  "id" | "name" | "logoUrl" | "archiveLogoWindow" | "logoShape"
+>;
 
 /** Reuse the supplied historical artwork; never infer a current partnership. */
 export default function OrganizationLogo({ organization }: { organization: LogoOrganization }) {
@@ -25,13 +28,14 @@ export default function OrganizationLogo({ organization }: { organization: LogoO
         <image href={ARCHIVE_LOGO_SHEET} width="1500" height="844" clipPath={`url(#${clipId})`} />
       </svg>
     );
+  const isSquare = organization.logoShape === "square";
   return organization.logoUrl ? (
     <Image
       src={organization.logoUrl}
       alt=""
-      width={240}
-      height={120}
-      sizes="(max-width: 760px) 130px, 180px"
+      width={isSquare ? 160 : 240}
+      height={isSquare ? 160 : 120}
+      sizes={isSquare ? "(max-width: 760px) 72px, 96px" : "(max-width: 760px) 130px, 180px"}
       data-organization={organization.id}
     />
   ) : (

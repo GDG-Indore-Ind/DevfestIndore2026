@@ -4,7 +4,10 @@ import OrganizationLogo from "@/components/shared/OrganizationLogo";
 import ExternalLink from "@/components/shared/ExternalLink";
 import styles from "./LogoRow.module.css";
 
-type RowOrganization = Pick<Organization, "id" | "name" | "logoUrl" | "archiveLogoWindow"> & {
+type RowOrganization = Pick<
+  Organization,
+  "id" | "name" | "logoUrl" | "archiveLogoWindow" | "logoShape"
+> & {
   href?: string;
   detail?: string;
 };
@@ -33,9 +36,13 @@ export default function LogoRow({
       <div className={styles.window} role="region" aria-label={label} tabIndex={0}>
         <ul className={styles.group}>
           {items.map((item) => {
+            const isSquare = item.logoShape === "square";
             const content = (
               <>
-                <span className={styles.plate}>
+                <span
+                  className={`${styles.plate} ${isSquare ? styles.squarePlate : ""}`}
+                  data-shape={item.logoShape ?? "wide"}
+                >
                   <OrganizationLogo organization={item} />
                 </span>
                 <span className={styles.name}>{item.name}</span>
@@ -43,7 +50,11 @@ export default function LogoRow({
               </>
             );
             return (
-              <li key={item.id}>
+              <li
+                key={item.id}
+                className={isSquare ? styles.squareItem : undefined}
+                data-shape={item.logoShape ?? "wide"}
+              >
                 {item.href ? (
                   <ExternalLink href={item.href} className={styles.item}>
                     {content}

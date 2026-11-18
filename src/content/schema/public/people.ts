@@ -4,6 +4,7 @@ import { httpsUrl, id, text } from "./common.ts";
 const photo = z.string().regex(/^(https:\/\/|\/[^/])/);
 
 const links = z.strictObject({
+  sessionize: z.string().optional(),
   linkedin: z.string().optional(),
   twitter: z.string().optional(),
   github: z.string().optional(),

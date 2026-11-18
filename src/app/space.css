@@ -10,11 +10,15 @@
 .audience-site .audience-button {
   border-radius: var(--space-control-radius);
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms ease,
+    filter 220ms ease;
 }
 .audience-site .audience-button:hover {
   transform: translateY(-2px);
+}
+.audience-site .audience-button:active {
+  transform: translateY(0) scale(0.98);
 }
 .audience-site .space-primary-button {
   background: var(--google-yellow);
@@ -385,5 +389,9 @@
   margin-top: 3px;
 }
 
-.audience-site :where(section, h2)[id] { scroll-margin-top: 89px; }
-.audience-site:has(nav[aria-label="Explore the page"]) :where(section, h2)[id] { scroll-margin-top: 133px; }
+.audience-site :where(section, h2)[id] {
+  scroll-margin-top: 89px;
+}
+.audience-site:has(nav[aria-label="Explore the page"]) :where(section, h2)[id] {
+  scroll-margin-top: 133px;
+}

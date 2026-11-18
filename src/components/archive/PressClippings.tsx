@@ -60,8 +60,6 @@ export default function PressClippings({
                 />
               </span>
               <span className={styles.event}>{item.event}</span>
-              <span className={styles.title}>{item.title}</span>
-              {source(item) && <span className={styles.source}>{source(item)}</span>}
             </button>
           </li>
         ))}

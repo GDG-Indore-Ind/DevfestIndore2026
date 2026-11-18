@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CurrentTicketOffer from "@/components/tickets/CurrentTicketOffer";
 import AmbassadorContact from "@/components/tickets/AmbassadorContact";
 import ClosedPasses from "@/components/tickets/ClosedPasses";
+import FlightDeckBanner from "@/components/tickets/FlightDeckBanner";
 import KonfHubRegistration from "@/components/tickets/KonfHubRegistration";
 import { TICKETS_PAGE as page } from "@/content/pages";
 
@@ -22,6 +23,7 @@ export default function TicketsPage() {
       <main id="main-content">
         <CurrentTicketOffer />
         {page.ambassadorContactEnabled && <AmbassadorContact />}
+        <FlightDeckBanner />
         <KonfHubRegistration />
         <ClosedPasses />
         <ContentActionGroup>

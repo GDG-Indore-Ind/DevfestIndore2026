@@ -2,19 +2,20 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { Check, Copy, Download } from "lucide-react";
+import { Check, Copy, Download, Share2 } from "lucide-react";
 import { PAGE_COPY } from "@/content/copy";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ContentAction from "@/components/shared/ContentAction";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialGlyph from "@/components/shared/SocialGlyph";
-import { BADGE_SIZE, cleanBadgeText, drawBadge, type BadgeColor } from "./drawBadge";
+import { BADGE_PHOTO_SIZE, BADGE_SIZE, cleanBadgeText, drawBadge } from "./drawBadge";
+import { badgeMissions } from "@/content/badgeMissions";
 import styles from "./BadgeMaker.module.css";
 
 const copy = PAGE_COPY.badge;
-const themes = PAGE_COPY.home.themes;
+
 const date = `${EVENT_SHORT_DATE} ${EVENT.year}`;
-const caption = copy.caption
+const baseCaption = copy.caption
   .replace("{{event}}", EVENT.name)
   .replace("{{date}}", date)
   .replace("{{city}}", EVENT.venue.city)
@@ -22,26 +23,33 @@ const caption = copy.caption
   .replace("{{badgeUrl}}", new URL("/badge", EVENT.links.website).href);
 // Each button opens that platform's own composer. LinkedIn and X accept the post text in the
 // link; none of them accepts an image from a website, so the PNG is saved for attaching.
-const composers = {
-  linkedin: `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(caption)}`,
-  x: `https://x.com/intent/post?text=${encodeURIComponent(caption)}`,
-  instagram: "https://www.instagram.com/",
-};
-type Platform = keyof typeof composers;
+type Platform = "linkedin" | "x" | "instagram";
 
 type DrawingRequest = {
+  mission: string;
   name: string;
-  affiliation: string;
-  theme: (typeof themes)[number];
+  headline: string;
+  organisation: string;
   photo: HTMLCanvasElement | null;
   logo: HTMLImageElement | null;
 };
 type PreparedBadge = { request: DrawingRequest; file: File; url: string; canShare: boolean };
 
 export default function BadgeMaker() {
-  const [name, setName] = useState("");
-  const [affiliation, setAffiliation] = useState("");
-  const [themeId, setThemeId] = useState(themes[0].id);
+  const [missionIndex, setMissionIndex] = useState(0);
+  const mission = badgeMissions[missionIndex];
+  const caption = `My DevFest mission: ${mission}\n\n${baseCaption}`;
+  const composers = {
+    linkedin: `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(caption)}`,
+    x: `https://x.com/intent/post?text=${encodeURIComponent(caption)}`,
+    instagram: "https://www.instagram.com/",
+  };
+  const [name, setName] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("name") || "";
+  });
+  const [headline, setHeadline] = useState("");
+  const [organisation, setOrganisation] = useState("");
   const [photo, setPhoto] = useState<HTMLCanvasElement | null>(null);
   const [logo, setLogo] = useState<HTMLImageElement | null>(null);
   const [photoLoading, setPhotoLoading] = useState(false);
@@ -51,16 +59,16 @@ export default function BadgeMaker() {
   const [message, setMessage] = useState("");
   const [sharing, setSharing] = useState(false);
   const photoRequest = useRef(0);
-  const theme = themes.find((theme) => theme.id === themeId)!;
   const request = useMemo(
     () => ({
       name: cleanBadgeText(name),
-      affiliation: cleanBadgeText(affiliation),
-      theme,
+      headline: cleanBadgeText(headline),
+      organisation: cleanBadgeText(organisation),
+      mission,
       photo,
       logo,
     }),
-    [name, affiliation, theme, photo, logo],
+    [name, headline, organisation, mission, photo, logo],
   );
   const current = prepared?.request === request ? prepared : null;
   const ready = !!current && !!request.name && !photoLoading;
@@ -73,7 +81,7 @@ export default function BadgeMaker() {
     image.onload = () => {
       if (!cancelled) setLogo(image);
     };
-    image.src = "/gdg-logo.png";
+    image.src = "/images/partners/gdg-indore.png";
     return () => {
       cancelled = true;
     };
@@ -94,17 +102,8 @@ export default function BadgeMaker() {
         drawBadge(canvas, {
           ...request,
           name: request.name || copy.previewName,
-          theme: request.theme.label,
-          color: request.theme.color as BadgeColor,
           fontFamily: `${family}, sans-serif`,
           eventName: EVENT.name,
-          date,
-          city: EVENT.venue.city,
-          venue: EVENT.venue.name,
-          organizer: "Google Developer Group",
-          chapter: EVENT.venue.city,
-          website: new URL(EVENT.links.website).host,
-          attending: copy.attending,
         });
         const blob = await new Promise<Blob>((resolve, reject) =>
           canvas.toBlob(
@@ -168,22 +167,14 @@ export default function BadgeMaker() {
       await image.decode();
       if (id !== photoRequest.current) return;
       const crop = document.createElement("canvas");
-      crop.width = crop.height = 768;
+      crop.width = BADGE_PHOTO_SIZE;
+      crop.height = BADGE_PHOTO_SIZE;
       const context = crop.getContext("2d");
       if (!context) throw new Error("Canvas is unavailable");
-      const side = Math.min(image.naturalWidth, image.naturalHeight);
-      if (!side) throw new Error("Empty image");
-      context.drawImage(
-        image,
-        (image.naturalWidth - side) / 2,
-        (image.naturalHeight - side) / 2,
-        side,
-        side,
-        0,
-        0,
-        768,
-        768,
-      );
+      const scale = Math.max(crop.width / image.naturalWidth, crop.height / image.naturalHeight);
+      const w = image.naturalWidth * scale;
+      const h = image.naturalHeight * scale;
+      context.drawImage(image, (crop.width - w) / 2, (crop.height - h) * 0.35, w, h);
       setPhoto(crop);
     } catch {
       if (id === photoRequest.current) setPhotoError(copy.photoError);
@@ -212,7 +203,7 @@ export default function BadgeMaker() {
 
   // Phones hand the image and caption to the chosen app. Elsewhere the platform's composer
   // opens in a new tab, the badge is saved and the caption copied.
-  async function post(platform: Platform) {
+  async function post(platform?: Platform) {
     if (!ready || !current || sharing) return;
     setMessage("");
     if (current.canShare) {
@@ -229,6 +220,7 @@ export default function BadgeMaker() {
       return;
     }
     // Opened first, while the click still counts as the user's action, so it is not blocked.
+    if (!platform) return;
     window.open(composers[platform], "_blank", "noopener,noreferrer");
     save(current.file);
     let copied = true;
@@ -264,7 +256,7 @@ export default function BadgeMaker() {
               width={BADGE_SIZE.width}
               height={BADGE_SIZE.height}
               unoptimized
-              alt={`${prepared.request.name || copy.previewName} · ${copy.attending} ${EVENT.name} · ${date} · ${EVENT.venue.city} · ${prepared.request.theme.label}`}
+              alt={`${prepared.request.name || copy.previewName} · ${copy.attending} ${EVENT.name}`}
             />
           ) : (
             <div
@@ -301,18 +293,66 @@ export default function BadgeMaker() {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="badge-affiliation">{copy.affiliationLabel}</label>
+          <label htmlFor="badge-headline">Role or course (optional)</label>
           <input
-            id="badge-affiliation"
+            id="badge-headline"
             autoComplete="off"
-            maxLength={80}
-            placeholder={copy.affiliationPlaceholder}
-            value={affiliation}
+            maxLength={48}
+            placeholder="B.Tech CSE, Android developer…"
+            value={headline}
             onChange={(event) => {
-              setAffiliation(event.target.value);
+              setHeadline(event.target.value);
               setMessage("");
             }}
           />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="badge-organisation">College or company (optional)</label>
+          <input
+            id="badge-organisation"
+            autoComplete="off"
+            maxLength={48}
+            placeholder="Your college or company"
+            value={organisation}
+            onChange={(event) => {
+              setOrganisation(event.target.value);
+              setMessage("");
+            }}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="badge-mission">What’s your DevFest mission?</label>
+          <select
+            id="badge-mission"
+            value={missionIndex}
+            onChange={(event) => {
+              setMissionIndex(event.target.selectedIndex);
+              setMessage("");
+            }}
+          >
+            {badgeMissions.map((line, index) => (
+              <option key={line} value={index}>
+                {line}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className={styles.textButton}
+            onClick={() => {
+              setMissionIndex(
+                (current) =>
+                  (current + 1 + Math.floor(Math.random() * (badgeMissions.length - 1))) %
+                  badgeMissions.length,
+              );
+              setMessage("");
+            }}
+          >
+            Shuffle mission
+          </button>
+          <span className="sr-only" role="status">
+            {mission}
+          </span>
         </div>
         <div className={styles.field}>
           <label htmlFor="badge-photo">{copy.photoLabel}</label>
@@ -348,27 +388,6 @@ export default function BadgeMaker() {
             {photoLoading ? copy.photoLoading : photoError}
           </p>
         </div>
-        <fieldset className={styles.choices}>
-          <legend>{copy.themeLabel}</legend>
-          <div className={styles.themeGrid}>
-            {themes.map((option) => (
-              <label key={option.id} className={styles.choice}>
-                <input
-                  type="radio"
-                  name="badge-theme"
-                  value={option.id}
-                  checked={themeId === option.id}
-                  onChange={() => {
-                    setThemeId(option.id);
-                    setMessage("");
-                  }}
-                />
-                <span className={`${styles.swatch} ${styles[option.color]}`} aria-hidden="true" />
-                <span>{option.label}</span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
         <p id="badge-privacy" className={styles.hint}>
           {copy.photoPrivacy}
         </p>
@@ -381,40 +400,28 @@ export default function BadgeMaker() {
       </div>
       <div className={styles.share}>
         <div className={styles.actions}>
+          {current?.canShare && (
+            <button type="button" onClick={() => void post()} disabled={!ready || sharing}>
+              <Share2 aria-hidden="true" />
+              Share badge
+            </button>
+          )}
           <button type="button" onClick={download} disabled={!ready}>
             <Download aria-hidden="true" />
             {copy.download}
           </button>
-          <button
-            type="button"
-            className={styles.linkedin}
-            onClick={() => void post("linkedin")}
-            disabled={!ready || sharing}
-            aria-describedby="badge-share-hint"
-          >
-            <SocialGlyph platform="linkedin" />
-            {copy.linkedin}
-          </button>
-          <button
-            type="button"
-            className={styles.instagram}
-            onClick={() => void post("instagram")}
-            disabled={!ready || sharing}
-            aria-describedby="badge-share-hint"
-          >
-            <SocialGlyph platform="instagram" />
-            {copy.instagram}
-          </button>
-          <button
-            type="button"
-            className={styles.x}
-            onClick={() => void post("x")}
-            disabled={!ready || sharing}
-            aria-describedby="badge-share-hint"
-          >
-            <SocialGlyph platform="x" />
-            {copy.x}
-          </button>
+          {!current?.canShare &&
+            (Object.keys(composers) as Platform[]).map((platform) => (
+              <button
+                key={platform}
+                type="button"
+                disabled={!ready}
+                onClick={() => void post(platform)}
+              >
+                <SocialGlyph platform={platform} />
+                {copy[platform]}
+              </button>
+            ))}
         </div>
         <p id="badge-export-status" className={styles.hint} role="status">
           {failed

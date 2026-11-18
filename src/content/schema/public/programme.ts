@@ -15,6 +15,7 @@ const profile = z.strictObject({
   bio: z.string().optional(),
   socials: z
     .strictObject({
+      sessionize: z.string().optional(),
       linkedin: z.string().optional(),
       twitter: z.string().optional(),
       github: z.string().optional(),

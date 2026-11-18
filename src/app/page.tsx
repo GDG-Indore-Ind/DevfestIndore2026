@@ -6,7 +6,7 @@ import AgendaPreview from "@/components/home/AgendaPreview";
 import GalleryVideoSection from "@/components/home/GalleryVideoSection";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import TicketStrip from "@/components/home/TicketStrip";
-import BadgeTeaser from "@/components/home/BadgeTeaser";
+import MissionStrip from "@/components/home/MissionStrip";
 import VenueSection from "@/components/home/VenueSection";
 import CommunitySupporters from "@/components/home/CommunitySupporters";
 import Footer from "@/components/layout/Footer";
@@ -50,7 +50,7 @@ export default function Home() {
         <ExploreSection />
         <AgendaPreview />
         <TicketStrip />
-        <BadgeTeaser />
+        <MissionStrip />
         <div id="sponsors">
           <SponsorShowcase />
         </div>
