@@ -14,6 +14,7 @@ import styles from "./BadgeMaker.module.css";
 
 const copy = PAGE_COPY.badge;
 
+const badgeFilename = `devfest-indore-${EVENT.year}-badge.png`;
 const date = `${EVENT_SHORT_DATE} ${EVENT.year}`;
 const baseCaption = copy.caption
   .replace("{{event}}", EVENT.name)
@@ -33,7 +34,7 @@ type DrawingRequest = {
   photo: HTMLCanvasElement | null;
   logo: HTMLImageElement | null;
 };
-type PreparedBadge = { request: DrawingRequest; file: File; url: string; canShare: boolean };
+type PreparedBadge = { request: DrawingRequest; file: File | null; url: string; canShare: boolean };
 
 export default function BadgeMaker() {
   const [missionIndex, setMissionIndex] = useState(0);
@@ -91,12 +92,10 @@ export default function BadgeMaker() {
     let cancelled = false;
     async function render() {
       try {
-        await document.fonts.ready;
         const family =
           getComputedStyle(document.documentElement)
             .getPropertyValue("--font-google-sans")
             .trim() || "sans-serif";
-        await document.fonts.load(`600 72px ${family}`, request.name || copy.previewName);
         if (cancelled) return;
         const canvas = document.createElement("canvas");
         drawBadge(canvas, {
@@ -113,16 +112,15 @@ export default function BadgeMaker() {
         );
         if (cancelled) return;
         // The file is ready before the click, preserving mobile share-sheet activation.
-        const file = new File([blob], `devfest-indore-${EVENT.year}-badge.png`, {
-          type: "image/png",
-        });
+        let file: File | null = null;
         let canShare = false;
         try {
+          file = new File([blob], badgeFilename, { type: "image/png" });
           canShare = !!navigator.canShare?.({ files: [file] });
         } catch {
-          /* Download remains available. */
+          /* File sharing is optional. Preview and download use the PNG blob. */
         }
-        setPrepared({ request, file, url: URL.createObjectURL(file), canShare });
+        setPrepared({ request, file, url: URL.createObjectURL(blob), canShare });
       } catch {
         if (!cancelled) setRenderError(request);
       }
@@ -184,20 +182,18 @@ export default function BadgeMaker() {
     }
   }
 
-  function save(file: File) {
-    const url = URL.createObjectURL(file);
+  function save(url: string) {
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = file.name;
+    anchor.download = badgeFilename;
     document.body.append(anchor);
     anchor.click();
     anchor.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 30_000);
   }
 
   function download() {
     if (!ready || !current) return;
-    save(current.file);
+    save(current.url);
     setMessage(copy.downloadSuccess);
   }
 
@@ -206,7 +202,7 @@ export default function BadgeMaker() {
   async function post(platform?: Platform) {
     if (!ready || !current || sharing) return;
     setMessage("");
-    if (current.canShare) {
+    if (current.canShare && current.file) {
       setSharing(true);
       try {
         await navigator.share({ files: [current.file], title: EVENT.name, text: caption });
@@ -222,7 +218,7 @@ export default function BadgeMaker() {
     // Opened first, while the click still counts as the user's action, so it is not blocked.
     if (!platform) return;
     window.open(composers[platform], "_blank", "noopener,noreferrer");
-    save(current.file);
+    save(current.url);
     let copied = true;
     try {
       await navigator.clipboard.writeText(caption);

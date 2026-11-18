@@ -27,6 +27,23 @@ const muted = "#5f6368";
 const line = "#dadce0";
 const tint = "#e8f0fe";
 
+// arcTo also works in mobile browsers that predate canvas.roundRect.
+function roundedRect(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number,
+) {
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
 /** Shrinks the font until the text fits the width, then draws it centred. */
 function fitText(
   ctx: CanvasRenderingContext2D,
@@ -82,18 +99,18 @@ export function drawBadge(canvas: HTMLCanvasElement, badge: BadgeDrawing) {
   ctx.shadowOffsetY = 8;
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.roundRect(30, 30, 1020, 1290, 56);
+  roundedRect(ctx, 30, 30, 1020, 1290, 56);
   ctx.fill();
   ctx.restore();
   ctx.save();
   ctx.beginPath();
-  ctx.roundRect(30, 30, 1020, 1290, 56);
+  roundedRect(ctx, 30, 30, 1020, 1290, 56);
   ctx.clip();
 
   // Lanyard slot and the four-colour top edge.
   ctx.fillStyle = "#e8eaed";
   ctx.beginPath();
-  ctx.roundRect(450, 66, 180, 34, 17);
+  roundedRect(ctx, 450, 66, 180, 34, 17);
   ctx.fill();
   [google.blue, google.red, google.yellow, google.green].forEach((color, index) => {
     ctx.fillStyle = color;
@@ -200,7 +217,7 @@ export function drawBadge(canvas: HTMLCanvasElement, badge: BadgeDrawing) {
   ctx.fillRect(746, 814, 250, 3);
   ctx.fillStyle = google.blue;
   ctx.beginPath();
-  ctx.roundRect(370, 776, 340, 76, 38);
+  roundedRect(ctx, 370, 776, 340, 76, 38);
   ctx.fill();
   ctx.fillStyle = "#ffffff";
   ctx.font = `600 36px ${family}`;
@@ -225,7 +242,7 @@ export function drawBadge(canvas: HTMLCanvasElement, badge: BadgeDrawing) {
   ctx.lineWidth = 3;
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.roundRect(540 - chipWidth / 2, chipY, chipWidth, 64, 32);
+  roundedRect(ctx, 540 - chipWidth / 2, chipY, chipWidth, 64, 32);
   ctx.fill();
   ctx.stroke();
   ctx.fillStyle = ink;
@@ -235,7 +252,7 @@ export function drawBadge(canvas: HTMLCanvasElement, badge: BadgeDrawing) {
   const boxY = chipY + 94;
   ctx.fillStyle = tint;
   ctx.beginPath();
-  ctx.roundRect(84, boxY, 912, 130, 28);
+  roundedRect(ctx, 84, boxY, 912, 130, 28);
   ctx.fill();
   ctx.fillStyle = google.blue;
   ctx.font = `600 22px ${family}`;
