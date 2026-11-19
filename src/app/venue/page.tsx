@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "@/content/event";
+import { AGENDA_ITEMS } from "@/content/agenda";
 import { VENUE_PAGE as page } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
 import styles from "./page.module.css";
@@ -77,6 +78,17 @@ export default function VenuePage() {
                 </div>
               </div>
               <p className="audience-body">{page.entrySummary}</p>
+              <p className="audience-body">
+                Workshop rooms:{" "}
+                {[
+                  ...new Set(
+                    AGENDA_ITEMS.filter((item) => item.format === "workshop" && item.hall).map(
+                      (item) => item.hall,
+                    ),
+                  ),
+                ].join(" and ")}
+                .
+              </p>
               <ContentAction href="/faq#entry" icon="guidelines" tone="blue">
                 Pass requirements
               </ContentAction>
