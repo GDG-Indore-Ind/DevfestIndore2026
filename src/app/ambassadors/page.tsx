@@ -1,8 +1,7 @@
+import CommunityPage from "@/components/layout/CommunityPage";
+import ContentAction from "@/components/shared/ContentAction";
+import SectionHeader from "@/components/shared/SectionHeader";
 import StrongText from "@/components/shared/StrongText";
-import Link from "next/link";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import PageIntro from "@/components/shared/PageIntro";
 import AmbassadorDirectory from "./AmbassadorDirectory";
 import { AMBASSADOR_DIRECTORY } from "@/content/ambassadors";
 import { AMBASSADORS_PAGE as page } from "@/content/pages";
@@ -13,54 +12,49 @@ export const metadata = pageMetadata("/ambassadors", page.title, page.descriptio
 
 export default function AmbassadorsPage() {
   return (
-    <div className="audience-site space-subpage">
-      <Navbar />
-      <main id="main-content">
-        <PageIntro title={page.title} lead={page.lead} motif="people" />
-        <section className={styles.stepsSection} aria-labelledby="ambassador-steps-title">
-          <div className="audience-wrap">
-            <h2 id="ambassador-steps-title">{page.stepsTitle}</h2>
-            <ol className={styles.steps}>
-              {page.steps.map((step) => (
-                <li key={step.title}>
-                  <h3>{step.title}</h3>
-                  <p>
-                    <StrongText text={step.text} />
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-        <section className="audience-section" aria-labelledby="ambassador-directory-title">
-          <div className="audience-wrap">
-            <h2 id="ambassador-directory-title">{page.directoryTitle}</h2>
-            <p className={styles.lead}>{page.directoryLead}</p>
-            <AmbassadorDirectory
-              ambassadors={AMBASSADOR_DIRECTORY.map(({ person, track, community, socials }) => ({
-                id: person.id,
-                name: person.name,
-                photo: person.avatar,
-                track,
-                community,
-                socials,
-              }))}
-              copy={{
-                searchLabel: page.searchLabel,
-                searchPlaceholder: page.searchPlaceholder,
-                emptyTitle: page.emptyTitle,
-                emptyText: page.emptyText,
-                ambassadorSingular: page.ambassadorSingular,
-                ambassadorPlural: page.ambassadorPlural,
-              }}
-            />
-            <Link href="/tickets" className={`audience-text-link ${styles.ticketsLink}`}>
+    <CommunityPage compact motif="people" title={page.title} lead={page.lead}>
+      <section className={styles.block} aria-labelledby="ambassador-steps-title">
+        <SectionHeader
+          id="ambassador-steps-title"
+          title={page.stepsTitle}
+          action={
+            <ContentAction href="/tickets" icon="tickets" tone="blue">
               {page.ticketsLabel}
-            </Link>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+            </ContentAction>
+          }
+        />
+        <ol className={styles.steps}>
+          {page.steps.map((step) => (
+            <li key={step.title}>
+              <h3>{step.title}</h3>
+              <p>
+                <StrongText text={step.text} />
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <section className={styles.block} aria-labelledby="ambassador-directory-title">
+        <AmbassadorDirectory
+          title={page.directoryTitle}
+          lead={page.directoryLead}
+          ambassadors={AMBASSADOR_DIRECTORY.map(({ person, community, socials }) => ({
+            id: person.id,
+            name: person.name,
+            photo: person.avatar,
+            meta: community,
+            socials,
+          }))}
+          copy={{
+            searchLabel: page.searchLabel,
+            searchPlaceholder: page.searchPlaceholder,
+            emptyTitle: page.emptyTitle,
+            emptyText: page.emptyText,
+            ambassadorSingular: page.ambassadorSingular,
+            ambassadorPlural: page.ambassadorPlural,
+          }}
+        />
+      </section>
+    </CommunityPage>
   );
 }

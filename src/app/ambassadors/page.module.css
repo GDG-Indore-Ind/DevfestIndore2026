@@ -1,17 +1,11 @@
-.stepsSection {
-  padding-block: var(--section-space-tight);
-  border-bottom: 1px solid var(--audience-line);
+.block + .block {
+  margin-top: var(--section-space);
 }
-.stepsSection h2 {
-  margin: 0 0 var(--layout-space-4);
-  font-size: var(--text-18);
-  font-weight: 500;
-  letter-spacing: 0;
-}
+/* Three ruled steps; the number sits beside the title, the text under it. */
 .steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--layout-space-6);
+  gap: 0 32px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -20,12 +14,14 @@
 .steps li {
   display: grid;
   grid-template-columns: 28px minmax(0, 1fr);
-  column-gap: var(--layout-space-3);
+  align-content: start;
+  gap: 6px 12px;
+  padding-block: 16px 8px;
+  border-top: 1px solid var(--audience-line);
   counter-increment: step;
 }
 .steps li::before {
   content: counter(step);
-  grid-row: span 2;
   display: grid;
   place-items: center;
   width: 28px;
@@ -37,37 +33,34 @@
   font-weight: 600;
 }
 .steps h3 {
-  margin: 2px 0 4px;
+  align-self: center;
+  margin: 0;
   font-size: var(--text-16);
   font-weight: 600;
 }
 .steps p {
+  grid-column: 2;
   margin: 0;
   color: var(--audience-muted);
   font-size: var(--text-14);
   line-height: 1.55;
 }
-.lead {
-  margin: 0;
-  color: var(--audience-muted);
-  line-height: 1.6;
-}
 .search {
-  display: grid;
-  gap: var(--layout-space-2);
-  max-width: 400px;
-  margin-top: var(--layout-space-4);
-  font-size: var(--text-14);
-  font-weight: 500;
-}
-.search input {
-  min-height: 48px;
-  padding: 10px 14px;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
   border: 1px solid var(--audience-line);
-  border-radius: var(--corner-12);
+  border-radius: var(--corner-pill, 999px);
   background: var(--audience-bg);
   color: var(--audience-ink);
   font: inherit;
+  font-size: var(--text-14);
+}
+.search:focus-visible {
+  outline: 2px solid var(--audience-blue);
+  outline-offset: 2px;
 }
 .count,
 .empty p {
@@ -75,22 +68,7 @@
   font-size: var(--text-14);
 }
 .count {
-  margin: var(--layout-space-3) 0 0;
-}
-.group {
-  margin-top: var(--layout-space-6);
-}
-.group h3 {
-  margin: 0;
-  font-size: var(--text-18);
-  font-weight: 500;
-}
-.groupLead {
-  max-width: 65ch;
-  margin: 2px 0 var(--layout-space-3);
-  color: var(--audience-muted);
-  font-size: var(--text-14);
-  line-height: 1.5;
+  margin: 0 0 8px;
 }
 .empty {
   padding: var(--layout-space-6) 0;
@@ -98,15 +76,11 @@
 .empty h3 {
   margin: 0;
 }
-.ticketsLink {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: var(--layout-space-4);
-}
 @media (max-width: 760px) {
   .steps {
     grid-template-columns: 1fr;
-    gap: var(--layout-space-4);
+  }
+  .search {
+    width: calc(100vw - 40px);
   }
 }

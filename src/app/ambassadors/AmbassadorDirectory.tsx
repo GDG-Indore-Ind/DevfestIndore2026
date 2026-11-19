@@ -1,17 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import PersonCard, { PersonGrid } from "@/components/shared/PersonCard";
+import PersonRoster, { type RosterPerson } from "@/components/shared/PersonRoster";
+import SectionHeader from "@/components/shared/SectionHeader";
 import styles from "./page.module.css";
 
-type Ambassador = {
-  id: string;
-  name: string;
-  photo?: string;
-  track: string;
-  community: string;
-  socials: { linkedin?: string; instagram?: string };
-};
 type Copy = {
   searchLabel: string;
   searchPlaceholder: string;
@@ -22,43 +15,42 @@ type Copy = {
 };
 
 export default function AmbassadorDirectory({
+  title,
+  lead,
   ambassadors,
   copy,
 }: {
-  ambassadors: Ambassador[];
+  title: string;
+  lead: string;
+  ambassadors: RosterPerson[];
   copy: Copy;
 }) {
   const [query, setQuery] = useState("");
-  const matches = ambassadors.filter(({ name, community }) =>
-    `${name} ${community}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()),
+  const matches = ambassadors.filter(({ name, meta }) =>
+    `${name} ${meta}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()),
   );
   return (
     <>
-      <label className={styles.search}>
-        <span>{copy.searchLabel}</span>
-        <input
-          type="search"
-          placeholder={copy.searchPlaceholder}
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-      </label>
+      <SectionHeader
+        id="ambassador-directory-title"
+        title={title}
+        lead={lead}
+        action={
+          <input
+            className={styles.search}
+            type="search"
+            aria-label={copy.searchLabel}
+            placeholder={copy.searchPlaceholder}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        }
+      />
       <p className={styles.count} role="status">
         {matches.length} {matches.length === 1 ? copy.ambassadorSingular : copy.ambassadorPlural}
       </p>
       {matches.length ? (
-        <PersonGrid>
-          {matches.map(({ id, name, photo, community, socials }) => (
-            <PersonCard
-              key={id}
-              name={name}
-              photo={photo}
-              meta={community}
-              socials={socials}
-              headingLevel="h3"
-            />
-          ))}
-        </PersonGrid>
+        <PersonRoster people={matches} />
       ) : (
         <div className={styles.empty}>
           <h3>{copy.emptyTitle}</h3>
