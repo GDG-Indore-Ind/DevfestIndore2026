@@ -19,11 +19,11 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       label: "Attend",
       tone: "blue",
       links: [
-        { href: "/badge", label: "Make your badge", icon: "themes" },
+        { href: "/badge", label: "Badge", icon: "themes" },
         ...(SITE.missionsEnabled
-          ? [{ href: "/missions", label: "Pick your mission", icon: "rocket" as ContentIconName }]
+          ? [{ href: "/missions", label: "Missions", icon: "rocket" as ContentIconName }]
           : []),
-        { href: "/venue", label: "Venue & directions", icon: "venue" },
+        { href: "/venue", label: "Venue", icon: "venue" },
         { href: "/faq", label: "FAQ", icon: "help" },
       ],
     },
@@ -31,10 +31,10 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       label: "Community",
       tone: "green",
       links: [
-        { href: "/partners", label: "Partners & collaborators", icon: "partners" },
+        { href: "/partners", label: "Partners", icon: "partners" },
         { href: "/team", label: "Team", icon: "people" },
-        { href: "/press", label: "Press coverage", icon: "history" },
-        { href: "/archive", label: "Past events", icon: "history" },
+        { href: "/press", label: "Press", icon: "history" },
+        { href: "/archive", label: "Archive", icon: "history" },
       ],
     },
   ];

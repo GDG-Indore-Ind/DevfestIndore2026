@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ARCHIVE_PAGE, HOME_PAGE } from "@/content/pages";
+import { ARCHIVE_PAGE } from "@/content/pages";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -43,21 +43,19 @@ export default function Footer() {
             <Link href="/agenda/workshops">Workshops</Link>
             <Link href="/agenda/speakers">Speakers</Link>
             <Link href="/#flow">Themes</Link>
-            <Link href="/venue">Venue & directions</Link>
-            <Link href="/ambassadors">Ambassador codes</Link>
+            <Link href="/venue">Venue</Link>
+            <Link href="/ambassadors">Ambassadors</Link>
             <Link href="/faq">FAQ</Link>
-            <Link href="/badge">Make your badge</Link>
+            <Link href="/badge">Badge</Link>
           </div>
           <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>
               <ContentIcon name="partners" tone="green" /> Get involved
             </h2>
-            <ExternalLink href={EVENT.links.cfp}>Speak at DevFest</ExternalLink>
-            <Link href="/partners">Partners & collaborators</Link>
-            <ExternalLink href={EVENT.links.exhibitApplication}>
-              {HOME_PAGE.exhibits.buttonLabel}
-            </ExternalLink>
-            <ExternalLink href={EVENT.links.partnerApplication}>Partner with DevFest</ExternalLink>
+            <ExternalLink href={EVENT.links.cfp}>Speak</ExternalLink>
+            <Link href="/partners">Partners</Link>
+            <ExternalLink href={EVENT.links.exhibitApplication}>Exhibit</ExternalLink>
+            <ExternalLink href={EVENT.links.partnerApplication}>Collaborate</ExternalLink>
           </div>
           <div className={`edition-footer-group ${styles.group}`}>
             <h2 className={styles.groupHeading}>

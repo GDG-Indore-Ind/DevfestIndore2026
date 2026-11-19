@@ -381,7 +381,7 @@ export const PAGE_COPY = {
     pressTitle: "In the news",
     pressLead: "Newspaper coverage of DevFest and GDG Indore community events.",
     pressViewLabel: "Read clipping",
-    navigationLabel: "Past editions",
+    navigationLabel: "Archive",
   },
   ambassadors: {
     title: "Get an ambassador code",
