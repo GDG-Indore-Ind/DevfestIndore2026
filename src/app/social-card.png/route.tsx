@@ -2,18 +2,29 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import { EVENT, EVENT_DATE } from "@/content/event";
+import { HOME_PAGE } from "@/content/pages";
 
 export const dynamic = "force-static";
 
+const asset = async (file: string) =>
+  `data:image/png;base64,${(await readFile(path.join(process.cwd(), "public/images/badge", file))).toString("base64")}`;
+
+const GOOGLE = ["#4285f4", "#ea4335", "#fbbc04", "#34a853"];
+
+/** The link preview: event and chapter logos, date and venue, and the astronaut on a blue stage. */
 export async function GET() {
-  const logo = await readFile(path.join(process.cwd(), "public/gdg-logo.png"));
+  const [astronaut, eventLogo, chapterLogo] = await Promise.all([
+    asset("astronaut.png"),
+    asset("devfest-indore-2026.png"),
+    asset("gdg-indore.png"),
+  ]);
   return new ImageResponse(
     <div
       style={{
         display: "flex",
         width: "100%",
         height: "100%",
-        background: "#f7f9ff",
+        background: "#ffffff",
         color: "#202124",
         position: "relative",
         overflow: "hidden",
@@ -25,84 +36,56 @@ export async function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "55px 0 55px 70px",
-          width: "690px",
+          padding: "56px 0 60px 72px",
+          width: "670px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-            fontSize: 23,
-            fontWeight: 600,
-          }}
-        >
-          {/* ImageResponse uses regular img elements, not Next Image. */}
+        {/* ImageResponse uses regular img elements, not Next Image. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={chapterLogo}
+          width={300}
+          height={60}
+          alt=""
+          // The logo file has built-in left padding; pull it onto the text edge below.
+          style={{ marginLeft: "-17px" }}
+        />
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`data:image/png;base64,${logo.toString("base64")}`}
-            width={54}
-            height={54}
-            alt=""
-          />
-          <span>Google Developer Group Indore</span>
+          <img src={eventLogo} width={470} height={133} alt="" />
+          <div
+            style={{
+              display: "flex",
+              marginTop: "28px",
+              fontSize: 30,
+              lineHeight: 1.3,
+              color: "#4c5159",
+              width: "520px",
+            }}
+          >
+            {HOME_PAGE.heroLead}
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 102,
-              lineHeight: 1,
-              fontWeight: 700,
-              letterSpacing: "-6px",
-            }}
-          >
-            DevFest
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "14px",
-              fontSize: 39,
-              fontWeight: 600,
-              marginTop: "14px",
-              color: "#185abc",
-            }}
-          >
-            Indore <span style={{ color: "#202124" }}>·</span> {EVENT.year}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              width: "70px",
-              height: "7px",
-              borderRadius: "4px",
-              background: "#fbbc04",
-              marginTop: "30px",
-              marginBottom: "27px",
-            }}
-          />
-          <div style={{ display: "flex", fontSize: 25, fontWeight: 600 }}>{EVENT_DATE}</div>
-          <div style={{ display: "flex", fontSize: 23, marginTop: "10px", color: "#4c5159" }}>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 700 }}>{EVENT_DATE}</div>
+          <div style={{ display: "flex", fontSize: 25, marginTop: "8px", color: "#4c5159" }}>
             {EVENT.venue.fullName}
           </div>
-        </div>
-        <div style={{ display: "flex", fontSize: 21, color: "#4c5159" }}>
-          {new URL(EVENT.links.website).hostname}
+          <div style={{ display: "flex", fontSize: 23, marginTop: "22px", color: "#185abc" }}>
+            {new URL(EVENT.links.website).hostname}
+          </div>
         </div>
       </div>
       <div
         style={{
           display: "flex",
           position: "absolute",
-          right: "20px",
-          top: "42px",
-          width: "475px",
-          height: "545px",
-          borderRadius: "42px",
-          background: "#dfe9ff",
+          right: "36px",
+          top: "36px",
+          width: "470px",
+          height: "552px",
+          borderRadius: "44px",
+          background: "#edf4ff",
           overflow: "hidden",
           alignItems: "center",
           justifyContent: "center",
@@ -111,48 +94,72 @@ export async function GET() {
         <div
           style={{
             display: "flex",
-            width: "360px",
-            height: "360px",
-            border: "2px solid #7f9fd4",
-            borderRadius: "180px",
-            alignItems: "center",
-            justifyContent: "center",
+            position: "absolute",
+            right: "56px",
+            bottom: "92px",
+            width: "250px",
+            height: "250px",
+            borderRadius: "125px",
+            background: "#d7e6ff",
           }}
-        >
-          <div
-            style={{
-              display: "flex",
-              width: "220px",
-              height: "220px",
-              borderRadius: "110px",
-              background: "#fbbc04",
-              border: "2px solid #202124",
-            }}
-          />
-        </div>
+        />
         <div
           style={{
             display: "flex",
             position: "absolute",
-            width: "395px",
-            height: "140px",
-            border: "2px solid #3c5f9a",
+            width: "520px",
+            height: "170px",
+            border: "3px solid #b4cdf3",
             borderRadius: "50%",
-            transform: "rotate(-28deg)",
+            transform: "rotate(-24deg)",
+          }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={astronaut} width={400} height={398} alt="" />
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            left: "62px",
+            top: "92px",
+            width: "22px",
+            height: "22px",
+            borderRadius: "11px",
+            background: "#fbbc04",
           }}
         />
         <div
           style={{
             display: "flex",
             position: "absolute",
-            right: "84px",
-            top: "95px",
-            width: "24px",
-            height: "24px",
-            borderRadius: "12px",
-            background: "#4285f4",
+            right: "74px",
+            top: "74px",
+            width: "20px",
+            height: "20px",
+            borderRadius: "10px",
+            background: "#ea4335",
           }}
         />
+        <div
+          style={{
+            display: "flex",
+            position: "absolute",
+            left: "70px",
+            bottom: "70px",
+            width: "16px",
+            height: "16px",
+            borderRadius: "8px",
+            background: "#34a853",
+          }}
+        />
+      </div>
+      <div style={{ display: "flex", position: "absolute", left: 0, bottom: 0, width: "100%" }}>
+        {GOOGLE.map((color) => (
+          <div
+            key={color}
+            style={{ display: "flex", flex: 1, height: "12px", background: color }}
+          />
+        ))}
       </div>
     </div>,
     { width: 1200, height: 630 },
