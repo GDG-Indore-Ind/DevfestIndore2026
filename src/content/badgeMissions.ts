@@ -43,7 +43,7 @@ export const badgeMissions = [
   "Unlock a new skill before the credits roll.",
   "Side quest: find my next collaborator.",
   "Trade a waypoint for a workshop seat.",
-  "Fast travel to Hall 1. Walk, actually.",
+  "Fast travel to my next workshop. Walk, actually.",
   "Save point: one good photo with my crew.",
   "Explore the map beyond my usual tech stack.",
   "Level up my questions at the Expert Lounge.",

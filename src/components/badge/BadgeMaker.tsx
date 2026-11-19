@@ -13,6 +13,9 @@ import { badgeMissions } from "@/content/badgeMissions";
 import styles from "./BadgeMaker.module.css";
 
 const copy = PAGE_COPY.badge;
+// Editable starting values; focusing a field selects them so typing replaces them.
+const DEFAULT_HEADLINE = "Software Engineer";
+const DEFAULT_ORGANISATION = "Developer community";
 
 const badgeFilename = `devfest-indore-${EVENT.year}-badge.png`;
 const date = `${EVENT_SHORT_DATE} ${EVENT.year}`;
@@ -31,7 +34,10 @@ type DrawingRequest = {
   name: string;
   headline: string;
   organisation: string;
+  city: string;
   photo: HTMLCanvasElement | null;
+  astronaut: HTMLImageElement | null;
+  eventLogo: HTMLImageElement | null;
   logo: HTMLImageElement | null;
 };
 type PreparedBadge = { request: DrawingRequest; file: File | null; url: string; canShare: boolean };
@@ -49,9 +55,13 @@ export default function BadgeMaker() {
     if (typeof window === "undefined") return "";
     return new URLSearchParams(window.location.search).get("name") || "";
   });
-  const [headline, setHeadline] = useState("");
-  const [organisation, setOrganisation] = useState("");
+  const [headline, setHeadline] = useState(DEFAULT_HEADLINE);
+  const [city, setCity] = useState("Indore");
+  const [organisation, setOrganisation] = useState(DEFAULT_ORGANISATION);
   const [photo, setPhoto] = useState<HTMLCanvasElement | null>(null);
+  const [astronaut, setAstronaut] = useState<HTMLImageElement | null>(null);
+  const [eventLogo, setEventLogo] = useState<HTMLImageElement | null>(null);
+  const [fontReady, setFontReady] = useState(false);
   const [logo, setLogo] = useState<HTMLImageElement | null>(null);
   const [photoLoading, setPhotoLoading] = useState(false);
   const [photoError, setPhotoError] = useState("");
@@ -64,12 +74,15 @@ export default function BadgeMaker() {
     () => ({
       name: cleanBadgeText(name),
       headline: cleanBadgeText(headline),
+      city: cleanBadgeText(city),
       organisation: cleanBadgeText(organisation),
       mission,
       photo,
+      astronaut,
+      eventLogo,
       logo,
     }),
-    [name, headline, organisation, mission, photo, logo],
+    [name, headline, organisation, city, mission, photo, logo, eventLogo, astronaut],
   );
   const current = prepared?.request === request ? prepared : null;
   const ready = !!current && !!request.name && !photoLoading;
@@ -82,7 +95,20 @@ export default function BadgeMaker() {
     image.onload = () => {
       if (!cancelled) setLogo(image);
     };
-    image.src = "/images/partners/gdg-indore.png";
+    image.src = "/images/badge/gdg-indore.png";
+    const eventImage = new window.Image();
+    eventImage.onload = () => {
+      if (!cancelled) setEventLogo(eventImage);
+    };
+    eventImage.src = "/images/badge/devfest-indore-2026.png";
+    const helmet = new window.Image();
+    helmet.onload = () => {
+      if (!cancelled) setAstronaut(helmet);
+    };
+    helmet.src = "/images/badge/astronaut.png";
+    document.fonts?.ready.then(() => {
+      if (!cancelled) setFontReady(true);
+    });
     return () => {
       cancelled = true;
     };
@@ -103,6 +129,7 @@ export default function BadgeMaker() {
           name: request.name || copy.previewName,
           fontFamily: `${family}, sans-serif`,
           eventName: EVENT.name,
+          dateLine: `${date} · ${EVENT.venue.city}`,
         });
         const blob = await new Promise<Blob>((resolve, reject) =>
           canvas.toBlob(
@@ -129,7 +156,7 @@ export default function BadgeMaker() {
     return () => {
       cancelled = true;
     };
-  }, [request]);
+  }, [request, fontReady]);
 
   useEffect(
     () => () => {
@@ -289,13 +316,14 @@ export default function BadgeMaker() {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="badge-headline">Role or course (optional)</label>
+          <label htmlFor="badge-headline">Designation or course (optional)</label>
           <input
             id="badge-headline"
             autoComplete="off"
             maxLength={48}
             placeholder="B.Tech CSE, Android developer…"
             value={headline}
+            onFocus={(event) => event.target.select()}
             onChange={(event) => {
               setHeadline(event.target.value);
               setMessage("");
@@ -310,8 +338,22 @@ export default function BadgeMaker() {
             maxLength={48}
             placeholder="Your college or company"
             value={organisation}
+            onFocus={(event) => event.target.select()}
             onChange={(event) => {
               setOrganisation(event.target.value);
+              setMessage("");
+            }}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="badge-city">City you’re travelling from (optional)</label>
+          <input
+            id="badge-city"
+            autoComplete="address-level2"
+            maxLength={48}
+            value={city}
+            onChange={(event) => {
+              setCity(event.target.value);
               setMessage("");
             }}
           />
