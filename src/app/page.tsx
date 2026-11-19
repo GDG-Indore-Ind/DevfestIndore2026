@@ -8,7 +8,6 @@ import SponsorShowcase from "@/components/home/SponsorShowcase";
 import TicketStrip from "@/components/home/TicketStrip";
 import MissionStrip from "@/components/home/MissionStrip";
 import VenueSection from "@/components/home/VenueSection";
-import CommunitySupporters from "@/components/home/CommunitySupporters";
 import Footer from "@/components/layout/Footer";
 import type { Metadata } from "next";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
@@ -59,7 +58,6 @@ export default function Home() {
         <div id="archive">
           <GalleryVideoSection />
         </div>
-        <CommunitySupporters />
       </main>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import { EVENT } from "@/content/event";
 import { Bot, Braces, Radio, Satellite } from "lucide-react";
 import ContentAction from "@/components/shared/ContentAction";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { THEMES } from "@/content/themes";
 import { HOME_PAGE } from "@/content/pages";
 import styles from "./ExploreSection.module.css";
@@ -12,10 +13,11 @@ export default function ExploreSection() {
   return (
     <section className={`audience-section ${styles.root}`} id="flow" aria-labelledby="flow-title">
       <div className="audience-wrap">
-        <div className={styles.heading}>
-          <h2 id="flow-title">{HOME_PAGE.programmeTitle}</h2>
-          <p>{HOME_PAGE.programmeTagline}</p>
-        </div>
+        <SectionHeader
+          id="flow-title"
+          title={HOME_PAGE.programmeTitle}
+          lead={HOME_PAGE.programmeTagline}
+        />
         <ul className={styles.grid} aria-label={HOME_PAGE.themeSelectorLabel}>
           {THEMES.map((theme, index) => {
             const Icon = themeIcons[theme.icon];

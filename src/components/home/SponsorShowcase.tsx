@@ -1,7 +1,7 @@
 "use client";
 
 import ContentAction from "@/components/shared/ContentAction";
-
+import SectionHeader from "@/components/shared/SectionHeader";
 import { EVENT } from "@/content/event";
 import { useState } from "react";
 import Image from "next/image";
@@ -73,27 +73,24 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
         ) : (
           <>
             {showIntro ? (
-              <div className={`edition-section-heading ${styles.heading}`}>
-                <div>
-                  <p className="audience-overline">
-                    {EVENT.year} {PARTNERS_PAGE.sectionLabel}
-                  </p>
-                  <h2 id="partners-title">
-                    Great missions take
-                    <br />
-                    more than one crew.
-                  </h2>
-                </div>
-                <ContentAction href="/partners#partner-application" icon="partners" tone="green">
-                  {PARTNERS_PAGE.revealButton}
-                </ContentAction>
-              </div>
+              <SectionHeader
+                id="partners-title"
+                title="Great missions take more than one crew."
+                lead={PARTNERS_PAGE.sponsorshipText}
+                action={
+                  <ContentAction href="/partners#partner-application" icon="partners" tone="green">
+                    {PARTNERS_PAGE.revealButton}
+                  </ContentAction>
+                }
+              />
             ) : (
-              <h2 id="partners-title" className="practical-partners-heading">
-                {EVENT.year} {PARTNERS_PAGE.sectionLabel}
-              </h2>
+              <>
+                <h2 id="partners-title" className="practical-partners-heading">
+                  {EVENT.year} {PARTNERS_PAGE.sectionLabel}
+                </h2>
+                <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
+              </>
             )}
-            <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
             <PartnerCarousel items={featured} />
             {!!additional.length && (
               <div className={styles.additional}>

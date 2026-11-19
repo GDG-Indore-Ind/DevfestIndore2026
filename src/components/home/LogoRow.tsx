@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Organization } from "@/content/model";
 import OrganizationLogo from "@/components/shared/OrganizationLogo";
 import ExternalLink from "@/components/shared/ExternalLink";
+import SectionHeader from "@/components/shared/SectionHeader";
 import styles from "./LogoRow.module.css";
 
 type RowOrganization = Pick<
@@ -26,13 +27,7 @@ export default function LogoRow({
   if (!items.length) return null;
   return (
     <section className={styles.root} aria-label={label}>
-      <div className={styles.heading}>
-        <div>
-          <h3>{label}</h3>
-          {description && <p>{description}</p>}
-        </div>
-        {action && <div className={styles.controls}>{action}</div>}
-      </div>
+      <SectionHeader level={3} title={label} lead={description} action={action} />
       <div className={styles.window} role="region" aria-label={label} tabIndex={0}>
         <ul className={styles.group}>
           {items.map((item) => {

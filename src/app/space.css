@@ -317,9 +317,6 @@
   border: 1px solid var(--audience-ink);
   box-shadow: none;
 }
-.history-heading h2 {
-  max-width: 16ch;
-}
 .audience-venue-grid {
   gap: 36px;
 }

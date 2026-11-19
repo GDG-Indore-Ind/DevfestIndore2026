@@ -1,20 +1,16 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 import { AGENDA_ITEMS, AGENDA_SPEAKERS } from "@/content/agenda";
 import { AGENDA_PAGE, HOME_PAGE } from "@/content/pages";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
 import ContentAction from "@/components/shared/ContentAction";
+import SectionHeader from "@/components/shared/SectionHeader";
 import styles from "./AgendaPreview.module.css";
 
 const copy = HOME_PAGE.agendaPreview;
-const MAX_SPEAKERS = 9;
 
-/** Confirmed speakers with their session, then workshop and exhibit counts, linking to /agenda. */
+/** Every confirmed speaker as a portrait, name and organisation; sessions live on /agenda. */
 export default function AgendaPreview() {
-  const speakers = AGENDA_SPEAKERS.slice(0, MAX_SPEAKERS);
-  if (!speakers.length) return null;
-  // Up to six speakers share one desktop row; larger line-ups wrap in fours.
-  const columns = speakers.length <= 6 ? Math.max(4, speakers.length) : 4;
+  if (!AGENDA_SPEAKERS.length) return null;
   const workshops = AGENDA_ITEMS.filter((item) => item.format === "workshop").length;
   const exhibits = AGENDA_ITEMS.filter((item) => item.format === "exhibit").length;
   const counts = [
@@ -28,14 +24,22 @@ export default function AgendaPreview() {
       aria-labelledby="agenda-preview-title"
     >
       <div className="audience-wrap">
-        <div className={styles.heading}>
-          <h2 id="agenda-preview-title">{copy.title}</h2>
-          <p>{copy.lead}</p>
-        </div>
-        <ul className={styles.grid} style={{ "--columns": columns } as CSSProperties}>
-          {speakers.map((speaker) => {
+        <SectionHeader
+          id="agenda-preview-title"
+          title={copy.title}
+          lead={[copy.lead, counts.length ? `${counts.join(" · ")}.` : ""]
+            .filter(Boolean)
+            .join(" ")}
+          action={
+            <ContentAction href="/agenda" icon="calendar" tone="blue">
+              {copy.agendaLabel}
+            </ContentAction>
+          }
+        />
+        <ul className={styles.grid}>
+          {AGENDA_SPEAKERS.map((speaker) => {
             const item = AGENDA_ITEMS.find((entry) => entry.id === speaker.itemId)!;
-            const work = [speaker.role, speaker.company].filter(Boolean).join(", ");
+            const organisation = speaker.company || speaker.role;
             return (
               <li key={speaker.id}>
                 <Link href={`/agenda#${item.id}`} className={styles.card}>
@@ -45,26 +49,19 @@ export default function AgendaPreview() {
                       alt=""
                       initialsFor={speaker.name}
                       portrait
-                      sizes="(max-width: 599px) 45vw, (max-width: 999px) 30vw, 270px"
+                      sizes="96px"
                     />
                   </span>
                   <span className={styles.name}>{speaker.name}</span>
-                  {work && <span className={styles.work}>{work}</span>}
-                  <span className={styles.session}>
-                    <span className={styles.format}>{AGENDA_PAGE.formatLabels[item.format]}</span>
-                    {item.title && <span className={styles.title}>{item.title}</span>}
-                  </span>
+                  {organisation && <span className={styles.work}>{organisation}</span>}
+                  {item.format === "keynote" && (
+                    <span className={styles.badge}>{AGENDA_PAGE.formatLabels.keynote}</span>
+                  )}
                 </Link>
               </li>
             );
           })}
         </ul>
-        <div className={styles.footer}>
-          {counts.length > 0 && <p>{counts.join(" · ")}</p>}
-          <ContentAction href="/agenda" icon="calendar" tone="blue">
-            {copy.agendaLabel}
-          </ContentAction>
-        </div>
       </div>
     </section>
   );
