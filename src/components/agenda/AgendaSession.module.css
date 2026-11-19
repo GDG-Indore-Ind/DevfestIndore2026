@@ -102,6 +102,9 @@
   object-fit: cover;
   flex-shrink: 0;
 }
+:global(:root[data-theme="dark"]) .avatar {
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.16);
+}
 .featured .avatar {
   width: 52px;
   height: 52px;

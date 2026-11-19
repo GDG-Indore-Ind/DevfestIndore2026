@@ -363,6 +363,15 @@ body {
 .community-portrait img {
   object-position: center 25%;
 }
+/* In dark mode a near-black photo would disappear into the page; a faint rim keeps its edge. */
+:root[data-theme="dark"] .community-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  pointer-events: none;
+}
 .community-initials {
   display: flex;
   height: 100%;

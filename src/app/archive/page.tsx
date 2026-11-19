@@ -21,16 +21,7 @@ const sections = [
 
 export default function ArchivePage() {
   return (
-    <CommunityPage
-      flightStops={[
-        { id: "page-overview", label: "Overview" },
-        ...sections.map(({ id, title }) => ({ id, label: title })),
-      ]}
-      compact
-      motif="events"
-      title={page.title}
-      lead={page.lead}
-    >
+    <CommunityPage compact motif="events" title={page.title} lead={page.lead}>
       <PageSectionNavigation label={page.title}>
         {sections.map(({ id, title }) => (
           <a key={id} href={`#${id}`}>
