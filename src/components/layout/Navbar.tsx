@@ -1,11 +1,9 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
-import { ChevronDown, Sparkles } from "lucide-react";
-import { SITE } from "@/content/site";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeChoice from "@/components/layout/ThemeChoice";
 import ExploreMenu from "@/components/layout/ExploreMenu";
 import ReferralBanner from "@/components/tickets/ReferralBanner";
 import OrbitScrollRail, { type FlightStop } from "@/components/layout/OrbitScrollRail";
@@ -89,21 +87,6 @@ export default function Navbar({ flightStops }: NavbarProps) {
             <Link href="/agenda" className={`space-header-programme ${styles.programme}`}>
               Agenda
             </Link>
-            <Link
-              href="/badge"
-              className={`space-header-programme ${styles.programme} ${styles.badgeLink}`}
-            >
-              <Sparkles className="audience-icon" aria-hidden="true" />
-              Badge
-            </Link>
-            {SITE.missionsEnabled && (
-              <Link href="/missions" className={`space-header-programme ${styles.programme}`}>
-                Missions
-              </Link>
-            )}
-            <div className={`header-theme ${styles.theme}`}>
-              <ThemeChoice />
-            </div>
             <button
               className={`explore-trigger ${styles.trigger}`}
               type="button"

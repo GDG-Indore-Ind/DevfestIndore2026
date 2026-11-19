@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AGENDA_PAGE, AMBASSADORS_PAGE, ARCHIVE_PAGE } from "@/content/pages";
 import ContentIcon, { type ContentIconName, type IconTone } from "@/components/shared/ContentIcon";
 import { SITE } from "@/content/site";
 import ThemeChoice from "@/components/layout/ThemeChoice";
@@ -17,28 +16,25 @@ type Props = {
 export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
   const groups: { label: string; tone: IconTone; links: MenuLink[] }[] = [
     {
-      label: "Plan your visit",
+      label: "Attend",
       tone: "blue",
       links: [
-        { href: "/agenda", label: AGENDA_PAGE.title, icon: "microphone" },
-        { href: "/tickets", label: "Tickets", icon: "tickets" },
         { href: "/badge", label: "Make your badge", icon: "themes" },
         ...(SITE.missionsEnabled
           ? [{ href: "/missions", label: "Pick your mission", icon: "rocket" as ContentIconName }]
           : []),
         { href: "/venue", label: "Venue & directions", icon: "venue" },
         { href: "/faq", label: "FAQ", icon: "help" },
-        { href: "/ambassadors", label: AMBASSADORS_PAGE.navigationLabel, icon: "people" },
       ],
     },
     {
-      label: "Discover",
+      label: "Community",
       tone: "green",
       links: [
-        { href: "/#flow", label: "Themes", icon: "themes" },
         { href: "/partners", label: "Partners & collaborators", icon: "partners" },
         { href: "/team", label: "Team", icon: "people" },
-        { href: "/archive", label: ARCHIVE_PAGE.navigationLabel, icon: "history" },
+        { href: "/press", label: "Press coverage", icon: "history" },
+        { href: "/archive", label: "Past events", icon: "history" },
       ],
     },
   ];
