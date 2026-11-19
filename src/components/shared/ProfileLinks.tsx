@@ -1,13 +1,12 @@
 import styles from "./ProfileLinks.module.css";
 import type { Socials } from "@/content/model";
-import { CodeXml, Globe, BookOpen, MessageCircle } from "lucide-react";
+import { CodeXml, Globe, BookOpen } from "lucide-react";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialGlyph from "@/components/shared/SocialGlyph";
 
 const icons = {
   sessionize: Globe,
   github: CodeXml,
-  twitter: MessageCircle,
   website: Globe,
   blog: BookOpen,
 };
@@ -48,8 +47,8 @@ export default function ProfileLinks({
         )
         .map(([key, href]) => {
           const glyph =
-            key === "linkedin" || key === "instagram" ? (
-              <SocialGlyph platform={key} />
+            key === "linkedin" || key === "instagram" || key === "twitter" ? (
+              <SocialGlyph platform={key === "twitter" ? "x" : key} />
             ) : (
               (() => {
                 const Icon = icons[key as keyof typeof icons];

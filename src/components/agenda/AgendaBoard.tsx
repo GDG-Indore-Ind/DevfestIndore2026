@@ -1,5 +1,6 @@
 import { AGENDA_ITEMS, AGENDA_SECTIONS } from "@/content/agenda";
 import { PAGE_COPY } from "@/content/copy";
+import ActivityCards from "./ActivityCards";
 import AgendaSession from "./AgendaSession";
 import styles from "./AgendaBoard.module.css";
 
@@ -18,22 +19,13 @@ export default function AgendaBoard() {
           <header className={styles.groupHeading}>
             <h2 id={`agenda-${id}`}>{title}</h2>
           </header>
-          {id === "activities" && (
-            <ul className={styles.activities}>
-              {PAGE_COPY.agenda.activities.map((label) => (
-                <li key={label}>{label}</li>
-              ))}
-            </ul>
+          {id === "activities" && <ActivityCards />}
+          {id === "activities" && itemsBySection.activities.length > 0 && (
+            <h3 className={styles.subheading}>{PAGE_COPY.agenda.exhibitsHeading}</h3>
           )}
           <ul className={styles.list}>
-            {itemsBySection[id].map((item, index) => (
-              <AgendaSession
-                key={item.id}
-                item={item}
-                overview
-                position={id === "sessions" ? index + 1 : undefined}
-                showHall={id !== "sessions"}
-              />
+            {itemsBySection[id].map((item) => (
+              <AgendaSession key={item.id} item={item} overview showHall={id !== "sessions"} />
             ))}
           </ul>
         </section>

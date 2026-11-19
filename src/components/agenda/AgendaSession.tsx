@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { Sparkles } from "lucide-react";
 import type { AgendaFormat, AgendaItem } from "@/content/agenda";
 import { AGENDA_PAGE as copy } from "@/content/pages";
 import Chip, { type ChipTone } from "@/components/shared/Chip";
+import CommunityPhoto from "@/components/shared/CommunityPhoto";
 import ExternalLink from "@/components/shared/ExternalLink";
 import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./AgendaSession.module.css";
@@ -14,29 +16,67 @@ const tones: Record<AgendaFormat, ChipTone> = {
   workshop: "blue",
   exhibit: "red",
 };
+const MAX_FACES = 3;
+
+/** Who or what the strip is about: up to three speaker photos, or the organisation's mark. */
+function StripMark({ item }: { item: AgendaItem }) {
+  if (item.people.length) {
+    const shown = item.people.slice(0, MAX_FACES);
+    const extra = item.people.length - shown.length;
+    return (
+      <span className={styles.faces} aria-hidden="true">
+        {shown.map((person) => (
+          <span key={person.id} className={styles.face}>
+            <CommunityPhoto
+              src={person.avatar}
+              alt=""
+              initialsFor={person.name}
+              portrait
+              sizes="112px"
+            />
+          </span>
+        ))}
+        {extra > 0 && <span className={`${styles.face} ${styles.more}`}>+{extra}</span>}
+      </span>
+    );
+  }
+  return (
+    <span className={styles.mark} aria-hidden="true">
+      {item.logo ? (
+        <Image
+          src={item.logo}
+          alt=""
+          width={44}
+          height={44}
+          unoptimized={!item.logo.startsWith("/")}
+        />
+      ) : (
+        <Sparkles />
+      )}
+    </span>
+  );
+}
 
 /**
- * One ruled row: when or in what order, what it is, and who is giving it.
- * `position` is the running-order number shown until a time is set; `showHall` is off when a
- * heading already names the hall; `compact` keeps one column for side-by-side halls.
+ * One ruled row. On the agenda board (`overview`) it is a strip (photo, title, speaker, organisation
+ * and duration) that opens to the rest; elsewhere it is the open row. The time and hall rail is
+ * shown only on open rows, since the strip already carries them. `showHall` is off when a heading
+ * already names the hall; `compact` keeps one column for side-by-side halls.
  */
 export default function AgendaSession({
   item,
-  position,
   showHall = true,
   compact = false,
   overview = false,
 }: {
   item: AgendaItem;
-  position?: number;
   showHall?: boolean;
   compact?: boolean;
   overview?: boolean;
 }) {
   const featured = item.format === "keynote";
   const hall = showHall ? item.hall : undefined;
-  const order = !item.time && position ? String(position).padStart(2, "0") : undefined;
-  const hasRail = Boolean(item.time || hall || order);
+  const hasRail = !overview && Boolean(item.time || hall);
   const details = (
     <div
       className={[
@@ -51,12 +91,6 @@ export default function AgendaSession({
       {hasRail && (
         <p className={styles.rail}>
           {item.time && <time>{item.time}</time>}
-          {order && (
-            <span className={styles.order}>
-              <span className={styles.hidden}>{copy.slotLabel} </span>
-              {order}
-            </span>
-          )}
           {hall && <span>{hall}</span>}
         </p>
       )}
@@ -70,9 +104,11 @@ export default function AgendaSession({
           )}
           {item.track && <Chip>{item.track}</Chip>}
         </p>
-        <h3 className={`${styles.title} ${item.title ? "" : styles.pending}`}>
-          {item.title ?? copy.sessionPending}
-        </h3>
+        {!overview && (
+          <h3 className={`${styles.title} ${item.title ? "" : styles.pending}`}>
+            {item.title ?? copy.sessionPending}
+          </h3>
+        )}
         {item.description && <p className={styles.description}>{item.description}</p>}
         {item.resources?.length ? (
           <ul>
@@ -95,7 +131,7 @@ export default function AgendaSession({
             {item.people.map((person) => (
               <li key={person.id} className={styles.person}>
                 <div className={styles.personHeader}>
-                  {person.avatar && (
+                  {!overview && person.avatar && (
                     <Image
                       className={styles.avatar}
                       src={person.avatar}
@@ -127,9 +163,13 @@ export default function AgendaSession({
     </div>
   );
   if (!overview) return <li id={item.id}>{details}</li>;
+  const who =
+    item.people.length === 1
+      ? [item.people[0].name, item.people[0].company].filter(Boolean).join(", ")
+      : item.people.map((person) => person.name).join(", ") || item.organizations.join(", ");
   const meta = [
     item.format === "keynote" ? copy.formatLabels.keynote : undefined,
-    ...item.people.map((person) => person.name),
+    who,
     item.time,
     hall,
     item.durationMinutes ? `${item.durationMinutes} ${copy.durationLabel}` : undefined,
@@ -137,13 +177,23 @@ export default function AgendaSession({
     .filter(Boolean)
     .join(" · ");
   return (
-    <li id={item.id} className={styles.overview}>
+    <li
+      id={item.id}
+      className={[
+        styles.overview,
+        item.people.length === 0 && styles.noPeople,
+        item.people.length > 1 && styles.multi,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <details>
         <summary>
-          <span>
+          <span className={styles.stripText}>
             <strong>{item.title ?? copy.sessionPending}</strong>
             {meta && <small>{meta}</small>}
           </span>
+          <StripMark item={item} />
         </summary>
         {details}
       </details>

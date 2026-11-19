@@ -37,6 +37,14 @@ export interface AgendaItem {
   order: number;
 }
 const KEYNOTE_LABEL = "Keynote speaker";
+/** The only profile links shown for speakers, in this order. Other links stay in the database. */
+const SPEAKER_SOCIALS = ["linkedin", "instagram", "twitter"] as const;
+const speakerSocials = (socials?: Socials): Socials => {
+  const personal = personalSocials(socials);
+  return Object.fromEntries(
+    SPEAKER_SOCIALS.flatMap((key) => (personal[key] ? [[key, personal[key]]] : [])),
+  );
+};
 const LAST = Number.MAX_SAFE_INTEGER;
 
 const speakerRoles = new Map(
@@ -57,7 +65,7 @@ const toPerson = (id: string, sessionId?: string): AgendaPerson => {
     role: person.role,
     company: person.company,
     bio: person.bio,
-    socials: personalSocials(person.socials),
+    socials: speakerSocials(person.socials),
   };
 };
 const formatOf = (format?: string): AgendaFormat =>

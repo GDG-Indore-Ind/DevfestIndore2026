@@ -1,0 +1,79 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 32px;
+  padding: 0;
+  list-style: none;
+}
+.card {
+  --tone: var(--icon-blue);
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+  background: var(--audience-bg);
+}
+.card[data-tone="green"] {
+  --tone: var(--icon-green);
+}
+.card[data-tone="red"] {
+  --tone: var(--icon-red);
+}
+.card[data-tone="yellow"] {
+  --tone: var(--icon-yellow);
+}
+/* The same orbit line as the Themes cards: static, quiet, tinted to the card. */
+.orbit {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 120px;
+  height: 120px;
+  color: var(--tone);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.orbit ellipse {
+  stroke: currentColor;
+  stroke-width: 1;
+}
+.node {
+  fill: currentColor;
+}
+.tile {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--tone) 12%, transparent);
+  color: var(--tone);
+}
+.tile svg {
+  width: 22px;
+  height: 22px;
+}
+.card h3 {
+  margin: 0;
+  font-size: var(--text-16);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.card p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  line-height: 1.45;
+}
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}

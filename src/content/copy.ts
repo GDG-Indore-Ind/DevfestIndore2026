@@ -420,7 +420,37 @@ export const PAGE_COPY = {
     description:
       "Keynote, talks, workshops and exhibits at DevFest Indore 2026 on 28 November, in running order.",
     lead: "Explore the sessions, workshops and activities at DevFest Indore.",
-    activities: ["Lunch", "Community Lounge", "Expert Lounge", "Photo booths"],
+    activities: [
+      {
+        id: "lunch",
+        icon: "lunch",
+        tone: "yellow",
+        label: "Lunch",
+        text: "Included with your pass.",
+      },
+      {
+        id: "community-lounge",
+        icon: "community",
+        tone: "green",
+        label: "Community Lounge",
+        text: "Meet developers from across the community.",
+      },
+      {
+        id: "expert-lounge",
+        icon: "expert",
+        tone: "blue",
+        label: "Expert Lounge",
+        text: "Bring your questions to the experts.",
+      },
+      {
+        id: "photo-booths",
+        icon: "photo",
+        tone: "red",
+        label: "Photo booths",
+        text: "Take a photo to remember the day.",
+      },
+    ],
+    exhibitsHeading: "Exhibits",
     sessionPending: "Session to be announced",
     bioLabel: "About",
     emptyText: "Speakers will be announced soon.",
@@ -444,7 +474,6 @@ export const PAGE_COPY = {
       speakers: "Speakers",
       exhibits: "Exhibits",
     },
-    slotLabel: "Slot",
   },
   spaceClub: {
     heading: "Space Club of India in Indore",

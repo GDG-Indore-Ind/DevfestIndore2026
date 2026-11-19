@@ -32,21 +32,6 @@
   font-size: var(--text-14);
   font-weight: 500;
 }
-.order {
-  color: var(--audience-ink);
-  font-size: var(--text-22);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.2;
-}
-.hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 .main,
 .aside {
   display: grid;
@@ -148,10 +133,6 @@
   color: var(--audience-muted);
   font-size: var(--text-13, 0.8125rem);
   line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 @media (max-width: 760px) {
   .row {
@@ -167,18 +148,136 @@
   }
 }
 .overview {
+  --mark: 44px;
+  --open: 96px;
+  position: relative;
   scroll-margin-top: 96px;
   border-bottom: 1px solid var(--audience-line);
 }
+.noPeople {
+  --open: 72px;
+}
+/* Several speakers keep their small overlapping photos; only a single portrait grows. */
+.multi {
+  --open: 44px;
+}
 .overview summary {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   min-height: 48px;
   padding: 12px 0;
   cursor: pointer;
   list-style: none;
+  transition: min-height 240ms ease;
+}
+.overview details[open] > summary {
+  min-height: calc(var(--open) + 30px);
+}
+.stripText {
+  flex: 1;
+  min-width: 0;
+  padding-right: calc(var(--mark) + 20px);
+}
+.overview details[open] .stripText {
+  padding-right: calc(var(--open) + 20px);
+}
+/* The photo sits at the right of the strip, beside the chevron, and grows when the row opens. */
+.faces,
+.mark {
+  position: absolute;
+  top: 15px;
+  right: 36px;
+  display: flex;
+  pointer-events: none;
+}
+.face,
+.mark {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--mark);
+  height: var(--mark);
+  overflow: hidden;
+  transition:
+    width 240ms ease,
+    height 240ms ease;
+}
+.overview details[open] .face,
+.overview details[open] .mark {
+  width: var(--open);
+  height: var(--open);
+}
+.face {
+  border: 2px solid var(--audience-bg);
+  border-radius: 50%;
+  background: var(--audience-tint);
+}
+.face + .face {
+  margin-left: -14px;
+}
+.face :global(.community-photo) {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.more {
+  color: var(--audience-muted);
+  font-size: var(--text-12);
+  font-weight: 600;
+}
+/* Organisation mark for strips with no speaker, such as exhibits. */
+.mark {
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-12, 12px);
+  background: #fff;
+  color: var(--icon-red);
+}
+.mark img {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  object-fit: contain;
+}
+.mark svg {
+  width: 50%;
+  height: 50%;
+}
+@media (max-width: 599px) {
+  .overview {
+    --open: 72px;
+  }
+  .noPeople {
+    --open: 64px;
+  }
+  .multi {
+    --open: 44px;
+  }
+}
+/* The detail fades in as the photo grows. */
+.overview details[open] > .row {
+  animation: stripReveal 260ms ease both;
+}
+@keyframes stripReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overview summary,
+  .face,
+  .mark {
+    transition: none;
+  }
+  .overview details[open] > .row {
+    animation: none;
+  }
 }
 .overview summary::-webkit-details-marker {
   display: none;

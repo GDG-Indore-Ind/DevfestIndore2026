@@ -45,11 +45,9 @@
     font-size: var(--text-22);
   }
 }
-.activities {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
-  gap: 12px 24px;
-  list-style: none;
-  padding: 16px 0;
-  margin: 0;
+.subheading {
+  margin: 0 0 4px;
+  font-size: var(--text-18);
+  font-weight: 500;
+  line-height: 1.3;
 }
