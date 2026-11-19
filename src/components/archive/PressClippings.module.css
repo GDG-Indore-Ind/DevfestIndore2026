@@ -67,3 +67,22 @@
   font-size: var(--text-12);
   font-weight: 400;
 }
+
+.headlines {
+  composes: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .headlines {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .headlines .open {
+    grid-template-columns: 88px 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+  .headlines .thumb {
+    margin: 0;
+  }
+}

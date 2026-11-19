@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
     ...["/faq", "/partners", "/venue", "/ambassadors"].map((path) => entry(path, "weekly", 0.8)),
     ...(SITE.missionsEnabled ? [entry("/missions", "weekly", 0.8)] : []),
+    entry("/press", "weekly", 0.7),
     entry("/team", "monthly", 0.6),
     entry("/archive", "monthly", 0.6),
     ...ARCHIVED_EVENTS.map((event) => entry(`/archive/${event.id}`, "monthly", 0.5)),

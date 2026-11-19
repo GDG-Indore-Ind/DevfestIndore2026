@@ -22,11 +22,13 @@ function source(item: PressClipping) {
 export default function PressClippings({
   eventId,
   showLead = true,
+  headlines = false,
   offset = 0,
   limit,
 }: {
   eventId?: string;
   showLead?: boolean;
+  headlines?: boolean;
   offset?: number;
   limit?: number;
 }) {
@@ -42,7 +44,7 @@ export default function PressClippings({
   return (
     <>
       {showLead && <p className={styles.lead}>{copy.pressLead}</p>}
-      <ul className={styles.grid}>
+      <ul className={headlines ? styles.headlines : styles.grid}>
         {items.map((item) => (
           <li key={item.id}>
             <button
@@ -59,7 +61,9 @@ export default function PressClippings({
                   sizes="(max-width: 620px) 90vw, (max-width: 980px) 45vw, 300px"
                 />
               </span>
-              <span className={styles.event}>{item.event}</span>
+              <span className={headlines ? styles.title : styles.event}>
+                {headlines ? item.title : item.event}
+              </span>
             </button>
           </li>
         ))}
@@ -83,13 +87,15 @@ export default function PressClippings({
         </button>
         {selected && (
           <figure>
-            <Image
-              src={selected.imageUrl}
-              alt={`${selected.title}${source(selected) ? `, ${source(selected)}` : ""}`}
-              width={selected.width}
-              height={selected.height}
-              sizes="90vw"
-            />
+            <a href={selected.imageUrl} aria-label={`Open full-size clipping: ${selected.title}`}>
+              <Image
+                src={selected.imageUrl}
+                alt={`${selected.title}${source(selected) ? `, ${source(selected)}` : ""}`}
+                width={selected.width}
+                height={selected.height}
+                sizes="90vw"
+              />
+            </a>
             <figcaption>
               {selected.event}
               {source(selected) ? ` · ${source(selected)}` : ""}

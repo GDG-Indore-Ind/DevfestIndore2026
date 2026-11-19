@@ -379,7 +379,7 @@ export const PAGE_COPY = {
     speakersTitle: "Speakers",
     photosTitle: "Photos",
     pressTitle: "In the news",
-    pressLead: "Newspaper coverage of past editions, with headlines summarized in English.",
+    pressLead: "Newspaper coverage of DevFest and GDG Indore community events.",
     pressViewLabel: "Read clipping",
     navigationLabel: "Past editions",
   },
