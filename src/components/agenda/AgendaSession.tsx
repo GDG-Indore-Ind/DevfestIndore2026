@@ -57,43 +57,10 @@ function StripMark({ item }: { item: AgendaItem }) {
   );
 }
 
-/**
- * One ruled row. On the agenda board (`overview`) it is a strip (photo, title, speaker, organisation
- * and duration) that opens to the rest; elsewhere it is the open row. The time and hall rail is
- * shown only on open rows, since the strip already carries them. `showHall` is off when a heading
- * already names the hall; `compact` keeps one column for side-by-side halls.
- */
-export default function AgendaSession({
-  item,
-  showHall = true,
-  compact = false,
-  overview = false,
-}: {
-  item: AgendaItem;
-  showHall?: boolean;
-  compact?: boolean;
-  overview?: boolean;
-}) {
-  const featured = item.format === "keynote";
-  const hall = showHall ? item.hall : undefined;
-  const hasRail = !overview && Boolean(item.time || hall);
+/** A session summary that expands to the description and speaker profiles. */
+export default function AgendaSession({ item }: { item: AgendaItem }) {
   const details = (
-    <div
-      className={[
-        styles.row,
-        hasRail && styles.withRail,
-        featured && styles.featured,
-        compact && styles.compact,
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      {hasRail && (
-        <p className={styles.rail}>
-          {item.time && <time>{item.time}</time>}
-          {hall && <span>{hall}</span>}
-        </p>
-      )}
+    <div className={styles.row}>
       <div className={styles.main}>
         <p className={styles.chips}>
           <Chip tone={tones[item.format]}>{copy.formatLabels[item.format]}</Chip>
@@ -104,11 +71,6 @@ export default function AgendaSession({
           )}
           {item.track && <Chip>{item.track}</Chip>}
         </p>
-        {!overview && (
-          <h3 className={`${styles.title} ${item.title ? "" : styles.pending}`}>
-            {item.title ?? copy.sessionPending}
-          </h3>
-        )}
         {item.description && <p className={styles.description}>{item.description}</p>}
         {item.resources?.length ? (
           <ul>
@@ -131,16 +93,6 @@ export default function AgendaSession({
             {item.people.map((person) => (
               <li key={person.id} className={styles.person}>
                 <div className={styles.personHeader}>
-                  {!overview && person.avatar && (
-                    <Image
-                      className={styles.avatar}
-                      src={person.avatar}
-                      alt=""
-                      width={96}
-                      height={96}
-                      sizes="56px"
-                    />
-                  )}
                   <div className={styles.personMeta}>
                     <p className={styles.name}>{person.name}</p>
                     <p className={styles.role}>
@@ -162,20 +114,15 @@ export default function AgendaSession({
       )}
     </div>
   );
-  if (!overview) return <li id={item.id}>{details}</li>;
-  const who =
-    item.people.length === 1
-      ? [item.people[0].name, item.people[0].company].filter(Boolean).join(", ")
-      : item.people.map((person) => person.name).join(", ") || item.organizations.join(", ");
-  const meta = [
+  const speakers = item.people.map((person) => person.name).join(", ");
+  const organization =
+    item.people.length === 1 ? item.people[0].company : item.organizations.join(", ");
+  const schedule = [
     item.format === "keynote" ? copy.formatLabels.keynote : undefined,
-    who,
-    item.time,
-    hall,
-    item.durationMinutes ? `${item.durationMinutes} ${copy.durationLabel}` : undefined,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+    item.time && <time key="time">{item.time}</time>,
+    item.hall,
+    item.durationMinutes ? `${item.durationMinutes} ${copy.durationLabel}` : null,
+  ].filter(Boolean);
   return (
     <li
       id={item.id}
@@ -190,8 +137,24 @@ export default function AgendaSession({
       <details>
         <summary>
           <span className={styles.stripText}>
-            <strong>{item.title ?? copy.sessionPending}</strong>
-            {meta && <small>{meta}</small>}
+            <strong className={styles.stripTitle}>{item.title ?? copy.sessionPending}</strong>
+            {(speakers || organization) && (
+              <span className={styles.stripPresenter}>
+                {speakers && <span className={styles.stripNames}>{speakers}</span>}
+                {speakers && organization && ", "}
+                {organization}
+              </span>
+            )}
+            {schedule.length > 0 && (
+              <span className={styles.stripSchedule}>
+                {schedule.map((part, index) => (
+                  <span key={index}>
+                    {index > 0 && " · "}
+                    {part}
+                  </span>
+                ))}
+              </span>
+            )}
           </span>
           <StripMark item={item} />
         </summary>

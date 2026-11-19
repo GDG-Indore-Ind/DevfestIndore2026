@@ -15,7 +15,7 @@
 }
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--layout-space-8) var(--layout-space-6);
   margin: 0;
   padding: 0;
@@ -82,6 +82,14 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   line-clamp: 3;
+}
+@media (max-width: 639px) {
+  .card .cover {
+    aspect-ratio: 16 / 9;
+  }
+  .summary {
+    display: block;
+  }
 }
 @media (min-width: 640px) {
   .cards {
@@ -171,6 +179,25 @@
 }
 .overview p {
   margin: 0;
+}
+.withCover {
+  display: grid;
+  align-items: center;
+  gap: var(--layout-space-6);
+}
+.editionCover {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--corner-24);
+}
+@media (min-width: 760px) {
+  .withCover {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--layout-space-8);
+  }
+  .withCover .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .otherEditions {
   display: grid;

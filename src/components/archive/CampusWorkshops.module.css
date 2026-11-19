@@ -1,4 +1,12 @@
 /* Compact, source-linked campus workshop directory. */
+.speakers {
+  margin-top: var(--section-space-tight);
+}
+.speakers h3 {
+  margin: 0 0 8px;
+  font-size: var(--text-18);
+  font-weight: 500;
+}
 .directoryHeading {
   display: flex;
   flex-wrap: wrap;

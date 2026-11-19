@@ -1,6 +1,6 @@
 import { CAMPUS_WORKSHOPS } from "./programme";
 import type { WorkshopItem } from "./model";
-import { getPerson } from "./people";
+import { getPerson, personalSocials } from "./people";
 export function getWorkshops(): WorkshopItem[] {
   return CAMPUS_WORKSHOPS.map(({ speakerIds, ...workshop }) => ({
     ...workshop,
@@ -19,3 +19,17 @@ export function getWorkshops(): WorkshopItem[] {
   );
 }
 export const WORKSHOPS = getWorkshops();
+
+/** Everyone who led a campus workshop, most workshops first, with how many they led. */
+export function getWorkshopSpeakers() {
+  const counts = new Map<string, number>();
+  for (const { speakerIds } of CAMPUS_WORKSHOPS)
+    for (const id of speakerIds) counts.set(id, (counts.get(id) ?? 0) + 1);
+  return [...counts.entries()]
+    .map(([id, count]) => {
+      const person = getPerson(id);
+      return { person, count, socials: personalSocials(person.socials) };
+    })
+    .sort((a, b) => b.count - a.count || a.person.name.localeCompare(b.person.name));
+}
+export const WORKSHOP_SPEAKERS = getWorkshopSpeakers();

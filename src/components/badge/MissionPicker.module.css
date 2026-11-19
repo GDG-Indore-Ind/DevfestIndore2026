@@ -1,0 +1,88 @@
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: var(--layout-space-2);
+}
+.picker {
+  position: relative;
+}
+.picker input[role="combobox"] {
+  padding-right: 34px;
+}
+.chevron {
+  position: absolute;
+  top: 14px;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  color: var(--audience-muted);
+  pointer-events: none;
+}
+.popup {
+  position: absolute;
+  z-index: 2;
+  inset: calc(100% + 4px) 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-12);
+  background: var(--audience-bg);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+}
+.popup ul {
+  max-height: 270px;
+  margin: 0;
+  padding: 4px;
+  overflow: auto;
+  list-style: none;
+}
+.popup li,
+.popup p {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: var(--text-14);
+  line-height: 1.4;
+}
+.popup li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: var(--corner-8);
+  cursor: pointer;
+}
+.popup li:hover,
+.popup li[data-active="true"] {
+  background: var(--audience-tint);
+}
+.popup li svg {
+  flex: 0 0 16px;
+  height: 16px;
+  color: var(--audience-blue);
+}
+.popup p {
+  color: var(--audience-muted);
+}
+.dice {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-12);
+  background: var(--audience-bg);
+  color: var(--audience-blue);
+  cursor: pointer;
+}
+.dice:hover {
+  background: var(--audience-tint);
+}
+.dice svg {
+  width: 24px;
+  height: 24px;
+}
+.pips {
+  fill: var(--audience-bg);
+}
+.dice:hover .pips {
+  fill: var(--audience-tint);
+}

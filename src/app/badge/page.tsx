@@ -4,7 +4,6 @@ import PageIntro from "@/components/shared/PageIntro";
 import MissionCta from "@/components/badge/MissionCta";
 import BadgeMaker from "@/components/badge/BadgeMaker";
 import { PAGE_COPY } from "@/content/copy";
-import { EVENT_DATE } from "@/content/event";
 import { pageMetadata } from "@/lib/pageMetadata";
 
 const copy = PAGE_COPY.badge;
@@ -15,9 +14,9 @@ export default function BadgePage() {
     <div className="audience-site space-subpage practical-page">
       <Navbar />
       <main id="main-content">
-        <PageIntro title={copy.title} lead={copy.lead} meta={<span>{EVENT_DATE}</span>} />
-        <MissionCta />
+        <PageIntro title={copy.title} lead={copy.lead} />
         <BadgeMaker />
+        <MissionCta />
       </main>
       <Footer />
     </div>

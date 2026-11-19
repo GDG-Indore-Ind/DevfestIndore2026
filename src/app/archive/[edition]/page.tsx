@@ -1,4 +1,5 @@
 import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CommunityPage from "@/components/layout/CommunityPage";
@@ -44,10 +45,6 @@ export default async function EditionPage({ params }: { params: Promise<{ editio
   ].filter((section) => section.shown);
   return (
     <CommunityPage
-      flightStops={[
-        { id: "page-overview", label: "Overview" },
-        ...sections.map(({ id, title }) => ({ id, label: title })),
-      ]}
       compact
       motif="events"
       title={event.title}
@@ -58,15 +55,19 @@ export default async function EditionPage({ params }: { params: Promise<{ editio
         />
       }
     >
-      <PageSectionNavigation label={event.title}>
-        <Link href="/archive#editions">{page.editionBackLabel}</Link>
-        {sections.map(({ id, title }) => (
-          <a key={id} href={`#${id}`}>
-            {title}
-          </a>
-        ))}
-      </PageSectionNavigation>
-      <section className={styles.section} aria-label={event.title}>
+      {sections.length > 0 && (
+        <PageSectionNavigation label={event.title}>
+          {sections.map(({ id, title }) => (
+            <a key={id} href={`#${id}`}>
+              {title}
+            </a>
+          ))}
+        </PageSectionNavigation>
+      )}
+      <section
+        className={`${styles.section}${event.coverImage ? ` ${styles.withCover}` : ""}`}
+        aria-label={event.title}
+      >
         <div className={styles.overview}>
           {event.theme && (
             <p className="audience-caption">
@@ -77,6 +78,16 @@ export default async function EditionPage({ params }: { params: Promise<{ editio
           {event.stats && <EditionStats stats={event.stats} />}
           <EditionLinks event={event} />
         </div>
+        {event.coverImage && (
+          <div className={`${styles.cover} ${styles.editionCover}`}>
+            <Image
+              src={event.coverImage.src}
+              alt={event.coverImage.alt}
+              fill
+              sizes="(max-width: 759px) 100vw, (max-width: 1224px) 50vw, 560px"
+            />
+          </div>
+        )}
       </section>
       {speakers.length > 0 && (
         <section className={styles.section} id="speakers" aria-labelledby="speakers-title">

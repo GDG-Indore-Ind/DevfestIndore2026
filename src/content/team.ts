@@ -1,5 +1,11 @@
 import { EVENT } from "./event";
-import { byRoleOrder, PARTICIPATIONS, participationRoleLabels } from "./participations";
+import {
+  byRoleOrder,
+  getRosterDetails,
+  PARTICIPATIONS,
+  responsibilityAreas,
+  topLevelLabel,
+} from "./participations";
 import type { TeamMember } from "./model";
 import { getEventPerson, personalSocials } from "./people";
 
@@ -14,7 +20,9 @@ export function getTeam(): TeamMember[] {
         id: entry.id,
         personId: person.id,
         name: person.name,
-        role: participationRoleLabels(role).join(" · "),
+        role: responsibilityAreas(role),
+        badge: topLevelLabel(role),
+        details: getRosterDetails(person.id, entry.eventId, role),
         team: role.kind === "core-team" ? ("Core Team" as const) : ("Volunteers" as const),
         bio: person.bio ?? "",
         avatar: person.avatar ?? "",
@@ -28,5 +36,7 @@ export const TEAM = getTeam();
 
 export const TEAM_PAGE = {
   title: "Team",
+  organizersTitle: "Organizers",
+  volunteersTitle: "Volunteers",
   lead: "Meet the people bringing DevFest Indore together.",
 } as const;

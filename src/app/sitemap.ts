@@ -17,9 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/flight-deck", "weekly", 0.8),
     entry("/badge", "weekly", 0.8),
     entry("/agenda", "weekly", 0.9),
-    ...["/agenda/workshops", "/agenda/speakers", "/agenda/exhibits"].map((path) =>
-      entry(path, "weekly", 0.8),
-    ),
     ...["/faq", "/partners", "/venue", "/ambassadors"].map((path) => entry(path, "weekly", 0.8)),
     ...(SITE.missionsEnabled ? [entry("/missions", "weekly", 0.8)] : []),
     entry("/press", "weekly", 0.7),

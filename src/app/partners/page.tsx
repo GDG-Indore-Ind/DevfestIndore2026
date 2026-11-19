@@ -3,6 +3,7 @@ import ContentActionGroup from "@/components/shared/ContentActionGroup";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
+import SectionHeader from "@/components/shared/SectionHeader";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import { EVENT } from "@/content/event";
 import { PARTNERS_PAGE as page, SPACE_CLUB_PAGE as spaceClub } from "@/content/pages";
@@ -17,7 +18,7 @@ export const metadata = pageMetadata(
 
 export default function PartnersPage() {
   return (
-    <div className={`audience-site space-subpage practical-page partners-page ${styles.root}`}>
+    <div className="audience-site space-subpage practical-page partners-page">
       <Navbar />
       <main id="main-content">
         <div id={page.revealed ? undefined : "current-partners"}>
@@ -25,7 +26,18 @@ export default function PartnersPage() {
             title={page.title}
             lead={page.revealed ? page.lead : page.revealLead}
             motif="partners"
-          />
+          >
+            <div className={styles.introActions}>
+              {page.revealed && (
+                <ContentAction href="#current-partners" icon="people">
+                  {page.currentPartnersLabel}
+                </ContentAction>
+              )}
+              <ContentAction href="#partner-application" icon="partners" tone="green">
+                {page.applicationButton}
+              </ContentAction>
+            </div>
+          </PageIntro>
         </div>
         {page.revealed && (
           <div id="current-partners">
@@ -41,33 +53,34 @@ export default function PartnersPage() {
           </section>
         )}
         <section
-          className={`audience-section practical-application ${styles.application}`}
+          className={`audience-section ${styles.application}`}
           id="partner-application"
           aria-labelledby="partner-application-title"
         >
-          <div className={`audience-wrap practical-split ${styles.split}`}>
-            <div>
-              <h2 id="partner-application-title">{page.applicationTitle}</h2>
-              <ul className={`practical-contributions ${styles.contributions}`}>
-                {page.applicationPoints.map((item) => (
-                  <li key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className={`partner-application-action ${styles.action}`}>
-              <p className="audience-body">{page.applicationText}</p>
-              <ContentAction
-                href={EVENT.links.partnerApplication}
-                icon="partners"
-                tone="green"
-                external
-              >
-                {page.applicationButton}
-              </ContentAction>
-            </div>
+          <div className="audience-wrap">
+            <SectionHeader
+              id="partner-application-title"
+              title={page.applicationTitle}
+              lead={page.applicationText}
+              action={
+                <ContentAction
+                  href={EVENT.links.partnerApplication}
+                  icon="partners"
+                  tone="green"
+                  external
+                >
+                  {page.applicationButton}
+                </ContentAction>
+              }
+            />
+            <ul className={styles.contributions}>
+              {page.applicationPoints.map((item) => (
+                <li key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
         <ContentActionGroup>

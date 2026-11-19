@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Search, GraduationCap, Expand } from "lucide-react";
-import { WORKSHOPS } from "@/content/workshops";
+import { WORKSHOPS, WORKSHOP_SPEAKERS } from "@/content/workshops";
 import { WORKSHOPS_PAGE as page } from "@/content/pages";
 import type { WorkshopPhoto } from "@/content/model";
+import PersonRoster from "@/components/shared/PersonRoster";
 import ExternalLink from "@/components/shared/ExternalLink";
 import WorkshopPhotoViewer from "@/components/workshops/WorkshopPhotoViewer";
 import styles from "./CampusWorkshops.module.css";
@@ -97,6 +98,18 @@ export default function CampusWorkshops() {
           </button>
         </div>
       )}
+      <section className={styles.speakers} aria-labelledby="workshop-speakers-title">
+        <h3 id="workshop-speakers-title">{page.speakersTitle}</h3>
+        <PersonRoster
+          people={WORKSHOP_SPEAKERS.map(({ person, count, socials }) => ({
+            id: person.id,
+            name: person.name,
+            photo: person.avatar,
+            meta: `${count} ${count === 1 ? page.workshopSingular : page.workshopPlural}`,
+            socials,
+          }))}
+        />
+      </section>
       <WorkshopPhotoViewer photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />
     </div>
   );

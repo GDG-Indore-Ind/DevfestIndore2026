@@ -1,0 +1,46 @@
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 0 var(--layout-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-content: start;
+  gap: var(--layout-space-3);
+  padding-block: var(--layout-space-4);
+  border-top: 1px solid var(--audience-line);
+}
+.number {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--corner-round);
+  background: var(--audience-tint);
+  color: var(--audience-blue);
+  font-size: var(--text-14);
+  font-weight: 600;
+}
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--layout-space-2);
+}
+.copy h3 {
+  margin: 0;
+  min-height: 28px;
+  align-content: center;
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.copy p {
+  margin: 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  line-height: 1.55;
+}

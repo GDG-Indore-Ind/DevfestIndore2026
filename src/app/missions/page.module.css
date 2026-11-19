@@ -1,36 +1,8 @@
-.steps {
-  display: grid;
-  gap: 12px;
-  margin: 16px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.steps li {
-  display: grid;
-  grid-template-columns: 36px minmax(0, 1fr);
-  column-gap: 12px;
-  padding: 16px;
-  border: 1px solid var(--audience-line);
-  border-radius: var(--corner-16);
-}
-.number {
-  grid-row: span 2;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--audience-blue) 12%, transparent);
-  color: var(--audience-blue);
-  font-weight: 600;
-}
-.steps h3,
 .cards h3 {
   margin: 0;
   font-size: var(--text-16);
   font-weight: 500;
 }
-.steps p,
 .cards p {
   margin: 4px 0 0;
   color: var(--audience-muted);
@@ -100,16 +72,6 @@
   color: var(--audience-muted);
 }
 @media (min-width: 761px) {
-  .steps {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-  .steps li {
-    grid-template-columns: 1fr;
-    row-gap: 6px;
-  }
-  .number {
-    grid-row: auto;
-  }
   .split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 48px;

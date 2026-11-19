@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import NumberedSteps from "@/components/shared/NumberedSteps";
+import SectionHeader from "@/components/shared/SectionHeader";
 import PageIntro from "@/components/shared/PageIntro";
 import ContentAction from "@/components/shared/ContentAction";
 import ContentActionGroup from "@/components/shared/ContentActionGroup";
@@ -21,18 +23,8 @@ export default function MissionsPage() {
         <PageIntro title={page.title} lead={page.lead} motif="tickets" meta={page.hashtag} />
         <section className="audience-section" aria-labelledby="mission-steps-title">
           <div className="audience-wrap">
-            <h2 id="mission-steps-title">{page.stepsTitle}</h2>
-            <ol className={styles.steps}>
-              {page.steps.map((step, index) => (
-                <li key={step.title}>
-                  <span className={styles.number} aria-hidden="true">
-                    {index + 1}
-                  </span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </li>
-              ))}
-            </ol>
+            <SectionHeader id="mission-steps-title" title={page.stepsTitle} />
+            <NumberedSteps steps={page.steps} />
             <blockquote className={styles.example}>“{page.example}”</blockquote>
             <div className={styles.submit}>
               {SITE.missionsFormUrl ? (

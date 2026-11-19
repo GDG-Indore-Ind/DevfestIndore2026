@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ARCHIVE_PAGE } from "@/content/pages";
+import { AGENDA_SPEAKERS } from "@/content/agenda";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
 import ExternalLink from "@/components/shared/ExternalLink";
 import SocialLinks from "@/components/shared/SocialLinks";
@@ -40,9 +41,8 @@ export default function Footer() {
             </h2>
             <Link href="/tickets">Tickets</Link>
             <Link href="/agenda">Agenda</Link>
-            <Link href="/agenda/workshops">Workshops</Link>
-            <Link href="/agenda/speakers">Speakers</Link>
-            <Link href="/#flow">Themes</Link>
+            <Link href="/agenda#workshops">Workshops</Link>
+            {AGENDA_SPEAKERS.length > 0 && <Link href="/#agenda-preview">Speakers</Link>}
             <Link href="/venue">Venue</Link>
             <Link href="/ambassadors">Ambassadors</Link>
             <Link href="/faq">FAQ</Link>

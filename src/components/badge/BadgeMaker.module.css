@@ -1,34 +1,38 @@
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  grid-template-areas: "controls preview" "controls share";
-  grid-template-rows: auto 1fr;
-  gap: 0 64px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--layout-space-6) clamp(24px, 4vw, 64px);
   align-items: start;
-  padding-block: 8px var(--section-space);
+  padding-block: var(--section-space-tight);
 }
-.controls h2 {
-  margin: 0 0 24px;
-  font-size: var(--text-22);
-  font-weight: 500;
+.fields,
+.output,
+.disclosureBody {
+  display: grid;
+  min-width: 0;
+  gap: var(--layout-space-4);
+}
+.fieldPair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--layout-space-3);
 }
 .field {
   display: grid;
-  gap: 8px;
-  margin-bottom: 24px;
+  min-width: 0;
+  gap: var(--layout-space-1);
 }
-.field label,
-.choices legend,
-.captionHeading label {
+.field label {
   font-size: var(--text-14);
   font-weight: 500;
 }
-.field select,
 .field input:not([type="file"]),
 .caption {
   width: 100%;
   min-width: 0;
-  padding: 12px 16px;
+  min-height: 44px;
+  padding: 9px 12px;
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-12);
   background: var(--audience-bg);
@@ -56,124 +60,60 @@
   font: inherit;
   cursor: pointer;
 }
-.hint {
+.hint,
+.feedback {
   margin: 0;
   color: var(--audience-muted);
   font-size: var(--text-14);
-  line-height: 1.55;
+  line-height: 1.5;
 }
-.hint + .hint {
-  margin-top: 8px;
-}
-.hint:empty {
+.hint:empty,
+.feedback:empty {
   display: none;
 }
-.choices {
-  padding: 0;
-  border: 0;
-  margin: 0 0 24px;
-  min-width: 0;
+.fields > a {
+  justify-self: start;
+  font-size: var(--text-14);
 }
-.choices legend {
-  margin-bottom: 12px;
+.disclosure {
+  border-top: 1px solid var(--audience-line);
 }
-.themeGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-.choice {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 10px 12px;
-  border: 1px solid var(--audience-line);
-  border-radius: var(--corner-12);
+.disclosure summary {
+  min-height: 44px;
+  padding-block: 10px;
   color: var(--audience-ink);
   font-size: var(--text-14);
+  font-weight: 500;
   cursor: pointer;
 }
-.choice:has(input:checked) {
-  border-color: var(--audience-blue);
-  background: var(--audience-tint);
-  box-shadow: inset 0 0 0 1px var(--audience-blue);
-}
-.choice:has(input:focus-visible) {
-  outline: 2px solid var(--event-focus);
-  outline-offset: 3px;
-}
-.choice input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-.swatch {
-  flex: 0 0 12px;
-  height: 12px;
-  border-radius: var(--corner-round);
-}
-.blue {
-  background: var(--google-blue);
-}
-.red {
-  background: var(--google-red);
-}
-.yellow {
-  background: var(--google-yellow);
-}
-.green {
-  background: var(--google-green);
-}
-.controls {
-  grid-area: controls;
-  min-width: 0;
-}
-.share {
-  grid-area: share;
-  min-width: 0;
+.disclosureBody {
+  padding-top: var(--layout-space-2);
 }
 .preview {
-  grid-area: preview;
-  min-width: 0;
-  margin: 0 0 20px;
+  margin: 0;
 }
 .canvasStage {
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: var(--layout-space-3);
   border-radius: var(--corner-24);
-  background: var(--engineering-paper);
+  background: var(--audience-tint);
   border: 1px solid var(--audience-line);
 }
 .canvas {
   display: block;
-  width: min(100%, 480px);
+  width: min(100%, 440px);
   height: auto;
   aspect-ratio: 1;
-  max-height: 640px;
-  max-width: 100%;
-  background: #f1f3f4;
+}
+.canvas[role="img"] {
+  background: var(--audience-bg);
   border-radius: var(--corner-16);
-}
-.placeholder {
-  width: 448px;
-}
-.preview figcaption {
-  display: grid;
-  gap: 4px;
-  margin-top: 12px;
-  color: var(--audience-muted);
-  font-size: var(--text-12);
-  line-height: 1.5;
 }
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: var(--layout-space-2);
 }
 .actions button,
 .textButton {
@@ -182,7 +122,7 @@
   justify-content: center;
   gap: 8px;
   min-height: 44px;
-  padding: 10px 20px;
+  padding: 9px 16px;
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-pill);
   color: var(--audience-ink);
@@ -191,29 +131,10 @@
   font-size: var(--text-14);
   cursor: pointer;
 }
-.actions button:first-child {
+.actions .download {
   background: var(--audience-blue);
   color: var(--audience-on-blue);
   border-color: var(--audience-blue);
-}
-/* Brand colours, so each button is recognised before its label is read. */
-.actions .linkedin {
-  background: #0a66c2;
-  border-color: #0a66c2;
-  color: #fff;
-}
-.actions .instagram {
-  background: linear-gradient(45deg, #f58529, #dd2a7b 50%, #8134af 80%, #515bd4);
-  border-color: transparent;
-  color: #fff;
-}
-.actions .x {
-  background: #000;
-  border-color: #000;
-  color: #fff;
-}
-:global([data-theme="dark"]) .actions .x {
-  border-color: var(--audience-line);
 }
 .actions button:disabled {
   opacity: 0.5;
@@ -226,65 +147,17 @@
 }
 .textButton {
   justify-self: start;
-  padding: 8px 0;
+  padding-inline: 0;
   border: 0;
   border-radius: var(--corner-4);
   color: var(--audience-blue);
   background: transparent;
 }
-.captionHeading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
 .caption {
   resize: vertical;
-  font-size: var(--text-14);
-}
-.feedback {
-  min-height: 24px;
-  margin: 8px 0 16px;
-  color: var(--audience-muted);
-  font-size: var(--text-14);
-}
-.ticketNote {
-  padding-top: 20px;
-  border-top: 1px solid var(--audience-line);
-}
-.ticketNote p {
-  margin: 0 0 12px;
-  color: var(--audience-muted);
-  font-size: var(--text-14);
-  line-height: 1.5;
 }
 @media (max-width: 760px) {
-  /* The preview leads on a phone, so typing a name visibly changes the badge. */
   .layout {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "controls" "preview" "share";
-    grid-template-rows: auto;
-  }
-  .canvasStage {
-    padding: 12px;
-  }
-  .canvas {
-    width: min(100%, 340px);
-  }
-  .placeholder {
-    width: 272px;
-  }
-  /* Full-width actions are easier to hit with a thumb. */
-  .actions {
-    display: grid;
-  }
-  .actions button {
-    min-height: 48px;
-  }
-  /* Below 16px, iOS zooms the page when a field takes focus. */
-  .caption {
-    font-size: var(--text-16, 1rem);
   }
 }

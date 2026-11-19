@@ -1,4 +1,9 @@
-import type { Socials } from "@/content/model";
+"use client";
+
+import { useId, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import type { RosterDetail, Socials } from "@/content/model";
+import Chip from "@/components/shared/Chip";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
 import ProfileLinks from "@/components/shared/ProfileLinks";
 import styles from "./PersonRoster.module.css";
@@ -7,35 +12,82 @@ export type RosterPerson = {
   id: string;
   name: string;
   photo?: string;
-  /** One muted line under the name: a role, college or company. */
+  /** One muted line under the name: a function, college or company. */
   meta: string;
   socials?: Socials;
+  /** Short label beside the name, e.g. a level. */
+  badge?: string;
+  highlight?: "gold" | "silver";
+  /** Shown when the line is opened. */
+  bio?: string;
+  details?: RosterDetail[];
 };
 
-/** Ruled list of people in two columns: round photo, name, one muted line and profile icons. */
+function RosterMember({ person }: { person: RosterPerson }) {
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
+  const expandable = Boolean(person.bio || person.details?.length);
+  const identity = (
+    <span className={styles.identity}>
+      <span className={styles.name}>
+        {person.name}
+        {person.badge && (
+          <Chip tone={person.badge === "Lead" ? "blue" : "neutral"}>{person.badge}</Chip>
+        )}
+      </span>
+      <span className={styles.role}>{person.meta}</span>
+    </span>
+  );
+
+  return (
+    <li className={styles.member} data-highlight={person.highlight}>
+      <div className={styles.row}>
+        <CommunityPhoto src={person.photo} alt="" initialsFor={person.name} portrait sizes="44px" />
+        {expandable ? (
+          <button
+            type="button"
+            className={styles.identityRow}
+            aria-expanded={open}
+            aria-controls={panelId}
+            onClick={() => setOpen((current) => !current)}
+          >
+            {identity}
+            <ChevronDown aria-hidden="true" className={styles.chevron} />
+          </button>
+        ) : (
+          <div className={styles.identityRow}>{identity}</div>
+        )}
+        <ProfileLinks
+          socials={person.socials}
+          name={person.name}
+          iconOnly
+          className={styles.socials}
+        />
+      </div>
+      {expandable && (
+        <div id={panelId} className={styles.panel} hidden={!open}>
+          {person.bio && <p className={styles.bio}>{person.bio}</p>}
+          {person.details?.map(({ label, items }) => (
+            <div key={label}>
+              <p className={styles.detailLabel}>{label}</p>
+              <ul>
+                {items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </li>
+  );
+}
+
 export default function PersonRoster({ people }: { people: RosterPerson[] }) {
   return (
     <ul className={styles.roster}>
       {people.map((person) => (
-        <li key={person.id} className={styles.member}>
-          <CommunityPhoto
-            src={person.photo}
-            alt=""
-            initialsFor={person.name}
-            portrait
-            sizes="44px"
-          />
-          <div className={styles.identity}>
-            <span className={styles.name}>{person.name}</span>
-            <span className={styles.role}>{person.meta}</span>
-          </div>
-          <ProfileLinks
-            socials={person.socials}
-            name={person.name}
-            iconOnly
-            className={styles.socials}
-          />
-        </li>
+        <RosterMember key={person.id} person={person} />
       ))}
     </ul>
   );

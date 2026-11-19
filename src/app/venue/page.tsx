@@ -42,7 +42,16 @@ export default function VenuePage() {
               <MapPin className="audience-icon" aria-hidden="true" />
               <span>{EVENT.venue.address}</span>
             </address>
-            <div className="venue-actions">
+            <div className={styles.arrivalActions}>
+              <p className={styles.checkIn}>
+                <Clock3 className="audience-icon" aria-hidden="true" />
+                <span>
+                  {page.registrationLabel}{" "}
+                  <strong>
+                    <time dateTime={EVENT.startsAt}>{REGISTRATION_TIME}</time>
+                  </strong>
+                </span>
+              </p>
               <ContentAction href={EVENT.venue.mapUrl} icon="venue" tone="blue" external>
                 Get directions
               </ContentAction>
@@ -68,15 +77,6 @@ export default function VenuePage() {
             </div>
             <div className="practical-arrival" id="arrival">
               <h2>{page.arrivalTitle}</h2>
-              <div className="practical-checkin">
-                <Clock3 className="audience-icon" aria-hidden="true" />
-                <div>
-                  <p>{page.registrationLabel}</p>
-                  <strong>
-                    <time dateTime={EVENT.startsAt}>{REGISTRATION_TIME}</time>
-                  </strong>
-                </div>
-              </div>
               <p className="audience-body">{page.entrySummary}</p>
               <p className="audience-body">
                 Workshop rooms:{" "}

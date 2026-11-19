@@ -1,3 +1,8 @@
+/** One labelled group of lines shown when a roster card is opened. */
+export interface RosterDetail {
+  label: string;
+  items: string[];
+}
 export interface TeamMember {
   id: string;
   personId: string;
@@ -8,6 +13,9 @@ export interface TeamMember {
   avatar: string;
   order?: number;
   socials: Socials;
+  /** Most senior level held, e.g. "Lead". */
+  badge?: string;
+  details: RosterDetail[];
 }
 export type SessionCategory =
   | "GenAI"

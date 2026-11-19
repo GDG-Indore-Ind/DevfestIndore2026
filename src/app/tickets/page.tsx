@@ -30,7 +30,7 @@ export default function TicketsPage() {
           <ContentAction href="/agenda" icon="microphone" tone="blue">
             See the agenda
           </ContentAction>
-          <ContentAction href="/agenda/workshops" icon="calendar" tone="yellow">
+          <ContentAction href="/agenda#workshops" icon="calendar" tone="yellow">
             Workshops
           </ContentAction>
           <ContentAction href="/venue" icon="venue" tone="green">

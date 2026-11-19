@@ -25,7 +25,7 @@ export default function ExhibitsSection() {
                   </li>
                 ))}
               </ul>
-              <Link href="/agenda/exhibits" className={styles.more}>
+              <Link href="/agenda#exhibits" className={styles.more}>
                 {copy.confirmedLink}
               </Link>
             </div>

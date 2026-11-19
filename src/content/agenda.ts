@@ -140,11 +140,9 @@ export const AGENDA_ITEMS: AgendaItem[] = [...sessionItems, ...pendingItems, ...
   byRunningOrder,
 );
 
-export const AGENDA_SECTIONS = [
-  { id: "sessions", title: "Sessions" },
-  { id: "workshops", title: "Workshops" },
-  { id: "activities", title: "Activities" },
-] as const;
+export const AGENDA_SECTIONS = (["sessions", "workshops", "activities", "exhibits"] as const).map(
+  (id) => ({ id, title: AGENDA_PAGE.sections[id] }),
+);
 
 /** Each confirmed speaker once, in speaker order, with the first agenda row to jump to. */
 export const AGENDA_SPEAKERS: (AgendaPerson & { itemId: string })[] = [...speakerRoles.entries()]

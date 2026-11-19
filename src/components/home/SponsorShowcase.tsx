@@ -84,12 +84,10 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
                 }
               />
             ) : (
-              <>
-                <h2 id="partners-title" className="practical-partners-heading">
-                  {EVENT.year} {PARTNERS_PAGE.sectionLabel}
-                </h2>
-                <p className={styles.lead}>{PARTNERS_PAGE.sponsorshipText}</p>
-              </>
+              <SectionHeader
+                id="partners-title"
+                title={`${EVENT.year} ${PARTNERS_PAGE.sectionLabel}`}
+              />
             )}
             <PartnerCarousel items={featured} />
             {!!additional.length && (

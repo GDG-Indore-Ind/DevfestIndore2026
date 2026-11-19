@@ -49,7 +49,7 @@
   --text-h4: var(--text-22);
   --text-h3: var(--text-32);
   --text-h2: var(--text-32);
-  --text-h1-sm: clamp(2rem, 4vw, 2.75rem);
+  --text-h1-sm: clamp(2.25rem, 4vw, 3rem);
   --corner-4: 4px;
   --corner-8: 8px;
   --corner-12: 12px;

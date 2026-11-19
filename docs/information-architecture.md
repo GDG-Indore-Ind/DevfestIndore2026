@@ -4,24 +4,24 @@ Current implementation, 30 October 2026. This structure has not been validated w
 
 ## Audience and navigation
 
-Visitors need to understand the event, find a pass, prepare for arrival and explore the community. Get tickets stays prominent in the header; Themes links to the homepage topic selector. Explore groups destinations by task. Agenda sits first, with its Schedule, Workshops, Speakers and Exhibits views, which also appear as a tab row on every agenda page. Nested pages (the agenda views and past-edition pages) show a breadcrumb above the title, with `BreadcrumbList` structured data:
+Visitors need to understand the event, find a pass, prepare for arrival and explore the community. Get tickets stays prominent in the header; Themes links to the homepage topic selector. Explore groups destinations by task. Agenda is the single programme route, with section links for Sessions, Workshops, Activities and Exhibits. Past-edition pages show breadcrumbs above the title, with `BreadcrumbList` structured data:
 
 - **Plan your visit:** Tickets, Make your badge, Venue & directions, FAQ (including the registration guidelines) and Get an ambassador code.
 - **Discover:** Themes, Exhibits, Workshops, Partners & collaborators and Meet the team.
 
 The disclosure uses descriptive labels and decorative icons, closes on navigation, outside click, Escape or focus leaving the header, and scrolls within the viewport when necessary. Anchor destinations are shown only when their homepage sections are visible.
 
-The footer groups Attend, Get involved and Explore more, followed by a community row with social and GDG chapter links. The organizer email and code of conduct are available in the footer.
+The footer groups Attend, Get involved and Explore more, followed by a community row with social and GDG chapter links. Workshops links to the Agenda section, and Speakers links to the homepage lineup when it is visible. The organizer email and code of conduct are available in the footer.
 
 ## Routes and responsibilities
 
 | URL | Purpose |
 |---|---|
 | `/` | Event introduction, themes, confirmed speakers, ticket passes, badge maker teaser, current partners, exhibit invitation, venue, community press and ecosystem logos |
-| `/agenda` | Schedule: confirmed workshops, sessions, keynote and exhibits as ruled rows with format chips, grouped by track; times and rooms appear when published |
-| `/agenda/workshops` | The day's workshops (breadcrumb Home › Agenda › Workshops) |
-| `/agenda/speakers` | Grid of confirmed speakers, each linking to their agenda row |
-| `/agenda/exhibits` | Confirmed exhibits and the invitation to exhibit |
+| `/agenda` | Sessions, workshops, activities and exhibits. Expand a session row for the speaker profile, description and resources. |
+| `/agenda/workshops`, `/workshops` | Permanent redirects to `/agenda#workshops` |
+| `/agenda/speakers` | Permanent redirect to `/agenda` |
+| `/agenda/exhibits` | Permanent redirect to `/agenda#exhibits` |
 | `/tickets` | Open passes, KonfHub booking and closed passes below it |
 | `/badge` | Badge maker: name, optional role and photo, and a theme produce one 1080 × 1350 PNG drawn in the browser, with download, LinkedIn, Instagram and X actions and a caption. Nothing is uploaded |
 | `/tickets/[former-pass-id]` | Permanent redirect to Tickets, preserving query values |
@@ -31,7 +31,6 @@ The footer groups Attend, Get involved and Explore more, followed by a community
 | `/space-club` | Permanent redirect to `/partners#space-club` |
 | `/ambassadors` | Searchable ambassador contact directory; only profiles with a usable LinkedIn URL are displayed |
 | `/invite/[slug]` | Retired invitation URLs redirect to `/ambassadors`, preserving query values |
-| `/workshops` | Permanent redirect to `/agenda/workshops` |
 | `/events` | Permanent redirect to `/archive#workshops` |
 | `/archive` | Past editions as image cards, plus Pre-DevFest campus workshops, community events, photographs and press (anchors `#editions`, `#workshops`, `#community-events`, `#photos`, `#press`) |
 | `/archive/<event-id>` | One past edition: summary, reported figures, speakers with their talks, photographs, press and partner communities |

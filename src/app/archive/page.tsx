@@ -1,5 +1,7 @@
 import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
 import CommunityPage from "@/components/layout/CommunityPage";
+import ContentAction from "@/components/shared/ContentAction";
+import SectionHeader from "@/components/shared/SectionHeader";
 import ArchiveEditions from "@/components/archive/ArchiveEditions";
 import PhotoGallery from "@/components/archive/PhotoGallery";
 import PressClippings from "@/components/archive/PressClippings";
@@ -54,12 +56,16 @@ export default function ArchivePage() {
         </details>
       </section>
       <section className={styles.section} id="press" aria-labelledby="press-title">
-        <h2 id="press-title">{page.pressTitle}</h2>
+        <SectionHeader
+          id="press-title"
+          title={page.pressTitle}
+          action={
+            <ContentAction href="/press" icon="history">
+              {page.allPressLabel}
+            </ContentAction>
+          }
+        />
         <PressClippings limit={3} />
-        <details>
-          <summary>See all press clippings</summary>
-          <PressClippings offset={3} showLead={false} />
-        </details>
       </section>
     </CommunityPage>
   );

@@ -1,11 +1,3 @@
-.lead {
-  margin: 0 0 24px;
-  max-width: 60ch;
-  color: var(--audience-muted);
-  font-size: var(--text-16);
-  line-height: 1.6;
-}
-
 .logo {
   min-height: 86px;
   padding: 18px;

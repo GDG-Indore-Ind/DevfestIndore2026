@@ -1,6 +1,6 @@
 import { EVENT } from "./event";
 import { getEventPerson, personalSocials } from "./people";
-import { byRoleOrder, PARTICIPATIONS } from "./participations";
+import { byRoleOrder, getRosterDetails, PARTICIPATIONS } from "./participations";
 
 const isLinkedInProfile = (value?: string) => {
   try {
@@ -24,6 +24,7 @@ export const AMBASSADOR_DIRECTORY = PARTICIPATIONS.flatMap((entry) =>
           ? [
               {
                 personId: entry.personId,
+                role,
                 track: role.track!,
                 community: role.community!,
                 order: role.order,
@@ -36,6 +37,10 @@ export const AMBASSADOR_DIRECTORY = PARTICIPATIONS.flatMap((entry) =>
   .map((entry) => {
     const person = getEventPerson(entry.personId, EVENT.id);
     const { linkedin, instagram } = personalSocials(person.socials);
-    return { ...entry, person, socials: { linkedin, instagram } };
+    const details = [
+      { label: "Track", items: [entry.track === "student" ? "Student" : "Professional"] },
+      ...getRosterDetails(entry.personId, EVENT.id, entry.role),
+    ];
+    return { ...entry, person, socials: { linkedin, instagram }, details };
   })
   .filter(({ socials }) => isLinkedInProfile(socials.linkedin));
