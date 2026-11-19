@@ -25,6 +25,7 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
           : []),
         { href: "/venue", label: "Venue", icon: "venue" },
         { href: "/faq", label: "FAQ", icon: "help" },
+        { href: "/ambassadors", label: "Ambassadors", icon: "people" },
       ],
     },
     {
