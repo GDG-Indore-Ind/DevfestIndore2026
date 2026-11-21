@@ -4,3 +4,20 @@
 .block {
   scroll-margin-top: 96px;
 }
+
+.jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--layout-space-5);
+  margin-bottom: var(--section-space-tight);
+}
+
+.jumps a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.block h2 {
+  scroll-margin-top: 96px;
+}

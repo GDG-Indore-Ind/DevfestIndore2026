@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import type { AgendaFormat, AgendaItem } from "@/content/agenda";
 import { AGENDA_PAGE as copy } from "@/content/pages";
@@ -94,7 +95,11 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
               <li key={person.id} className={styles.person}>
                 <div className={styles.personHeader}>
                   <div className={styles.personMeta}>
-                    <p className={styles.name}>{person.name}</p>
+                    <p className={styles.name}>
+                      <Link className="audience-text-link" href={`/people/${person.id}`}>
+                        {person.name}
+                      </Link>
+                    </p>
                     <p className={styles.role}>
                       {[person.role, person.company].filter(Boolean).join(", ")}
                     </p>

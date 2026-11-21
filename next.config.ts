@@ -37,7 +37,6 @@ const nextConfig: NextConfig = {
       { source: "/gallery", destination: "/archive#photos", permanent: true },
       { source: "/talks", destination: "/archive#editions", permanent: true },
       { source: "/talks/:id", destination: "/archive#editions", permanent: true },
-      { source: "/people/:id", destination: "/team", permanent: true },
       { source: "/organizations/:id", destination: "/partners", permanent: true },
     ];
   },

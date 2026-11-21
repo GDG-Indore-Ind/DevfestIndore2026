@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import type { RosterDetail, Socials } from "@/content/model";
 import Chip from "@/components/shared/Chip";
 import CommunityPhoto from "@/components/shared/CommunityPhoto";
@@ -12,6 +13,7 @@ export type RosterPerson = {
   id: string;
   name: string;
   photo?: string;
+  href?: string;
   /** One muted line under the name: a function, college or company. */
   meta: string;
   socials?: Socials;
@@ -39,11 +41,21 @@ function RosterMember({ person }: { person: RosterPerson }) {
     </span>
   );
 
+  const portrait = (
+    <CommunityPhoto src={person.photo} alt="" initialsFor={person.name} portrait sizes="44px" />
+  );
+
   return (
     <li className={styles.member} data-highlight={person.highlight}>
       <div className={styles.row}>
-        <CommunityPhoto src={person.photo} alt="" initialsFor={person.name} portrait sizes="44px" />
-        {expandable ? (
+        {!person.href && portrait}
+        {person.href ? (
+          <Link href={person.href} className={styles.profileRow}>
+            {portrait}
+            {identity}
+            <ArrowRight aria-hidden="true" className={styles.chevron} />
+          </Link>
+        ) : expandable ? (
           <button
             type="button"
             className={styles.identityRow}
@@ -64,7 +76,7 @@ function RosterMember({ person }: { person: RosterPerson }) {
           className={styles.socials}
         />
       </div>
-      {expandable && (
+      {!person.href && expandable && (
         <div id={panelId} className={styles.panel} hidden={!open}>
           {person.bio && <p className={styles.bio}>{person.bio}</p>}
           {person.details?.map(({ label, items }) => (

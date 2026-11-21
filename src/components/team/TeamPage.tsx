@@ -1,3 +1,4 @@
+import { EVENT } from "@/content/event";
 import { TEAM, TEAM_PAGE } from "@/content/team";
 import CommunityPage from "@/components/layout/CommunityPage";
 import PersonRoster from "@/components/shared/PersonRoster";
@@ -30,11 +31,9 @@ export default function TeamPage() {
                 id: member.personId,
                 name: member.name,
                 photo: member.avatar,
-                meta: member.role.split(" · ", 1)[0],
+                meta: `${member.badge ?? (member.team === "Core Team" ? "Organizer" : "Community Helper")} · ${EVENT.name}`,
                 socials: member.socials,
-                badge: member.badge,
-                bio: member.bio,
-                details: member.details,
+                href: `/people/${member.personId}`,
               }))}
             />
           </section>
