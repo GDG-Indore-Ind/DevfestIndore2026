@@ -1,39 +1,74 @@
 .logo {
-  min-height: 86px;
-  padding: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 88px;
+  padding: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--audience-line);
   border-radius: var(--corner-12);
   background: var(--space-white);
   color: var(--space-black);
-  transition:
-    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 220ms ease;
+  text-align: center;
 }
-.logo:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-.logo > a {
+.logo > :is(img, svg) {
   width: 100%;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logo > a > :global(.audience-icon) {
-  display: none;
-}
-.logo img {
-  max-width: 100%;
-  width: auto;
-  height: 50px;
+  height: 100%;
+  min-height: 0;
   object-fit: contain;
 }
-.wordmark {
+.featured {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 92%;
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x mandatory;
+  padding: 3px 3px 12px;
+  scrollbar-width: thin;
+}
+.card {
+  min-width: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+  background: var(--audience-bg);
+}
+.card .logo {
+  width: 100%;
+  height: 112px;
+  border: 0;
+  padding: 12px 16px;
+}
+.card .logo > :is(img, svg) {
+  max-width: 340px;
+}
+.card :is(h3, p) {
+  margin: 0;
+}
+.card h3 {
   font-size: var(--text-22);
-  font-weight: 500;
+}
+.card p,
+.tile small {
+  color: var(--audience-muted);
+}
+.card > a {
+  margin-top: auto;
+}
+.tile {
+  display: grid;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--audience-ink);
+  font-size: var(--text-14);
+}
+.tile:hover > span:nth-child(2) {
+  text-decoration: underline;
 }
 .additional {
   margin-block: 28px;
@@ -99,27 +134,17 @@
 .supporterGrid {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 16px 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 20px;
-}
-.supporterGrid > li {
-  padding-block: 20px;
-}
-.supporterGrid h3 {
-  margin: 12px 0 4px;
-  font-size: var(--text-16);
-}
-.supporterGrid p {
-  margin: 0;
-  color: var(--audience-muted);
-  font-size: var(--text-14);
+  gap: 16px;
 }
 @media (min-width: 761px) {
+  .featured {
+    grid-auto-columns: calc((100% - 16px) / 2);
+  }
   .supporterGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 28px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 @media (max-width: 480px) {

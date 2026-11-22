@@ -2,33 +2,14 @@
   min-width: 0;
   margin-top: 48px;
 }
-.window {
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  padding-block: 8px 12px;
-  scrollbar-width: thin;
-  touch-action: pan-x pan-y;
-}
-.window:focus-visible {
-  outline: 2px solid var(--audience-blue);
-  outline-offset: 2px;
-}
 .group {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
   gap: 20px;
-  width: max-content;
-  padding: 0;
+  padding: 8px 0 12px;
   margin: 0;
   list-style: none;
-}
-.group li {
-  flex: 0 0 180px;
-  width: 180px;
-}
-.group li.squareItem {
-  flex: 0 0 130px;
-  width: 130px;
 }
 .root .item {
   display: flex;
@@ -46,16 +27,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 160px;
-  height: 56px;
+  width: min(100%, 160px);
+  height: 90px;
   padding: 6px 12px;
   background: var(--space-white);
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-12);
 }
 .squarePlate {
-  width: 68px;
-  height: 68px;
+  width: min(100%, 104px);
+  height: 104px;
   padding: 8px;
   border-radius: var(--corner-16);
 }
@@ -87,36 +68,21 @@
     margin-block: 16px;
   }
   .group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
-  }
-  .group li {
-    flex: 0 0 148px;
-    width: 148px;
-  }
-  .group li.squareItem {
-    flex: 0 0 110px;
-    width: 110px;
   }
   .root .item {
     width: 100%;
     min-height: 104px;
   }
   .plate {
-    width: 136px;
-    height: 48px;
+    width: min(100%, 136px);
+    height: 74px;
     padding: 4px 8px;
   }
   .squarePlate {
-    width: 56px;
-    height: 56px;
+    width: min(100%, 88px);
+    height: 88px;
     padding: 6px;
-  }
-  .controls {
-    margin-left: auto;
-    max-width: 100%;
-    gap: 8px;
-  }
-  .controls > a {
-    max-width: 100%;
   }
 }

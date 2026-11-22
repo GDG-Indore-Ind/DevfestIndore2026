@@ -1,5 +1,6 @@
 import { ARCHIVED_EVENTS } from "@/content/archive";
 import { EVENT } from "@/content/event";
+import { PARTNER_PROFILES, partnerProfileHref } from "@/content/partners";
 import { SITE } from "@/content/site";
 import type { MetadataRoute } from "next";
 
@@ -22,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/press", "weekly", 0.7),
     entry("/team", "monthly", 0.6),
     entry("/archive", "monthly", 0.6),
+    ...PARTNER_PROFILES.map(({ organizationId }) =>
+      entry(partnerProfileHref(organizationId), "monthly", 0.6),
+    ),
     ...ARCHIVED_EVENTS.map((event) => entry(`/archive/${event.id}`, "monthly", 0.5)),
   ];
 }

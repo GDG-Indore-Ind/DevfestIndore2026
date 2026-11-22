@@ -1,0 +1,15 @@
+.dark {
+  display: none !important;
+}
+
+:global(:root[data-theme="dark"]) .light {
+  display: none !important;
+}
+
+:global(:root[data-theme="dark"]) .dark {
+  display: block !important;
+}
+
+:global(:root[data-theme="dark"]) :has(> .dark) {
+  background: var(--audience-bg);
+}

@@ -2,17 +2,44 @@ import Image from "next/image";
 import { useId } from "react";
 import { ARCHIVE_LOGO_SHEET } from "@/content/partners";
 import type { Organization } from "@/content/model";
+import styles from "./OrganizationLogo.module.css";
 
 type LogoOrganization = Pick<
   Organization,
   "id" | "name" | "logoUrl" | "archiveLogoWindow" | "logoShape"
 >;
 
-/** Reuse the supplied historical artwork; never infer a current partnership. */
-export default function OrganizationLogo({ organization }: { organization: LogoOrganization }) {
+/** Prefer standalone vector artwork when a historical crop also exists. */
+export default function OrganizationLogo({
+  organization,
+  sizes,
+}: {
+  organization: LogoOrganization;
+  sizes?: string;
+}) {
   const clipId = useId();
+  if (organization.logoUrl === "/images/partners/space-club-lockup.svg") {
+    return (
+      <>
+        <Image
+          src={organization.logoUrl}
+          alt=""
+          width={1502}
+          height={500}
+          className={styles.light}
+        />
+        <Image
+          src="/images/partners/space-club-lockup-white.svg"
+          alt=""
+          width={1530}
+          height={528}
+          className={styles.dark}
+        />
+      </>
+    );
+  }
   const window = organization.archiveLogoWindow;
-  if (window)
+  if (window && !organization.logoUrl.endsWith(".svg"))
     return (
       <svg
         viewBox={window.join(" ")}
@@ -35,7 +62,8 @@ export default function OrganizationLogo({ organization }: { organization: LogoO
       alt=""
       width={isSquare ? 160 : 240}
       height={isSquare ? 160 : 120}
-      sizes={isSquare ? "(max-width: 760px) 72px, 96px" : "(max-width: 760px) 130px, 180px"}
+      sizes={sizes ?? (isSquare ? "104px" : "160px")}
+      quality={100}
       data-organization={organization.id}
     />
   ) : (

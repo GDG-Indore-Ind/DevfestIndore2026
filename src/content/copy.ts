@@ -57,6 +57,7 @@ export const PAGE_COPY = {
     navigationLabel: "Jump to",
   },
   partners: {
+    directoryTitle: "All DevFest partners",
     title: "Build this edition with us.",
     description:
       "Meet the sponsors and collaborators contributing to DevFest Indore 2026, and explore sponsorship and partnership opportunities.",
@@ -111,10 +112,9 @@ export const PAGE_COPY = {
   home: {
     programmeTitle: "Themes",
     programmeTagline: "New frontiers.",
-    programmeStatus: "Have something to share on these themes?",
     historyTitle: "One community. Still building.",
     historyLead: "DevFest and community events every year since 2014.",
-    ecosystemTitle: "Communities & ecosystem",
+    ecosystemTitle: "Community & Ecosystem",
     ecosystemLead: "Communities and networks that connect us.",
     heroLead: "From intelligent software to systems in deep space.",
     heroDescription: "Technical talks and hands-on labs with the developer community.",
@@ -125,7 +125,6 @@ export const PAGE_COPY = {
     photoArchiveLabel: "Photo archive",
     pressLabel: "All press coverage",
     themeSelectorLabel: "Explore the themes",
-    themeContributionLabel: "Bring it to the stage",
     ticketStrip: {
       title: "Pick your pass.",
       lead: "Sessions, workshops and lunch on 28 November.",
@@ -586,4 +585,14 @@ export const MISSIONS_COPY = {
     badgeLabel: "Create your badge",
     missionLabel: "How to enter",
   },
+};
+
+export const PARTNER_PROFILE_LINKS: Record<string, { label: string; href: string }[]> = {
+  "thm-indore": [
+    { label: "Instagram · Indore Chapter", href: "https://instagram.com/thm.indore" },
+    {
+      label: "LinkedIn · The Hackers Meetup",
+      href: "https://in.linkedin.com/company/the-hackers-meetup",
+    },
+  ],
 };

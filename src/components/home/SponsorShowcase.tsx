@@ -1,45 +1,13 @@
-"use client";
-
 import ContentAction from "@/components/shared/ContentAction";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { EVENT } from "@/content/event";
-import { useState } from "react";
-import Image from "next/image";
-import type { EventPartner } from "@/content/model";
-import { CONFIRMED_EVENT_PARTNERS } from "@/content/partners";
+import Link from "next/link";
+import OrganizationLogo from "@/components/shared/OrganizationLogo";
+import { NON_COMMUNITY_EVENT_PARTNERS, partnerProfileHref } from "@/content/partners";
 import { PARTNERS_PAGE } from "@/content/pages";
-import ExternalLink from "@/components/shared/ExternalLink";
-import PartnerCarousel from "@/components/home/PartnerCarousel";
 import styles from "./SponsorShowcase.module.css";
 
-function PartnerLogo({
-  item,
-  featured = false,
-  decorative = false,
-}: {
-  item: EventPartner;
-  featured?: boolean;
-  decorative?: boolean;
-}) {
-  const [failed, setFailed] = useState(false);
-  const square = item.featured === "space" || !featured;
-  return item.logoUrl && !failed ? (
-    <Image
-      src={item.logoUrl}
-      alt={decorative ? "" : item.name}
-      width={square ? 240 : 640}
-      height={square ? 240 : 118}
-      sizes={featured ? "(max-width: 760px) 75vw, 420px" : "(max-width: 760px) 88px, 220px"}
-      onError={() => setFailed(true)}
-    />
-  ) : (
-    <span className={styles.wordmark}>{item.name}</span>
-  );
-}
-
 export default function SponsorShowcase({ showIntro = true }: { showIntro?: boolean }) {
-  const featured = CONFIRMED_EVENT_PARTNERS.filter((item) => item.featured);
-  const additional = CONFIRMED_EVENT_PARTNERS.filter((item) => !item.featured);
   return (
     <section className="audience-section event-partners-section" aria-labelledby="partners-title">
       <div className="audience-wrap">
@@ -89,26 +57,44 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
                 title={`${EVENT.year} ${PARTNERS_PAGE.sectionLabel}`}
               />
             )}
-            <PartnerCarousel items={featured} />
-            {!!additional.length && (
+            <div
+              className={styles.featured}
+              role="region"
+              aria-label={PARTNERS_PAGE.sectionLabel}
+              tabIndex={0}
+            >
+              {NON_COMMUNITY_EVENT_PARTNERS.map((item) => (
+                <article className={styles.card} key={item.id}>
+                  <div className={styles.logo}>
+                    <OrganizationLogo organization={item} sizes="(max-width: 760px) 85vw, 400px" />
+                  </div>
+                  <h3>{item.name}</h3>
+                  <p>{item.role}</p>
+                  {item.description && <p>{item.description}</p>}
+                  <ContentAction href={partnerProfileHref(item.organizationId)} icon="partners">
+                    About {item.name}
+                  </ContentAction>
+                </article>
+              ))}
+            </div>
+            {!!NON_COMMUNITY_EVENT_PARTNERS.length && (
               <div className={styles.additional}>
                 <div className="event-partner-heading">
-                  <h3>More partners & supporters</h3>
+                  <h3>{PARTNERS_PAGE.directoryTitle}</h3>
                 </div>
-                <ul className={styles.supporterGrid} aria-label="More 2026 partners">
-                  {additional.map((item) => (
-                    <li key={item.id}>
-                      <div className={styles.logo}>
-                        {item.websiteUrl ? (
-                          <ExternalLink href={item.websiteUrl}>
-                            <PartnerLogo item={item} />
-                          </ExternalLink>
-                        ) : (
-                          <PartnerLogo item={item} />
-                        )}
-                      </div>
-                      <h3>{item.name}</h3>
-                      <p>{item.role}</p>
+                <ul className={styles.supporterGrid}>
+                  {NON_COMMUNITY_EVENT_PARTNERS.map((item) => (
+                    <li
+                      key={item.id}
+                      id={!showIntro && item.featured === "space" ? "space-club" : undefined}
+                    >
+                      <Link href={partnerProfileHref(item.organizationId)} className={styles.tile}>
+                        <span className={styles.logo}>
+                          <OrganizationLogo organization={item} />
+                        </span>
+                        <span>{item.name}</span>
+                        {!showIntro && <small>{item.role}</small>}
+                      </Link>
                     </li>
                   ))}
                 </ul>

@@ -1,0 +1,24 @@
+.plate {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  height: clamp(144px, 25vw, 240px);
+  padding: 24px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-24);
+  background: var(--space-white);
+  color: var(--space-black);
+  text-align: center;
+}
+.plate > :is(img, svg) {
+  width: 100%;
+  max-width: 340px;
+  height: 100%;
+  object-fit: contain;
+}
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}

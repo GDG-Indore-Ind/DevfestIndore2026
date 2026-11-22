@@ -4,9 +4,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import SectionHeader from "@/components/shared/SectionHeader";
+import CommunitySupporters from "@/components/home/CommunitySupporters";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import { EVENT } from "@/content/event";
-import { PARTNERS_PAGE as page, SPACE_CLUB_PAGE as spaceClub } from "@/content/pages";
+import { PARTNERS_PAGE as page } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
 import styles from "./page.module.css";
 
@@ -44,14 +45,9 @@ export default function PartnersPage() {
             <SponsorShowcase showIntro={false} />
           </div>
         )}
-        {page.revealed && (
-          <section className="audience-section" id="space-club" aria-labelledby="space-club-title">
-            <div className="audience-wrap">
-              <h2 id="space-club-title">{spaceClub.heading}</h2>
-              <p className="audience-body">{spaceClub.body}</p>
-            </div>
-          </section>
-        )}
+        <div className="audience-wrap">
+          <CommunitySupporters />
+        </div>
         <section
           className={`audience-section ${styles.application}`}
           id="partner-application"

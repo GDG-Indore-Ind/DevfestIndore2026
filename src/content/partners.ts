@@ -1,8 +1,8 @@
 import organizationsFile from "./generated/organizations.json";
-import type { EventPartner } from "./model";
 import type { Organization } from "./model";
 import type { Organization as OrganizationRecord } from "./schema/public/organizations";
 import { EVENT } from "./event";
+import { SITE } from "./site";
 export const ORGANIZATIONS = (organizationsFile.organizations as OrganizationRecord[]).map(
   ({ logo, website, social, contributions, ...record }) => {
     const partnerships: Organization["partnerships"] = [];
@@ -32,7 +32,7 @@ export function getOrganization(id: string): Organization {
   if (!organization) throw new Error(`Unknown organization ${id}. Run npm run content:validate.`);
   return organization;
 }
-export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
+export function getEventPartners(editionId: string = EVENT.id) {
   return ORGANIZATIONS.flatMap((organization) =>
     organization.partnerships
       .filter(
@@ -48,6 +48,7 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
       .map((partnership) => ({
         ...organization,
         id: partnership.id,
+        organizationId: organization.id,
         role: partnership.contributions.map((item) => item.role).join(" · "),
         kind: partnership.contributions[0].kind,
         featured: partnership.featured,
@@ -56,7 +57,24 @@ export function getEventPartners(editionId: string = EVENT.id): EventPartner[] {
   ).sort((a, b) => a.order - b.order);
 }
 export const CONFIRMED_EVENT_PARTNERS = getEventPartners();
+export const NON_COMMUNITY_EVENT_PARTNERS = CONFIRMED_EVENT_PARTNERS.filter(
+  (item) => item.kind !== "community",
+);
+export const COMMUNITY_PARTNERS = SITE.partnersRevealed
+  ? CONFIRMED_EVENT_PARTNERS.filter((item) => item.kind === "community")
+  : [];
 export const ECOSYSTEM_PARTNERS = getEventPartners("ecosystem");
+export const PARTNER_PROFILES = [
+  ...(SITE.partnersRevealed ? CONFIRMED_EVENT_PARTNERS : []),
+  ...ECOSYSTEM_PARTNERS,
+].filter(
+  (item, index, items) =>
+    items.findIndex((other) => other.organizationId === item.organizationId) === index,
+);
+
+export function partnerProfileHref(organizationId: string) {
+  return `/partners/${organizationId}`;
+}
 export function getCommunityUrl(
   organization: Pick<Organization, "websiteUrl" | "socialUrl">,
 ): string | undefined {

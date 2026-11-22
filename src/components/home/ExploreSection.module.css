@@ -136,17 +136,7 @@
   font-weight: 600;
 }
 .contribution {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
   margin-top: 20px;
-}
-.contribution p {
-  margin: 0 auto 0 0;
-  color: var(--audience-muted);
-  font-size: var(--text-14);
 }
 @media (min-width: 600px) {
   .grid {

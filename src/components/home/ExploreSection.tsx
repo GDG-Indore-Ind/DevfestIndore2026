@@ -1,4 +1,3 @@
-import { EVENT } from "@/content/event";
 import { Bot, Braces, Radio, Satellite } from "lucide-react";
 import ContentAction from "@/components/shared/ContentAction";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -56,12 +55,8 @@ export default function ExploreSection() {
           })}
         </ul>
         <div className={styles.contribution}>
-          <p>{HOME_PAGE.programmeStatus}</p>
           <ContentAction href="/agenda" icon="calendar" tone="blue">
             {HOME_PAGE.agendaLabel}
-          </ContentAction>
-          <ContentAction href={EVENT.links.cfp} icon="microphone" tone="red" external>
-            {HOME_PAGE.themeContributionLabel}
           </ContentAction>
         </div>
       </div>
