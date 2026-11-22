@@ -17,17 +17,19 @@ export default function LogoRow({
   items,
   label,
   description,
+  headingLevel = 3,
   action,
 }: {
   items: RowOrganization[];
   label: string;
   description?: string;
+  headingLevel?: 2 | 3;
   action?: ReactNode;
 }) {
   if (!items.length) return null;
   return (
-    <section className={styles.root} aria-label={label}>
-      <SectionHeader level={3} title={label} lead={description} action={action} />
+    <section className={styles.root} data-heading-level={headingLevel} aria-label={label}>
+      <SectionHeader level={headingLevel} title={label} lead={description} action={action} />
       <ul className={styles.group}>
         {items.map((item) => {
           const isSquare = item.logoShape === "square";

@@ -15,24 +15,24 @@
   min-height: 0;
   object-fit: contain;
 }
-.featured {
+.tile {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 92%;
-  gap: 16px;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: x mandatory;
-  padding: 3px 3px 12px;
-  scrollbar-width: thin;
+  align-content: start;
+  gap: 8px;
+  height: 100%;
+  text-decoration: none;
+  color: var(--audience-ink);
+}
+.tile .logo {
+  height: clamp(112px, 16vw, 148px);
+  padding: 16px;
 }
 .card {
-  min-width: 0;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  height: 100%;
   padding: 20px;
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-16);
@@ -57,21 +57,16 @@
 .tile small {
   color: var(--audience-muted);
 }
+.card .role,
+.tile small {
+  font-size: var(--text-14);
+}
 .card > a {
   margin-top: auto;
 }
-.tile {
-  display: grid;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--audience-ink);
-  font-size: var(--text-14);
-}
-.tile:hover > span:nth-child(2) {
+.tile:hover .name {
   text-decoration: underline;
-}
-.additional {
-  margin-block: 28px;
+  text-underline-offset: 3px;
 }
 .reveal {
   position: relative;
@@ -131,7 +126,8 @@
   line-height: 1.65;
   margin: 0 0 24px;
 }
-.supporterGrid {
+.supporterGrid,
+.directoryGrid {
   list-style: none;
   padding: 0;
   margin: 16px 0 0;
@@ -139,12 +135,18 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
+.supporterGrid {
+  margin-top: 24px;
+}
+.directoryGrid {
+  grid-template-columns: minmax(0, 1fr);
+}
 @media (min-width: 761px) {
-  .featured {
-    grid-auto-columns: calc((100% - 16px) / 2);
-  }
   .supporterGrid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .directoryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 480px) {

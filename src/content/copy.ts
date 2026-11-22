@@ -57,7 +57,7 @@ export const PAGE_COPY = {
     navigationLabel: "Jump to",
   },
   partners: {
-    directoryTitle: "All DevFest partners",
+    viewAllLabel: "View all partners",
     title: "Build this edition with us.",
     description:
       "Meet the sponsors and collaborators contributing to DevFest Indore 2026, and explore sponsorship and partnership opportunities.",
@@ -140,7 +140,7 @@ export const PAGE_COPY = {
       body: "Developers, makers, startups and companies: tell us you’d like to exhibit. Bring a live demo, working prototype or product.",
       buttonLabel: "Exhibit at DevFest",
       confirmedLabel: "Confirmed so far",
-      confirmedLink: "All exhibits",
+      confirmedLink: "See the exhibits",
     },
     themes: [
       {

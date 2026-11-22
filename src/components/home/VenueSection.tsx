@@ -32,6 +32,9 @@ export default function VenueSection({ showDetailsLink = true }: { showDetailsLi
                 Plan your arrival
               </ContentAction>
             )}
+            <ContentAction href="/agenda#exhibits" icon="exhibits" tone="blue">
+              {HOME_PAGE.exhibits.confirmedLink}
+            </ContentAction>
           </div>
         </div>
 

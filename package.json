@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "next build",
+    "build:cloudflare": "DEVFEST_STATIC_EXPORT=1 npm run build && node scripts/cloudflare-redirects.mjs",
     "start": "next start",
     "lint": "eslint",
     "content:validate": "node scripts/validate-content.mjs",

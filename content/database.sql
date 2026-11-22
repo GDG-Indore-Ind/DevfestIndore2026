@@ -484,7 +484,7 @@ INSERT INTO "people" ("id", "name", "job_title", "company", "bio", "photo_path",
 INSERT INTO "rooms" ("id", "event_id", "name", "title", "description", "numbered", "display_order") VALUES ('devfest-2026-exhibit-lounge', 'devfest-2026', 'Exhibit Lounge', 'Exhibit Lounge', 'Open through the day.', 0, 3);
 INSERT INTO "rooms" ("id", "event_id", "name", "title", "description", "numbered", "display_order") VALUES ('devfest-2026-hall-1', 'devfest-2026', 'Orbit Lab (Hall 1)', 'Workshops · Orbit Lab (Hall 1)', 'Hands-on, laptops out. Seats are first come, first served.', 1, 1);
 INSERT INTO "rooms" ("id", "event_id", "name", "title", "description", "numbered", "display_order") VALUES ('devfest-2026-hall-2', 'devfest-2026', 'Launch Lab (Hall 2)', 'Workshops · Launch Lab (Hall 2)', 'Hands-on, laptops out. Seats are first come, first served.', 1, 2);
-INSERT INTO "rooms" ("id", "event_id", "name", "title", "description", "numbered", "display_order") VALUES ('devfest-2026-main-stage', 'devfest-2026', 'Main stage', 'Main stage', 'Keynote, panel and talks, in running order.', 1, 0);
+INSERT INTO "rooms" ("id", "event_id", "name", "title", "description", "numbered", "display_order") VALUES ('devfest-2026-main-stage', 'devfest-2026', 'Sessions', 'Sessions', 'Keynote, panel and talks, in running order.', 1, 0);
 
 -- session_organizations
 INSERT INTO "session_organizations" ("session_id", "organization_id", "display_order") VALUES ('devfest-2026-iist-address', 'indore-institute-of-science-and-technology', 0);

@@ -16,7 +16,7 @@ function communityPosition(id: string) {
   return position === -1 ? communityOrder.length : position;
 }
 
-export default function CommunitySupporters() {
+export default function CommunitySupporters({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
   const communities = [
     ...ECOSYSTEM_PARTNERS,
     ...COMMUNITY_PARTNERS.map((item) => ({ ...item, detail: item.role })),
@@ -24,6 +24,7 @@ export default function CommunitySupporters() {
 
   return (
     <LogoRow
+      headingLevel={headingLevel}
       label={HOME_PAGE.ecosystemTitle}
       description={HOME_PAGE.ecosystemLead}
       items={communities.map((item) => ({

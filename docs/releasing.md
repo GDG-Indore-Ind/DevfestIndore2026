@@ -1,5 +1,29 @@
 # Release workflow
 
+## Build locally for Cloudflare
+
+Use Node.js 24 or newer. From the repository root, build a Cloudflare static
+export with `npm run build:cloudflare`. This runs the
+existing image and content build steps and writes the deployable site to `out/`,
+including the legacy redirects. No Cloudflare build service or GitHub connection
+is needed for this workflow.
+
+For a local preview, run `npx wrangler dev` and open the URL printed by Wrangler.
+To upload the existing export to your Cloudflare account:
+
+```sh
+npx wrangler login
+npx wrangler deploy --name devfest-indore-2026-preview
+```
+
+Wrangler reads `wrangler.jsonc` and uploads `out/` to the preview Worker.
+Review the printed Cloudflare URL before attaching a public hostname.
+For the production Worker named `devfest-indore-2026`, use
+`npx wrangler deploy` after preview review. If that Worker already has a Git
+build connection, disconnect it in Cloudflare's Builds settings before switching
+to local uploads so Git pushes do not trigger deployments. Repeat the local build
+before deploying any content or code changes.
+
 ## Confirm deployment ownership
 
 On 27 October 2026, the organizer confirmed that Vercel is connected to the repository configured as `live`, which pointed to `Karan-S-Mittal/devfest-indore-2026` on GitHub. `origin` pointed to the GDG organization repository. Local aliases can change; check `git remote -v` before releasing.

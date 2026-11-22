@@ -1,8 +1,8 @@
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/home/HeroSection";
-import ExhibitsSection from "@/components/home/ExhibitsSection";
 import ExploreSection from "@/components/home/ExploreSection";
 import AgendaPreview from "@/components/home/AgendaPreview";
+import CommunitySupporters from "@/components/home/CommunitySupporters";
 import GalleryVideoSection from "@/components/home/GalleryVideoSection";
 import SponsorShowcase from "@/components/home/SponsorShowcase";
 import TicketStrip from "@/components/home/TicketStrip";
@@ -31,11 +31,11 @@ const flightStops = [
   { id: "hero", label: "Launch" },
   { id: "flow", label: "Themes" },
   { id: "agenda-preview", label: "Speakers" },
-  ...(OPEN_PASSES.length ? [{ id: "home-tickets", label: "Passes" }] : []),
   { id: "sponsors", label: "Partners" },
-  { id: "exhibits", label: "Exhibits" },
+  ...(OPEN_PASSES.length ? [{ id: "home-tickets", label: "Passes" }] : []),
+  { id: "community-partners", label: "Community" },
   { id: "venue", label: "Venue" },
-  { id: "archive", label: "Community" },
+  { id: "archive", label: "History" },
 ];
 
 export default function Home() {
@@ -48,12 +48,16 @@ export default function Home() {
         </div>
         <ExploreSection />
         <AgendaPreview />
-        <TicketStrip />
-        <MissionStrip />
         <div id="sponsors">
           <SponsorShowcase />
         </div>
-        <ExhibitsSection />
+        <TicketStrip />
+        <MissionStrip />
+        <div id="community-partners" className="audience-section">
+          <div className="audience-wrap">
+            <CommunitySupporters headingLevel={2} />
+          </div>
+        </div>
         <VenueSection />
         <div id="archive">
           <GalleryVideoSection />

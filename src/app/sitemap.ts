@@ -4,6 +4,8 @@ import { PARTNER_PROFILES, partnerProfileHref } from "@/content/partners";
 import { SITE } from "@/content/site";
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = EVENT.links.website;
   const entry = (path: string, changeFrequency: "weekly" | "monthly", priority: number) => ({
