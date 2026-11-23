@@ -3,6 +3,7 @@ import StrongText from "@/components/shared/StrongText";
 import { ArrowRight } from "lucide-react";
 import { formatPassPrice, passExtras, type PublicPass } from "@/content/tickets";
 import { TICKETS_PAGE } from "@/content/pages";
+import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
 import BenefitGroups from "@/components/tickets/BenefitGroups";
 import PassBooking from "@/components/tickets/PassBooking";
 import styles from "./CurrentTicketOffer.module.css";
@@ -38,14 +39,24 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
         </details>
       )}
       {pass.bookingRoute === "ambassador" ? (
-        <Link
-          href="/ambassadors"
-          className={`audience-button space-primary-button ${styles.register}`}
-          aria-label={`${TICKETS_PAGE.studentButtonLabel} — ${pass.name}`}
-        >
-          {TICKETS_PAGE.studentButtonLabel}
-          <ArrowRight className="audience-icon" aria-hidden="true" />
-        </Link>
+        <>
+          <Link
+            href="/ambassadors#ambassador-directory-title"
+            className={`audience-button space-primary-button ${styles.register}`}
+            aria-label={`${TICKETS_PAGE.studentButtonLabel} — ${pass.name}`}
+          >
+            {TICKETS_PAGE.studentButtonLabel}
+            <ArrowRight className="audience-icon" aria-hidden="true" />
+          </Link>
+          {TICKET_REGISTRATION_ENABLED && (
+            <>
+              {" "}
+              <a href="#registration" className="audience-text-link">
+                {TICKETS_PAGE.studentCheckoutLabel}
+              </a>
+            </>
+          )}
+        </>
       ) : (
         <>
           {" "}
