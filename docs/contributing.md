@@ -50,7 +50,7 @@ npm run check
 npm run build
 ```
 
-`check` verifies database integrity, foreign keys and the SQL export, generates and validates public content, runs content/database tests, generates Next.js route types, checks TypeScript, lints and checks formatting. After schema changes, run `npm run db:generate`, review the SQL migration, run `npm run db:migrate`, then `npm run db:export`. Test migrations against a restored copy before applying them to the editable database. CI also builds the production application. Review changed routes on a Vercel preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking and sold-out states, direct-link coupons and the iframe fallback without making a purchase.
+`check` verifies database integrity, foreign keys and the SQL export, generates and validates public content, runs content/database tests, generates Next.js route types, checks TypeScript, lints and checks formatting. After schema changes, run `npm run db:generate`, review the SQL migration, run `npm run db:migrate`, then `npm run db:export`. Test migrations against a restored copy before applying them to the editable database. CI also builds the production application. Review changed routes on a Cloudflare Pages preview at mobile and desktop widths, using both themes. For checkout or referral changes, check the disabled-booking and sold-out states, direct-link coupons and the iframe fallback without making a purchase.
 
 See [release instructions](releasing.md) for deployment ownership and review.
 

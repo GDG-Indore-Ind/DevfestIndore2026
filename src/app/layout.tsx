@@ -1,6 +1,5 @@
 import Script from "next/script";
 import { EVENT, EVENT_SHORT_DATE } from "@/content/event";
-import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { googleSans } from "./fonts";
 import "./globals.css";
@@ -150,7 +149,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             src="https://www.facebook.com/tr?id=1189299924046264&ev=PageView&noscript=1"
           />
         </noscript>
-        <Analytics />
       </body>
     </html>
   );

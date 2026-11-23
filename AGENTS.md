@@ -6,7 +6,7 @@
 - Public event facts live in `content/devfest.sqlite`; the build generates static publication views consumed by `src/content/`. Page copy lives in `src/content/copy.ts`. Read `content/README.md` before editing records.
 - Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. SQLite is local build/editor storage; there is no deployed database service, custom admin, proposal backend or upload service.
 - Person photos live in `public/images/people/<person-id>.webp` and are added with `npm run photos` (see `content/README.md`); artwork renders through Next Image. Do not add an upload workflow to the application.
-- Vercel Analytics is the only analytics integration. GTM, GA4 and Meta Pixel were removed on 30 October 2026; do not re-add third-party tracking scripts without the owner's approval.
+- The Meta Pixel in `src/app/layout.tsx` is the only analytics integration. Vercel Analytics was removed with the move to Cloudflare Pages; GTM and GA4 were removed on 30 October 2026. Do not add other third-party tracking scripts without the owner's approval.
 - Images under `public/images` and `public/gallery` are optimized automatically by `npm run images` before dev and build (see `docs/contributing.md`).
 
 ## Design and file ownership
@@ -22,8 +22,8 @@
 
 - Run `npm run check` and `npm run build` before release. Check affected pages at desktop/mobile widths in both themes.
 - Work on the branch currently checked out. Ask the user before creating or switching to another branch or using a separate worktree; an explicit request for a particular branch or worktree is sufficient authorization.
-- Use pull requests and review the Vercel preview before merging into the configured production branch. Never assume a remote named `live` establishes Vercel's connection.
-- `origin` currently points to the GDG organization repository; `live` points to Karan's repository (`Karan-S-Mittal/devfest-indore-2026`), which the owner controls. Verify the Vercel project's connected repository and branch before publishing. See `docs/releasing.md`.
+- Production is a static export on Cloudflare Pages (`npm run build:cloudflare`, output `out/`). Use pull requests and review the Pages preview before merging into the configured production branch. Never assume a remote named `live` establishes the Pages connection.
+- `origin` currently points to the GDG organization repository; `live` points to Karan's repository (`Karan-S-Mittal/devfest-indore-2026`), which the owner controls. Verify the Pages project's connected repository and branch (or its Direct Upload setup) before publishing. See `docs/releasing.md`.
 - Preserve existing working-tree changes. Do not publish, enable checkout or change public claims as an incidental cleanup.
 
 <!-- BEGIN:nextjs-agent-rules -->

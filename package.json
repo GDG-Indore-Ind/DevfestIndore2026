@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "next build",
-    "build:cloudflare": "DEVFEST_STATIC_EXPORT=1 npm run build && node scripts/cloudflare-redirects.mjs",
+    "build:cloudflare": "DEVFEST_STATIC_EXPORT=1 npm run build && node scripts/cloudflare-redirects.mjs && node scripts/cloudflare-headers.mjs",
     "start": "next start",
     "lint": "eslint",
     "content:validate": "node scripts/validate-content.mjs",
@@ -28,24 +28,23 @@
     "db:restore": "node scripts/database.mjs restore"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
     "better-sqlite3": "^13.1.1",
     "drizzle-orm": "^0.45.4",
     "lucide-react": "^1.49.0",
-    "next": "16.3.8",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^9.6.0",
-    "@types/node": "^20",
+    "@types/node": "^26",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "ajv": "^6.15.0",
     "drizzle-kit": "^0.31.11",
     "eslint": "^9",
-    "eslint-config-next": "16.3.8",
+    "eslint-config-next": "16.4.6",
     "prettier": "3.9.10",
     "sharp": "^0.35.5",
     "tailwindcss": "^4",
