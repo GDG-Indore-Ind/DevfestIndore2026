@@ -1,7 +1,7 @@
 import { ARCHIVED_EVENTS } from "@/content/archive";
 import { EVENT } from "@/content/event";
 import { PARTNER_PROFILES, partnerProfileHref } from "@/content/partners";
-import { MISSIONS_ACCEPTING_ENTRIES } from "@/content/site";
+import { SITE } from "@/content/site";
 import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/badge", "weekly", 0.8),
     entry("/agenda", "weekly", 0.9),
     ...["/faq", "/partners", "/venue", "/ambassadors"].map((path) => entry(path, "weekly", 0.8)),
-    ...(MISSIONS_ACCEPTING_ENTRIES ? [entry("/missions", "weekly", 0.8)] : []),
+    ...(SITE.missionsEnabled ? [entry("/missions", "weekly", 0.8)] : []),
     entry("/press", "weekly", 0.7),
     entry("/team", "monthly", 0.6),
     entry("/archive", "monthly", 0.6),

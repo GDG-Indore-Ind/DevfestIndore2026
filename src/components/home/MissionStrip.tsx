@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { MISSIONS_COPY } from "@/content/copy";
-import { MISSIONS_ACCEPTING_ENTRIES } from "@/content/site";
+import { SITE } from "@/content/site";
 import styles from "./MissionStrip.module.css";
 
 const copy = MISSIONS_COPY.homeStrip;
@@ -14,16 +14,16 @@ export default function MissionStrip() {
         <div className={styles.card}>
           <div className={styles.copy}>
             <h2 id="home-mission-title">
-              {MISSIONS_ACCEPTING_ENTRIES ? copy.title : copy.badgeOnlyTitle}
+              {SITE.missionsEnabled ? copy.title : copy.badgeOnlyTitle}
             </h2>
-            <p>{MISSIONS_ACCEPTING_ENTRIES ? copy.text : copy.badgeOnlyText}</p>
+            <p>{SITE.missionsEnabled ? copy.text : copy.badgeOnlyText}</p>
           </div>
           <div className={styles.actions}>
             <Link href="/badge" className="audience-button space-primary-button">
               <Sparkles className="audience-icon" aria-hidden="true" />
               {copy.badgeLabel}
             </Link>
-            {MISSIONS_ACCEPTING_ENTRIES && (
+            {SITE.missionsEnabled && (
               <Link href="/missions" className="audience-text-link">
                 {copy.missionLabel} <ArrowRight className="audience-icon" aria-hidden="true" />
               </Link>
