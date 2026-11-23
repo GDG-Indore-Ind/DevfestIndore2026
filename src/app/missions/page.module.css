@@ -21,10 +21,6 @@
 .submit {
   margin-top: 20px;
 }
-.submit p {
-  margin: 0;
-  color: var(--audience-muted);
-}
 .split {
   display: grid;
   gap: 32px;

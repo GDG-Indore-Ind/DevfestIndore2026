@@ -13,3 +13,5 @@ export const SITE = {
   missionsFormUrl: "",
   archiveLogoSheet: "/images/deck_logos/past_sponsors_grid.png",
 };
+
+export const MISSIONS_ACCEPTING_ENTRIES = SITE.missionsEnabled && Boolean(SITE.missionsFormUrl);

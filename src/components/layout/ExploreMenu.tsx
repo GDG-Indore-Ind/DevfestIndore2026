@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ContentIcon, { type ContentIconName, type IconTone } from "@/components/shared/ContentIcon";
-import { SITE } from "@/content/site";
+import { MISSIONS_ACCEPTING_ENTRIES } from "@/content/site";
 import ThemeChoice from "@/components/layout/ThemeChoice";
 import styles from "./ExploreMenu.module.css";
 
@@ -20,7 +20,7 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       tone: "blue",
       links: [
         { href: "/badge", label: "Badge", icon: "themes" },
-        ...(SITE.missionsEnabled
+        ...(MISSIONS_ACCEPTING_ENTRIES
           ? [{ href: "/missions", label: "Missions", icon: "rocket" as ContentIconName }]
           : []),
         { href: "/venue", label: "Venue", icon: "venue" },

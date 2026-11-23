@@ -52,7 +52,6 @@ export default function Footer() {
             <h2 className={styles.groupHeading}>
               <ContentIcon name="partners" tone="green" /> Get involved
             </h2>
-            <ExternalLink href={EVENT.links.cfp}>Speak</ExternalLink>
             <Link href="/partners">Partners</Link>
             <ExternalLink href={EVENT.links.exhibitApplication}>Exhibit</ExternalLink>
             <ExternalLink href={EVENT.links.partnerApplication}>Collaborate</ExternalLink>
