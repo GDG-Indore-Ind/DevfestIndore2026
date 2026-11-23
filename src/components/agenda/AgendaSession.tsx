@@ -139,7 +139,7 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
         .filter(Boolean)
         .join(" ")}
     >
-      <details>
+      <details data-agenda-session>
         <summary>
           <span className={styles.stripText}>
             <strong className={styles.stripTitle}>{item.title ?? copy.sessionPending}</strong>

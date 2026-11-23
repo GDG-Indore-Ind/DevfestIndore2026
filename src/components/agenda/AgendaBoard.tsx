@@ -4,6 +4,7 @@ import { EVENT } from "@/content/event";
 import { AGENDA_PAGE as copy, HOME_PAGE } from "@/content/pages";
 import ContentAction from "@/components/shared/ContentAction";
 import ActivityCards from "./ActivityCards";
+import AgendaDeepLink from "./AgendaDeepLink";
 import AgendaSession from "./AgendaSession";
 import styles from "./AgendaBoard.module.css";
 
@@ -24,6 +25,7 @@ export default function AgendaBoard() {
 
   return (
     <div className={styles.board}>
+      <AgendaDeepLink />
       {AGENDA_SECTIONS.map(({ id, title }) => (
         <section key={id} id={id} className={styles.group} aria-labelledby={`agenda-${id}`}>
           <header className={styles.groupHeading}>
