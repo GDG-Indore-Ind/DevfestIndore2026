@@ -68,6 +68,10 @@ button.identityRow:hover .name {
   flex: none;
   border-radius: var(--corner-round);
 }
+.member[data-profile-open="true"] :global(.community-portrait) {
+  width: 88px;
+  height: 88px;
+}
 .member :global(.community-initials) {
   font-size: var(--text-16);
 }
@@ -109,6 +113,20 @@ button.identityRow:hover .name {
 }
 .panel[hidden] {
   display: none;
+}
+.member[data-profile-open="true"] .panel {
+  padding-left: 100px;
+}
+.profileLink {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+}
+@media (max-width: 480px) {
+  .member[data-profile-open="true"] .panel {
+    padding-left: 0;
+  }
 }
 .detailLabel {
   margin: 0 0 2px;

@@ -41,15 +41,26 @@ function RosterMember({ person }: { person: RosterPerson }) {
     </span>
   );
 
+  const opensProfileDetails = Boolean(person.href && expandable);
   const portrait = (
-    <CommunityPhoto src={person.photo} alt="" initialsFor={person.name} portrait sizes="44px" />
+    <CommunityPhoto
+      src={person.photo}
+      alt=""
+      initialsFor={person.name}
+      portrait
+      sizes={opensProfileDetails ? "88px" : "44px"}
+    />
   );
 
   return (
-    <li className={styles.member} data-highlight={person.highlight}>
+    <li
+      className={styles.member}
+      data-highlight={person.highlight}
+      data-profile-open={opensProfileDetails && open ? "true" : undefined}
+    >
       <div className={styles.row}>
-        {!person.href && portrait}
-        {person.href ? (
+        {(!person.href || opensProfileDetails) && portrait}
+        {person.href && !expandable ? (
           <Link href={person.href} className={styles.profileRow}>
             {portrait}
             {identity}
@@ -76,7 +87,7 @@ function RosterMember({ person }: { person: RosterPerson }) {
           className={styles.socials}
         />
       </div>
-      {!person.href && expandable && (
+      {expandable && (
         <div id={panelId} className={styles.panel} hidden={!open}>
           {person.bio && <p className={styles.bio}>{person.bio}</p>}
           {person.details?.map(({ label, items }) => (
@@ -89,6 +100,15 @@ function RosterMember({ person }: { person: RosterPerson }) {
               </ul>
             </div>
           ))}
+          {person.href && (
+            <Link
+              href={person.href}
+              className={`audience-text-link ${styles.profileLink}`}
+              aria-label={`View ${person.name} profile`}
+            >
+              View profile
+            </Link>
+          )}
         </div>
       )}
     </li>

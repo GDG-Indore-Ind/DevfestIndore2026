@@ -34,6 +34,8 @@ export default function TeamPage() {
                 meta: `${member.badge ?? (member.team === "Core Team" ? "Organizer" : "Community Helper")} · ${EVENT.name}`,
                 socials: member.socials,
                 href: `/people/${member.personId}`,
+                bio: member.bio,
+                details: member.details,
               }))}
             />
           </section>

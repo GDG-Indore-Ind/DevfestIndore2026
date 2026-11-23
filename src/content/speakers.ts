@@ -25,3 +25,9 @@ export const CURRENT_SESSIONS = SESSION_RECORDS.filter((session) => session.edit
 export const CURRENT_ACTIVITIES = ACTIVITIES.filter(
   (activity) => activity.editionId === EVENT.id && activity.publication === "confirmed",
 );
+
+export function getOrganizationActivities(organizationId: string) {
+  return CURRENT_ACTIVITIES.filter((activity) =>
+    activity.organizationIds?.includes(organizationId),
+  );
+}
