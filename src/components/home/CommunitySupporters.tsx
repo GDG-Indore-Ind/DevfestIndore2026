@@ -1,36 +1,19 @@
 import { HOME_PAGE } from "@/content/pages";
-import { COMMUNITY_PARTNERS, ECOSYSTEM_PARTNERS, partnerProfileHref } from "@/content/partners";
-import LogoRow from "./LogoRow";
-
-const communityOrder = [
-  "orbitstack",
-  "gdg-cloud-indore",
-  "tensorflow-user-group-indore",
-  "women-techmakers-indore",
-  "thm-indore",
-  "pydata-indore",
-];
-
-function communityPosition(id: string) {
-  const position = communityOrder.indexOf(id);
-  return position === -1 ? communityOrder.length : position;
-}
+import { PARTNER_COMMUNITIES } from "@/content/partners";
+import SectionHeader from "@/components/shared/SectionHeader";
+import PartnerList from "./PartnerList";
 
 export default function CommunitySupporters({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
-  const communities = [
-    ...ECOSYSTEM_PARTNERS,
-    ...COMMUNITY_PARTNERS.map((item) => ({ ...item, detail: item.role })),
-  ].sort((a, b) => communityPosition(a.organizationId) - communityPosition(b.organizationId));
+  if (!PARTNER_COMMUNITIES.length) return null;
 
   return (
-    <LogoRow
-      headingLevel={headingLevel}
-      label={HOME_PAGE.ecosystemTitle}
-      description={HOME_PAGE.ecosystemLead}
-      items={communities.map((item) => ({
-        ...item,
-        href: partnerProfileHref(item.organizationId),
-      }))}
-    />
+    <section aria-labelledby="partner-communities-title">
+      <SectionHeader
+        id="partner-communities-title"
+        level={headingLevel}
+        title={HOME_PAGE.ecosystemTitle}
+      />
+      <PartnerList items={PARTNER_COMMUNITIES} compact={headingLevel === 2} />
+    </section>
   );
 }

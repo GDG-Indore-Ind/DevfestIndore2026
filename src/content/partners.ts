@@ -49,6 +49,7 @@ export function getEventPartners(editionId: string = EVENT.id) {
         ...organization,
         id: partnership.id,
         organizationId: organization.id,
+        editionId: partnership.editionId,
         role: partnership.contributions.map((item) => item.role).join(" · "),
         kind: partnership.contributions[0].kind,
         featured: partnership.featured,
@@ -56,6 +57,8 @@ export function getEventPartners(editionId: string = EVENT.id) {
       })),
   ).sort((a, b) => a.order - b.order);
 }
+export type EventPartner = ReturnType<typeof getEventPartners>[number];
+
 export const CONFIRMED_EVENT_PARTNERS = getEventPartners();
 export const NON_COMMUNITY_EVENT_PARTNERS = CONFIRMED_EVENT_PARTNERS.filter(
   (item) => item.kind !== "community",
@@ -64,9 +67,27 @@ export const COMMUNITY_PARTNERS = SITE.partnersRevealed
   ? CONFIRMED_EVENT_PARTNERS.filter((item) => item.kind === "community")
   : [];
 export const ECOSYSTEM_PARTNERS = getEventPartners("ecosystem");
+const communityOrder = [
+  "orbitstack",
+  "gdg-cloud-indore",
+  "tensorflow-user-group-indore",
+  "women-techmakers-indore",
+  "thm-indore",
+  "pydata-indore",
+];
+
+function communityPosition(id: string) {
+  const position = communityOrder.indexOf(id);
+  return position === -1 ? communityOrder.length : position;
+}
+
+export const PARTNER_COMMUNITIES = [...ECOSYSTEM_PARTNERS, ...COMMUNITY_PARTNERS].sort(
+  (a, b) => communityPosition(a.organizationId) - communityPosition(b.organizationId),
+);
+
 export const PARTNER_PROFILES = [
-  ...(SITE.partnersRevealed ? CONFIRMED_EVENT_PARTNERS : []),
-  ...ECOSYSTEM_PARTNERS,
+  ...(SITE.partnersRevealed ? NON_COMMUNITY_EVENT_PARTNERS : []),
+  ...PARTNER_COMMUNITIES,
 ].filter(
   (item, index, items) =>
     items.findIndex((other) => other.organizationId === item.organizationId) === index,

@@ -58,34 +58,13 @@ export const PAGE_COPY = {
   },
   partners: {
     viewAllLabel: "View all partners",
-    title: "Build this edition with us.",
+    title: "Partners",
     description:
       "Meet the sponsors and collaborators contributing to DevFest Indore 2026, and explore sponsorship and partnership opportunities.",
-    lead: "Meet this edition’s collaborators and see how your organization can help.",
-    currentPartnersLabel: "See current partners",
-    applicationTitle: "Partner with DevFest Indore",
-    applicationText: "Share your idea through the form and we’ll find the right fit.",
-    applicationPoints: [
-      {
-        title: "Share your expertise",
-        text: "Propose technical knowledge, developer demonstrations or practical learning experiences.",
-      },
-      {
-        title: "Connect communities",
-        text: "Bring a relevant developer community, industry network or outreach idea.",
-      },
-      {
-        title: "Support the experience",
-        text: "Sponsor the edition financially.",
-      },
-    ],
-    applicationButton: "Sponsor or partner with us",
-    archiveLabel: "Past editions",
+    applicationButton: "Partner with us",
     revealTitle: "A few surprises.",
     revealText: "Sponsor and partner announcements are coming soon.",
     revealButton: "Sponsor or partner with us",
-    revealLead:
-      "Support the event through sponsorship, contribute expertise or connect communities. Announcements are coming soon.",
     revealDescription:
       "Explore sponsorship and partnership opportunities with DevFest Indore 2026. Announcements are coming soon.",
     carousel: {
@@ -97,7 +76,6 @@ export const PAGE_COPY = {
       positionLabel: "Choose a partner",
     },
     sectionLabel: "Sponsors & partners",
-    sponsorshipText: "Sponsor DevFest Indore and support the developer community.",
   },
   venue: {
     title: "Plan your arrival.",
@@ -107,7 +85,7 @@ export const PAGE_COPY = {
     arrivalTitle: "Arrive ready for check-in.",
     registrationLabel: "Check-in starts at",
     entrySummary:
-      "Bring your QR ticket and an original government photo ID matching your registration.",
+      "Bring your QR ticket and an original government photo ID matching your registration. Cadet pass holders must also bring their original student ID.",
   },
   home: {
     programmeTitle: "Themes",
@@ -115,7 +93,6 @@ export const PAGE_COPY = {
     historyTitle: "One community. Still building.",
     historyLead: "DevFest and community events every year since 2014.",
     ecosystemTitle: "Community & Ecosystem",
-    ecosystemLead: "Communities and networks that connect us.",
     heroLead: "From intelligent software to systems in deep space.",
     heroDescription: "Technical talks and hands-on labs with the developer community.",
     heroCheckIn: "check-in from {{registrationTime}}",
@@ -203,6 +180,7 @@ export const PAGE_COPY = {
     endedLead: "Check KonfHub below for ticket availability and prices.",
     includedTitle: "Every pass includes",
     studentButtonLabel: "Get Cadet code",
+    studentCheckoutLabel: "I have a code",
   },
   faq: {
     title: "FAQ",
@@ -291,7 +269,8 @@ export const PAGE_COPY = {
         id: "ticket-entry",
         kind: "tickets",
         question: "What should I bring for check-in?",
-        answer: "Your QR ticket and an original government photo ID matching your registration.",
+        answer:
+          "Bring your QR ticket and an original government photo ID matching your registration. Cadet pass holders must also bring their **original student ID**.",
         link: {
           href: "/faq#eligibility",
           label: "Additional pass requirements",
@@ -381,26 +360,31 @@ export const PAGE_COPY = {
     steps: [
       {
         title: "Ask an ambassador",
-        text: "Ask any listed ambassador for a code.",
+        text: "Find a campus ambassador for Cadet or a professional contact for Commander.",
       },
       {
         title: "Choose your pass",
-        text: "Students choose Cadet; professionals choose Commander.",
+        text: "Students choose Cadet. Professionals choose Commander.",
       },
       {
         title: "Book on KonfHub",
-        text: "Enter it in the Discount / Access Code field on KonfHub. Discount rules are on the Tickets page.",
+        text: "Enter your code in the Discount / Access Code field on KonfHub. Cadet appears after you apply your code.",
       },
     ],
-    ticketsLabel: "Get tickets",
+    ticketsLabel: "I have a code",
     professionalTitle: "Contact for working professionals",
+    professionalNavLabel: "Professional contacts",
     directoryTitle: "Campus ambassadors",
     directoryLead: "Connect on LinkedIn or Instagram.",
+    searchLabel: "Find a campus ambassador",
+    searchPlaceholder: "Name or college",
+    searchEmpty: "No campus ambassadors match your search.",
+    resultSingular: "campus ambassador",
+    resultPlural: "campus ambassadors",
   },
   agenda: {
     title: "Agenda",
-    description:
-      "Keynote, talks, workshops and exhibits at DevFest Indore 2026 on 28 November, in running order.",
+    description: "Keynote, talks, workshops and exhibits at DevFest Indore 2026 on 28 November.",
     lead: "Explore the sessions, workshops and activities at DevFest Indore.",
     activities: [
       {
@@ -445,7 +429,7 @@ export const PAGE_COPY = {
     sessionPending: "Session to be announced",
     bioLabel: "About",
     emptyText: "Speakers will be announced soon.",
-    meta: "Timings to be announced",
+    timingsPending: "Session and workshop start times will be announced here.",
     speakerPending: "Speaker to be announced",
     organizerLabel: "Presented by",
     formatLabels: {
@@ -460,11 +444,6 @@ export const PAGE_COPY = {
     otherGroupTitle: "More to be announced",
     tabsLabel: "Agenda sections",
   },
-  spaceClub: {
-    heading: "Space Club of India in Indore",
-    body: "Space Club of India will exhibit at DevFest Indore on 28 November, and its founder, Lt Gen PJS Pannu, gives the keynote. Join us for the reveal; how to join will be shared here after the event.",
-    linkLabel: "Space Club of India in Indore",
-  },
   navigation: {
     breadcrumbLabel: "Breadcrumb",
     homeLabel: "Home",
@@ -478,7 +457,8 @@ export const TICKET_COPY = {
   profileReminder: "Add your own LinkedIn URL to your KonfHub profile before booking.",
   termsLabel: "Read the registration guidelines",
   widgetHeading: "Book your pass",
-  widgetLead: "Enter your ambassador code in the Discount / Access Code field on KonfHub.",
+  widgetLead:
+    "For Cadet, enter your ambassador code in the Discount / Access Code field and select Apply to reveal your pass. You can book Commander directly or apply a code for a discount.",
   closedHeading: "Closed passes",
   widgetTitle: "Register for GDG Devfest Indore 2026",
   fallbackText: "Trouble with checkout?",
@@ -575,13 +555,16 @@ export const MISSIONS_COPY = {
     { when: "28 Nov", what: "The Mission Crew joins us on stage" },
   ],
   submitLabel: "Submit your post link",
-  submitPending: "The submission link opens when the campaign launches.",
+  submitPending: "Mission Crew submissions are currently unavailable.",
   agendaLabel: "Browse the agenda",
   badgeLabel: "Create your badge",
   badgeCta: "See how to enter the Mission Crew challenge",
   homeStrip: {
     title: "Make your badge. Pick your mission.",
     text: "Create your attendee badge, add your mission and post it. Nine winners join us on stage as the Mission Crew.",
+    badgeOnlyTitle: "Make your attendee badge",
+    badgeOnlyText:
+      "Create a square badge with your name and mission to share that you’re attending.",
     badgeLabel: "Create your badge",
     missionLabel: "How to enter",
   },

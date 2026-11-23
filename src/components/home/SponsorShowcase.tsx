@@ -1,10 +1,9 @@
 import ContentAction from "@/components/shared/ContentAction";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { EVENT } from "@/content/event";
-import Link from "next/link";
-import OrganizationLogo from "@/components/shared/OrganizationLogo";
-import { NON_COMMUNITY_EVENT_PARTNERS, partnerProfileHref } from "@/content/partners";
+import { NON_COMMUNITY_EVENT_PARTNERS } from "@/content/partners";
 import { PARTNERS_PAGE } from "@/content/pages";
+import PartnerList from "./PartnerList";
 import styles from "./SponsorShowcase.module.css";
 
 export default function SponsorShowcase({ showIntro = true }: { showIntro?: boolean }) {
@@ -55,39 +54,11 @@ export default function SponsorShowcase({ showIntro = true }: { showIntro?: bool
                 )
               }
             />
-            <ul className={showIntro ? styles.supporterGrid : styles.directoryGrid}>
-              {NON_COMMUNITY_EVENT_PARTNERS.map((item) => (
-                <li
-                  key={item.id}
-                  id={!showIntro && item.featured === "space" ? "space-club" : undefined}
-                >
-                  {showIntro ? (
-                    <Link href={partnerProfileHref(item.organizationId)} className={styles.tile}>
-                      <span className={styles.logo}>
-                        <OrganizationLogo organization={item} sizes="160px" />
-                      </span>
-                      <strong className={styles.name}>{item.name}</strong>
-                      <small>{item.role}</small>
-                    </Link>
-                  ) : (
-                    <article className={styles.card}>
-                      <div className={styles.logo}>
-                        <OrganizationLogo
-                          organization={item}
-                          sizes="(max-width: 400px) 80vw, 340px"
-                        />
-                      </div>
-                      <h3>{item.name}</h3>
-                      <p className={styles.role}>{item.role}</p>
-                      {item.description && <p>{item.description}</p>}
-                      <ContentAction href={partnerProfileHref(item.organizationId)} icon="partners">
-                        About {item.name}
-                      </ContentAction>
-                    </article>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <PartnerList
+              items={NON_COMMUNITY_EVENT_PARTNERS}
+              compact={showIntro}
+              includeSpaceAnchor={!showIntro}
+            />
           </>
         )}
       </div>

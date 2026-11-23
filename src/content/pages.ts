@@ -11,4 +11,3 @@ export const WORKSHOPS_PAGE = pages.workshops;
 export const NAVIGATION_COPY = pages.navigation;
 export const ARCHIVE_PAGE = pages.archive;
 export const AGENDA_PAGE = pages.agenda;
-export const SPACE_CLUB_PAGE = pages.spaceClub;

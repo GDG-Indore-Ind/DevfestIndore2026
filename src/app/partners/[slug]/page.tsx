@@ -1,13 +1,16 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, List } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Breadcrumbs from "@/components/shared/Breadcrumbs";
 import ContentAction from "@/components/shared/ContentAction";
-import OrganizationLogo from "@/components/shared/OrganizationLogo";
-import PageIntro from "@/components/shared/PageIntro";
+import ExternalLink from "@/components/shared/ExternalLink";
+import { LinkedOrganizationLogo } from "@/components/shared/OrganizationLogo";
+import { AGENDA_ITEMS } from "@/content/agenda";
 import { PARTNER_PROFILE_LINKS } from "@/content/copy";
-import { PARTNERS_PAGE, SPACE_CLUB_PAGE } from "@/content/pages";
-import { PARTNER_PROFILES, partnerProfileHref } from "@/content/partners";
+import { getCommunityUrl, PARTNER_PROFILES, partnerProfileHref } from "@/content/partners";
+import { getOrganizationActivities } from "@/content/speakers";
+import { WORKSHOPS } from "@/content/workshops";
 import { pageMetadata } from "@/lib/pageMetadata";
 import styles from "./page.module.css";
 
@@ -35,64 +38,146 @@ export async function generateMetadata({ params }: Props) {
   );
 }
 
-export default async function PartnerProfile({ params }: Props) {
+function getInvolvement(organizationId: string) {
+  const activities = getOrganizationActivities(organizationId).map(({ id, title }) => ({
+    href: `/agenda#${id}`,
+    label: title,
+  }));
+
+  if (organizationId === "space-club-of-india") {
+    const keynote = AGENDA_ITEMS.find(
+      ({ format, people }) =>
+        format === "keynote" && people.some(({ id }) => id === "lt-gen-pjs-pannu"),
+    );
+    if (keynote) {
+      activities.unshift({
+        href: `/agenda#${keynote.id}`,
+        label: "Keynote by Space Club founder Lt Gen PJS Pannu",
+      });
+    }
+  }
+
+  if (organizationId === "indore-institute-of-science-and-technology") {
+    const campusWorkshop = WORKSHOPS.find(({ id }) => id === "campus-iist-2026");
+    if (campusWorkshop) {
+      activities.push({
+        href: `/archive#${campusWorkshop.id}`,
+        label: `Pre-DevFest campus workshop: ${campusWorkshop.topic}`,
+      });
+    }
+  }
+
+  return activities;
+}
+
+export default async function PartnerOrganization({ params }: Props) {
   const profile = await getProfile(params);
-  const path = partnerProfileHref(profile.organizationId);
-  const links = PARTNER_PROFILE_LINKS[profile.organizationId] ?? [];
-  const isSpaceClub = profile.organizationId === "space-club-of-india";
+  const primaryUrl = getCommunityUrl(profile);
+  const socialLinks = [
+    ...(profile.socialUrl && profile.socialUrl !== primaryUrl
+      ? [
+          {
+            href: profile.socialUrl,
+            label:
+              profile.organizationId === "thm-indore"
+                ? "LinkedIn · Indore Chapter"
+                : "Official social profile",
+          },
+        ]
+      : []),
+    ...(PARTNER_PROFILE_LINKS[profile.organizationId] ?? []),
+  ];
+  const involvement = getInvolvement(profile.organizationId);
+  const position = PARTNER_PROFILES.indexOf(profile);
+  const previous = PARTNER_PROFILES[position - 1];
+  const next = PARTNER_PROFILES[position + 1];
 
   return (
     <div className="audience-site space-subpage practical-page">
       <Navbar />
       <main id="main-content">
-        <PageIntro
-          title={profile.name}
-          meta={profile.role}
-          lead={profile.description ?? profile.role}
-          trail={
-            <Breadcrumbs
-              items={[
-                { label: PARTNERS_PAGE.sectionLabel, href: "/partners" },
-                { label: profile.name, href: path },
-              ]}
+        <section className={`audience-wrap ${styles.profile}`} aria-labelledby="partner-name">
+          <nav className={styles.navigation} aria-label="Partner organizations">
+            <Link href="/partners" aria-label="All partners" title="All partners">
+              <List aria-hidden="true" />
+            </Link>
+            <div className={styles.pager}>
+              {previous && (
+                <Link
+                  href={partnerProfileHref(previous.organizationId)}
+                  rel="prev"
+                  aria-label={`Previous partner: ${previous.name}`}
+                  title={previous.name}
+                >
+                  <ArrowLeft aria-hidden="true" />
+                </Link>
+              )}
+              {next && (
+                <Link
+                  href={partnerProfileHref(next.organizationId)}
+                  rel="next"
+                  aria-label={`Next partner: ${next.name}`}
+                  title={next.name}
+                >
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+              )}
+            </div>
+          </nav>
+          <div className={styles.identity}>
+            <LinkedOrganizationLogo
+              organization={profile}
+              href={primaryUrl}
+              sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1224px) 46vw, 520px"
+              className={styles.plate}
             />
-          }
-          art={
-            <div className={styles.plate}>
-              <OrganizationLogo organization={profile} sizes="(max-width: 400px) 80vw, 340px" />
-            </div>
-          }
-        >
-          {(profile.websiteUrl || profile.socialUrl || links.length > 0) && (
-            <div className={styles.links}>
-              {profile.websiteUrl && (
-                <ContentAction href={profile.websiteUrl} icon="partners" external>
-                  Official website
-                </ContentAction>
+            <div>
+              <h1 id="partner-name">{profile.name}</h1>
+              <p className={styles.role}>{profile.role}</p>
+              {primaryUrl && (
+                <div className={styles.primaryAction}>
+                  <ContentAction
+                    href={primaryUrl}
+                    icon={profile.websiteUrl ? "partners" : "people"}
+                    external
+                  >
+                    {profile.websiteUrl ? "Official website" : "Official social profile"}
+                  </ContentAction>
+                </div>
               )}
-              {profile.socialUrl && (
-                <ContentAction href={profile.socialUrl} icon="people" external>
-                  {profile.organizationId === "thm-indore"
-                    ? "LinkedIn · Indore Chapter"
-                    : "Official social profile"}
-                </ContentAction>
+            </div>
+          </div>
+          <div className={styles.details}>
+            <div>
+              {profile.description && <p className={styles.description}>{profile.description}</p>}
+              {socialLinks.length > 0 && (
+                <ul className={styles.links} aria-label="Organization links">
+                  {socialLinks.map(({ label, href }) => (
+                    <li key={href}>
+                      <ExternalLink className="audience-text-link" href={href}>
+                        {label}
+                      </ExternalLink>
+                    </li>
+                  ))}
+                </ul>
               )}
-              {links.map(({ label, href }) => (
-                <ContentAction key={href} href={href} icon="people" external>
-                  {label}
-                </ContentAction>
-              ))}
             </div>
-          )}
-        </PageIntro>
-        {isSpaceClub && (
-          <section className="audience-section" aria-labelledby="space-club-title">
-            <div className="audience-wrap">
-              <h2 id="space-club-title">{SPACE_CLUB_PAGE.heading}</h2>
-              <p className="audience-body">{SPACE_CLUB_PAGE.body}</p>
-            </div>
-          </section>
-        )}
+            {involvement.length > 0 && (
+              <section className={styles.involvement} aria-labelledby="partner-involvement">
+                <h2 id="partner-involvement">At DevFest Indore</h2>
+                <ul>
+                  {involvement.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link className="audience-text-link" href={href}>
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        </section>
       </main>
       <Footer />
     </div>

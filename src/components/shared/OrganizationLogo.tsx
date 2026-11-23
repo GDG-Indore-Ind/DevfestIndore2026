@@ -2,12 +2,39 @@ import Image from "next/image";
 import { useId } from "react";
 import { ARCHIVE_LOGO_SHEET } from "@/content/partners";
 import type { Organization } from "@/content/model";
+import ExternalLink from "./ExternalLink";
 import styles from "./OrganizationLogo.module.css";
 
 type LogoOrganization = Pick<
   Organization,
   "id" | "name" | "logoUrl" | "archiveLogoWindow" | "logoShape"
 >;
+
+export function LinkedOrganizationLogo({
+  organization,
+  href,
+  sizes,
+  className,
+}: {
+  organization: LogoOrganization;
+  href?: string;
+  sizes?: string;
+  className: string;
+}) {
+  const logo = <OrganizationLogo organization={organization} sizes={sizes} />;
+
+  return href ? (
+    <ExternalLink
+      href={href}
+      className={`${styles.logoLink} ${className}`}
+      aria-label={`Visit ${organization.name} (opens in a new tab)`}
+    >
+      {logo}
+    </ExternalLink>
+  ) : (
+    <span className={className}>{logo}</span>
+  );
+}
 
 /** Prefer standalone vector artwork when a historical crop also exists. */
 export default function OrganizationLogo({
@@ -64,6 +91,9 @@ export default function OrganizationLogo({
       height={isSquare ? 160 : 120}
       sizes={sizes ?? (isSquare ? "104px" : "160px")}
       quality={100}
+      className={
+        organization.logoUrl === "/images/partners/flutterflow.svg" ? styles.onDarkPlate : undefined
+      }
       data-organization={organization.id}
     />
   ) : (

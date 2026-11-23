@@ -1,33 +1,24 @@
-.introActions {
+.header {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--layout-space-3);
-  margin-top: var(--layout-space-6);
-}
-.application {
+  gap: 12px 24px;
   padding-block: var(--section-space-tight);
-  border-block: 1px solid var(--audience-line);
+  border-bottom: 1px solid var(--audience-line);
+  scroll-margin-top: 104px;
 }
-.contributions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 0 var(--layout-space-8);
-  padding: 0;
+.header h1 {
   margin: 0;
-  list-style: none;
-}
-.contributions li {
-  padding-block: var(--layout-space-4);
-  border-top: 1px solid var(--audience-line);
-}
-.contributions h3 {
-  margin: 0 0 var(--layout-space-2);
-  font-size: var(--text-18);
+  color: var(--audience-ink);
+  font-size: var(--text-32);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.15;
 }
-.contributions p {
-  margin: 0;
+.header p {
+  margin: 8px 0 0;
   color: var(--audience-muted);
-  line-height: 1.55;
+}
+.communities {
+  padding-block: 0 var(--section-space);
 }
