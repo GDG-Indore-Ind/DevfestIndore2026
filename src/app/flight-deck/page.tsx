@@ -18,7 +18,7 @@ export default function FlightDeckPage() {
           title={pass.name}
           lead={pass.summary}
           motif="tickets"
-          meta={<span>VIP &amp; Speaker Access · From ₹{pass.price?.toLocaleString("en-IN")}</span>}
+          meta={<span>VIP &amp; Speaker Access · ₹{pass.price?.toLocaleString("en-IN")}</span>}
         />
         <section
           className="audience-wrap audience-section"
@@ -44,7 +44,7 @@ export default function FlightDeckPage() {
               className="rounded-2xl border p-5"
               style={{ borderColor: "var(--audience-line)", background: "var(--audience-tint)" }}
             >
-              <h2 className="mb-3 text-lg font-medium">How to upgrade</h2>
+              <h2 className="mb-3 text-lg font-medium">How to book</h2>
               <ol className="list-decimal space-y-1.5 pl-5 text-sm">
                 {pass.eligibility.map((step) => (
                   <li key={step}>{step}</li>
@@ -56,11 +56,11 @@ export default function FlightDeckPage() {
                 </p>
               )}
               <a href={EVENT.links.booking} className="audience-button space-primary-button">
-                Express interest on KonfHub
+                Book on KonfHub
               </a>
               <p className="mt-3 text-sm">
                 <Link href="/tickets" className="audience-text-link">
-                  Get a Commander or Cadet pass
+                  See all passes
                 </Link>
               </p>
             </div>

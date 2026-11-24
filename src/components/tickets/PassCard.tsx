@@ -61,9 +61,6 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
         <>
           {" "}
           <PassBooking name={pass.name} />
-          <Link href="/ambassadors" className="audience-text-link">
-            Get an ambassador code
-          </Link>{" "}
         </>
       )}
     </article>

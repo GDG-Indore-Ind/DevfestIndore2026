@@ -21,7 +21,6 @@ export default function TicketStrip() {
         </div>
         <ul className={styles.passes}>
           {OPEN_PASSES.map((pass) => {
-            const student = pass.bookingRoute === "ambassador";
             return (
               <li key={pass.id} className={styles.pass}>
                 <div>
@@ -35,11 +34,8 @@ export default function TicketStrip() {
                     </p>
                   ))}
                 </div>
-                <Link
-                  href={student ? "/ambassadors" : "/tickets#registration"}
-                  className="audience-button space-primary-button"
-                >
-                  {student ? copy.studentLabel : copy.professionalLabel}
+                <Link href="/tickets#registration" className="audience-button space-primary-button">
+                  Book {pass.name}
                   <ArrowRight className="audience-icon" aria-hidden="true" />
                 </Link>
               </li>
