@@ -177,7 +177,7 @@ export const PAGE_COPY = {
     lead: "Cadet and Commander are sold out. Here’s how you can still join us.",
     soldOutTitle: "Thank you for the response",
     soldOutText:
-      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join: Flight Deck for premium access, Last Orbit for anyone who couldn’t get a ticket earlier, and Observer if you just want to explore DevFest.",
+      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join: Flight Deck, our most premium experience; Last Orbit, the full-day pass for anyone who couldn’t get a ticket earlier; and Observer if you just want to explore DevFest. Whichever pass you hold, there are plenty of tasks and challenges on the day where everyone, Observers included, can win goodies, swag and prizes.",
     endedLead: "Check KonfHub below for ticket availability and prices.",
     includedTitle: "Every pass includes",
     studentButtonLabel: "Get Cadet code",
@@ -238,7 +238,7 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Which pass should I choose?",
         answer:
-          "Cadet and Commander are sold out. Flight Deck ({{vipPrice}}) is the premium option, Last Orbit ({{lastOrbitPrice}}) is the final general release, and Observer ({{observerPrice}}) covers sessions only for anyone who wants to explore DevFest.",
+          "Cadet and Commander are sold out. Flight Deck ({{vipPrice}}) is our most premium pass, with everything in the standard pass plus VIP perks. Last Orbit ({{lastOrbitPrice}}) is the final general release with the same inclusions as Cadet and Commander. Observer ({{observerPrice}}) covers sessions and lounges only, for anyone who wants to explore DevFest.",
         link: {
           href: "/tickets",
           label: "See open passes",
@@ -286,6 +286,17 @@ export const PAGE_COPY = {
         link: {
           href: "/faq#workshops",
           label: "Workshop guidelines",
+        },
+      },
+      {
+        id: "ticket-prizes",
+        kind: "tickets",
+        question: "Can I win goodies and prizes?",
+        answer:
+          "Yes. There will be plenty of tasks and challenges during DevFest, and everyone can take part, Observer pass holders included. Winners get goodies, swag and prizes.",
+        link: {
+          href: "/agenda#activities",
+          label: "See the activities",
         },
       },
       {

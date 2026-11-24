@@ -75,7 +75,7 @@ Save a photo as `photos-inbox/<person-id>.jpg` (or PNG/HEIC), then run `npm run 
 
 Pass codes remain `liftoff`, `student` (Cadet), `professional` (Commander), `vip`, `last-orbit`, `observer`. Prices are **integer paise** (`price_minor`), with `currency_code: "INR"`; NULL means unconfirmed and zero means free. `is_published` controls cards; `is_sold_out` controls closed presentation. Keep those snapshots aligned with KonfHub. `booking_route: "ambassador"` routes Cadet through the directory. `events.booking_enabled` controls the checkout widget and direct fallback link.
 
-Liftoff, Cadet and Commander reference one standard inclusion set. VIP, Last Orbit and Observer reference their own sets. Changing a set changes every pass using it; do not broaden a restricted pass accidentally. Benefits are an ordered JSON list of `{ "group", "label", "detail"? }`; groups are `access`, `essentials`, `lounges`.
+Liftoff, Cadet, Commander and Last Orbit reference one standard inclusion set. VIP and Observer reference their own sets. Changing a set changes every pass using it; do not broaden a restricted pass accidentally. Benefits are an ordered JSON list of `{ "group", "label", "detail"? }`; groups are `access`, `essentials`, `lounges`.
 
 Registration policies are one ordered event-owned document of sections: `{ "id", "title", "policies": [{ "id", "title", "text", "appliesTo"? }] }`. `appliesTo` lists stable pass codes. Website section references and the KonfHub export derive from that document. Run `node scripts/export-registration-guidelines.mjs` to print the text for KonfHub. Keep approved wording intact.
 

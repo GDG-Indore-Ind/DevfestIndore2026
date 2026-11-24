@@ -403,11 +403,11 @@ test("one shared inclusion edit updates standard passes while preserving restric
     .where(eq(t.passInclusionSets.id, bundle.id))
     .run();
   const after = projectContent(db).event.events.find((e) => e.status === "current").tickets.passes;
-  for (const code of ["liftoff", "student", "professional"])
+  for (const code of ["liftoff", "student", "professional", "last-orbit"])
     assert(
       after.find((p) => p.id === code).benefits.some((b) => b.label === "Test shared inclusion"),
     );
-  for (const code of ["vip", "last-orbit", "observer"])
+  for (const code of ["vip", "observer"])
     assert.deepEqual(
       after.find((p) => p.id === code).benefits,
       before.find((p) => p.id === code).benefits,
