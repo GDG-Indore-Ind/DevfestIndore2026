@@ -13,6 +13,9 @@ const faqValues: FaqValues = {
   studentPrice: formatPassPrice(studentPass),
   professionalPrice: formatPassPrice(professionalPass),
   groupOffer: professionalPass.offers?.[1] ?? "",
+  vipPrice: formatPassPrice(getPublicPass("vip")),
+  lastOrbitPrice: formatPassPrice(getPublicPass("last-orbit")),
+  observerPrice: formatPassPrice(getPublicPass("observer")),
 };
 export const FAQS = pages.faq.questions.map((faq) => ({
   ...faq,

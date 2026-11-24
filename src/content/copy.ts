@@ -104,9 +104,7 @@ export const PAGE_COPY = {
     themeSelectorLabel: "Explore the themes",
     ticketStrip: {
       title: "Pick your pass.",
-      lead: "Sessions, workshops and lunch on 28 November.",
-      studentLabel: "Get Cadet code",
-      professionalLabel: "Book Commander",
+      lead: "Cadet and Commander are sold out. Here’s how you can still join us on 28 November.",
       allTicketsLabel: "Pass details",
     },
     exhibits: {
@@ -176,7 +174,10 @@ export const PAGE_COPY = {
   },
   tickets: {
     title: "Tickets",
-    lead: "Are you a student? Choose Cadet with an ambassador code. Working professionals can book Commander directly.",
+    lead: "Cadet and Commander are sold out. Here’s how you can still join us.",
+    soldOutTitle: "Thank you for the response",
+    soldOutText:
+      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join: Flight Deck for premium access, Last Orbit for anyone who couldn’t get a ticket earlier, and Observer if you just want to explore DevFest.",
     endedLead: "Check KonfHub below for ticket availability and prices.",
     includedTitle: "Every pass includes",
     studentButtonLabel: "Get Cadet code",
@@ -237,21 +238,21 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Which pass should I choose?",
         answer:
-          "Students choose Cadet ({{studentPrice}}) with an ambassador code. Working professionals choose Commander ({{professionalPrice}}) and can book directly. Both include the same access.",
+          "Cadet and Commander are sold out. Flight Deck ({{vipPrice}}) is the premium option, Last Orbit ({{lastOrbitPrice}}) is the final general release, and Observer ({{observerPrice}}) covers sessions only for anyone who wants to explore DevFest.",
         link: {
           href: "/tickets",
-          label: "Get tickets",
+          label: "See open passes",
         },
       },
       {
         id: "ticket-student",
         kind: "tickets",
-        question: "How do students get tickets?",
+        question: "I’m a student. Can I still get a ticket?",
         answer:
-          "Ask any listed ambassador for a code, then enter it in the Discount / Access Code field on KonfHub to book Cadet. Bring your **government photo ID** and **original student ID** to check-in.",
+          "Cadet is sold out, but Last Orbit and Observer are open to everyone while they last. Cadet pass holders must bring their **government photo ID** and **original student ID** to check-in.",
         link: {
-          href: "/ambassadors",
-          label: "Get an ambassador code",
+          href: "/tickets",
+          label: "See open passes",
         },
       },
       {
@@ -259,10 +260,10 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Are there any discounts?",
         answer:
-          "An ambassador code gives 5% off any pass; enter it in the Discount / Access Code field on KonfHub. Commander also offers {{groupOffer}}, applied automatically. Discounts cannot combine, so use the bulk discount for 6–10 tickets.",
+          "An ambassador code gives 5% off any pass; enter it in the Discount / Access Code field on KonfHub. The Commander bulk discount ended when that pass sold out.",
         link: {
           href: "/tickets#registration",
-          label: "Book Commander",
+          label: "Book a pass",
         },
       },
       {
@@ -281,7 +282,7 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Does my ticket reserve a workshop seat?",
         answer:
-          "Not automatically. Seats are limited, and a conference ticket does not reserve one.",
+          "Not automatically. Seats are limited, and a conference ticket does not reserve one. Observer does not include workshop seating.",
         link: {
           href: "/faq#workshops",
           label: "Workshop guidelines",
@@ -351,8 +352,8 @@ export const PAGE_COPY = {
   },
   ambassadors: {
     title: "Get an ambassador code",
-    description: "Ask any listed DevFest Indore ambassador for a code for Cadet or Commander.",
-    lead: "Students need a code to book Cadet. Professionals can use one for 5% off Commander.",
+    description: "Ask a listed DevFest Indore ambassador about passes and discount codes.",
+    lead: "Cadet and Commander are sold out. Ambassadors can still help with the passes that remain open.",
     navigationLabel: "Get an ambassador code",
     ticketLead:
       "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
@@ -360,15 +361,15 @@ export const PAGE_COPY = {
     steps: [
       {
         title: "Ask an ambassador",
-        text: "Find a campus ambassador for Cadet or a professional contact for Commander.",
+        text: "Find a campus ambassador or a professional contact.",
       },
       {
         title: "Choose your pass",
-        text: "Students choose Cadet. Professionals choose Commander.",
+        text: "See which passes are still open on the Tickets page.",
       },
       {
         title: "Book on KonfHub",
-        text: "Enter your code in the Discount / Access Code field on KonfHub. Cadet appears after you apply your code.",
+        text: "If you have a code, enter it in the Discount / Access Code field on KonfHub.",
       },
     ],
     ticketsLabel: "I have a code",
@@ -451,14 +452,14 @@ export const PAGE_COPY = {
 };
 
 export const TICKET_COPY = {
-  buttonLabel: "Book Commander",
+  buttonLabel: "Book this pass",
   unavailableText: "The registration link will be available here.",
   finalSaleText: "All purchases are final. No refunds or transfers.",
   profileReminder: "Add your own LinkedIn URL to your KonfHub profile before booking.",
   termsLabel: "Read the registration guidelines",
   widgetHeading: "Book your pass",
   widgetLead:
-    "For Cadet, enter your ambassador code in the Discount / Access Code field and select Apply to reveal your pass. You can book Commander directly or apply a code for a discount.",
+    "Choose Flight Deck, Last Orbit or Observer below. If Flight Deck shows as full, join its waitlist.",
   closedHeading: "Closed passes",
   widgetTitle: "Register for GDG Devfest Indore 2026",
   fallbackText: "Trouble with checkout?",
@@ -493,7 +494,7 @@ export const MISSIONS_COPY = {
   steps: [
     {
       title: "Hold a pass",
-      text: "Any confirmed Commander or Cadet pass counts, whichever code you used.",
+      text: "Any confirmed DevFest pass counts, whichever pass or code you used.",
     },
     {
       title: "Pick one thing",

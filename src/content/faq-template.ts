@@ -10,6 +10,9 @@ export const FAQ_TOKENS = [
   "studentPrice",
   "professionalPrice",
   "groupOffer",
+  "vipPrice",
+  "lastOrbitPrice",
+  "observerPrice",
 ] as const;
 
 export type FaqValues = Record<(typeof FAQ_TOKENS)[number], string>;
