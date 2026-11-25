@@ -26,7 +26,7 @@
 }
 .passes {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
   gap: var(--layout-space-6);
   margin: 0 0 var(--layout-space-6);
   padding: 0;
@@ -51,6 +51,16 @@
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   border-color: color-mix(in srgb, var(--audience-blue) 40%, var(--audience-line));
+}
+.pass[data-featured] {
+  border: 2px solid var(--google-yellow);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--google-yellow) 25%, transparent);
+}
+.perks {
+  margin: var(--layout-space-2) 0 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  line-height: 1.5;
 }
 .pass > div {
   flex: 1;
@@ -87,9 +97,4 @@
 .pass :global(.audience-button) {
   width: 100%;
   max-width: none;
-}
-@media (max-width: 760px) {
-  .passes {
-    grid-template-columns: 1fr;
-  }
 }

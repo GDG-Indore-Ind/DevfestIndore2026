@@ -46,7 +46,7 @@
   color: var(--audience-muted);
   font-size: var(--text-14);
 }
-.dates {
+.split h2.dates {
   margin-top: 28px;
 }
 .timeline {

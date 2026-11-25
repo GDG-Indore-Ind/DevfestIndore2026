@@ -29,6 +29,13 @@
   max-width: 68ch;
   color: var(--audience-muted);
 }
+.notice ul {
+  display: grid;
+  gap: var(--layout-space-1);
+  margin: var(--layout-space-2) 0;
+  padding-left: 18px;
+  list-style: disc;
+}
 .card {
   display: flex;
   flex-direction: column;
@@ -38,6 +45,10 @@
   border-radius: var(--corner-16);
   background: var(--audience-bg);
   color: var(--audience-ink);
+}
+.card[data-featured] {
+  border: 2px solid var(--google-yellow);
+  background: color-mix(in srgb, var(--google-yellow) 7%, var(--audience-bg));
 }
 .audience {
   margin: 0 0 calc(-1 * var(--layout-space-2));

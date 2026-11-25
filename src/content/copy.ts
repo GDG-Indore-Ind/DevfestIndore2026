@@ -177,9 +177,13 @@ export const PAGE_COPY = {
     lead: "Cadet and Commander are sold out. Here’s how you can still join us.",
     soldOutTitle: "Thank you for the response",
     soldOutText:
-      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join: Flight Deck, our most premium experience; Last Orbit, the full-day pass for anyone who couldn’t get a ticket earlier; and Observer if you just want to explore DevFest. Whichever pass you hold, there are plenty of tasks and challenges on the day where everyone, Observers included, can win goodies, swag and prizes.",
+      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join:",
+    soldOutFlightDeck: "Flight Deck: our most premium experience.",
+    soldOutLastOrbit: "Last Orbit: the full-day pass if you couldn’t get a ticket earlier.",
+    soldOutObserver: "Observer: sessions and lounges, if you just want to explore DevFest.",
+    soldOutPrizes:
+      "Everyone, Observers included, can win goodies, swag and prizes through tasks on the day.",
     endedLead: "Check KonfHub below for ticket availability and prices.",
-    includedTitle: "Every pass includes",
     studentButtonLabel: "Get Cadet code",
     studentCheckoutLabel: "I have a code",
   },
@@ -404,7 +408,7 @@ export const PAGE_COPY = {
         icon: "lunch",
         tone: "yellow",
         label: "Lunch",
-        text: "Included with your pass.",
+        text: "Included with Flight Deck, Last Orbit, Cadet and Commander. Not with Observer.",
       },
       {
         id: "community-lounge",

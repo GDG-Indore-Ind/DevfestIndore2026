@@ -45,11 +45,11 @@ export default function FlightDeckPage() {
               style={{ borderColor: "var(--audience-line)", background: "var(--audience-tint)" }}
             >
               <h2 className="mb-3 text-lg font-medium">How to book</h2>
-              <ol className="list-decimal space-y-1.5 pl-5 text-sm">
+              <ul className="list-disc space-y-1.5 pl-5 text-sm">
                 {pass.eligibility.map((step) => (
                   <li key={step}>{step}</li>
                 ))}
-              </ol>
+              </ul>
               {pass.note && (
                 <p className="my-3 text-sm" style={{ color: "var(--audience-muted)" }}>
                   {pass.note}

@@ -49,6 +49,11 @@
   object-fit: contain;
 }
 
+/* A very wide wordmark needs the whole plate to stay legible. */
+.plate:has(> img[data-organization^="google-for-developers"]) {
+  padding-inline: 2px;
+}
+
 .plate:is(a):hover {
   border-color: var(--audience-blue);
 }

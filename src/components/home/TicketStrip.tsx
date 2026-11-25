@@ -22,12 +22,17 @@ export default function TicketStrip() {
         <ul className={styles.passes}>
           {OPEN_PASSES.map((pass) => {
             return (
-              <li key={pass.id} className={styles.pass}>
+              <li
+                key={pass.id}
+                className={styles.pass}
+                data-featured={pass.id === "vip" || undefined}
+              >
                 <div>
                   <p className={styles.audience}>{pass.audience}</p>
                   <h3>
                     {pass.name} <span>{formatPassPrice(pass)}</span>
                   </h3>
+                  {pass.id === "vip" && <p className={styles.perks}>{pass.summary}</p>}
                   {pass.offers?.map((offer) => (
                     <p key={offer} className={styles.offer}>
                       {offer}

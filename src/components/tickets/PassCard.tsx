@@ -1,7 +1,7 @@
 import Link from "next/link";
 import StrongText from "@/components/shared/StrongText";
 import { ArrowRight } from "lucide-react";
-import { formatPassPrice, passExtras, type PublicPass } from "@/content/tickets";
+import { formatPassPrice, type PublicPass } from "@/content/tickets";
 import { TICKETS_PAGE } from "@/content/pages";
 import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
 import BenefitGroups from "@/components/tickets/BenefitGroups";
@@ -9,9 +9,12 @@ import PassBooking from "@/components/tickets/PassBooking";
 import styles from "./CurrentTicketOffer.module.css";
 
 export default function PassCard({ pass }: { pass: PublicPass }) {
-  const extras = passExtras(pass);
   return (
-    <article className={styles.card} aria-labelledby={`pass-${pass.id}`}>
+    <article
+      className={styles.card}
+      data-featured={pass.id === "vip" || undefined}
+      aria-labelledby={`pass-${pass.id}`}
+    >
       <p className={styles.audience}>{pass.audience}</p>
       <div className={styles.title}>
         <h2 id={`pass-${pass.id}`}>{pass.name}</h2>
@@ -22,7 +25,7 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
           {offer}
         </p>
       ))}
-      {extras.length > 0 && <BenefitGroups benefits={extras} />}
+      <BenefitGroups benefits={pass.benefits} />
       <ul className={styles.eligibility}>
         {pass.eligibility.map((item) => (
           <li key={item}>
