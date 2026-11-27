@@ -71,3 +71,6 @@ DevFest 2026 Indore _ Sponsorship Deck (1).pdf
 # raw photos waiting for `npm run photos`
 /photos-inbox/
 .claude/
+
+# internal pages served only by the dev server; never commit them
+/local/
