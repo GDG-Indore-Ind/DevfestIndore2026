@@ -1,0 +1,236 @@
+.dashboardPage {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --surface: #fff;
+  --ink: #202124;
+  --muted: #4c5159;
+  --border: #dbe0e8;
+  --accent: #185abc;
+  --on-accent: #fff;
+  --subtle: #e8f0fe;
+  --green-bg: #e6f4ea;
+  --green: #137333;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dashboardPage {
+    color-scheme: dark;
+    --bg: #111317;
+    --surface: #1b2028;
+    --ink: #f1f3f4;
+    --muted: #bac2cf;
+    --border: #3c4452;
+    --accent: #a8c7fa;
+    --on-accent: #10223d;
+    --subtle: #263653;
+    --green-bg: #18382a;
+    --green: #a6dfb5;
+  }
+}
+
+.dashboardPage {
+  * {
+    box-sizing: border-box;
+  }
+  & {
+    min-height: 100vh;
+    padding-block: clamp(24px, 5vw, 56px);
+    background: var(--bg);
+    color: var(--ink);
+    font:
+      16px/1.45 "Google Sans",
+      system-ui,
+      sans-serif;
+  }
+  main {
+    width: min(100% - 32px, 76rem);
+    margin: 0 auto;
+  }
+  h1,
+  h2,
+  p,
+  dl,
+  dd {
+    margin: 0;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.08;
+  }
+  h2 {
+    font-size: 1.35rem;
+  }
+  .event {
+    color: var(--accent);
+    font-weight: 650;
+    margin-bottom: 6px;
+  }
+  .muted {
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .pageHeader,
+  .sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .pageHeader {
+    margin-bottom: 24px;
+  }
+  .card,
+  .metrics > div {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+  }
+  .signIn {
+    max-width: 26rem;
+  }
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 650;
+  }
+  input,
+  select,
+  button {
+    font: inherit;
+    min-height: 44px;
+  }
+  input,
+  select {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: var(--ink);
+    background: var(--surface);
+  }
+  button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 16px;
+    color: var(--on-accent);
+    background: var(--accent);
+    font-weight: 650;
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+  .secondary {
+    background: var(--subtle);
+    color: var(--ink);
+  }
+  .signIn button {
+    margin-top: 14px;
+  }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .message {
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--subtle);
+    border-radius: 12px;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .metrics dt {
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+  .metrics dd {
+    font-size: 1.75rem;
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+  }
+  .filters {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0 12px;
+  }
+  .tableWrapper {
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+  table {
+    width: 100%;
+    min-width: 790px;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  th,
+  td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  thead th {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  tbody th {
+    font-weight: 650;
+  }
+  tbody th small {
+    display: block;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+  .code {
+    font:
+      0.9rem ui-monospace,
+      monospace;
+    letter-spacing: 0.04em;
+  }
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+  }
+  .status {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 2px 9px;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 650;
+  }
+  .statusOpen {
+    color: var(--green);
+    background: var(--green-bg);
+  }
+  .statusUpcoming {
+    background: var(--subtle);
+    color: var(--accent);
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@media (max-width: 540px) {
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .filters label:first-child {
+    grid-column: 1 / -1;
+  }
+}

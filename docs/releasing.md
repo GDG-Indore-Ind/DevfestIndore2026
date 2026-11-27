@@ -27,6 +27,12 @@ After a deploy, open a retired URL such as `/past-events/2024` to confirm `_redi
 and a missing path to confirm `404.html` is served. Pages limits a deployment to 20,000 files and
 25 MiB per file; the export is currently about 740 files.
 
+The repository-root `functions/` directory holds one Pages Function, the event-day passport API.
+A Git-connected project deploys it automatically. A Direct Upload must use `npx wrangler pages deploy out`
+from the repository root, because a dashboard drag-and-drop upload leaves Functions out. It needs a D1
+binding named `DB` in both Production and Preview; without one, `/api/pass` returns an error while the
+static site is unaffected. See [`pass.md`](pass.md).
+
 ## Confirm deployment ownership
 
 Production is hosted on Cloudflare Pages. Before release, confirm whether the Pages project is Git-connected or uses Direct Upload, which repository and production branch it tracks, and which custom domain it serves. `origin` points to the GDG organization repository and `live` to `Karan-S-Mittal/devfest-indore-2026`; local aliases can change, so check `git remote -v` before releasing. Also confirm that the people responsible for future events have access to the repository and the Cloudflare account.

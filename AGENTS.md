@@ -4,7 +4,7 @@
 
 - Next.js 16 App Router, React 19, TypeScript and Tailwind CSS 4. Read the installed Next.js guides before framework changes.
 - Public event facts live in `content/devfest.sqlite`; the build generates static publication views consumed by `src/content/`. Page copy lives in `src/content/copy.ts`. Read `content/README.md` before editing records.
-- Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. SQLite is local build/editor storage; there is no deployed database service, custom admin, proposal backend or upload service.
+- Sessionize owns talk proposals; KonfHub owns ticket availability, eligibility enforcement and payment. SQLite is local build/editor storage; there is no custom admin, proposal backend or upload service. The only deployed backend is the event-day passport: one Pages Function (`functions/api/pass.js`) with a D1 database that holds attendee emails and is deleted after the event. Keep its data in ignored `local/pass/` and out of `content/`. See `docs/pass.md`.
 - Person photos live in `public/images/people/<person-id>.webp` and are added with `npm run photos` (see `content/README.md`); artwork renders through Next Image. Do not add an upload workflow to the application.
 - The Meta Pixel in `src/app/layout.tsx` is the only analytics integration. Vercel Analytics was removed with the move to Cloudflare Pages; GTM and GA4 were removed on 30 October 2026. Do not add other third-party tracking scripts without the owner's approval.
 - Images under `public/images` and `public/gallery` are optimized automatically by `npm run images` before dev and build (see `docs/contributing.md`).
@@ -28,7 +28,7 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 

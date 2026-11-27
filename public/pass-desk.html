@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>DevFest Passport Desk</title>
+    <style>
+      @font-face {
+        font-family: "Google Sans";
+        src: url("/fonts/passport-google-sans.woff2") format("woff2");
+        font-weight: 100 900;
+        font-display: swap;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f7f8;
+        color: #202124;
+        font:
+          16px/1.5 "Google Sans",
+          system-ui,
+          sans-serif;
+      }
+      main {
+        width: min(100% - 32px, 36rem);
+        margin: 32px auto;
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        line-height: 1.1;
+        margin: 4px 0 8px;
+      }
+      h2 {
+        font-size: 1.25rem;
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+      }
+      form,
+      section {
+        background: #fff;
+        border: 1px solid #dadce0;
+        border-radius: 20px;
+        padding: 20px;
+        margin: 16px 0;
+      }
+      section form {
+        border: 0;
+        padding: 0;
+        margin-bottom: 0;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 12px 0 4px;
+      }
+      input {
+        min-height: 44px;
+        width: 100%;
+        padding: 8px 12px;
+        font: inherit;
+        color: #202124;
+        background: #fff;
+        border: 1px solid #5f6368;
+        border-radius: 10px;
+      }
+      button {
+        font: inherit;
+        font-weight: 600;
+        min-height: 44px;
+        margin-top: 12px;
+        padding: 8px 16px;
+        background: #185abc;
+        color: #fff;
+        border: 0;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: default;
+      }
+      :focus-visible {
+        outline: 3px solid #185abc;
+        outline-offset: 3px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .secondary {
+        background: #e8f0fe;
+        color: #174ea6;
+      }
+      .muted {
+        color: #4c5159;
+      }
+      #status:not(:empty) {
+        border-radius: 12px;
+        background: #e8f0fe;
+        padding: 12px;
+      }
+      #code {
+        text-transform: uppercase;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="muted">DevFest Indore 2026 · Staff</p>
+        <h1>Passport desk</h1>
+        <p>Look up an attendee, record their arrival, and log swag when you hand it over.</p>
+      </header>
+      <noscript><p>Enable JavaScript to use the desk.</p></noscript>
+      <form id="lookup">
+        <label for="key">Staff access key</label>
+        <input id="key" type="password" autocomplete="off" required />
+        <label for="email">Attendee email</label>
+        <input id="email" type="email" autocomplete="off" maxlength="254" required />
+        <label for="name">Attendee name <span class="muted">(for a new passport)</span></label>
+        <input id="name" autocomplete="off" maxlength="80" />
+        <div class="actions">
+          <button type="submit">Look up attendee</button>
+          <button id="arrive" type="submit" class="secondary">Record arrival</button>
+        </div>
+      </form>
+      <p id="status" role="status"></p>
+      <section id="attendee" aria-labelledby="attendee-name" hidden>
+        <h2 id="attendee-name"></h2>
+        <p id="arrival"></p>
+        <p id="swag-state"></p>
+        <p id="count"></p>
+        <button id="swag" type="button">Record swag handover</button>
+        <form id="activity">
+          <label for="code">Activity code</label>
+          <input
+            id="code"
+            minlength="6"
+            maxlength="6"
+            pattern="[A-Za-z0-9]{6}"
+            autocapitalize="characters"
+            spellcheck="false"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="secondary">Add activity</button>
+        </form>
+      </section>
+    </main>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const controls = document.querySelectorAll("button, input");
+      let busy = false;
+      let selectedEmail = "";
+      let deskState = null;
+
+      function updateControls() {
+        controls.forEach((control) => {
+          control.disabled = busy;
+        });
+        $("swag").disabled = busy || !deskState?.arrivedAt || Boolean(deskState?.swagAt);
+      }
+
+      function showAttendee(data) {
+        selectedEmail = data.email;
+        deskState = data.staff;
+        $("attendee").hidden = false;
+        $("attendee-name").textContent = deskState.name;
+        $("arrival").textContent = deskState.arrivedAt ? "Arrival recorded" : "Arrival pending";
+        $("swag-state").textContent = deskState.swagAt
+          ? "Swag already recorded"
+          : "Swag handover pending";
+        $("count").textContent = data.activityCount + " completed activities";
+      }
+
+      async function submit(action, code) {
+        if (busy) return;
+        busy = true;
+        updateControls();
+        $("status").textContent = "Saving…";
+        try {
+          const response = await fetch("/api/pass", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              staffAction: action,
+              staffKey: $("key").value,
+              email: selectedEmail || $("email").value,
+              name: $("name").value,
+              code,
+            }),
+            signal: AbortSignal.timeout(10000),
+          });
+          const data = await response.json();
+          const messages = {
+            unauthorized: "Staff access denied. Check the access key.",
+            needs_name:
+              "No matching passport. Enter the attendee’s name and select Record arrival.",
+            invalid_email: "Enter a valid attendee email.",
+            invalid_code: "Enter exactly six letters or numbers.",
+            arrival_required: "Record the attendee’s arrival first.",
+          };
+          if (data.status !== "ok") {
+            $("status").textContent =
+              messages[data.status] || "The desk is unavailable. Try again.";
+            return;
+          }
+          showAttendee(data);
+          const activityMessages = {
+            added: "Activity recorded.",
+            already: "Activity already recorded.",
+            not_open: "This activity is not open yet.",
+            closed: "This activity has closed.",
+            unknown: "Activity code not recognized.",
+          };
+          $("status").textContent = {
+            lookup: "Passport found.",
+            arrive: "Arrival recorded.",
+            swag: data.staff.swagRecorded
+              ? "Swag handover recorded."
+              : "Swag handover was already recorded.",
+            activity:
+              activityMessages[data.stamp?.result] || "Check the activity code and try again.",
+          }[action];
+          if (["added", "already"].includes(data.stamp?.result)) $("code").value = "";
+        } catch {
+          $("status").textContent = "Couldn’t reach the desk. Retry when you have a connection.";
+        } finally {
+          busy = false;
+          updateControls();
+        }
+      }
+
+      $("email").addEventListener("input", () => {
+        selectedEmail = "";
+        deskState = null;
+        $("attendee").hidden = true;
+        $("name").value = "";
+        $("code").value = "";
+        $("status").textContent = "";
+      });
+      $("lookup").addEventListener("submit", (event) => {
+        event.preventDefault();
+        submit(event.submitter?.id === "arrive" ? "arrive" : "lookup");
+      });
+      $("swag").addEventListener("click", () => submit("swag"));
+      $("activity").addEventListener("submit", (event) => {
+        event.preventDefault();
+        submit("activity", $("code").value);
+      });
+    </script>
+  </body>
+</html>

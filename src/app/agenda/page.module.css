@@ -1,0 +1,94 @@
+.page {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+}
+
+.workshopReminder {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 3vw, 24px);
+  margin-block-end: 24px;
+  padding: clamp(20px, 4vw, 44px);
+  border: 1px solid var(--audience-line);
+  border-inline-start: 5px solid var(--audience-blue);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--audience-blue) 9%, var(--audience-bg));
+}
+
+.reminderIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--audience-blue) 14%, var(--audience-bg));
+  color: var(--audience-blue);
+}
+
+.workshopReminder h2 {
+  font-size: clamp(1.6rem, 4vw, 2.75rem);
+  font-weight: 720;
+  line-height: 1.1;
+}
+
+.workshopReminder p {
+  margin-top: 10px;
+  color: var(--audience-muted);
+}
+
+.workshopSetup {
+  margin-top: 18px;
+}
+
+.workshopSetup h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.workshopSetup ul {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 24px;
+}
+
+.workshopSetup a {
+  min-height: 44px;
+}
+
+@media (max-width: 540px) {
+  .workshopReminder {
+    flex-direction: column;
+  }
+
+  .reminderIcon {
+    flex: auto;
+    width: 48px;
+  }
+}
+
+.passport {
+  position: fixed;
+  z-index: 20;
+  right: max(16px, calc(env(safe-area-inset-right, 0px) + 12px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--audience-blue);
+  color: var(--audience-on-blue);
+  box-shadow: 0 4px 14px #10243435;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.passport:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.passport:focus-visible {
+  outline: 3px solid var(--audience-blue);
+  outline-offset: 4px;
+}

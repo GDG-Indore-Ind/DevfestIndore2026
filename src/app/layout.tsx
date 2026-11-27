@@ -130,6 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen antialiased transition-colors duration-300">
         <ThemeProvider>{children}</ThemeProvider>
         <Script id="meta-pixel" strategy="afterInteractive">{`
+          if (!/^\\/pass(?:-admin)?(?:\\.html)?\\/?$/.test(window.location.pathname)) {
           !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
           n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -137,6 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
           fbq('init','1189299924046264');
           fbq('track','PageView');
+          }
         `}</Script>
         <noscript>
           {/* A raw tracking image must reach Meta directly when JavaScript is disabled. */}
