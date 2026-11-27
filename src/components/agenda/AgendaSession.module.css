@@ -108,6 +108,7 @@
   border-bottom-color: transparent;
   border-inline-start: 3px solid var(--icon-red);
   background: var(--space-soft-red);
+  margin: var(--layout-space-2) 0;
 }
 .overview[data-tone="red"] .timeRange {
   color: var(--icon-red);
@@ -118,6 +119,7 @@
   border-bottom-color: transparent;
   border-inline-start: 3px solid var(--icon-green);
   background: var(--space-soft-green);
+  margin: var(--layout-space-2) 0;
 }
 .overview[data-tone="green"] .timeRange,
 .overview[data-tone="green"] .sessionType {
