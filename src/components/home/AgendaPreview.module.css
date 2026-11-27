@@ -61,6 +61,12 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin-top: var(--layout-space-6);
+}
 /* On phones the speakers are one swipeable row; the fourth portrait peeks to show there are more. */
 @media (max-width: 599px) {
   .grid {

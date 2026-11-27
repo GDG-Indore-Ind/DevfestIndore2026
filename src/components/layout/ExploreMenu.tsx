@@ -19,13 +19,13 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       label: "Attend",
       tone: "blue",
       links: [
+        { href: "/venue", label: "Venue", icon: "venue" },
+        { href: "/faq", label: "FAQ", icon: "help" },
+        { href: "/ambassadors", label: "Ambassadors", icon: "people" },
         { href: "/badge", label: "Badge", icon: "themes" },
         ...(SITE.missionsEnabled
           ? [{ href: "/missions", label: "Missions", icon: "rocket" as ContentIconName }]
           : []),
-        { href: "/venue", label: "Venue", icon: "venue" },
-        { href: "/faq", label: "FAQ", icon: "help" },
-        { href: "/ambassadors", label: "Ambassadors", icon: "people" },
       ],
     },
     {

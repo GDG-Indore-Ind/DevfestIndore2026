@@ -19,6 +19,14 @@ const tones: Record<AgendaFormat, ChipTone> = {
 };
 const MAX_FACES = 3;
 
+function endTime(start: string, duration: number) {
+  const [hours, minutes] = start.split(":").map(Number);
+  const total = (hours * 60 + minutes + duration) % (24 * 60);
+  return [Math.floor(total / 60), total % 60]
+    .map((part) => String(part).padStart(2, "0"))
+    .join(":");
+}
+
 /** Who or what the strip is about: up to three speaker photos, or the organisation's mark. */
 function StripMark({ item }: { item: AgendaItem }) {
   if (item.people.length) {
@@ -59,7 +67,16 @@ function StripMark({ item }: { item: AgendaItem }) {
 }
 
 /** A session summary that expands to the description and speaker profiles. */
-export default function AgendaSession({ item }: { item: AgendaItem }) {
+export default function AgendaSession({
+  item,
+  showHall = true,
+}: {
+  item: AgendaItem;
+  showHall?: boolean;
+}) {
+  const end = item.time && item.durationMinutes ? endTime(item.time, item.durationMinutes) : null;
+  const soloSpeaker = item.people.length === 1 ? item.people[0] : null;
+  const showPanelLineup = item.format === "panel" && item.people.length > 0;
   const details = (
     <div className={styles.row}>
       <div className={styles.main}>
@@ -94,9 +111,20 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
             {item.people.map((person) => (
               <li key={person.id} className={styles.person}>
                 <div className={styles.personHeader}>
+                  {!showPanelLineup && item.people.length > 1 && (
+                    <span className={styles.detailPortrait} aria-hidden="true">
+                      <CommunityPhoto
+                        src={person.avatar}
+                        alt=""
+                        initialsFor={person.name}
+                        portrait
+                        sizes="48px"
+                      />
+                    </span>
+                  )}
                   <div className={styles.personMeta}>
                     <p className={styles.name}>
-                      <Link className="audience-text-link" href={`/people/${person.id}`}>
+                      <Link href={`/people/${person.id}`} className="audience-text-link">
                         {person.name}
                       </Link>
                     </p>
@@ -120,19 +148,18 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
     </div>
   );
   const speakers = item.people.map((person) => person.name).join(", ");
-  const organization =
-    item.people.length === 1 ? item.people[0].company : item.organizations.join(", ");
-  const schedule = [
-    item.format === "keynote" ? copy.formatLabels.keynote : undefined,
-    item.time && <time key="time">{item.time}</time>,
-    item.hall,
-    item.durationMinutes ? `${item.durationMinutes} ${copy.durationLabel}` : null,
-  ].filter(Boolean);
+  const organization = item.organizations.join(", ");
+  const sessionType =
+    item.format === "keynote" || item.format === "panel" || item.format === "address"
+      ? copy.formatLabels[item.format]
+      : null;
   return (
     <li
       id={item.id}
       className={[
         styles.overview,
+        showPanelLineup && styles.panel,
+        (soloSpeaker || showPanelLineup) && styles.withEmbeddedPortrait,
         item.people.length === 0 && styles.noPeople,
         item.people.length > 1 && styles.multi,
       ]
@@ -140,28 +167,72 @@ export default function AgendaSession({ item }: { item: AgendaItem }) {
         .join(" ")}
     >
       <details data-agenda-session>
-        <summary>
+        <summary className={item.time ? styles.timed : undefined}>
+          {item.time && (
+            <span className={styles.time}>
+              <time dateTime={item.time}>{item.time}</time>
+              {end && (
+                <span className={styles.endTime}>
+                  <span aria-hidden="true">– </span>
+                  <span className={styles.srOnly}> to </span>
+                  <time dateTime={end}>{end}</time>
+                </span>
+              )}
+            </span>
+          )}
           <span className={styles.stripText}>
+            {sessionType && item.title !== sessionType && (
+              <span className={styles.sessionType}>{sessionType}</span>
+            )}
             <strong className={styles.stripTitle}>{item.title ?? copy.sessionPending}</strong>
-            {(speakers || organization) && (
+            {soloSpeaker && !showPanelLineup && (
+              <span className={styles.speakerSummary}>
+                <span className={styles.speakerPortrait} aria-hidden="true">
+                  <CommunityPhoto
+                    src={soloSpeaker.avatar}
+                    alt=""
+                    initialsFor={soloSpeaker.name}
+                    portrait
+                    sizes="56px"
+                  />
+                </span>
+                <span className={styles.speakerIdentity}>
+                  <strong>{soloSpeaker.name}</strong>
+                  {(soloSpeaker.company || soloSpeaker.role) && (
+                    <span>{soloSpeaker.company || soloSpeaker.role}</span>
+                  )}
+                </span>
+              </span>
+            )}
+            {!soloSpeaker && !showPanelLineup && (speakers || organization) && (
               <span className={styles.stripPresenter}>
                 {speakers && <span className={styles.stripNames}>{speakers}</span>}
                 {speakers && organization && ", "}
                 {organization}
               </span>
             )}
-            {schedule.length > 0 && (
-              <span className={styles.stripSchedule}>
-                {schedule.map((part, index) => (
-                  <span key={index}>
-                    {index > 0 && " · "}
-                    {part}
+            {showHall && item.hall && <span className={styles.stripSchedule}>{item.hall}</span>}
+            {showPanelLineup && (
+              <span className={styles.lineup}>
+                {item.people.map((person) => (
+                  <span key={person.id} className={styles.lineupMember}>
+                    <span className={styles.lineupPortrait} aria-hidden="true">
+                      <CommunityPhoto
+                        src={person.avatar}
+                        alt=""
+                        initialsFor={person.name}
+                        portrait
+                        sizes="56px"
+                      />
+                    </span>
+                    <strong>{person.name}</strong>
+                    {person.role && <span>{person.role}</span>}
                   </span>
                 ))}
               </span>
             )}
           </span>
-          <StripMark item={item} />
+          {!soloSpeaker && !showPanelLineup && <StripMark item={item} />}
         </summary>
         {details}
       </details>

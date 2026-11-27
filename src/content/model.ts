@@ -8,7 +8,7 @@ export interface TeamMember {
   personId: string;
   name: string;
   role: string;
-  team: "Core Team" | "Volunteers";
+  team: "Core Team" | "Volunteers" | "Space Club of India";
   bio: string;
   avatar: string;
   order?: number;

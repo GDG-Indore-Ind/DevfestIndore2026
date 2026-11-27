@@ -62,6 +62,13 @@ export default function AgendaPreview() {
             );
           })}
         </ul>
+        {exhibits > 0 && (
+          <div className={styles.actions}>
+            <ContentAction href="/agenda#exhibits" icon="exhibits" tone="blue">
+              {HOME_PAGE.exhibits.confirmedLink}
+            </ContentAction>
+          </div>
+        )}
       </div>
     </section>
   );

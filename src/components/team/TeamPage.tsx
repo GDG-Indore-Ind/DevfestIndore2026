@@ -13,6 +13,11 @@ export default function TeamPage() {
       people: TEAM.filter(({ team }) => team === "Core Team"),
     },
     {
+      id: "space-club-of-india",
+      title: "Space Club of India team",
+      people: TEAM.filter(({ team }) => team === "Space Club of India"),
+    },
+    {
       id: "volunteers",
       title: TEAM_PAGE.volunteersTitle,
       people: TEAM.filter(({ team }) => team === "Volunteers"),
@@ -31,7 +36,10 @@ export default function TeamPage() {
                 id: member.personId,
                 name: member.name,
                 photo: member.avatar,
-                meta: `${member.badge ?? (member.team === "Core Team" ? "Organizer" : "Community Helper")} · ${EVENT.name}`,
+                meta:
+                  member.team === "Space Club of India"
+                    ? (member.badge ?? member.team)
+                    : `${member.badge ?? (member.team === "Core Team" ? "Organizer" : "Community Helper")} · ${EVENT.name}`,
                 socials: member.socials,
                 href: `/people/${member.personId}`,
                 bio: member.bio,

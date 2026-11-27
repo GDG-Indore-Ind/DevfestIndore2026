@@ -86,6 +86,27 @@
   font-weight: 600;
   line-height: 1.4;
 }
+.description {
+  margin: 0;
+  font-size: var(--text-16);
+  line-height: 1.5;
+  color: var(--audience-ink);
+}
+.inclusionsSection {
+  padding-block: 0 var(--section-space-tight);
+}
+.inclusionsCard {
+  padding: var(--layout-space-6);
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+  background: var(--audience-tint);
+}
+.inclusionsTitle {
+  margin: 0 0 var(--layout-space-4);
+  font-size: var(--text-22);
+  font-weight: 500;
+  line-height: 1.25;
+}
 .eligibility {
   display: grid;
   gap: var(--layout-space-1);

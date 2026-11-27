@@ -32,7 +32,7 @@ export default function TicketStrip() {
                   <h3>
                     {pass.name} <span>{formatPassPrice(pass)}</span>
                   </h3>
-                  {pass.id === "vip" && <p className={styles.perks}>{pass.summary}</p>}
+                  {pass.summary && <p className={styles.perks}>{pass.summary}</p>}
                   {pass.offers?.map((offer) => (
                     <p key={offer} className={styles.offer}>
                       {offer}

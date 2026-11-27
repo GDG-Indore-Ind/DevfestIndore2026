@@ -1,11 +1,7 @@
 // Website selection and presentation/integration switches, not event facts.
 export const SITE = {
   eventId: "devfest-2026",
-  hiddenSessionIds: [
-    "devfest-2026-qualcomm-arduino-demos",
-    "devfest-2026-iist-address",
-    "devfest-2026-panel-discussion",
-  ],
+  hiddenSessionIds: ["devfest-2026-surprise-exhibit"],
   partnersRevealed: true,
   ambassadorContactEnabled: false,
   // Needs the stage slot confirmed. missionsFormUrl is the entry form; leave it empty to show the page without a submit button.

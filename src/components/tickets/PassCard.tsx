@@ -1,14 +1,27 @@
 import Link from "next/link";
 import StrongText from "@/components/shared/StrongText";
 import { ArrowRight } from "lucide-react";
-import { formatPassPrice, type PublicPass } from "@/content/tickets";
+import { formatPassPrice, type PublicPass, type TicketBenefit } from "@/content/tickets";
 import { TICKETS_PAGE } from "@/content/pages";
 import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
 import BenefitGroups from "@/components/tickets/BenefitGroups";
 import PassBooking from "@/components/tickets/PassBooking";
 import styles from "./CurrentTicketOffer.module.css";
 
-export default function PassCard({ pass }: { pass: PublicPass }) {
+const benefitKey = (benefit: TicketBenefit) => `${benefit.group}:${benefit.label}`;
+
+export default function PassCard({
+  pass,
+  commonBenefits = [],
+}: {
+  pass: PublicPass;
+  commonBenefits?: TicketBenefit[];
+}) {
+  const commonKeys = new Set(commonBenefits.map(benefitKey));
+  const extraBenefits = commonKeys.size
+    ? pass.benefits.filter((benefit) => !commonKeys.has(benefitKey(benefit)))
+    : pass.benefits;
+
   return (
     <article
       className={styles.card}
@@ -25,7 +38,11 @@ export default function PassCard({ pass }: { pass: PublicPass }) {
           {offer}
         </p>
       ))}
-      <BenefitGroups benefits={pass.benefits} />
+      {extraBenefits.length > 0 ? (
+        <BenefitGroups benefits={extraBenefits} />
+      ) : (
+        <p className={styles.description}>{pass.description}</p>
+      )}
       <ul className={styles.eligibility}>
         {pass.eligibility.map((item) => (
           <li key={item}>

@@ -105,6 +105,7 @@ test("a presenter needs only one assignment, with no duplicate event speaker rol
 test("a speaker announcement remains publishable before a session exists", (context) => {
   const { db } = fixture(context);
   const personId = "lt-gen-pjs-pannu";
+  db.delete(t.sessionPeople).where(eq(t.sessionPeople.personId, personId)).run();
   assert.equal(
     db.select().from(t.sessionPeople).where(eq(t.sessionPeople.personId, personId)).all().length,
     0,
@@ -209,7 +210,7 @@ test("FAQ policy placeholders follow the canonical registration document", (cont
 
 test("exhibit highlights follow sessions and cannot remain after session deletion", (context) => {
   const { db } = fixture(context);
-  const id = `${SITE.eventId}-surprise-exhibit`;
+  const id = `${SITE.eventId}-cake-wallet-exhibit`;
   const session = db.select().from(t.sessions).where(eq(t.sessions.id, id)).get();
   assert(
     projectContent(db).pages.home.exhibits.confirmed.some(

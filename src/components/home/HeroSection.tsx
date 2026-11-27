@@ -1,13 +1,11 @@
 import { EVENT, EVENT_DATE, REGISTRATION_TIME } from "@/content/event";
 import { OPEN_PASSES, formatPassPrice } from "@/content/tickets";
 import { HOME_PAGE } from "@/content/pages";
-import { PAGE_COPY } from "@/content/copy";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./HeroSection.module.css";
 import ContentIcon from "@/components/shared/ContentIcon";
-import ContentAction from "@/components/shared/ContentAction";
 
 function SpaceArtwork() {
   return (
@@ -66,12 +64,6 @@ export default function HeroSection() {
   const price = passPrice();
   return (
     <section className={styles.root} aria-labelledby="event-title">
-      <div className={styles.ambientLighting} aria-hidden="true">
-        <div className={`${styles.glowOrb} ${styles.glowBlue}`} />
-        <div className={`${styles.glowOrb} ${styles.glowRed}`} />
-        <div className={`${styles.glowOrb} ${styles.glowYellow}`} />
-        <div className={`${styles.glowOrb} ${styles.glowGreen}`} />
-      </div>
       <div className={styles.spectrumBar} aria-hidden="true" />
       <div className={"audience-wrap" + " " + styles.grid}>
         <div className={styles.copy}>
@@ -115,9 +107,6 @@ export default function HeroSection() {
             <Link href="/agenda" className="audience-button programme-outline-button">
               {HOME_PAGE.agendaLabel} <ArrowRight className="audience-icon" aria-hidden="true" />
             </Link>
-            <ContentAction href="/badge" icon="themes" tone="green">
-              {PAGE_COPY.badge.teaserAction}
-            </ContentAction>
           </div>
         </div>
         <SpaceArtwork />

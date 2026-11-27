@@ -129,7 +129,13 @@ export default async function PersonProfile({ params }: Props) {
           )}
           {member && (
             <section>
-              <h2>{member.team === "Core Team" ? "Organizer" : "Volunteer"}</h2>
+              <h2>
+                {member.team === "Space Club of India"
+                  ? "Space Club of India team"
+                  : member.team === "Core Team"
+                    ? "Organizer"
+                    : "Volunteer"}
+              </h2>
               <ul>
                 {functions?.map((role) => (
                   <li key={role}>{role}</li>

@@ -401,7 +401,7 @@ export const PAGE_COPY = {
   agenda: {
     title: "Agenda",
     description: "Keynote, talks, workshops and exhibits at DevFest Indore 2026 on 28 November.",
-    lead: "Explore the sessions, workshops and activities at DevFest Indore.",
+    lead: "All times are in Indian Standard Time (IST).",
     activities: [
       {
         id: "lunch",
@@ -439,6 +439,11 @@ export const PAGE_COPY = {
       exhibits: "Exhibits",
     },
     workshopLead: "Hands-on sessions. Seats are first come, first served.",
+    workshopReminder: {
+      title: "Coming to a workshop? Bring a charged laptop.",
+      lead: "Bring your charger too, and complete any workshop setup before you arrive.",
+      setupTitle: "Before Salman’s Arduino UNO Q workshop",
+    },
     pastWorkshopsLabel: "Past campus workshops",
     workshopsEmpty: "Workshops will be announced soon.",
     exhibitsEmpty: "Exhibits will be announced soon.",

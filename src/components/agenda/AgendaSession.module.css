@@ -4,7 +4,7 @@
   gap: 16px 40px;
   padding-bottom: 20px;
 }
-@media (min-width: 900px) {
+@container (min-width: 700px) {
   .row {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   }
@@ -57,6 +57,15 @@
   min-width: 0;
   flex: 1;
 }
+.detailPortrait {
+  width: 44px;
+  flex: 0 0 44px;
+}
+.detailPortrait :global(.community-photo) {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
 .name {
   margin: 0;
   font-size: var(--text-16);
@@ -89,6 +98,7 @@
   --mark: 44px;
   --open: 96px;
   position: relative;
+  container-type: inline-size;
   scroll-margin-top: 96px;
   border-bottom: 1px solid var(--audience-line);
 }
@@ -118,6 +128,31 @@
   flex: 1;
   min-width: 0;
   overflow-wrap: anywhere;
+}
+.time {
+  display: grid;
+  align-self: start;
+  flex: 0 0 4.25rem;
+  color: var(--audience-ink);
+  font-size: var(--text-18);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+.endTime,
+.sessionType {
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  font-weight: 400;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 /* The photo sits at the right of the strip, beside the chevron, and grows when the row opens. */
 .faces,
@@ -189,6 +224,17 @@
   .overview summary {
     gap: 8px;
   }
+  .overview summary.timed {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+  .time {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    grid-column: 1 / -1;
+    font-size: var(--text-16);
+  }
   .multi {
     --mark: 34px;
     --open: 34px;
@@ -245,8 +291,70 @@
   font-size: var(--text-14);
   line-height: 1.4;
 }
-.stripNames,
-.stripSchedule time {
+.stripNames {
   color: var(--audience-ink);
   font-weight: 600;
+}
+
+.panel summary {
+  align-items: start;
+}
+.withEmbeddedPortrait details[open] > summary {
+  min-height: 48px;
+}
+.panel summary::after {
+  align-self: start;
+  margin-top: 6px;
+}
+.lineup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(116px, 1fr));
+  gap: 16px 12px;
+  margin-top: 12px;
+}
+.lineupMember {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 4px;
+  min-width: 0;
+  font-size: var(--text-14);
+  line-height: 1.3;
+}
+.lineupMember > span:last-child:not(.lineupPortrait) {
+  color: var(--audience-muted);
+}
+.lineupPortrait :global(.community-photo) {
+  width: 56px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.speakerSummary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+.speakerPortrait {
+  flex: 0 0 52px;
+}
+.speakerPortrait :global(.community-photo) {
+  width: 52px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.speakerIdentity {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.25;
+}
+.speakerIdentity > span {
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+}
+@media (max-width: 599px) {
+  .withEmbeddedPortrait summary.timed {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
 }

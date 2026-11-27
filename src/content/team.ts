@@ -15,15 +15,22 @@ export function getTeam(): TeamMember[] {
     const role = entry.roles.find((item) => item.kind === "core-team" || item.kind === "volunteer");
     if (entry.eventId !== EVENT.id || !role) return [];
     const person = getEventPerson(entry.personId, entry.eventId);
+    const sciTeam = role.title === "Space Club of India team";
     return [
       {
         id: entry.id,
         personId: person.id,
         name: person.name,
         role: responsibilityAreas(role),
-        badge: topLevelLabel(role),
+        badge: sciTeam
+          ? [person.role, person.company].filter(Boolean).join(" · ")
+          : topLevelLabel(role),
         details: getRosterDetails(person.id, entry.eventId, role),
-        team: role.kind === "core-team" ? ("Core Team" as const) : ("Volunteers" as const),
+        team: sciTeam
+          ? ("Space Club of India" as const)
+          : role.kind === "core-team"
+            ? ("Core Team" as const)
+            : ("Volunteers" as const),
         bio: person.bio ?? "",
         avatar: person.avatar ?? "",
         socials: personalSocials(person.socials),
