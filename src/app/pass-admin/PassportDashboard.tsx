@@ -3,7 +3,14 @@
 import { useCallback, useEffect, useRef, useState, type SubmitEvent } from "react";
 import styles from "./dashboard.module.css";
 
-const labels = { session: "Session", booth: "Booth", feedback: "Feedback" } as const;
+const labels = {
+  session: "Session",
+  workshop: "Workshop",
+  exhibit: "Exhibit",
+  booth: "Exhibit",
+  activity: "Activity",
+  feedback: "Feedback",
+} as const;
 const states = { open: "Open", upcoming: "Upcoming", closed: "Closed" } as const;
 const stateClasses = { open: styles.statusOpen, upcoming: styles.statusUpcoming, closed: "" };
 const totals = {
@@ -35,6 +42,10 @@ type Activity = {
   code: string;
   title: string;
   kind: keyof typeof labels;
+  format?: string;
+  hall?: string;
+  track?: string;
+  agendaId?: string;
   state: keyof typeof states;
   opensAt: string | null;
   closesAt: string | null;
@@ -85,56 +96,50 @@ export default function PassportDashboard() {
     setMessage(notice);
   }, []);
 
-  const refresh = useCallback(async () => {
-    if (!password.current || request.current) return;
-    const controller = new AbortController();
-    request.current = controller;
-    setBusy(true);
-    const timeout = window.setTimeout(() => controller.abort(), 10_000);
-    try {
-      const response = await fetch("/api/pass", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ adminAction: "stats", password: password.current }),
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      const data: Stats | { status: string } = await response.json();
-      if (request.current !== controller) return;
-      if (response.status === 401) {
-        lock("Incorrect organizer password.");
-        return;
+  const refresh = useCallback(
+    async (force = false) => {
+      if (!password.current || request.current) return;
+      const controller = new AbortController();
+      request.current = controller;
+      setBusy(true);
+      const timeout = window.setTimeout(() => controller.abort(), 10_000);
+      try {
+        const response = await fetch("/api/pass", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ adminAction: "stats", password: password.current, force }),
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        const data: Stats | { status: string } = await response.json();
+        if (request.current !== controller) return;
+        if (response.status === 401) {
+          lock("Incorrect organizer password.");
+          return;
+        }
+        if (data.status === "admin_not_configured") {
+          lock("The organizer password is not configured on this deployment.");
+          return;
+        }
+        if (!response.ok || data.status !== "ok" || !("activities" in data))
+          throw new Error("Dashboard unavailable");
+        setStats(data);
+        setMessage("");
+      } catch {
+        if (request.current === controller) {
+          if (input.current) password.current = "";
+          setMessage("Couldn’t refresh Passport statistics. Try again.");
+        }
+      } finally {
+        clearTimeout(timeout);
+        if (request.current === controller) {
+          request.current = null;
+          setBusy(false);
+        }
       }
-      if (data.status === "admin_not_configured") {
-        lock("The organizer password is not configured on this deployment.");
-        return;
-      }
-      if (!response.ok || data.status !== "ok" || !("activities" in data))
-        throw new Error("Dashboard unavailable");
-      setStats(data);
-      setMessage("");
-    } catch {
-      if (request.current === controller) {
-        if (input.current) password.current = "";
-        setMessage("Couldn’t refresh Passport statistics. Try again.");
-      }
-    } finally {
-      clearTimeout(timeout);
-      if (request.current === controller) {
-        request.current = null;
-        setBusy(false);
-      }
-    }
-  }, [lock]);
-
-  const unlocked = stats !== null;
-  useEffect(() => {
-    if (!unlocked) return;
-    const timer = window.setInterval(() => {
-      if (!document.hidden) void refresh();
-    }, 30_000);
-    return () => window.clearInterval(timer);
-  }, [unlocked, refresh]);
+    },
+    [lock],
+  );
 
   useEffect(
     () => () => {
@@ -151,22 +156,25 @@ export default function PassportDashboard() {
     if (!input.current?.value || request.current) return;
     password.current = input.current.value;
     input.current.value = "";
-    void refresh();
+    void refresh(false);
   }
 
   const activities = (stats?.activities ?? []).map((activity) => {
-    const workshop = activity.kind === "session" && activity.title.startsWith("Workshop: ");
+    const legacyWorkshop = activity.kind === "session" && activity.title.startsWith("Workshop: ");
+    const resolvedType = legacyWorkshop ? "Workshop" : (labels[activity.kind] ?? activity.kind);
     return {
       ...activity,
-      title: workshop ? activity.title.slice("Workshop: ".length) : activity.title,
-      type: workshop ? "Workshop" : labels[activity.kind],
+      title: legacyWorkshop ? activity.title.slice("Workshop: ".length) : activity.title,
+      type: resolvedType,
     };
   });
   const visible = activities.filter(
     (activity) =>
       (!type || activity.type === type) &&
       (!state || activity.state === state) &&
-      `${activity.title} ${activity.code}`.toLowerCase().includes(search.trim().toLowerCase()),
+      `${activity.title} ${activity.code} ${activity.hall ?? ""} ${activity.track ?? ""}`
+        .toLowerCase()
+        .includes(search.trim().toLowerCase()),
   );
 
   return (
@@ -220,21 +228,21 @@ export default function PassportDashboard() {
                 <div>
                   <h2 id="activity-title">Activity check-ins</h2>
                   <p className={styles.muted}>
-                    Updated {date(stats.summary.asOf)} IST · Refreshes every 30 seconds
+                    Updated {date(stats.summary.asOf)} IST · Manual refresh
                   </p>
                 </div>
                 <button
                   type="button"
                   className={styles.secondary}
                   disabled={busy}
-                  onClick={refresh}
+                  onClick={() => void refresh(true)}
                 >
                   Refresh
                 </button>
               </div>
               <div className={styles.filters}>
                 <label>
-                  Find an activity or code
+                  Find an activity, hall, track or code
                   <input
                     type="search"
                     placeholder="Search"
@@ -248,7 +256,8 @@ export default function PassportDashboard() {
                     <option value="">All types</option>
                     <option value="Workshop">Workshops</option>
                     <option value="Session">Sessions</option>
-                    <option value="Booth">Booths</option>
+                    <option value="Exhibit">Exhibits</option>
+                    <option value="Activity">Activities</option>
                     <option value="Feedback">Feedback</option>
                   </select>
                 </label>
@@ -298,7 +307,9 @@ export default function PassportDashboard() {
                     <tbody>
                       {visible.map((activity) => {
                         const flags: string[] = [activity.type];
-                        if (activity.mission)
+                        if (activity.hall) flags.push(activity.hall);
+                        if (activity.track) flags.push(activity.track);
+                        if (activity.mission && activity.mission !== "yes")
                           flags.push(missionNames[activity.mission] ?? activity.mission);
                         else if (activity.specialMission) flags.push("Special mission");
                         if (activity.required || activity.kind === "feedback")

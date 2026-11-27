@@ -5,7 +5,7 @@
  *   npm run pass:activities [-- --base https://<preview>.pages.dev]
  *
  * - Gives each row without a code a random one and writes it back, so printed cards stay valid on reruns.
- * - Writes local/pass/activities.sql for `wrangler d1 execute` (upserts; never deletes).
+ * - Writes local/pass/activities.sql for `wrangler d1 execute` (upserts into unified `activities`; never deletes).
  * - Writes an A5 print sheet and individual PNG cards under local/pass/.
  * See docs/pass.md.
  */
@@ -26,7 +26,7 @@ const base = (baseFlag > -1 ? process.argv[baseFlag + 1] : event.links.website).
 const day = event.date.slice(0, 10);
 const offset = event.date.slice(19) || "+05:30";
 
-const KINDS = new Set(["session", "booth", "feedback"]);
+const KINDS = new Set(["session", "workshop", "exhibit", "activity", "feedback"]);
 const ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 const SESSION_BUFFER = 15;
 const HEADER = [
@@ -39,6 +39,8 @@ const HEADER = [
   "card_note",
   "required",
   "agenda_id",
+  "hall",
+  "track",
 ];
 const GROUPS = new Set(["cake-wallet", "space-club"]);
 
@@ -65,6 +67,14 @@ const ist = new Intl.DateTimeFormat("en-GB", {
 });
 const localTime = (value) => ist.format(new Date(value.replace(" ", "T") + "Z"));
 
+const normalizeHall = (hall, kind) => {
+  if (hall === "Sessions") return "Main Stage";
+  if (hall) return hall;
+  if (kind === "exhibit") return "Exhibit Lounge";
+  if (kind === "session") return "Main Stage";
+  return "";
+};
+
 const programme = JSON.parse(
   readFileSync(new URL("src/content/generated/programme.json", root), "utf8"),
 ).entries;
@@ -84,17 +94,28 @@ const output = lines.map((line, index) => {
   const cells = parseCsv(line)[0].map((cell) => cell.trim());
   if (!sawHeader) {
     sawHeader = true;
-    if (
-      ![5, 6, 7, 8, 9].some(
-        (length) => HEADER.slice(0, length).join(",") === cells.join(",").toLowerCase(),
-      )
-    )
-      fail(index + 1, `header must be ${HEADER.join(",")}`);
+    const lower = cells.join(",").toLowerCase();
+    const valid = [5, 6, 7, 8, 9, 10, 11].some(
+      (length) => HEADER.slice(0, length).join(",") === lower,
+    );
+    if (!valid) fail(index + 1, `header must be ${HEADER.join(",")}`);
     return HEADER.join(",");
   }
 
-  let [code, kind, title, start, end, mission = "", cardNote = "", required = "", agendaId = ""] =
-    cells;
+  let [
+    code,
+    kind,
+    title,
+    start,
+    end,
+    mission = "",
+    cardNote = "",
+    required = "",
+    agendaId = "",
+    hall = "",
+    track = "",
+  ] = cells;
+  if (kind === "booth") kind = "exhibit";
   mission = mission.toLowerCase();
   if (
     cells.length > HEADER.length ||
@@ -105,15 +126,30 @@ const output = lines.map((line, index) => {
     fail(index + 1, "required must be blank or yes on a mission step");
   code = (code || "").toUpperCase();
   if (code && !/^[A-Z0-9]{6}$/.test(code)) fail(index + 1, "code must be six letters or digits");
-  if (!KINDS.has(kind)) fail(index + 1, `kind must be session, booth or feedback (got "${kind}")`);
+  if (!KINDS.has(kind))
+    fail(index + 1, `kind must be session, workshop, exhibit, activity or feedback (got "${kind}")`);
   if (!title) fail(index + 1, "title is required");
-  if (agendaId) {
-    const entry = agenda.get(agendaId);
-    if (kind !== "session" || !entry?.time || !entry.durationMinutes)
-      fail(index + 1, "agenda_id must refer to a timed session or workshop in the current agenda");
-    start = entry.time;
-    end = localTime(utc(start + ":00", entry.durationMinutes));
+
+  const entry = agendaId ? agenda.get(agendaId) : undefined;
+  let format = kind;
+  if (agendaId && entry) {
+    if ((kind === "session" || kind === "workshop") && (!entry.time || !entry.durationMinutes)) {
+      fail(index + 1, `agenda_id "${agendaId}" has no time/duration in the current agenda`);
+    }
+    if (entry.time && entry.durationMinutes) {
+      start = entry.time;
+      end = localTime(utc(start + ":00", entry.durationMinutes));
+    }
+    format = entry.format || kind;
+    hall = normalizeHall(hall || entry.hall || "", kind);
+    track = track || entry.track || "";
+  } else {
+    if (agendaId && (kind === "session" || kind === "workshop")) {
+      fail(index + 1, `agenda_id "${agendaId}" not found in current agenda`);
+    }
+    hall = normalizeHall(hall, kind);
   }
+
   for (const time of [start, end]) {
     if (time && !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time))
       fail(index + 1, `times are HH:MM in event time (got "${time}")`);
@@ -129,38 +165,53 @@ const output = lines.map((line, index) => {
   if (used.has(code)) fail(index + 1, `duplicate code ${code}`);
   used.add(code);
 
-  const buffer = kind === "session" ? SESSION_BUFFER : 0;
+  const buffer = kind === "session" || kind === "workshop" ? SESSION_BUFFER : 0;
+  const tags = cardNote ? [cardNote] : [];
   activities.push({
     code,
     kind,
+    format,
+    hall,
+    track,
+    agendaId,
+    tags,
     title,
     start,
     end,
-    mission,
+    mission: mission === "no" ? "" : mission,
     required: required === "yes",
     cardNote,
     opensAt: start ? utc(start + ":00", -buffer) : utc("00:00:00", 0),
     closesAt: end ? utc(end + ":00", buffer) : utc("23:59:59", 0),
   });
-  return [code, kind, title, start, end, mission, cardNote, required, agendaId]
+  return [code, kind, title, start, end, mission, cardNote, required, agendaId, hall, track]
     .map(csvCell)
     .join(",");
 });
 
 writeFileSync(file, output.join("\n"));
 
+const sqlNullable = (value) => (value == null || value === "" ? "NULL" : sqlText(value));
 const sql = activities
   .map(
     (a, index) =>
-      `INSERT INTO activities (code, title, kind, opens_at, closes_at) VALUES (${[a.code, a.title, a.kind, a.opensAt, a.closesAt].map(sqlText).join(", ")})\n` +
-      "  ON CONFLICT (code) DO UPDATE SET title = excluded.title, kind = excluded.kind, opens_at = excluded.opens_at, closes_at = excluded.closes_at;\n" +
-      (a.mission === "yes"
-        ? `INSERT OR IGNORE INTO special_missions (code) VALUES (${sqlText(a.code)});`
-        : `DELETE FROM special_missions WHERE code = ${sqlText(a.code)};`) +
-      "\n" +
-      (GROUPS.has(a.mission)
-        ? `INSERT INTO passport_mission_steps (code, mission, position, required) VALUES (${sqlText(a.code)}, ${sqlText(a.mission)}, ${index}, ${Number(a.required)}) ON CONFLICT(code) DO UPDATE SET mission = excluded.mission, position = excluded.position, required = excluded.required;`
-        : `DELETE FROM passport_mission_steps WHERE code = ${sqlText(a.code)};`),
+      `INSERT INTO activities (code, title, kind, format, hall, track, agenda_id, tags, mission, mission_position, required, opens_at, closes_at) VALUES (${[
+        sqlText(a.code),
+        sqlText(a.title),
+        sqlText(a.kind),
+        sqlText(a.format),
+        sqlText(a.hall),
+        sqlText(a.track),
+        sqlText(a.agendaId),
+        sqlText(JSON.stringify(a.tags)),
+        sqlNullable(a.mission),
+        GROUPS.has(a.mission) ? index : "NULL",
+        Number(a.required),
+        sqlText(a.opensAt),
+        sqlText(a.closesAt),
+      ].join(", ")})\n` +
+      "  ON CONFLICT (code) DO UPDATE SET title = excluded.title, kind = excluded.kind, format = excluded.format, hall = excluded.hall, track = excluded.track, agenda_id = excluded.agenda_id, tags = excluded.tags, mission = excluded.mission, mission_position = excluded.mission_position, required = excluded.required, opens_at = excluded.opens_at, closes_at = excluded.closes_at;\n" +
+      `INSERT OR IGNORE INTO activity_stats (code) VALUES (${sqlText(a.code)});`,
   )
   .join("\n");
 writeFileSync(new URL("local/pass/activities.sql", root), `${sql}\n`);
@@ -170,7 +221,13 @@ const escape = (value) =>
     /[&<>"]/g,
     (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char],
   );
-const LABELS = { session: "Session", booth: "Exhibit", feedback: "Feedback" };
+const LABELS = {
+  session: "Session",
+  workshop: "Workshop",
+  exhibit: "Exhibit",
+  activity: "Activity",
+  feedback: "Feedback",
+};
 const feedbackFormUrl = process.env.PASS_FEEDBACK_FORM_URL || "";
 if (
   feedbackFormUrl &&
@@ -204,11 +261,11 @@ function wrapTitle(title) {
 
 const cards = await Promise.all(
   activities.map(async (activity, index) => {
-    const { code, kind, start, end, mission, cardNote, opensAt, closesAt } = activity;
-    const workshop = activity.title.startsWith("Workshop: ");
+    const { code, kind, hall, start, end, mission, cardNote, opensAt, closesAt } = activity;
     const title = activity.title.replace(/^Workshop: /, "");
-    const format = workshop ? "Workshop" : LABELS[kind];
-    const label = cardNote || (mission === "yes" || GROUPS.has(mission) ? "Special mission" : "");
+    const format = LABELS[kind];
+    const label =
+      cardNote || (mission === "yes" || GROUPS.has(mission) ? "Special mission" : hall || "");
     const feedback = kind === "feedback";
     const stampUrl = `${base}/pass?c=${code}`;
     const url = feedback ? feedbackFormUrl : stampUrl;
