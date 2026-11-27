@@ -1,99 +1,191 @@
 .board {
   display: grid;
-  gap: var(--section-space);
+  gap: var(--section-space-tight);
 }
+
+.tablistWrap {
+  padding-bottom: var(--layout-space-4);
+  border-bottom: 1px solid var(--audience-line);
+}
+
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--layout-space-2);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-pill);
+  background: var(--audience-bg);
+  color: var(--audience-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.tab:hover {
+  border-color: var(--audience-ink);
+}
+
+.tab[aria-selected="true"] {
+  background: var(--audience-ink);
+  color: var(--audience-bg);
+  border-color: var(--audience-ink);
+}
+
+.tabCount {
+  font-size: var(--text-12);
+  font-weight: 500;
+  opacity: 0.72;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel {
+  min-width: 0;
+}
+
 .group {
   min-width: 0;
   scroll-margin-top: 96px;
 }
+
 .groupHeading {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 4px 16px;
-  margin-bottom: 8px;
+  margin-bottom: var(--layout-space-4);
 }
+
 .groupHeading h2 {
   margin: 0;
-  font-size: var(--text-h2);
+  font-family: var(--font-sans);
+  font-size: var(--text-22);
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
+
 .groupHeading p {
   margin: 0;
   color: var(--audience-muted);
   font-size: var(--text-14);
+  font-weight: 400;
+  line-height: 1.5;
 }
+
 .list {
   margin: 0;
   padding: 0;
   border-top: 1px solid var(--audience-line);
   list-style: none;
 }
-.stages {
-  display: grid;
-  gap: var(--section-space-tight);
-  margin-top: var(--layout-space-4);
+
+.workshopReminder {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-space-4);
+  padding: var(--layout-space-4) var(--layout-space-6);
+  border: 1px solid var(--audience-line);
+  border-radius: var(--corner-16);
+  background: var(--audience-tint);
 }
-.stage {
+
+.reminderIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: var(--corner-12);
+  background: var(--space-panel);
+  color: var(--audience-blue);
+}
+
+.reminderBody {
   min-width: 0;
 }
-@media (min-width: 1000px) {
-  .stages {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-  }
-}
-.stageHeading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 16px;
-  margin-bottom: 8px;
-}
-.stageHeading h3 {
+
+.workshopReminder h3 {
   margin: 0;
-  font-size: var(--text-22);
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: 1.35;
 }
-.stageHeading p {
-  margin: 0;
+
+.workshopReminder p {
+  margin: 4px 0 0;
   color: var(--audience-muted);
   font-size: var(--text-14);
+  line-height: 1.5;
 }
-@media (max-width: 760px) {
-  .groupHeading h2 {
-    font-size: var(--text-22);
-  }
+
+.workshopSetup {
+  margin-top: var(--layout-space-3);
 }
+
+.workshopSetup h4 {
+  margin: 0 0 4px;
+  font-size: var(--text-14);
+  font-weight: 500;
+}
+
+.workshopSetup ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.workshopSetup a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--text-14);
+}
+
 .pastWorkshops {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  margin-top: var(--layout-space-2);
+  margin-top: var(--layout-space-1);
   color: var(--audience-blue);
+  font-size: var(--text-14);
+  font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
 .invite {
   display: grid;
   justify-items: start;
   gap: var(--layout-space-2);
-  margin-top: var(--section-space-tight);
   padding: var(--layout-space-6);
   border: 1px solid var(--audience-line);
   border-radius: var(--corner-16);
   background: var(--audience-tint);
 }
+
 .invite h3 {
   margin: 0;
   font-size: var(--text-22);
   font-weight: 500;
   line-height: 1.25;
 }
+
 .invite p {
   max-width: 68ch;
   margin: 0 0 var(--layout-space-2);

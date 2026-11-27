@@ -101,11 +101,14 @@ export default function HeroSection() {
             )}
           </div>
           <div className={styles.actions}>
-            <Link href="/tickets" className="audience-button space-primary-button">
-              Get tickets <ArrowRight className="audience-icon" aria-hidden="true" />
+            <Link href="/pass" className="audience-button">
+              Open Passport <ArrowRight className="audience-icon" aria-hidden="true" />
             </Link>
             <Link href="/agenda" className="audience-button programme-outline-button">
               {HOME_PAGE.agendaLabel} <ArrowRight className="audience-icon" aria-hidden="true" />
+            </Link>
+            <Link href="/tickets" className="audience-button space-primary-button">
+              Observer Pass <ArrowRight className="audience-icon" aria-hidden="true" />
             </Link>
           </div>
         </div>

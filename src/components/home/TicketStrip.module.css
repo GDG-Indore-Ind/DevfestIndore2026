@@ -32,6 +32,9 @@
   padding: 0;
   list-style: none;
 }
+.pass:only-child {
+  max-width: 540px;
+}
 .pass {
   display: flex;
   flex-direction: column;

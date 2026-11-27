@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode, type SubmitEvent } from "react";
+import { Award, Check, Circle, Clock, QrCode, Sparkles } from "lucide-react";
 import styles from "./passport.module.css";
 
 const EMAIL_KEY = "devfest-pass-email";
@@ -37,6 +38,7 @@ type Result = {
 type Profile = {
   status: "ok";
   firstName: string;
+  pass?: string;
   activityCount: number;
   stamps: Stamp[];
   required?: Step[];
@@ -87,10 +89,10 @@ function describe(stamp?: Result): Notice | null {
   const { result, title } = stamp;
   if (result === "added")
     return {
-      text: `${stamp.mission ? "Mission complete" : "Activity completed"} · ${title}`,
+      text: `${stamp.mission ? "Mission complete" : "Stamp collected"} · ${title}`,
       tone: "ok",
     };
-  if (result === "already") return { text: `Already counted · ${title}` };
+  if (result === "already") return { text: `Already stamped · ${title}` };
   if (result === "not_open")
     return { text: `Check-in for ${title} opens at ${indiaTime(stamp.opensAt)}.`, tone: "wait" };
   if (result === "closed")
@@ -113,13 +115,13 @@ function ActivityRow({
   children?: ReactNode;
 }) {
   return (
-    <li>
+    <li className={styles.rowItem}>
       <span className={`${styles.mark} ${done ? styles.done : ""}`} aria-hidden="true">
-        {done ? "✓" : "○"}
+        {done ? <Check size={16} strokeWidth={2.25} /> : <Circle size={14} strokeWidth={1.75} />}
       </span>
-      <div>
-        {title}
-        <span className={`${styles.muted} ${styles["row-meta"]}`}>{status}</span>
+      <div className={styles.rowContent}>
+        <span className={styles.rowTitle}>{title}</span>
+        <span className={styles.rowMeta}>{status}</span>
         {children}
       </div>
     </li>
@@ -272,8 +274,11 @@ export default function Passport() {
   }
 
   const latest = profile?.stamps.at(-1);
+  const completedMissions = profile?.missions.filter(({ done }) => done).length ?? 0;
+  const totalMissions = profile?.missions.length ?? 0;
+
   return (
-    <div>
+    <div className={styles.workspace}>
       {notice && (
         <p className={`${styles.notice} ${notice.tone ? styles[notice.tone] : ""}`} role="status">
           {notice.text}
@@ -281,102 +286,194 @@ export default function Passport() {
       )}
       {!profile ? (
         <form id="signin" className={styles.panel} aria-labelledby="signin-title" onSubmit={signIn}>
-          <h2 id="signin-title">Open your passport</h2>
-          <p>Use the same email each time so your stamps and missions stay together.</p>
-          <label htmlFor="email">Email</label>
+          <div className={styles.panelHeader}>
+            <span className={styles.panelIcon} aria-hidden="true">
+              <Sparkles className="audience-icon" />
+            </span>
+            <div>
+              <h2 id="signin-title">Open your passport</h2>
+              <p>Use the same email each time so your stamps and missions stay together.</p>
+            </div>
+          </div>
+          <label className={styles.label} htmlFor="email">
+            Email address
+          </label>
           <input
             id="email"
+            className={styles.input}
             type="email"
             autoComplete="email"
             inputMode="email"
+            placeholder="you@example.com"
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
           {needsName && (
-            <div id="walkin">
-              <label htmlFor="name">Your name</label>
+            <div id="walkin" className={styles.walkin}>
+              <label className={styles.label} htmlFor="name">
+                Your name
+              </label>
               <input
                 id="name"
                 name="name"
+                className={styles.input}
                 type="text"
                 autoComplete="name"
+                placeholder="Full name"
                 maxLength={80}
                 required
               />
             </div>
           )}
-          <button type="submit" disabled={busy}>
-            Continue
+          <button
+            type="submit"
+            className={`audience-button ${styles.submitButton}`}
+            disabled={busy}
+          >
+            Continue to passport
           </button>
         </form>
       ) : (
-        <section aria-label="Your passport">
-          <section
-            className={`${styles.panel} ${styles["passport-profile"]}`}
-            aria-labelledby="greeting"
-          >
-            <h2 id="greeting">Hi, {profile.firstName}</h2>
+        <section className={styles.dashboard} aria-label="Your passport">
+          <section className={`${styles.panel} ${styles.profileCard}`} aria-labelledby="greeting">
+            <div className={styles.profileTop}>
+              <div>
+                <p className={styles.eyebrow}>Event-day Passport</p>
+                <h2 id="greeting">Hi, {profile.firstName}</h2>
+              </div>
+              {profile.pass && profile.pass !== "Passport" && (
+                <span className={styles.passTag}>{profile.pass}</span>
+              )}
+            </div>
+
             <div className={styles.stats}>
-              <div className={styles.stat}>
-                <span>Completed activities</span>
+              <div className={`${styles.stat} ${styles.statBlue}`}>
+                <span className={styles.statLabel}>
+                  <Award size={16} aria-hidden="true" />
+                  Stamps collected
+                </span>
                 <strong>{profile.activityCount}</strong>
               </div>
-              {!!profile.missions.length && (
-                <div className={`${styles.stat} ${styles["mission-stat"]}`}>
-                  <span>Special missions complete</span>
+              {totalMissions > 0 && (
+                <div className={`${styles.stat} ${styles.statGreen}`}>
+                  <span className={styles.statLabel}>
+                    <Sparkles size={16} aria-hidden="true" />
+                    Special missions
+                  </span>
                   <strong>
-                    {profile.missions.filter(({ done }) => done).length} / {profile.missions.length}
+                    {completedMissions} / {totalMissions}
                   </strong>
                 </div>
               )}
             </div>
-            {latest && <p className={styles.muted}>Most recent · {latest.title}</p>}
-            {!!profile.required?.length && (
-              <ul className={styles.stamps} aria-label="Required check-ins">
-                {profile.required.map((step) => {
-                  const feedback = step.kind === "feedback" && !step.done;
-                  const status = feedback
-                    ? `Required · ${indiaTime(step.opensAt)} to ${indiaTime(step.closesAt)}`
-                    : `Required check-in · ${step.done ? "Complete" : "To do"}`;
-                  return (
-                    <ActivityRow
-                      key={step.title}
-                      title={step.title}
-                      status={status}
-                      done={step.done}
-                    >
-                      {feedback && (
-                        <>
-                          {step.url && (
-                            <a className={styles["row-meta"]} href={step.url}>
-                              Open feedback form
-                            </a>
-                          )}
-                          <span className={`${styles.muted} ${styles["row-meta"]}`}>
-                            After submitting, enter the six-character code you receive in Passport.
-                          </span>
-                        </>
-                      )}
-                    </ActivityRow>
-                  );
-                })}
-              </ul>
+
+            {latest && (
+              <p className={styles.latest}>
+                Most recent stamp · <strong>{latest.title}</strong>
+              </p>
             )}
-            <p className={styles.muted}>Last synced at {synced} IST</p>
+
+            {!!profile.required?.length && (
+              <div className={styles.requiredBlock}>
+                <h3 className={styles.subHeading}>Required checkpoints</h3>
+                <ul className={styles.stamps} aria-label="Required check-ins">
+                  {profile.required.map((step) => {
+                    const feedback = step.kind === "feedback" && !step.done;
+                    const status = feedback
+                      ? `Required · ${indiaTime(step.opensAt)} to ${indiaTime(step.closesAt)}`
+                      : `Required check-in · ${step.done ? "Complete" : "To do"}`;
+                    return (
+                      <ActivityRow
+                        key={step.title}
+                        title={step.title}
+                        status={status}
+                        done={step.done}
+                      >
+                        {feedback && (
+                          <div className={styles.feedbackActions}>
+                            {step.url && (
+                              <a className="audience-text-link" href={step.url}>
+                                Open feedback form
+                              </a>
+                            )}
+                            <span className={styles.rowMeta}>
+                              After submitting, enter the six-character code you receive below.
+                            </span>
+                          </div>
+                        )}
+                      </ActivityRow>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            <p className={styles.syncMeta}>
+              <Clock size={14} aria-hidden="true" />
+              Last synced at {synced} IST
+            </p>
           </section>
-          {!!profile.missions.length && (
+
+          <form
+            className={styles.panel}
+            autoComplete="off"
+            aria-labelledby="code-title"
+            onSubmit={addStamp}
+          >
+            <div className={styles.panelHeader}>
+              <span className={styles.panelIcon} aria-hidden="true">
+                <QrCode className="audience-icon" />
+              </span>
+              <div>
+                <h2 id="code-title">Add a stamp</h2>
+                <p>Scan an activity QR with your camera, or enter the 6-character code.</p>
+              </div>
+            </div>
+            <label className={styles.label} htmlFor="code">
+              Activity code
+            </label>
+            <div className={styles.codeRow}>
+              <input
+                id="code"
+                name="code"
+                className={`${styles.input} ${styles.codeInput}`}
+                placeholder="e.g. BE6ZA3"
+                minLength={6}
+                maxLength={6}
+                pattern="[A-Za-z0-9]{6}"
+                autoCapitalize="characters"
+                spellCheck={false}
+                required
+              />
+              <button
+                type="submit"
+                id="code-button"
+                className={`audience-button ${styles.codeButton}`}
+                disabled={busy}
+              >
+                Add stamp
+              </button>
+            </div>
+          </form>
+
+          {totalMissions > 0 && (
             <section className={styles.panel}>
-              <h2>Special missions</h2>
-              <p>Scan the activity’s QR to check it off and collect a stamp.</p>
-              <ul id="missions">
+              <h2 className={styles.sectionHeading}>Special missions</h2>
+              <p className={styles.sectionLead}>
+                Complete mission stops to unlock bonus partner rewards and swag.
+              </p>
+              <ul id="missions" className={styles.missions}>
                 {profile.missions.map((mission) =>
                   mission.steps && mission.steps.length >= 2 ? (
-                    <li className={styles["mission-group"]} key={mission.title}>
-                      <details>
-                        <summary>
-                          {mission.title} · {mission.steps.filter(({ done }) => done).length} of{" "}
-                          {mission.steps.length} complete
+                    <li className={styles.missionGroup} key={mission.title}>
+                      <details open={!mission.done}>
+                        <summary className={styles.missionSummary}>
+                          <span>{mission.title}</span>
+                          <span className={styles.missionCount}>
+                            {mission.steps.filter(({ done }) => done).length} of{" "}
+                            {mission.steps.length} complete
+                          </span>
                         </summary>
                         <ul className={styles.stamps}>
                           {mission.steps.map((step) => (
@@ -402,34 +499,9 @@ export default function Passport() {
               </ul>
             </section>
           )}
-          <form
-            className={styles.panel}
-            autoComplete="off"
-            aria-labelledby="code-title"
-            onSubmit={addStamp}
-          >
-            <h2 id="code-title">Add a stamp</h2>
-            <p>Scan the QR with your phone camera, or enter the code printed on the card.</p>
-            <label htmlFor="code">Activity code</label>
-            <div className={styles.row}>
-              <input
-                id="code"
-                name="code"
-                placeholder="Code on the card"
-                minLength={6}
-                maxLength={6}
-                pattern="[A-Za-z0-9]{6}"
-                autoCapitalize="characters"
-                spellCheck={false}
-                required
-              />
-              <button type="submit" id="code-button" disabled={busy}>
-                Add stamp
-              </button>
-            </div>
-          </form>
+
           <section className={styles.panel}>
-            <h2>Your stamps</h2>
+            <h2 className={styles.sectionHeading}>Your stamps</h2>
             {profile.stamps.length ? (
               <ol className={styles.stamps}>
                 {profile.stamps
@@ -445,14 +517,15 @@ export default function Passport() {
                   ))}
               </ol>
             ) : (
-              <p className={styles.muted}>
+              <p className={styles.emptyStamps}>
                 Your first stamp will appear here after you scan an activity QR.
               </p>
             )}
           </section>
+
           <button
             type="button"
-            className={styles.link}
+            className={`audience-text-link ${styles.switchButton}`}
             id="switch"
             disabled={busy}
             onClick={switchEmail}

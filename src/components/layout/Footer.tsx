@@ -39,6 +39,7 @@ export default function Footer() {
             <h2 className={styles.groupHeading}>
               <ContentIcon name="tickets" /> Attend
             </h2>
+            <Link href="/pass">Passport</Link>
             <Link href="/tickets">Tickets</Link>
             <Link href="/agenda">Agenda</Link>
             <Link href="/agenda#workshops">Workshops</Link>

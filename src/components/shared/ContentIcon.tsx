@@ -9,6 +9,7 @@ import {
   Mic,
   Monitor,
   Navigation,
+  QrCode,
   Rocket,
   ShieldCheck,
   Sparkles,
@@ -33,6 +34,7 @@ const icons = {
   tickets: Ticket,
   people: Users,
   exhibits: Monitor,
+  qr: QrCode,
 };
 export type ContentIconName = keyof typeof icons;
 export type IconTone = "blue" | "green" | "red" | "yellow";

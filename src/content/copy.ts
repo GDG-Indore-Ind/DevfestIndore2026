@@ -103,8 +103,8 @@ export const PAGE_COPY = {
     pressLabel: "All press coverage",
     themeSelectorLabel: "Explore the themes",
     ticketStrip: {
-      title: "Pick your pass.",
-      lead: "Cadet and Commander are sold out. Here’s how you can still join us on 28 November.",
+      title: "Observer Pass still open.",
+      lead: "Full-day passes are sold out. Only Observer Pass remains for sessions and lounges on 28 November.",
       allTicketsLabel: "Pass details",
     },
     exhibits: {
@@ -174,13 +174,13 @@ export const PAGE_COPY = {
   },
   tickets: {
     title: "Tickets",
-    lead: "Cadet and Commander are sold out. Here’s how you can still join us.",
+    lead: "Full-day passes are sold out. Only Observer Pass remains for sessions and lounges.",
     soldOutTitle: "Thank you for the response",
     soldOutText:
-      "Cadet and Commander are sold out, and we’re so glad for the response we’ve received. Here we are with more ways to join:",
+      "Cadet, Commander, Last Orbit and Flight Deck are sold out, and we’re so glad for the response we’ve received. Observer Pass is still available if you’d like to join:",
     soldOutFlightDeck: "Flight Deck: our most premium experience.",
     soldOutLastOrbit: "Last Orbit: the full-day pass if you couldn’t get a ticket earlier.",
-    soldOutObserver: "Observer: sessions and lounges, if you just want to explore DevFest.",
+    soldOutObserver: "Observer: sessions and lounges, if you want to explore DevFest.",
     soldOutPrizes:
       "Everyone, Observers included, can win goodies, swag and prizes through tasks on the day.",
     endedLead: "Check KonfHub below for ticket availability and prices.",
@@ -242,10 +242,10 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Which pass should I choose?",
         answer:
-          "Cadet and Commander are sold out. Flight Deck ({{vipPrice}}) is our most premium pass, with everything in the standard pass plus VIP perks. Last Orbit ({{lastOrbitPrice}}) is the final general release with the same inclusions as Cadet and Commander. Observer ({{observerPrice}}) covers sessions and lounges only, for anyone who wants to explore DevFest.",
+          "Cadet, Commander, Last Orbit and Flight Deck are sold out. Only Observer ({{observerPrice}}) remains — it covers sessions and the Community, Expert and Exhibit Lounges only, for anyone who wants to explore DevFest.",
         link: {
           href: "/tickets",
-          label: "See open passes",
+          label: "See Observer Pass",
         },
       },
       {
@@ -253,10 +253,10 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "I’m a student. Can I still get a ticket?",
         answer:
-          "Cadet is sold out, but Last Orbit and Observer are open to everyone while they last. Cadet pass holders must bring their **government photo ID** and **original student ID** to check-in.",
+          "Cadet and Last Orbit are sold out, so only Observer ({{observerPrice}}) remains open to everyone for sessions and lounges. Cadet pass holders must bring their **government photo ID** and **original student ID** to check-in.",
         link: {
           href: "/tickets",
-          label: "See open passes",
+          label: "See Observer Pass",
         },
       },
       {
@@ -264,10 +264,10 @@ export const PAGE_COPY = {
         kind: "tickets",
         question: "Are there any discounts?",
         answer:
-          "An ambassador code gives 5% off any pass; enter it in the Discount / Access Code field on KonfHub. The Commander bulk discount ended when that pass sold out.",
+          "Ambassador codes and Commander team discounts applied only to Cadet and Commander, which are now sold out. Observer Pass ({{observerPrice}}) has no discount codes.",
         link: {
           href: "/tickets#registration",
-          label: "Book a pass",
+          label: "Book Observer Pass",
         },
       },
       {
@@ -366,12 +366,14 @@ export const PAGE_COPY = {
     navigationLabel: "Archive",
   },
   ambassadors: {
-    title: "Get an ambassador code",
-    description: "Ask a listed DevFest Indore ambassador about passes and discount codes.",
-    lead: "Cadet and Commander are sold out. Ambassadors can still help with the passes that remain open.",
-    navigationLabel: "Get an ambassador code",
-    ticketLead:
-      "Connecting through your campus or community? Visit the ambassador programme for help with your next step.",
+    title: "Ambassadors",
+    description: "Meet the DevFest Indore 2026 campus and community ambassadors.",
+    lead: "Thank you to every campus and community ambassador who helped bring DevFest Indore 2026 to their campuses and networks.",
+    winnersTitle: "Ambassador program winners",
+    winnersLead:
+      "Congratulations to our top campus ambassadors — Chaitanya, Madhav and Ishaan — and thank you to every ambassador who contributed.",
+    navigationLabel: "Ambassadors",
+    ticketLead: "Connect with our campus and community ambassadors.",
     stepsTitle: "How to use your code",
     steps: [
       {
@@ -390,7 +392,7 @@ export const PAGE_COPY = {
     ticketsLabel: "I have a code",
     professionalTitle: "Contact for working professionals",
     professionalNavLabel: "Professional contacts",
-    directoryTitle: "Campus ambassadors",
+    directoryTitle: "All campus ambassadors",
     directoryLead: "Connect on LinkedIn or Instagram.",
     searchLabel: "Find a campus ambassador",
     searchPlaceholder: "Name or college",
@@ -477,9 +479,8 @@ export const TICKET_COPY = {
   finalSaleText: "All purchases are final. No refunds or transfers.",
   profileReminder: "Add your own LinkedIn URL to your KonfHub profile before booking.",
   termsLabel: "Read the registration guidelines",
-  widgetHeading: "Book your pass",
-  widgetLead:
-    "Choose Flight Deck, Last Orbit or Observer below. If Flight Deck shows as full, join its waitlist.",
+  widgetHeading: "Book Observer Pass",
+  widgetLead: "Only Observer Pass remains open below for sessions and lounges.",
   closedHeading: "Closed passes",
   widgetTitle: "Register for GDG Devfest Indore 2026",
   fallbackText: "Trouble with checkout?",

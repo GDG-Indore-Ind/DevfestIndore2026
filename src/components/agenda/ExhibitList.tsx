@@ -8,7 +8,7 @@ import AgendaSession from "./AgendaSession";
 
 export default function ExhibitList({ items }: { items: AgendaItem[] }) {
   return (
-    <ul className={styles.list}>
+    <ul className={styles.list} data-compact="true">
       {items.map((item) => {
         const id = CURRENT_ACTIVITIES.find((activity) => activity.id === item.id)
           ?.organizationIds?.[0];

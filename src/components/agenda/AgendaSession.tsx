@@ -66,17 +66,67 @@ function StripMark({ item }: { item: AgendaItem }) {
   );
 }
 
+function displayHall(hall?: string) {
+  if (!hall || hall === "Sessions") return "Main Stage";
+  return hall;
+}
+
+export type AgendaRowTone = "red" | "green";
+
+export interface AgendaMilestone {
+  id: string;
+  time: string;
+  durationMinutes?: number;
+  title: string;
+  subtitle?: string;
+  tone?: AgendaRowTone;
+}
+
+export function AgendaMilestoneRow({ item }: { item: AgendaMilestone }) {
+  const end = item.durationMinutes ? endTime(item.time, item.durationMinutes) : null;
+  return (
+    <li id={item.id} className={`${styles.overview} ${styles.milestone}`} data-tone={item.tone}>
+      <div className={styles.milestoneInner}>
+        <span className={styles.time}>
+          <span className={styles.timeRange}>
+            <time dateTime={item.time}>{item.time}</time>
+            {end && (
+              <>
+                <span aria-hidden="true"> – </span>
+                <span className={styles.srOnly}> to </span>
+                <time dateTime={end}>{end}</time>
+              </>
+            )}
+          </span>
+          {item.durationMinutes && (
+            <span className={styles.timeDuration}>
+              {item.durationMinutes} {copy.durationLabel}
+            </span>
+          )}
+        </span>
+        <span className={styles.stripText}>
+          <strong className={styles.stripTitle}>{item.title}</strong>
+          {item.subtitle && <span className={styles.stripSchedule}>{item.subtitle}</span>}
+        </span>
+      </div>
+    </li>
+  );
+}
+
 /** A session summary that expands to the description and speaker profiles. */
 export default function AgendaSession({
   item,
   showHall = true,
+  tone,
 }: {
   item: AgendaItem;
   showHall?: boolean;
+  tone?: AgendaRowTone;
 }) {
   const end = item.time && item.durationMinutes ? endTime(item.time, item.durationMinutes) : null;
   const soloSpeaker = item.people.length === 1 ? item.people[0] : null;
   const showPanelLineup = item.format === "panel" && item.people.length > 0;
+  const hallLabel = displayHall(item.hall);
   const details = (
     <div className={styles.row}>
       <div className={styles.main}>
@@ -165,17 +215,25 @@ export default function AgendaSession({
       ]
         .filter(Boolean)
         .join(" ")}
+      data-tone={tone}
     >
       <details data-agenda-session>
         <summary className={item.time ? styles.timed : undefined}>
           {item.time && (
             <span className={styles.time}>
-              <time dateTime={item.time}>{item.time}</time>
-              {end && (
-                <span className={styles.endTime}>
-                  <span aria-hidden="true">– </span>
-                  <span className={styles.srOnly}> to </span>
-                  <time dateTime={end}>{end}</time>
+              <span className={styles.timeRange}>
+                <time dateTime={item.time}>{item.time}</time>
+                {end && (
+                  <>
+                    <span aria-hidden="true"> – </span>
+                    <span className={styles.srOnly}> to </span>
+                    <time dateTime={end}>{end}</time>
+                  </>
+                )}
+              </span>
+              {item.durationMinutes && (
+                <span className={styles.timeDuration}>
+                  {item.durationMinutes} {copy.durationLabel}
                 </span>
               )}
             </span>
@@ -211,7 +269,7 @@ export default function AgendaSession({
                 {organization}
               </span>
             )}
-            {showHall && item.hall && <span className={styles.stripSchedule}>{item.hall}</span>}
+            {showHall && item.hall && <span className={styles.stripSchedule}>{hallLabel}</span>}
             {showPanelLineup && (
               <span className={styles.lineup}>
                 {item.people.map((person) => (

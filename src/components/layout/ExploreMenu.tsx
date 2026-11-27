@@ -19,6 +19,7 @@ export default function ExploreMenu({ id, open, pathname, onNavigate }: Props) {
       label: "Attend",
       tone: "blue",
       links: [
+        { href: "/pass", label: "Passport", icon: "qr" },
         { href: "/venue", label: "Venue", icon: "venue" },
         { href: "/faq", label: "FAQ", icon: "help" },
         { href: "/ambassadors", label: "Ambassadors", icon: "people" },

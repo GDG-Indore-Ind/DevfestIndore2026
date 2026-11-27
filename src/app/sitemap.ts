@@ -16,8 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     entry("", "weekly", 1.0),
+    entry("/pass", "weekly", 0.9),
     entry("/tickets", "weekly", 0.9),
-    entry("/flight-deck", "weekly", 0.8),
     entry("/badge", "weekly", 0.8),
     entry("/agenda", "weekly", 0.9),
     ...["/faq", "/partners", "/venue", "/ambassadors"].map((path) => entry(path, "weekly", 0.8)),

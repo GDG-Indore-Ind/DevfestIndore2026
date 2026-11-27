@@ -1,5 +1,6 @@
 export const redirects = [
   { source: "/tickets/:path+", destination: "/tickets", permanent: true },
+  { source: "/flight-deck", destination: "/tickets", permanent: true },
   { source: "/events", destination: "/archive#workshops", permanent: true },
   { source: "/workshops", destination: "/agenda#workshops", permanent: true },
   { source: "/agenda/workshops", destination: "/agenda#workshops", permanent: true },

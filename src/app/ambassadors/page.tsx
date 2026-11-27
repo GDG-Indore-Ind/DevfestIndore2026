@@ -1,10 +1,7 @@
 import CommunityPage from "@/components/layout/CommunityPage";
-import ContentAction from "@/components/shared/ContentAction";
 import SectionHeader from "@/components/shared/SectionHeader";
-import NumberedSteps from "@/components/shared/NumberedSteps";
-import PersonRoster from "@/components/shared/PersonRoster";
+import PersonRoster, { type RosterPerson } from "@/components/shared/PersonRoster";
 import PageSectionNavigation from "@/components/shared/PageSectionNavigation";
-import { TICKET_REGISTRATION_ENABLED } from "@/content/booking";
 import { AMBASSADOR_DIRECTORY } from "@/content/ambassadors";
 import { AMBASSADORS_PAGE as page } from "@/content/pages";
 import { pageMetadata } from "@/lib/pageMetadata";
@@ -12,6 +9,8 @@ import AmbassadorSearch from "./AmbassadorSearch";
 import styles from "./page.module.css";
 
 export const metadata = pageMetadata("/ambassadors", page.title, page.description);
+
+const WINNER_IDS = ["chaitanya-swaroop-vishwakarma", "madhav-ratnawat", "ishaan-agrawal"] as const;
 
 export default function AmbassadorsPage() {
   const ambassadors = AMBASSADOR_DIRECTORY.map(({ person, community, socials, track }) => ({
@@ -23,37 +22,39 @@ export default function AmbassadorsPage() {
       meta: community,
       socials,
       href: `/people/${person.id}`,
-    },
+    } satisfies RosterPerson,
   }));
+
+  const winners: RosterPerson[] = WINNER_IDS.flatMap((id) => {
+    const match = ambassadors.find(({ profile }) => profile.id === id);
+    return match ? [{ ...match.profile, badge: "Winner", highlight: "gold" }] : [];
+  });
   const professionals = ambassadors.filter(({ track }) => track === "professional");
   const students = ambassadors.filter(({ track }) => track === "student");
 
   return (
     <CommunityPage compact motif="people" title={page.title} lead={page.lead}>
       <PageSectionNavigation label="Ambassador directory">
-        <a href="#ambassador-steps">{page.stepsTitle}</a>
+        {winners.length > 0 && <a href="#ambassador-winners">{page.winnersTitle}</a>}
         <a href="#ambassador-directory-title">{page.directoryTitle}</a>
         {professionals.length > 0 && (
           <a href="#professional-contact-title">{page.professionalNavLabel}</a>
         )}
       </PageSectionNavigation>
-      <section
-        id="ambassador-steps"
-        className={styles.block}
-        aria-labelledby="ambassador-steps-title"
-      >
-        <SectionHeader id="ambassador-steps-title" title={page.stepsTitle} />
-        <NumberedSteps
-          steps={page.steps}
-          lastAction={
-            TICKET_REGISTRATION_ENABLED && (
-              <ContentAction href="/tickets#registration" icon="tickets">
-                {page.ticketsLabel}
-              </ContentAction>
-            )
-          }
-        />
-      </section>
+      {winners.length > 0 && (
+        <section
+          id="ambassador-winners"
+          className={styles.block}
+          aria-labelledby="ambassador-winners-title"
+        >
+          <SectionHeader
+            id="ambassador-winners-title"
+            title={page.winnersTitle}
+            lead={page.winnersLead}
+          />
+          <PersonRoster people={winners} />
+        </section>
+      )}
       <section className={styles.block} aria-labelledby="ambassador-directory-title">
         <SectionHeader
           id="ambassador-directory-title"

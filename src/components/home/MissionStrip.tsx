@@ -19,7 +19,7 @@ export default function MissionStrip() {
             <p>{SITE.missionsEnabled ? copy.text : copy.badgeOnlyText}</p>
           </div>
           <div className={styles.actions}>
-            <Link href="/badge" className="audience-button space-primary-button">
+            <Link href="/badge" className="audience-button">
               <Sparkles className="audience-icon" aria-hidden="true" />
               {copy.badgeLabel}
             </Link>

@@ -50,9 +50,9 @@ export default function CurrentTicketOffer() {
             <h2 id="sold-out-title">{page.soldOutTitle}</h2>
             <p>{page.soldOutText}</p>
             <ul>
-              <li>{page.soldOutFlightDeck}</li>
-              <li>{page.soldOutLastOrbit}</li>
-              <li>{page.soldOutObserver}</li>
+              {passes.some((pass) => pass.id === "vip") && <li>{page.soldOutFlightDeck}</li>}
+              {passes.some((pass) => pass.id === "last-orbit") && <li>{page.soldOutLastOrbit}</li>}
+              {passes.some((pass) => pass.id === "observer") && <li>{page.soldOutObserver}</li>}
             </ul>
             <p>{page.soldOutPrizes}</p>
           </aside>

@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/home/HeroSection";
+import PassportStrip from "@/components/home/PassportStrip";
 import ExploreSection from "@/components/home/ExploreSection";
 import AgendaPreview from "@/components/home/AgendaPreview";
 import CommunitySupporters from "@/components/home/CommunitySupporters";
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
 // Rail stops follow the page order; the ticket strip only appears while passes are open.
 const flightStops = [
   { id: "hero", label: "Launch" },
+  { id: "passport", label: "Passport" },
   { id: "flow", label: "Themes" },
   { id: "agenda-preview", label: "Speakers" },
   { id: "sponsors", label: "Partners" },
@@ -46,6 +48,7 @@ export default function Home() {
         <div id="hero">
           <HeroSection />
         </div>
+        <PassportStrip />
         <ExploreSection />
         <AgendaPreview />
         <div id="sponsors">

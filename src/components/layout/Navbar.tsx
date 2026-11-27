@@ -84,7 +84,20 @@ export default function Navbar({ flightStops }: NavbarProps) {
           </Link>
 
           <div className={`header-utilities ${styles.utilities}`}>
-            <Link href="/agenda" className={`space-header-programme ${styles.programme}`}>
+            <Link
+              href="/pass"
+              className={`space-header-programme ${styles.programme}`}
+              aria-current={pathname === "/pass" ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              Passport
+            </Link>
+            <Link
+              href="/agenda"
+              className={`space-header-programme ${styles.programme}`}
+              aria-current={pathname === "/agenda" ? "page" : undefined}
+              onClick={() => setOpen(false)}
+            >
               Agenda
             </Link>
             <button
