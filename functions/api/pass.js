@@ -1,14 +1,19 @@
 /**
  * POST /api/pass — the event-day passport (Cloudflare Pages Function, D1 bound as `DB`).
  *
- * Body: { email, name?, code? }
- * - Unknown email without a name returns { status: "needs_name" } so the page can ask for a name.
- * - Unknown email with a name starts a passport.
+ * Attendee body: { bookingId, code? }
+ * - A passport exists only for an imported KonfHub booking ID or one the desk created.
+ *   Unknown booking IDs return { status: "not_found" }; there is no self-signup.
  * - A code records a check-in when its activity window is open (repeat scans are harmless).
- * Every successful call returns the attendee's passport. See docs/pass.md.
+ * Staff body: { staffAction, staffKey, ... } — see STAFF_ACTIONS. Organizer body: { adminAction: "stats", password }.
+ * Every successful passport call returns the passport. See docs/pass.md.
  */
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const BOOKING_PATTERN = /^[A-Z0-9][A-Z0-9._/-]{3,63}$/;
+const CODE_PATTERN = /^[A-Z0-9]{6}$/;
+const STAFF_ACTIONS = new Set(["search", "lookup", "arrive", "swag", "activity"]);
+const MISSION_LABELS = { "cake-wallet": "Cake Wallet", "space-club": "Space Club of India" };
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -19,9 +24,9 @@ const json = (body, status = 200) =>
 const text = (value, max) =>
   typeof value === "string" ? value.replace(/\s+/g, " ").trim().slice(0, max) : "";
 
-const CODE_PATTERN = /^[A-Z0-9]{6}$/;
-const STAFF_ACTIONS = new Set(["lookup", "arrive", "swag", "activity"]);
-const MISSION_LABELS = { "cake-wallet": "Cake Wallet", "space-club": "Space Club of India" };
+/** KonfHub booking IDs are compared without spaces and case, so typed IDs still match. */
+const bookingKey = (value) =>
+  typeof value === "string" ? value.replace(/\s+/g, "").toUpperCase().slice(0, 64) : "";
 
 async function validKey(candidate, secret) {
   if (typeof candidate !== "string" || candidate.length > 256 || !secret) return false;
@@ -58,17 +63,17 @@ async function organizerStats(password, env) {
         FROM activities a
         LEFT JOIN special_missions m ON m.code = a.code
         LEFT JOIN passport_mission_steps s ON s.code = a.code
-        LEFT JOIN checkins c ON c.code = a.code
+        LEFT JOIN stamps c ON c.code = a.code
         GROUP BY a.code
         ORDER BY a.opens_at IS NULL, a.opens_at, a.title, a.code
       `),
       env.DB.prepare(`
         SELECT datetime('now') AS asOf,
-               (SELECT count(*) FROM passport_desk) AS arrivals,
-               (SELECT count(*) FROM passport_desk WHERE swag_at IS NOT NULL) AS swagHandovers,
-               (SELECT count(*) FROM checkins) AS checkins,
-               (SELECT count(DISTINCT email) FROM checkins) AS participants,
-               (SELECT count(DISTINCT c.email) FROM checkins c
+               (SELECT count(*) FROM desk) AS arrivals,
+               (SELECT count(*) FROM desk WHERE swag_at IS NOT NULL) AS swagHandovers,
+               (SELECT count(*) FROM stamps) AS checkins,
+               (SELECT count(DISTINCT booking_id) FROM stamps) AS participants,
+               (SELECT count(DISTINCT c.booking_id) FROM stamps c
                 JOIN activities a ON a.code = c.code WHERE a.kind = 'feedback') AS feedbackCheckins
       `),
     ]);
@@ -83,12 +88,26 @@ async function organizerStats(password, env) {
   }
 }
 
+/** Staff only: find booking IDs by exact email or part of a name, for attendees who lost their ID. */
+async function searchPassports(db, query) {
+  const value = text(query, 254).toLowerCase();
+  const byEmail = value.includes("@");
+  if (byEmail ? !EMAIL_PATTERN.test(value) : value.length < 3)
+    return json({ status: "invalid_search" }, 400);
+  const { results } = await db
+    .prepare(
+      `SELECT booking_id AS bookingId, name, email, pass FROM passports
+       WHERE ${byEmail ? "email = ?" : "lower(name) LIKE '%' || ? || '%'"}
+       ORDER BY name, booking_id LIMIT 20`,
+    )
+    .bind(value)
+    .all();
+  return json({ status: "ok", matches: results });
+}
+
 export async function onRequestPost({ request, env }) {
   const body = await request.json().catch(() => null);
   if (body?.adminAction === "stats") return organizerStats(body.password, env);
-  const email = text(body?.email, 254).toLowerCase();
-  const name = text(body?.name, 80);
-  const code = typeof body?.code === "string" ? body.code.trim().toUpperCase() : "";
   const staffAction = body?.staffAction;
   if (
     staffAction &&
@@ -97,32 +116,40 @@ export async function onRequestPost({ request, env }) {
       !(await validKey(body.staffKey, env.PASS_STAFF_KEY)))
   )
     return json({ status: "unauthorized" }, 401);
-  if ((code || staffAction === "activity") && !CODE_PATTERN.test(code))
-    return json({ status: "invalid_code" }, 400);
-
-  if (!EMAIL_PATTERN.test(email)) return json({ status: "invalid_email" }, 400);
 
   const db = env.DB;
   if (!db) return json({ status: "error", message: "Passport database is not bound." }, 500);
 
   try {
-    let attendee = await db
-      .prepare("SELECT name, pass FROM attendees WHERE email = ?")
-      .bind(email)
-      .first();
+    if (staffAction === "search") return await searchPassports(db, body.query);
 
-    if (!attendee) {
-      if (!name || (staffAction && staffAction !== "arrive")) return json({ status: "needs_name" });
+    const bookingId = bookingKey(body?.bookingId);
+    const code = typeof body?.code === "string" ? body.code.trim().toUpperCase() : "";
+    if (!BOOKING_PATTERN.test(bookingId)) return json({ status: "invalid_booking" }, 400);
+    if ((code || staffAction === "activity") && !CODE_PATTERN.test(code))
+      return json({ status: "invalid_code" }, 400);
+
+    const findPassport = () =>
+      db
+        .prepare("SELECT name, email, pass FROM passports WHERE booking_id = ?")
+        .bind(bookingId)
+        .first();
+    let passport = await findPassport();
+
+    if (!passport) {
+      // Only the desk can add a passport, for a ticket bought after the last roster import.
+      if (staffAction !== "arrive") return json({ status: "not_found" }, 404);
+      const name = text(body.name, 80);
+      const email = text(body.email, 254).toLowerCase();
+      if (!name) return json({ status: "needs_name" });
+      if (email && !EMAIL_PATTERN.test(email)) return json({ status: "invalid_email" }, 400);
       await db
         .prepare(
-          "INSERT INTO attendees (email, name, pass) VALUES (?, ?, 'Passport') ON CONFLICT (email) DO NOTHING",
+          "INSERT INTO passports (booking_id, name, email, pass) VALUES (?, ?, ?, 'Walk-in') ON CONFLICT (booking_id) DO NOTHING",
         )
-        .bind(email, name)
+        .bind(bookingId, name, email)
         .run();
-      attendee = await db
-        .prepare("SELECT name, pass FROM attendees WHERE email = ?")
-        .bind(email)
-        .first();
+      passport = await findPassport();
     }
 
     let desk;
@@ -130,24 +157,22 @@ export async function onRequestPost({ request, env }) {
     if (staffAction) {
       if (staffAction === "arrive") {
         await db
-          .prepare("INSERT INTO passport_desk (email) VALUES (?) ON CONFLICT DO NOTHING")
-          .bind(email)
+          .prepare("INSERT INTO desk (booking_id) VALUES (?) ON CONFLICT DO NOTHING")
+          .bind(bookingId)
           .run();
       }
       if (staffAction === "swag") {
         const result = await db
           .prepare(
-            "UPDATE passport_desk SET swag_at = datetime('now') WHERE email = ? AND swag_at IS NULL",
+            "UPDATE desk SET swag_at = datetime('now') WHERE booking_id = ? AND swag_at IS NULL",
           )
-          .bind(email)
+          .bind(bookingId)
           .run();
         swagRecorded = result.meta.changes > 0;
       }
       desk = await db
-        .prepare(
-          "SELECT arrived_at AS arrivedAt, swag_at AS swagAt FROM passport_desk WHERE email = ?",
-        )
-        .bind(email)
+        .prepare("SELECT arrived_at AS arrivedAt, swag_at AS swagAt FROM desk WHERE booking_id = ?")
+        .bind(bookingId)
         .first();
       if (staffAction === "swag" && !desk) return json({ status: "arrival_required" }, 409);
     }
@@ -176,8 +201,8 @@ export async function onRequestPost({ request, env }) {
         };
       } else {
         const insert = await db
-          .prepare("INSERT INTO checkins (email, code) VALUES (?, ?) ON CONFLICT DO NOTHING")
-          .bind(email, code)
+          .prepare("INSERT INTO stamps (booking_id, code) VALUES (?, ?) ON CONFLICT DO NOTHING")
+          .bind(bookingId, code)
           .run();
         stamp = {
           result: insert.meta.changes > 0 ? "added" : "already",
@@ -192,37 +217,38 @@ export async function onRequestPost({ request, env }) {
       db
         .prepare(
           `SELECT a.title, a.kind, c.checked_in_at AS at
-           FROM checkins c JOIN activities a ON a.code = c.code
-           WHERE c.email = ?
+           FROM stamps c JOIN activities a ON a.code = c.code
+           WHERE c.booking_id = ?
            UNION ALL
-           SELECT 'Event arrival', 'arrival', arrived_at AS at FROM passport_desk WHERE email = ?
+           SELECT 'Event arrival', 'arrival', arrived_at AS at FROM desk WHERE booking_id = ?
            ORDER BY at, title`,
         )
-        .bind(email, email),
+        .bind(bookingId, bookingId),
       db
         .prepare(
           `SELECT a.title, c.code IS NOT NULL AS done FROM special_missions m
-        JOIN activities a ON a.code = m.code LEFT JOIN checkins c ON c.code = m.code AND c.email = ?
-        ORDER BY a.title, a.code`,
+           JOIN activities a ON a.code = m.code
+           LEFT JOIN stamps c ON c.code = m.code AND c.booking_id = ?
+           ORDER BY a.title, a.code`,
         )
-        .bind(email),
+        .bind(bookingId),
       db
         .prepare(
           `SELECT s.mission, s.required, a.title, c.code IS NOT NULL AS done
            FROM passport_mission_steps s JOIN activities a ON a.code = s.code
-           LEFT JOIN checkins c ON c.code = s.code AND c.email = ?
+           LEFT JOIN stamps c ON c.code = s.code AND c.booking_id = ?
            ORDER BY s.position, a.title`,
         )
-        .bind(email),
+        .bind(bookingId),
       db
         .prepare(
           `SELECT a.title, a.opens_at AS opensAt, a.closes_at AS closesAt,
                   c.code IS NOT NULL AS done
            FROM activities a
-           LEFT JOIN checkins c ON c.code = a.code AND c.email = ?
+           LEFT JOIN stamps c ON c.code = a.code AND c.booking_id = ?
            WHERE a.kind = 'feedback' ORDER BY a.title`,
         )
-        .bind(email),
+        .bind(bookingId),
     ]);
 
     const stamps = stampRows.results;
@@ -254,21 +280,18 @@ export async function onRequestPost({ request, env }) {
       });
     return json({
       status: "ok",
-      firstName: attendee.name.split(" ")[0],
-      email,
-      pass: attendee.pass,
+      bookingId,
+      name: passport.name,
+      firstName: passport.name.split(" ")[0],
+      email: passport.email,
+      pass: passport.pass,
       stamp,
       stamps,
       activityCount: stamps.length,
       missions,
       required,
       ...(staffAction && {
-        staff: {
-          name: attendee.name,
-          arrivedAt: desk?.arrivedAt,
-          swagAt: desk?.swagAt,
-          swagRecorded,
-        },
+        staff: { arrivedAt: desk?.arrivedAt, swagAt: desk?.swagAt, swagRecorded },
       }),
     });
   } catch (error) {

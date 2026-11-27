@@ -13,7 +13,7 @@ import styles from "./passport.module.css";
 export const metadata = pageMetadata(
   "/pass",
   "DevFest Passport",
-  "Your stateless event-day passport for DevFest Indore 2026. Scan activity QRs, collect stamps, and complete special missions.",
+  "Your event-day passport for DevFest Indore 2026. Scan activity QRs, collect stamps, and complete special missions.",
 );
 
 export default function PassportPage() {
@@ -43,7 +43,9 @@ export default function PassportPage() {
                   </span>
                   <div>
                     <h2 id="guide-title">How to collect stamps</h2>
-                    <p>No app install needed. Everything syncs with your email.</p>
+                    <p>
+                      No app install needed. Sign in with the booking ID from your ticket email.
+                    </p>
                   </div>
                 </div>
                 <ol className={styles.steps}>
@@ -117,7 +119,7 @@ export default function PassportPage() {
                   <Sparkles className="audience-icon" aria-hidden="true" />
                   <span>
                     <ScanQrCode className="sr-only" aria-hidden="true" />
-                    Stamps are tied to your email so you can switch devices any time.
+                    Stamps are tied to your booking ID, so you can switch devices any time.
                   </span>
                 </div>
               </aside>

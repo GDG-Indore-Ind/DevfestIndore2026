@@ -94,8 +94,11 @@
   border-color: var(--audience-blue);
 }
 
-.walkin {
-  margin-top: var(--layout-space-2);
+.identity {
+  margin: var(--layout-space-2) 0 0;
+  color: var(--audience-muted);
+  font-size: var(--text-14);
+  overflow-wrap: anywhere;
 }
 
 .submitButton {

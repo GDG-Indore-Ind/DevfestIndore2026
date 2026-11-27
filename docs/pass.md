@@ -4,24 +4,26 @@ Every distinct activity QR scan adds one to the attendee’s total. Selected act
 appear on the special-mission checklist. A booth volunteer can show the QR after a demo.
 Scanning it again leaves the total unchanged. Gate registration stays with KonfHub.
 
-The signed-in passport shows the attendee's first name, activity score, completed mission count
+Attendees sign in with their KonfHub booking ID. Each ticket has its own ID, so every member of a group
+booking has a separate passport even when they share an email. Only imported bookings (and walk-ins the
+desk creates) can sign in; there is no self-signup. The signed-in passport shows the attendee's name, email, booking ID, activity score, completed mission count
 and last sync time. The score is one point per distinct activity, including a special mission's
 activity. The signed-in page shows the required IIST check-in and end-of-event feedback, plus expandable mission steps.
 Staff record arrival and swag handover at `/pass-desk`. Arrival adds a stamp. Swag status is returned only to the desk.
 
 This is the one exception to the static-only setup: a Cloudflare Pages Function with a D1 database.
-It holds attendee names and emails, so it is separate from `content/devfest.sqlite` and is
+It holds attendee names, emails and booking IDs, so it is separate from `content/devfest.sqlite` and is
 deleted after the event.
 
 | Part | File |
 | --- | --- |
 | Attendee page | `src/app/pass/page.tsx` → `/pass` |
-| Staff desk | `public/pass-desk.html` → `/pass-desk` |
+| Staff desk | `src/app/pass-desk/page.tsx` → `/pass-desk` |
 | Organizer dashboard | `src/app/pass-admin/page.tsx` → `/pass-admin` |
 | API (`POST /api/pass`) | `functions/api/pass.js` |
 | D1 schema and mission selection | `cloudflare/pass-schema.sql` |
 | Activity codes, SQL and printable QR cards | `scripts/pass-activities.mjs` ← `local/pass/activities.csv` |
-| KonfHub export → attendee SQL | `scripts/pass-attendees.mjs` |
+| KonfHub export → passport SQL | `scripts/pass-attendees.mjs` |
 
 Everything under `local/pass/` is ignored by Git. It holds the ops timetable, the KonfHub export and
 generated SQL with personal data. Both repositories are public, so never commit these files.
@@ -39,10 +41,13 @@ Run these from the repository root, signed in to the Cloudflare account that own
    `npx wrangler d1 execute devfest-pass --remote --file=local/pass/activities.sql`.
    Codes are created once and kept, so rerunning after a time change doesn't invalidate printed cards.
    Print `local/pass/cards.html` (A5, one card per page) or use the individual PNGs in `local/pass/qr-cards/`.
-5. Optional roster prefill (attendees can start with their own name and email): save the KonfHub attendee export as `local/pass/konfhub.csv`, then run
-   `npm run pass:attendees -- local/pass/konfhub.csv` and execute `local/pass/attendees.sql` the same way.
-   The script prints the columns it chose. Override them with `--email`, `--name` or `--pass` if they're wrong.
-   Rerun it on the morning of the event, because sales continue until then. Upserts keep existing check-ins.
+5. Import the roster (required: only imported booking IDs can sign in). Save the KonfHub attendee export as
+   `local/pass/konfhub.csv`, then run `npm run pass:attendees -- local/pass/konfhub.csv` and execute
+   `local/pass/attendees.sql` the same way. The script prints the columns it chose. Override them with
+   `--booking`, `--email`, `--name` or `--pass` if they're wrong. It stops if one booking ID belongs to
+   several names, which means the column is a group order ID rather than the per-ticket ID.
+   Rerun it on the morning of the event and during the day, because sales continue. Upserts keep existing stamps.
+   A ticket bought after the last import can still get a passport at the desk.
 6. Put the Google Form’s public URL in `PASS_FEEDBACK_FORM_URL` in Pages to show it in Passport.
    Set the same variable when running `npm run pass:activities` to print a feedback QR that opens the form.
    Share the six-character code from `local/pass/feedback-confirmation.txt` after attendees submit
@@ -53,22 +58,24 @@ Run these from the repository root, signed in to the Cloudflare account that own
 7. Set `PASS_STAFF_KEY` as an encrypted Pages secret in each environment that uses the desk. Use at least 24 random characters (for example, from `openssl rand -hex 24`) and share the key with desk staff only. The page is unlisted and the API checks the key on every staff request.
 8. To enable the organizer dashboard, set `PASS_ADMIN_PASSWORD` as a separate encrypted Pages secret.
    The dashboard checks this secret on each request and returns aggregate counts.
-9. Optional: add a Cloudflare rate limiting rule on `/api/pass`. Keep it generous (for example
-   100 requests per 10 seconds per IP), because venue Wi-Fi and mobile carriers put many phones
-   behind one IP address.
+9. Add a Cloudflare rate limiting rule on `/api/pass`. The booking ID is the attendee's only
+   credential, so this limits guessing. Keep it generous (for example 100 requests per 10 seconds
+   per IP), because venue Wi-Fi and mobile carriers put many phones behind one IP address.
 
-Deploy through the usual PR and preview. On the preview's `/pass`, sign in with a seeded email
+Deploy through the usual PR and preview. On the preview's `/pass`, sign in with an imported booking ID
 and type a code whose window is open. To test outside the event hours, add a temporary activity:
 `INSERT INTO activities VALUES ('TEST01', 'Test', 'session', NULL, NULL)`. Delete it and its
 check-ins afterwards.
 
 ## How it behaves
 
-- First-time participants enter their name and email. Returning participants use the same email.
-- Each activity code counts once per email. The API also returns the mission checklist without exposing unscanned codes.
+- Participants enter their booking ID on each new device. An unknown ID is refused with a pointer to the desk.
+- The desk opens a passport by booking ID, or searches by ticket email or part of a name when the ID is lost
+  (check photo ID before choosing). For a ticket missing from the roster it creates a walk-in passport and records arrival.
+- Each activity code counts once per booking ID. The API also returns the mission checklist without exposing unscanned codes.
 - Scheduled session and workshop check-ins open 15 minutes before the agenda start and close 15 minutes after the agenda end. Booth and feedback times are exact when supplied. Blank times mean the full event date. Input is IST, and D1 compares UTC timestamps.
 - The phone queues codes during connection loss and retries while the page is open. The server checks the activity window when it receives a scan.
-- Completion records a scan. Email ownership and physical presence are not verified.
+- Completion records a scan. Anyone holding a booking ID can open that passport; physical presence is not verified.
 
 ## Organizer counts
 
@@ -84,21 +91,21 @@ The mission, step and desk tables preserve existing codes and check-ins. Run thi
 in the D1 console to include activities with zero scans:
 
 ```sql
-SELECT a.title, a.kind, (m.code IS NOT NULL OR s.code IS NOT NULL) AS special_mission, count(c.email) AS participants
+SELECT a.title, a.kind, (m.code IS NOT NULL OR s.code IS NOT NULL) AS special_mission, count(c.booking_id) AS participants
 FROM activities a
 LEFT JOIN special_missions m ON m.code = a.code
 LEFT JOIN passport_mission_steps s ON s.code = a.code
-LEFT JOIN checkins c ON c.code = a.code
+LEFT JOIN stamps c ON c.code = a.code
 GROUP BY a.code
 ORDER BY participants DESC, a.title;
 ```
 
 ## After the event
 
-1. Save the aggregate numbers you want (check-ins per activity, mission completions). Don't export emails.
+1. Save the aggregate numbers you want (check-ins per activity, mission completions). Don't export emails or booking IDs.
 2. Delete the database with `npx wrangler d1 delete devfest-pass` and remove the `DB` binding.
 3. Delete `local/pass/konfhub.csv` and `local/pass/attendees.sql`.
-4. Remove `functions/`, `src/app/pass/`, `public/pass-desk.html`, `src/app/pass-admin/` and the passport scripts in a PR, or keep them for the next edition.
+4. Remove `functions/`, `src/app/pass/`, `src/app/pass-desk/`, `src/app/pass-admin/` and the passport scripts in a PR, or keep them for the next edition.
 
 ## Local testing
 

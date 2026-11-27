@@ -1,14 +1,20 @@
 -- Event-day passport for DevFest Indore 2026, stored in the Cloudflare D1 database bound as `DB`.
 -- Apply with: npx wrangler d1 execute devfest-pass --remote --file=cloudflare/pass-schema.sql
--- Holds attendee emails and names, so it is separate from the public content database
--- (content/devfest.sqlite) and is deleted after the event. See docs/pass.md.
+-- Holds attendee names, emails and KonfHub booking IDs, so it is separate from the public content
+-- database (content/devfest.sqlite) and is deleted after the event. See docs/pass.md.
+--
+-- A passport belongs to one KonfHub booking ID (one per ticket, so each member of a group booking
+-- has their own). The booking ID is the attendee's sign-in credential; several passports can share
+-- an email address.
 
-CREATE TABLE IF NOT EXISTS attendees (
-  email TEXT PRIMARY KEY,                -- trimmed and lower-cased
+CREATE TABLE IF NOT EXISTS passports (
+  booking_id TEXT PRIMARY KEY,           -- upper-cased KonfHub booking ID
   name TEXT NOT NULL,
-  pass TEXT NOT NULL,                    -- optional imported ticket label or 'Passport' for self-signup
+  email TEXT NOT NULL DEFAULT '',        -- lower-cased; shared by group bookings
+  pass TEXT NOT NULL,                    -- ticket name from KonfHub, or 'Walk-in' for desk-created passports
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+CREATE INDEX IF NOT EXISTS passports_email ON passports (email);
 
 CREATE TABLE IF NOT EXISTS activities (
   code TEXT PRIMARY KEY,                 -- random, printed on the QR card
@@ -18,11 +24,11 @@ CREATE TABLE IF NOT EXISTS activities (
   closes_at TEXT
 );
 
-CREATE TABLE IF NOT EXISTS checkins (
-  email TEXT NOT NULL REFERENCES attendees (email),
+CREATE TABLE IF NOT EXISTS stamps (
+  booking_id TEXT NOT NULL REFERENCES passports (booking_id),
   code TEXT NOT NULL REFERENCES activities (code),
   checked_in_at TEXT NOT NULL DEFAULT (datetime('now')),
-  PRIMARY KEY (email, code)
+  PRIMARY KEY (booking_id, code)
 );
 
 CREATE TABLE IF NOT EXISTS special_missions (
@@ -36,8 +42,8 @@ CREATE TABLE IF NOT EXISTS passport_mission_steps (
   required INTEGER NOT NULL DEFAULT 0 CHECK (required IN (0, 1))
 );
 
-CREATE TABLE IF NOT EXISTS passport_desk (
-  email TEXT PRIMARY KEY REFERENCES attendees (email),
+CREATE TABLE IF NOT EXISTS desk (
+  booking_id TEXT PRIMARY KEY REFERENCES passports (booking_id),
   arrived_at TEXT NOT NULL DEFAULT (datetime('now')),
   swag_at TEXT
 );

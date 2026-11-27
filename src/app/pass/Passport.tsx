@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode, type SubmitEv
 import { Award, Check, Circle, Clock, QrCode, Sparkles } from "lucide-react";
 import styles from "./passport.module.css";
 
-const EMAIL_KEY = "devfest-pass-email";
+const BOOKING_KEY = "devfest-pass-booking";
 const QUEUE_KEY = "devfest-pass-queue";
 const kinds = {
   session: "Session or workshop",
@@ -37,7 +37,10 @@ type Result = {
 };
 type Profile = {
   status: "ok";
+  bookingId: string;
+  name: string;
   firstName: string;
+  email: string;
   pass?: string;
   activityCount: number;
   stamps: Stamp[];
@@ -130,13 +133,12 @@ function ActivityRow({
 
 export default function Passport() {
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [email, setEmail] = useState("");
-  const [needsName, setNeedsName] = useState(false);
+  const [bookingId, setBookingId] = useState("");
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [synced, setSynced] = useState("");
   const queue = useRef<string[]>([]);
-  const savedEmail = useRef("");
+  const savedBooking = useRef("");
   const active = useRef<AbortController | null>(null);
 
   const saveQueue = useCallback((codes: string[]) => {
@@ -144,13 +146,13 @@ export default function Passport() {
     write(QUEUE_KEY, codes.length ? JSON.stringify(codes) : "");
   }, []);
 
-  const rememberEmail = useCallback((value: string) => {
-    savedEmail.current = value;
-    write(EMAIL_KEY, value);
+  const rememberBooking = useCallback((value: string) => {
+    savedBooking.current = value;
+    write(BOOKING_KEY, value);
   }, []);
 
   const sync = useCallback(
-    async (address: string, name?: string) => {
+    async (booking: string) => {
       if (active.current) return;
       const controller = new AbortController();
       active.current = controller;
@@ -163,28 +165,28 @@ export default function Passport() {
           const response = await fetch("/api/pass", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: address, name, code }),
+            body: JSON.stringify({ bookingId: booking, code }),
             signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10_000)]),
           });
           const data: Profile | { status: string } = await response.json();
           if (controller.signal.aborted) return;
-          if (data.status === "needs_name") {
-            rememberEmail("");
-            setNeedsName(true);
-            setNotice({ text: "Add your name once to open your passport." });
-            return;
-          }
-          if (data.status === "invalid_email") {
-            rememberEmail("");
-            setNeedsName(false);
-            setNotice({ text: "That email doesn't look right. Please check it.", tone: "bad" });
+          if (data.status === "not_found" || data.status === "invalid_booking") {
+            rememberBooking("");
+            setProfile(null);
+            setNotice({
+              text:
+                data.status === "not_found"
+                  ? "We couldn’t find that booking ID. Check your KonfHub ticket email, or visit the registration desk."
+                  : "That doesn’t look like a booking ID. Copy it from your KonfHub ticket email.",
+              tone: "bad",
+            });
             return;
           }
           if (!response.ok || data.status !== "ok" || !("stamps" in data))
             throw new Error("Passport unavailable");
-          rememberEmail(address);
+          rememberBooking(data.bookingId);
+          setBookingId(data.bookingId);
           setProfile(data);
-          setNeedsName(false);
           setSynced(ist.format(new Date()));
           if (code) {
             saveQueue(queue.current.slice(1));
@@ -207,7 +209,7 @@ export default function Passport() {
         }
       }
     },
-    [rememberEmail, saveQueue],
+    [rememberBooking, saveQueue],
   );
 
   useEffect(() => {
@@ -220,11 +222,11 @@ export default function Passport() {
       url.searchParams.delete("c");
       history.replaceState(history.state, "", url);
     }
-    savedEmail.current = read(EMAIL_KEY) || "";
-    setEmail(savedEmail.current);
-    if (savedEmail.current) void sync(savedEmail.current);
+    savedBooking.current = read(BOOKING_KEY) || "";
+    setBookingId(savedBooking.current);
+    if (savedBooking.current) void sync(savedBooking.current);
     else if (code)
-      setNotice({ text: `Code ${code} is ready. Enter your email to save this stamp.` });
+      setNotice({ text: `Code ${code} is ready. Enter your booking ID to save this stamp.` });
     else if (params.has("c"))
       setNotice({
         text: "Activity codes use six letters or numbers. Check the card and try again.",
@@ -232,8 +234,8 @@ export default function Passport() {
       });
 
     function retry() {
-      if (document.visibilityState === "visible" && savedEmail.current && queue.current.length)
-        void sync(savedEmail.current);
+      if (document.visibilityState === "visible" && savedBooking.current && queue.current.length)
+        void sync(savedBooking.current);
     }
     window.addEventListener("online", retry);
     document.addEventListener("visibilitychange", retry);
@@ -247,29 +249,26 @@ export default function Passport() {
 
   function signIn(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    const name = String(new FormData(event.currentTarget).get("name") ?? "").trim();
-    const address = email.trim().toLowerCase();
-    if (!address || active.current) return;
-    setEmail(address);
-    rememberEmail(address);
-    void sync(address, name);
+    const booking = bookingId.replace(/\s+/g, "").toUpperCase();
+    if (!booking || active.current) return;
+    setBookingId(booking);
+    void sync(booking);
   }
 
   function addStamp(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const code = clean(String(new FormData(event.currentTarget).get("code") ?? ""));
-    if (!code || !savedEmail.current || active.current) return;
+    if (!code || !savedBooking.current || active.current) return;
     saveQueue([...new Set([...queue.current, code])]);
     event.currentTarget.reset();
-    void sync(savedEmail.current);
+    void sync(savedBooking.current);
   }
 
-  function switchEmail() {
-    rememberEmail("");
+  function switchBooking() {
+    rememberBooking("");
     saveQueue([]);
     setProfile(null);
-    setEmail("");
-    setNeedsName(false);
+    setBookingId("");
     setNotice(null);
   }
 
@@ -292,40 +291,27 @@ export default function Passport() {
             </span>
             <div>
               <h2 id="signin-title">Open your passport</h2>
-              <p>Use the same email each time so your stamps and missions stay together.</p>
+              <p>
+                Enter the booking ID from your KonfHub ticket email. Each ticket in a group booking
+                has its own ID.
+              </p>
             </div>
           </div>
-          <label className={styles.label} htmlFor="email">
-            Email address
+          <label className={styles.label} htmlFor="booking">
+            Booking ID
           </label>
           <input
-            id="email"
-            className={styles.input}
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            placeholder="you@example.com"
+            id="booking"
+            className={`${styles.input} ${styles.codeInput}`}
+            type="text"
+            autoComplete="off"
+            autoCapitalize="characters"
+            spellCheck={false}
+            maxLength={64}
             required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={bookingId}
+            onChange={(event) => setBookingId(event.target.value)}
           />
-          {needsName && (
-            <div id="walkin" className={styles.walkin}>
-              <label className={styles.label} htmlFor="name">
-                Your name
-              </label>
-              <input
-                id="name"
-                name="name"
-                className={styles.input}
-                type="text"
-                autoComplete="name"
-                placeholder="Full name"
-                maxLength={80}
-                required
-              />
-            </div>
-          )}
           <button
             type="submit"
             className={`audience-button ${styles.submitButton}`}
@@ -341,6 +327,12 @@ export default function Passport() {
               <div>
                 <p className={styles.eyebrow}>Event-day Passport</p>
                 <h2 id="greeting">Hi, {profile.firstName}</h2>
+                <p className={styles.identity}>
+                  {profile.name}
+                  {profile.email && <> · {profile.email}</>}
+                  <br />
+                  Booking ID {profile.bookingId}
+                </p>
               </div>
               {profile.pass && profile.pass !== "Passport" && (
                 <span className={styles.passTag}>{profile.pass}</span>
@@ -528,9 +520,9 @@ export default function Passport() {
             className={`audience-text-link ${styles.switchButton}`}
             id="switch"
             disabled={busy}
-            onClick={switchEmail}
+            onClick={switchBooking}
           >
-            Use a different email
+            Use a different booking ID
           </button>
         </section>
       )}
