@@ -2,21 +2,11 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type ReactNode, type SubmitEvent } from "react";
-import {
-  Award,
-  Check,
-  Circle,
-  Clock,
-  Eye,
-  EyeOff,
-  QrCode,
-  RefreshCw,
-  Sparkles,
-} from "lucide-react";
+import { Award, Check, Circle, Clock, Eye, EyeOff, QrCode, Sparkles } from "lucide-react";
 import styles from "./passport.module.css";
 
 const BOOKING_KEY = "devfest-pass-booking";
-const EMAIL_KEY = "devfest-pass-email";
+const LEGACY_EMAIL_KEY = "devfest-pass-email";
 const QUEUE_KEY = "devfest-pass-queue";
 const PROFILE_KEY = "devfest-pass-profile";
 
@@ -85,7 +75,7 @@ type Profile = {
   bookingId: string;
   name: string;
   firstName: string;
-  email: string;
+  email?: string;
   pass?: string;
   activityCount: number;
   stamps: Stamp[];
@@ -134,7 +124,7 @@ function readQueue() {
   }
 }
 
-function readSnapshot(booking: string, email: string): CachedSnapshot | null {
+function readSnapshot(booking: string): CachedSnapshot | null {
   try {
     const raw = read(PROFILE_KEY);
     if (!raw) return null;
@@ -142,7 +132,6 @@ function readSnapshot(booking: string, email: string): CachedSnapshot | null {
     if (
       parsed?.profile?.status === "ok" &&
       parsed.profile.bookingId === booking &&
-      (!parsed.profile.email || parsed.profile.email.toLowerCase() === email.toLowerCase()) &&
       Array.isArray(parsed.profile.stamps)
     ) {
       return { profile: parsed.profile, synced: parsed.synced || "" };
@@ -247,15 +236,12 @@ function ActivityRow({
 export default function Passport() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [bookingId, setBookingId] = useState("");
-  const [email, setEmail] = useState("");
-  const [needsName, setNeedsName] = useState(false);
   const [showcase, setShowcase] = useState(false);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [synced, setSynced] = useState("");
   const queue = useRef<string[]>([]);
   const savedBooking = useRef("");
-  const savedEmail = useRef("");
   const active = useRef<AbortController | null>(null);
 
   const saveQueue = useCallback((codes: string[]) => {
@@ -263,15 +249,13 @@ export default function Passport() {
     write(QUEUE_KEY, codes.length ? JSON.stringify(codes) : "");
   }, []);
 
-  const rememberCredentials = useCallback((booking: string, address: string) => {
+  const rememberBooking = useCallback((booking: string) => {
     savedBooking.current = booking;
-    savedEmail.current = address;
     write(BOOKING_KEY, booking);
-    write(EMAIL_KEY, address);
   }, []);
 
   const sync = useCallback(
-    async (booking: string, address: string, name?: string) => {
+    async (booking: string) => {
       if (active.current) return;
       const controller = new AbortController();
       active.current = controller;
@@ -284,49 +268,29 @@ export default function Passport() {
           const response = await fetch("/api/pass", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ bookingId: booking, email: address, name, code }),
+            body: JSON.stringify({ bookingId: booking, code }),
             signal: AbortSignal.any([controller.signal, AbortSignal.timeout(10_000)]),
           });
           const data: Profile | { status: string } = await response.json();
           if (controller.signal.aborted) return;
-          if (data.status === "needs_name") {
-            setNeedsName(true);
-            setNotice({
-              text: "New booking ID—add your name once to open your passport.",
-            });
-            return;
-          }
-          if (data.status === "email_mismatch") {
-            rememberCredentials("", "");
+          if (data.status === "not_found" || data.status === "invalid_booking") {
+            rememberBooking("");
             writeSnapshot(null, "");
             setProfile(null);
-            setNeedsName(false);
-            setNotice({
-              text: "That email doesn’t match the ticket for this booking ID. Check your KonfHub email or visit the registration desk.",
-              tone: "bad",
-            });
-            return;
-          }
-          if (data.status === "invalid_booking" || data.status === "invalid_email") {
-            rememberCredentials("", "");
-            setNeedsName(false);
             setNotice({
               text:
-                data.status === "invalid_booking"
-                  ? "That doesn’t look like a booking ID. Copy it from your KonfHub ticket email."
-                  : "That email doesn’t look right. Please check it.",
+                data.status === "not_found"
+                  ? `We couldn’t find booking ID ${booking}. Check your KonfHub ticket email, or visit the help desk to set up your passport.`
+                  : "That doesn’t look like a booking ID. Copy it from your KonfHub ticket email.",
               tone: "bad",
             });
             return;
           }
           if (!response.ok || data.status !== "ok" || !("stamps" in data))
             throw new Error("Passport unavailable");
-          const nextEmail = data.email || address;
           const syncTime = ist.format(new Date());
-          rememberCredentials(data.bookingId, nextEmail);
+          rememberBooking(data.bookingId);
           setBookingId(data.bookingId);
-          setEmail(nextEmail);
-          setNeedsName(false);
           setProfile(data);
           setSynced(syncTime);
           writeSnapshot(data, syncTime);
@@ -341,7 +305,7 @@ export default function Passport() {
           setNotice({
             text: queue.current.length
               ? "Couldn’t reach the passport. Your code is queued on this phone. Reopen the passport with a connection before check-in closes."
-              : "Couldn’t reach the passport. Tap Refresh when you have signal.",
+              : "Couldn’t reach the passport. Try again when you have signal.",
             tone: "wait",
           });
       } finally {
@@ -351,7 +315,7 @@ export default function Passport() {
         }
       }
     },
-    [rememberCredentials, saveQueue],
+    [rememberBooking, saveQueue],
   );
 
   useEffect(() => {
@@ -369,28 +333,27 @@ export default function Passport() {
     }
 
     const storedBooking = read(BOOKING_KEY) || "";
-    const storedEmail = read(EMAIL_KEY) || "";
+    // Earlier versions saved the typed email; sign-in no longer needs it.
+    write(LEGACY_EMAIL_KEY, "");
     savedBooking.current = storedBooking;
-    savedEmail.current = storedEmail;
-    const cached = storedBooking && storedEmail ? readSnapshot(storedBooking, storedEmail) : null;
+    const cached = storedBooking ? readSnapshot(storedBooking) : null;
 
     queueMicrotask(() => {
       if (cancelled) return;
       if (storedBooking) setBookingId(storedBooking);
-      if (storedEmail) setEmail(storedEmail);
       if (cached) {
         setProfile(cached.profile);
         setSynced(cached.synced);
       }
 
-      if (storedBooking && storedEmail) {
+      if (storedBooking) {
         // Only hit D1 on load when there is a pending scan or no local snapshot yet.
         if (nextQueue.length > 0 || !cached) {
-          void sync(storedBooking, storedEmail);
+          void sync(storedBooking);
         }
       } else if (code) {
         setNotice({
-          text: `Code ${code} is ready. Enter your booking ID and email to save this stamp.`,
+          text: `Code ${code} is ready. Enter your booking ID to save this stamp.`,
         });
       } else if (hasCodeParam) {
         setNotice({
@@ -401,13 +364,8 @@ export default function Passport() {
     });
 
     function retry() {
-      if (
-        document.visibilityState === "visible" &&
-        savedBooking.current &&
-        savedEmail.current &&
-        queue.current.length
-      ) {
-        void sync(savedBooking.current, savedEmail.current);
+      if (document.visibilityState === "visible" && savedBooking.current && queue.current.length) {
+        void sync(savedBooking.current);
       }
     }
     window.addEventListener("online", retry);
@@ -424,37 +382,27 @@ export default function Passport() {
   function signIn(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const booking = bookingId.replace(/\s+/g, "").toUpperCase();
-    const address = email.trim().toLowerCase();
-    const name = String(new FormData(event.currentTarget).get("name") ?? "").trim();
-    if (!booking || !address || active.current) return;
+    if (!booking || active.current) return;
     setBookingId(booking);
-    setEmail(address);
-    void sync(booking, address, name || undefined);
+    void sync(booking);
   }
 
   function addStamp(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const code = clean(String(new FormData(event.currentTarget).get("code") ?? ""));
-    if (!code || !savedBooking.current || !savedEmail.current || active.current) return;
+    if (!code || !savedBooking.current || active.current) return;
     saveQueue([...new Set([...queue.current, code])]);
     event.currentTarget.reset();
-    void sync(savedBooking.current, savedEmail.current);
-  }
-
-  function refreshNow() {
-    if (!savedBooking.current || !savedEmail.current || active.current) return;
-    void sync(savedBooking.current, savedEmail.current);
+    void sync(savedBooking.current);
   }
 
   function switchBooking() {
-    rememberCredentials("", "");
+    rememberBooking("");
     writeSnapshot(null, "");
     saveQueue([]);
     setProfile(null);
     setShowcase(false);
     setBookingId("");
-    setEmail("");
-    setNeedsName(false);
     setNotice(null);
   }
 
@@ -478,8 +426,8 @@ export default function Passport() {
             <div>
               <h2 id="signin-title">Open your passport</h2>
               <p>
-                Enter your KonfHub booking ID and email. Each ticket in a group booking has its own
-                ID.
+                Enter the booking ID from your KonfHub ticket. Each ticket in a group booking has
+                its own ID.
               </p>
             </div>
           </div>
@@ -497,43 +445,8 @@ export default function Passport() {
             maxLength={64}
             required
             value={bookingId}
-            onChange={(event) => {
-              setBookingId(event.target.value);
-              setNeedsName(false);
-            }}
+            onChange={(event) => setBookingId(event.target.value)}
           />
-          <label className={styles.label} htmlFor="email">
-            Email address
-          </label>
-          <input
-            id="email"
-            className={styles.input}
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            placeholder="you@example.com"
-            maxLength={254}
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          {needsName && (
-            <div id="walkin" className={styles.walkin}>
-              <label className={styles.label} htmlFor="name">
-                Full name
-              </label>
-              <input
-                id="name"
-                name="name"
-                className={styles.input}
-                type="text"
-                autoComplete="name"
-                placeholder="Your full name"
-                maxLength={80}
-                required
-              />
-            </div>
-          )}
           <button
             type="submit"
             className={`audience-button ${styles.submitButton}`}
@@ -664,15 +577,6 @@ export default function Passport() {
                 <Clock size={14} aria-hidden="true" />
                 {synced ? `Last synced at ${synced} IST` : "Ready"}
               </p>
-              <button
-                type="button"
-                className={styles.refreshButton}
-                disabled={busy}
-                onClick={refreshNow}
-              >
-                <RefreshCw size={14} aria-hidden="true" />
-                {busy ? "Syncing…" : "Refresh"}
-              </button>
             </div>
           </section>
 

@@ -4,10 +4,12 @@ Every distinct activity QR scan adds one to the attendee’s total. Selected act
 appear on the special-mission checklist. A booth volunteer can show the QR after a demo.
 Scanning it again leaves the total unchanged. Gate registration stays with KonfHub.
 
-Attendees sign in with their KonfHub booking ID and email. Each ticket has its own ID, so every
-member of a group booking has a separate passport even when they share an email. Imported bookings
-verify against the stored email; late/post-import tickets prompt once for a name and open a
-passport without waiting at the desk. The signed-in passport shows the attendee's name, email,
+Attendees sign in with their KonfHub booking ID alone. Each ticket has its own ID, so every
+member of a group booking has a separate passport even when they share an email. The booking ID
+opens the name and email imported from KonfHub; anyone holding a booking ID can see that profile.
+Attendees can't create or edit records. An unknown booking ID tells the attendee to visit the help
+desk, where staff add the person or correct a name or email. The signed-in passport
+shows the attendee's name, email,
 booking ID, activity score, completed mission count, last sync time, and an in-app Showcase view
 with hall, track and format tags linked to `/agenda`.
 Staff record arrival and swag handover at `/pass-desk`. Arrival adds a stamp. Swag status is returned only to the desk.
@@ -38,6 +40,7 @@ Run these from the repository root, signed in to the Cloudflare account that own
 2. In the Pages project, open **Settings → Bindings**. Add a D1 binding named `DB` pointing to
    `devfest-pass`, once for **Production** and once for **Preview**. Bindings apply from the next deployment.
 3. Create the tables, indexes and aggregate triggers: `npx wrangler d1 execute devfest-pass --remote --file=cloudflare/pass-schema.sql`
+   Rerunning it on an existing database only adds missing tables, indexes and triggers; it keeps data.
 4. In `local/pass/activities.csv`, use `cake-wallet` or `space-club` in the `mission` column for each step. Leave it blank for regular activities and set `required` to `yes` for the IIST address. For a scheduled row, `agenda_id` links to the published agenda and pulls `format`, `hall`, `track` and slot times automatically. Run `npm run content:generate` after an agenda edit, then regenerate and reimport the activities. Update exhibit, activity and feedback times directly in the CSV. Existing stamps count retroactively. Run `npm run pass:activities` and
    `npx wrangler d1 execute devfest-pass --remote --file=local/pass/activities.sql`.
    Codes are created once and kept, so rerunning after a time change doesn't invalidate printed cards.
@@ -61,15 +64,15 @@ Run these from the repository root, signed in to the Cloudflare account that own
    per IP), because venue Wi-Fi and mobile carriers put many phones behind one IP address.
 
 Deploy through the usual PR and preview. On the preview's `/pass`, sign in with an imported booking ID
-and matching email and type a code whose window is open. To test outside the event hours, add a temporary activity:
+and type a code whose window is open. To test outside the event hours, add a temporary activity:
 `INSERT INTO activities (code, title, kind) VALUES ('TEST01', 'Test', 'session')`. Delete its stamps and the row afterwards.
 
 ## How it behaves
 
-- Participants sign in with booking ID + email on each new device. Pre-imported tickets verify the email; post-import booking IDs ask for a name once.
-- Once signed in, the passport snapshot is stored in `localStorage` so reopening `/pass` to showcase a profile costs zero D1 reads. Live syncs run on sign-in, QR scans, or manual **Refresh**.
-- The desk opens a passport by booking ID, or searches by ticket email or part of a name when the ID is lost (check photo ID before choosing). For a ticket missing from the roster it creates a walk-in passport and records arrival.
-- Each activity code counts once per booking ID. The API caches the `activities` catalog per isolate (60s TTL, auto-reloading on unknown codes) so attendee calls read only that participant's rows.
+- Participants sign in with their booking ID on each new device. Booking IDs missing from the roster are sent to the help desk.
+- Once signed in, the passport snapshot is stored in `localStorage` so reopening `/pass` to showcase a profile costs zero D1 reads. Live syncs run only on sign-in and QR scans; there is no Refresh button. Desk-recorded arrival appears with the attendee's next scan.
+- The desk opens a passport by booking ID only; there is no name or email search. If an attendee has lost their ID, find it in their KonfHub email or the KonfHub dashboard before adding them, to avoid a duplicate walk-in. **Add a new person** (always visible) creates a passport for someone missing from the roster and records arrival. Enter their KonfHub booking ID, or leave it blank to generate a `WALK####` ID for the attendee to sign in with. **Edit name or email** on the attendee card corrects the record (check photo ID before changing a name).
+- Each activity code counts once per booking ID. The API caches the `activities` catalog per isolate (30-minute TTL, auto-reloading on unknown codes, so an edited time window can take up to 30 minutes to apply) so attendee calls read only that participant's rows.
 - Scheduled session and workshop check-ins open 15 minutes before the agenda start and close 15 minutes after the agenda end. Exhibit, activity and feedback times are exact when supplied. Blank times mean the full event date. Input is IST, and D1 compares UTC timestamps.
 - The phone queues codes during connection loss and retries while the page is open. The server checks the activity window when it receives a scan.
 

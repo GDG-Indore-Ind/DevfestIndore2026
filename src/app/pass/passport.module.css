@@ -324,31 +324,6 @@
   font-size: var(--text-12);
 }
 
-.refreshButton {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 36px;
-  padding: 4px 12px;
-  border: 1px solid var(--audience-line);
-  border-radius: var(--corner-pill);
-  background: var(--audience-bg);
-  color: var(--audience-blue);
-  font: inherit;
-  font-size: var(--text-12);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.refreshButton:hover:not(:disabled) {
-  border-color: var(--audience-blue);
-}
-
-.refreshButton:disabled {
-  opacity: 0.55;
-  cursor: wait;
-}
-
 .tagRow {
   display: flex;
   flex-wrap: wrap;

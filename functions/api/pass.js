@@ -1,9 +1,10 @@
 /**
  * POST /api/pass — the event-day passport (Cloudflare Pages Function, D1 bound as `DB`).
  *
- * Attendee body: { bookingId, email, name?, code? }
- * - Imported bookings verify `email` against `passports.email` (or save it when blank).
- * - New bookings bought after the last CSV import prompt once for `name` (`needs_name`) and open a Passport.
+ * Attendee body: { bookingId, code? } — the booking ID alone opens an existing passport
+ *   (name and email from the roster). Unknown IDs return `not_found`; attendees can't create or edit records.
+ * - Only staff create passports (`create` with `name`, optional `email` and `bookingId`; a blank
+ *   booking ID gets a generated WALK#### ID; arrival is recorded) and correct them (`update`).
  * - A code records a stamp when its activity window is open (repeat scans are harmless).
  * Staff body: { staffAction, staffKey, ... } — see STAFF_ACTIONS.
  * Organizer body: { adminAction: "stats", password, force? }.
@@ -13,9 +14,12 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const BOOKING_PATTERN = /^[A-Z0-9][A-Z0-9._/-]{3,63}$/;
 const CODE_PATTERN = /^[A-Z0-9]{6}$/;
-const STAFF_ACTIONS = new Set(["search", "lookup", "arrive", "swag", "activity"]);
+const STAFF_ACTIONS = new Set(["lookup", "create", "arrive", "swag", "activity", "update"]);
+/** Unambiguous characters for generated walk-in booking IDs (no 0/O, 1/I/L). */
+const WALK_IN_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
 const MISSION_LABELS = { "cake-wallet": "Cake Wallet", "space-club": "Space Club of India" };
-const CATALOG_TTL_MS = 60_000;
+// The 29-row catalog is fixed for the event: re-read every 30 minutes per isolate, or on an unknown code.
+const CATALOG_TTL_MS = 30 * 60_000;
 const STATS_TTL_MS = 15_000;
 
 let catalogCache = null;
@@ -33,6 +37,16 @@ const text = (value, max) =>
 /** KonfHub booking IDs are compared without spaces and case, so typed IDs still match. */
 const bookingKey = (value) =>
   typeof value === "string" ? value.replace(/\s+/g, "").toUpperCase().slice(0, 64) : "";
+
+async function freeWalkInId(db) {
+  for (let attempt = 0; attempt < 8; attempt++) {
+    const bytes = crypto.getRandomValues(new Uint8Array(4));
+    const id = "WALK" + [...bytes].map((byte) => WALK_IN_ALPHABET[byte % 31]).join("");
+    const taken = await db.prepare("SELECT 1 FROM passports WHERE booking_id = ?").bind(id).first();
+    if (!taken) return id;
+  }
+  throw new Error("No free walk-in ID");
+}
 
 const utcNow = () => new Date().toISOString().slice(0, 19).replace("T", " ");
 
@@ -142,23 +156,6 @@ async function organizerStats(password, force, env) {
     console.error("Passport organizer stats query failed", error);
     return json({ status: "error" }, 503);
   }
-}
-
-/** Staff only: find booking IDs by exact email or part of a name, for attendees who lost their ID. */
-async function searchPassports(db, query) {
-  const value = text(query, 254).toLowerCase();
-  const byEmail = value.includes("@");
-  if (byEmail ? !EMAIL_PATTERN.test(value) : value.length < 3)
-    return json({ status: "invalid_search" }, 400);
-  const { results } = await db
-    .prepare(
-      `SELECT booking_id AS bookingId, name, email, pass FROM passports
-       WHERE ${byEmail ? "email = ?" : "lower(name) LIKE '%' || ? || '%'"}
-       ORDER BY name, booking_id LIMIT 20`,
-    )
-    .bind(value)
-    .all();
-  return json({ status: "ok", matches: results });
 }
 
 function buildPassportView(catalog, userStamps, arrivedAt, feedbackUrl) {
@@ -272,13 +269,17 @@ export async function onRequestPost({ request, env }) {
   if (!db) return json({ status: "error", message: "Passport database is not bound." }, 500);
 
   try {
-    if (staffAction === "search") return await searchPassports(db, body.query);
-
-    const bookingId = bookingKey(body?.bookingId);
-    const email = text(body?.email, 254).toLowerCase();
+    let bookingId = bookingKey(body?.bookingId);
+    // Attendees sign in with the booking ID alone; only staff write names and emails.
+    const email = staffAction ? text(body?.email, 254).toLowerCase() : "";
+    if (email && !EMAIL_PATTERN.test(email)) return json({ status: "invalid_email" }, 400);
     const code = typeof body?.code === "string" ? body.code.trim().toUpperCase() : "";
+    if (staffAction === "create") {
+      if (!text(body?.name, 80)) return json({ status: "needs_name" }, 400);
+      // People without a KonfHub booking get a generated ID to open their passport with.
+      if (!bookingId) bookingId = await freeWalkInId(db);
+    }
     if (!BOOKING_PATTERN.test(bookingId)) return json({ status: "invalid_booking" }, 400);
-    if (!staffAction && !EMAIL_PATTERN.test(email)) return json({ status: "invalid_email" }, 400);
     if ((code || staffAction === "activity") && !CODE_PATTERN.test(code))
       return json({ status: "invalid_code" }, 400);
 
@@ -289,36 +290,32 @@ export async function onRequestPost({ request, env }) {
         .first();
     let passport = await findPassport();
 
+    if (staffAction === "create" && passport) return json({ status: "exists", bookingId }, 409);
     if (!passport) {
-      if (staffAction && staffAction !== "arrive") return json({ status: "not_found" }, 404);
+      // Only the desk creates records: a walk-in for someone missing from the roster.
+      if (staffAction !== "create") return json({ status: "not_found" }, 404);
       const name = text(body?.name, 80);
-      if (!name) return json({ status: "needs_name" });
-      if (staffAction && email && !EMAIL_PATTERN.test(email))
-        return json({ status: "invalid_email" }, 400);
       await db
         .prepare(
-          "INSERT INTO passports (booking_id, name, email, pass) VALUES (?, ?, ?, ?) ON CONFLICT (booking_id) DO NOTHING",
+          "INSERT INTO passports (booking_id, name, email, pass) VALUES (?, ?, ?, 'Walk-in') ON CONFLICT (booking_id) DO NOTHING",
         )
-        .bind(bookingId, name, email, staffAction ? "Walk-in" : "Passport")
+        .bind(bookingId, name, email)
         .run();
       passport = await findPassport();
-    } else if (!staffAction) {
-      if (passport.email && passport.email.toLowerCase() !== email) {
-        return json({ status: "email_mismatch" }, 403);
-      }
-      if (!passport.email && email) {
-        await db
-          .prepare("UPDATE passports SET email = ? WHERE booking_id = ? AND email = ''")
-          .bind(email, bookingId)
-          .run();
-        passport = { ...passport, email };
-      }
+    } else if (staffAction === "update") {
+      const name = text(body?.name, 80);
+      if (!name) return json({ status: "needs_name" }, 400);
+      await db
+        .prepare("UPDATE passports SET name = ?, email = ? WHERE booking_id = ?")
+        .bind(name, email, bookingId)
+        .run();
+      passport = await findPassport();
     }
 
     let desk;
     let swagRecorded;
     if (staffAction) {
-      if (staffAction === "arrive") {
+      if (staffAction === "arrive" || staffAction === "create") {
         await db
           .prepare("INSERT INTO desk (booking_id) VALUES (?) ON CONFLICT DO NOTHING")
           .bind(bookingId)

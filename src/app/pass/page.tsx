@@ -43,7 +43,7 @@ export default function PassportPage() {
                   </span>
                   <div>
                     <h2 id="guide-title">How to collect stamps</h2>
-                    <p>No app install needed. Sign in with your KonfHub booking ID and email.</p>
+                    <p>No app install needed. Sign in with your KonfHub booking ID.</p>
                   </div>
                 </div>
                 <ol className={styles.steps}>

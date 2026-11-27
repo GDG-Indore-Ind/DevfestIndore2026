@@ -4,7 +4,7 @@
 -- database (content/devfest.sqlite) and is deleted after the event. See docs/pass.md.
 --
 -- A passport belongs to one KonfHub booking ID (one per ticket, so each member of a group
--- booking has their own). Attendees sign in with booking ID + email; several passports can share
+-- booking has their own). Attendees sign in with the booking ID alone; several passports can share
 -- an email address.
 
 CREATE TABLE IF NOT EXISTS passports (

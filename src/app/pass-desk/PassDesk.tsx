@@ -16,17 +16,15 @@ type Passport = {
   stamp?: { result: string } | null;
   staff: { arrivedAt?: string; swagAt?: string; swagRecorded?: boolean };
 };
-type Match = { bookingId: string; name: string; email: string; pass: string };
-type Action = "lookup" | "arrive" | "swag" | "activity";
+type Action = "lookup" | "arrive" | "swag" | "activity" | "update";
 
 const errors: Record<string, string> = {
   unauthorized: "Staff access denied. Check the access key.",
   invalid_booking: "Enter the booking ID exactly as it appears on the ticket.",
   invalid_code: "Enter exactly six letters or numbers.",
   invalid_email: "Enter a valid email, or leave it blank.",
-  invalid_search: "Enter a full email address, or at least three letters of a name.",
   arrival_required: "Record the attendee’s arrival first.",
-  needs_name: "Enter the attendee’s name to create a walk-in passport.",
+  needs_name: "Enter the attendee’s name.",
 };
 const stampMessages: Record<string, string> = {
   added: "Activity recorded.",
@@ -55,10 +53,8 @@ function saveKey(value: string) {
 
 export default function PassDesk() {
   const [bookingId, setBookingId] = useState("");
-  const [query, setQuery] = useState("");
-  const [matches, setMatches] = useState<Match[] | null>(null);
   const [passport, setPassport] = useState<Passport | null>(null);
-  const [walkIn, setWalkIn] = useState(false);
+  const [newId, setNewId] = useState("");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const pending = useRef(false);
@@ -103,10 +99,8 @@ export default function PassDesk() {
       const data = await call({ staffAction: action, bookingId: id, ...extra });
       if (data.status === "not_found") {
         setPassport(null);
-        setWalkIn(true);
-        setStatus(
-          `No passport for ${id}. Check the ticket, or create a walk-in passport for a late booking.`,
-        );
+        setNewId(id);
+        setStatus(`No passport for ${id}. Check the ticket, or add them under Add a new person.`);
         return;
       }
       if (data.status !== "ok") {
@@ -115,7 +109,6 @@ export default function PassDesk() {
       }
       setPassport(data);
       setBookingId(data.bookingId);
-      setWalkIn(false);
       setStatus(
         {
           lookup: "Passport found.",
@@ -124,6 +117,7 @@ export default function PassDesk() {
             ? "Swag handover recorded."
             : "Swag handover was already recorded.",
           activity: stampMessages[data.stamp?.result] ?? "Check the activity code and try again.",
+          update: "Name and email updated.",
         }[action],
       );
     });
@@ -132,43 +126,50 @@ export default function PassDesk() {
   function openBooking(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setPassport(null);
-    setMatches(null);
     void act("lookup");
   }
 
-  function search(event: SubmitEvent<HTMLFormElement>) {
+  function createPerson(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    const id = newId.replace(/\s+/g, "").toUpperCase();
     void run(async () => {
-      const data = await call({ staffAction: "search", query });
+      const data = await call({
+        staffAction: "create",
+        bookingId: id,
+        name: String(form.get("name") ?? ""),
+        email: String(form.get("email") ?? ""),
+      });
+      if (data.status === "exists") {
+        const existing = await call({ staffAction: "lookup", bookingId: data.bookingId });
+        if (existing.status === "ok") {
+          setPassport(existing);
+          setBookingId(existing.bookingId);
+        }
+        setStatus(`${data.bookingId} already has a passport. It’s open below.`);
+        return;
+      }
       if (data.status !== "ok") {
         setStatus(errors[data.status] ?? "The desk is unavailable. Try again.");
         return;
       }
-      setMatches(data.matches);
-      setStatus(data.matches.length ? "" : "No passports match that search.");
-    });
-  }
-
-  function choose(match: Match) {
-    setBookingId(match.bookingId);
-    setPassport(null);
-    setMatches(null);
-    setQuery("");
-    void run(async () => {
-      const data = await call({ staffAction: "lookup", bookingId: match.bookingId });
-      if (data.status !== "ok") {
-        setStatus(errors[data.status] ?? "The desk is unavailable. Try again.");
-        return;
-      }
+      formElement.reset();
+      setNewId("");
       setPassport(data);
-      setStatus("Passport found.");
+      setBookingId(data.bookingId);
+      setStatus(
+        id
+          ? "Passport created and arrival recorded."
+          : `Passport created with booking ID ${data.bookingId}. Give this ID to the attendee to open their passport.`,
+      );
     });
   }
 
-  function createWalkIn(event: SubmitEvent<HTMLFormElement>) {
+  function updateDetails(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    void act("arrive", {
+    void act("update", {
       name: String(form.get("name") ?? ""),
       email: String(form.get("email") ?? ""),
     });
@@ -183,8 +184,7 @@ export default function PassDesk() {
 
   function clear() {
     setPassport(null);
-    setMatches(null);
-    setWalkIn(false);
+    setNewId("");
     setBookingId("");
     setStatus("");
   }
@@ -198,7 +198,8 @@ export default function PassDesk() {
           <p className={styles.eyebrow}>DevFest Indore 2026 · Staff</p>
           <h1>Passport desk</h1>
           <p className={styles.muted}>
-            Open an attendee’s passport by booking ID, record arrival and swag, or add an activity.
+            Open a passport by booking ID, add a new person, record arrival and swag, or add an
+            activity.
           </p>
         </header>
 
@@ -237,7 +238,6 @@ export default function PassDesk() {
               onChange={(event) => {
                 setBookingId(event.target.value);
                 setPassport(null);
-                setWalkIn(false);
               }}
             />
             <button type="submit" className={styles.primary} disabled={busy}>
@@ -246,64 +246,33 @@ export default function PassDesk() {
           </div>
         </form>
 
-        <form className={styles.card} onSubmit={search} aria-labelledby="search-title">
-          <h2 id="search-title">Lost booking ID?</h2>
-          <p className={styles.muted}>
-            Search by the email on the ticket or part of the name. Check photo ID before choosing.
-          </p>
-          <label className={styles.label} htmlFor="search">
-            Email or name
-          </label>
-          <div className={styles.row}>
-            <input
-              id="search"
-              className={styles.input}
-              type="search"
-              autoComplete="off"
-              maxLength={254}
-              required
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-            <button type="submit" className={styles.secondary} disabled={busy}>
-              Search
-            </button>
-          </div>
-          {matches && matches.length > 0 && (
-            <ul className={styles.matches}>
-              {matches.map((match) => (
-                <li key={match.bookingId}>
-                  <div>
-                    <strong>{match.name}</strong>
-                    <span className={styles.muted}>
-                      {match.bookingId} · {match.pass}
-                      {match.email && ` · ${match.email}`}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.secondary}
-                    disabled={busy}
-                    onClick={() => choose(match)}
-                  >
-                    Open
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </form>
-
         <p className={styles.status} role="status" hidden={!status}>
           {status}
         </p>
 
-        {walkIn && !passport && (
-          <form className={styles.card} onSubmit={createWalkIn} aria-labelledby="walkin-title">
-            <h2 id="walkin-title">Create a walk-in passport</h2>
+        {!passport && (
+          <form className={styles.card} onSubmit={createPerson} aria-labelledby="walkin-title">
+            <h2 id="walkin-title">Add a new person</h2>
             <p className={styles.muted}>
-              Only for a valid KonfHub ticket bought after the last roster import. This records
-              arrival for booking ID <strong>{bookingId.toUpperCase()}</strong>.
+              For someone missing from the roster. Check their ticket and photo ID. This creates
+              their passport and records arrival.
+            </p>
+            <label className={styles.label} htmlFor="walkin-id">
+              Booking ID <span className={styles.muted}>(optional)</span>
+            </label>
+            <input
+              id="walkin-id"
+              className={`${styles.input} ${styles.code}`}
+              autoComplete="off"
+              autoCapitalize="characters"
+              spellCheck={false}
+              maxLength={64}
+              aria-describedby="walkin-id-hint"
+              value={newId}
+              onChange={(event) => setNewId(event.target.value)}
+            />
+            <p id="walkin-id-hint" className={styles.muted}>
+              Leave blank if they have no KonfHub booking. The desk will create an ID for them.
             </p>
             <label className={styles.label} htmlFor="walkin-name">
               Attendee name
@@ -328,7 +297,7 @@ export default function PassDesk() {
               maxLength={254}
             />
             <button type="submit" className={styles.primary} disabled={busy}>
-              Create passport and record arrival
+              Add person and record arrival
             </button>
           </form>
         )}
@@ -405,6 +374,42 @@ export default function PassDesk() {
                 </button>
               </div>
             </form>
+            <details className={`${styles.activity} ${styles.details}`}>
+              <summary>Edit name or email</summary>
+              <form
+                key={`${passport.bookingId}:${passport.name}:${passport.email}`}
+                onSubmit={updateDetails}
+              >
+                <p className={styles.muted}>Check photo ID before changing a name.</p>
+                <label className={styles.label} htmlFor="edit-name">
+                  Attendee name
+                </label>
+                <input
+                  id="edit-name"
+                  name="name"
+                  className={styles.input}
+                  autoComplete="off"
+                  maxLength={80}
+                  defaultValue={passport.name}
+                  required
+                />
+                <label className={styles.label} htmlFor="edit-email">
+                  Email <span className={styles.muted}>(optional)</span>
+                </label>
+                <input
+                  id="edit-email"
+                  name="email"
+                  className={styles.input}
+                  type="email"
+                  autoComplete="off"
+                  maxLength={254}
+                  defaultValue={passport.email}
+                />
+                <button type="submit" className={styles.secondary} disabled={busy}>
+                  Save details
+                </button>
+              </form>
+            </details>
           </section>
         )}
       </main>
