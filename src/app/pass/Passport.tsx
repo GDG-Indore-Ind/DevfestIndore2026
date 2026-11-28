@@ -1,8 +1,31 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type ReactNode, type SubmitEvent } from "react";
-import { Award, Check, Circle, Clock, Eye, EyeOff, QrCode, Sparkles } from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+  type SubmitEvent,
+} from "react";
+import {
+  Award,
+  Check,
+  Circle,
+  Clock,
+  Eye,
+  EyeOff,
+  Gift,
+  MessageSquare,
+  QrCode,
+  Sparkles,
+} from "lucide-react";
+import Chip from "@/components/shared/Chip";
+import CommunityPhoto from "@/components/shared/CommunityPhoto";
+import { FORMAT_TONES } from "@/lib/agendaFormat";
 import styles from "./passport.module.css";
 
 const BOOKING_KEY = "devfest-pass-booking";
@@ -10,14 +33,7 @@ const LEGACY_EMAIL_KEY = "devfest-pass-email";
 const QUEUE_KEY = "devfest-pass-queue";
 const PROFILE_KEY = "devfest-pass-profile";
 
-const kinds = {
-  session: "Session",
-  workshop: "Workshop",
-  exhibit: "Exhibit",
-  activity: "Activity",
-  feedback: "Feedback",
-  arrival: "Registration desk",
-} as const;
+type StampKind = "session" | "workshop" | "exhibit" | "activity" | "feedback" | "arrival";
 
 const formats: Record<string, string> = {
   keynote: "Keynote",
@@ -30,6 +46,19 @@ const formats: Record<string, string> = {
   feedback: "Feedback",
   arrival: "Arrival",
 };
+
+/** Stamp groups below the exhibits, in agenda order. */
+const stampGroups = [
+  ["session", "Sessions"],
+  ["workshop", "Workshops"],
+  ["activity", "Activities"],
+  ["feedback", "Feedback"],
+  ["arrival", "Registration desk"],
+] as const;
+
+/** Every exhibit, three talks or workshops, and more than ten stamps for the bonus. */
+const SESSIONS_NEEDED = 3;
+const BONUS_STAMPS = 11;
 
 const ist = new Intl.DateTimeFormat("en-IN", {
   timeZone: "Asia/Kolkata",
@@ -57,7 +86,7 @@ type Step = ActivityMeta & {
 type Stamp = ActivityMeta & {
   code?: string;
   title: string;
-  kind: keyof typeof kinds;
+  kind: StampKind;
   at: string;
 };
 
@@ -83,6 +112,18 @@ type Profile = {
   missions: (Step & { steps?: Step[] })[];
   stamp?: Result;
 };
+
+/** Schedule and presenters for one agenda item, prepared by the page. */
+export type AgendaEntry = {
+  time?: string;
+  end?: string;
+  people: { name: string; avatar?: string }[];
+  byline: string;
+  logo?: string;
+};
+export type AgendaLookup = Record<string, AgendaEntry>;
+
+export type ExhibitTarget = { agendaId: string; title: string; logo: ReactNode };
 
 type CachedSnapshot = {
   profile: Profile;
@@ -167,7 +208,7 @@ function describe(stamp?: Result): Notice | null {
   const { result, title } = stamp;
   if (result === "added")
     return {
-      text: `${stamp.mission ? "Mission complete" : "Stamp collected"} · ${title}`,
+      text: `Stamp collected · ${title}`,
       tone: "ok",
     };
   if (result === "already") return { text: `Already stamped · ${title}` };
@@ -182,20 +223,13 @@ function describe(stamp?: Result): Notice | null {
 }
 
 function ActivityTags({ item }: { item: ActivityMeta & { kind?: string } }) {
-  const chips = [
-    item.format && formats[item.format] ? formats[item.format] : "",
-    item.hall || "",
-    item.track || "",
-  ].filter(Boolean);
+  const format = item.format && formats[item.format];
   const href = agendaHref(item.agendaId, item.kind);
-  if (!chips.length && !href) return null;
+  if (!format && !item.track && !href) return null;
   return (
     <div className={styles.tagRow}>
-      {chips.map((chip) => (
-        <span key={chip} className={styles.tagChip}>
-          {chip}
-        </span>
-      ))}
+      {format && <Chip tone={FORMAT_TONES[item.format ?? ""] ?? "neutral"}>{format}</Chip>}
+      {item.track && <span className={styles.tagChip}>{item.track}</span>}
       {href && (
         <Link href={href} className={styles.agendaLink}>
           View on agenda
@@ -205,27 +239,73 @@ function ActivityTags({ item }: { item: ActivityMeta & { kind?: string } }) {
   );
 }
 
+/** Speaker faces or the partner's mark, with the check-in state as a corner badge. */
+function RowMark({ done, entry }: { done: boolean; entry?: AgendaEntry }) {
+  const people = entry?.people.filter(({ avatar }) => avatar) ?? [];
+  const logo = entry?.logo;
+  if (!people.length && !logo)
+    return (
+      <span className={`${styles.mark} ${done ? styles.done : ""}`} aria-hidden="true">
+        {done ? <Check size={16} strokeWidth={2.25} /> : <Circle size={14} strokeWidth={1.75} />}
+      </span>
+    );
+  return (
+    <span className={styles.rowMark} aria-hidden="true">
+      {people.length ? (
+        <span className={styles.faces}>
+          {people.map((person) => (
+            <span key={person.name} className={styles.face}>
+              <CommunityPhoto
+                src={person.avatar}
+                alt=""
+                initialsFor={person.name}
+                portrait
+                sizes="80px"
+              />
+            </span>
+          ))}
+        </span>
+      ) : (
+        logo && (
+          <span className={styles.logoMark}>
+            <Image src={logo} alt="" width={44} height={44} />
+          </span>
+        )
+      )}
+      <span className={`${styles.badge} ${done ? styles.badgeDone : ""}`}>
+        {done && <Check size={11} strokeWidth={3} />}
+      </span>
+    </span>
+  );
+}
+
 function ActivityRow({
   title,
   done,
   status,
   meta,
+  agenda,
   children,
 }: {
   title: string;
   done: boolean;
   status: string;
   meta?: ActivityMeta & { kind?: string };
+  agenda?: AgendaLookup;
   children?: ReactNode;
 }) {
+  const entry = meta?.agendaId ? agenda?.[meta.agendaId] : undefined;
+  const when = entry?.time ? (entry.end ? `${entry.time}–${entry.end}` : entry.time) : "";
+  const place = [when, meta?.hall].filter(Boolean).join(" · ");
   return (
     <li className={styles.rowItem}>
-      <span className={`${styles.mark} ${done ? styles.done : ""}`} aria-hidden="true">
-        {done ? <Check size={16} strokeWidth={2.25} /> : <Circle size={14} strokeWidth={1.75} />}
-      </span>
+      <RowMark done={done} entry={entry} />
       <div className={styles.rowContent}>
         <span className={styles.rowTitle}>{title}</span>
-        <span className={styles.rowMeta}>{status}</span>
+        {entry?.byline && !title.includes(entry.byline) && (
+          <span className={styles.rowByline}>{entry.byline}</span>
+        )}
+        <span className={styles.rowMeta}>{[status, place].filter(Boolean).join(" · ")}</span>
         {meta && <ActivityTags item={meta} />}
         {children}
       </div>
@@ -233,7 +313,30 @@ function ActivityRow({
   );
 }
 
-export default function Passport() {
+function Progress({ value, max, label }: { value: number; max: number; label: string }) {
+  const percent = max ? Math.min(100, Math.round((value / max) * 100)) : 0;
+  return (
+    <div
+      className={styles.progress}
+      role="progressbar"
+      aria-label={label}
+      aria-valuemin={0}
+      aria-valuemax={max}
+      aria-valuenow={Math.min(value, max)}
+      style={{ "--progress": `${percent}%` } as CSSProperties}
+    >
+      <span />
+    </div>
+  );
+}
+
+export default function Passport({
+  agenda,
+  exhibits,
+}: {
+  agenda: AgendaLookup;
+  exhibits: ExhibitTarget[];
+}) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [bookingId, setBookingId] = useState("");
   const [showcase, setShowcase] = useState(false);
@@ -406,9 +509,16 @@ export default function Passport() {
     setNotice(null);
   }
 
-  const latest = profile?.stamps.at(-1);
-  const completedMissions = profile?.missions.filter(({ done }) => done).length ?? 0;
-  const totalMissions = profile?.missions.length ?? 0;
+  const stamps = profile?.stamps ?? [];
+  const stampedAgenda = new Set(stamps.map(({ agendaId }) => agendaId).filter(Boolean));
+  const exhibitsVisited = exhibits.filter(({ agendaId }) => stampedAgenda.has(agendaId)).length;
+  const sessionsAttended = stamps.filter(
+    ({ kind }) => kind === "session" || kind === "workshop",
+  ).length;
+  const activityCount = profile?.activityCount ?? 0;
+  const bonusUnlocked = activityCount >= BONUS_STAMPS;
+  const feedback = profile?.required?.find(({ kind, done }) => kind === "feedback" && !done);
+  const otherStamps = stamps.filter(({ kind }) => kind !== "exhibit");
 
   return (
     <div className={styles.workspace}>
@@ -441,7 +551,6 @@ export default function Passport() {
             autoComplete="off"
             autoCapitalize="characters"
             spellCheck={false}
-            placeholder="e.g. 7D261A35"
             maxLength={64}
             required
             value={bookingId}
@@ -509,67 +618,90 @@ export default function Passport() {
               </div>
             </div>
 
-            <div className={styles.stats}>
-              <div className={`${styles.stat} ${styles.statBlue}`}>
+            <div className={styles.score} data-unlocked={bonusUnlocked || undefined}>
+              <div className={styles.scoreHead}>
                 <span className={styles.statLabel}>
                   <Award size={16} aria-hidden="true" />
-                  Stamps collected
+                  Score
                 </span>
-                <strong>{profile.activityCount}</strong>
+                <strong className={styles.scoreValue}>
+                  {activityCount}
+                  <span> stamps</span>
+                </strong>
               </div>
-              {totalMissions > 0 && (
-                <div className={`${styles.stat} ${styles.statGreen}`}>
-                  <span className={styles.statLabel}>
-                    <Sparkles size={16} aria-hidden="true" />
-                    Special missions
-                  </span>
-                  <strong>
-                    {completedMissions} / {totalMissions}
-                  </strong>
-                </div>
-              )}
+              <Progress value={activityCount} max={BONUS_STAMPS} label="Progress to bonus swag" />
+              <p className={styles.scoreNote}>
+                <Gift size={14} aria-hidden="true" />
+                {bonusUnlocked
+                  ? "Bonus unlocked · you’re in with a chance at one extra swag"
+                  : `${BONUS_STAMPS - activityCount} more for a chance at one extra swag`}
+              </p>
             </div>
 
-            {latest && (
-              <p className={styles.latest}>
-                Most recent stamp · <strong>{latest.title}</strong>
-              </p>
-            )}
-
-            {!showcase && !!profile.required?.length && (
-              <div className={styles.requiredBlock}>
-                <h3 className={styles.subHeading}>Required checkpoints</h3>
-                <ul className={styles.stamps} aria-label="Required check-ins">
-                  {profile.required.map((step) => {
-                    const feedback = step.kind === "feedback" && !step.done;
-                    const status = feedback
-                      ? `Required · ${indiaTime(step.opensAt)} to ${indiaTime(step.closesAt)}`
-                      : `Required check-in · ${step.done ? "Complete" : "To do"}`;
-                    return (
-                      <ActivityRow
-                        key={step.title}
-                        title={step.title}
-                        status={status}
-                        done={step.done}
-                        meta={step}
-                      >
-                        {feedback && (
-                          <div className={styles.feedbackActions}>
-                            {step.url && (
-                              <a className="audience-text-link" href={step.url}>
-                                Open feedback form
-                              </a>
-                            )}
-                            <span className={styles.rowMeta}>
-                              After submitting, enter the six-character code you receive below.
-                            </span>
-                          </div>
-                        )}
-                      </ActivityRow>
-                    );
-                  })}
-                </ul>
+            <dl className={styles.tally}>
+              <div data-met={exhibitsVisited >= exhibits.length || undefined}>
+                <dt>Exhibits</dt>
+                <dd>
+                  {exhibitsVisited} / {exhibits.length}
+                </dd>
               </div>
+              <div data-met={sessionsAttended >= SESSIONS_NEEDED || undefined}>
+                <dt>Sessions</dt>
+                <dd>
+                  {Math.min(sessionsAttended, SESSIONS_NEEDED)} / {SESSIONS_NEEDED}
+                </dd>
+              </div>
+            </dl>
+
+            {!showcase && (
+              <form className={styles.codeForm} autoComplete="off" onSubmit={addStamp}>
+                <label className={styles.codeLabel} htmlFor="code">
+                  <QrCode size={16} aria-hidden="true" />
+                  Add a stamp
+                </label>
+                <div className={styles.codeRow}>
+                  <input
+                    id="code"
+                    name="code"
+                    className={`${styles.input} ${styles.codeInput}`}
+                    minLength={6}
+                    maxLength={6}
+                    pattern="[A-Za-z0-9]{6}"
+                    autoCapitalize="characters"
+                    spellCheck={false}
+                    aria-describedby="code-hint"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    id="code-button"
+                    className={`audience-button ${styles.codeButton}`}
+                    disabled={busy}
+                  >
+                    Add stamp
+                  </button>
+                </div>
+                <p id="code-hint" className={styles.codeHint}>
+                  Scan an activity QR with your camera, or type the 6-character code.
+                </p>
+                {feedback && (
+                  <p className={styles.feedbackLine}>
+                    <MessageSquare size={14} aria-hidden="true" />
+                    <span>
+                      Feedback check-in {indiaTime(feedback.opensAt).replace(" IST", "")} to{" "}
+                      {indiaTime(feedback.closesAt)}.{" "}
+                      {feedback.url && (
+                        <>
+                          <a className="audience-text-link" href={feedback.url}>
+                            Open the form
+                          </a>
+                          , then enter the code it gives you here.
+                        </>
+                      )}
+                    </span>
+                  </p>
+                )}
+              </form>
             )}
 
             <div className={styles.syncBar}>
@@ -580,115 +712,80 @@ export default function Passport() {
             </div>
           </section>
 
-          {!showcase && (
-            <form
-              className={styles.panel}
-              autoComplete="off"
-              aria-labelledby="code-title"
-              onSubmit={addStamp}
-            >
-              <div className={styles.panelHeader}>
-                <span className={styles.panelIcon} aria-hidden="true">
-                  <QrCode className="audience-icon" />
+          {exhibits.length > 0 && (
+            <section className={styles.panel} aria-labelledby="exhibits-title">
+              <div className={styles.sectionTop}>
+                <h2 id="exhibits-title" className={styles.sectionHeading}>
+                  Exhibits
+                </h2>
+                <span className={styles.sectionCount}>
+                  {exhibitsVisited} of {exhibits.length} visited
                 </span>
-                <div>
-                  <h2 id="code-title">Add a stamp</h2>
-                  <p>Scan an activity QR with your camera, or enter the 6-character code.</p>
-                </div>
               </div>
-              <label className={styles.label} htmlFor="code">
-                Activity code
-              </label>
-              <div className={styles.codeRow}>
-                <input
-                  id="code"
-                  name="code"
-                  className={`${styles.input} ${styles.codeInput}`}
-                  placeholder="e.g. BE6ZA3"
-                  minLength={6}
-                  maxLength={6}
-                  pattern="[A-Za-z0-9]{6}"
-                  autoCapitalize="characters"
-                  spellCheck={false}
-                  required
-                />
-                <button
-                  type="submit"
-                  id="code-button"
-                  className={`audience-button ${styles.codeButton}`}
-                  disabled={busy}
-                >
-                  Add stamp
-                </button>
-              </div>
-            </form>
-          )}
-
-          {totalMissions > 0 && (
-            <section className={styles.panel}>
-              <h2 className={styles.sectionHeading}>Special missions</h2>
-              <p className={styles.sectionLead}>
-                Complete mission stops to unlock bonus partner rewards and swag.
-              </p>
-              <ul id="missions" className={styles.missions}>
-                {profile.missions.map((mission) =>
-                  mission.steps && mission.steps.length >= 2 ? (
-                    <li className={styles.missionGroup} key={mission.title}>
-                      <details open={!mission.done || showcase}>
-                        <summary className={styles.missionSummary}>
-                          <span>{mission.title}</span>
-                          <span className={styles.missionCount}>
-                            {mission.steps.filter(({ done }) => done).length} of{" "}
-                            {mission.steps.length} complete
-                          </span>
-                        </summary>
-                        <ul className={styles.stamps}>
-                          {mission.steps.map((step) => (
-                            <ActivityRow
-                              key={step.title}
-                              title={step.title}
-                              status={step.done ? "Complete" : "To do"}
-                              done={step.done}
-                              meta={step}
-                            />
-                          ))}
-                        </ul>
-                      </details>
+              <ul className={styles.exhibitGrid}>
+                {exhibits.map((exhibit) => {
+                  const done = stampedAgenda.has(exhibit.agendaId);
+                  return (
+                    <li
+                      key={exhibit.agendaId}
+                      className={styles.exhibitTile}
+                      data-done={done || undefined}
+                    >
+                      <span className={styles.exhibitPlate}>{exhibit.logo}</span>
+                      <span className={styles.exhibitName}>{exhibit.title}</span>
+                      <span className={styles.exhibitState}>
+                        {done ? (
+                          <>
+                            <Check size={13} strokeWidth={2.5} aria-hidden="true" />
+                            Visited
+                          </>
+                        ) : (
+                          "Not yet"
+                        )}
+                      </span>
                     </li>
-                  ) : (
-                    <ActivityRow
-                      key={mission.title}
-                      title={mission.title}
-                      status={mission.done ? "Complete" : "Visit the exhibit"}
-                      done={mission.done}
-                      meta={mission}
-                    />
-                  ),
-                )}
+                  );
+                })}
               </ul>
             </section>
           )}
 
-          <section className={styles.panel}>
-            <h2 className={styles.sectionHeading}>Your stamps</h2>
-            {profile.stamps.length ? (
-              <ol className={styles.stamps}>
-                {profile.stamps
-                  .slice()
-                  .reverse()
-                  .map((stamp, index) => (
-                    <ActivityRow
-                      key={`${stamp.title}:${stamp.at}:${index}`}
-                      title={stamp.title}
-                      status={kinds[stamp.kind] ?? stamp.kind}
-                      done
-                      meta={stamp}
-                    />
-                  ))}
-              </ol>
+          <section className={styles.panel} aria-labelledby="sessions-title">
+            <div className={styles.sectionTop}>
+              <h2 id="sessions-title" className={styles.sectionHeading}>
+                Sessions and activities
+              </h2>
+              {otherStamps.length > 0 && (
+                <span className={styles.sectionCount}>{otherStamps.length} stamped</span>
+              )}
+            </div>
+            {otherStamps.length ? (
+              stampGroups.map(([kind, label]) => {
+                const group = otherStamps.filter((stamp) => stamp.kind === kind).reverse();
+                if (!group.length) return null;
+                return (
+                  <div key={kind} className={styles.stampGroup}>
+                    <h3 className={styles.subHeading}>
+                      {label} · {group.length}
+                    </h3>
+                    <ol className={styles.stamps}>
+                      {group.map((stamp, index) => (
+                        <ActivityRow
+                          key={`${stamp.title}:${stamp.at}:${index}`}
+                          title={stamp.title}
+                          status={`Stamped ${indiaTime(stamp.at)}`}
+                          done
+                          meta={stamp}
+                          agenda={agenda}
+                        />
+                      ))}
+                    </ol>
+                  </div>
+                );
+              })
             ) : (
               <p className={styles.emptyStamps}>
-                Your first stamp will appear here after you scan an activity QR.
+                Talks, workshops and lounge visits appear here after you scan their QR.
               </p>
             )}
           </section>

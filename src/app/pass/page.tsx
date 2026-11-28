@@ -7,13 +7,48 @@ import Footer from "@/components/layout/Footer";
 import PageIntro from "@/components/shared/PageIntro";
 import ContentAction from "@/components/shared/ContentAction";
 import ContentActionGroup from "@/components/shared/ContentActionGroup";
-import Passport from "./Passport";
+import OrganizationLogo from "@/components/shared/OrganizationLogo";
+import { AGENDA_ITEMS } from "@/content/agenda";
+import { getOrganization } from "@/content/partners";
+import { CURRENT_ACTIVITIES } from "@/content/speakers";
+import { endTime } from "@/lib/agendaFormat";
+import Passport, { type AgendaLookup, type ExhibitTarget } from "./Passport";
 import styles from "./passport.module.css";
 
 export const metadata = pageMetadata(
   "/pass",
   "DevFest Passport",
-  "Your event-day passport for DevFest Indore 2026. Scan activity QRs, collect stamps, and complete special missions.",
+  "Your event-day passport for DevFest Indore 2026. Scan activity QRs and collect stamps at talks, workshops and exhibits.",
+);
+
+/** Schedule, presenters and logos for each agenda item a stamp can link to. */
+const agenda: AgendaLookup = Object.fromEntries(
+  AGENDA_ITEMS.filter((item) => !item.id.startsWith("speaker-")).map((item) => [
+    item.id,
+    {
+      time: item.time,
+      end: item.time && item.durationMinutes ? endTime(item.time, item.durationMinutes) : undefined,
+      people: item.people.slice(0, 2).map(({ name, avatar }) => ({ name, avatar })),
+      byline: item.people.length
+        ? item.people.map(({ name }) => name).join(" · ")
+        : item.organizations.join(" · "),
+      logo: item.logo,
+    },
+  ]),
+);
+
+/** Exhibits are showcased first on the passport, with their partner logos. */
+const exhibits: ExhibitTarget[] = AGENDA_ITEMS.filter(({ format }) => format === "exhibit").map(
+  (item) => {
+    const organizationId = CURRENT_ACTIVITIES.find((activity) => activity.id === item.id)
+      ?.organizationIds?.[0];
+    const organization = organizationId ? getOrganization(organizationId) : undefined;
+    return {
+      agendaId: item.id,
+      title: item.title ?? organization?.name ?? "Exhibit",
+      logo: organization ? <OrganizationLogo organization={organization} sizes="160px" /> : null,
+    };
+  },
 );
 
 export default function PassportPage() {
@@ -23,7 +58,7 @@ export default function PassportPage() {
       <main id="main-content">
         <PageIntro
           title="DevFest Passport"
-          lead="Your event-day stamp book. Check in at talks, workshops and exhibits to collect stamps and unlock special missions."
+          lead="Your event-day stamp book. Check in at talks, workshops and exhibits to collect stamps."
           motif="tickets"
           meta={`${EVENT_SHORT_DATE} · ${EVENT.venue.name}`}
         />
@@ -35,7 +70,7 @@ export default function PassportPage() {
               </p>
             </noscript>
             <div className={styles.layout}>
-              <Passport />
+              <Passport agenda={agenda} exhibits={exhibits} />
               <aside id="guide" className={styles.guide} aria-labelledby="guide-title">
                 <div className={styles.guideHeader}>
                   <span className={styles.guideBadge} aria-hidden="true">
@@ -76,10 +111,10 @@ export default function PassportPage() {
                       3
                     </span>
                     <div>
-                      <h3>Complete missions &amp; feedback</h3>
+                      <h3>Visit exhibits and sessions</h3>
                       <p>
-                        Participating sessions and booths check off Special Missions automatically.
-                        Submit end-of-day feedback to finish your required steps.
+                        Visit every exhibit and attend at least 3 sessions. More than 10 stamps
+                        gives you a chance at one extra swag.
                       </p>
                     </div>
                   </li>

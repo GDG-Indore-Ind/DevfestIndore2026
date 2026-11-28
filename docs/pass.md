@@ -1,7 +1,10 @@
 # Event-day passport
 
-Every distinct activity QR scan adds one to the attendee’s total. Selected activities also
-appear on the special-mission checklist. A booth volunteer can show the QR after a demo.
+Every distinct activity QR scan adds one to the attendee’s total. The attendee page shows that score
+with progress toward the bonus (more than 10 stamps), every exhibit as a visited or not-yet tile, and
+the sessions, workshops and lounges stamped. Exhibit tiles and session details come from the static
+agenda at build time, so they add no D1 reads. Mission groups are only reported on `/pass-admin`.
+A booth volunteer can show the QR after a demo.
 Scanning it again leaves the total unchanged. Gate registration stays with KonfHub.
 
 Attendees sign in with their KonfHub booking ID alone. Each ticket has its own ID, so every
